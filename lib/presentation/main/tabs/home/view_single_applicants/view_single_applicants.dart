@@ -179,6 +179,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                                         .offerRevokedByYou,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w600,
+                                                    textColor:
+                                                        AppColors.redAccent,
                                                   ),
                                                 ),
                                               ] else ...[
@@ -257,8 +259,10 @@ class ViewSingleApplicants extends StatelessWidget {
                                                       Expanded(
                                                         child: CommonButton(
                                                           onPressed:
-                                                              (data.accept_btn_toggle ==
-                                                                      false)
+                                                              (data.occupied ==
+                                                                          true ||
+                                                                      data.accept_btn_toggle ==
+                                                                          false)
                                                                   ? () {}
                                                                   : () {
                                                                       if (!state
@@ -574,7 +578,24 @@ class ViewSingleApplicants extends StatelessWidget {
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
-                        SizedBox(width: getSize(10)),
+                        Spacer(),
+                        BaseText(
+                          text: data.last_ago ?? "",
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: getSize(3)),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BaseText(
+                          text: 'Distance - ${data.distance ?? ""}',
+                          fontSize: 8,
+                          textColor: AppColors.black.withOpacity(0.8),
+                        ),
+                        Spacer(),
                         Visibility(
                           visible: data.occupied ?? false,
                           child: Container(
@@ -594,19 +615,7 @@ class ViewSingleApplicants extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Spacer(),
-                        BaseText(
-                          text: data.last_ago ?? "",
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
                       ],
-                    ),
-                    SizedBox(height: getSize(3)),
-                    BaseText(
-                      text: 'Distance - ${data.distance ?? ""}',
-                      fontSize: 8,
-                      textColor: AppColors.black.withOpacity(0.8),
                     )
                   ],
                 ),

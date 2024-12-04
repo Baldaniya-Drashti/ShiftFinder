@@ -10,6 +10,8 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -20,7 +22,8 @@ class FaqView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<FaqBloc>()..add(FaqEvent.getFaqList(context)),
+      create: (context) =>
+          getIt<FaqBloc>()..add(FaqEvent.getFaqList(context, refresh: true)),
       child: BlocBuilder<FaqBloc, FaqState>(
         builder: (context, state) {
           return Scaffold(
@@ -28,15 +31,46 @@ class FaqView extends StatelessWidget {
               onBackPressed: () => context.router.maybePop(),
               title: StringConstant.faqs,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                child: Column(
-                  children: [
-                    userDescUI(),
-                    SizedBox(height: getSize(30)),
-                    buildWithTrailingAnimationDisabled(state),
-                  ],
+            body: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      userDescUI(),
+
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: state.getDataLoading
+                            ? CenterLoadingIndicator(isOnlyLoader: true)
+                            : state.errorApi
+                                ? Center(
+                                    child: BaseText(
+                                        text:
+                                            StringConstant.somethindWentWrong))
+                                : PaginatedListView(
+                                    onRefresh: () => context
+                                        .read<FaqBloc>()
+                                        .add(FaqEvent.getFaqList(context,
+                                            refresh: true)),
+                                    onLoading: () => context
+                                        .read<FaqBloc>()
+                                        .add(FaqEvent.getFaqList(context,
+                                            refresh: false)),
+                                    refreshController: context
+                                        .read<FaqBloc>()
+                                        .refreshController,
+                                    isNoDataFound: state.noDataFound,
+                                    child: buildWithTrailingAnimationDisabled(
+                                        state),
+                                  ),
+                      ),
+
+                      // buildWithTrailingAnimationDisabled(state),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -48,6 +82,7 @@ class FaqView extends StatelessWidget {
 
   Widget userDescUI() {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: getSize(10)),
       padding: EdgeInsets.symmetric(
           vertical: getSize(20), horizontal: getSize(36.025)),
       decoration: BoxDecoration(
@@ -56,7 +91,7 @@ class FaqView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
-            SvgImageConstant.clockWithVerticalLine,
+            SvgImageConstant.faq,
             height: getSize(63),
             width: getSize(57.95),
           ),
@@ -134,7 +169,7 @@ class FaqView extends StatelessWidget {
     );
   } */
 
-  static Widget buildWithTrailingAnimationDisabled(FaqState state) {
+  /* static Widget buildWithTrailingAnimationDisabled(FaqState state) {
     return ExpansionTileList(
       tileGapSize: getSize(10),
       enableTrailingAnimation: false,
@@ -156,9 +191,22 @@ class FaqView extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             backgroundColor: AppColors.primaryColor.withOpacity(0.1),
             title: ListTile(
-              title: Text(
-                item.header,
-                style: TextStyle(fontWeight: FontWeight.bold),
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: "${entry.key + 1}.",
+                    fontSize: 12,
+                  ),
+                  SizedBox(width: getSize(10)),
+                  Expanded(
+                    child: BaseText(
+                      text: item.question ?? "",
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
             children: [
@@ -169,9 +217,22 @@ class FaqView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    item.body,
-                    style: TextStyle(color: Colors.black54),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text: "•",
+                        fontSize: 12,
+                      ),
+                      SizedBox(width: getSize(10)),
+                      Expanded(
+                        child: BaseText(
+                          text: item.answer ?? "",
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -180,17 +241,80 @@ class FaqView extends StatelessWidget {
             );
       }).toList(),
     );
-  }
+  } */
 
-  static List<ExpansionTile> _buildChildren([String name = '']) {
-    return List.generate(
-        4,
-        (index) => ExpansionTile(
-              title: Text('Tile $index  $name'),
-              children: <Widget>[
-                ...List.generate(
-                    6, (i) => Text('This is tile $index of $i $name')),
-              ],
-            ));
+  static Widget buildWithTrailingAnimationDisabled(FaqState state) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: state.faqList.asMap().entries.map((entry) {
+        final item = entry.value;
+        return Container(
+          decoration: BoxDecoration(
+              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+          margin: EdgeInsets.symmetric(
+                  vertical: getSize(5), horizontal: getSize(10))
+              .copyWith(
+            top: getSize((entry.key == 0) ? 30 : 0),
+          ),
+          padding: EdgeInsets.all(getSize(10)),
+          child: ExpansionTile(
+              collapsedBackgroundColor: AppColors.surfaceColor,
+              collapsedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+              title: ListTile(
+                title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BaseText(
+                      text: "${entry.key + 1}.",
+                      fontSize: 12,
+                    ),
+                    SizedBox(width: getSize(10)),
+                    Expanded(
+                      child: BaseText(
+                        text: item.question ?? "",
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              children: [
+                Container(
+                  margin: EdgeInsets.all(getSize(10)),
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BaseText(
+                          text: "•",
+                          fontSize: 12,
+                        ),
+                        SizedBox(width: getSize(10)),
+                        Expanded(
+                          child: BaseText(
+                            text: item.answer ?? "",
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ]
+              // isExpanded: isExpanded,
+              ),
+        );
+      }).toList(),
+    );
   }
 }

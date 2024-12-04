@@ -57,6 +57,7 @@ class EmployerProposalDto with _$EmployerProposalDto {
     String? posted_commute_allowance_hour_name,
     List<EmployerProposalShiftDetailDto>? shift_details,
     bool? isCardAdded,
+    bool? occupied,
   }) = _EmployerProposalDto;
 
   factory EmployerProposalDto.fromJson(Map<String, dynamic> json) =>
@@ -77,6 +78,8 @@ class EmployerProposalPendingUserDto with _$EmployerProposalPendingUserDto {
     Duration? duration,
     int? sent_received_status,
     int? deleteAt,
+    bool? accept_btn_toggle,
+    bool? occupied,
   }) = _EmployerProposalPendingUserDto;
 
   factory EmployerProposalPendingUserDto.fromJson(Map<String, dynamic> json) =>

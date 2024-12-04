@@ -26,138 +26,142 @@ class AppliedTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return PaginatedListView(
-          onRefresh: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getAppliedTypeList(true));
-          },
-          refreshController:
-              context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
-          onLoading: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getAppliedTypeList(false));
-          },
-          isNoDataFound: state.isAppliedNoDataFound,
-          child: state.isAppliedLoading
-              ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isAppliedErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  : ListView.builder(
-                      itemCount: state.appliedList.length,
-                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                      itemBuilder: (_, index) {
-                        final shift = state.appliedList[index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                          padding: EdgeInsets.all(getSize(10)),
-                          width: getSize(355),
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(getSize(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.black.withOpacity(0.2),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              userDetail(context, shift),
-                              paddingBetweenFields(),
-                              dateAndTime(context, state.appliedList[index]),
-                              paddingBetweenFields(),
-                              (shift.applied_date_status == 2)
-                                  ? dateView(
-                                      context,
-                                      shift,
-                                      title: StringConstant.proposalDate,
-                                      boldValue: convertTimeStampToDate(
-                                          shift.proposal_date ?? -1),
-                                      timidValue: convertTimeStampToDate(
-                                        shift.proposal_date ?? -1,
-                                        isYear: true,
-                                      ),
-                                      showArrow: true,
-                                    )
-                                  : dateView(
-                                      context,
-                                      shift,
-                                      title: StringConstant.appliedDate,
-                                      boldValue: convertTimeStampToDate(
-                                          shift.applied_date ?? -1),
-                                      timidValue: convertTimeStampToDate(
-                                          shift.applied_date ?? -1,
-                                          isYear: true),
-                                    ),
-                              paddingBetweenFields(),
-                              if (shift.deleteAt == true) ...[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(10)),
-                                  child: BaseText(
-                                    text:
-                                        StringConstant.youHaveDeclinedThisShift,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ] else if (shift.revoke_status == 3) ...[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(10)),
-                                  child: BaseText(
-                                    text: StringConstant
-                                        .offerRevokedByTheEmployer,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ] else ...[
-                                if (shift.revoke_status == 2) ...[
-                                  revokingStatus(context, state, shift),
-                                ],
-                                paddingBetweenFields(),
-                                Row(
-                                  children: [
-                                    buttonUI(
-                                      onPressed: () {
-                                        context.router.push(
-                                          PageRouteInfo(
-                                            ViewContractorShift.name,
-                                            args: ViewContractorShiftArgs(
-                                              postId:
-                                                  state.appliedList[index].id ??
-                                                      -1,
-                                              isTotalApplicants: true,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      buttonText:
-                                          StringConstant.viewShiftDetails,
-                                      textColor: AppColors.black,
-                                      bgColor: AppColors.primaryColor
-                                          .withOpacity(0.10),
-                                    ),
-                                    SizedBox(width: getSize(10)),
-                                    (shift.request == 1 &&
-                                            shift.urgent_action == 0)
-                                        ? urgentActionRequiredBtn(
-                                            context, shift.id ?? -1)
-                                        : cancelBtn(context, shift.id ?? -1)
-                                  ],
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+          child: PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getAppliedTypeList(true));
+            },
+            refreshController:
+                context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
+            onLoading: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getAppliedTypeList(false));
+            },
+            isNoDataFound: state.isAppliedNoDataFound,
+            child: state.isAppliedLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isAppliedErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    : ListView.builder(
+                        itemCount: state.appliedList.length,
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        itemBuilder: (_, index) {
+                          final shift = state.appliedList[index];
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                            padding: EdgeInsets.all(getSize(10)),
+                            width: getSize(355),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  blurRadius: getSize(20),
                                 ),
                               ],
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            ),
+                            child: Column(
+                              children: [
+                                userDetail(context, shift),
+                                paddingBetweenFields(),
+                                dateAndTime(context, state.appliedList[index]),
+                                paddingBetweenFields(),
+                                (shift.applied_date_status == 2)
+                                    ? dateView(
+                                        context,
+                                        shift,
+                                        title: StringConstant.proposalDate,
+                                        boldValue: convertTimeStampToDate(
+                                            shift.proposal_date ?? -1),
+                                        timidValue: convertTimeStampToDate(
+                                          shift.proposal_date ?? -1,
+                                          isYear: true,
+                                        ),
+                                        showArrow: true,
+                                      )
+                                    : dateView(
+                                        context,
+                                        shift,
+                                        title: StringConstant.appliedDate,
+                                        boldValue: convertTimeStampToDate(
+                                            shift.applied_date ?? -1),
+                                        timidValue: convertTimeStampToDate(
+                                            shift.applied_date ?? -1,
+                                            isYear: true),
+                                      ),
+                                paddingBetweenFields(),
+                                if (shift.deleteAt == true) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .youHaveDeclinedThisShift,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ] else if (shift.revoke_status == 3) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .offerRevokedByTheEmployer,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ] else ...[
+                                  if (shift.revoke_status == 2) ...[
+                                    revokingStatus(context, state, shift),
+                                  ],
+                                  paddingBetweenFields(),
+                                  Row(
+                                    children: [
+                                      buttonUI(
+                                        onPressed: () {
+                                          context.router.push(
+                                            PageRouteInfo(
+                                              ViewContractorShift.name,
+                                              args: ViewContractorShiftArgs(
+                                                postId: state.appliedList[index]
+                                                        .id ??
+                                                    -1,
+                                                isTotalApplicants: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        buttonText:
+                                            StringConstant.viewShiftDetails,
+                                        textColor: AppColors.black,
+                                        bgColor: AppColors.primaryColor
+                                            .withOpacity(0.10),
+                                      ),
+                                      SizedBox(width: getSize(10)),
+                                      (shift.request == 1 &&
+                                              shift.urgent_action == 0)
+                                          ? urgentActionRequiredBtn(
+                                              context, shift.id ?? -1)
+                                          : cancelBtn(context, shift.id ?? -1)
+                                    ],
+                                  ),
+                                ],
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+          ),
         );
       },
     );

@@ -82,6 +82,7 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
               e as Map<String, dynamic>))
           .toList(),
       isCardAdded: json['isCardAdded'] as bool?,
+      occupied: json['occupied'] as bool?,
     );
 
 Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
@@ -149,6 +150,7 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
           instance.posted_commute_allowance_hour_name,
       'shift_details': instance.shift_details,
       'isCardAdded': instance.isCardAdded,
+      'occupied': instance.occupied,
     };
 
 _$EmployerProposalPendingUserDtoImpl
@@ -167,6 +169,8 @@ _$EmployerProposalPendingUserDtoImpl
               : Duration(microseconds: (json['duration'] as num).toInt()),
           sent_received_status: (json['sent_received_status'] as num?)?.toInt(),
           deleteAt: (json['deleteAt'] as num?)?.toInt(),
+          accept_btn_toggle: json['accept_btn_toggle'] as bool?,
+          occupied: json['occupied'] as bool?,
         );
 
 Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
@@ -183,6 +187,8 @@ Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
       'duration': instance.duration?.inMicroseconds,
       'sent_received_status': instance.sent_received_status,
       'deleteAt': instance.deleteAt,
+      'accept_btn_toggle': instance.accept_btn_toggle,
+      'occupied': instance.occupied,
     };
 
 _$EmployerProposalShiftDetailDtoImpl

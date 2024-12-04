@@ -29,7 +29,7 @@ part 'shifts_bloc_bloc.freezed.dart';
 
 @injectable
 class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
-static TextEditingController locationCtrl = TextEditingController();
+  static TextEditingController locationCtrl = TextEditingController();
   int currentPage = 1;
   int lastPage = 1;
 
@@ -47,7 +47,8 @@ static TextEditingController locationCtrl = TextEditingController();
   final RefreshController approveRefreshController = RefreshController();
   final RefreshController cancelledRefreshController = RefreshController();
 
-  ShiftsBloc(this.iAccountRepository, this.mainFacade) : super(ShiftsBlocState.initial()) {
+  ShiftsBloc(this.iAccountRepository, this.mainFacade)
+      : super(ShiftsBlocState.initial()) {
     on<ShiftsBlocEvent>(
       (event, emit) async {
         await event.map(
@@ -82,7 +83,6 @@ static TextEditingController locationCtrl = TextEditingController();
           getLocationListAPI: (GetLocationListAPI value) async {
             emit(state.copyWith(getDataLoading: true));
             final locationList = await iAccountRepository.getLocationListApi();
-
             // print("Location List ---> ${locationList}");
             locationList.fold(
               (l) => emit(
@@ -104,7 +104,8 @@ static TextEditingController locationCtrl = TextEditingController();
                     getDataLoading: false,
                     currentFilledFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
                     currentApproveFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
-                    currentCancelLocationFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    currentCancelLocationFilter:
+                        (r.isNotEmpty) ? r[0] : LocationDTO(),
                     // locationList: List.from(state.locationList)
                     //   ..addAll(dropdownList),
                     locationList: r,
@@ -126,7 +127,8 @@ static TextEditingController locationCtrl = TextEditingController();
           withdrawShift: (e) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             if (state.deleteReason.isValid()) {
-              failureOrSuccess = await mainFacade.deleteEmployerFilledShift(id: e.postId, reason: state.deleteReason.getValue() ?? "");
+              failureOrSuccess = await mainFacade.deleteEmployerFilledShift(
+                  id: e.postId, reason: state.deleteReason.getValue() ?? "");
 
               failureOrSuccess.fold(
                 (l) {
@@ -134,14 +136,17 @@ static TextEditingController locationCtrl = TextEditingController();
                   showError(
                     message: l.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(e.context);
                 },
                 (r) {
                   e.context.router.maybePop();
-                  showSuccess(message: r.dioMessage ?? "").show(e.context).then((value) {
+                  showSuccess(message: r.dioMessage ?? "")
+                      .show(e.context)
+                      .then((value) {
                     e.context.router.maybePop(true);
                   });
                 },
@@ -314,11 +319,16 @@ static TextEditingController locationCtrl = TextEditingController();
                   state.copyWith(
                     cancelLoading: false,
                     cancelErrorApi: false,
-                    noCancelDataFound: (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList().isEmpty,
+                    noCancelDataFound: (r.data as List<dynamic>)
+                        .map((e) => EmployerShiftDto.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     //  getProductList: []
                     cancelledShiftList: List.from(state.cancelledShiftList)
                       ..addAll(
-                        (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList(),
+                        (r.data as List<dynamic>)
+                            .map((e) => EmployerShiftDto.fromJson(e))
+                            .toList(),
                       ),
                   ),
                 );
@@ -328,6 +338,5 @@ static TextEditingController locationCtrl = TextEditingController();
         );
       },
     );
-
   }
 }

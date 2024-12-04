@@ -3,9 +3,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/faq_dto/faq_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'faq_event.dart';
@@ -15,6 +18,9 @@ part 'faq_bloc.freezed.dart';
 @injectable
 class FaqBloc extends Bloc<FaqEvent, FaqState> {
   final IMainFacade _mainFacade;
+  int currentPage = 1;
+  int lastPage = 1;
+  final RefreshController refreshController = RefreshController();
 
   FaqBloc(this._mainFacade) : super(FaqState.initial()) {
     on<FaqEvent>((event, emit) async {
@@ -32,8 +38,58 @@ class FaqBloc extends Bloc<FaqEvent, FaqState> {
           updatedStates[event.index] = !updatedStates[event.index];
           emit(state.copyWith(expandedStates: updatedStates)); */
         },
-        getFaqList: (e) async {
-          final List<Item> items = [
+        getFaqList: (value) async {
+          if (value.refresh) {
+            currentPage = 1;
+            emit(state.copyWith(
+              faqList: [],
+              getDataLoading: value.refresh,
+            ));
+            refreshController.resetNoData();
+          } else {
+            if (currentPage > lastPage) {
+              refreshController.loadNoData();
+              return;
+            }
+          }
+          var res = await _mainFacade.getFaqList(
+            page: currentPage,
+          );
+          currentPage++;
+          res.fold(
+            (l) => emit(
+              state.copyWith(
+                errorApi: true,
+                getDataLoading: false,
+                faqList: [],
+              ),
+            ),
+            (r) {
+              lastPage = r.meta?.lastPage ?? 1;
+              if (value.refresh) {
+                List.from(state.faqList).clear();
+              }
+              return emit(
+                state.copyWith(
+                  getDataLoading: false,
+                  errorApi: false,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => FaqDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
+                  faqList: List.from(state.faqList)
+                    ..addAll(
+                      (r.data as List<dynamic>)
+                          .map((e) => FaqDTO.fromJson(e))
+                          .toList(),
+                    ),
+                ),
+              );
+            },
+          );
+        },
+        /*   getFaqList: (e) async {
+          /* final List<Item> items = [
             Item(
                 header: '1. Lorem ipsum dolor sit amet',
                 body:
@@ -54,15 +110,15 @@ class FaqBloc extends Bloc<FaqEvent, FaqState> {
 
           emit(state.copyWith(
             faqList: items,
-          ));
-          /*  Either<MainFailure, CommonResponse<dynamic>>? failureOrSuccess;
+          )); */
+          Either<MainFailure, List<Item>>? failureOrSuccess;
 
           emit(state.copyWith(
             isLoading: true,
             failureOrSuccessOption: none(),
           ));
 
-          failureOrSuccess = await _mainFacade.getCardListAPI();
+          failureOrSuccess = await _mainFacade.getFaqList();
           failureOrSuccess.fold(
             (l) {
               showError(
@@ -87,9 +143,10 @@ class FaqBloc extends Bloc<FaqEvent, FaqState> {
                 faqList: r,
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               ));
-            }, 
-          );*/
+            },
+          );
         },
+       */
       );
     });
   }

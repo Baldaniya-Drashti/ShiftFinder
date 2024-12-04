@@ -6,6 +6,6 @@ class ContractorRatingState with _$ContractorRatingState {
     @Default(false) bool loading,
     @Default(false) bool error,
     @Default(false) bool noDataFound,
-    @Default([]) List<dynamic> ratingList,
-}) = _ContractorRatingState;
+    @Default([]) List<ContractorRatingDTO> ratingList,
+  }) = _ContractorRatingState;
 }

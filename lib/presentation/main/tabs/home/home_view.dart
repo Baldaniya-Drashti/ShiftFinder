@@ -32,81 +32,82 @@ class HomeView extends StatelessWidget {
           getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return PaginatedListView(
-            onRefresh: () {
-              context
-                  .read<HomeBloc>()
-                  .add(HomeEvent.getEmployerDashboardList(true));
-            },
-            refreshController: context.read<HomeBloc>().refreshController,
-            onLoading: () {
-              context
-                  .read<HomeBloc>()
-                  .add(HomeEvent.getEmployerDashboardList(false));
-            },
-            isNoDataFound: state.isNoDataFound,
-            noDataWidget: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.noShiftNurse,
-                    height: getSize(112.59),
-                    width: getSize(94.09),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
-                    child: BaseText(
-                      text: StringConstant.noShiftPostedYet,
-                      textAlign: TextAlign.center,
-                      textColor: AppColors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Aclonica',
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+            child: PaginatedListView(
+              onRefresh: () {
+                context
+                    .read<HomeBloc>()
+                    .add(HomeEvent.getEmployerDashboardList(true));
+              },
+              refreshController: context.read<HomeBloc>().refreshController,
+              onLoading: () {
+                context
+                    .read<HomeBloc>()
+                    .add(HomeEvent.getEmployerDashboardList(false));
+              },
+              isNoDataFound: state.isNoDataFound,
+              noDataWidget: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      SvgImageConstant.noShiftNurse,
+                      height: getSize(112.59),
+                      width: getSize(94.09),
                     ),
-                  ),
-                  SizedBox(
-                    width: getSize(280),
-                    child: BaseText(
-                      textColor: AppColors.black.withOpacity(0.65),
-                      text: StringConstant.getStartedwithNewShift,
-                      textAlign: TextAlign.center,
-                      lineHeight: 1.2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            child: state.isLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong),
-                      )
-                    :
-                    // (state.employerDashboardList.isEmpty)
-                    // ? Center(
-                    //     child: BaseText(text: StringConstant.somethindWentWrong),
-                    //   ):
-                    // state.isNoDataFound
-                    //     ? Text(state.isNoDataFound):
-                    ListView.builder(
-                        itemCount: state.employerDashboardList.length,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(15),
-                          vertical: getSize(5),
-                        ),
-                        clipBehavior: Clip.none,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (_, index) {
-                          return getCheckoutContainer(index, context);
-                        },
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
+                      child: BaseText(
+                        text: StringConstant.noShiftPostedYet,
+                        textAlign: TextAlign.center,
+                        textColor: AppColors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Aclonica',
                       ),
+                    ),
+                    SizedBox(
+                      width: getSize(280),
+                      child: BaseText(
+                        textColor: AppColors.black.withOpacity(0.65),
+                        text: StringConstant.getStartedwithNewShift,
+                        textAlign: TextAlign.center,
+                        lineHeight: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              child: state.isLoading
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : state.isErrorInAPI
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      :
+                      // (state.employerDashboardList.isEmpty)
+                      // ? Center(
+                      //     child: BaseText(text: StringConstant.somethindWentWrong),
+                      //   ):
+                      // state.isNoDataFound
+                      //     ? Text(state.isNoDataFound):
+                      ListView.builder(
+                          itemCount: state.employerDashboardList.length,
+                          padding: EdgeInsets.symmetric(
+                              vertical: getSize(5), horizontal: getSize(10)),
+                          clipBehavior: Clip.none,
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (_, index) {
+                            return getCheckoutContainer(index, context);
+                          },
+                        ),
+            ),
           );
         },
       ),
@@ -136,8 +137,8 @@ class HomeView extends StatelessWidget {
             borderRadius: BorderRadius.circular(getSize(20)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
-                blurRadius: 25,
+                color: AppColors.lightGrey.withOpacity(0.2),
+                blurRadius: getSize(20),
               ),
             ],
           ),

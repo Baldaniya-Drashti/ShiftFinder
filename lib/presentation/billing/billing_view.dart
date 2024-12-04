@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -62,14 +63,18 @@ class BillingView extends StatelessWidget {
                   children: [
                     titleUI(
                       icon: SvgImageConstant.paymentHistory,
-                      onPressed: () => context.router
-                          .push(PageRouteInfo(PaymentHistoryView.name)),
+                      // onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
+                      onPressed: () {
+                        showUnderDevelopment(context);
+                      },
                       label: StringConstant.paymentHistory,
                     ),
                     titleUI(
                       icon: SvgImageConstant.invoice,
-                      onPressed: () =>
-                          context.router.push(PageRouteInfo(InvoiceView.name)),
+                      // onPressed: () =>context.router.push(PageRouteInfo(InvoiceView.name)),
+                      onPressed: () {
+                        showUnderDevelopment(context);
+                      },
                       label: StringConstant.invoices,
                     ),
                     titleUI(
@@ -80,8 +85,10 @@ class BillingView extends StatelessWidget {
                     ),
                     titleUI(
                       icon: SvgImageConstant.calenderStatement,
-                      onPressed: () => context.router
-                          .push(PageRouteInfo(MonthlyStatementView.name)),
+                      // onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
+                      onPressed: () {
+                        showUnderDevelopment(context);
+                      },
                       label: StringConstant.monthlyStatement,
                     ),
                   ],

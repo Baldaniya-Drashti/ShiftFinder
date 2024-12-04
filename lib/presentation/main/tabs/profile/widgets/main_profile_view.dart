@@ -7,6 +7,7 @@ import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -85,7 +86,9 @@ class MainProfileView extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       CommonButton(
                         onPressed: () {
-                          context.router.push(PageRouteInfo(EditProfileView.name));
+                          showUnderDevelopment(context);
+
+                          // context.router.push(PageRouteInfo(EditProfileView.name));
                         },
                         buttonText: 'Edit Profile',
                         buttonFontSize: 10,

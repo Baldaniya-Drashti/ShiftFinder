@@ -47,15 +47,12 @@ abstract class IAuthFacade {
   Future<bool> checkUserVerified();
 
   Future<Either<AuthFailure, String>> logout();
+  Future<Either<AuthFailure, String>> deleteAccount();
 
   Future<Either<MainFailure, String>> changePassword({
     required String oldPassword,
     required String newPassword,
     required String confirmNewPassword,
-  });
-
-  Future<Either<AuthFailure, Unit>> registerForPush({
-    required String fcmToken,
   });
 
   Future<Either<AuthFailure, String>> verifyOtp({
@@ -124,4 +121,5 @@ abstract class IAuthFacade {
     required String countryCode,
     required String countryNameCode,
   });
+  Future<Either<AuthFailure, Unit>> registerForPush({required String fcmToken});
 }

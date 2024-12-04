@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
@@ -139,6 +140,33 @@ class AuthFacade implements IAuthFacade {
             .put(BoxKeys.currentRole, currentRole);
         await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.currentIndustry, currentIndustry);
+
+        return right(value?.dioMessage ?? "");
+      });
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, String>> deleteAccount() async {
+    try {
+      return apiService
+          .deleteMethod(
+        ApiConstants.deleteAccount,
+      )
+          .then((value) async {
+        Hive.box(BoxNames.settingsBox).clear();
+        Hive.box<AccountEntity>(BoxNames.currentUser).clear();
 
         return right(value?.dioMessage ?? "");
       });
@@ -307,8 +335,30 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> registerForPush(
-      {required String fcmToken}) {
-    throw UnimplementedError();
+      {required String fcmToken}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "device_id": await getDeviceId(),
+        "device_type": Platform.isAndroid ? "android" : "ios",
+        "token": fcmToken,
+      };
+
+      await apiService.postMethod(
+        ApiConstants.registerForPush,
+        mapData,
+      );
+
+      return right(unit);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+      return left(const AuthFailure.serverError());
+    }
   }
 
   @override

@@ -165,7 +165,10 @@ class ProposalReceived extends StatelessWidget {
                         context.router
                             .push(PageRouteInfo(SendProposal.name,
                                 args: SendProposalArgs(
-                                    postId: post.post_id ?? -1)))
+                                  postId: post.post_id ?? -1,
+                                  id: post.id ?? -1,
+                                  isFromCounterPropose: true,
+                                )))
                             .then((value) {
                           if (value == true) {
                             Navigator.pop(context, true);
@@ -209,9 +212,7 @@ class ProposalReceived extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 10),
-    );
+    return SizedBox(height: getSize(height ?? 10));
   }
 
   Widget userDetail(BuildContext context) {

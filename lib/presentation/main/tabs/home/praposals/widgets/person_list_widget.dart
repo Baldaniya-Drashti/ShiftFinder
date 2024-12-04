@@ -78,11 +78,39 @@ class PersonListWidget extends StatelessWidget {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              BaseText(
-                                text:
-                                    '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  BaseText(
+                                    text:
+                                        '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  Visibility(
+                                    visible: list[index].occupied ?? false,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(7),
+                                        vertical: getSize(5),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.redAccent
+                                            .withOpacity(0.1),
+                                        borderRadius:
+                                            BorderRadius.circular(getSize(10)),
+                                      ),
+                                      child: BaseText(
+                                        text: 'Occupied',
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w600,
+                                        textColor: AppColors.redAccent
+                                            .withOpacity(0.8),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               if (list[index].revoke_status != null &&
                                   list[index].deleteAt != 1) ...[
@@ -114,9 +142,10 @@ class PersonListWidget extends StatelessWidget {
                                               vertical: getSize(10)),
                                           child: BaseText(
                                             text: StringConstant
-                                                .offerRevokedByTheEmployer,
+                                                .offerRevokedByYou,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
+                                            textColor: AppColors.redAccent,
                                           ),
                                         )
                                       : (list[index].revoke_status == null &&

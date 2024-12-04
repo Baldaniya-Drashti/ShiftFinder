@@ -164,4 +164,5 @@ class SvgImageConstant {
   static const availableWithdrawBalance =
       "assets/svg/available_withdraw_balance.svg";
   static const next = 'assets/svg/next.svg';
+  static const questionMark = 'assets/svg/question_mark.svg';
 }

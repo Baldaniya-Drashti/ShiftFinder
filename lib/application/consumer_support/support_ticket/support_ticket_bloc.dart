@@ -15,11 +15,8 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-
 part 'support_ticket_event.dart';
-
 part 'support_ticket_state.dart';
-
 part 'support_ticket_bloc.freezed.dart';
 
 @injectable

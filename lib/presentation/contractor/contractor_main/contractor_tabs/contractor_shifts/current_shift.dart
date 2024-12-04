@@ -28,69 +28,73 @@ class CurrentShift extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return PaginatedListView(
-          onRefresh: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
-          },
-          refreshController:
-              context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
-          onLoading: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
-          },
-          isNoDataFound: state.isNoDataFound,
-          child: state.isLoading
-              ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  : ListView.builder(
-                      itemCount: state.currentShiftList.length,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                      itemBuilder: (context, index) {
-                        final shift = state.currentShiftList[index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: getSize(12)),
-                          padding: EdgeInsets.all(getSize(10)),
-                          width: getSize(355),
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(getSize(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.black.withOpacity(0.2),
-                                blurRadius: 25,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              userDetail(context, shift),
-                              paddingBetweenFields(),
-                              if (shift.shift_detail != null &&
-                                  shift.shift_detail!.shift_type == 2) ...[
-                                remainingShift(
-                                    value:
-                                        // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
-                                        "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
-                                paddingBetweenFields(),
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+          child: PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+            },
+            refreshController:
+                context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
+            onLoading: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
+            },
+            isNoDataFound: state.isNoDataFound,
+            child: state.isLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    : ListView.builder(
+                        itemCount: state.currentShiftList.length,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        itemBuilder: (context, index) {
+                          final shift = state.currentShiftList[index];
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: getSize(12)),
+                            padding: EdgeInsets.all(getSize(10)),
+                            width: getSize(355),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  blurRadius: getSize(20),
+                                ),
                               ],
-                              dateAndTime(context, shift),
-                              paddingBetweenFields(),
-                              clockIn(context, index, shift),
-                              paddingBetweenFields(),
-                              clockOut(context, index, shift),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            ),
+                            child: Column(
+                              children: [
+                                userDetail(context, shift),
+                                paddingBetweenFields(),
+                                if (shift.shift_detail != null &&
+                                    shift.shift_detail!.shift_type == 2) ...[
+                                  remainingShift(
+                                      value:
+                                          // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
+                                          "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
+                                  paddingBetweenFields(),
+                                ],
+                                dateAndTime(context, shift),
+                                paddingBetweenFields(),
+                                clockIn(context, index, shift),
+                                paddingBetweenFields(),
+                                clockOut(context, index, shift),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+          ),
         );
       },
     );
@@ -107,6 +111,7 @@ class CurrentShift extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -153,6 +158,7 @@ class CurrentShift extends StatelessWidget {
           ),
         ),
         Flexible(
+          flex: 13,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -403,8 +409,8 @@ class CurrentShift extends StatelessWidget {
           ? null
           : (shift.clock_in != null)
               ? () async {
-                  // final now = DateTime.now();
-                  final now = DateTime.fromMillisecondsSinceEpoch(
+                  final now = DateTime.now();
+                  final clockInTime = DateTime.fromMillisecondsSinceEpoch(
                       (shift.clock_in ?? -1) * 1000);
                   final clockOutTime = await showTimePicker(context);
 
@@ -412,7 +418,8 @@ class CurrentShift extends StatelessWidget {
                     final selectedDateTime = DateTime(now.year, now.month,
                         now.day, clockOutTime.hour, clockOutTime.minute);
 
-                    if (selectedDateTime.isBefore(now)) {
+                    if (selectedDateTime.isBefore(now) &&
+                        selectedDateTime.isAfter(clockInTime)) {
                       context.read<ContractorShiftBloc>().add(
                           ContractorShiftEvent.setClockOut(context,
                               index: index, clockOutTime: clockOutTime));

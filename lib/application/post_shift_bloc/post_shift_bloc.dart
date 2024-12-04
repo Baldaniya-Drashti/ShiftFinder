@@ -647,8 +647,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             ),
           );
           if (isRecurringValid(state) && isTeamsValid(state)) {
-            print(
-                "Recurrence iD--->>  ${state.updateShift.shift_detail?.recurrence_id}");
+            print("Recurrence iD--->>  ${state.recurringStartDate.getValue()}");
             /*failureOrSuccess = await _mainFacade.createPostShiftRecurringApi(
                 postShiftId: e.postShiftId,
                 recurringStatus: (state.isToBeRecurring) ? 1 : 0,
@@ -680,20 +679,51 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               recurring_start_date: (state.isToBeRecurring &&
                       state.recurringStartDate.getValue() != null &&
                       state.recurringStartDate.getValue()!.isNotEmpty)
+                  ? (CustomDateTimeFormat.mergeDateAndTime(
+                            // state.post.start_time ?? "",
+                            DateTime.fromMillisecondsSinceEpoch(
+                                    ((double.tryParse(state.post.start_time ??
+                                                    "0") ??
+                                                0) *
+                                            1000)
+                                        .toInt())
+                                .toIso8601String(),
+                            "",
+                            dateTime: DateTime.parse(
+                                state.recurringStartDate.getValue()!),
+                          ).toUtc().millisecondsSinceEpoch /
+                          1000)
+                      .toString()
+                  : "",
+              recurring_end_date: (state.isToBeRecurring &&
+                      state.recurringEndDate.getValue() != null &&
+                      state.recurringEndDate.getValue()!.isNotEmpty)
+                  ? (CustomDateTimeFormat.mergeDateAndTime(
+                            // state.post.start_time ?? "",
+                            DateTime.fromMillisecondsSinceEpoch(
+                                    ((double.tryParse(state.post.start_time ??
+                                                    "0") ??
+                                                0) *
+                                            1000)
+                                        .toInt())
+                                .toIso8601String(),
+                            "",
+                            dateTime: DateTime.parse(
+                                state.recurringEndDate.getValue()!),
+                          ).toUtc().millisecondsSinceEpoch /
+                          1000)
+                      .toString()
+                  : "",
+              /*  recurring_start_date: (state.isToBeRecurring &&
+                      state.recurringStartDate.getValue() != null &&
+                      state.recurringStartDate.getValue()!.isNotEmpty)
                   ? (DateTime.parse(state.recurringStartDate.getValue()!)
                               .toUtc()
                               .millisecondsSinceEpoch /
                           1000)
                       .toString()
-                  : "",
-              recurrence_mode:
-                  (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
-              days: (state.isToBeRecurring &&
-                      state.recurrenceMode.getValue() == "Weekly")
-                  ? getSelectedRecurringDayIds(
-                      state.recurrenceWeekList.getValue())
-                  : "",
-              recurring_end_date: (state.isToBeRecurring &&
+                  : "", 
+               recurring_end_date: (state.isToBeRecurring &&
                       state.recurringEndDate.getValue() != null &&
                       state.recurringEndDate.getValue()!.isNotEmpty)
                   ? (DateTime.parse(state.recurringEndDate.getValue()!)
@@ -701,6 +731,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                               .millisecondsSinceEpoch /
                           1000)
                       .toString()
+                  : "", */
+              recurrence_mode:
+                  (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
+              days: (state.isToBeRecurring &&
+                      state.recurrenceMode.getValue() == "Weekly")
+                  ? getSelectedRecurringDayIds(
+                      state.recurrenceWeekList.getValue())
                   : "",
               disclaimer: state.disclaimerNote,
               share_team_status: (state.isShareWithTeams) ? "1" : "0",
@@ -1260,13 +1297,22 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     String mapMultiDateToApiFormat() {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         final list = shift.multi_date!.map((multiDate) {
-          final formattedDate = DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(multiDate.date ?? ""));
+          final formattedDate = (shift.same_or_different_time == 1)
+              ? CustomDateTimeFormat.mergeDateAndTime(
+                  shift.start_time ?? "",
+                  shift.end_time ?? "",
+                  dateTime: DateTime.parse(multiDate.date ?? ""),
+                )
+              : CustomDateTimeFormat.mergeDateAndTime(
+                  multiDate.start_time ?? "",
+                  multiDate.end_time ?? "",
+                  dateTime: DateTime.parse(multiDate.date ?? ""),
+                );
+
+          print("Formatttedddtdt datetetete--> ${formattedDate}");
           final map = {
             if (state.updateShift.id == null) ...{
-              'date':
-                  DateTime.parse(formattedDate).toUtc().millisecondsSinceEpoch /
-                      1000,
+              'date': formattedDate.toUtc().millisecondsSinceEpoch / 1000,
               'start_time': DateTime.parse((shift.same_or_different_time == 1)
                           ? shift.start_time ?? ""
                           : multiDate.start_time ?? "")
@@ -1456,14 +1502,20 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     // Update start_time if startHour and startMinute are set
     if (updatedDTO.startHour != null && updatedDTO.startMinute != null) {
       final startTime = CustomDateTimeFormat.parseTime(
-          updatedDTO.startHour!, updatedDTO.startMinute!);
+          updatedDTO.startHour!, updatedDTO.startMinute!,
+          dateTime: (updatedDTO.date != null && updatedDTO.date!.isNotEmpty)
+              ? DateTime.parse(updatedDTO.date!)
+              : null);
       updatedDTO = updatedDTO.copyWith(start_time: startTime.toString());
     }
 
     // Update end_time if endHour and endMinute are set
     if (updatedDTO.endHour != null && updatedDTO.endMinute != null) {
       final endTime = CustomDateTimeFormat.parseTime(
-          updatedDTO.endHour!, updatedDTO.endMinute!);
+          updatedDTO.endHour!, updatedDTO.endMinute!,
+          dateTime: (updatedDTO.date != null && updatedDTO.date!.isNotEmpty)
+              ? DateTime.parse(updatedDTO.date!)
+              : null);
       updatedDTO = updatedDTO.copyWith(end_time: endTime.toString());
     }
 
@@ -1692,15 +1744,36 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     String startTime = "";
     String endTime = "";
 
-    if (state.shiftType == 1 ||
-        (state.shiftType == 2 && state.selectedMultiShiftType == 1)) {
+    if (state.shiftType == 1) {
       startTime = CustomDateTimeFormat.parseTime(
-              state.startHour.getValue() ?? "",
-              state.startMinute.getValue() ?? "")
-          .toString();
+        state.startHour.getValue() ?? "",
+        state.startMinute.getValue() ?? "",
+        dateTime: (state.signleShiftDate.isValid())
+            ? DateTime.parse(state.signleShiftDate.getValue()!)
+            : null,
+      ).toString();
       endTime = CustomDateTimeFormat.parseTime(
-              state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
-          .toString();
+        state.endHour.getValue() ?? "",
+        state.endMinute.getValue() ?? "",
+        dateTime: (state.signleShiftDate.isValid())
+            ? DateTime.parse(state.signleShiftDate.getValue()!)
+            : null,
+      ).toString();
+    } else if (state.shiftType == 2 && state.selectedMultiShiftType == 1) {
+      startTime = CustomDateTimeFormat.parseTime(
+        state.startHour.getValue() ?? "",
+        state.startMinute.getValue() ?? "",
+        dateTime: (state.selectedMultiDates.isValid())
+            ? state.selectedMultiDates.getValue()[0]
+            : null,
+      ).toString();
+      endTime = CustomDateTimeFormat.parseTime(
+        state.endHour.getValue() ?? "",
+        state.endMinute.getValue() ?? "",
+        dateTime: (state.selectedMultiDates.isValid())
+            ? state.selectedMultiDates.getValue()[0]
+            : null,
+      ).toString();
     }
 
     /// Only true when submit from different time for each shift
@@ -1760,7 +1833,15 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         same_or_different_time: state.selectedMultiShiftType,
 
         ///
-        date: state.signleShiftDate.getValue(),
+        // date: state.signleShiftDate.getValue(),
+        date: CustomDateTimeFormat.parseTime(
+          state.startHour.getValue() ?? "",
+          state.startMinute.getValue() ?? "",
+          dateTime: (state.signleShiftDate.getValue() != null &&
+                  state.signleShiftDate.getValue()!.isNotEmpty)
+              ? DateTime.parse(state.signleShiftDate.getValue()!)
+              : null,
+        ).toString(),
         start_time: startTime,
         end_time: endTime,
         unpaid_break_id: getSelectedUnPaidBreakId(),
@@ -1771,9 +1852,17 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
   List<DateTimeDTO> mapMultiDateToApiFormat(PostShiftState state) {
     return state.selectedMultiDates.getValue().map((multiDate) {
-      return DateTimeDTO(
-        date: multiDate.toString(),
+      final sameMultiDate = DateTimeDTO(
+        // date: multiDate.toString(),
+        date: CustomDateTimeFormat.parseTime(
+          state.startHour.getValue() ?? "",
+          state.startMinute.getValue() ?? "",
+          dateTime: multiDate,
+        ).toString(),
       );
+
+      print("SameMultiDate----> ${sameMultiDate}");
+      return sameMultiDate;
     }).toList();
   }
 

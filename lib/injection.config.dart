@@ -54,6 +54,8 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
     as _i131;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart'
     as _i678;
+import 'package:shift/application/contractor/contractor_performance_insight/contractor_performance_insight_bloc.dart'
+    as _i634;
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart'
     as _i286;
 import 'package:shift/application/contractor/contractor_rating/contractor_rating_bloc.dart'
@@ -152,13 +154,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i366.AccountManagementBloc());
     gh.factory<_i418.FullTimePositionDetailBloc>(
         () => _i418.FullTimePositionDetailBloc());
-    gh.factory<_i286.ContractorPreviousShiftBloc>(
-        () => _i286.ContractorPreviousShiftBloc());
     gh.factory<_i969.ContractorWalletBloc>(() => _i969.ContractorWalletBloc());
     gh.factory<_i422.ContractorStatementBloc>(
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
-    gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
     gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
@@ -175,6 +174,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
+    gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc(
+          gh<_i111.IMainFacade>(),
+          gh<_i253.IAccountRepository>(),
+        ));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),
@@ -215,6 +218,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i456.ContractorRatingBloc>(
         () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i634.ContractorPerformanceInsightBloc>(
+        () => _i634.ContractorPerformanceInsightBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i156.ProposalDetailBloc>(
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
@@ -294,6 +299,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i277.IAuthFacade>(),
         ));
+    gh.factory<_i286.ContractorPreviousShiftBloc>(
+        () => _i286.ContractorPreviousShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i131.ContractorShiftBloc>(
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(

@@ -49,11 +49,12 @@ class MyCalendarViewBloc
                       .skip(1)
                       .toList()
                   : [];
-
-              add(MyCalendarViewEvent.selectDateEvent(
-                e.context,
-                dateTimeList,
-              ));
+              if (dateTimeList.isNotEmpty) {
+                add(MyCalendarViewEvent.selectDateEvent(
+                  e.context,
+                  dateTimeList,
+                ));
+              }
             },
           );
         },

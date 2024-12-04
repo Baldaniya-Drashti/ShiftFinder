@@ -11,6 +11,7 @@ part 'healthcare_post_dto.g.dart';
 class HealthcarePostDTO with _$HealthcarePostDTO {
   const factory HealthcarePostDTO({
     int? id,
+    int? post_id,
     String? listing_id,
     String? last_ago,
     String? company_name,
@@ -29,8 +30,23 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     ShiftDetailDTO? shift_detail,
     String? software_skill,
     String? specialties_detail,
+    ProposalReceivedDTO? proposal_received,
   }) = _HealthcarePostDTO;
 
   factory HealthcarePostDTO.fromJson(Map<String, dynamic> json) =>
       _$HealthcarePostDTOFromJson(json);
+}
+
+@freezed
+class ProposalReceivedDTO with _$ProposalReceivedDTO {
+  const factory ProposalReceivedDTO({
+    double? proposed_hourly_rate,
+    int? commute_allowance_type,
+    double? proposed_commute_allowance,
+    int? accommodation_allowance_type,
+    double? proposed_accommodation_allowance,
+  }) = _ProposalReceivedDTO;
+
+  factory ProposalReceivedDTO.fromJson(Map<String, dynamic> json) =>
+      _$ProposalReceivedDTOFromJson(json);
 }

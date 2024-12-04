@@ -5,11 +5,13 @@ class SendProposalEvent with _$SendProposalEvent {
   const factory SendProposalEvent.tabChangeEvent(int tabIndex) = TabChangeEvent;
   const factory SendProposalEvent.setDateUnavailableEvent(
       List<DateTime> selectedDateList) = SetDateUnavailableEvent;
-  const factory SendProposalEvent.getContractorShiftDetail(int postID) =
-      GetContractorShiftDetail;
+  const factory SendProposalEvent.getContractorShiftDetail(
+      {required bool isFromCounterPropose,
+      required int postID,
+      required int? id}) = GetContractorShiftDetail;
 
-const factory SendProposalEvent.rateHourChanged(String rate) =
-    RateHourChanged;
+  const factory SendProposalEvent.rateHourChanged(String rate) =
+      RateHourChanged;
 
   const factory SendProposalEvent.commuteRateChanged(String rate) =
       CommuteRateChanged;

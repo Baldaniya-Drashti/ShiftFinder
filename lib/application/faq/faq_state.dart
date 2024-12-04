@@ -5,10 +5,11 @@ class FaqState with _$FaqState {
   const factory FaqState({
     // required List<bool> expandedStates,
     required bool isLoading,
-    required List<Item> faqList,
+    required List<FaqDTO> faqList,
     required bool showErrorMessages,
-    required Option<Either<MainFailure, CommonResponse<dynamic>>>
-        failureOrSuccessOption,
+    required bool noDataFound,
+    required bool errorApi,
+    required bool getDataLoading,
   }) = _FaqState;
 
   factory FaqState.initial() => FaqState(
@@ -16,6 +17,8 @@ class FaqState with _$FaqState {
         faqList: [],
         isLoading: false,
         showErrorMessages: false,
-        failureOrSuccessOption: none(),
+        errorApi: false,
+        getDataLoading: false,
+        noDataFound: false,
       );
 }

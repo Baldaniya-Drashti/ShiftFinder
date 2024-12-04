@@ -6,6 +6,7 @@ import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -82,7 +83,9 @@ class ContractorMainProfileView extends StatelessWidget {
                       ),
                       SizedBox(height: getSize(5)),
                       CommonButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showUnderDevelopment(context);
+                        },
                         buttonText: 'Edit Profile',
                         buttonFontSize: 10,
                         height: 22,

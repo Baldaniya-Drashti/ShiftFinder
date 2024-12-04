@@ -234,113 +234,137 @@ class ViewPersonPraposalView extends StatelessWidget {
                         children: [
                           Expanded(
                             child: CommonButton(
-                              onPressed: () async {
-                                if ((state.confirmDialog == null ||
-                                        state.confirmDialog == false) &&
-                                    data.shift_type == 2) {
-                                  final result = await showDialog<bool?>(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        contentPadding: EdgeInsets.all(30),
-                                        insetPadding: EdgeInsets.symmetric(
-                                            horizontal: 24),
-                                        backgroundColor: Colors.white,
-                                        content: BaseText(
-                                          textAlign: TextAlign.center,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          text:
-                                              "Please confirm that you have reviewed the proposed availability to accept the proposal.",
-                                        ),
-                                        actions: [
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 30),
-                                            child: CommonButton(
-                                              onPressed: () =>
-                                                  context.router.maybePop(true),
-                                              buttonText: "Ok",
-                                            ),
-                                          )
-                                        ],
-                                      );
+                              onPressed: (user.occupied == true ||
+                                      user.accept_btn_toggle == false)
+                                  ? () {}
+                                  : () async {
+                                      if ((state.confirmDialog == null ||
+                                              state.confirmDialog == false) &&
+                                          data.shift_type == 2) {
+                                        final result = await showDialog<bool?>(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15)),
+                                              contentPadding:
+                                                  EdgeInsets.all(30),
+                                              insetPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 24),
+                                              backgroundColor: Colors.white,
+                                              content: BaseText(
+                                                textAlign: TextAlign.center,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                text:
+                                                    "Please confirm that you have reviewed the proposed availability to accept the proposal.",
+                                              ),
+                                              actions: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 30),
+                                                  child: CommonButton(
+                                                    onPressed: () => context
+                                                        .router
+                                                        .maybePop(true),
+                                                    buttonText: "Ok",
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        if (data.isCardAdded == false) {
+                                          CommonCardDialog(
+                                            title: StringConstant.cardDetails,
+                                            description: StringConstant
+                                                .pleaseAddYourCardDetailsToProceed,
+                                            buttonText: StringConstant.addCard,
+                                            onPressed: () {
+                                              context.router.maybePop();
+                                              context.router
+                                                  .push(PageRouteInfo(
+                                                      AddCardDetailPage.name,
+                                                      args:
+                                                          AddCardDetailPageArgs(
+                                                              fromRegister:
+                                                                  false)))
+                                                  .then((value) {
+                                                if (value != null &&
+                                                    value == true) {
+                                                  acceptDialog(context);
+                                                }
+                                              });
+                                            },
+                                            image: SvgImageConstant.cardImage,
+                                          ).addCardDialog(context);
+                                        } else {
+                                          acceptDialog(context);
+                                        }
+                                      }
                                     },
-                                  );
-                                } else {
-                                  if (data.isCardAdded == false) {
-                                    CommonCardDialog(
-                                      title: StringConstant.cardDetails,
-                                      description: StringConstant
-                                          .pleaseAddYourCardDetailsToProceed,
-                                      buttonText: StringConstant.addCard,
-                                      onPressed: () {
-                                        context.router.maybePop();
-                                        context.router
-                                            .push(PageRouteInfo(
-                                                AddCardDetailPage.name,
-                                                args: AddCardDetailPageArgs(
-                                                    fromRegister: false)))
-                                            .then((value) {
-                                          if (value != null && value == true) {
-                                            acceptDialog(context);
-                                          }
-                                        });
-                                      },
-                                      image: SvgImageConstant.cardImage,
-                                    ).addCardDialog(context);
-                                  } else {
-                                    acceptDialog(context);
-                                  }
-                                }
-                              },
                               buttonText: StringConstant.accept,
                               buttonFontSize: 16,
                               borderRadius: 10,
                               height: 46,
+                              backgroundColor: (user.occupied == true ||
+                                      user.accept_btn_toggle == false)
+                                  ? AppColors.green.withOpacity(0.2)
+                                  : null,
                             ),
                           ),
                           SizedBox(width: getSize(16)),
                           Expanded(
                             child: CommonButton(
-                              onPressed: () {
-                                AcceptRejectDialog(
-                                  title: 'Reject',
-                                  description:
-                                      'Are you sure you want to reject this application?',
-                                  onPressedAccept: () {
-                                    context.router.maybePop().then(
-                                      (value) {
-                                        final id = context
-                                            .read<ProposalDetailBloc>()
-                                            .state
-                                            .proposalDetailDto
-                                            .id;
-                                        if (id == null) return;
-                                        context.read<ProposalDetailBloc>().add(
-                                              ProposalDetailEvent
-                                                  .proposalAcceptReject(
-                                                id: id,
-                                                request: 2,
-                                                context: context,
-                                              ),
-                                            );
-                                      },
-                                    );
-                                  },
-                                  acceptButtonText: 'Reject',
-                                  onPressedReject: () {
-                                    context.router.maybePop();
-                                  },
-                                ).acceptRejectDialog(context);
-                              },
-                              backgroundColor: AppColors.white,
-                              borderColor: AppColors.green,
-                              buttonTextColor: AppColors.green,
+                              onPressed: (user.accept_btn_toggle == false)
+                                  ? () {}
+                                  : () {
+                                      AcceptRejectDialog(
+                                        title: 'Reject',
+                                        description:
+                                            'Are you sure you want to reject this application?',
+                                        onPressedAccept: () {
+                                          context.router.maybePop().then(
+                                            (value) {
+                                              final id = context
+                                                  .read<ProposalDetailBloc>()
+                                                  .state
+                                                  .proposalDetailDto
+                                                  .id;
+                                              if (id == null) return;
+                                              context
+                                                  .read<ProposalDetailBloc>()
+                                                  .add(
+                                                    ProposalDetailEvent
+                                                        .proposalAcceptReject(
+                                                      id: id,
+                                                      request: 2,
+                                                      context: context,
+                                                    ),
+                                                  );
+                                            },
+                                          );
+                                        },
+                                        acceptButtonText: 'Reject',
+                                        onPressedReject: () {
+                                          context.router.maybePop();
+                                        },
+                                      ).acceptRejectDialog(context);
+                                    },
+                              backgroundColor: (user.accept_btn_toggle == false)
+                                  ? AppColors.green.withOpacity(0.2)
+                                  : AppColors.white,
+                              borderColor: (user.accept_btn_toggle == false)
+                                  ? null
+                                  : AppColors.green,
+                              buttonTextColor: (user.accept_btn_toggle == false)
+                                  ? null
+                                  : AppColors.green,
                               buttonFontSize: 16,
                               borderRadius: 10,
                               buttonText: 'Reject',
@@ -349,16 +373,14 @@ class ViewPersonPraposalView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: getSize(20),
-                      ),
+                      SizedBox(height: getSize(20)),
                       CommonButton(
                         onPressed: () async {
                           final result = await context.router.push(
                             PageRouteInfo(CounterPurposeView.name,
                                 args: CounterPurposeViewArgs(data: data)),
                           ) as bool?;
-                          Log.success("result ${result}");
+                          Log.success("result $result");
                           if (result ?? false) {
                             context.router.maybePop(true);
                           }
@@ -368,9 +390,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         buttonTextColor: AppColors.black,
                         backgroundColor: AppColors.white,
                       ),
-                      SizedBox(
-                        height: getSize(20),
-                      ),
+                      SizedBox(height: getSize(20)),
                     ]
                   ],
                 ),

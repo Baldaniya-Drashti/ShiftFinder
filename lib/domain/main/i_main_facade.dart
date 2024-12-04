@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:shift/application/faq/faq_bloc.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
@@ -302,12 +303,25 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getContractorPreviousShift({
     required int type,
     required int page,
-    required int sortBy,
+    int? sortBy,
   });
 
   Future<Either<MainFailure, CommonResponse>> addCardAPI(
       {required String paymentMethodId});
 
   Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI();
+  Future<Either<MainFailure, CommonResponse>> getFaqList({
+    required int page,
+  });
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
+  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
+      {required int date});
+
+  Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
+    required int? id,
+    required int postId,
+  });
+  Future<Either<MainFailure, CommonResponse>> getReferCollegueAPI({
+    required int page,
+  });
 }

@@ -30,6 +30,7 @@ _$UpComingShiftDTOImpl _$$UpComingShiftDTOImplFromJson(
       end_time: (json['end_time'] as num?)?.toInt(),
       shift_type: (json['shift_type'] as num?)?.toInt(),
       total_shift: (json['total_shift'] as num?)?.toInt(),
+      isCad: json['isCad'] as bool?,
     );
 
 Map<String, dynamic> _$$UpComingShiftDTOImplToJson(
@@ -56,4 +57,5 @@ Map<String, dynamic> _$$UpComingShiftDTOImplToJson(
       'end_time': instance.end_time,
       'shift_type': instance.shift_type,
       'total_shift': instance.total_shift,
+      'isCad': instance.isCad,
     };

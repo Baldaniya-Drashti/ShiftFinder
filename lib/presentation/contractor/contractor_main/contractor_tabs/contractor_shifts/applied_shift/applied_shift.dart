@@ -31,7 +31,9 @@ class AppliedShift extends StatelessWidget {
                 child: tabbar(context),
               ),
               Expanded(
-                child: (state.selectedAppliedTab == 0) ? AppliedTab() : CounterProposalTab(),
+                child: (state.selectedAppliedTab == 0)
+                    ? AppliedTab()
+                    : CounterProposalTab(),
               ),
             ],
           ),
@@ -50,7 +52,9 @@ class AppliedShift extends StatelessWidget {
       ),
       child: TabBar(
         onTap: (value) {
-          context.read<ContractorShiftBloc>().add(ContractorShiftEvent.appliedShiftChangeTab(value));
+          context
+              .read<ContractorShiftBloc>()
+              .add(ContractorShiftEvent.appliedShiftChangeTab(value));
         },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(

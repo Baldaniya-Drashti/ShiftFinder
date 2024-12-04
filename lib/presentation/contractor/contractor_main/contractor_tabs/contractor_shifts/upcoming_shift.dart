@@ -29,87 +29,91 @@ class UpcomingShift extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return PaginatedListView(
-          onRefresh: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
-          },
-          refreshController:
-              context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
-          onLoading: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
-          },
-          isNoDataFound: state.isUpcomingNoDataFound,
-          child: state.isUpcomingLoading
-              ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isUpcomingErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong))
-                  : ListView.builder(
-                      itemCount: state.upcomingShiftList.length,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                          padding: EdgeInsets.all(getSize(10)),
-                          width: getSize(355),
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(getSize(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.black.withOpacity(0.2),
-                                blurRadius: 25,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              userDetail(context, state,
-                                  state.upcomingShiftList[index]),
-                              paddingBetweenFields(),
-                              dateAndTime(
-                                  context, state.upcomingShiftList[index]),
-                              paddingBetweenFields(),
-                              CommonButton(
-                                onPressed: () {
-                                  /*context.router.push(
-                                    PageRouteInfo(
-                                      ViewUpcomingShiftDetails.name,
-                                      args: ViewUpcomingShiftDetailsArgs(
-                                          postId: 1),
-                                    ),
-                                  );*/
-                                  context.router.push(
-                                    PageRouteInfo(
-                                      ViewContractorShift.name,
-                                      args: ViewContractorShiftArgs(
-                                        postId:
-                                            state.upcomingShiftList[index].id ??
-                                                -1,
-                                        isTotalApplicants: true,
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+          child: PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
+            },
+            refreshController:
+                context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
+            onLoading: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
+            },
+            isNoDataFound: state.isUpcomingNoDataFound,
+            child: state.isUpcomingLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isUpcomingErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong))
+                    : ListView.builder(
+                        itemCount: state.upcomingShiftList.length,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                            padding: EdgeInsets.all(getSize(10)),
+                            width: getSize(355),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  blurRadius: getSize(20),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                userDetail(context, state,
+                                    state.upcomingShiftList[index]),
+                                paddingBetweenFields(),
+                                dateAndTime(
+                                    context, state.upcomingShiftList[index]),
+                                paddingBetweenFields(),
+                                CommonButton(
+                                  onPressed: () {
+                                    /*context.router.push(
+                                      PageRouteInfo(
+                                        ViewUpcomingShiftDetails.name,
+                                        args: ViewUpcomingShiftDetailsArgs(
+                                            postId: 1),
                                       ),
-                                    ),
-                                  );
-                                },
-                                height: 34,
-                                borderRadius: 10,
-                                buttonText: StringConstant.viewShiftDetails,
-                                buttonFontSize: 12,
-                                buttonTextColor: AppColors.black,
-                                backgroundColor:
-                                    AppColors.primaryColor.withOpacity(0.2),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                                    );*/
+                                    context.router.push(
+                                      PageRouteInfo(
+                                        ViewContractorShift.name,
+                                        args: ViewContractorShiftArgs(
+                                          postId: state.upcomingShiftList[index]
+                                                  .id ??
+                                              -1,
+                                          isTotalApplicants: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  height: 34,
+                                  borderRadius: 10,
+                                  buttonText: StringConstant.viewShiftDetails,
+                                  buttonFontSize: 12,
+                                  buttonTextColor: AppColors.black,
+                                  backgroundColor:
+                                      AppColors.primaryColor.withOpacity(0.2),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+          ),
         );
       },
     );
@@ -267,7 +271,9 @@ class UpcomingShift extends StatelessWidget {
     AppDialog.showDelete(
       context,
       title: StringConstant.withdrawShift,
-      infoMessage: StringConstant.withdrawCADFeeDesc,
+      infoMessage: (shift.isCad ?? false)
+          ? StringConstant.withdrawCADFeeDesc
+          : StringConstant.withdrawDescWithoutCAD,
       infoMsgTextStyle: TextStyle(fontSize: getFontSize(14)),
       deleteBtnText: StringConstant.withdraw,
       otherContent: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(

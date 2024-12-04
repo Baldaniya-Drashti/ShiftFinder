@@ -35,7 +35,7 @@ class CancelledShiftView extends StatelessWidget {
                 ? Center(
                     child: BaseText(text: StringConstant.somethindWentWrong))
                 : Padding(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(15)),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(5)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -77,6 +77,7 @@ class CancelledShiftView extends StatelessWidget {
                               itemCount: state.cancelledShiftList.length,
                               padding: EdgeInsets.symmetric(
                                 vertical: getSize(10),
+                                horizontal: getSize(10),
                               ),
                               itemBuilder: (context, index) => cancelShiftUI(
                                   context,
@@ -186,9 +187,8 @@ class CancelledShiftView extends StatelessWidget {
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.15),
-            blurRadius: 8,
-            offset: Offset(0, 1),
+            color: AppColors.lightGrey.withOpacity(0.2),
+            blurRadius: getSize(20),
           ),
         ],
       ),
