@@ -83,6 +83,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
               selectedObj: data,
               post: post,
               updateShift: state.updateShift,
+              fromSaveTemplate: fromSaveTemplate
             ),
           ))
               .then((value) {
@@ -154,7 +155,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                     /// After click go to next screen to select time for different dates
                     context
                         .read<PostShiftBloc>()
-                        .add(PostShiftEvent.multidateContinueButtonPressed());
+                        .add(PostShiftEvent.multidateContinueButtonPressed(fromSaveTemplate: fromSaveTemplate));
                   },
                   buttonText: fromSaveTemplate? "Save and continue":StringConstant.txtContinue,
                 ),
@@ -175,7 +176,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
   Widget selectMultiDate(BuildContext context, PostShiftState state) {
     return CustomMultiDatePicker(
       value: state.selectedMultiDates.getValue(),
-      isDisabled: (state.updateShift.id != null) ? true : false,
+      isDisabled: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
       onValueChanged: (value) {
         print("selected dates--> $value");
         context

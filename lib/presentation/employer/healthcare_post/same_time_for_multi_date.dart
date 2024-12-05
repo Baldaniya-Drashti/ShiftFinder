@@ -64,7 +64,7 @@ class SameTimeForMultiDate extends StatelessWidget {
                   StringConstant.pleaseSelectAtLeastOneDate,
                 ),
               paddingBetweenFields(),
-              if (state.updateShift.id != null) ...[
+              if (state.updateShift.id != null&& fromSaveTemplate==false) ...[
                 disableTime(state),
               ] else ...[
                 startTime(context, state),
@@ -164,7 +164,7 @@ class SameTimeForMultiDate extends StatelessWidget {
   Widget selectMultiDate(BuildContext context, PostShiftState state) {
     return CustomMultiDatePicker(
       value: state.selectedMultiDates.getValue(),
-      isDisabled: (state.updateShift.id != null) ? true : false,
+      isDisabled: (state.updateShift.id != null && fromSaveTemplate==false) ? true : false,
       onValueChanged: (value) {
         print("selected dates--> $value");
         context.read<PostShiftBloc>().add(PostShiftEvent.multiDateSelectionChanged(value));
@@ -185,7 +185,7 @@ class SameTimeForMultiDate extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
-          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          dropDownReadOnly: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
           disableDropDownColor: AppColors.grey04,
           hourValue: (state.startHour.isValid()) ? state.startHour.getValue() : null,
           minuteValue: (state.startMinute.isValid()) ? state.startMinute.getValue() : null,
@@ -218,7 +218,7 @@ class SameTimeForMultiDate extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
-          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          dropDownReadOnly: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
           disableDropDownColor: AppColors.grey04,
           hourValue: (state.endHour.isValid()) ? state.endHour.getValue() : null,
           minuteValue: (state.endMinute.isValid()) ? state.endMinute.getValue() : null,
@@ -248,8 +248,8 @@ class SameTimeForMultiDate extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: true,
-      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
-      dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+      dropDownIcon: (state.updateShift.id != null&& fromSaveTemplate==false) ? Container() : null,
+      dropDownReadOnly: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
       value: (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
       items: state.breakList.map((val) {
         return DropdownMenuItem<String>(

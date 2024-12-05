@@ -62,6 +62,7 @@ class PostShiftState with _$PostShiftState {
     required List<DateTimeDTO> multiDateTimeList,
     required bool isDifferentDateDataValid,
     required Option<Either<AuthFailure, MultiShiftDTO>> differentDateFailureOrSuccessOption,
+    required bool fromPreviousShift,
 
     /// Post the Shift
     required Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
@@ -70,6 +71,7 @@ class PostShiftState with _$PostShiftState {
   factory PostShiftState.initial() => PostShiftState(
         /// Change shift Type(Single, Multi,Long-Term)
         updateShift: HealthcarePostDTO(),
+        fromPreviousShift: false,
         post: PostShiftDTO(),
         shiftType: -1,
         postId: -1,

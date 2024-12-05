@@ -9,7 +9,7 @@ class AppInterceptors extends Interceptor {
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     // switch (err.type) {
     //   case DioExceptionType.connectionError:
-    //     var res = await requestRetrier.scheduleRequestRetry(err.requestOptions);
+    //     var res = await requestRetrier.scheduleRequestRetry(err.requestOptions);aa
 
     //     return handler.resolve(res);
     //   //return res;

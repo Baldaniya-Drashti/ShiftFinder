@@ -593,6 +593,7 @@ class AddFullPositionView extends _i121.PageRouteInfo<void> {
 class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
     _i122.Key? key,
+    bool fromSaveTemplate = false,
     required _i124.MultiShiftDTO selectedObj,
     _i125.HealthcarePostDTO? updateShift,
     required _i126.PostShiftDTO post,
@@ -601,6 +602,7 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
           AddMultiDateTime.name,
           args: AddMultiDateTimeArgs(
             key: key,
+            fromSaveTemplate: fromSaveTemplate,
             selectedObj: selectedObj,
             updateShift: updateShift,
             post: post,
@@ -616,6 +618,7 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
       final args = data.argsAs<AddMultiDateTimeArgs>();
       return _i10.AddMultiDateTime(
         key: args.key,
+        fromSaveTemplate: args.fromSaveTemplate,
         selectedObj: args.selectedObj,
         updateShift: args.updateShift,
         post: args.post,
@@ -627,12 +630,15 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
 class AddMultiDateTimeArgs {
   const AddMultiDateTimeArgs({
     this.key,
+    this.fromSaveTemplate = false,
     required this.selectedObj,
     this.updateShift,
     required this.post,
   });
 
   final _i122.Key? key;
+
+  final bool fromSaveTemplate;
 
   final _i124.MultiShiftDTO selectedObj;
 
@@ -642,7 +648,7 @@ class AddMultiDateTimeArgs {
 
   @override
   String toString() {
-    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj, updateShift: $updateShift, post: $post}';
+    return 'AddMultiDateTimeArgs{key: $key, fromSaveTemplate: $fromSaveTemplate, selectedObj: $selectedObj, updateShift: $updateShift, post: $post}';
   }
 }
 

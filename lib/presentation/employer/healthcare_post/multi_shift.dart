@@ -10,6 +10,7 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/healthcare_post/different_time_for_each_date.dart';
 import 'package:shift/presentation/employer/healthcare_post/same_time_for_multi_date.dart';
@@ -32,6 +33,7 @@ class MultiPostShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Log.debug("===>MultiPostShiftCalled");
     return BlocProvider(
       create: (context) =>
           getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Multi", postId: postId, post: post, updateShift: updateShift)),
@@ -48,9 +50,12 @@ class MultiPostShift extends StatelessWidget {
                       Visibility(visible: state.updateShift.id == null, child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
-                          ? SameTimeForMultiDate(fromSaveTemplate: fromSaveTemplate,)
+                          ? SameTimeForMultiDate(
+                              fromSaveTemplate: fromSaveTemplate,
+                            )
                           : DifferentTimeForEachDate(
                               post: post,
+                              fromSaveTemplate: fromSaveTemplate,
                             ),
                     ],
                   ),

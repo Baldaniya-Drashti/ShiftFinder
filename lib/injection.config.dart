@@ -226,6 +226,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i426.SaveTemplateBloc>(
+        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i158.EmployerLocationBloc>(
         () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i828.ApplicantProfileBloc>(
@@ -234,8 +236,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i464.ShiftActionBloc>(
         () => _i464.ShiftActionBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i426.SaveTemplateBloc>(
-        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(

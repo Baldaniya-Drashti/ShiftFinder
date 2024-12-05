@@ -77,7 +77,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.multiDateSelectionChanged(List<DateTime> selectedDates) = multiDateSelectionChanged;
 
-  const factory PostShiftEvent.multidateContinueButtonPressed() = MultidateContinueButtonPressed;
+  const factory PostShiftEvent.multidateContinueButtonPressed({required bool fromSaveTemplate}) = MultidateContinueButtonPressed;
 
   const factory PostShiftEvent.multiDateSameDiffTypeChanged(int selectedType) = MultiDateSameDiffTypeChanged;
 
@@ -93,12 +93,13 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.endMinuteListChanged(String minute, int index, String date) = EndMinuteListChanged;
 
-  const factory PostShiftEvent.differentTimeShiftSubmitted(MultiShiftDTO shiftDetail, BuildContext context) = DifferentTimeShiftSubmitted;
+  const factory PostShiftEvent.differentTimeShiftSubmitted(MultiShiftDTO shiftDetail, BuildContext context,bool fromSaveTemplate) = DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
     List<DateTimeDTO> list, {
     required PostShiftDTO post,
     required HealthcarePostDTO? updateShift,
+    required  bool? fromSaveTemplate,
   }) = InitMultiDifferentDateEvent;
 
   const factory PostShiftEvent.backEvent() = BackEvent;
