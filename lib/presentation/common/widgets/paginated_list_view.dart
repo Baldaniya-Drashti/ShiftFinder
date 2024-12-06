@@ -37,42 +37,53 @@ class PaginatedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      header: MaterialClassicHeader(
-        color: AppColors.primaryColor,
+    return ScrollbarTheme(
+      data: ScrollbarThemeData(
+        thumbColor:
+            WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.5)),
+        thickness: WidgetStateProperty.all(getSize(3)),
+        radius: Radius.circular(getSize(10)),
       ),
-      footer: footer ??
-          CustomFooter(
-            builder: (context, loadStatus) {
-              return SizedBox();
-            },
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: SmartRefresher(
+          header: MaterialClassicHeader(
+            color: AppColors.primaryColor,
           ),
-      enablePullUp: enablePullUp ?? true,
-      enablePullDown: enablePullDown ?? true,
-      reverse: reverse,
-      scrollDirection: scrollDirection,
-      controller: refreshController,
-      physics: BouncingScrollPhysics(),
-      onRefresh: () {
-        onRefreshData();
-      },
-      onLoading: () {
-        onLoadMoreData();
-      },
-      child: isNoDataFound
-          ? noDataWidget ??
-              Center(
-                child: SizedBox(
-                  width: getSize(280),
-                  child: BaseText(
-                    textColor: AppColors.black.withOpacity(0.65),
-                    text: dataStatus ?? 'No result found.',
-                    textAlign: TextAlign.center,
-                    lineHeight: 1.2,
-                  ),
-                ),
-              )
-          : child,
+          footer: footer ??
+              CustomFooter(
+                builder: (context, loadStatus) {
+                  return SizedBox();
+                },
+              ),
+          enablePullUp: enablePullUp ?? false,
+          enablePullDown: enablePullDown ?? true,
+          reverse: reverse,
+          scrollDirection: scrollDirection,
+          controller: refreshController,
+          physics: BouncingScrollPhysics(),
+          onRefresh: () {
+            onRefreshData();
+          },
+          onLoading: () {
+            onLoadMoreData();
+          },
+          child: isNoDataFound
+              ? noDataWidget ??
+                  Center(
+                    child: SizedBox(
+                      width: getSize(280),
+                      child: BaseText(
+                        textColor: AppColors.black.withOpacity(0.65),
+                        text: dataStatus ?? 'No result found.',
+                        textAlign: TextAlign.center,
+                        lineHeight: 1.2,
+                      ),
+                    ),
+                  )
+              : child,
+        ),
+      ),
     );
   }
 

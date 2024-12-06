@@ -60,7 +60,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
             notchSmoothness: NotchSmoothness.sharpEdge,
             shadow: BoxShadow(
               color: AppColors.lightGrey,
-              blurRadius: getSize(15),
+              blurRadius: getSize(10),
               blurStyle: BlurStyle.normal,
             ),
             elevation: 0,
@@ -126,9 +126,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
                     width: getSize(24),
                     // color: isActive ? AppColors.primaryColor : AppColors.black,
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   BaseText(
                     text: tabLabelList[index],
                     fontSize: 12,
@@ -146,7 +144,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
             notchSmoothness: NotchSmoothness.sharpEdge,
             shadow: BoxShadow(
               color: AppColors.lightGrey,
-              blurRadius: getSize(15),
+              blurRadius: getSize(10),
               blurStyle: BlurStyle.normal,
             ),
             elevation: 0,

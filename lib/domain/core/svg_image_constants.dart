@@ -81,6 +81,7 @@ class SvgImageConstant {
   static const call = "assets/svg/call.svg";
   static const unitDepartment = "assets/svg/unit_department.svg";
   static const contectFilled = "assets/svg/contect_filled.svg";
+  static const calenderStatement = "assets/svg/calender_statement.svg";
 
   static const completedShifts = "assets/svg/completed_shifts.svg";
   static const previousShifts = "assets/svg/previous_shift.svg";
@@ -156,8 +157,10 @@ class SvgImageConstant {
   static const bankDollar = "assets/svg/bank_dollar.svg";
   static const information = "assets/svg/information.svg";
   static const faq = "assets/svg/faq.svg";
-  static const availableWithdrawBalance = "assets/svg/available_withdraw_balance.svg";
+  static const availableWithdrawBalance =
+      "assets/svg/available_withdraw_balance.svg";
   static const next = 'assets/svg/next.svg';
+  static const questionMark = 'assets/svg/question_mark.svg';
   static const saveTemplate2 = 'assets/svg/save_template_2.svg';
   static const search = 'assets/svg/search.svg';
 }

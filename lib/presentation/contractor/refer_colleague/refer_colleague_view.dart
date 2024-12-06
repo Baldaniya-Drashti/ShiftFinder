@@ -1,12 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "ReferColleagueView")
@@ -15,132 +24,189 @@ class ReferColleagueView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Refer a Colleague"),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Material(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.surfaceColor,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocProvider(
+      create: (context) => getIt<ReferColleagueBloc>()
+        ..add(ReferColleagueEvent.getReferredColleagueData(isRefresh: true)),
+      child: BlocBuilder<ReferColleagueBloc, ReferColleagueState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                title: StringConstant.referAColleague),
+            body: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Material(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.surfaceColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
                         children: [
-                          BaseText(
-                            text: "Referral Code",
-                            fontSize: 10,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BaseText(
+                                  text: StringConstant.referralCode,
+                                  fontSize: 10,
+                                ),
+                                BaseText(
+                                  text: "TEST15464CV",
+                                  fontWeight: FontWeight.w600,
+                                  textColor: AppColors.green,
+                                ),
+                              ],
+                            ),
                           ),
-                          BaseText(
-                            text: "FG15464CV",
-                            fontWeight: FontWeight.w600,
-                            textColor: AppColors.green,
+                          CommonButton(
+                            onPressed: () {
+                              showUnderDevelopment(context);
+                            },
+                            buttonText: StringConstant.share,
+                            borderRadius: 10,
+                            width: 120,
+                            height: 37,
+                            buttonFontSize: 14,
+                            buttonFontWeight: FontWeight.w500,
                           ),
                         ],
                       ),
                     ),
-                    Material(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.green,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                        child: BaseText(
-                          text: "Share",
-                          textColor: AppColors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: getSize(18),
+                        top: getSize(20),
+                        bottom: getSize(12)),
+                    child: BaseText(
+                      text: StringConstant.yourReferrals,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Expanded(
+                    child: state.isLoading
+                        ? CenterLoadingIndicator(isOnlyLoader: true)
+                        : state.isErrorInApi
+                            ? Center(
+                                child: BaseText(
+                                    text: StringConstant.somethindWentWrong))
+                            : PaginatedListView(
+                                onRefresh: () => context
+                                    .read<ReferColleagueBloc>()
+                                    .add(ReferColleagueEvent
+                                        .getReferredColleagueData(
+                                            isRefresh: true)),
+                                onLoading: () => context
+                                    .read<ReferColleagueBloc>()
+                                    .add(ReferColleagueEvent
+                                        .getReferredColleagueData(
+                                            isRefresh: false)),
+                                refreshController: context
+                                    .read<ReferColleagueBloc>()
+                                    .refreshController,
+                                isNoDataFound: state.noDataFound,
+                                child: ListView.separated(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    separatorBuilder: (context, index) =>
+                                        Gap(getSize(12)),
+                                    itemCount: state.collegueList.length,
+                                    itemBuilder: (context, index) {
+                                      final user = state.collegueList[index];
+                                      return Material(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.white,
+                                        child: InkWell(
+                                          onTap: () {
+                                            showUnderDevelopment(context);
+                                            /*  context.router.push(
+                                              PageRouteInfo(
+                                                  ViewApplicantProfile.name,
+                                                  args:
+                                                      ViewApplicantProfileArgs(
+                                                    id: user.user_id ?? -1,
+                                                    postId: -1,
+                                                  )),
+                                            ); */
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.all(getSize(12)),
+                                            child: ListTile(
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              leading: SizedBox(
+                                                height: getSize(40),
+                                                width: getSize(40),
+                                                child: (user.profile != null &&
+                                                        user.profile!
+                                                            .isNotEmpty)
+                                                    ? UserAvatar(
+                                                        url: state
+                                                                .collegueList[
+                                                                    index]
+                                                                .profile ??
+                                                            "",
+                                                      )
+                                                    : SvgPicture.asset(
+                                                        SvgImageConstant
+                                                            .person),
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              tileColor:
+                                                  AppColors.scaffoldColor,
+                                              title: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  BaseText(
+                                                    text:
+                                                        "${user.first_name ?? ""} ${user.last_name ?? ""}",
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  SizedBox(width: getSize(10)),
+                                                  SvgPicture.asset(
+                                                    SvgImageConstant.rightArrow,
+                                                    height: 13,
+                                                    width: 13,
+                                                    color: AppColors.black
+                                                        .withOpacity(0.5),
+                                                  )
+                                                ],
+                                              ),
+                                              subtitle: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    SvgImageConstant
+                                                        .emailFilled,
+                                                  ),
+                                                  SizedBox(width: getSize(8)),
+                                                  BaseText(
+                                                    text: user.email ?? "",
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                  )
+                ],
               ),
             ),
-            Gap(20  ),
-            
-            
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18),
-                      child: BaseText(
-                        text: "Your Referrals",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Gap(12),
-                    ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Material(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ListTile(
-                            visualDensity: VisualDensity.compact,
-                            leading: UserAvatar(
-                              url: "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
-                            ),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                            tileColor: AppColors.scaffoldColor,
-                            title: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                BaseText(
-                                  text: "Rochel Foose",
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                SizedBox(
-                                  width: getSize(10),
-                                ),
-                                SvgPicture.asset(
-                                  SvgImageConstant.rightArrow,
-                                  height: 13,
-                                  width: 13,
-                                  color: AppColors.black.withOpacity(0.5),
-                                )
-                              ],
-                            ),
-                            subtitle: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  SvgImageConstant.emailFilled,
-                                  height: 16,
-                                  width: 16,
-                                ),
-                                SizedBox(
-                                  width: getSize(4),
-                                ),
-                                BaseText(
-                                  text: "debra.holt@example.com",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      separatorBuilder: (context, index) => Gap(12),
-                      itemCount: 10,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          );
+        },
       ),
     );
   }

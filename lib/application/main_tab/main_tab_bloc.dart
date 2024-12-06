@@ -14,6 +14,7 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as route;
+import 'package:shift/presentation/core/helper/push_notification_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
@@ -151,29 +152,52 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
               },
             );
           },
-          // registerForPush: (RegisterForPush value) async {
-          //   await authFacade.registerForPush(fcmToken: value.fcmToken);
-          // },
-          // pushNotificationInitialize: (PushNotificationInitialize value) async {
-          //   await PushNotificationService()
-          //       .setupInteractedMessage(value.context);
-          //   PushNotificationService()
-          //       .firebaseMessaging
-          //       .onTokenRefresh
-          //       .listen((event) {
-          //     add(MainTabEvent.registerForPush(event));
-          //   });
-          //   await PushNotificationService()
-          //       .firebaseMessaging
-          //       .getToken()
-          //       .then((value) async {
-          //     add(MainTabEvent.registerForPush(value ?? ""));
-          //   });
-          // },
-          // initDynamicLink: (InitDynamicLink value) async {
-          //   DynamicLinksService.initDynamicLinks(value.context);
-          //   add(MainTabEvent.pushNotificationInitialize(value.context));
-          // },
+          registerForPush: (RegisterForPush value) async {
+            await authFacade.registerForPush(fcmToken: value.fcmToken);
+          },
+          pushNotificationInitialize: (PushNotificationInitialize value) async {
+            await PushNotificationService()
+                .setupInteractedMessage(value.context);
+            PushNotificationService()
+                .firebaseMessaging
+                .onTokenRefresh
+                .listen((event) {
+              add(MainTabEvent.registerForPush(event));
+            });
+            await PushNotificationService()
+                .firebaseMessaging
+                .getToken()
+                .then((value) async {
+              add(MainTabEvent.registerForPush(value ?? ""));
+            });
+          },
+          initDynamicLink: (InitDynamicLink value) async {
+            // DynamicLinksService.initDynamicLinks(value.context);
+            add(MainTabEvent.pushNotificationInitialize(value.context));
+          },
+          /* registerForPush: (RegisterForPush value) async {
+            await authFacade.registerForPush(fcmToken: value.fcmToken);
+          },
+          pushNotificationInitialize: (PushNotificationInitialize value) async {
+            await PushNotificationService()
+                .setupInteractedMessage(value.context);
+            PushNotificationService()
+                .firebaseMessaging
+                .onTokenRefresh
+                .listen((event) {
+              add(MainTabEvent.registerForPush(event));
+            });
+            await PushNotificationService()
+                .firebaseMessaging
+                .getToken()
+                .then((value) async {
+              add(MainTabEvent.registerForPush(value ?? ""));
+            });
+          },
+          initDynamicLink: (InitDynamicLink value) async {
+            DynamicLinksService.initDynamicLinks(value.context);
+            add(MainTabEvent.pushNotificationInitialize(value.context));
+          }, */
         );
       },
     );

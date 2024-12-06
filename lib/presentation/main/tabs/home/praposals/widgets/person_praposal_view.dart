@@ -61,11 +61,37 @@ class PraposalPersonView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BaseText(
-                            text:
-                                "${data.first_name ?? ""} ${data.last_name ?? ""}",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BaseText(
+                                text:
+                                    "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              Visibility(
+                                visible: data.occupied ?? false,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(7),
+                                    vertical: getSize(5),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.redAccent.withOpacity(0.1),
+                                    borderRadius:
+                                        BorderRadius.circular(getSize(10)),
+                                  ),
+                                  child: BaseText(
+                                    text: 'Occupied',
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w600,
+                                    textColor:
+                                        AppColors.redAccent.withOpacity(0.8),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: getSize(3)),
                           BaseText(

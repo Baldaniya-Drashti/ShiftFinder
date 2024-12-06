@@ -77,10 +77,9 @@ class ApproveShiftView extends StatelessWidget {
                                         BorderRadius.circular(getSize(20)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color:
-                                            AppColors.black.withOpacity(0.15),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 1),
+                                        color: AppColors.lightGrey
+                                            .withOpacity(0.2),
+                                        blurRadius: getSize(20),
                                       ),
                                     ],
                                   ),

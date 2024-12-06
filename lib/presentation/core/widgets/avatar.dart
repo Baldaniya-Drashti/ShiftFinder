@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({
     super.key,
     required this.url,
-     this.size,
+    this.size,
   });
 
   final String url;
@@ -21,8 +22,8 @@ class UserAvatar extends StatelessWidget {
       ),
       child: ClipOval(
         child: CachedNetworkImage(
-          height: size??40,
-          width: size??40,
+          height: size ?? getSize(40),
+          width: size ?? getSize(40),
           fit: BoxFit.cover,
           imageUrl: url,
           placeholder: (context, url) => SizedBox(),

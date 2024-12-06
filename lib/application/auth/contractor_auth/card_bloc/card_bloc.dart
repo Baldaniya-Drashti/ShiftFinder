@@ -99,7 +99,17 @@ class CardBloc extends Bloc<CardEvent, CardState> {
                 );
               }
             } catch (error) {
-              showError(message: error.toString()).show(e.context);
+              print("error--> $error");
+
+              String errorMessage = "Something went wrong.";
+
+              if (error is StripeException) {
+                errorMessage = error.error.localizedMessage ??
+                    error.error.message ??
+                    errorMessage;
+              }
+
+              showError(message: errorMessage).show(e.context);
               emit(
                 state.copyWith(
                   showErrorMessages: true,

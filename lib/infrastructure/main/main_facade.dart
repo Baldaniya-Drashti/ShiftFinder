@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/application/faq/faq_bloc.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
@@ -19,6 +20,7 @@ import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 
@@ -423,7 +425,7 @@ class MainFacade implements IMainFacade {
     try {
       Map<String, dynamic> mapData = postShiftDetail.toJson();
 
-      print("Sending Multi Date->  ${postShiftDetail.multi_date}");
+      print("Sending Multi Date->  ${jsonEncode(postShiftDetail.multi_date)}");
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.createPost, mapData);
       final data = HealthcarePostDTO.fromJson(res.data);
@@ -2057,15 +2059,16 @@ class MainFacade implements IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getContractorPreviousShift({
     required int type,
     required int page,
-    required int sortBy,
+    int? sortBy,
   }) async {
     try {
-      ///TODO: Have to make changes
       final response = await apiService.getMethod(
-        ApiConstants.employerPreviousShift,
+        ApiConstants.contractorPreviousShift,
         queryParameters: {
+          'type': type,
+          if (sortBy != null) 'sort_by': sortBy,
           "page": page,
-          "perPage": 10,
+          "perPage": _perPage,
         },
       );
 
@@ -2169,6 +2172,197 @@ class MainFacade implements IMainFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
         if (commonRespose.dioMessage != null) {
           return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI() async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.getPaymetCardList,
+      );
+      if (res != null) {
+        var account = res.data as List<dynamic>;
+        var data = account.map((e) => PaymentCardDTO.fromJson(e)).toList();
+        print("Payment Card List Response->  $data");
+
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getFaqList({
+    required int page,
+  }) async {
+    Map<String, dynamic> mapData = {
+      "page": page,
+      "perPage": _perPage,
+    };
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.faqsList,
+        queryParameters: mapData,
+      );
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deletePaymentCardAPI(
+      {required int id}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deletePaymentCard}/$id",
+      );
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
+      {required int date}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "date": date,
+      };
+
+      final res = await apiService.getMethod(
+        ApiConstants.contractorPerformanceInsights,
+        queryParameters: mapData,
+      );
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
+    required int? id,
+    required int postId,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        if (id != null) 'id': id,
+        'post_id': postId,
+      };
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.getMethod(ApiConstants.getSendProposalDetail,
+          queryParameters: mapData);
+      if (res != null) {
+        final data = HealthcarePostDTO.fromJson(res.data);
+        print("Healthercare Post Response->  ${data}");
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getReferCollegueAPI({
+    required int page,
+  }) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.contractorReferColleague,
+        queryParameters: {
+          "page": page,
+          "perPage": _perPage,
+        },
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());

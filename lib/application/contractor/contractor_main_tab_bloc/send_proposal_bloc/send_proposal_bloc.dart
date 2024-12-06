@@ -167,8 +167,15 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             emit(state.copyWith(isLoading: true));
 
             await getaAccomdationHoursListApi(emit);
-
-            failureOrSuccess = await _mainFacade.getPostApi(postId: e.postID);
+            // if (e.isFromCounterPropose) {
+            //   failureOrSuccess =
+            //       await _mainFacade.getContractorShiftDetail(postId: e.postID);
+            // } else {
+            //   failureOrSuccess = await _mainFacade.getPostApi(postId: e.postID);
+            // }
+            // failureOrSuccess =await _mainFacade.getPostApi(postId: e.postID );
+            failureOrSuccess = await _mainFacade.getSendProposalDetailApi(
+                id: e.id, postId: e.postID);
 
             failureOrSuccess.fold(
               (l) => emit(state.copyWith(
@@ -556,7 +563,9 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
         .toString();
 
     return {
-      'post_id': state.shift.id,
+      'post_id': state.shift.post_id,
+
+      /// shift_type means Applied => 1 SendProposal => 2
       'shift_type': 2,
       'rate_hour': state.rateHour.getValue(),
       'date': state.shift.shift_detail?.date,
@@ -647,7 +656,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     }
 
     Map<String, dynamic> mapData = {
-      'post_id': state.shift.id,
+      'post_id': state.shift.post_id,
       'shift_type': 2,
       'rate_hour': state.rateHour.getValue(),
       'commute_allowance': (shiftDetail.commute_allowance_type == 1)
@@ -752,6 +761,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   setShiftDataToUpdate(
       Emitter<SendProposalState> emit, HealthcarePostDTO updatedShift) async {
     final r = updatedShift.shift_detail;
+    // final proposal = updatedShift.proposal_received;
     if (r != null) {
       print("Update r---> ${jsonEncode(r.recurrence_mode)}");
       emit(
@@ -783,6 +793,26 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
               : ""),
+          /* rateHour: Rate((updatedShift
+                      .proposal_received?.proposed_hourly_rate !=
+                  null)
+              ? "${updatedShift.proposal_received?.proposed_hourly_rate ?? ""}"
+              : ""),
+          commuteHour: InputEmptyOrNot((proposal?.commute_allowance_type == 2)
+              ? getAccomdationHourName(
+                  proposal?.proposed_commute_allowance ?? 0)
+              : ""),
+          commuteRate: Rate((proposal?.commute_allowance_type == 1)
+              ? "${proposal?.proposed_commute_allowance ?? 0}"
+              : ""),
+          accomdationHour: InputEmptyOrNot(
+              (proposal?.accommodation_allowance_type == 2)
+                  ? getAccomdationHourName(
+                      proposal?.proposed_accommodation_allowance ?? 0.0)
+                  : ""),
+          accomdationRate: Rate((proposal?.accommodation_allowance_type == 1)
+              ? "${proposal?.proposed_accommodation_allowance ?? 0}"
+              : ""), */
         ),
       );
     }

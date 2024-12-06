@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/infrastructure/account/account_entity.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
@@ -117,6 +118,17 @@ CredentialRegistrationDTO getCredentialRegistrationDoc() {
   return Hive.box(BoxNames.cotractorDocumentBox)
           .get(BoxKeys.credentialRegistrationDoc) ??
       "";
+}
+
+Future<String?> getDeviceId() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  if (Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo.id;
+  } else {
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    return iosInfo.identifierForVendor ?? '';
+  }
 }
 
 // String? getRememberToken() {

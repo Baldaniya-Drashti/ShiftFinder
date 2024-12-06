@@ -32,40 +32,43 @@ class ContractorHomeView extends StatelessWidget {
       child: BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
         builder: (context, state) {
           // return getCheckoutContainer(context);
-          return PaginatedListView(
-            onRefresh: () {
-              context
-                  .read<ContractorHomeBloc>()
-                  .add(ContractorHomeEvent.getContractorDashboardList(true));
-            },
-            refreshController:
-                context.read<ContractorHomeBloc>().refreshController,
-            onLoading: () {
-              context
-                  .read<ContractorHomeBloc>()
-                  .add(ContractorHomeEvent.getContractorDashboardList(false));
-            },
-            isNoDataFound: state.isNoDataFound,
-            child: state.isLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong),
-                      )
-                    : ListView.builder(
-                        itemCount: state.contractorDashboardList.length,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(15),
-                          vertical: getSize(10),
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+            child: PaginatedListView(
+              onRefresh: () {
+                context
+                    .read<ContractorHomeBloc>()
+                    .add(ContractorHomeEvent.getContractorDashboardList(true));
+              },
+              refreshController:
+                  context.read<ContractorHomeBloc>().refreshController,
+              onLoading: () {
+                context
+                    .read<ContractorHomeBloc>()
+                    .add(ContractorHomeEvent.getContractorDashboardList(false));
+              },
+              isNoDataFound: state.isNoDataFound,
+              child: state.isLoading
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : state.isErrorInAPI
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : ListView.builder(
+                          itemCount: state.contractorDashboardList.length,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getSize(10),
+                            vertical: getSize(10),
+                          ),
+                          clipBehavior: Clip.none,
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (_, index) {
+                            return getCheckoutContainer(index, context, state);
+                          },
                         ),
-                        clipBehavior: Clip.none,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (_, index) {
-                          return getCheckoutContainer(index, context, state);
-                        },
-                      ),
+            ),
           );
         },
       ),
@@ -86,8 +89,8 @@ class ContractorHomeView extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(20)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.2),
-            blurRadius: 25,
+            color: AppColors.lightGrey.withOpacity(0.2),
+            blurRadius: getSize(20),
           ),
         ],
       ),
@@ -177,8 +180,10 @@ class ContractorHomeView extends StatelessWidget {
                   context.router
                       .push(PageRouteInfo(SendProposal.name,
                           args: SendProposalArgs(
-                              postId: state.contractorDashboardList[index].id ??
-                                  -1)))
+                            postId:
+                                state.contractorDashboardList[index].id ?? -1,
+                            id: null,
+                          )))
                       .then((value) {
                     if (value == true) {
                       context.read<ContractorHomeBloc>().add(

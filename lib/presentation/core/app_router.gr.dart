@@ -74,7 +74,7 @@ import 'package:shift/presentation/auth/contractor_auth/reference_details/add_re
 import 'package:shift/presentation/auth/contractor_auth/reference_details/reference_detail_list.dart'
     as _i94;
 import 'package:shift/presentation/auth/contractor_auth/terms_conditions.dart'
-    as _i108;
+    as _i107;
 import 'package:shift/presentation/auth/employer_auth/add_card_detail.dart'
     as _i4;
 import 'package:shift/presentation/auth/employer_auth/location_detail_form.dart'
@@ -99,7 +99,7 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/propose_availability.dart'
     as _i91;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/send_proposal.dart'
-    as _i100;
+    as _i99;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/view_contractor_shift.dart'
     as _i112;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/view_contractor_shift_dates.dart'
@@ -128,6 +128,8 @@ import 'package:shift/presentation/contractor/my_calendar_view/my_calendar_view.
     as _i73;
 import 'package:shift/presentation/contractor/refer_colleague/refer_colleague_view.dart'
     as _i93;
+import 'package:shift/presentation/contractor/refer_colleague/view_collegue_profile.dart'
+    as _i111;
 import 'package:shift/presentation/contractor/reference_list/reference_list_view.dart'
     as _i95;
 import 'package:shift/presentation/contractor_earning/contractor_earning_view.dart'
@@ -142,11 +144,11 @@ import 'package:shift/presentation/contractor_earning/contractor_withdraw_paymen
     as _i37;
 import 'package:shift/presentation/core/enum.dart' as _i137;
 import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
-    as _i102;
+    as _i101;
 import 'package:shift/presentation/customer_support/customer_support_view.dart'
     as _i39;
 import 'package:shift/presentation/customer_support/support_ticket_view.dart'
-    as _i105;
+    as _i104;
 import 'package:shift/presentation/employer/add_full_position/add_full_position_view.dart'
     as _i9;
 import 'package:shift/presentation/employer/employer_availability/employer_availability_view.dart'
@@ -184,8 +186,6 @@ import 'package:shift/presentation/employer/profile/previous_shift_view/previous
     as _i84;
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_view.dart'
     as _i85;
-import 'package:shift/presentation/employer/save_template/save_template_view.dart'
-    as _i99;
 import 'package:shift/presentation/full_position_review/full_position_review_view.dart'
     as _i55;
 import 'package:shift/presentation/main/main_tab.dart' as _i69;
@@ -196,7 +196,7 @@ import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/awai
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/counter_purpose_view.dart'
     as _i38;
 import 'package:shift/presentation/main/tabs/home/praposals/total_praposal_view.dart'
-    as _i109;
+    as _i108;
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/view_person_praposal_view.dart'
     as _i118;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/education_profile_view.dart'
@@ -206,7 +206,7 @@ import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_ap
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/professional_profile_view.dart'
     as _i87;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/view_applicant_profile.dart'
-    as _i111;
+    as _i110;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/common_document_view.dart'
     as _i24;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/personal_reference_detail.dart'
@@ -224,9 +224,9 @@ import 'package:shift/presentation/main/tabs/profile/teams/add_new_member/add_ne
 import 'package:shift/presentation/main/tabs/profile/teams/add_new_team/add_new_team_view.dart'
     as _i12;
 import 'package:shift/presentation/main/tabs/profile/teams/team_detail/team_detail_view.dart'
-    as _i106;
+    as _i105;
 import 'package:shift/presentation/main/tabs/profile/teams/teams_view.dart'
-    as _i107;
+    as _i106;
 import 'package:shift/presentation/main/tabs/shifts/agreed_proposal.dart'
     as _i15;
 import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/approved_contractor_list.dart'
@@ -238,7 +238,7 @@ import 'package:shift/presentation/main/tabs/shifts/filled_shifts/filled_shifts_
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/filled_hired_contractor_list.dart'
     as _i52;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_agreed_praposal.dart'
-    as _i110;
+    as _i109;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_filled_shifts_dates.dart'
     as _i115;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_filled_shifts_details.dart'
@@ -246,14 +246,14 @@ import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_f
 import 'package:shift/presentation/main/tabs/shifts/multi_agreed_shift.dart'
     as _i72;
 import 'package:shift/presentation/main/tabs/shifts/shift_actions_view.dart'
-    as _i101;
+    as _i100;
 import 'package:shift/presentation/main/tabs/shifts/single_agreed_shift.dart'
-    as _i103;
+    as _i102;
 import 'package:shift/presentation/onboarding/onboarding1.dart' as _i75;
 import 'package:shift/presentation/onboarding/onboarding2.dart' as _i76;
 import 'package:shift/presentation/onboarding/onboarding3.dart' as _i77;
 import 'package:shift/presentation/privacy_policy/privacy_policy.dart' as _i86;
-import 'package:shift/presentation/splash/splash_page.dart' as _i104;
+import 'package:shift/presentation/splash/splash_page.dart' as _i103;
 
 /// generated route for
 /// [_i1.AboutView]
@@ -593,7 +593,6 @@ class AddFullPositionView extends _i121.PageRouteInfo<void> {
 class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
     _i122.Key? key,
-    bool fromSaveTemplate = false,
     required _i124.MultiShiftDTO selectedObj,
     _i125.HealthcarePostDTO? updateShift,
     required _i126.PostShiftDTO post,
@@ -602,7 +601,6 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
           AddMultiDateTime.name,
           args: AddMultiDateTimeArgs(
             key: key,
-            fromSaveTemplate: fromSaveTemplate,
             selectedObj: selectedObj,
             updateShift: updateShift,
             post: post,
@@ -618,7 +616,6 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
       final args = data.argsAs<AddMultiDateTimeArgs>();
       return _i10.AddMultiDateTime(
         key: args.key,
-        fromSaveTemplate: args.fromSaveTemplate,
         selectedObj: args.selectedObj,
         updateShift: args.updateShift,
         post: args.post,
@@ -630,15 +627,12 @@ class AddMultiDateTime extends _i121.PageRouteInfo<AddMultiDateTimeArgs> {
 class AddMultiDateTimeArgs {
   const AddMultiDateTimeArgs({
     this.key,
-    this.fromSaveTemplate = false,
     required this.selectedObj,
     this.updateShift,
     required this.post,
   });
 
   final _i122.Key? key;
-
-  final bool fromSaveTemplate;
 
   final _i124.MultiShiftDTO selectedObj;
 
@@ -648,7 +642,7 @@ class AddMultiDateTimeArgs {
 
   @override
   String toString() {
-    return 'AddMultiDateTimeArgs{key: $key, fromSaveTemplate: $fromSaveTemplate, selectedObj: $selectedObj, updateShift: $updateShift, post: $post}';
+    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj, updateShift: $updateShift, post: $post}';
   }
 }
 
@@ -2005,7 +1999,6 @@ class HealthCarePostForm extends _i121.PageRouteInfo<HealthCarePostFormArgs> {
     _i122.Key? key,
     int? postId,
     bool isFromSplash = false,
-    bool fromSaveTemplate = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           HealthCarePostForm.name,
@@ -2013,7 +2006,6 @@ class HealthCarePostForm extends _i121.PageRouteInfo<HealthCarePostFormArgs> {
             key: key,
             postId: postId,
             isFromSplash: isFromSplash,
-            fromSaveTemplate: fromSaveTemplate,
           ),
           initialChildren: children,
         );
@@ -2029,7 +2021,6 @@ class HealthCarePostForm extends _i121.PageRouteInfo<HealthCarePostFormArgs> {
         key: args.key,
         postId: args.postId,
         isFromSplash: args.isFromSplash,
-        fromSaveTemplate: args.fromSaveTemplate,
       );
     },
   );
@@ -2040,7 +2031,6 @@ class HealthCarePostFormArgs {
     this.key,
     this.postId,
     this.isFromSplash = false,
-    this.fromSaveTemplate = false,
   });
 
   final _i122.Key? key;
@@ -2049,11 +2039,9 @@ class HealthCarePostFormArgs {
 
   final bool isFromSplash;
 
-  final bool fromSaveTemplate;
-
   @override
   String toString() {
-    return 'HealthCarePostFormArgs{key: $key, postId: $postId, isFromSplash: $isFromSplash, fromSaveTemplate: $fromSaveTemplate}';
+    return 'HealthCarePostFormArgs{key: $key, postId: $postId, isFromSplash: $isFromSplash}';
   }
 }
 
@@ -2065,7 +2053,6 @@ class HealthcarePostShift extends _i121.PageRouteInfo<HealthcarePostShiftArgs> {
     required int postId,
     _i125.HealthcarePostDTO? updateShift,
     required _i126.PostShiftDTO post,
-    bool fromSaveTemplate = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           HealthcarePostShift.name,
@@ -2074,7 +2061,6 @@ class HealthcarePostShift extends _i121.PageRouteInfo<HealthcarePostShiftArgs> {
             postId: postId,
             updateShift: updateShift,
             post: post,
-            fromSaveTemplate: fromSaveTemplate,
           ),
           initialChildren: children,
         );
@@ -2090,7 +2076,6 @@ class HealthcarePostShift extends _i121.PageRouteInfo<HealthcarePostShiftArgs> {
         postId: args.postId,
         updateShift: args.updateShift,
         post: args.post,
-        fromSaveTemplate: args.fromSaveTemplate,
       );
     },
   );
@@ -2102,7 +2087,6 @@ class HealthcarePostShiftArgs {
     required this.postId,
     this.updateShift,
     required this.post,
-    this.fromSaveTemplate = false,
   });
 
   final _i122.Key? key;
@@ -2113,11 +2097,9 @@ class HealthcarePostShiftArgs {
 
   final _i126.PostShiftDTO post;
 
-  final bool fromSaveTemplate;
-
   @override
   String toString() {
-    return 'HealthcarePostShiftArgs{key: $key, postId: $postId, updateShift: $updateShift, post: $post, fromSaveTemplate: $fromSaveTemplate}';
+    return 'HealthcarePostShiftArgs{key: $key, postId: $postId, updateShift: $updateShift, post: $post}';
   }
 }
 
@@ -2664,7 +2646,6 @@ class PayableDetail extends _i121.PageRouteInfo<PayableDetailArgs> {
     required _i125.HealthcarePostDTO post,
     bool isUpdate = false,
     _i126.PostShiftDTO? updatedPost,
-    bool fromSaveTemplate = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
@@ -2673,7 +2654,6 @@ class PayableDetail extends _i121.PageRouteInfo<PayableDetailArgs> {
             post: post,
             isUpdate: isUpdate,
             updatedPost: updatedPost,
-            fromSaveTemplate: fromSaveTemplate,
           ),
           initialChildren: children,
         );
@@ -2689,7 +2669,6 @@ class PayableDetail extends _i121.PageRouteInfo<PayableDetailArgs> {
         post: args.post,
         isUpdate: args.isUpdate,
         updatedPost: args.updatedPost,
-        fromSaveTemplate: args.fromSaveTemplate,
       );
     },
   );
@@ -2701,7 +2680,6 @@ class PayableDetailArgs {
     required this.post,
     this.isUpdate = false,
     this.updatedPost,
-    this.fromSaveTemplate = false,
   });
 
   final _i122.Key? key;
@@ -2712,11 +2690,9 @@ class PayableDetailArgs {
 
   final _i126.PostShiftDTO? updatedPost;
 
-  final bool fromSaveTemplate;
-
   @override
   String toString() {
-    return 'PayableDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost, fromSaveTemplate: $fromSaveTemplate}';
+    return 'PayableDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost}';
   }
 }
 
@@ -2859,7 +2835,6 @@ class PostShiftRecurring extends _i121.PageRouteInfo<PostShiftRecurringArgs> {
     required int shiftType,
     required _i125.HealthcarePostDTO? updateShift,
     required _i126.PostShiftDTO post,
-    bool fromSaveTemplate = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
@@ -2868,7 +2843,6 @@ class PostShiftRecurring extends _i121.PageRouteInfo<PostShiftRecurringArgs> {
             shiftType: shiftType,
             updateShift: updateShift,
             post: post,
-            fromSaveTemplate: fromSaveTemplate,
           ),
           initialChildren: children,
         );
@@ -2884,7 +2858,6 @@ class PostShiftRecurring extends _i121.PageRouteInfo<PostShiftRecurringArgs> {
         shiftType: args.shiftType,
         updateShift: args.updateShift,
         post: args.post,
-        fromSaveTemplate: args.fromSaveTemplate,
       );
     },
   );
@@ -2896,7 +2869,6 @@ class PostShiftRecurringArgs {
     required this.shiftType,
     required this.updateShift,
     required this.post,
-    this.fromSaveTemplate = false,
   });
 
   final _i122.Key? key;
@@ -2907,11 +2879,9 @@ class PostShiftRecurringArgs {
 
   final _i126.PostShiftDTO post;
 
-  final bool fromSaveTemplate;
-
   @override
   String toString() {
-    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, updateShift: $updateShift, post: $post, fromSaveTemplate: $fromSaveTemplate}';
+    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, updateShift: $updateShift, post: $post}';
   }
 }
 
@@ -3412,7 +3382,6 @@ class ReviewPostShiftDetail
     required _i125.HealthcarePostDTO post,
     bool isUpdate = false,
     _i126.PostShiftDTO? updatedPost,
-    bool fromSaveTemplate = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
@@ -3421,7 +3390,6 @@ class ReviewPostShiftDetail
             post: post,
             isUpdate: isUpdate,
             updatedPost: updatedPost,
-            fromSaveTemplate: fromSaveTemplate,
           ),
           initialChildren: children,
         );
@@ -3437,7 +3405,6 @@ class ReviewPostShiftDetail
         post: args.post,
         isUpdate: args.isUpdate,
         updatedPost: args.updatedPost,
-        fromSaveTemplate: args.fromSaveTemplate,
       );
     },
   );
@@ -3449,7 +3416,6 @@ class ReviewPostShiftDetailArgs {
     required this.post,
     this.isUpdate = false,
     this.updatedPost,
-    this.fromSaveTemplate = false,
   });
 
   final _i122.Key? key;
@@ -3460,45 +3426,28 @@ class ReviewPostShiftDetailArgs {
 
   final _i126.PostShiftDTO? updatedPost;
 
-  final bool fromSaveTemplate;
-
   @override
   String toString() {
-    return 'ReviewPostShiftDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost, fromSaveTemplate: $fromSaveTemplate}';
+    return 'ReviewPostShiftDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost}';
   }
 }
 
 /// generated route for
-/// [_i99.SaveTemplateView]
-class SaveTemplateView extends _i121.PageRouteInfo<void> {
-  const SaveTemplateView({List<_i121.PageRouteInfo>? children})
-      : super(
-          SaveTemplateView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SaveTemplateView';
-
-  static _i121.PageInfo page = _i121.PageInfo(
-    name,
-    builder: (data) {
-      return const _i99.SaveTemplateView();
-    },
-  );
-}
-
-/// generated route for
-/// [_i100.SendProposal]
+/// [_i99.SendProposal]
 class SendProposal extends _i121.PageRouteInfo<SendProposalArgs> {
   SendProposal({
     _i122.Key? key,
     required int postId,
+    required int? id,
+    bool isFromCounterPropose = false,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           SendProposal.name,
           args: SendProposalArgs(
             key: key,
             postId: postId,
+            id: id,
+            isFromCounterPropose: isFromCounterPropose,
           ),
           initialChildren: children,
         );
@@ -3509,9 +3458,11 @@ class SendProposal extends _i121.PageRouteInfo<SendProposalArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<SendProposalArgs>();
-      return _i100.SendProposal(
+      return _i99.SendProposal(
         key: args.key,
         postId: args.postId,
+        id: args.id,
+        isFromCounterPropose: args.isFromCounterPropose,
       );
     },
   );
@@ -3521,20 +3472,26 @@ class SendProposalArgs {
   const SendProposalArgs({
     this.key,
     required this.postId,
+    required this.id,
+    this.isFromCounterPropose = false,
   });
 
   final _i122.Key? key;
 
   final int postId;
 
+  final int? id;
+
+  final bool isFromCounterPropose;
+
   @override
   String toString() {
-    return 'SendProposalArgs{key: $key, postId: $postId}';
+    return 'SendProposalArgs{key: $key, postId: $postId, id: $id, isFromCounterPropose: $isFromCounterPropose}';
   }
 }
 
 /// generated route for
-/// [_i101.ShiftActionsView]
+/// [_i100.ShiftActionsView]
 class ShiftActionsView extends _i121.PageRouteInfo<ShiftActionsViewArgs> {
   ShiftActionsView({
     _i122.Key? key,
@@ -3557,7 +3514,7 @@ class ShiftActionsView extends _i121.PageRouteInfo<ShiftActionsViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ShiftActionsViewArgs>();
-      return _i101.ShiftActionsView(
+      return _i100.ShiftActionsView(
         key: args.key,
         postId: args.postId,
         userId: args.userId,
@@ -3586,7 +3543,7 @@ class ShiftActionsViewArgs {
 }
 
 /// generated route for
-/// [_i102.ShowGoogleMap]
+/// [_i101.ShowGoogleMap]
 class ShowGoogleMap extends _i121.PageRouteInfo<ShowGoogleMapArgs> {
   ShowGoogleMap({
     _i122.Key? key,
@@ -3609,7 +3566,7 @@ class ShowGoogleMap extends _i121.PageRouteInfo<ShowGoogleMapArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ShowGoogleMapArgs>();
-      return _i102.ShowGoogleMap(
+      return _i101.ShowGoogleMap(
         key: args.key,
         latitude: args.latitude,
         longitude: args.longitude,
@@ -3638,7 +3595,7 @@ class ShowGoogleMapArgs {
 }
 
 /// generated route for
-/// [_i103.SingleAgreedShift]
+/// [_i102.SingleAgreedShift]
 class SingleAgreedShift extends _i121.PageRouteInfo<SingleAgreedShiftArgs> {
   SingleAgreedShift({
     required _i131.EmployerProposalDto contractor,
@@ -3659,7 +3616,7 @@ class SingleAgreedShift extends _i121.PageRouteInfo<SingleAgreedShiftArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<SingleAgreedShiftArgs>();
-      return _i103.SingleAgreedShift(
+      return _i102.SingleAgreedShift(
         contractor: args.contractor,
         index: args.index,
       );
@@ -3684,7 +3641,7 @@ class SingleAgreedShiftArgs {
 }
 
 /// generated route for
-/// [_i104.SplashPage]
+/// [_i103.SplashPage]
 class SplashPage extends _i121.PageRouteInfo<void> {
   const SplashPage({List<_i121.PageRouteInfo>? children})
       : super(
@@ -3697,13 +3654,13 @@ class SplashPage extends _i121.PageRouteInfo<void> {
   static _i121.PageInfo page = _i121.PageInfo(
     name,
     builder: (data) {
-      return const _i104.SplashPage();
+      return const _i103.SplashPage();
     },
   );
 }
 
 /// generated route for
-/// [_i105.SupportTicketView]
+/// [_i104.SupportTicketView]
 class SupportTicketView extends _i121.PageRouteInfo<void> {
   const SupportTicketView({List<_i121.PageRouteInfo>? children})
       : super(
@@ -3716,13 +3673,13 @@ class SupportTicketView extends _i121.PageRouteInfo<void> {
   static _i121.PageInfo page = _i121.PageInfo(
     name,
     builder: (data) {
-      return const _i105.SupportTicketView();
+      return const _i104.SupportTicketView();
     },
   );
 }
 
 /// generated route for
-/// [_i106.TeamDetailView]
+/// [_i105.TeamDetailView]
 class TeamDetailView extends _i121.PageRouteInfo<TeamDetailViewArgs> {
   TeamDetailView({
     _i122.Key? key,
@@ -3743,7 +3700,7 @@ class TeamDetailView extends _i121.PageRouteInfo<TeamDetailViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<TeamDetailViewArgs>();
-      return _i106.TeamDetailView(
+      return _i105.TeamDetailView(
         key: args.key,
         getTeamsListDTO: args.getTeamsListDTO,
       );
@@ -3768,7 +3725,7 @@ class TeamDetailViewArgs {
 }
 
 /// generated route for
-/// [_i107.TeamsView]
+/// [_i106.TeamsView]
 class TeamsView extends _i121.PageRouteInfo<void> {
   const TeamsView({List<_i121.PageRouteInfo>? children})
       : super(
@@ -3781,13 +3738,13 @@ class TeamsView extends _i121.PageRouteInfo<void> {
   static _i121.PageInfo page = _i121.PageInfo(
     name,
     builder: (data) {
-      return const _i107.TeamsView();
+      return const _i106.TeamsView();
     },
   );
 }
 
 /// generated route for
-/// [_i108.TermsAndConditionsScreen]
+/// [_i107.TermsAndConditionsScreen]
 class TermsAndConditionsScreen
     extends _i121.PageRouteInfo<TermsAndConditionsScreenArgs> {
   TermsAndConditionsScreen({
@@ -3812,7 +3769,7 @@ class TermsAndConditionsScreen
     builder: (data) {
       final args = data.argsAs<TermsAndConditionsScreenArgs>(
           orElse: () => const TermsAndConditionsScreenArgs());
-      return _i108.TermsAndConditionsScreen(
+      return _i107.TermsAndConditionsScreen(
         key: args.key,
         isFromSplash: args.isFromSplash,
         isFromRegister: args.isFromRegister,
@@ -3841,7 +3798,7 @@ class TermsAndConditionsScreenArgs {
 }
 
 /// generated route for
-/// [_i109.TotalPraposalView]
+/// [_i108.TotalPraposalView]
 class TotalPraposalView extends _i121.PageRouteInfo<TotalPraposalViewArgs> {
   TotalPraposalView({
     _i122.Key? key,
@@ -3862,7 +3819,7 @@ class TotalPraposalView extends _i121.PageRouteInfo<TotalPraposalViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<TotalPraposalViewArgs>();
-      return _i109.TotalPraposalView(
+      return _i108.TotalPraposalView(
         key: args.key,
         postId: args.postId,
       );
@@ -3887,7 +3844,7 @@ class TotalPraposalViewArgs {
 }
 
 /// generated route for
-/// [_i110.ViewAgreedPraposal]
+/// [_i109.ViewAgreedPraposal]
 class ViewAgreedPraposal extends _i121.PageRouteInfo<void> {
   const ViewAgreedPraposal({List<_i121.PageRouteInfo>? children})
       : super(
@@ -3900,13 +3857,13 @@ class ViewAgreedPraposal extends _i121.PageRouteInfo<void> {
   static _i121.PageInfo page = _i121.PageInfo(
     name,
     builder: (data) {
-      return const _i110.ViewAgreedPraposal();
+      return const _i109.ViewAgreedPraposal();
     },
   );
 }
 
 /// generated route for
-/// [_i111.ViewApplicantProfile]
+/// [_i110.ViewApplicantProfile]
 class ViewApplicantProfile
     extends _i121.PageRouteInfo<ViewApplicantProfileArgs> {
   ViewApplicantProfile({
@@ -3930,7 +3887,7 @@ class ViewApplicantProfile
     name,
     builder: (data) {
       final args = data.argsAs<ViewApplicantProfileArgs>();
-      return _i111.ViewApplicantProfile(
+      return _i110.ViewApplicantProfile(
         key: args.key,
         id: args.id,
         postId: args.postId,
@@ -3955,6 +3912,58 @@ class ViewApplicantProfileArgs {
   @override
   String toString() {
     return 'ViewApplicantProfileArgs{key: $key, id: $id, postId: $postId}';
+  }
+}
+
+/// generated route for
+/// [_i111.ViewCollegueProfile]
+class ViewCollegueProfile extends _i121.PageRouteInfo<ViewCollegueProfileArgs> {
+  ViewCollegueProfile({
+    _i122.Key? key,
+    required int id,
+    required int postId,
+    List<_i121.PageRouteInfo>? children,
+  }) : super(
+          ViewCollegueProfile.name,
+          args: ViewCollegueProfileArgs(
+            key: key,
+            id: id,
+            postId: postId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ViewCollegueProfile';
+
+  static _i121.PageInfo page = _i121.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ViewCollegueProfileArgs>();
+      return _i111.ViewCollegueProfile(
+        key: args.key,
+        id: args.id,
+        postId: args.postId,
+      );
+    },
+  );
+}
+
+class ViewCollegueProfileArgs {
+  const ViewCollegueProfileArgs({
+    this.key,
+    required this.id,
+    required this.postId,
+  });
+
+  final _i122.Key? key;
+
+  final int id;
+
+  final int postId;
+
+  @override
+  String toString() {
+    return 'ViewCollegueProfileArgs{key: $key, id: $id, postId: $postId}';
   }
 }
 

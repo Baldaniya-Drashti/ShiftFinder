@@ -22,7 +22,7 @@ class AboutView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: role==1?"Policies":StringConstant.aboutShiftFinder,
+        title: role == 1 ? "Policies" : StringConstant.aboutShiftFinder,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -37,7 +37,11 @@ class AboutView extends StatelessWidget {
                   height: 100,
                 ),
                 Gap(getSize(30)),
-                BaseText(text: StringConstant.ourPolicies, fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                BaseText(
+                    text: StringConstant.ourPolicies,
+                    fontFamily: "Aclonica",
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.8,
                   child: BaseText(
@@ -62,25 +66,31 @@ class AboutView extends StatelessWidget {
                     _ListTile(
                       icon: SvgImageConstant.paymentHistory,
                       onPressed: () => context.router.push(
-                        PageRouteInfo(TermsAndConditionsScreen.name, args: TermsAndConditionsScreenArgs(isFromRegister: true)),
+                        PageRouteInfo(TermsAndConditionsScreen.name,
+                            args: TermsAndConditionsScreenArgs(
+                                isFromRegister: true)),
                       ),
                       label: StringConstant.termsAndConditions,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.invoice,
-                      onPressed: () => context.router.push(PageRouteInfo(CancellationPolicyView.name)),
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(CancellationPolicyView.name)),
                       label: StringConstant.cancellationPolicy,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentMethod,
-                      onPressed: () => context.router.push(PageRouteInfo(PrivacyPolicyScreen.name)),
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(PrivacyPolicyScreen.name)),
                       label: StringConstant.privacyPolicy,
                     ),
-                    _ListTile(
-                      icon: SvgImageConstant.paymentHistory,
-                      onPressed: () => context.router.push(PageRouteInfo(FaqView.name)),
-                      label: StringConstant.faq,
-                    ),
+                    if (getCurrentRole() == 2)
+                      _ListTile(
+                        icon: SvgImageConstant.paymentHistory,
+                        onPressed: () =>
+                            context.router.push(PageRouteInfo(FaqView.name)),
+                        label: StringConstant.faq,
+                      ),
                   ],
                 ),
               ),
@@ -113,7 +123,8 @@ class _ListTile extends StatelessWidget {
         icon,
         colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
       ),
-      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18, width: 18),
+      trailing:
+          SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18, width: 18),
     );
   }
 }

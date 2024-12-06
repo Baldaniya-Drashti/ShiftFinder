@@ -1,4 +1,3 @@
-
 // ignore_for_file: use_super_parameters, prefer_const_constructors
 
 import 'package:shift/domain/core/math_utils.dart';
@@ -22,6 +21,7 @@ class BaseText extends StatelessWidget {
   final String? fontFamily;
   final double? lineHeight;
   final List<Shadow>? shadows;
+  final bool? softWrap;
   const BaseText({
     Key? key,
     required this.text,
@@ -39,6 +39,7 @@ class BaseText extends StatelessWidget {
     this.lineHeight,
     this.shadows,
     this.showFullDescription = false,
+    this.softWrap,
   }) : super(key: key);
 
   @override
@@ -49,6 +50,7 @@ class BaseText extends StatelessWidget {
       textScaler: TextScaler.linear(1),
       overflow: showFullDescription ? null : overflow,
       maxLines: showFullDescription ? null : maxLines,
+      softWrap: softWrap,
       style: style ??
           TextStyle(
             height: lineHeight,

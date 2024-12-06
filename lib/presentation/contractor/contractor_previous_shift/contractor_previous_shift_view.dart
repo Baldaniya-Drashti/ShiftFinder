@@ -5,12 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/injection.dart';
-
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_cancelled_shift_view.dart';
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_completed_shift_view.dart';
-
 import 'package:shift/presentation/core/style/app_colors.dart';
-
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "ContractorPreviousShiftView")
@@ -20,7 +17,10 @@ class ContractorPreviousShiftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ContractorPreviousShiftBloc>(),
+      create: (context) => getIt<ContractorPreviousShiftBloc>()
+        ..add(ContractorPreviousShiftEvent.getCompletedList(isRefresh: true))
+        ..add(ContractorPreviousShiftEvent.getCancelledShift(
+            isRefresh: true, sortBy: 1)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
@@ -34,7 +34,6 @@ class ContractorPreviousShiftView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: getSize(25)),
                 child: buildTabBar(context),
               ),
-              Gap(18),
               Expanded(
                 child: TabBarView(
                   children: [

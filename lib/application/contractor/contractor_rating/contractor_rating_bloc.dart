@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/infrastructure/core/contractor_rating_dto/contractor_rating_dto.dart';
 
 part 'contractor_rating_event.dart';
 
@@ -12,13 +13,15 @@ part 'contractor_rating_state.dart';
 part 'contractor_rating_bloc.freezed.dart';
 
 @injectable
-class ContractorRatingBloc extends Bloc<ContractorRatingEvent, ContractorRatingState> {
+class ContractorRatingBloc
+    extends Bloc<ContractorRatingEvent, ContractorRatingState> {
   final RefreshController refreshController = RefreshController();
   int currentPage = 1;
   int lastPage = 1;
   final IMainFacade _mainFacade;
 
-  ContractorRatingBloc(this._mainFacade) : super(const ContractorRatingState()) {
+  ContractorRatingBloc(this._mainFacade)
+      : super(const ContractorRatingState()) {
     on<ContractorRatingEvent>((event, emit) async {
       await event.map(
         getRatingList: (value) async {
@@ -53,11 +56,16 @@ class ContractorRatingBloc extends Bloc<ContractorRatingEvent, ContractorRatingS
                 state.copyWith(
                   loading: false,
                   error: false,
-                  noDataFound: true,//(r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => ContractorRatingDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   ratingList: List.from(state.ratingList)
-                    // ..addAll(
-                    //   (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
-                    // ),
+                    ..addAll(
+                      (r.data as List<dynamic>)
+                          .map((e) => ContractorRatingDTO.fromJson(e))
+                          .toList(),
+                    ),
                 ),
               );
             },

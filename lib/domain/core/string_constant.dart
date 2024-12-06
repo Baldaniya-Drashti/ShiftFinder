@@ -477,6 +477,8 @@ class StringConstant {
       "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
   static const String withdrawCADFeeDesc =
       "Withdrawing from this shift may impact your rating and future opportunities. Please note that a withdrawal fee of CAD 100 will be charged. Are you sure you want to proceed?";
+  static const String withdrawDescWithoutCAD =
+      "Withdrawing from this shift may impact future opportunities. Are you sure you want to proceed?";
   static const String deleteTeamDesc =
       "Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?";
   static const String proposalDesc =
@@ -580,6 +582,25 @@ class StringConstant {
   static const String pleaseAddYourCardDetailsToProceed =
       "Please add your card details to proceed.";
   static const String cardDetails = "Card Details";
+  static const String viewProposal = "View Proposal";
+  static const String addNewCard = "Add New Card";
+  static const String creditAndDebitCards = "Credit & Debit Cards";
+  static const String paymentMethods = "Payment Methods";
+  static const String paymentMethodDesc =
+      "Securely add your debit or credit card details to facilitate seamless transactions.";
+  static const String employerFAQDesc =
+      "Check out our FAQs to find answers to common queries and learn more about using the platform.";
+  static const String faqs = "FAQs";
+  static const String contractorratingDesc =
+      "Employer ratings showcase your performance and contributions.";
+  static const String download = "Download";
+  static const String invoice = "Invoice";
+  static const String viewInvoice = "View Invoice";
+  static const String withdrawnByYou = "Withdrawn by You";
+  static const String cancelledByEmployer = "Cancelled by Employer";
+  static const String share = "Share";
+  static const String yourReferrals = "Your Referrals";
+
   static const String iRoidSolutions = "iRoid Solutions";
 
   /// ERROR ///

@@ -24,7 +24,11 @@ class ProfileView extends StatelessWidget {
           authenticated: (value) {},
           unauthenticated: (value) {
             print("Logout called!");
-            context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
+            if (value.isDeleteAccount) {
+              context.router.replaceAll([PageRouteInfo(Onboarding1.name)]);
+            } else {
+              context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
+            }
           },
         );
       },

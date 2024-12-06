@@ -10,6 +10,7 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$HealthcarePostDTOImpl(
       id: (json['id'] as num?)?.toInt(),
+      post_id: (json['post_id'] as num?)?.toInt(),
       listing_id: json['listing_id'] as String?,
       last_ago: json['last_ago'] as String?,
       company_name: json['company_name'] as String?,
@@ -42,12 +43,17 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
               json['shift_detail'] as Map<String, dynamic>),
       software_skill: json['software_skill'] as String?,
       specialties_detail: json['specialties_detail'] as String?,
+      proposal_received: json['proposal_received'] == null
+          ? null
+          : ProposalReceivedDTO.fromJson(
+              json['proposal_received'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
         _$HealthcarePostDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'post_id': instance.post_id,
       'listing_id': instance.listing_id,
       'last_ago': instance.last_ago,
       'company_name': instance.company_name,
@@ -66,4 +72,29 @@ Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
       'shift_detail': instance.shift_detail,
       'software_skill': instance.software_skill,
       'specialties_detail': instance.specialties_detail,
+      'proposal_received': instance.proposal_received,
+    };
+
+_$ProposalReceivedDTOImpl _$$ProposalReceivedDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProposalReceivedDTOImpl(
+      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toDouble(),
+      commute_allowance_type: (json['commute_allowance_type'] as num?)?.toInt(),
+      proposed_commute_allowance:
+          (json['proposed_commute_allowance'] as num?)?.toDouble(),
+      accommodation_allowance_type:
+          (json['accommodation_allowance_type'] as num?)?.toInt(),
+      proposed_accommodation_allowance:
+          (json['proposed_accommodation_allowance'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$ProposalReceivedDTOImplToJson(
+        _$ProposalReceivedDTOImpl instance) =>
+    <String, dynamic>{
+      'proposed_hourly_rate': instance.proposed_hourly_rate,
+      'commute_allowance_type': instance.commute_allowance_type,
+      'proposed_commute_allowance': instance.proposed_commute_allowance,
+      'accommodation_allowance_type': instance.accommodation_allowance_type,
+      'proposed_accommodation_allowance':
+          instance.proposed_accommodation_allowance,
     };

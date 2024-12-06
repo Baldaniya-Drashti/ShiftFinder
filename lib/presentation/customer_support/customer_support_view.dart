@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -17,48 +18,6 @@ class CustomerSupportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final role = getCurrentRole();
-    Widget menu = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (role == 1)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(10)),
-              child: BaseText(
-                text: StringConstant.customerSupport,
-                fontSize: 12,
-              ),
-            ),
-          _ListTile(
-            icon: SvgImageConstant.ticket,
-            onPressed: () =>
-                context.router.push(PageRouteInfo(SupportTicketView.name)),
-            label: StringConstant.submitATicket,
-          ),
-          SizedBox(height: getSize(10)),
-          _ListTile(
-            icon: SvgImageConstant.message,
-            onPressed: () {
-              // context.router.push(PageRouteInfo(PaymentHistoryView.name))
-            },
-            label: StringConstant.chatWithSupport,
-          ),
-        ],
-      ),
-    );
-    if (role == 1) {
-      menu = Material(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-        child: menu,
-      );
-    } else {
-      menu = menu;
-    }
-
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
@@ -94,20 +53,59 @@ class CustomerSupportView extends StatelessWidget {
                 ],
               ),
               Gap(getSize(50)),
-              menu,
-              if (role == 1) ...[
-                Gap(18),
-                _ListTile(
-                  icon: SvgImageConstant.faq,
-                  onPressed: () {
-                    context.router.push(PageRouteInfo(FaqView.name));
-                  },
-                  label: "FAQs",
+              if (getCurrentRole() == 1)
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: getSize(18), bottom: getSize(15)),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: BaseText(
+                      text: StringConstant.customerSupport,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
-              ]
+              supportTile(context),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget supportTile(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: getSize(12)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ListTile(
+            icon: SvgImageConstant.ticket,
+            onPressed: () =>
+                context.router.push(PageRouteInfo(SupportTicketView.name)),
+            label: StringConstant.submitATicket,
+          ),
+          SizedBox(height: getSize(10)),
+          _ListTile(
+            icon: SvgImageConstant.message,
+            onPressed: () {
+              showUnderDevelopment(context);
+              // context.router.push(PageRouteInfo(PaymentHistoryView.name))
+            },
+            label: StringConstant.chatWithSupport,
+          ),
+          if (getCurrentRole() == 1) ...[
+            SizedBox(height: getSize(10)),
+            _ListTile(
+              icon: SvgImageConstant.questionMark,
+              onPressed: () {
+                context.router.push(PageRouteInfo(FaqView.name));
+              },
+              label: StringConstant.faq,
+            ),
+          ]
+        ],
       ),
     );
   }

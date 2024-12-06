@@ -2,17 +2,31 @@ part of 'contractor_previous_shift_bloc.dart';
 
 @freezed
 class ContractorPreviousShiftState with _$ContractorPreviousShiftState {
-  const factory ContractorPreviousShiftState({
-    @Default(1) int currentIndex,
-    @Default(SkillDTO(id: 1, name: "Withdrawn by You")) SkillDTO currentCancelFilter,
-    @Default(false) bool postDataLoading,
-    @Default(false) bool completedDataListLoading,
-    @Default(false) bool cancelledDataListLoading,
-    @Default(false) bool completedDataNoDataFound,
-    @Default(false) bool cancelledDataNoDataFound,
-    @Default(false) bool completedDataListIsErrorApi,
-    @Default(false) bool cancelledDataIsErrorApi,
-    @Default([]) List<dynamic> completedDataList,
-    @Default([]) List<dynamic> cancelledDataList,
-  }) = _ContractorPreviousShiftState;
+  factory ContractorPreviousShiftState(
+          {required int currentIndex,
+          required SkillDTO currentCancelFilter,
+          required bool postDataLoading,
+          required bool completedDataListLoading,
+          required bool cancelledDataListLoading,
+          required bool completedDataNoDataFound,
+          required bool cancelledDataNoDataFound,
+          required bool completedDataListIsErrorApi,
+          required bool cancelledDataIsErrorApi,
+          required List<ContractorPreviousShiftDTO> completedDataList,
+          required List<ContractorPreviousShiftDTO> cancelledDataList}) =
+      _ContractorPreviousShiftState;
+  factory ContractorPreviousShiftState.initial() =>
+      ContractorPreviousShiftState(
+        currentCancelFilter: SkillDTO(id: 1, name: "Withdrawn by You"),
+        currentIndex: 1,
+        cancelledDataIsErrorApi: false,
+        cancelledDataListLoading: false,
+        cancelledDataNoDataFound: false,
+        completedDataListIsErrorApi: false,
+        completedDataListLoading: false,
+        completedDataNoDataFound: false,
+        cancelledDataList: [],
+        completedDataList: [],
+        postDataLoading: false,
+      );
 }

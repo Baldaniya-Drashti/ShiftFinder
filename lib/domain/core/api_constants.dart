@@ -4,7 +4,7 @@ class ApiConstants {
   static String baseUrl = dotenv.env['DEV_API_BASE_URL']!;
 
   //core
-  static String registerForPush = 'register-for-push';
+  static String registerForPush = 'register-fcm-token';
   static String contactSupport = 'contact/support';
 
   //auth
@@ -17,6 +17,7 @@ class ApiConstants {
   static String logout = 'logout';
   static String editLastPage = 'edit_last_page';
   static String changePassword = 'change_password';
+  static String deleteAccount = 'delete_account';
 
   static String getUserInfo = 'get_user_info';
   static String completeProfile = 'complete_profile';
@@ -71,6 +72,8 @@ class ApiConstants {
 
   //payment methods
   static String addPaymentCard = 'employer_add_card';
+  static String getPaymetCardList = 'employer_list_card';
+  static String deletePaymentCard = 'employer_delete_card';
 
   //chat
   static String getChatList = 'chat-list';
@@ -93,6 +96,9 @@ class ApiConstants {
       'contractor_shifts_urgent_action';
   static String contractorMyCalendar = 'contractor_my_calendar';
   static String contractorMyCalendarDetails = 'contractor_my_calendar_details';
+  static String getSendProposalDetail = 'send_proposal';
+  static String contractorPerformanceInsights =
+      'contractor_performance_insights';
 
   //team
   static String getTeamList = 'get_team';
@@ -131,6 +137,8 @@ class ApiConstants {
       'get_employer_approved_shift_user';
   static String contractorRating = 'contractor_rating';
   static String contractorPreviousShift = 'contractor_previous_shift';
+  static String contractorReferColleague = 'contractor_refer_a_colleague';
+  static String faqsList = 'faqs';
   static String employerSavedTemplates = 'employer_saved_templates';
   static String destroyEmployerSavedTemplates  = 'destroy_employer_saved_templates';
 }

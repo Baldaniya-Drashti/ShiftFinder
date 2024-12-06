@@ -39,14 +39,14 @@ class ProfileItems extends StatelessWidget {
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          context.router.push(PageRouteInfo(EmployerFullPositionView.name));
+          // context.router.push(PageRouteInfo(EmployerFullPositionView.name));
         },
       ),
       ProfileItemModel(
         title: 'Chat',
         image: SvgImageConstant.chat,
         onTap: () {
-          context.router.push(PageRouteInfo(Chat.name));
+          // context.router.push(PageRouteInfo(Chat.name));
         },
       ),
       ProfileItemModel(
@@ -113,7 +113,7 @@ class ProfileItems extends StatelessWidget {
               context.router.maybePop().then(
                     (value) => context
                         .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut()),
+                        .add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
                   );
             },
             onPressedReject: () {
@@ -175,14 +175,14 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.previousShifts,
         image: SvgImageConstant.completedShifts,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+          // context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
         },
       ),
       ProfileItemModel(
@@ -194,7 +194,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          context.router.push(PageRouteInfo(FullTimePositionView.name));
+          // context.router.push(PageRouteInfo(FullTimePositionView.name));
         },
       ),
       ProfileItemModel(
@@ -213,15 +213,14 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorEarningView.name));
+          // context.router.push(PageRouteInfo(ContractorEarningView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.performanceInsights,
         image: SvgImageConstant.insights,
         onTap: () {
-          context.router
-              .push(PageRouteInfo(ContractorPerformanceInsightView.name));
+          // context.router.push(PageRouteInfo(ContractorPerformanceInsightView.name));
         },
       ),
       ProfileItemModel(
@@ -275,7 +274,7 @@ class ContractorProfileItems extends StatelessWidget {
               context.router.maybePop().then(
                     (value) => context
                         .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut()),
+                        .add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
                   );
             },
             onPressedReject: () {

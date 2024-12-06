@@ -21,6 +21,7 @@ HealthcarePostDTO _$HealthcarePostDTOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HealthcarePostDTO {
   int? get id => throw _privateConstructorUsedError;
+  int? get post_id => throw _privateConstructorUsedError;
   String? get listing_id => throw _privateConstructorUsedError;
   String? get last_ago => throw _privateConstructorUsedError;
   String? get company_name => throw _privateConstructorUsedError;
@@ -41,6 +42,8 @@ mixin _$HealthcarePostDTO {
   ShiftDetailDTO? get shift_detail => throw _privateConstructorUsedError;
   String? get software_skill => throw _privateConstructorUsedError;
   String? get specialties_detail => throw _privateConstructorUsedError;
+  ProposalReceivedDTO? get proposal_received =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,6 +59,7 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
+      int? post_id,
       String? listing_id,
       String? last_ago,
       String? company_name,
@@ -73,10 +77,12 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
       double? rate_hour,
       ShiftDetailDTO? shift_detail,
       String? software_skill,
-      String? specialties_detail});
+      String? specialties_detail,
+      ProposalReceivedDTO? proposal_received});
 
   $LocationDTOCopyWith<$Res>? get location;
   $ShiftDetailDTOCopyWith<$Res>? get shift_detail;
+  $ProposalReceivedDTOCopyWith<$Res>? get proposal_received;
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
   @override
   $Res call({
     Object? id = freezed,
+    Object? post_id = freezed,
     Object? listing_id = freezed,
     Object? last_ago = freezed,
     Object? company_name = freezed,
@@ -111,11 +118,16 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     Object? shift_detail = freezed,
     Object? software_skill = freezed,
     Object? specialties_detail = freezed,
+    Object? proposal_received = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      post_id: freezed == post_id
+          ? _value.post_id
+          : post_id // ignore: cast_nullable_to_non_nullable
               as int?,
       listing_id: freezed == listing_id
           ? _value.listing_id
@@ -189,6 +201,10 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
           ? _value.specialties_detail
           : specialties_detail // ignore: cast_nullable_to_non_nullable
               as String?,
+      proposal_received: freezed == proposal_received
+          ? _value.proposal_received
+          : proposal_received // ignore: cast_nullable_to_non_nullable
+              as ProposalReceivedDTO?,
     ) as $Val);
   }
 
@@ -215,6 +231,19 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
       return _then(_value.copyWith(shift_detail: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProposalReceivedDTOCopyWith<$Res>? get proposal_received {
+    if (_value.proposal_received == null) {
+      return null;
+    }
+
+    return $ProposalReceivedDTOCopyWith<$Res>(_value.proposal_received!,
+        (value) {
+      return _then(_value.copyWith(proposal_received: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -227,6 +256,7 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
+      int? post_id,
       String? listing_id,
       String? last_ago,
       String? company_name,
@@ -244,12 +274,15 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
       double? rate_hour,
       ShiftDetailDTO? shift_detail,
       String? software_skill,
-      String? specialties_detail});
+      String? specialties_detail,
+      ProposalReceivedDTO? proposal_received});
 
   @override
   $LocationDTOCopyWith<$Res>? get location;
   @override
   $ShiftDetailDTOCopyWith<$Res>? get shift_detail;
+  @override
+  $ProposalReceivedDTOCopyWith<$Res>? get proposal_received;
 }
 
 /// @nodoc
@@ -264,6 +297,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? post_id = freezed,
     Object? listing_id = freezed,
     Object? last_ago = freezed,
     Object? company_name = freezed,
@@ -282,11 +316,16 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
     Object? shift_detail = freezed,
     Object? software_skill = freezed,
     Object? specialties_detail = freezed,
+    Object? proposal_received = freezed,
   }) {
     return _then(_$HealthcarePostDTOImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      post_id: freezed == post_id
+          ? _value.post_id
+          : post_id // ignore: cast_nullable_to_non_nullable
               as int?,
       listing_id: freezed == listing_id
           ? _value.listing_id
@@ -360,6 +399,10 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
           ? _value.specialties_detail
           : specialties_detail // ignore: cast_nullable_to_non_nullable
               as String?,
+      proposal_received: freezed == proposal_received
+          ? _value.proposal_received
+          : proposal_received // ignore: cast_nullable_to_non_nullable
+              as ProposalReceivedDTO?,
     ));
   }
 }
@@ -369,6 +412,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
 class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
   const _$HealthcarePostDTOImpl(
       {this.id,
+      this.post_id,
       this.listing_id,
       this.last_ago,
       this.company_name,
@@ -386,7 +430,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       this.rate_hour,
       this.shift_detail,
       this.software_skill,
-      this.specialties_detail})
+      this.specialties_detail,
+      this.proposal_received})
       : _roles_list = roles_list,
         _specialties_detail_list = specialties_detail_list,
         _softwares_skill_list = softwares_skill_list,
@@ -397,6 +442,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
 
   @override
   final int? id;
+  @override
+  final int? post_id;
   @override
   final String? listing_id;
   @override
@@ -467,10 +514,12 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
   final String? software_skill;
   @override
   final String? specialties_detail;
+  @override
+  final ProposalReceivedDTO? proposal_received;
 
   @override
   String toString() {
-    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, company_name: $company_name, distance: $distance, roles_list: $roles_list, roles_list_name: $roles_list_name, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, specialties_detail_other: $specialties_detail_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail, software_skill: $software_skill, specialties_detail: $specialties_detail)';
+    return 'HealthcarePostDTO(id: $id, post_id: $post_id, listing_id: $listing_id, last_ago: $last_ago, company_name: $company_name, distance: $distance, roles_list: $roles_list, roles_list_name: $roles_list_name, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, specialties_detail_other: $specialties_detail_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail, software_skill: $software_skill, specialties_detail: $specialties_detail, proposal_received: $proposal_received)';
   }
 
   @override
@@ -479,6 +528,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
         (other.runtimeType == runtimeType &&
             other is _$HealthcarePostDTOImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.post_id, post_id) || other.post_id == post_id) &&
             (identical(other.listing_id, listing_id) ||
                 other.listing_id == listing_id) &&
             (identical(other.last_ago, last_ago) ||
@@ -515,7 +565,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
             (identical(other.software_skill, software_skill) ||
                 other.software_skill == software_skill) &&
             (identical(other.specialties_detail, specialties_detail) ||
-                other.specialties_detail == specialties_detail));
+                other.specialties_detail == specialties_detail) &&
+            (identical(other.proposal_received, proposal_received) ||
+                other.proposal_received == proposal_received));
   }
 
   @JsonKey(ignore: true)
@@ -523,6 +575,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
+        post_id,
         listing_id,
         last_ago,
         company_name,
@@ -540,7 +593,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
         rate_hour,
         shift_detail,
         software_skill,
-        specialties_detail
+        specialties_detail,
+        proposal_received
       ]);
 
   @JsonKey(ignore: true)
@@ -561,6 +615,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
 abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   const factory _HealthcarePostDTO(
       {final int? id,
+      final int? post_id,
       final String? listing_id,
       final String? last_ago,
       final String? company_name,
@@ -578,13 +633,16 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
       final double? rate_hour,
       final ShiftDetailDTO? shift_detail,
       final String? software_skill,
-      final String? specialties_detail}) = _$HealthcarePostDTOImpl;
+      final String? specialties_detail,
+      final ProposalReceivedDTO? proposal_received}) = _$HealthcarePostDTOImpl;
 
   factory _HealthcarePostDTO.fromJson(Map<String, dynamic> json) =
       _$HealthcarePostDTOImpl.fromJson;
 
   @override
   int? get id;
+  @override
+  int? get post_id;
   @override
   String? get listing_id;
   @override
@@ -622,7 +680,251 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   @override
   String? get specialties_detail;
   @override
+  ProposalReceivedDTO? get proposal_received;
+  @override
   @JsonKey(ignore: true)
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ProposalReceivedDTO _$ProposalReceivedDTOFromJson(Map<String, dynamic> json) {
+  return _ProposalReceivedDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ProposalReceivedDTO {
+  double? get proposed_hourly_rate => throw _privateConstructorUsedError;
+  int? get commute_allowance_type => throw _privateConstructorUsedError;
+  double? get proposed_commute_allowance => throw _privateConstructorUsedError;
+  int? get accommodation_allowance_type => throw _privateConstructorUsedError;
+  double? get proposed_accommodation_allowance =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProposalReceivedDTOCopyWith<ProposalReceivedDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProposalReceivedDTOCopyWith<$Res> {
+  factory $ProposalReceivedDTOCopyWith(
+          ProposalReceivedDTO value, $Res Function(ProposalReceivedDTO) then) =
+      _$ProposalReceivedDTOCopyWithImpl<$Res, ProposalReceivedDTO>;
+  @useResult
+  $Res call(
+      {double? proposed_hourly_rate,
+      int? commute_allowance_type,
+      double? proposed_commute_allowance,
+      int? accommodation_allowance_type,
+      double? proposed_accommodation_allowance});
+}
+
+/// @nodoc
+class _$ProposalReceivedDTOCopyWithImpl<$Res, $Val extends ProposalReceivedDTO>
+    implements $ProposalReceivedDTOCopyWith<$Res> {
+  _$ProposalReceivedDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? proposed_hourly_rate = freezed,
+    Object? commute_allowance_type = freezed,
+    Object? proposed_commute_allowance = freezed,
+    Object? accommodation_allowance_type = freezed,
+    Object? proposed_accommodation_allowance = freezed,
+  }) {
+    return _then(_value.copyWith(
+      proposed_hourly_rate: freezed == proposed_hourly_rate
+          ? _value.proposed_hourly_rate
+          : proposed_hourly_rate // ignore: cast_nullable_to_non_nullable
+              as double?,
+      commute_allowance_type: freezed == commute_allowance_type
+          ? _value.commute_allowance_type
+          : commute_allowance_type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proposed_commute_allowance: freezed == proposed_commute_allowance
+          ? _value.proposed_commute_allowance
+          : proposed_commute_allowance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      accommodation_allowance_type: freezed == accommodation_allowance_type
+          ? _value.accommodation_allowance_type
+          : accommodation_allowance_type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proposed_accommodation_allowance: freezed ==
+              proposed_accommodation_allowance
+          ? _value.proposed_accommodation_allowance
+          : proposed_accommodation_allowance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProposalReceivedDTOImplCopyWith<$Res>
+    implements $ProposalReceivedDTOCopyWith<$Res> {
+  factory _$$ProposalReceivedDTOImplCopyWith(_$ProposalReceivedDTOImpl value,
+          $Res Function(_$ProposalReceivedDTOImpl) then) =
+      __$$ProposalReceivedDTOImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double? proposed_hourly_rate,
+      int? commute_allowance_type,
+      double? proposed_commute_allowance,
+      int? accommodation_allowance_type,
+      double? proposed_accommodation_allowance});
+}
+
+/// @nodoc
+class __$$ProposalReceivedDTOImplCopyWithImpl<$Res>
+    extends _$ProposalReceivedDTOCopyWithImpl<$Res, _$ProposalReceivedDTOImpl>
+    implements _$$ProposalReceivedDTOImplCopyWith<$Res> {
+  __$$ProposalReceivedDTOImplCopyWithImpl(_$ProposalReceivedDTOImpl _value,
+      $Res Function(_$ProposalReceivedDTOImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? proposed_hourly_rate = freezed,
+    Object? commute_allowance_type = freezed,
+    Object? proposed_commute_allowance = freezed,
+    Object? accommodation_allowance_type = freezed,
+    Object? proposed_accommodation_allowance = freezed,
+  }) {
+    return _then(_$ProposalReceivedDTOImpl(
+      proposed_hourly_rate: freezed == proposed_hourly_rate
+          ? _value.proposed_hourly_rate
+          : proposed_hourly_rate // ignore: cast_nullable_to_non_nullable
+              as double?,
+      commute_allowance_type: freezed == commute_allowance_type
+          ? _value.commute_allowance_type
+          : commute_allowance_type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proposed_commute_allowance: freezed == proposed_commute_allowance
+          ? _value.proposed_commute_allowance
+          : proposed_commute_allowance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      accommodation_allowance_type: freezed == accommodation_allowance_type
+          ? _value.accommodation_allowance_type
+          : accommodation_allowance_type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proposed_accommodation_allowance: freezed ==
+              proposed_accommodation_allowance
+          ? _value.proposed_accommodation_allowance
+          : proposed_accommodation_allowance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ProposalReceivedDTOImpl implements _ProposalReceivedDTO {
+  const _$ProposalReceivedDTOImpl(
+      {this.proposed_hourly_rate,
+      this.commute_allowance_type,
+      this.proposed_commute_allowance,
+      this.accommodation_allowance_type,
+      this.proposed_accommodation_allowance});
+
+  factory _$ProposalReceivedDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProposalReceivedDTOImplFromJson(json);
+
+  @override
+  final double? proposed_hourly_rate;
+  @override
+  final int? commute_allowance_type;
+  @override
+  final double? proposed_commute_allowance;
+  @override
+  final int? accommodation_allowance_type;
+  @override
+  final double? proposed_accommodation_allowance;
+
+  @override
+  String toString() {
+    return 'ProposalReceivedDTO(proposed_hourly_rate: $proposed_hourly_rate, commute_allowance_type: $commute_allowance_type, proposed_commute_allowance: $proposed_commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, proposed_accommodation_allowance: $proposed_accommodation_allowance)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProposalReceivedDTOImpl &&
+            (identical(other.proposed_hourly_rate, proposed_hourly_rate) ||
+                other.proposed_hourly_rate == proposed_hourly_rate) &&
+            (identical(other.commute_allowance_type, commute_allowance_type) ||
+                other.commute_allowance_type == commute_allowance_type) &&
+            (identical(other.proposed_commute_allowance,
+                    proposed_commute_allowance) ||
+                other.proposed_commute_allowance ==
+                    proposed_commute_allowance) &&
+            (identical(other.accommodation_allowance_type,
+                    accommodation_allowance_type) ||
+                other.accommodation_allowance_type ==
+                    accommodation_allowance_type) &&
+            (identical(other.proposed_accommodation_allowance,
+                    proposed_accommodation_allowance) ||
+                other.proposed_accommodation_allowance ==
+                    proposed_accommodation_allowance));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      proposed_hourly_rate,
+      commute_allowance_type,
+      proposed_commute_allowance,
+      accommodation_allowance_type,
+      proposed_accommodation_allowance);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProposalReceivedDTOImplCopyWith<_$ProposalReceivedDTOImpl> get copyWith =>
+      __$$ProposalReceivedDTOImplCopyWithImpl<_$ProposalReceivedDTOImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ProposalReceivedDTOImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ProposalReceivedDTO implements ProposalReceivedDTO {
+  const factory _ProposalReceivedDTO(
+          {final double? proposed_hourly_rate,
+          final int? commute_allowance_type,
+          final double? proposed_commute_allowance,
+          final int? accommodation_allowance_type,
+          final double? proposed_accommodation_allowance}) =
+      _$ProposalReceivedDTOImpl;
+
+  factory _ProposalReceivedDTO.fromJson(Map<String, dynamic> json) =
+      _$ProposalReceivedDTOImpl.fromJson;
+
+  @override
+  double? get proposed_hourly_rate;
+  @override
+  int? get commute_allowance_type;
+  @override
+  double? get proposed_commute_allowance;
+  @override
+  int? get accommodation_allowance_type;
+  @override
+  double? get proposed_accommodation_allowance;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProposalReceivedDTOImplCopyWith<_$ProposalReceivedDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
