@@ -7,13 +7,15 @@ class ReferColleagueState with _$ReferColleagueState {
     required bool noDataFound,
     required bool isErrorInApi,
     required List<ReferColleagueDTO> collegueList,
-    required Account account,
+    required ApplicantDto account,
+    required bool showErrorMessages,
   }) = _ReferColleagueState;
   factory ReferColleagueState.initial() => ReferColleagueState(
         isErrorInApi: false,
         isLoading: false,
         noDataFound: false,
         collegueList: [],
-        account: Account(),
+        account: ApplicantDto(),
+        showErrorMessages: false,
       );
 }

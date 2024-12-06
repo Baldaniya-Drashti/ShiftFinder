@@ -39,6 +39,7 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       authDto: json['auth'] == null
           ? null
           : AuthDto.fromJson(json['auth'] as Map<String, dynamic>),
+      your_referral_code: json['your_referral_code'] as String?,
     );
 
 Map<String, dynamic> _$$CurrentUserDtoImplToJson(
@@ -67,6 +68,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'reference': instance.reference,
       'document': instance.document,
       'auth': instance.authDto,
+      'your_referral_code': instance.your_referral_code,
     };
 
 _$AuthDtoImpl _$$AuthDtoImplFromJson(Map<String, dynamic> json) =>

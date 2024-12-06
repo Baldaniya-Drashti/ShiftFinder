@@ -82,6 +82,8 @@ import 'package:shift/application/employer/employer_full_position/employer_posti
     as _i429;
 import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart'
     as _i152;
+import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart'
+    as _i1020;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
@@ -92,6 +94,8 @@ import 'package:shift/application/employer/hired_contractor/hired_contractor_blo
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
     as _i319;
+import 'package:shift/application/employer/payment_history/payment_history_bloc.dart'
+    as _i398;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -160,7 +164,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
-    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i515.FullPositionReviewBloc>(
         () => _i515.FullPositionReviewBloc());
     gh.factory<_i152.EmployerFullPositionConfirmBloc>(
@@ -174,10 +177,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
-    gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc(
-          gh<_i111.IMainFacade>(),
-          gh<_i253.IAccountRepository>(),
-        ));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),
@@ -305,7 +304,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i810.ReferColleagueBloc>(
+        () => _i810.ReferColleagueBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i398.PaymentHistoryBloc>(
+        () => _i398.PaymentHistoryBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1020.EmployerInvoiceBloc>(
+        () => _i1020.EmployerInvoiceBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i319.MonthlyStatementBloc>(
+        () => _i319.MonthlyStatementBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(

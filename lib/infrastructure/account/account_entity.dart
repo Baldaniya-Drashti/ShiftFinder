@@ -43,6 +43,8 @@ class AccountEntity extends HiveObject {
   final int? isProfileComplete;
   @HiveField(18)
   final int? isDialogBox;
+  @HiveField(19)
+  final String? your_referral_code;
 
   AccountEntity(
     this.userId,
@@ -64,6 +66,7 @@ class AccountEntity extends HiveObject {
     this.referralCode,
     this.serviceRole,
     this.isDialogBox,
+    this.your_referral_code,
   );
 
   Account toDomain() {
@@ -87,6 +90,7 @@ class AccountEntity extends HiveObject {
       isProfileComplete: isProfileComplete,
       referralCode: referralCode,
       serviceRole: serviceRole,
+      your_referral_code: your_referral_code,
     );
   }
 
@@ -111,6 +115,7 @@ class AccountEntity extends HiveObject {
       account.referralCode,
       account.serviceRole,
       account.isDialogBox,
+      account.your_referral_code,
     );
   }
 }

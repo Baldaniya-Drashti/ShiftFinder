@@ -375,6 +375,7 @@ class FilledShiftsView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -406,6 +407,7 @@ class FilledShiftsView extends StatelessWidget {
           ),
         ),
         Flexible(
+          flex: 13,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

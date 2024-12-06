@@ -344,7 +344,8 @@ class StringConstant {
   static const String payables = "Payables";
   static const String totalWage = "Total Wage";
   static const String estimatedWage = "Estimated Wage";
-  static const String totalAllowance = "Total Allowances";
+  static const String totalAllowances = "Total Allowances";
+  static const String totalAllowance = "Total Allowance";
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
   static const String postTheShift = "Post The Shift";
@@ -600,7 +601,17 @@ class StringConstant {
   static const String cancelledByEmployer = "Cancelled by Employer";
   static const String share = "Share";
   static const String yourReferrals = "Your Referrals";
+  static const String cancelled = "Cancelled";
+  static const String completed = "Completed";
+  static const String statementDetails = "Statement Details";
+  static const String dateOfTransaction = "Date of Transaction";
+  static const String contractorName = "Contractor Name";
+  static const String wage = "Wage";
+  static const String netAmount = "Net Amount";
+  static const String totalShiftCancellationFee =
+      "Total Shift Cancellation Fee";
 
+  static const String multiShift = "Multi Shift";
   static const String iRoidSolutions = "iRoid Solutions";
 
   /// ERROR ///

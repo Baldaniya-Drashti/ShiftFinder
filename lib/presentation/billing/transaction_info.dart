@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 
 class TransactionInfo extends StatelessWidget {
@@ -6,7 +7,8 @@ class TransactionInfo extends StatelessWidget {
     super.key,
     required this.label,
     required this.value,
-    this.valueColor, this.valueFontSize,
+    this.valueColor,
+    this.valueFontSize,
   });
 
   final String label;
@@ -17,20 +19,24 @@ class TransactionInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6.0).copyWith(left: 12),
+      padding: EdgeInsets.all(getSize(6)).copyWith(left: getSize(12)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: BaseText(text: "$label :", fontSize: 10, fontWeight: FontWeight.w500,),
+            child: BaseText(
+              text: "$label :",
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           Expanded(
             child: BaseText(
               text: value,
-              fontSize: valueFontSize??10,
+              fontSize: valueFontSize ?? 10,
               fontWeight: FontWeight.w600,
               textColor: valueColor,
-              maxLines: 1,overflow: TextOverflow.ellipsis,
+              // maxLines: 1,overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -43,7 +49,8 @@ class MonthlyStatementInfo extends StatelessWidget {
   final String label;
   final String value;
   final Color? valueColor;
-  const MonthlyStatementInfo({super.key, required this.label, required this.value, this.valueColor});
+  const MonthlyStatementInfo(
+      {super.key, required this.label, required this.value, this.valueColor});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +59,10 @@ class MonthlyStatementInfo extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(flex: 2,
-            child: BaseText(text: "$label :", fontSize: 12, fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 2,
+            child: BaseText(
+                text: "$label :", fontSize: 12, fontWeight: FontWeight.w500),
           ),
           Expanded(
             child: BaseText(

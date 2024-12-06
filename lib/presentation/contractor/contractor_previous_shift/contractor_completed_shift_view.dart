@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/contractor_previus_shift_dto/contractor_previus_shift_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -48,7 +52,8 @@ class ContractorCompletedShiftView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: getSize(10), vertical: getSize(20)),
                         separatorBuilder: (context, index) => Gap(15),
-                        itemCount: 5,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: state.completedDataList.length,
                         itemBuilder: (context, index) {
                           return Container(
                             padding: EdgeInsets.all(getSize(12)),
@@ -64,67 +69,15 @@ class ContractorCompletedShiftView extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                userDetail(context),
-                                Gap(15),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: CommonInfoTile(
-                                        leading: SvgPicture.asset(
-                                          SvgImageConstant.calendar,
-                                          height: 15,
-                                          width: 15,
-                                          colorFilter: ColorFilter.mode(
-                                              AppColors.black.withOpacity(0.6),
-                                              BlendMode.srcIn),
-                                        ),
-                                        title: BaseText(
-                                          text: "Shift Date",
-                                          fontSize: getSize(10),
-                                          textColor:
-                                              AppColors.black.withOpacity(0.6),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        subtitle: Text.rich(
-                                          style: TextStyle(fontSize: 12),
-                                          TextSpan(
-                                            text: "12 May, ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                            children: [
-                                              TextSpan(
-                                                  text: "2024",
-                                                  style: TextStyle(
-                                                      color: AppColors.black
-                                                          .withOpacity(0.5))),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Material(
-                                        color: AppColors.scaffoldColor,
-                                        borderRadius: BorderRadius.circular(7),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10),
-                                          child: Center(
-                                            child: BaseText(
-                                                text: "View Shift Details",
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 12),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Gap(15),
+                                userDetail(
+                                    context, state.completedDataList[index]),
+                                dateAndTime(context, state,
+                                    state.completedDataList[index]),
                                 CommonButton(
                                   onPressed: () {
-                                    context.router.push(
-                                        PageRouteInfo(InvoiceDetailView.name));
+                                    showUnderDevelopment(context);
+                                    // context.router.push(
+                                    //     PageRouteInfo(InvoiceDetailView.name));
                                   },
                                   buttonText: StringConstant.viewInvoice,
                                   backgroundColor:
@@ -148,7 +101,10 @@ class ContractorCompletedShiftView extends StatelessWidget {
 
   Widget userDetail(
     BuildContext context,
+    ContractorPreviousShiftDTO user,
   ) {
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == user.industry);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -166,7 +122,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
             ),
             isThreeLine: true,
             title: BaseText(
-              text: "CT Technologist",
+              text: user.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               maxLines: 1,
@@ -177,13 +133,13 @@ class ContractorCompletedShiftView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: "Louis Vuitton Pvt. Ltd.",
+                  text: user.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(Healthcare - 2DFG125)",
+                  text: "(${industry.title} - ${user.listing_id ?? ""})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -226,14 +182,14 @@ class ContractorCompletedShiftView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "4517 Washington Manchester, Kentucky 39495",
+                        text: user.location?.location ?? "",
                         fontSize: 12,
                         maxLines: 1,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: "10.2 Km Away",
+                        text: user.distance ?? "",
                         fontSize: 10,
                         maxLines: 1,
                         fontWeight: FontWeight.w600,
@@ -251,5 +207,228 @@ class ContractorCompletedShiftView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget dateAndTime(BuildContext context, ContractorPreviousShiftState state,
+      ContractorPreviousShiftDTO shift) {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(10), vertical: getSize(10)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            flex: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                (shift.shift_type == 1)
+                    ? displayDateBreak(
+                        context,
+                        boldValue:
+                            convertTimeStampToDate(shift.start_date ?? -1),
+                        timidValue: convertTimeStampToDate(
+                            shift.start_date ?? -1,
+                            isYear: true),
+                        title: StringConstant.shiftDate,
+                        svgPrefixIcon: SvgImageConstant.calendar,
+                      )
+                    : displayDateBreak(
+                        context,
+                        boldValue:
+                            "${shift.shift_date?.length ?? 0} ${((shift.shift_date?.length ?? 0) > 1) ? "Shifts" : "Shift"}",
+                        timidValue: "",
+                        title: StringConstant.totalShifts,
+                        svgPrefixIcon: SvgImageConstant.calendar,
+                      ),
+              ],
+            ),
+          ),
+          Flexible(
+            flex: 13,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                displayDateBreak(
+                  context,
+                  boldValue: "",
+                  timidValue: "",
+                  title: "",
+                  svgPrefixIcon: "",
+                  showBtn: true,
+                  onBtnPressed: () {
+                    context.router.push(
+                      PageRouteInfo(
+                        ViewContractorShift.name,
+                        args: ViewContractorShiftArgs(
+                          postId: shift.id ?? -1,
+                          isTotalApplicants: true,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget displayTime({
+    required String title,
+    required String startDate,
+    required String endDate,
+    required String svgPrefixIcon,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            svgPrefixIcon,
+            color: AppColors.black,
+            height: getSize(20),
+            width: getSize(16),
+          ),
+          SizedBox(width: getSize(10)),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText(
+                text: StringConstant.time,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              Row(
+                children: [
+                  BaseText(
+                    text: startDate,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColors.black,
+                  ),
+                  BaseText(
+                    text: ' to ',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.black,
+                  ),
+                  BaseText(
+                    text: endDate,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColors.black,
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMM, ').format(dateTime);
+      }
+    }
+  }
+
+  Widget displayDateBreak(BuildContext context,
+      {required String title,
+      required String boldValue,
+      required String timidValue,
+      required String svgPrefixIcon,
+      bool showBtn = false,
+      void Function()? onBtnPressed}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: (showBtn)
+          ? CommonButton(
+              onPressed: onBtnPressed ?? () {},
+              // width: 160,
+              height: 34,
+              borderRadius: 5,
+              buttonFontSize: 12,
+              buttonFontWeight: FontWeight.w600,
+              buttonText: StringConstant.viewShiftDetails,
+              buttonTextColor: AppColors.black,
+              backgroundColor: AppColors.scaffoldColor,
+            )
+          : Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SvgPicture.asset(
+                  svgPrefixIcon,
+                  color: AppColors.black,
+                  height: getSize(20),
+                  width: getSize(16),
+                ),
+                SizedBox(width: getSize(10)),
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: title,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.black.withOpacity(0.7),
+                      ),
+                      highLightText(
+                          boldValue: boldValue, timidValue: timidValue),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
+    return RichText(
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+          text: boldValue,
+          style: TextStyle(
+            fontSize: getFontSize(13),
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+          children: [
+            TextSpan(
+              text: timidValue,
+              style: TextStyle(
+                fontSize: getFontSize(13),
+                fontWeight: FontWeight.w500,
+                color: AppColors.black.withOpacity(0.5),
+              ),
+            ),
+            TextSpan(
+              text: thirdValue ?? "",
+            ),
+          ],
+        ));
   }
 }

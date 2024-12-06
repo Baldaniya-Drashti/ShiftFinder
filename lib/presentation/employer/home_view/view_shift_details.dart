@@ -182,7 +182,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             value: "\$${payable.total_wage ?? 00}",
           ),
           paybaleTitleRate(
-            title: StringConstant.totalAllowance,
+            title: StringConstant.totalAllowances,
             value: "\$${payable.total_allowance ?? 00}",
           ),
           paybaleTitleRate(

@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/application/main_tab/profile/profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/profile/profile_item_model.dart';
@@ -179,7 +185,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.previousShifts,
         image: SvgImageConstant.completedShifts,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+          context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
         },
       ),
       ProfileItemModel(
@@ -237,7 +243,27 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.shareShiftFinder,
         image: SvgImageConstant.share,
-        onTap: () {},
+        onTap: () async {
+          final byteData =
+              await rootBundle.load(PngImageConstants.shiftFinderWhiteLogo);
+
+          final tempDir = await getTemporaryDirectory();
+          final file = File('${tempDir.path}/logo.png');
+          await file.writeAsBytes(byteData.buffer.asUint8List());
+
+          String message = '''
+Hi! Download the ShiftFinder app and start exploring shifts that suit your schedule.
+
+Download now: https://shiftfinderinc.com/
+''';
+// https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf&pcampaignid=web_share
+
+          Share.shareXFiles(
+            [XFile(file.path)],
+            text: message,
+            subject: 'Join ShiftFinder',
+          );
+        },
       ),
       ProfileItemModel(
         title: StringConstant.accountManagement,

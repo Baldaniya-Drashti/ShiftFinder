@@ -36,6 +36,7 @@ class CurrentUserDto with _$CurrentUserDto {
     @JsonKey(name: 'reference') List<ReferenceDTO>? reference,
     @JsonKey(name: 'document') List<DocumentDTO>? document,
     @JsonKey(name: 'auth') AuthDto? authDto,
+    @JsonKey(name: 'your_referral_code') String? your_referral_code,
   }) = _CurrentUserDto;
   Account toDomain() {
     return Account(
@@ -62,6 +63,7 @@ class CurrentUserDto with _$CurrentUserDto {
       reference: reference,
       document: document,
       auth: authDto?.toDomain(),
+      your_referral_code: your_referral_code,
     );
   }
 
@@ -90,6 +92,7 @@ class CurrentUserDto with _$CurrentUserDto {
       reference: account.reference,
       document: account.document,
       authDto: account.auth != null ? AuthDto.fromDomain(account.auth!) : null,
+      your_referral_code: account.your_referral_code,
     );
   }
   factory CurrentUserDto.fromJson(Map<String, dynamic> json) =>

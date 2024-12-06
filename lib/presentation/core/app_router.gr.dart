@@ -161,6 +161,8 @@ import 'package:shift/presentation/employer/employer_location/employer_location_
     as _i48;
 import 'package:shift/presentation/employer/employer_location/employer_location_view.dart'
     as _i49;
+import 'package:shift/presentation/employer/full_position_review/full_position_review_view.dart'
+    as _i55;
 import 'package:shift/presentation/employer/healthcare_post/add_multi_date_time.dart'
     as _i10;
 import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
@@ -186,8 +188,6 @@ import 'package:shift/presentation/employer/profile/previous_shift_view/previous
     as _i84;
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_view.dart'
     as _i85;
-import 'package:shift/presentation/full_position_review/full_position_review_view.dart'
-    as _i55;
 import 'package:shift/presentation/main/main_tab.dart' as _i69;
 import 'package:shift/presentation/main/tabs/employer_shift_view.dart' as _i50;
 import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i60;
@@ -3921,14 +3921,12 @@ class ViewCollegueProfile extends _i121.PageRouteInfo<ViewCollegueProfileArgs> {
   ViewCollegueProfile({
     _i122.Key? key,
     required int id,
-    required int postId,
     List<_i121.PageRouteInfo>? children,
   }) : super(
           ViewCollegueProfile.name,
           args: ViewCollegueProfileArgs(
             key: key,
             id: id,
-            postId: postId,
           ),
           initialChildren: children,
         );
@@ -3942,7 +3940,6 @@ class ViewCollegueProfile extends _i121.PageRouteInfo<ViewCollegueProfileArgs> {
       return _i111.ViewCollegueProfile(
         key: args.key,
         id: args.id,
-        postId: args.postId,
       );
     },
   );
@@ -3952,18 +3949,15 @@ class ViewCollegueProfileArgs {
   const ViewCollegueProfileArgs({
     this.key,
     required this.id,
-    required this.postId,
   });
 
   final _i122.Key? key;
 
   final int id;
 
-  final int postId;
-
   @override
   String toString() {
-    return 'ViewCollegueProfileArgs{key: $key, id: $id, postId: $postId}';
+    return 'ViewCollegueProfileArgs{key: $key, id: $id}';
   }
 }
 

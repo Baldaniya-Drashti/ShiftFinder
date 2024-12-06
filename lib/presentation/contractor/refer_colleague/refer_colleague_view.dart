@@ -9,6 +9,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -54,7 +55,8 @@ class ReferColleagueView extends StatelessWidget {
                                   fontSize: 10,
                                 ),
                                 BaseText(
-                                  text: "TEST15464CV",
+                                  text: getCurrentUser().your_referral_code ??
+                                      "TEST12345ET",
                                   fontWeight: FontWeight.w600,
                                   textColor: AppColors.green,
                                 ),
@@ -63,7 +65,10 @@ class ReferColleagueView extends StatelessWidget {
                           ),
                           CommonButton(
                             onPressed: () {
-                              showUnderDevelopment(context);
+                              // showUnderDevelopment(context);
+                              context.read<ReferColleagueBloc>().add(
+                                  ReferColleagueEvent.shareReferralEvent(
+                                      referralCode: "TEST12345ET"));
                             },
                             buttonText: StringConstant.share,
                             borderRadius: 10,
@@ -122,16 +127,16 @@ class ReferColleagueView extends StatelessWidget {
                                         color: AppColors.white,
                                         child: InkWell(
                                           onTap: () {
-                                            showUnderDevelopment(context);
-                                            /*  context.router.push(
+                                            // showUnderDevelopment(context);
+                                            print(
+                                                "user.user_id--->${user.user_id}");
+                                            context.router.push(
                                               PageRouteInfo(
-                                                  ViewApplicantProfile.name,
-                                                  args:
-                                                      ViewApplicantProfileArgs(
+                                                  ViewCollegueProfile.name,
+                                                  args: ViewCollegueProfileArgs(
                                                     id: user.user_id ?? -1,
-                                                    postId: -1,
                                                   )),
-                                            ); */
+                                            );
                                           },
                                           child: Padding(
                                             padding:

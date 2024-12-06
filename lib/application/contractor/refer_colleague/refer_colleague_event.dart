@@ -5,6 +5,9 @@ class ReferColleagueEvent with _$ReferColleagueEvent {
   factory ReferColleagueEvent.getReferredColleagueData({
     required bool isRefresh,
   }) = GetCompletedList;
+  factory ReferColleagueEvent.shareReferralEvent({
+    required String referralCode,
+  }) = ShareReferralEvent;
   const factory ReferColleagueEvent.getCollegueProfile({
     required int id,
     required BuildContext context,

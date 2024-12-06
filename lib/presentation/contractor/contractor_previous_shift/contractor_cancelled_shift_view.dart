@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -161,7 +162,6 @@ class ContractorCancelledShiftView extends StatelessWidget {
                                         ],
                                       ),
                                        */
-
                                       /* Gap(getSize(12)),
                                         Row(
                                           children: [
@@ -220,47 +220,54 @@ class ContractorCancelledShiftView extends StatelessWidget {
                                         ),
                                       ),
                                       Gap(getSize(6)),
-                                      Material(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.scaffoldColor,
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: AppColors.scaffoldColor,
+                                        ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: EdgeInsets.all(getSize(10)),
                                           child: BaseText(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
-                                            text:
-                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                                            text: state.cancelledDataList[index]
+                                                    .reason ??
+                                                "",
                                           ),
                                         ),
                                       ),
-                                      if (state.currentCancelFilter.id == 1)
-                                        Gap(getSize(15)),
-                                      CommonButton(
-                                        onPressed: () {
-                                          context.router.push(
-                                            PageRouteInfo(
-                                              ViewContractorShift.name,
-                                              args: ViewContractorShiftArgs(
-                                                postId: state
-                                                        .cancelledDataList[
-                                                            index]
-                                                        .id ??
-                                                    -1,
-                                                isTotalApplicants: true,
+                                      if (state.currentCancelFilter.id ==
+                                          1) ...[
+                                        Gap(getSize(10)),
+                                        CommonButton(
+                                          onPressed: () {
+                                            context.router.push(
+                                              PageRouteInfo(
+                                                ViewContractorShift.name,
+                                                args: ViewContractorShiftArgs(
+                                                  postId: state
+                                                          .cancelledDataList[
+                                                              index]
+                                                          .id ??
+                                                      -1,
+                                                  isTotalApplicants: true,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        buttonText:
-                                            StringConstant.viewShiftDetails,
-                                        backgroundColor:
-                                            AppColors.scaffoldColor,
-                                        buttonFontSize: 12,
-                                        height: 43,
-                                        buttonTextColor: AppColors.black,
-                                        buttonFontWeight: FontWeight.w600,
-                                        borderRadius: 7,
-                                      ),
+                                            );
+                                          },
+                                          buttonText:
+                                              StringConstant.viewShiftDetails,
+                                          backgroundColor:
+                                              AppColors.scaffoldColor,
+                                          buttonFontSize: 12,
+                                          height: 43,
+                                          buttonTextColor: AppColors.black,
+                                          buttonFontWeight: FontWeight.w600,
+                                          borderRadius: 7,
+                                        ),
+                                      ],
                                     ],
                                   ),
                                 );
@@ -447,7 +454,7 @@ class ContractorCancelledShiftView extends StatelessWidget {
                     : displayDateBreak(
                         context,
                         boldValue:
-                            "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
+                            "${shift.shift_date?.length ?? 0} ${((shift.shift_date?.length ?? 0) > 1) ? "Shifts" : "Shift"}",
                         timidValue: "",
                         title: StringConstant.totalShifts,
                         svgPrefixIcon: SvgImageConstant.calendar,

@@ -329,7 +329,7 @@ class PayableDetail extends StatelessWidget {
         ),
         payableBox(
           title1: StringConstant.numberOfShifts,
-          title2: StringConstant.totalAllowance,
+          title2: StringConstant.totalAllowances,
           value1:
               "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           value2: "\$${shift.total_allowance}",
@@ -410,7 +410,7 @@ class PayableDetail extends StatelessWidget {
           title2: StringConstant.accommodationAllowance,
           value1: "\$${shift.commute_allowance}",
           value2: "\$${shift.accommodation_allowance}",
-          totalPayableTitle: StringConstant.totalAllowance,
+          totalPayableTitle: StringConstant.totalAllowances,
           totalPayable: "\$${shift.total_one_allowance}",
         ),
         payableBox(
@@ -453,7 +453,7 @@ class PayableDetail extends StatelessWidget {
           value1: "\$${shift.commute_allowance}",
           title2: StringConstant.accommodationAllowance,
           value2: "\$${shift.accommodation_allowance}",
-          totalPayableTitle: StringConstant.totalAllowance,
+          totalPayableTitle: StringConstant.totalAllowances,
           totalPayable: "\$${shift.total_one_allowance}",
         ),
         payableBox(

@@ -6,6 +6,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
+import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -323,5 +324,21 @@ abstract class IMainFacade {
   });
   Future<Either<MainFailure, CommonResponse>> getReferCollegueAPI({
     required int page,
+  });
+  Future<Either<MainFailure, ApplicantDto>> getReferrealContractorInfoApi({
+    required int id,
+  });
+  Future<Either<MainFailure, CommonResponse>> getPaymentHistoryAPI({
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerInvoiceAPI({
+    required int page,
+  });
+
+  Future<Either<MainFailure, MonthlyStatementDTO>>
+      getEmployerMonthlyStatementAPI({
+    required int? startDate,
+    required int? endDate,
   });
 }

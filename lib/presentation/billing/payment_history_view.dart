@@ -1,11 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/employer/payment_history/payment_history_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/payment_history_dto/payment_history_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/common_payment_history_tile.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -15,57 +22,104 @@ class PaymentHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        onBackPressed: () => context.router.maybePop(),
-        title: StringConstant.paymentHistory,
-      ),
-      body: ListView.separated(
-        padding: EdgeInsets.all(16),
-        itemBuilder: (context, index) => CommonPaymentHistoryTile(
-          child: _PaymentHistoryExpandableTile(),
-        ),
-        separatorBuilder: (context, index) => Gap(16),
-        itemCount: 5,
+    return BlocProvider(
+      create: (context) => getIt<PaymentHistoryBloc>()
+        ..add(PaymentHistoryEvent.getPaymentHistoryEvent(true, context)),
+      child: BlocBuilder<PaymentHistoryBloc, PaymentHistoryState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+              onBackPressed: () => context.router.maybePop(),
+              title: StringConstant.paymentHistory,
+            ),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+              child: state.isLoading
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : state.isErrorInApi
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong))
+                      : PaginatedListView(
+                          onRefresh: () => context
+                              .read<PaymentHistoryBloc>()
+                              .add(PaymentHistoryEvent.getPaymentHistoryEvent(
+                                  true, context)),
+                          onLoading: () => context
+                              .read<PaymentHistoryBloc>()
+                              .add(PaymentHistoryEvent.getPaymentHistoryEvent(
+                                  false, context)),
+                          refreshController: context
+                              .read<PaymentHistoryBloc>()
+                              .refreshController,
+                          isNoDataFound: state.noDataFound,
+                          child: ListView.separated(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: getSize(10)),
+                            itemBuilder: (context, index) =>
+                                CommonPaymentHistoryTile(
+                              shift: state.historyList[index],
+                              child: _PaymentHistoryExpandableTile(
+                                shift: state.historyList[index],
+                              ),
+                            ),
+                            separatorBuilder: (context, index) =>
+                                Gap(getSize(15)),
+                            itemCount: state.historyList.length,
+                          ),
+                        ),
+            ),
+          );
+        },
       ),
     );
   }
 }
 
 class _PaymentHistoryExpandableTile extends StatelessWidget {
-  const _PaymentHistoryExpandableTile();
+  final PaymentHistoryDTO shift;
+
+  const _PaymentHistoryExpandableTile({required this.shift});
 
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
       dense: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      collapsedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       collapsedBackgroundColor: AppColors.scaffoldColor,
       backgroundColor: AppColors.scaffoldColor,
       visualDensity: VisualDensity.compact,
       childrenPadding: EdgeInsets.all(15).copyWith(top: 0),
       trailing: SvgPicture.asset(SvgImageConstant.downArrow),
-      title: _buildPaymentDetailTitle(context, title: 'Total Amount Payable', amount: "860"),
+      title: _buildPaymentDetailTitle(context,
+          title: StringConstant.totalAmountPayable,
+          amount: shift.total_amount_payble ?? ""),
       children: [
         Stack(
           children: [
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildPaymentDetailTitle(context, title: "Total Wage", amount: "92.05"),
+                _buildPaymentDetailTitle(context,
+                    title: StringConstant.totalWage,
+                    amount: shift.total_wage ?? ""),
                 Gap(10),
-                _buildPaymentDetailTitle(context, title: "Total Allowance", amount: "30"),
+                _buildPaymentDetailTitle(context,
+                    title: StringConstant.totalAllowance,
+                    amount: shift.total_allowance ?? ""),
               ],
             ),
             Positioned(
               right: 0,
               bottom: 0,
               child: SizedBox.square(
-                dimension: 55,
+                dimension: getSize(65),
                 child: SvgPicture.asset(
                   SvgImageConstant.billingAccount,
-                  colorFilter: ColorFilter.mode(AppColors.green.withOpacity(0.15), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      AppColors.green.withOpacity(0.15), BlendMode.srcIn),
                 ),
               ),
             )

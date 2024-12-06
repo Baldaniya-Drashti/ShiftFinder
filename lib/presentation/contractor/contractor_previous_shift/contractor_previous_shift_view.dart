@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_cancelled_shift_view.dart';
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_completed_shift_view.dart';
@@ -29,6 +30,7 @@ class ContractorPreviousShiftView extends StatelessWidget {
         body: DefaultTabController(
           length: 2,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: getSize(25)),
@@ -52,7 +54,7 @@ class ContractorPreviousShiftView extends StatelessWidget {
   Widget buildTabBar(BuildContext context) {
     return Container(
       height: getSize(50),
-      padding: EdgeInsets.symmetric(vertical: getSize(5)),
+      padding: EdgeInsets.all(getSize(5)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColors.white,
@@ -77,22 +79,8 @@ class ContractorPreviousShiftView extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
         tabs: [
-          Tab(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Completed"),
-              ],
-            ),
-          ),
-          Tab(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Cancelled"),
-              ],
-            ),
-          ),
+          Tab(child: Text(StringConstant.completed)),
+          Tab(child: Text(StringConstant.cancelled)),
         ],
       ),
     );
