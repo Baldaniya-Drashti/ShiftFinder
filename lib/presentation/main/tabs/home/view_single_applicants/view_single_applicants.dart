@@ -608,7 +608,7 @@ class ViewSingleApplicants extends StatelessWidget {
                               borderRadius: BorderRadius.circular(getSize(10)),
                             ),
                             child: BaseText(
-                              text: 'Occupied',
+                              text: StringConstant.occupied,
                               fontSize: 8,
                               fontWeight: FontWeight.w600,
                               textColor: AppColors.redAccent.withOpacity(0.8),
@@ -616,7 +616,7 @@ class ViewSingleApplicants extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

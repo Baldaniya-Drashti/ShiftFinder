@@ -7,11 +7,13 @@ class EmployerInvoiceState with _$EmployerInvoiceState {
     required bool noDataFound,
     required bool isErrorInApi,
     required List<PaymentHistoryDTO> invoiceList,
+    required EmployerInvoiceDTO? selectedInvoice,
   }) = _EmployerInvoiceState;
   factory EmployerInvoiceState.initial() => EmployerInvoiceState(
         isErrorInApi: false,
         isLoading: false,
         noDataFound: false,
         invoiceList: [],
+        selectedInvoice: null,
       );
 }

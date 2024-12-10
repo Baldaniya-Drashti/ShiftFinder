@@ -6,9 +6,10 @@ class MonthlyStatementEvent with _$MonthlyStatementEvent {
     required List<DateTime> dates,
   }) = _OnDateSelected;
   const factory MonthlyStatementEvent.downloadMonthlyStatementEvent(
-      BuildContext context) = DownloadMonthlyStatementEvent;
+      BuildContext context,
+      {required MonthlyStatementDTO statement}) = DownloadMonthlyStatementEvent;
   const factory MonthlyStatementEvent.getMonthlyStatementListEvent(
       bool isRefresh,
-      {int? startDate,
-      int? endDate}) = GetMonthlyStatementListEvent;
+      {DateTime? startDate,
+      DateTime? endDate}) = GetMonthlyStatementListEvent;
 }

@@ -33,7 +33,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   bool isConfirmPassObscure = false;
   List<dynamic> placeList = [];
 
-  static TextEditingController locationCtrl = TextEditingController();
+  static TextEditingController locationCtrl = TextEditingController(text: "");
 
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
@@ -60,6 +60,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   RegisterFormBloc(this._authFacade) : super(RegisterFormState.initial()) {
     on<RegisterFormEvent>((event, emit) async {
       await event.map(
+        clearLocationCtrlEvent: (e) {
+          locationCtrl.clear();
+        },
         editedPhoneEvent: (e) {
           print("edited phone---> ${e.value}");
           emit(state.copyWith(

@@ -5,4 +5,7 @@ class EmployerInvoiceEvent with _$EmployerInvoiceEvent {
   const factory EmployerInvoiceEvent.getEmployerInvoiceEvent(
     bool isRefresh,
   ) = GetEmployerInvoiceEvent;
+
+  const factory EmployerInvoiceEvent.getInvoiceDetailEvent(int id) =
+      GetInvoiceDetailEvent;
 }

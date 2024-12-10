@@ -2208,10 +2208,17 @@ class IntroVideoScreen extends _i121.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i63.InvoiceDetailView]
-class InvoiceDetailView extends _i121.PageRouteInfo<void> {
-  const InvoiceDetailView({List<_i121.PageRouteInfo>? children})
-      : super(
+class InvoiceDetailView extends _i121.PageRouteInfo<InvoiceDetailViewArgs> {
+  InvoiceDetailView({
+    _i122.Key? key,
+    required int id,
+    List<_i121.PageRouteInfo>? children,
+  }) : super(
           InvoiceDetailView.name,
+          args: InvoiceDetailViewArgs(
+            key: key,
+            id: id,
+          ),
           initialChildren: children,
         );
 
@@ -2220,9 +2227,29 @@ class InvoiceDetailView extends _i121.PageRouteInfo<void> {
   static _i121.PageInfo page = _i121.PageInfo(
     name,
     builder: (data) {
-      return const _i63.InvoiceDetailView();
+      final args = data.argsAs<InvoiceDetailViewArgs>();
+      return _i63.InvoiceDetailView(
+        key: args.key,
+        id: args.id,
+      );
     },
   );
+}
+
+class InvoiceDetailViewArgs {
+  const InvoiceDetailViewArgs({
+    this.key,
+    required this.id,
+  });
+
+  final _i122.Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'InvoiceDetailViewArgs{key: $key, id: $id}';
+  }
 }
 
 /// generated route for

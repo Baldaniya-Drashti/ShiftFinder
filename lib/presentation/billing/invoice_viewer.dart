@@ -3,10 +3,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
+import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 class PdfViewerScreen extends StatelessWidget {
   final String pdfPath;
@@ -24,7 +28,8 @@ class PdfViewerScreen extends StatelessWidget {
 }
 
 class InvoiceGenerator {
-  Future<Uint8List> generateContractorCompleteShiftInvoice() async {
+  Future<Uint8List> generateContractorCompleteShiftInvoice(
+      EmployerInvoiceDTO invoice) async {
     final pdf = pw.Document();
 
     // Load the custom font
@@ -37,6 +42,9 @@ class InvoiceGenerator {
           ? pw.SizedBox(width: getSize(width))
           : pw.SizedBox(height: getSize(height ?? 10));
     }
+
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == invoice.industry);
 
     final logoImage =
         // await rootBundle.loadString('assets/svg/contact_support.svg');
@@ -73,7 +81,7 @@ class InvoiceGenerator {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
-                          'Louis Vuitton Pvt. Ltd.',
+                          invoice.employer_company_name ?? "",
                           style: pw.TextStyle(
                             fontBold: regularFont,
                             fontSize: getFontSize(14),
@@ -82,13 +90,13 @@ class InvoiceGenerator {
                         ),
                         paddingBetweenFilled(),
                         pw.Text(
-                          '(Healthcare - 2DFG125)',
+                          '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
                           style: pw.TextStyle(
                               font: regularFont, fontSize: getFontSize(10)),
                         ),
                         paddingBetweenFilled(),
                         pw.Text(
-                          '4517 Washington Manchester, Kentucky 39495',
+                          invoice.location?.location ?? "",
                           style: pw.TextStyle(
                               font: regularFont, fontSize: getFontSize(10)),
                         ),
@@ -99,28 +107,72 @@ class InvoiceGenerator {
                 padding: pw.EdgeInsets.symmetric(vertical: getSize(10)),
                 child: pw.Divider(),
               ),
-              titleWidget("Contractor's Details"),
-              detailWidget(title: "Name :", value: "Rochel Foose"),
-              detailWidget(title: "Email :", value: "debra.holt@example.com"),
+              titleWidget(StringConstant.contractorsDetails),
               detailWidget(
-                  title: "Address :",
-                  value: "6391 Elgin St. Celina, Delaware 10299"),
+                  title: "${StringConstant.name} :",
+                  value:
+                      "${invoice.contractor_first_name ?? ""} ${invoice.contractor_last_name ?? ""}"),
+              detailWidget(
+                  title: "${StringConstant.email} :",
+                  value: invoice.contractor_email ?? ""),
+              detailWidget(
+                  title: "${StringConstant.address} :",
+                  value: invoice.location?.location ?? ""),
               paddingBetweenFilled(height: getSize(30)),
-              titleWidget("Shift's Details"),
-              detailWidget(title: "Shift Type :", value: "Single"),
-              detailWidget(title: "Role :", value: "CT Technologist"),
-              detailWidget(title: "Date :", value: "12 May 2024"),
+              titleWidget(StringConstant.shiftsDetails),
+              detailWidget(
+                  title: "${StringConstant.shiftType} :",
+                  value: (invoice.shift_type == "2")
+                      ? StringConstant.multi
+                      : StringConstant.single),
+              detailWidget(
+                  title: "${StringConstant.role} :",
+                  value: invoice.roles_list_name ?? ""),
+              detailWidget(
+                  title: "${StringConstant.date} :",
+                  value: (invoice.date != null)
+                      ? DateFormat("dd MMM, yyyy").format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (invoice.date!) * 1000))
+                      : ""),
               paddingBetweenFilled(height: getSize(30)),
-              titleWidget("Payment's Details"),
-              detailWidget(title: "Total Worked Hours :", value: "9h 30min"),
-              detailWidget(title: "Hourly Rate :", value: "\$10.00"),
-              detailWidget(title: "Total Wage :", value: "\$200.05"),
-              detailWidget(title: "Total Allowance :", value: "\$30.00"),
-              pw.Padding(
-                padding: pw.EdgeInsets.symmetric(vertical: getSize(10)),
-                child: pw.Divider(),
-              ),
-              detailWidget(title: "Total Earnings :", value: "\$259.50"),
+              titleWidget(StringConstant.paymentsDetails),
+              detailWidget(
+                  title: "${StringConstant.totalPayableHours} :",
+                  value: invoice.total_payable_hours ?? ""),
+              detailWidget(
+                  title: "${StringConstant.hourlyRate} :",
+                  value: "\$${invoice.hourly_rate ?? 00}"),
+              detailWidget(
+                  title: "${StringConstant.totalWage} :",
+                  value: "\$${invoice.total_wage ?? 00}"),
+              detailWidget(
+                  title: "${StringConstant.totalAllowance} :",
+                  value: "\$${invoice.total_allowance ?? 00}"),
+              pw.Container(
+                padding: pw.EdgeInsets.symmetric(
+                    vertical: getSize(10), horizontal: getSize(16)),
+                margin: pw.EdgeInsets.symmetric(vertical: getSize(15)),
+                decoration: pw.BoxDecoration(
+                  borderRadius: pw.BorderRadius.circular(10),
+                  color: PdfColors.green100,
+                ),
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text("${StringConstant.totalAmountPayable} :",
+                        style: pw.TextStyle(
+                          fontSize: 12,
+                          fontWeight: pw.FontWeight.bold,
+                        )),
+                    pw.Text("\$${invoice.total_amount_payble ?? "00"}",
+                        style: pw.TextStyle(
+                          fontSize: 16,
+                          fontWeight: pw.FontWeight.bold,
+                        )),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -129,7 +181,8 @@ class InvoiceGenerator {
     return pdf.save();
   }
 
-  Future<Uint8List> generateMonthlyStatement() async {
+  Future<Uint8List> generateMonthlyStatement(MonthlyStatementDTO statement,
+      {required List<DateTime> selectedDates}) async {
     final pdf = pw.Document();
 
     // Load the custom font
@@ -145,15 +198,22 @@ class InvoiceGenerator {
 
     final logoImage = await rootBundle.load('assets/png/splash_logo.png');
 
-    List<int> data = [1, 2, 3];
+    List<MonthlyStatementDetailDTO> data = statement.list ?? [];
 
-    List<List<dynamic>> chunkedData = [];
+    List<List<MonthlyStatementDetailDTO>> chunkedData = [];
     int chunkSize = 6;
 
     for (int i = 0; i < data.length; i += chunkSize) {
       chunkedData.add(data.sublist(
           i, i + chunkSize > data.length ? data.length : i + chunkSize));
     }
+
+    final industry = CommonList.industryList.firstWhere((element) {
+      return element.id == statement.industry_id;
+    });
+
+    final startDate = DateFormat('dd MMM').format(selectedDates.first);
+    final endDate = DateFormat('dd MMM, yyyy').format(selectedDates.last);
     pdf.addPage(
       index: 0,
       pw.MultiPage(
@@ -177,16 +237,15 @@ class InvoiceGenerator {
                             crossAxisAlignment: pw.CrossAxisAlignment.start,
                             children: [
                               pw.Text(
-                                'Louis Vuitton Pvt. Ltd.',
+                                statement.company_name ?? "",
                                 style: pw.TextStyle(
                                   fontBold: regularFont,
                                   fontSize: getFontSize(14),
                                   fontWeight: pw.FontWeight.bold,
                                 ),
                               ),
-                              paddingBetweenFilled(),
                               pw.Text(
-                                'Healthcare',
+                                industry.title ?? "",
                                 style: pw.TextStyle(
                                   fontNormal: regularFont,
                                   fontSize: getFontSize(10),
@@ -199,8 +258,11 @@ class InvoiceGenerator {
                       padding: pw.EdgeInsets.only(top: getSize(10)),
                       child: pw.Divider(color: PdfColor.fromInt(0xFFD9D9D9)),
                     ),
-                    titleWidget(StringConstant.statementDetails,
-                        bgColor: PdfColors.green100),
+                    titleWidget(
+                      StringConstant.statementDetails,
+                      otherValue: "$startDate to $endDate",
+                      bgColor: PdfColors.green100,
+                    ),
                     ...chunkedData.map((chunk) {
                       return pw.Wrap(
                         alignment: pw.WrapAlignment.start,
@@ -210,7 +272,7 @@ class InvoiceGenerator {
                             return pw.Column(
                                 mainAxisSize: pw.MainAxisSize.min,
                                 children: [
-                                  statementBox(),
+                                  statementBox(item),
                                   pw.Padding(
                                     padding: pw.EdgeInsets.symmetric(
                                         vertical: getSize(5)),
@@ -222,7 +284,6 @@ class InvoiceGenerator {
                         ],
                       );
                     }),
-
                     /*  pw.ListView.separated(
                       itemCount: 15,
                       itemBuilder: (context, index) {
@@ -238,7 +299,7 @@ class InvoiceGenerator {
                       },
                     ),
                      */
-                    statementTotal(),
+                    statementTotal(statement),
                   ],
                 ),
               ]),
@@ -247,31 +308,41 @@ class InvoiceGenerator {
     return pdf.save();
   }
 
-  pw.Container statementBox() {
+  pw.Container statementBox(MonthlyStatementDetailDTO item) {
     return pw.Container(
       child: pw.Column(
         mainAxisSize: pw.MainAxisSize.min,
         children: [
           detailWidget(
               title: "${StringConstant.dateOfTransaction} :",
-              value: "12 July 2024"),
+              value: (item.date_of_transaction != null)
+                  ? DateFormat('dd MMM yyyy').format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                          item.date_of_transaction! * 1000))
+                  : ""),
           detailWidget(
               title: "${StringConstant.contractorName} :",
-              value: "Karen Adderiy"),
+              value:
+                  "${item.contractor_first_name ?? ""} ${item.contractor_last_name ?? ""}"),
+          if (item.type == 2)
+            detailWidget(
+                title: "${StringConstant.shiftCancellationFee} :",
+                value: "\$${item.shiftfinder_service_fee}",
+                valueColor: PdfColors.redAccent),
           detailWidget(
-              title: "${StringConstant.shiftFinderServiceFee} :",
-              value: "\$50",
-              valueColor: PdfColors.red),
+            title: "${StringConstant.shiftFinderServiceFee} :",
+            value: "\$${item.shiftfinder_service_fee}",
+          ),
           detailWidget(
               title: "${StringConstant.wage} :",
-              value: "\$300",
+              value: "\$${item.total_wage}",
               valueColor: PdfColors.green),
         ],
       ),
     );
   }
 
-  pw.Container statementTotal() {
+  pw.Container statementTotal(MonthlyStatementDTO statement) {
     return pw.Container(
       margin: pw.EdgeInsets.symmetric(vertical: getSize(10)),
       padding: pw.EdgeInsets.symmetric(
@@ -287,19 +358,19 @@ class InvoiceGenerator {
         children: [
           detailWidget(
             title: StringConstant.totalWage,
-            value: "\$1350.00",
+            value: "\$${statement.total_wage ?? ""}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalShiftFinderServiceFee,
-            value: "\$1350.00",
+            value: "\$${statement.total_service_fee ?? ""}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalShiftCancellationFee,
-            value: "\$50",
+            value: "\$${statement.total_cancellation_fee ?? ""}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
@@ -310,7 +381,7 @@ class InvoiceGenerator {
           ),
           detailWidget(
             title: StringConstant.netAmount,
-            value: "\$1400.00",
+            value: "\$${statement.net_amount ?? ""}",
             valueColor: PdfColors.green,
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
@@ -320,7 +391,8 @@ class InvoiceGenerator {
     );
   }
 
-  pw.Container titleWidget(String title, {PdfColor? bgColor}) {
+  pw.Container titleWidget(String title,
+      {PdfColor? bgColor, String? otherValue}) {
     return pw.Container(
       margin: pw.EdgeInsets.symmetric(vertical: getSize(10)),
       padding: pw.EdgeInsets.symmetric(
@@ -331,11 +403,21 @@ class InvoiceGenerator {
             getSize(5),
           )),
       alignment: pw.Alignment.centerLeft,
-      child: pw.Text(title,
-          style: pw.TextStyle(
-            fontSize: getFontSize(12),
-            fontWeight: pw.FontWeight.bold,
-          )),
+      child: pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: [
+          pw.Text(title,
+              style: pw.TextStyle(
+                fontSize: getFontSize(12),
+                fontWeight: pw.FontWeight.bold,
+              )),
+          if (otherValue != null && otherValue.isNotEmpty)
+            pw.Text(otherValue,
+                style: pw.TextStyle(
+                  fontSize: getFontSize(12),
+                )),
+        ],
+      ),
     );
   }
 

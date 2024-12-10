@@ -9,9 +9,12 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
@@ -34,144 +37,245 @@ class MonthlyStatementView extends StatelessWidget {
               onBackPressed: () => context.router.maybePop(),
               title: StringConstant.monthlyStatement,
             ),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BlocSelector<MonthlyStatementBloc, MonthlyStatementState,
-                      List<DateTime>>(
-                    selector: (state) => state.selectedDateTime,
-                    builder: (context, selectedDateTime) {
-                      return DateRangePickerTile(
-                        label: StringConstant.period,
-                        selectedDate: selectedDateTime,
-                        onDateSelected: (value) {
-                          context.read<MonthlyStatementBloc>().add(
-                              MonthlyStatementEvent.onDateSelected(
-                                  dates: value));
-                        },
-                      );
-                    },
-                  ),
-                  Gap(getSize(16)),
-                  BaseTileDecoration(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox.square(
-                              dimension: 60,
-                              child: Image.asset(PngImageConstants.splash_logo),
-                            ),
-                            Gap(8),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: BaseText(
-                                            text: "Louis Vuitton Pvt. Ltd.",
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16),
-                                      ),
-                                      CommonButton(
-                                        onPressed: () {
-                                          context
-                                              .read<MonthlyStatementBloc>()
-                                              .add(MonthlyStatementEvent
-                                                  .downloadMonthlyStatementEvent(
-                                                      context));
-                                        },
-                                        buttonText: "",
-                                        customWidget: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SvgPicture.asset(
-                                              SvgImageConstant.download,
-                                              width: getSize(10),
-                                              height: getSize(10),
-                                            ),
-                                            SizedBox(width: getSize(2)),
-                                            BaseText(
-                                              text: StringConstant.download,
-                                              textColor: AppColors.primaryColor,
-                                              fontSize: 8,
-                                            ),
-                                          ],
-                                        ),
-                                        borderRadius: 5,
-                                        width: 70,
-                                        height: 20,
-                                        backgroundColor: AppColors.primaryColor
-                                            .withOpacity(0.20),
-                                        buttonTextColor: AppColors.primaryColor,
-                                      )
-                                    ],
-                                  ),
-                                  BaseText(
-                                      text: "Healthcare",
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                          child: Divider(),
-                        ),
-                        Material(
-                          color: AppColors.green.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(7),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            body: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BlocSelector<MonthlyStatementBloc, MonthlyStatementState,
+                    List<DateTime>>(
+                  selector: (state) => state.selectedDateTime,
+                  builder: (context, selectedDateTime) {
+                    return DateRangePickerTile(
+                      label: StringConstant.period,
+                      selectedDate: selectedDateTime,
+                      onDateSelected: (value) {
+                        print("selected range dates---> $value");
+                        context.read<MonthlyStatementBloc>().add(
+                            MonthlyStatementEvent.onDateSelected(dates: value));
+                      },
+                    );
+                  },
+                ),
+                Expanded(
+                  child: (state.isLoading)
+                      ? CenterLoadingIndicator(isOnlyLoader: true)
+                      : SingleChildScrollView(
+                          padding: EdgeInsets.all(getSize(18)),
+                          child: BaseTileDecoration(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                BaseText(
-                                    text: "Statement Details",
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500),
-                                Flexible(
-                                  child: BaseText(
-                                    text: getFormattedString(
-                                        state.selectedDateTime),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                companyDetail(context,
+                                    statement: state.statement),
+                                /* Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox.square(
+                                dimension: 60,
+                                child: Image.asset(PngImageConstants.splash_logo),
+                              ),
+                              Gap(8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: BaseText(
+                                              text: "Louis Vuitton Pvt. Ltd.",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16),
+                                        ),
+                                        CommonButton(
+                                          onPressed: () {
+                                            context
+                                                .read<MonthlyStatementBloc>()
+                                                .add(MonthlyStatementEvent
+                                                    .downloadMonthlyStatementEvent(
+                                                        context));
+                                          },
+                                          buttonText: "",
+                                          customWidget: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              SvgPicture.asset(
+                                                SvgImageConstant.download,
+                                                width: getSize(10),
+                                                height: getSize(10),
+                                              ),
+                                              SizedBox(width: getSize(2)),
+                                              BaseText(
+                                                text: StringConstant.download,
+                                                textColor: AppColors.primaryColor,
+                                                fontSize: 8,
+                                              ),
+                                            ],
+                                          ),
+                                          borderRadius: 5,
+                                          width: 70,
+                                          height: 20,
+                                          backgroundColor: AppColors.primaryColor
+                                              .withOpacity(0.20),
+                                          buttonTextColor: AppColors.primaryColor,
+                                        )
+                                      ],
+                                    ),
+                                    BaseText(
+                                        text: "Healthcare",
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                  ],
                                 ),
+                              ),
+                            ],
+                          ),
+                           */
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10)),
+                                  child: Divider(),
+                                ),
+                                if (state.statement.list != null &&
+                                    state.statement.list!.isNotEmpty) ...[
+                                  Material(
+                                    color: AppColors.green.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(7),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 14, vertical: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          BaseText(
+                                              text: StringConstant
+                                                  .statementDetails,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500),
+                                          Flexible(
+                                            child: BaseText(
+                                              text: getFormattedString(
+                                                  state.selectedDateTime),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(getSize(8)),
+                                  _StatementListView(
+                                    statement: state.statement,
+                                  ),
+                                ],
                               ],
                             ),
                           ),
                         ),
-                        Gap(getSize(8)),
-                        _StatementListView()
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
       ),
     );
   }
+
+  Widget companyDetail(BuildContext context,
+      {required MonthlyStatementDTO statement}) {
+    final industry = CommonList.industryList.firstWhere((element) {
+      if (statement.industry_id != null) {
+        return element.id == statement.industry_id;
+      }
+      return element.id == 1;
+    });
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox.square(
+          dimension: getSize(60),
+          child: Image.asset(PngImageConstants.splash_logo),
+        ),
+        Gap(getSize(8)),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: statement.company_name ?? "",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  BaseText(
+                      text: industry.title ?? "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),
+                ],
+              ),
+              if (statement.list != null && statement.list!.isNotEmpty) ...[
+                downLoadInvoiceBtn(
+                  onTap: () {
+                    context.read<MonthlyStatementBloc>().add(
+                            MonthlyStatementEvent.downloadMonthlyStatementEvent(
+                          context,
+                          statement: statement,
+                        ));
+                  },
+                ),
+              ]
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget downLoadInvoiceBtn({required void Function() onTap}) {
+    return CommonButton(
+      buttonText: "",
+      onPressed: onTap,
+      borderRadius: 5,
+      width: 76,
+      height: 20,
+      backgroundColor: AppColors.primaryColor.withOpacity(0.20),
+      buttonTextColor: AppColors.primaryColor,
+      customWidget: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            SvgImageConstant.download,
+            width: getSize(10),
+            height: getSize(10),
+          ),
+          SizedBox(width: getSize(5)),
+          BaseText(
+            textAlign: TextAlign.center,
+            text: StringConstant.download,
+            fontSize: 8,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.green,
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _StatementListView extends StatelessWidget {
-  const _StatementListView();
+  final MonthlyStatementDTO statement;
+  const _StatementListView({required this.statement});
 
   @override
   Widget build(BuildContext context) {
@@ -180,28 +284,33 @@ class _StatementListView extends StatelessWidget {
         ListView.separated(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => _StatementDetailTile(),
           separatorBuilder: (context, index) => Divider(),
-          itemCount: 3,
+          itemCount: statement.list!.length,
+          itemBuilder: (context, index) =>
+              _StatementDetailTile(statement.list![index]),
         ),
-        Gap(12),
+        Gap(getSize(12)),
         Material(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.scaffoldColor,
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(getSize(12)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                MonthlyStatementInfo(label: "Total Wage", value: "\$1350.00"),
                 MonthlyStatementInfo(
-                    label: "Total ShiftFinder Service Fee", value: "\$1350.00"),
+                    label: StringConstant.totalWage,
+                    value: "\$${statement.total_wage ?? ""}"),
                 MonthlyStatementInfo(
-                    label: "Total Shift Cancellation Fee", value: "\$1350.00"),
+                    label: StringConstant.totalShiftFinderServiceFee,
+                    value: "\$${statement.total_service_fee ?? ""}"),
+                MonthlyStatementInfo(
+                    label: StringConstant.totalShiftCancellationFee,
+                    value: "\$${statement.total_cancellation_fee ?? ""}"),
                 Divider(),
                 MonthlyStatementInfo(
-                    label: "Net Amount",
-                    value: "\$1350.00",
+                    label: StringConstant.netAmount,
+                    value: "\$${statement.net_amount ?? ""}",
                     valueColor: AppColors.green),
               ],
             ),
@@ -213,18 +322,40 @@ class _StatementListView extends StatelessWidget {
 }
 
 class _StatementDetailTile extends StatelessWidget {
-  const _StatementDetailTile();
+  final MonthlyStatementDetailDTO list;
+  const _StatementDetailTile(this.list);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TransactionInfo(label: "Date of Transaction", value: "12 July 2024"),
-        TransactionInfo(label: "Contractor Name", value: "Karen Adderiy"),
-        TransactionInfo(label: "ShiftFinder Service Fee", value: "\$50"),
         TransactionInfo(
-            label: "Wage", value: "\$300", valueColor: AppColors.green),
+            label: StringConstant.dateOfTransaction,
+            value: (list.date_of_transaction != null)
+                ? DateFormat('dd MMM yyyy').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        list.date_of_transaction! * 1000))
+                : ""),
+        TransactionInfo(
+            label: StringConstant.contractorName,
+            value:
+                "${list.contractor_first_name ?? ""} ${list.contractor_last_name ?? ""}"),
+        if (list.type == 2)
+          TransactionInfo(
+            label: StringConstant.shiftCancellationFee,
+            value: "\$${list.shiftfinder_service_fee}",
+            valueColor: AppColors.redAccent,
+          )
+        else ...[
+          TransactionInfo(
+              label: StringConstant.shiftFinderServiceFee,
+              value: "\$${list.shiftfinder_service_fee}"),
+          TransactionInfo(
+              label: StringConstant.wage,
+              value: "\$${list.total_wage}",
+              valueColor: AppColors.green),
+        ],
       ],
     );
   }

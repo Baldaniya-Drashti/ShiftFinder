@@ -612,6 +612,11 @@ class StringConstant {
       "Total Shift Cancellation Fee";
 
   static const String multiShift = "Multi Shift";
+  static const String shiftCancellationFee = "Shift Cancellation Fee";
+  static const String occupied = "Occupied";
+  static const String paymentsDetails = "Payment’s Details";
+  static const String contractorsDetails = "Contractor’s Details";
+  static const String shiftsDetails = "Shift’s Details";
   static const String iRoidSolutions = "iRoid Solutions";
 
   /// ERROR ///

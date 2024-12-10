@@ -89,8 +89,21 @@ class ApproveShiftView extends StatelessWidget {
                                       userDetail(context,
                                           state.approveShiftList[index]),
                                       paddingBetweenFields(),
-                                      remainingTime(context,
-                                          state.approveShiftList[index]),
+                                      if (state.approveShiftList[index]
+                                                  .shift_type !=
+                                              null &&
+                                          state.approveShiftList[index]
+                                                  .shift_type ==
+                                              2 &&
+                                          state.approveShiftList[index]
+                                                  .remaining_shift !=
+                                              null &&
+                                          state.approveShiftList[index]
+                                                  .remaining_shift! >
+                                              0) ...[
+                                        remainingTime(context,
+                                            state.approveShiftList[index]),
+                                      ],
                                       paddingBetweenFields(),
                                       dateAndTime(context,
                                           state.approveShiftList[index]),

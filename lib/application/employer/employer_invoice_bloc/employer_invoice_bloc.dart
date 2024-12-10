@@ -1,8 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/payment_history_dto/payment_history_dto.dart';
 
 part 'employer_invoice_event.dart';
@@ -67,6 +70,27 @@ class EmployerInvoiceBloc
                         .toList()),
                 ),
               );
+            },
+          );
+        },
+        getInvoiceDetailEvent: (e) async {
+          Either<MainFailure, EmployerInvoiceDTO>? failureOrSuccess;
+
+          emit(state.copyWith(isLoading: true));
+
+          failureOrSuccess = await mainFacade.getInvoiceDetailAPI(id: e.id);
+
+          failureOrSuccess.fold(
+            (l) {
+              emit(state.copyWith(
+                isLoading: false,
+              ));
+            },
+            (r) {
+              emit(state.copyWith(
+                isLoading: false,
+                selectedInvoice: r,
+              ));
             },
           );
         },

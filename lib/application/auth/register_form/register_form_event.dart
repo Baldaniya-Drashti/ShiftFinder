@@ -82,4 +82,6 @@ class RegisterFormEvent with _$RegisterFormEvent {
 
   const factory RegisterFormEvent.selectEditedCountryCode(
       String phoneCode, String flag) = SelectEditedCountryCode;
+  const factory RegisterFormEvent.clearLocationCtrlEvent() =
+      ClearLocationCtrlEvent;
 }

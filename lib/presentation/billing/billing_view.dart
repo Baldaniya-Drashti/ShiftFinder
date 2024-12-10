@@ -84,8 +84,9 @@ class BillingView extends StatelessWidget {
                     ),
                     titleUI(
                       icon: SvgImageConstant.calenderStatement,
-                      // onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
-                      onPressed: () => showUnderDevelopment(context),
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(MonthlyStatementView.name)),
+                      // onPressed: () => showUnderDevelopment(context),
                       label: StringConstant.monthlyStatement,
                     ),
                   ],

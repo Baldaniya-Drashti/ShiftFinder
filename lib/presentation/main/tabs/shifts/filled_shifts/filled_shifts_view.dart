@@ -102,7 +102,10 @@ class FilledShiftsView extends StatelessWidget {
         children: [
           userDetail(context, shift),
           SizedBox(height: getSize(10)),
-          if (shift.remaining_shift != null && shift.remaining_shift! > 0)
+          if (shift.shift_type != null &&
+              shift.shift_type == 2 &&
+              shift.remaining_shift != null &&
+              shift.remaining_shift! > 0)
             remainingTime(context, shift),
           dateAndTime(context, shift),
           (shift.total_user == 1)

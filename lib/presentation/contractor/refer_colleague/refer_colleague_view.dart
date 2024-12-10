@@ -68,7 +68,9 @@ class ReferColleagueView extends StatelessWidget {
                               // showUnderDevelopment(context);
                               context.read<ReferColleagueBloc>().add(
                                   ReferColleagueEvent.shareReferralEvent(
-                                      referralCode: "TEST12345ET"));
+                                      referralCode:
+                                          getCurrentUser().your_referral_code ??
+                                              "TEST12345ET"));
                             },
                             buttonText: StringConstant.share,
                             borderRadius: 10,

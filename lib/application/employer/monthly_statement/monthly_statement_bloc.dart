@@ -26,9 +26,17 @@ class MonthlyStatementBloc
       await event.map(
         onDateSelected: (value) {
           emit(state.copyWith(selectedDateTime: value.dates));
+          if (value.dates.isNotEmpty) {
+            DateTime startDate = value.dates.first;
+            DateTime endDate = value.dates.last;
+            add(MonthlyStatementEvent.getMonthlyStatementListEvent(true,
+                startDate: startDate, endDate: endDate));
+          }
         },
         downloadMonthlyStatementEvent: (e) async {
-          final pdfData = await InvoiceGenerator().generateMonthlyStatement();
+          final pdfData = await InvoiceGenerator().generateMonthlyStatement(
+              e.statement,
+              selectedDates: state.selectedDateTime);
 
           String? pdfPath =
               await SaveFileToStorage.savePdfToShiftFinderDirectory(pdfData,
@@ -36,25 +44,30 @@ class MonthlyStatementBloc
 
           if (pdfPath != null) {
             print('PDF saved to: $pdfPath');
-            showSuccess(message: "Monthly Statement Downloaded..!")
+            showSuccess(message: "Monthly_Statement Downloaded..!")
                 .show(e.context);
-            Navigator.push(
+            /*  Navigator.push(
               e.context,
               MaterialPageRoute(
                 builder: (context) => PdfViewerScreen(pdfPath: pdfPath),
               ),
-            );
+            ); */
           } else {
             showError(message: "Failed to download PDF!").show(e.context);
           }
         },
         getMonthlyStatementListEvent: (e) async {
           Either<MainFailure, MonthlyStatementDTO>? failureOrSuccess;
+
           emit(state.copyWith(isLoading: true));
 
           failureOrSuccess = await mainFacade.getEmployerMonthlyStatementAPI(
-            startDate: null,
-            endDate: null,
+            startDate: (e.startDate != null)
+                ? e.startDate!.toUtc().millisecondsSinceEpoch / 1000
+                : null,
+            endDate: (e.endDate != null)
+                ? e.endDate!.toUtc().millisecondsSinceEpoch / 1000
+                : null,
           );
 
           failureOrSuccess.fold(

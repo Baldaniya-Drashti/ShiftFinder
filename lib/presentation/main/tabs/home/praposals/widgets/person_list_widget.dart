@@ -102,7 +102,7 @@ class PersonListWidget extends StatelessWidget {
                                             BorderRadius.circular(getSize(10)),
                                       ),
                                       child: BaseText(
-                                        text: 'Occupied',
+                                        text: StringConstant.occupied,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w600,
                                         textColor: AppColors.redAccent
@@ -114,7 +114,7 @@ class PersonListWidget extends StatelessWidget {
                               ),
                               if (list[index].revoke_status != null &&
                                   list[index].deleteAt != 1) ...[
-                                Gap(8),
+                                Gap(getSize(8)),
                                 SvgPicture.asset(
                                   SvgImageConstant.rightArrow,
                                   height: 13,

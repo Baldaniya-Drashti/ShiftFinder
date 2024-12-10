@@ -16,6 +16,7 @@ import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/chat/chat_response.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
+import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
@@ -2574,13 +2575,17 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, MonthlyStatementDTO>>
       getEmployerMonthlyStatementAPI({
-    required int? startDate,
-    required int? endDate,
+    required double? startDate,
+    required double? endDate,
   }) async {
     try {
       Map<String, dynamic> mapData = {
-        if (startDate != null) 'start_date': startDate,
-        if (endDate != null) 'end_date': endDate,
+        'start_date': (startDate != null)
+            ? startDate
+            : DateTime.now().toUtc().millisecondsSinceEpoch / 1000,
+        'end_date': (endDate != null)
+            ? endDate
+            : DateTime.now().toUtc().millisecondsSinceEpoch / 1000,
       };
 
       print("Sending Data->  ${jsonEncode(mapData)}");
@@ -2591,6 +2596,40 @@ class MainFacade implements IMainFacade {
       if (res != null) {
         final data = MonthlyStatementDTO.fromJson(res.data);
         print("Monthly Statement Response->  ${data}");
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, EmployerInvoiceDTO>> getInvoiceDetailAPI({
+    required int id,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {'id': id};
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.getMethod(
+        ApiConstants.employerInvoices,
+        queryParameters: mapData,
+      );
+      if (res != null) {
+        final data = EmployerInvoiceDTO.fromJson(res.data);
+        print("Invoice Response->  ${data}");
         return right(data);
       } else {
         return left(const MainFailure.serverError());

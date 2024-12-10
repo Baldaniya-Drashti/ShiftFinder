@@ -6,6 +6,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
+import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -338,7 +339,10 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, MonthlyStatementDTO>>
       getEmployerMonthlyStatementAPI({
-    required int? startDate,
-    required int? endDate,
+    required double? startDate,
+    required double? endDate,
+  });
+  Future<Either<MainFailure, EmployerInvoiceDTO>> getInvoiceDetailAPI({
+    required int id,
   });
 }

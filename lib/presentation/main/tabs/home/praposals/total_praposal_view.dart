@@ -24,7 +24,8 @@ class TotalPraposalView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<TotalProposalBloc>()
         ..add(
-          TotalProposalEvent.getTotalProposalList(id: postId, isRefresh: true, context: context),
+          TotalProposalEvent.getTotalProposalList(
+              id: postId, isRefresh: true, context: context),
         ),
       child: Scaffold(
         appBar: CommonAppBar(
@@ -37,7 +38,9 @@ class TotalPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) {
               return CenterLoadingIndicator();
-            } else if (!state.isLoading && state.totalProposedDataList.isEmpty && state.additionalData == null) {
+            } else if (!state.isLoading &&
+                state.totalProposedDataList.isEmpty &&
+                state.additionalData == null) {
               return Center(
                 child: SizedBox(
                   width: getSize(280),
@@ -60,7 +63,8 @@ class TotalPraposalView extends StatelessWidget {
                   additionalData: state.additionalData ?? EmployerProposalDto(),
                   postId: postId,
                 ),
-                if (state.totalProposedDataList.isNotEmpty) PersonListWidget(postId: postId),
+                if (state.totalProposedDataList.isNotEmpty)
+                  PersonListWidget(postId: postId),
               ],
             );
           },

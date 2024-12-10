@@ -68,7 +68,8 @@ class RegisterProfileScreen extends StatelessWidget {
           AppFocus.unfocus(context);
         },
         child: BlocProvider(
-          create: (context) => getIt<RegisterFormBloc>(),
+          create: (context) => getIt<RegisterFormBloc>()
+            ..add(RegisterFormEvent.clearLocationCtrlEvent()),
           child: BlocConsumer<RegisterFormBloc, RegisterFormState>(
             listener: (context, state) {
               state.authFailureOrSuccessOption.fold(

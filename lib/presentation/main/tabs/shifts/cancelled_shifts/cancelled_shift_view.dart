@@ -231,6 +231,7 @@ class CancelledShiftView extends StatelessWidget {
               child: BaseText(
                 text: StringConstant.reason,
                 fontSize: 12,
+                fontWeight: FontWeight.bold,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
             ),

@@ -18,6 +18,8 @@ _$MonthlyStatementDTOImpl _$$MonthlyStatementDTOImplFromJson(
       total_wage: json['total_wage'] as String?,
       total_service_fee: json['total_service_fee'] as String?,
       total_cancellation_fee: json['total_cancellation_fee'] as String?,
+      listing_id: json['listing_id'] as String?,
+      net_amount: json['net_amount'] as String?,
     );
 
 Map<String, dynamic> _$$MonthlyStatementDTOImplToJson(
@@ -29,13 +31,15 @@ Map<String, dynamic> _$$MonthlyStatementDTOImplToJson(
       'total_wage': instance.total_wage,
       'total_service_fee': instance.total_service_fee,
       'total_cancellation_fee': instance.total_cancellation_fee,
+      'listing_id': instance.listing_id,
+      'net_amount': instance.net_amount,
     };
 
 _$MonthlyStatementDetailDTOImpl _$$MonthlyStatementDetailDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$MonthlyStatementDetailDTOImpl(
       id: (json['id'] as num?)?.toInt(),
-      date_of_transaction: json['date_of_transaction'] as String?,
+      date_of_transaction: (json['date_of_transaction'] as num?)?.toInt(),
       contractor_first_name: json['contractor_first_name'] as String?,
       contractor_last_name: json['contractor_last_name'] as String?,
       shiftfinder_service_fee: json['shiftfinder_service_fee'] as String?,

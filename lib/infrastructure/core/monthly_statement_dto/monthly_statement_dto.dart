@@ -11,6 +11,8 @@ class MonthlyStatementDTO with _$MonthlyStatementDTO {
     String? total_wage,
     String? total_service_fee,
     String? total_cancellation_fee,
+    String? listing_id,
+    String? net_amount,
   }) = _MonthlyStatementDTO;
 
   factory MonthlyStatementDTO.fromJson(Map<String, dynamic> json) =>
@@ -21,7 +23,7 @@ class MonthlyStatementDTO with _$MonthlyStatementDTO {
 class MonthlyStatementDetailDTO with _$MonthlyStatementDetailDTO {
   const factory MonthlyStatementDetailDTO({
     int? id,
-    String? date_of_transaction,
+    int? date_of_transaction,
     String? contractor_first_name,
     String? contractor_last_name,
     String? shiftfinder_service_fee,

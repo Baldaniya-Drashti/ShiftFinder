@@ -1,18 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart';
 // import 'package:printing/printing.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/invoice_viewer.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/no_data_ui.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -20,77 +28,109 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "InvoiceDetailView")
 class InvoiceDetailView extends StatelessWidget {
-  const InvoiceDetailView({super.key});
+  final int id;
+  const InvoiceDetailView({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     final isContractor = getCurrentRole() == 1;
 
-    return Scaffold(
-      appBar: CommonAppBar(
-        onBackPressed: () => context.router.maybePop(),
-        title: 'Invoice',
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(getSize(16)),
-        child: Column(
-          children: [
-            BaseTileDecoration(
-              padding: EdgeInsets.symmetric(
-                  vertical: getSize(25), horizontal: getSize(10)),
-              child: Column(
-                children: [
-                  companyDetail(showDownloadBtn: isContractor),
-                  commonDivider(),
-                  _ContractorDetail(),
-                  Gap(getSize(16)),
-                  _ShiftDetail(),
-                  Gap(getSize(16)),
-                  _PaymentDetail(),
-                  if (isContractor) ...[
-                    Divider(),
-                    TransactionInfo(
-                        label: "Total Earnings",
-                        value: "\$500",
-                        valueColor: AppColors.green,
-                        valueFontSize: 12),
-                    Gap(getSize(10)),
-                    downLoadInvoiceBtn(
-                      isContractor,
-                      onTap: () async {
-                        showInvoice(context);
-                      },
-                    ),
-                  ] else ...[
-                    Gap(getSize(16)),
-                    Container(
-                      padding: EdgeInsets.all(getSize(16)),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.green.withOpacity(0.2),
+    return BlocProvider(
+      create: (context) => getIt<EmployerInvoiceBloc>()
+        ..add(EmployerInvoiceEvent.getInvoiceDetailEvent(id)),
+      child: BlocBuilder<EmployerInvoiceBloc, EmployerInvoiceState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+              onBackPressed: () => context.router.maybePop(),
+              title: StringConstant.invoice,
+            ),
+            body: (state.isLoading)
+                ? CenterLoadingIndicator()
+                : (state.selectedInvoice == null)
+                    ? Center(
+                        child: NoDataText(
+                        title: StringConstant.noResultFound,
+                        description: "",
+                      ))
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.all(getSize(16)),
+                        child: Column(
+                          children: [
+                            BaseTileDecoration(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(25),
+                                  horizontal: getSize(10)),
+                              child: Column(
+                                children: [
+                                  companyDetail(
+                                    context,
+                                    showDownloadBtn: isContractor,
+                                    invoice: state.selectedInvoice!,
+                                  ),
+                                  commonDivider(),
+                                  _ContractorDetail(
+                                    invoice: state.selectedInvoice!,
+                                  ),
+                                  Gap(getSize(16)),
+                                  _ShiftDetail(
+                                    invoice: state.selectedInvoice!,
+                                  ),
+                                  Gap(getSize(16)),
+                                  _PaymentDetail(
+                                    invoice: state.selectedInvoice!,
+                                  ),
+                                  if (isContractor) ...[
+                                    Divider(),
+                                    TransactionInfo(
+                                        label: StringConstant.totalEarnings,
+                                        value: "\$500",
+                                        valueColor: AppColors.green,
+                                        valueFontSize: 12),
+                                    Gap(getSize(10)),
+                                    downLoadInvoiceBtn(
+                                      isContractor,
+                                      onTap: () {
+                                        downloadInvoice(context,
+                                            invoice: state.selectedInvoice!);
+                                      },
+                                    ),
+                                  ] else ...[
+                                    Gap(getSize(16)),
+                                    Container(
+                                      padding: EdgeInsets.all(getSize(16)),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.green.withOpacity(0.2),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          BaseText(
+                                            text:
+                                                "${StringConstant.totalAmountPayable} :",
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          BaseText(
+                                            text:
+                                                "\$${state.selectedInvoice?.total_amount_payble ?? "00"}",
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ]
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BaseText(
-                            text: "${StringConstant.totalAmountPayable} :",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          BaseText(
-                            text: "\$170.00",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ],
-                      ),
-                    )
-                  ]
-                ],
-              ),
-            )
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -133,7 +173,10 @@ class InvoiceDetailView extends StatelessWidget {
     );
   }
 
-  Widget companyDetail({bool showDownloadBtn = false}) {
+  Widget companyDetail(BuildContext context,
+      {bool showDownloadBtn = false, required EmployerInvoiceDTO invoice}) {
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == invoice.industry);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,12 +200,13 @@ class InvoiceDetailView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "Louis Vuitton Pvt. Ltd.",
+                        text: invoice.employer_company_name ?? "",
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
                       BaseText(
-                          text: "(Healthcare - 2DFG175)",
+                          text:
+                              '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
                           fontSize: 10,
                           fontWeight: FontWeight.w400),
                     ],
@@ -170,9 +214,11 @@ class InvoiceDetailView extends StatelessWidget {
                   if (!showDownloadBtn) ...[
                     downLoadInvoiceBtn(
                       showDownloadBtn,
-                      onTap: () {},
+                      onTap: () {
+                        downloadInvoice(context, invoice: invoice);
+                      },
                     ),
-                  ]
+                  ],
                 ],
               ),
               Gap(getSize(3)),
@@ -188,7 +234,7 @@ class InvoiceDetailView extends StatelessWidget {
                   ),
                   Expanded(
                     child: BaseText(
-                      text: "4517 Washington Manchester, Kentucky 39495",
+                      text: invoice.location?.location ?? "",
                       fontSize: 10,
                       fontWeight: FontWeight.w500,
                       maxLines: 1,
@@ -205,54 +251,83 @@ class InvoiceDetailView extends StatelessWidget {
 }
 
 class _ContractorDetail extends StatelessWidget {
-  const _ContractorDetail();
+  final EmployerInvoiceDTO invoice;
+  const _ContractorDetail({required this.invoice});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        StatementHeadingTitle(title: "Contractor’s Details"),
-        TransactionInfo(label: "Name", value: "Rochel Foose"),
-        TransactionInfo(label: "Email", value: "debra.holt@example.com"),
+        StatementHeadingTitle(title: StringConstant.contractorsDetails),
         TransactionInfo(
-            label: "Address", value: "6391 Elgin St. Celina, Delaware 10299")
+            label: StringConstant.name,
+            value:
+                "${invoice.contractor_first_name ?? ""} ${invoice.contractor_last_name ?? ""}"),
+        TransactionInfo(
+            label: StringConstant.email, value: invoice.contractor_email ?? ""),
+        TransactionInfo(
+            label: StringConstant.address,
+            value: invoice.location?.location ?? "")
       ],
     );
   }
 }
 
 class _ShiftDetail extends StatelessWidget {
-  const _ShiftDetail();
+  final EmployerInvoiceDTO invoice;
+  const _ShiftDetail({required this.invoice});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        StatementHeadingTitle(title: "Shift’s Details"),
-        TransactionInfo(label: "Shift Type", value: "Single"),
-        TransactionInfo(label: "Role", value: "CT Technologist"),
-        TransactionInfo(label: "Date", value: "12 May 2024")
+        StatementHeadingTitle(title: StringConstant.shiftsDetails),
+        TransactionInfo(
+            label: StringConstant.shiftType,
+            value: (invoice.shift_type == "2")
+                ? StringConstant.multi
+                : StringConstant.single),
+        TransactionInfo(
+            label: StringConstant.role, value: invoice.roles_list_name ?? ""),
+        TransactionInfo(
+          label: StringConstant.date,
+          value: (invoice.date != null)
+              ? DateFormat("dd MMM, yyyy").format(
+                  DateTime.fromMillisecondsSinceEpoch((invoice.date!) * 1000))
+              : "",
+        )
       ],
     );
   }
 }
 
 class _PaymentDetail extends StatelessWidget {
-  const _PaymentDetail();
+  final EmployerInvoiceDTO invoice;
+  const _PaymentDetail({required this.invoice});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        StatementHeadingTitle(title: "Payment’s Details"),
-        TransactionInfo(label: "Total Payable Hours", value: "9h 30min"),
-        TransactionInfo(label: "Hourly Rate", value: "\$10.00"),
-        TransactionInfo(label: "Total Wage", value: "\$92.05"),
-        TransactionInfo(label: "ShiftFinder Service Fee", value: "\$50.00"),
-        TransactionInfo(label: "Total Allowance", value: "\$30.00"),
+        StatementHeadingTitle(title: StringConstant.paymentsDetails),
+        TransactionInfo(
+            label: StringConstant.totalPayableHours,
+            value: invoice.total_payable_hours ?? ""),
+        TransactionInfo(
+            label: StringConstant.hourlyRate,
+            value: "\$${invoice.hourly_rate ?? 00}"),
+        TransactionInfo(
+            label: StringConstant.totalWage,
+            value: "\$${invoice.total_wage ?? 00}"),
+        TransactionInfo(
+            label: StringConstant.shiftFinderServiceFee,
+            value: "\$${invoice.shiftfinder_service_fee ?? 00}"),
+        TransactionInfo(
+            label: StringConstant.totalAllowance,
+            value: "\$${invoice.total_allowance ?? 00}"),
       ],
     );
   }
@@ -284,17 +359,20 @@ class StatementHeadingTitle extends StatelessWidget {
   }
 }
 
-void showInvoice(BuildContext context) async {
+void downloadInvoice(BuildContext context,
+    {required EmployerInvoiceDTO invoice}) async {
   final pdfData =
-      await InvoiceGenerator().generateContractorCompleteShiftInvoice();
+      await InvoiceGenerator().generateContractorCompleteShiftInvoice(invoice);
 
   String? pdfPath = await SaveFileToStorage.savePdfToShiftFinderDirectory(
       pdfData,
-      fileName: 'PreviusShift_Invoice.pdf');
+      fileName: 'PreviusShift_Invoice_${invoice.listing_id}.pdf');
 
   if (pdfPath != null) {
     print('PDF saved to: $pdfPath');
-    showSuccess(message: "Invoice Downloaded..!").show(context);
+    showSuccess(
+            message: "PreviusShift_Invoice_${invoice.listing_id} Downloaded..!")
+        .show(context);
     /* Navigator.push(
       context,
       MaterialPageRoute(

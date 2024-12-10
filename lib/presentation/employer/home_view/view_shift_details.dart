@@ -654,7 +654,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('dd MMMM, yyyy').format(dateTime);
+        return DateFormat('dd MMM, yyyy').format(dateTime);
       }
     }
   }

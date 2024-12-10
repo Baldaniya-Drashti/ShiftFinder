@@ -74,7 +74,11 @@ class InvoiceView extends StatelessWidget {
                                     CommonButton(
                                       onPressed: () {
                                         context.router.push(PageRouteInfo(
-                                            InvoiceDetailView.name));
+                                            InvoiceDetailView.name,
+                                            args: InvoiceDetailViewArgs(
+                                                id: state.invoiceList[index]
+                                                        .id ??
+                                                    -1)));
                                       },
                                       buttonText: StringConstant.viewInvoice,
                                       borderRadius: 7,
