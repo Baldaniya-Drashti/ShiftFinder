@@ -102,6 +102,8 @@ class ApiConstants {
   static String getSendProposalDetail = 'send_proposal';
   static String contractorPerformanceInsights =
       'contractor_performance_insights';
+  static String contractorTotalEarningStatement =
+      'contractor_total_earning_statement';
 
   //team
   static String getTeamList = 'get_team';

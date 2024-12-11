@@ -361,8 +361,7 @@ class StatementHeadingTitle extends StatelessWidget {
 
 void downloadInvoice(BuildContext context,
     {required EmployerInvoiceDTO invoice}) async {
-  final pdfData =
-      await InvoiceGenerator().generateContractorCompleteShiftInvoice(invoice);
+  final pdfData = await InvoiceGenerator().generateBillingInvoice(invoice);
 
   String? pdfPath = await SaveFileToStorage.savePdfToShiftFinderDirectory(
       pdfData,

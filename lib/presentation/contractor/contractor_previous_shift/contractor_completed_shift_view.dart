@@ -76,8 +76,10 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                 CommonButton(
                                   onPressed: () {
                                     showUnderDevelopment(context);
-                                    // context.router.push(
-                                    //     PageRouteInfo(InvoiceDetailView.name));
+                                    /* context.router.push(
+                                        PageRouteInfo(InvoiceDetailView.name,
+                                        args: InvoiceDetailViewArgs(id: state.completedDataList[index].id ?? -1)
+                                        )); */
                                   },
                                   buttonText: StringConstant.viewInvoice,
                                   backgroundColor:

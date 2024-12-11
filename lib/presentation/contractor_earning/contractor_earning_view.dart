@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -18,10 +19,10 @@ class ContractorEarningView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "My Earnings",
+        title: StringConstant.myEarnings,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.all(getSize(18)),
         child: Column(
           children: [
             Gap(getSize(50)),
@@ -30,12 +31,16 @@ class ContractorEarningView extends StatelessWidget {
               children: [
                 SvgPicture.asset(SvgImageConstant.myEarning),
                 Gap(getSize(25)),
-                BaseText(text: "Earnings & Statements", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                BaseText(
+                    text: StringConstant.earningsAndStatements,
+                    fontFamily: "Aclonica",
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
                 Gap(getSize(10)),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.8,
                   child: BaseText(
-                    text: "Track your earnings and download statements for a complete financial summary",
+                    text: StringConstant.earningDesc,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
@@ -55,18 +60,21 @@ class ContractorEarningView extends StatelessWidget {
                   children: [
                     _ListTile(
                       icon: SvgImageConstant.billing,
-                      onPressed: () => context.router.push(PageRouteInfo(ContractorWalletView.name)),
-                      label: "Wallet",
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(ContractorWalletView.name)),
+                      label: StringConstant.wallet,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.invoice,
-                      onPressed: () => context.router.push(PageRouteInfo(ContractorStatementView.name)),
-                      label: "Statements",
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(ContractorStatementView.name)),
+                      label: StringConstant.statements,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.invoice,
-                      onPressed: () => context.router.push(PageRouteInfo(ContractorTotalEarningView.name)),
-                      label: "Total Earnings Statement",
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(ContractorTotalEarningView.name)),
+                      label: StringConstant.totalEarningsStatement,
                     ),
                   ],
                 ),
@@ -78,7 +86,6 @@ class ContractorEarningView extends StatelessWidget {
     );
   }
 }
-
 
 class _ListTile extends StatelessWidget {
   const _ListTile({
@@ -101,7 +108,8 @@ class _ListTile extends StatelessWidget {
         icon,
         colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
       ),
-      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18,width: 18),
+      trailing:
+          SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18, width: 18),
     );
   }
 }

@@ -128,7 +128,10 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             if (state.deleteReason.isValid()) {
               failureOrSuccess = await mainFacade.deleteEmployerFilledShift(
-                  id: e.postId, reason: state.deleteReason.getValue() ?? "");
+                id: e.postId,
+                isCad: e.isCad,
+                reason: state.deleteReason.getValue() ?? "",
+              );
 
               failureOrSuccess.fold(
                 (l) {

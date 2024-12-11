@@ -216,7 +216,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorEarningView.name));
+          context.router.push(PageRouteInfo(ContractorEarningView.name));
         },
       ),
       ProfileItemModel(
@@ -254,7 +254,7 @@ class ContractorProfileItems extends StatelessWidget {
           String message = '''
 Hi! Download the ShiftFinder app and start exploring shifts that suit your schedule.
 
-Download now: https://shiftfinderinc.com/
+Download now: ${StringConstant.shiftFinderWebsite}
 ''';
 // https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf&pcampaignid=web_share
 

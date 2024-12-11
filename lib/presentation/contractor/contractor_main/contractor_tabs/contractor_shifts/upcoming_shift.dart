@@ -171,7 +171,13 @@ class UpcomingShift extends StatelessWidget {
             ),
             trailing: GestureDetector(
               onTap: () {
-                if (shift.check_delete != null && shift.check_delete!) {
+                if (shift.check_delete != null &&
+                    shift.check_delete! &&
+                    shift.isCad != null &&
+                    shift.isCad!) {
+                  showWithdrawDialog(
+                      context, shift, context.read<ContractorShiftBloc>());
+                } else if (shift.check_delete != null && shift.check_delete!) {
                   AppDialog.showSuccess(
                     context,
                     image: Container(),
@@ -312,6 +318,7 @@ class UpcomingShift extends StatelessWidget {
       onDeleteClick: () {
         context.read<ContractorShiftBloc>().add(
             ContractorShiftEvent.deleteUpcomingShift(context,
+                isCad: (shift.isCad == true) ? 1 : null,
                 postId: shift.id ?? -1));
       },
     );

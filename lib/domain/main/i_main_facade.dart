@@ -156,6 +156,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
+    int? isCad,
     String reason = "",
   });
 
@@ -253,6 +254,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> deleteEmployerFilledShift({
     required int id,
+    int? isCad,
     String reason = "",
   });
 
@@ -344,5 +346,9 @@ abstract class IMainFacade {
   });
   Future<Either<MainFailure, EmployerInvoiceDTO>> getInvoiceDetailAPI({
     required int id,
+  });
+  Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
+    required int startDate,
+    required int endDate,
   });
 }

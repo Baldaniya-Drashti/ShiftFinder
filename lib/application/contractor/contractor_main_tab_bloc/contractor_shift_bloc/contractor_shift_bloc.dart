@@ -239,6 +239,7 @@ class ContractorShiftBloc
             if (state.deletePostReason.isValid()) {
               failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(
                   id: e.postId,
+                  isCad: e.isCad,
                   reason: state.deletePostReason.getValue() ?? "");
 
               failureOrSuccess.fold(

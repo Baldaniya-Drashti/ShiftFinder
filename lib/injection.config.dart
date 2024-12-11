@@ -46,6 +46,8 @@ import 'package:shift/application/chat_section/message/message_bloc.dart'
     as _i544;
 import 'package:shift/application/consumer_support/support_ticket/support_ticket_bloc.dart'
     as _i942;
+import 'package:shift/application/contractor/contractor_earning_bloc/contractor_earning_bloc.dart'
+    as _i608;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -304,6 +306,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i608.ContractorEarningBloc>(
+        () => _i608.ContractorEarningBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i810.ReferColleagueBloc>(
         () => _i810.ReferColleagueBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));

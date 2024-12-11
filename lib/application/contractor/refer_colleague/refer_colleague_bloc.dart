@@ -13,6 +13,7 @@ import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
@@ -121,7 +122,7 @@ class ReferColleagueBloc
 Hi! Download the ShiftFinder app and start exploring shifts that suit your schedule.
 Use my referral code: ${e.referralCode} to get started.
 
-Download now: https://shiftfinderinc.com/
+Download now: ${StringConstant.shiftFinderWebsite}
   ''';
           // https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf&pcampaignid=web_share
           Share.shareXFiles(

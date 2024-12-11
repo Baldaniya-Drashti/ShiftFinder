@@ -617,7 +617,33 @@ class StringConstant {
   static const String paymentsDetails = "Payment’s Details";
   static const String contractorsDetails = "Contractor’s Details";
   static const String shiftsDetails = "Shift’s Details";
+  static const String earningsAndStatements = "Earnings & Statements";
+  static const String earningDesc =
+      "Track your earnings and download statements for a complete financial summary";
+  static const String wallet = "Wallet";
+  static const String statements = "Statements";
+  static const String totalEarningsStatement = "Total Earnings Statement";
+  static const String completedShiftsEarning = "Completed Shifts Earning";
+  static const String wages = "Wages";
+  static const String allowances = "Allowances";
+  static const String compensationReceivedFromCancellations =
+      "Compensation Received From Cancellations";
+  static const String cancellationFee = "Cancellation Fee";
+  static const String totalCancellationFee = "Total Cancellation Fee";
+  static const String referralBonusReceived = "Referral Bonus Received";
+  static const String referredContractorName = "Referred Contractor Name";
+  static const String bonusAmount = "Bonus Amount";
+  static const String totalBonus = "Total Bonus";
+  static const String totalReferralBonusReceived =
+      "Total Referral Bonus Received";
+  static const String totalCompletedShiftEarnings =
+      "Total Completed Shift Earnings";
+  static const String totalCompensationReceived = "Total Compensation Received";
+  static const String netEarnings = "Net Earnings";
+  static const String shiftFinderInc = "ShiftFinder Inc.";
+  static const String website = "Website";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";

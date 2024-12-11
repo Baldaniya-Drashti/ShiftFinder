@@ -1164,10 +1164,14 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
+    int? isCad,
     String reason = "",
   }) async {
     try {
-      Map<String, dynamic> mapData = {'reason': reason};
+      Map<String, dynamic> mapData = {
+        if (isCad != null) 'isCad': isCad,
+        'reason': reason,
+      };
 
       print("Sending Data->  ${id}");
 
@@ -1199,10 +1203,14 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> deleteEmployerFilledShift({
     required int id,
+    int? isCad,
     String reason = "",
   }) async {
     try {
-      Map<String, dynamic> mapData = {'reason': reason};
+      Map<String, dynamic> mapData = {
+        if (isCad != null) 'isCad': isCad,
+        'reason': reason
+      };
 
       print("Sending Data->  ${id}");
 
@@ -2645,6 +2653,40 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
+    required int startDate,
+    required int endDate,
+  }) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.contractorTotalEarningStatement,
+        queryParameters: {
+          "start_date": startDate,
+          "end_date": endDate,
+        },
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
       return left(const MainFailure.serverError());
     }
   }
