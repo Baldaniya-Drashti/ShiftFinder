@@ -22,7 +22,10 @@ _$EmployerInvoiceDTOImpl _$$EmployerInvoiceDTOImplFromJson(
       contractor_first_name: json['contractor_first_name'] as String?,
       contractor_email: json['contractor_email'] as String?,
       contractor_last_name: json['contractor_last_name'] as String?,
-      contractor_location: json['contractor_location'] as String?,
+      contractor_location: json['contractor_location'] == null
+          ? null
+          : LocationDTO.fromJson(
+              json['contractor_location'] as Map<String, dynamic>),
       shift_type: json['shift_type'] as String?,
       roles_list_name: json['roles_list_name'] as String?,
       date: (json['date'] as num?)?.toInt(),

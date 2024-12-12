@@ -23,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     this.decoration,
     this.onTap,
     this.readOnly = false,
+    this.readOnlyTextStyle,
     this.autofocus = false,
     this.maxLines = 1,
     this.minLines,
@@ -61,6 +62,7 @@ class CustomTextField extends StatelessWidget {
   final InputDecoration? decoration;
   final VoidCallback? onTap;
   final bool readOnly;
+  final TextStyle? readOnlyTextStyle;
   final bool autofocus;
   final Color? fillColor;
   final int maxLines;
@@ -86,11 +88,17 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
-      borderSide: BorderSide(color: (fillColor != null) ? fillColor ?? AppColors.white : AppColors.white),
+      borderSide: BorderSide(
+          color: (fillColor != null)
+              ? fillColor ?? AppColors.white
+              : AppColors.white),
       borderRadius: BorderRadius.circular(getSize(10)),
     );
     final focusedBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: (fillColor != null) ? fillColor ?? AppColors.white : AppColors.white),
+      borderSide: BorderSide(
+          color: (fillColor != null)
+              ? fillColor ?? AppColors.white
+              : AppColors.white),
       borderRadius: BorderRadius.circular(getSize(10)),
     );
     final errorBorder = errorInputBorder ??
@@ -99,9 +107,11 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(getSize(10)),
         );
     if (focusNode != null) {
-      return getCommonTextFieldMethod(context, border, focusedBorder, errorBorder);
+      return getCommonTextFieldMethod(
+          context, border, focusedBorder, errorBorder);
     } else {
-      return getCommonTextFieldMethod(context, border, focusedBorder, errorBorder);
+      return getCommonTextFieldMethod(
+          context, border, focusedBorder, errorBorder);
     }
   }
 
@@ -121,7 +131,8 @@ class CustomTextField extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(
+                left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 SizedBox(
@@ -174,7 +185,9 @@ class CustomTextField extends StatelessWidget {
               return validator?.call(inputString, context);
             },
             maxLength: maxLength ?? 300,
-            scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + getFontSize(14) * 4),
+            scrollPadding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom +
+                    getFontSize(14) * 4),
             autofocus: autofocus,
             readOnly: readOnly,
             inputFormatters: inputFormatters,
@@ -202,7 +215,9 @@ class CustomTextField extends StatelessWidget {
                   focusedErrorBorder: errorBorder,
                   errorBorder: errorBorder,
                   hintStyle: TextStyle(
-                      color: hintAsValue ? AppColors.black : AppColors.black.withOpacity(0.50),
+                      color: hintAsValue
+                          ? AppColors.black
+                          : AppColors.black.withOpacity(0.50),
                       fontSize: getSize(
                         14,
                       ),
@@ -227,7 +242,8 @@ class CustomTextField extends StatelessWidget {
                     padding: EdgeInsets.only(right: getSize(10)),
                     child: suffixIcon,
                   ),
-                  suffixIconConstraints: BoxConstraints(maxWidth: getSize(80), minHeight: 0),
+                  suffixIconConstraints:
+                      BoxConstraints(maxWidth: getSize(80), minHeight: 0),
                   focusedBorder: focusedBorder,
                   focusedErrorBorder: errorBorder,
                   errorBorder: errorBorder,
@@ -249,7 +265,11 @@ class CustomTextField extends StatelessWidget {
                   ),
                 ),
             style: readOnly
-                ? Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.lightGrey)
+                ? readOnlyTextStyle ??
+                    Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: AppColors.lightGrey)
                 : Theme.of(context).textTheme.bodyMedium,
           ),
         ),

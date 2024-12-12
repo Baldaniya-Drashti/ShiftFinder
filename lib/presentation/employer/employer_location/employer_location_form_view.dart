@@ -15,6 +15,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/location_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -38,7 +39,8 @@ class EmployerLocationFormView extends StatelessWidget {
         create: (context) => getIt<EmployerLocationFormBloc>()
           ..add(EmployerLocationFormEvent.getFacilityTypeList())
           ..add(
-            EmployerLocationFormEvent.getLocationInfo(id: id ?? -1, context: context),
+            EmployerLocationFormEvent.getLocationInfo(
+                id: id ?? -1, context: context),
           ),
         child: Scaffold(
             appBar: CommonAppBar(
@@ -48,7 +50,8 @@ class EmployerLocationFormView extends StatelessWidget {
               },
               title: StringConstant.locationDetails,
             ),
-            body: BlocConsumer<EmployerLocationFormBloc, EmployerLocationFormState>(
+            body: BlocConsumer<EmployerLocationFormBloc,
+                EmployerLocationFormState>(
               listener: (context, state) {
                 state.authFailureOrSuccessOption.fold(
                   () {},
@@ -57,7 +60,8 @@ class EmployerLocationFormView extends StatelessWidget {
                       showError(
                         message: failure.maybeMap(
                           showAPIResponseMessage: (value) => value.message,
-                          networkError: (value) => 'Please check your internet connectivity',
+                          networkError: (value) =>
+                              'Please check your internet connectivity',
                           orElse: () => "Server Error. Try again later.",
                         ),
                       ).show(context);
@@ -74,7 +78,9 @@ class EmployerLocationFormView extends StatelessWidget {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
                           child: SingleChildScrollView(
                             physics: BouncingScrollPhysics(),
                             child: Column(
@@ -108,7 +114,8 @@ class EmployerLocationFormView extends StatelessWidget {
                                             style: TextStyle(
                                               fontSize: getFontSize(10),
                                               fontWeight: FontWeight.w500,
-                                              color: AppColors.black.withOpacity(0.8),
+                                              color: AppColors.black
+                                                  .withOpacity(0.8),
                                               fontFamily: "Roboto Flex",
                                             ),
                                           ),
@@ -120,16 +127,23 @@ class EmployerLocationFormView extends StatelessWidget {
                                 paddingBetweenFields(height: 10),
                                 unitBox(context, state),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      print("Address---> ${state.address.getValue()}");
-                                      context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.continueBtnPressed(context));
+                                      print(
+                                          "Address---> ${state.address.getValue()}");
+                                      context
+                                          .read<EmployerLocationFormBloc>()
+                                          .add(EmployerLocationFormEvent
+                                              .continueBtnPressed(context));
                                       unitNoNamecontroller.clear();
                                       unitNotecontroller.clear();
                                     },
-                                    buttonText: state.id!=null? "Update": StringConstant.txtContinue,
+                                    buttonText: state.id != null
+                                        ? "Update"
+                                        : StringConstant.txtContinue,
                                   ),
                                 ),
                               ],
@@ -174,7 +188,12 @@ class EmployerLocationFormView extends StatelessWidget {
               ),
             );
           }).toList(),
-          validator: (p0) => context.read<EmployerLocationFormBloc>().state.faciltyType.value.fold(
+          validator: (p0) => context
+              .read<EmployerLocationFormBloc>()
+              .state
+              .faciltyType
+              .value
+              .fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseEnterFacilityType,
                   orElse: () => null,
@@ -188,9 +207,10 @@ class EmployerLocationFormView extends StatelessWidget {
                   );
             }
           },
-          fieldOnChanged: (value) => context.read<EmployerLocationFormBloc>().add(
-                EmployerLocationFormEvent.addOtherfaciltyType(value),
-              ),
+          fieldOnChanged: (value) =>
+              context.read<EmployerLocationFormBloc>().add(
+                    EmployerLocationFormEvent.addOtherfaciltyType(value),
+                  ),
           // fieldValidator: (p1, _) => context
           //     .read<EmployerLocationFormBloc>()
           //     .state
@@ -213,7 +233,7 @@ class EmployerLocationFormView extends StatelessWidget {
     );
   }
 
-  Widget locationAddressTextField(
+  /* Widget locationAddressTextField(
     BuildContext context,
     EmployerLocationFormState state,
   ) {
@@ -293,6 +313,104 @@ class EmployerLocationFormView extends StatelessWidget {
       ],
     );
   }
+ */
+
+  Widget locationAddressTextField(
+    BuildContext context,
+    EmployerLocationFormState state,
+  ) {
+    return Column(
+      children: [
+        CustomTextField(
+          labelText: StringConstant.locationAddress,
+          isLabelPadding: true,
+          hintText: StringConstant.locationAddress,
+          isOptional: true,
+          optionalWidget: GestureDetector(
+            onTap: () {
+              AppDialog.showInfo(
+                  context, StringConstant.mutltiplelocationInfoDesc);
+            },
+            child: SvgPicture.asset(
+              SvgImageConstant.infoCircle,
+            ),
+          ),
+          errorMaxLines: 2,
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(14),
+              vertical: getSize(14),
+            ),
+            child: SvgPicture.asset(
+              SvgImageConstant.locationIcon,
+              height: getSize(24),
+              width: getSize(24),
+              color: AppColors.primaryColor,
+            ),
+          ),
+          // controller: addressController..text = state.address.getValue() ?? "",
+          controller: EmployerLocationFormBloc.locationCtrl,
+          readOnly: true,
+          readOnlyTextStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: AppColors.black),
+          onTap: () {
+            LocationDialog.showLocationDialog(
+              context,
+              predictions: state.selectedLocationPrediction,
+              location: EmployerLocationFormBloc.locationCtrl.text,
+            ).then((value) {
+              if (value != null) {
+                print("selected location ---> $value");
+                context.read<EmployerLocationFormBloc>().add(
+                    EmployerLocationFormEvent.locationSelectedFromSearchList(
+                        value));
+              }
+            });
+          },
+          validator: (p0, p1) =>
+              context.read<EmployerLocationFormBloc>().state.address.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterAddress,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
+        ),
+        if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
+          Container(
+            height: getSize(200),
+            color: AppColors.white,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.searchLocationList.length,
+              itemBuilder: (context, index) {
+                // print("searchLocationList---> ${searchLocationList}");
+                return ListTile(
+                  onTap: () {
+                    // final selectedLocation = state.searchLocationList[index];
+                    final selectedLocation = state.searchLocationList[index];
+
+                    context.read<EmployerLocationFormBloc>().add(
+                        EmployerLocationFormEvent
+                            .locationSelectedFromSearchList(selectedLocation));
+                  },
+                  dense: true,
+                  titleAlignment: ListTileTitleAlignment.top,
+                  leading: SvgPicture.asset(SvgImageConstant.locationIcon),
+                  title: BaseText(
+                    text: state.searchLocationList[index].description ?? "",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
+    );
+  }
 
   Widget locationIdField(
     BuildContext context,
@@ -318,7 +436,9 @@ class EmployerLocationFormView extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.locationIdChanged(value));
+        context
+            .read<EmployerLocationFormBloc>()
+            .add(EmployerLocationFormEvent.locationIdChanged(value));
       },
       validator: null,
     );
@@ -348,7 +468,9 @@ class EmployerLocationFormView extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.accreditationNumberChanged(value));
+        context
+            .read<EmployerLocationFormBloc>()
+            .add(EmployerLocationFormEvent.accreditationNumberChanged(value));
       },
       validator: null,
     );
@@ -359,7 +481,7 @@ class EmployerLocationFormView extends StatelessWidget {
     EmployerLocationFormState state,
   ) {
     return CustomTextField(
-      initialValue: state.locationData.location_note??"",
+      initialValue: state.locationData.location_note ?? "",
       labelText: StringConstant.locationNote,
       hintText: StringConstant.typeHere,
       isLabelPadding: true,
@@ -367,7 +489,9 @@ class EmployerLocationFormView extends StatelessWidget {
       errorMaxLines: 2,
       maxLines: 3,
       onChanged: (value) {
-        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.locationNoteChanged(value));
+        context
+            .read<EmployerLocationFormBloc>()
+            .add(EmployerLocationFormEvent.locationNoteChanged(value));
       },
       validator: null,
     );
@@ -410,7 +534,8 @@ class EmployerLocationFormView extends StatelessWidget {
               onPressed: (state.unitNumber.isNotEmpty)
                   ? () {
                       context.read<EmployerLocationFormBloc>().add(
-                            EmployerLocationFormEvent.addUnitNumberChipList(state.unitNumber, state.notes),
+                            EmployerLocationFormEvent.addUnitNumberChipList(
+                                state.unitNumber, state.notes),
                           );
                       unitNoNamecontroller.clear();
                       unitNotecontroller.clear();
@@ -422,9 +547,12 @@ class EmployerLocationFormView extends StatelessWidget {
               buttonFontSize: 12,
               buttonFontWeight: FontWeight.w600,
               height: 35,
-              backgroundColor:
-                  (state.unitNumber.isNotEmpty) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
-              buttonTextColor: (state.unitNumber.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+              backgroundColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor.withOpacity(0.15)
+                  : AppColors.primaryColor.withOpacity(0.05),
+              buttonTextColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor.withOpacity(0.3),
             ),
           )
         ],
@@ -446,7 +574,9 @@ class EmployerLocationFormView extends StatelessWidget {
       isLabelPadding: false,
       errorMaxLines: 2,
       onChanged: (value) {
-        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.unitNumberChanged(value));
+        context
+            .read<EmployerLocationFormBloc>()
+            .add(EmployerLocationFormEvent.unitNumberChanged(value));
       },
       /*suffixIcon: CommonButton(
         height: getSize(27),
@@ -481,7 +611,9 @@ class EmployerLocationFormView extends StatelessWidget {
       errorMaxLines: 2,
       controller: unitNotecontroller,
       onChanged: (value) {
-        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.notesChanged(value));
+        context
+            .read<EmployerLocationFormBloc>()
+            .add(EmployerLocationFormEvent.notesChanged(value));
       },
       validator: null,
     );
@@ -522,14 +654,20 @@ class EmployerLocationFormView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      editUnitDialog(context, context.read<EmployerLocationFormBloc>(), state, index);
+                      editUnitDialog(
+                          context,
+                          context.read<EmployerLocationFormBloc>(),
+                          state,
+                          index);
                     },
                     child: SvgPicture.asset(SvgImageConstant.editWithBg),
                   ),
                   SizedBox(width: getSize(10)),
                   GestureDetector(
                     onTap: () {
-                      context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.removeUnitNumberChip(index));
+                      context.read<EmployerLocationFormBloc>().add(
+                          EmployerLocationFormEvent.removeUnitNumberChip(
+                              index));
                     },
                     child: SvgPicture.asset(SvgImageConstant.bin),
                   ),
@@ -554,7 +692,8 @@ class EmployerLocationFormView extends StatelessWidget {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return BlocBuilder<EmployerLocationFormBloc, EmployerLocationFormState>(
+          return BlocBuilder<EmployerLocationFormBloc,
+              EmployerLocationFormState>(
             bloc: bloc,
             builder: (context, state) {
               return AlertDialog(
@@ -582,7 +721,9 @@ class EmployerLocationFormView extends StatelessWidget {
                         isLabelPadding: false,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(EmployerLocationFormEvent.updateUnitNumberChanged(value.trim()));
+                          bloc.add(
+                              EmployerLocationFormEvent.updateUnitNumberChanged(
+                                  value.trim()));
                         },
                         validator: null,
                       ),
@@ -596,7 +737,9 @@ class EmployerLocationFormView extends StatelessWidget {
                         maxLines: 3,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(EmployerLocationFormEvent.updateUnitNotesChanged(value.trim()));
+                          bloc.add(
+                              EmployerLocationFormEvent.updateUnitNotesChanged(
+                                  value.trim()));
                         },
                         validator: null,
                       ),
@@ -606,13 +749,16 @@ class EmployerLocationFormView extends StatelessWidget {
                         child: CommonButton(
                           onPressed: (updateUnitNameCtrl.text.isNotEmpty)
                               ? () {
-                                  bloc.add(EmployerLocationFormEvent.editUnitNumberChip(
-                                      context,
-                                      index,
-                                      UnitDTO(
-                                        number_or_name: updateUnitNameCtrl.text.trim(),
-                                        note: updateUnitNoteCtrl.text.trim(),
-                                      )));
+                                  bloc.add(EmployerLocationFormEvent
+                                      .editUnitNumberChip(
+                                          context,
+                                          index,
+                                          UnitDTO(
+                                            number_or_name:
+                                                updateUnitNameCtrl.text.trim(),
+                                            note:
+                                                updateUnitNoteCtrl.text.trim(),
+                                          )));
                                 }
                               : () {},
                           buttonText: StringConstant.update,
@@ -623,8 +769,9 @@ class EmployerLocationFormView extends StatelessWidget {
                           backgroundColor: (updateUnitNameCtrl.text.isNotEmpty)
                               ? AppColors.primaryColor.withOpacity(0.15)
                               : AppColors.primaryColor.withOpacity(0.05),
-                          buttonTextColor:
-                              (updateUnitNameCtrl.text.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+                          buttonTextColor: (updateUnitNameCtrl.text.isNotEmpty)
+                              ? AppColors.primaryColor
+                              : AppColors.primaryColor.withOpacity(0.3),
                         ),
                       )
                     ],

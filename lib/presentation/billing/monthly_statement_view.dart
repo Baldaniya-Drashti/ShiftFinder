@@ -172,7 +172,12 @@ class MonthlyStatementView extends StatelessWidget {
                                   _StatementListView(
                                     statement: state.statement,
                                   ),
-                                ],
+                                ] else
+                                  BaseText(
+                                    text: StringConstant.noResultFound,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
                               ],
                             ),
                           ),

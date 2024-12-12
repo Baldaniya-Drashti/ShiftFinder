@@ -11,6 +11,9 @@ class ThemeConfig {
       primaryColor: Colors.black87,
       primaryColorDark: Colors.black87,
       dividerTheme: DividerThemeData(color: AppColors.black.withOpacity(0.20)),
+      /*   colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.primaryColor,
+        ) */
       // primarySwatch: Colors.black,
       // colorScheme: ColorScheme(
       //   brightness: brightness,

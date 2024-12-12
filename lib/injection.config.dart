@@ -39,6 +39,7 @@ import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart
 import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i31;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i134;
+import 'package:shift/application/bloc/pick_location_dialog_bloc.dart' as _i730;
 import 'package:shift/application/change_password/change_password_bloc.dart'
     as _i723;
 import 'package:shift/application/chat_section/chat/chat_bloc.dart' as _i790;
@@ -172,6 +173,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i152.EmployerFullPositionConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
+    gh.factory<_i730.PickLocationDialogBloc>(
+        () => _i730.PickLocationDialogBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

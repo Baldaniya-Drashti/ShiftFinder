@@ -274,7 +274,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
         },
         locationAddressChanged: (e) async {
-          /// To get google place with serched result
+          /* /// To get google place with serched result
           if (placeList.isNotEmpty) {
             placeList.clear();
           }
@@ -301,22 +301,19 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
 
               authFailureOrSuccessOption: none(),
             ),
-          );
+          ); */
         },
         locationSelectedFromSearchList: (e) async {
-          // locationCtrl.text = e.selectedLocation;
           locationCtrl.text = e.selectedLocation.description ?? "";
           var res = await LocationHelper.getPlaceDetail(
               e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
-              // locationAddress: InputEmptyOrNot(e.selectedLocation),
               locationAddress:
                   InputEmptyOrNot(e.selectedLocation.description ?? ""),
-
               searchLocationList: [],
               selectedAddress: res ?? PlaceDetailDTO(),
-
+              selectedLocationPrediction: e.selectedLocation,
               authFailureOrSuccessOption: none(),
             ),
           );

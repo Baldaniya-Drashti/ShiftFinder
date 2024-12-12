@@ -29,13 +29,15 @@ part 'employer_location_form_state.dart';
 part 'employer_location_form_bloc.freezed.dart';
 
 @injectable
-class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerLocationFormState> {
+class EmployerLocationFormBloc
+    extends Bloc<EmployerLocationFormEvent, EmployerLocationFormState> {
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
   static TextEditingController locationCtrl = TextEditingController();
   List<dynamic> placeList = [];
 
-  EmployerLocationFormBloc(this._repository, this._mainFacade) : super(EmployerLocationFormState.initial()) {
+  EmployerLocationFormBloc(this._repository, this._mainFacade)
+      : super(EmployerLocationFormState.initial()) {
     on<EmployerLocationFormEvent>((event, emit) async {
       await event.map(
         updateUnitNumberChanged: (e) {
@@ -74,7 +76,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               return emit(
                 state.copyWith(
                   isLoading: false,
-                  facilityTypeList: List.from(state.facilityTypeList)..addAll(r),
+                  facilityTypeList: List.from(state.facilityTypeList)
+                    ..addAll(r),
                 ),
               );
             },
@@ -111,12 +114,14 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
         },
         locationSelectedFromSearchList: (e) async {
           locationCtrl.text = e.selectedLocation.description ?? "";
-          var res = await LocationHelper.getPlaceDetail(e.selectedLocation.place_id ?? "");
+          var res = await LocationHelper.getPlaceDetail(
+              e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.selectedLocation.description ?? ""),
               searchLocationList: [],
               selectedAddress: res ?? PlaceDetailDTO(),
+              selectedLocationPrediction: e.selectedLocation,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -156,8 +161,10 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
 
           final existingUnit = state.listOfUnit[e.index];
 
-          bool isUnitNameAlreadyExist = state.listOfUnit
-              .any((unit) => unit.number_or_name?.toLowerCase() == e.updatedUnit.number_or_name?.toLowerCase() && unit != existingUnit);
+          bool isUnitNameAlreadyExist = state.listOfUnit.any((unit) =>
+              unit.number_or_name?.toLowerCase() ==
+                  e.updatedUnit.number_or_name?.toLowerCase() &&
+              unit != existingUnit);
           if (isUnitNameAlreadyExist) {
             AppFocus.unfocus(e.context);
             showError(message: StringConstant.unitAlreadyExist).show(e.context);
@@ -238,7 +245,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               (!state.listOfUnit.any((unit) {
                     print("Unit number----> ${e.unitNumber}");
                     print("Unit number_or_name----> ${unit.number_or_name}");
-                    return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
+                    return unit.number_or_name?.toLowerCase() ==
+                        e.unitNumber.trim().toLowerCase();
                   }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
@@ -284,7 +292,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
 
           print("state unit--> ${state.unitNumber}");
           print("state unit note--> ${state.notes}");
-          add(EmployerLocationFormEvent.addUnitNumberChipList(state.unitNumber, state.notes));
+          add(EmployerLocationFormEvent.addUnitNumberChipList(
+              state.unitNumber, state.notes));
           await Future.delayed(Duration(milliseconds: 50));
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
@@ -304,46 +313,72 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
             if (state.id == null) {
               failureOrSuccess = await _repository.addLocationDetailsApi(
                 locationAddress: state.address.getValue() ?? '',
-                facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
-                facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
+                facilityType:
+                    (state.faciltyType.getValue()!.toLowerCase() != "other")
+                        ? getSelectedFacilityTypeId()
+                        : "",
+                facilityTypeOther:
+                    (state.faciltyType.getValue()!.toLowerCase() == "other")
+                        ? state.otherFaciltyType.getValue() ?? ""
+                        : "",
                 accreditationNumber: state.accreditationNumber,
                 locationId: state.locationId,
                 locationNotes: state.locationNote,
                 units: state.listOfUnit,
-                latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
-                longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+                latitude: state.selectedAddress.result?.geometry?.location?.lat
+                        .toString() ??
+                    '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng
+                        .toString() ??
+                    '',
                 fromRegister: false,
                 type: 1,
               );
             } else {
               failureOrSuccess = await _repository.updateLocation(
-                 id: state.id??-1,
+                id: state.id ?? -1,
                 locationAddress: state.address.getValue() ?? '',
-                facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
-                facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
+                facilityType:
+                    (state.faciltyType.getValue()!.toLowerCase() != "other")
+                        ? getSelectedFacilityTypeId()
+                        : "",
+                facilityTypeOther:
+                    (state.faciltyType.getValue()!.toLowerCase() == "other")
+                        ? state.otherFaciltyType.getValue() ?? ""
+                        : "",
                 accreditationNumber: state.accreditationNumber,
                 locationId: state.locationId,
                 locationNotes: state.locationNote,
                 units: state.listOfUnit,
-                latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
-                longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+                latitude: state.selectedAddress.result?.geometry?.location?.lat
+                        .toString() ??
+                    '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng
+                        .toString() ??
+                    '',
                 fromRegister: false,
               );
 
               Log.debug("locationAddress :: ${state.address.getValue() ?? ''}");
-              Log.debug("faciltyType :: ${(state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : ""}");
+              Log.debug(
+                  "faciltyType :: ${(state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : ""}");
               Log.debug(
                   "facilityTypeOther :: ${(state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : ""}");
               Log.debug("accreditationNumber :: ${state.accreditationNumber}");
               Log.debug("locationId :: ${state.locationId}");
               Log.debug("locationNotes :: ${state.locationNote}");
-              Log.debug("latitude :: ${state.selectedAddress.result?.geometry?.location?.lat.toString() ?? ''}");
-              Log.debug("longitude :: ${state.selectedAddress.result?.geometry?.location?.lng.toString() ?? ''}");
+              Log.debug(
+                  "latitude :: ${state.selectedAddress.result?.geometry?.location?.lat.toString() ?? ''}");
+              Log.debug(
+                  "longitude :: ${state.selectedAddress.result?.geometry?.location?.lng.toString() ?? ''}");
               Log.debug("listOfUnit :: ${state.listOfUnit}");
             }
           } else {
             AppFocus.unfocus(e.context);
-            showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
           }
           emit(
             state.copyWith(
@@ -376,7 +411,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
@@ -396,7 +432,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
                     locationNote: "locationNote",
                     listOfUnit: locationData.add_units ?? [],
                     faciltyTypeDDValue: locationData.facility_type?.name ?? "",
-                    faciltyType: InputEmptyOrNot(locationData.facility_type?.name ?? ""),
+                    faciltyType:
+                        InputEmptyOrNot(locationData.facility_type?.name ?? ""),
                     address: InputEmptyOrNot(locationData.location ?? ""),
                     isLoading: false),
               );

@@ -24,6 +24,7 @@ import 'package:shift/presentation/common/widgets/common_country_code_picker.dar
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/location_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -133,7 +134,8 @@ class RegisterProfileScreen extends StatelessWidget {
                         ],
                         if (getCurrentRole() == 1) ...[
                           paddingBetweenFields(),
-                          locationAddressTextField(context, state),
+                          // locationAddressTextField(context, state),
+                          addressField(context, state),
                           paddingBetweenFields(),
                           referralCodeTextField(context, state),
                         ],
@@ -605,39 +607,7 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
-  // Widget locationAddressTextField(
-  //     BuildContext context, RegisterFormState state) {
-  //   return CustomTextField(
-  //     labelText: StringConstant.locationAddress,
-  //     isLabelPadding: true,
-  //     hintText: StringConstant.locationAddress,
-  //     prefixIcon: Padding(
-  //       padding: EdgeInsets.symmetric(
-  //         horizontal: getSize(14),
-  //         vertical: getSize(14),
-  //       ),
-  //       child: SvgPicture.asset(
-  //         SvgImageConstant.locationIcon,
-  //         height: getSize(24),
-  //         width: getSize(24),
-  //         color: AppColors.primaryColor,
-  //       ),
-  //     ),
-  //     onChanged: (value) => context
-  //         .read<RegisterFormBloc>()
-  //         .add(RegisterFormEvent.locationAddressChanged(value)),
-  //     validator: (p0, p1) =>
-  //         context.read<RegisterFormBloc>().state.locationAddress.value.fold(
-  //               (f) => f.maybeMap(
-  //                 empty: (value) => StringConstant.pleaseEnterLocationName,
-  //                 orElse: () => null,
-  //               ),
-  //               (_) => null,
-  //             ),
-  //   );
-  // }
-
-  Widget locationAddressTextField(
+  /* Widget locationAddressTextField(
       BuildContext context, RegisterFormState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -709,6 +679,61 @@ class RegisterProfileScreen extends StatelessWidget {
             ),
           ),
       ],
+    );
+  } */
+
+  Widget addressField(BuildContext context, RegisterFormState state) {
+    return CustomTextField(
+      labelText: (getCurrentRole() == 1)
+          ? StringConstant.address
+          : StringConstant.locationAddress,
+      isLabelPadding: true,
+      hintText: (getCurrentRole() == 1)
+          ? StringConstant.address
+          : StringConstant.locationAddress,
+      readOnly: true,
+      readOnlyTextStyle: Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(color: AppColors.black),
+      onTap: () {
+        LocationDialog.showLocationDialog(context,
+                predictions: state.selectedLocationPrediction)
+            .then((value) {
+          if (value != null) {
+            print("selected location ---> $value");
+            context
+                .read<RegisterFormBloc>()
+                .add(RegisterFormEvent.locationSelectedFromSearchList(value));
+          }
+        });
+      },
+      controller: RegisterFormBloc.locationCtrl,
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.locationIcon,
+          height: getSize(24),
+          width: getSize(24),
+          color: AppColors.primaryColor,
+        ),
+      ),
+      /* onChanged: (value) => context.read<RegisterFormBloc>().add(
+          RegisterFormEvent.locationAddressChanged(
+              RegisterFormBloc.locationCtrl.text)), */
+      validator: (p0, p1) =>
+          context.read<RegisterFormBloc>().state.locationAddress.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => (getCurrentRole() == 1)
+                      ? StringConstant.pleaseEnterAddress
+                      : StringConstant.pleaseEnterLocationName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 }

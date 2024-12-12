@@ -17,7 +17,7 @@ class EmployerInvoiceDTO with _$EmployerInvoiceDTO {
     String? contractor_first_name,
     String? contractor_email,
     String? contractor_last_name,
-    String? contractor_location,
+    LocationDTO? contractor_location,
     String? shift_type,
     String? roles_list_name,
     int? date,

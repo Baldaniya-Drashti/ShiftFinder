@@ -5,6 +5,7 @@ class LocationDetailsState with _$LocationDetailsState {
   const factory LocationDetailsState({
     required InputEmptyOrNot address,
     required List<Predictions> searchLocationList,
+    required Predictions selectedLocationPrediction,
     required PlaceDetailDTO selectedAddress,
     required List<SkillDTO> facilityTypeList,
     required InputEmptyOrNot faciltyType,
@@ -47,5 +48,6 @@ class LocationDetailsState with _$LocationDetailsState {
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
         selectedAddress: PlaceDetailDTO(),
+        selectedLocationPrediction: Predictions(),
       );
 }

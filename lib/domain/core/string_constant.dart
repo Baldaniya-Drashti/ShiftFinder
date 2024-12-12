@@ -642,6 +642,11 @@ class StringConstant {
   static const String netEarnings = "Net Earnings";
   static const String shiftFinderInc = "ShiftFinder Inc.";
   static const String website = "Website";
+  static const String compensationFee = "Compensation Fee";
+  static const String depositAmount = "Deposit Amount";
+  static const String occupiedDesc =
+      "This contractor cannot be hired for the selected shift as they are already booked for another shift during this time. Please select a different contractor.";
+  static const String filter = "Filter";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
