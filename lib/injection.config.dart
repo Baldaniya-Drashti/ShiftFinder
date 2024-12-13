@@ -172,9 +172,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i152.EmployerFullPositionConfirmBloc>(
         () => _i152.EmployerFullPositionConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
-    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
+    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

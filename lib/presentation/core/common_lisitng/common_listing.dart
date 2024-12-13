@@ -173,6 +173,53 @@ class CommonList {
     SkillDTO(id: 6, name: "Sunday"),
   ];
 
+  static List<SkillDTO> govermentIdList = [
+    SkillDTO(id: 1, name: "Driver’s License"),
+    SkillDTO(id: 2, name: "Health Card"),
+    SkillDTO(id: 3, name: "Citizenship Card "),
+    SkillDTO(id: 4, name: "Citizenship Certificate"),
+    SkillDTO(id: 5, name: "PR Card"),
+    SkillDTO(id: 6, name: "Passport"),
+  ];
+
+  static List<SkillDTO> addressProofList = [
+    SkillDTO(
+      id: 1,
+      name: "Driver’s License",
+      short_name: "",
+    ),
+    SkillDTO(
+      id: 2,
+      name: "Utility Bill",
+      short_name: "No more than 3 months old",
+    ),
+    SkillDTO(
+      id: 3,
+      name: "Bank Statement",
+      short_name: "No more than 3 months old",
+    ),
+    SkillDTO(
+      id: 4,
+      name: "Pay Slip",
+      short_name: "No more than 3 months old",
+    ),
+    SkillDTO(
+      id: 5,
+      name: "Home Insurance Certificate",
+      short_name: "No more than 1 year old",
+    ),
+    SkillDTO(
+      id: 6,
+      name: "Car Insurance Certificate",
+      short_name: "No more than 1 year old",
+    ),
+    SkillDTO(
+      id: 7,
+      name: "Municipal Tax Bill",
+      short_name: "No more than 1 year old",
+    ),
+  ];
+
   static List<SkillDTO> cancelSortingList = [
     SkillDTO(id: 1, name: StringConstant.cancelledByYou),
     SkillDTO(id: 2, name: StringConstant.withdrawnByContractor),

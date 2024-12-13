@@ -13,6 +13,7 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/apparel_equipment.dart';
@@ -22,11 +23,11 @@ import 'package:shift/presentation/auth/contractor_auth/documents/document_list.
 import 'package:shift/presentation/auth/contractor_auth/documents/government_issue_id.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/professional_licenses.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/resume.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 part 'document_event.dart';
-
 part 'document_state.dart';
-
 part 'document_bloc.freezed.dart';
 
 @injectable
@@ -117,7 +118,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             documentType: 8,
             documentFile: "",
             documentTitle: "",
-            lastPage: "BankDetail",
+            lastPage: "AddressProofScreen",
           );
 
           failureOrSuccess.fold(
@@ -157,6 +158,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             state.copyWith(
               allListLoading: true,
               isSubmitting: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
               authFailureOrSuccessOption: none(),
               continueFailureOrSuccessOption: none(),
             ),
@@ -203,6 +205,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           emit(
             state.copyWith(
               isLoading: true,
+              currentGovermentDocType: SkillDTO(),
               showGovernmentIdErrorMessages: false,
               governmentDocAuthFailureOrSuccessOption: none(),
             ),
@@ -212,7 +215,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             (l) => emit(
               state.copyWith(
                 isLoading: false,
+                currentGovermentDocType: SkillDTO(),
                 govermentDoc: InputEmptyOrNot(""),
+                govermentFrontDoc: InputEmptyOrNot(""),
+                govermentBackDoc: InputEmptyOrNot(""),
                 governmentExpiryDate: "",
                 govmentDocTitle: InputEmptyOrNot(""),
                 isGovernemtExpiryCheck: false,
@@ -224,8 +230,11 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 return emit(
                   state.copyWith(
                     isLoading: false,
+                    currentGovermentDocType: SkillDTO(),
                     govermentDocId: (r[0].id != null) ? r[0].id! : -1,
                     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                    govermentFrontDoc: InputEmptyOrNot(r[0].file ?? ""),
+                    govermentBackDoc: InputEmptyOrNot(r[0].back_file ?? ""),
                     govmentDocTitle: InputEmptyOrNot(r[0].document_title ?? ""),
                     governmentExpiryDate: (r[0].expiry_date != null)
                         ? DateTime.fromMillisecondsSinceEpoch(
@@ -240,8 +249,11 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 return emit(
                   state.copyWith(
                     isLoading: false,
+                    currentGovermentDocType: SkillDTO(),
                     govermentDocId: -1,
                     govermentDoc: InputEmptyOrNot(""),
+                    govermentFrontDoc: InputEmptyOrNot(""),
+                    govermentBackDoc: InputEmptyOrNot(""),
                     govmentDocTitle: InputEmptyOrNot(""),
                     governmentExpiryDate: "",
                     isGovernemtExpiryCheck: false,
@@ -253,6 +265,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           emit(
             state.copyWith(
               isLoading: false,
+              currentGovermentDocType: SkillDTO(),
+
               // governmentDocAuthFailureOrSuccessOption:
               //     optionOf(failureOrSuccess),
             ),
@@ -272,6 +286,30 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           emit(
             state.copyWith(
               govermentDoc: InputEmptyOrNot(e.govermentDoc),
+              governmentExpiryDate: "",
+              isGovernemtExpiryCheck: false,
+              isGovermentDocSubmitting: false,
+              showGovernmentIdErrorMessages: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        selectGovermentFrontDoc: (e) {
+          emit(
+            state.copyWith(
+              govermentFrontDoc: InputEmptyOrNot(e.govermentDoc),
+              governmentExpiryDate: "",
+              isGovernemtExpiryCheck: false,
+              isGovermentDocSubmitting: false,
+              showGovernmentIdErrorMessages: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        selectGovermentBackDoc: (e) {
+          emit(
+            state.copyWith(
+              govermentBackDoc: InputEmptyOrNot(e.govermentDoc),
               governmentExpiryDate: "",
               isGovernemtExpiryCheck: false,
               isGovermentDocSubmitting: false,
@@ -305,20 +343,205 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
           );
         },
-        govermentDocSubmit: (e) async {
+        deleteGovermentFrontDoc: (e) {
+          emit(
+            state.copyWith(
+              govermentFrontDoc: InputEmptyOrNot(""),
+              isGovermentDocSubmitting: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        deleteGovermentBackDoc: (e) {
+          emit(
+            state.copyWith(
+              govermentBackDoc: InputEmptyOrNot(""),
+              isGovermentDocSubmitting: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        /* govermentDocSubmit: (e) async {
           Either<AccountFailure, String>? failureOrSuccess;
 
-          final isGovernmentDocValid = state.govermentDoc.isValid();
-          final isGovernemntDocTitle = state.govmentDocTitle.isValid();
+          final isGovernmentFrontDocValid = state.govermentDoc.isValid();
+          final isGovernmentBackDocValid = state.govermentDoc.isValid();
+          // final isGovernemntDocTitle = state.govmentDocTitle.isValid();
 
           print("DOC IS VALID--> ${state.govermentDoc}");
           print("DOC IS VALID--> ${state.govermentDocId}");
           print("DOC IS VALID111--> ${state.isGovernemtExpiryCheck}");
           print("DOC IS VALID222--> ${state.governmentExpiryDate}");
-          if ((state.isGovernemtExpiryCheck ||
-                  state.governmentExpiryDate.isNotEmpty) &&
-              isGovernmentDocValid &&
-              isGovernemntDocTitle) {
+          if ((state.governmentExpiryDate.isNotEmpty) &&
+              isGovernmentFrontDocValid &&
+              isGovernmentBackDocValid) {
+            if (state.currentGovermentDocType.id != 3 &&
+                state.currentGovermentDocType.id != 4) {
+              if (state.governmentExpiryDate.isEmpty) {
+                emit(
+                  state.copyWith(
+                    isGovermentDocSubmitting: false,
+                    showGovernmentIdErrorMessages: true,
+                    governmentDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+              } else {
+                emit(
+                  state.copyWith(
+                    isSubmitting: true,
+                    governmentDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+
+                if (state.govermentDocId != -1) {
+                  failureOrSuccess = await _repository.updateDocumentApi(
+                    id: state.govermentDocId,
+                    documentType: 1,
+                    documentTitle: state.govmentDocTitle.getValue(),
+                    documentFile: state.govermentDoc.getValue() ?? "",
+                    expiryDate: state.governmentExpiryDate,
+                    expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+                  );
+                } else {
+                  failureOrSuccess = await _repository.addDocumentApi(
+                    documentType: 1,
+                    documentTitle: state.govmentDocTitle.getValue(),
+                    documentFile: state.govermentDoc.getValue() ?? "",
+                    expiryDate: state.governmentExpiryDate,
+                    expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+                  );
+                }
+
+                failureOrSuccess.fold(
+                  (l) => emit(
+                    state.copyWith(
+                      isSubmitting: false,
+                    ),
+                  ),
+                  (r) {
+                    DocumentBloc.pageController.nextPage(
+                        duration: const Duration(milliseconds: 10),
+                        curve: Curves.easeInOut);
+                    // return emit(
+                    //   state.copyWith(
+                    //     isLoading: false,
+                    //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                    //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
+                    //       DateTime.fromMillisecondsSinceEpoch(
+                    //           r[0].expiry_date ?? 0),
+                    //     ),
+                    //     isGovernemtExpiryCheck: false,
+                    //   ),
+                    // );
+                  },
+                );
+
+                emit(
+                  state.copyWith(
+                    isLoading: false,
+                    governmentDocAuthFailureOrSuccessOption:
+                        optionOf(failureOrSuccess),
+                  ),
+                );
+              }
+            } else {
+              emit(
+                state.copyWith(
+                  isSubmitting: true,
+                  governmentDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+
+              if (state.govermentDocId != -1) {
+                failureOrSuccess = await _repository.updateDocumentApi(
+                  id: state.govermentDocId,
+                  documentType: 1,
+                  documentTitle: state.govmentDocTitle.getValue(),
+                  documentFile: state.govermentDoc.getValue() ?? "",
+                  expiryDate: state.governmentExpiryDate,
+                  expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+                );
+              } else {
+                failureOrSuccess = await _repository.addDocumentApi(
+                  documentType: 1,
+                  documentTitle: state.govmentDocTitle.getValue(),
+                  documentFile: state.govermentDoc.getValue() ?? "",
+                  expiryDate: state.governmentExpiryDate,
+                  expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+                );
+              }
+
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  DocumentBloc.pageController.nextPage(
+                      duration: const Duration(milliseconds: 10),
+                      curve: Curves.easeInOut);
+                  // return emit(
+                  //   state.copyWith(
+                  //     isLoading: false,
+                  //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                  //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
+                  //       DateTime.fromMillisecondsSinceEpoch(
+                  //           r[0].expiry_date ?? 0),
+                  //     ),
+                  //     isGovernemtExpiryCheck: false,
+                  //   ),
+                  // );
+                },
+              );
+
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  governmentDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            }
+          } else {
+            emit(
+              state.copyWith(
+                isGovermentDocSubmitting: false,
+                showGovernmentIdErrorMessages: true,
+                governmentDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
+ */
+
+        govermentDocSubmit: (e) async {
+          Either<AccountFailure, String>? failureOrSuccess;
+
+          final isGovernmentFrontDocValid = state.govermentFrontDoc.isValid();
+          final isGovernmentBackDocValid = state.govermentBackDoc.isValid();
+
+          print("DOC IS VALID--> ${state.govermentDoc}");
+          print("DOC ID--> ${state.govermentDocId}");
+          print("EXPIRY CHECK--> ${state.isGovernemtExpiryCheck}");
+          print("EXPIRY DATE--> ${state.governmentExpiryDate}");
+
+          if (isGovernmentFrontDocValid && isGovernmentBackDocValid) {
+            final isExpiryDateMandatory =
+                state.currentGovermentDocType.id != 3 &&
+                    state.currentGovermentDocType.id != 4;
+
+            if (isExpiryDateMandatory && state.governmentExpiryDate.isEmpty) {
+              emit(
+                state.copyWith(
+                  isGovermentDocSubmitting: false,
+                  showGovernmentIdErrorMessages: true,
+                  governmentDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+              return;
+            }
+
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -330,42 +553,50 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.govermentDocId,
                 documentType: 1,
-                documentTitle: state.govmentDocTitle.getValue(),
-                documentFile: state.govermentDoc.getValue() ?? "",
+                subType: state.currentGovermentDocType.id,
+                // documentTitle: state.govmentDocTitle.getValue(),
+                // documentFile: state.govermentDoc.getValue() ?? "",
+                documentTitle: state.currentGovermentDocType.name ?? "",
+                documentFile: state.govermentFrontDoc.getValue() ?? "",
+                documentBackFile: state.govermentBackDoc.getValue() ?? "",
                 expiryDate: state.governmentExpiryDate,
                 expiryDateNotApplicable: state.isGovernemtExpiryCheck,
               );
             } else {
               failureOrSuccess = await _repository.addDocumentApi(
                 documentType: 1,
-                documentTitle: state.govmentDocTitle.getValue(),
-                documentFile: state.govermentDoc.getValue() ?? "",
+                subType: state.currentGovermentDocType.id,
+                // documentTitle: state.govmentDocTitle.getValue(),
+                // documentFile: state.govermentDoc.getValue() ?? "",
+                documentTitle: state.currentGovermentDocType.name ?? "",
+                documentFile: state.govermentFrontDoc.getValue() ?? "",
+                documentBackFile: state.govermentBackDoc.getValue() ?? "",
                 expiryDate: state.governmentExpiryDate,
                 expiryDateNotApplicable: state.isGovernemtExpiryCheck,
               );
             }
 
             failureOrSuccess.fold(
-              (l) => emit(
-                state.copyWith(
-                  isSubmitting: false,
-                ),
-              ),
-              (r) {
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Something went wrong!",
+                  ),
+                ).show(e.context);
+                emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                  ),
+                );
+              },
+              (success) {
                 DocumentBloc.pageController.nextPage(
-                    duration: const Duration(milliseconds: 10),
-                    curve: Curves.easeInOut);
-                // return emit(
-                //   state.copyWith(
-                //     isLoading: false,
-                //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
-                //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
-                //       DateTime.fromMillisecondsSinceEpoch(
-                //           r[0].expiry_date ?? 0),
-                //     ),
-                //     isGovernemtExpiryCheck: false,
-                //   ),
-                // );
+                  duration: const Duration(milliseconds: 10),
+                  curve: Curves.easeInOut,
+                );
               },
             );
 
@@ -384,6 +615,28 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 governmentDocAuthFailureOrSuccessOption: none(),
               ),
             );
+          }
+        },
+
+        /// >>>>--New changes--<<<<<
+        selectGovenmentType: (e) async {
+          if (state.currentGovermentDocType != e.selectedType) {
+            emit(state.copyWith(
+              isLoading: true,
+              showGovernmentIdErrorMessages: false,
+            ));
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(
+              isLoading: false,
+              currentGovermentDocType: e.selectedType,
+              govermentDoc: InputEmptyOrNot(""),
+              govermentFrontDoc: InputEmptyOrNot(""),
+              govermentBackDoc: InputEmptyOrNot(""),
+              govmentDocTitle: InputEmptyOrNot(""),
+              governmentExpiryDate: "",
+              isGovernemtExpiryCheck: false,
+              showGovernmentIdErrorMessages: false,
+            ));
           }
         },
 
@@ -453,29 +706,41 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               coviDocAuthFailureOrSuccessOption: none(),
             ),
           );
-          print("Covid document delete id ---> ${state.covidDocId}");
-          failureOrSuccess =
-              await _repository.deleteDocumentApi(credId: state.covidDocId);
+          if (state.covidDocId != -1) {
+            print("Covid document delete id ---> ${state.covidDocId}");
+            failureOrSuccess =
+                await _repository.deleteDocumentApi(credId: state.covidDocId);
 
-          failureOrSuccess.fold(
-            (l) => emit(
-              state.copyWith(
-                isLoading: false,
-                isCovidDocSubmitting: false,
-                coviDocAuthFailureOrSuccessOption: none(),
-              ),
-            ),
-            (r) {
-              return emit(
+            failureOrSuccess.fold(
+              (l) => emit(
                 state.copyWith(
                   isLoading: false,
-                  covidVaccinationDoc: InputEmptyOrNot(""),
                   isCovidDocSubmitting: false,
                   coviDocAuthFailureOrSuccessOption: none(),
                 ),
-              );
-            },
-          );
+              ),
+              (r) {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    covidVaccinationDoc: InputEmptyOrNot(""),
+                    isCovidDocSubmitting: false,
+                    coviDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+              },
+            );
+          } else {
+            emit(
+              state.copyWith(
+                isLoading: false,
+                covidVaccinationDoc: InputEmptyOrNot(""),
+                isCovidDocSubmitting: false,
+                coviDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+
           /*emit(
             state.copyWith(
               covidVaccinationDoc: InputEmptyOrNot(""),
@@ -2278,7 +2543,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               documentType: 8,
               documentFile: state.equipmentDoc.getValue() ?? "",
               documentTitle: state.equipmentName.getValue(),
-              lastPage: "BankDetail",
+              lastPage: "AddressProofScreen",
             );
 
             failureOrSuccess.fold(
@@ -2334,7 +2599,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
                 documentType: 8,
                 documentFile: state.equipmentDoc.getValue() ?? "",
                 documentTitle: state.equipmentName.getValue(),
-                lastPage: "BankDetail",
+                lastPage: "AddressProofScreen",
               );
 
               failureOrSuccess.fold(

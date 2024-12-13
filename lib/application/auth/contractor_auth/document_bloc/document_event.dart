@@ -6,8 +6,15 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.submitDocumentsEvent() = _SubmitDocumentsEvent;
   const factory DocumentEvent.getAllDocumentStatus() = _GetAllDocumentStatus;
   // FOR GOVERNMENT DOCUMENT
+
   const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
       _SelectGovermentDoc;
+  const factory DocumentEvent.selectGovermentFrontDoc(String govermentDoc) =
+      _SelectGovermentFrontDoc;
+  const factory DocumentEvent.selectGovermentBackDoc(String govermentDoc) =
+      _SelectGovermentBackDoc;
+  factory DocumentEvent.selectGovenmentType(SkillDTO selectedType) =
+      SelectGovenmentType;
   const factory DocumentEvent.getGovermentDoc() = _GetGovermentDoc;
   const factory DocumentEvent.checkNAGovermentExpiryDate(bool isCheck) =
       CheckNAGovermentExpiryDate;
@@ -15,7 +22,12 @@ class DocumentEvent with _$DocumentEvent {
       _GovermentExpiryDateChanged;
   const factory DocumentEvent.deleteGovermentDoc(String govermentDoc) =
       _DeleteGovermentDoc;
-  const factory DocumentEvent.govermentDocSubmit() = _GovermentDocSubmit;
+  const factory DocumentEvent.deleteGovermentFrontDoc(
+      String govermentFrontDoc) = _DeleteGovermentFrontDoc;
+  const factory DocumentEvent.deleteGovermentBackDoc(String govermentBackDoc) =
+      _DeleteGovermentBackDoc;
+  const factory DocumentEvent.govermentDocSubmit(BuildContext context) =
+      _GovermentDocSubmit;
 
   // FOR COVID DOCUMENT
   const factory DocumentEvent.selectCovidVaccinationDoc(String covidDoc) =
@@ -23,7 +35,8 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.deleteCovidDoc(String covidDoc) = _DeleteCovidDoc;
   const factory DocumentEvent.getCovidDoc() = _GetCovidDoc;
 
-  const factory DocumentEvent.covidDocSubmit({required bool isSkip}) = _CovidDocSubmit;
+  const factory DocumentEvent.covidDocSubmit({required bool isSkip}) =
+      _CovidDocSubmit;
   const factory DocumentEvent.govtDocumentTitleChanged(String documentTitle) =
       GovtDocumentTitleChanged;
 

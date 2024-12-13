@@ -340,16 +340,14 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime
-              .parse(startDate)
-              .toUtc()
-              .millisecondsSinceEpoch / 1000).toString()
+              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
+                      1000)
+                  .toString()
               : "",
-          "end_date":
-          (endDate != null && endDate.isNotEmpty) ? (DateTime
-              .parse(endDate)
-              .toUtc()
-              .millisecondsSinceEpoch / 1000).toString() : "",
+          "end_date": (endDate != null && endDate.isNotEmpty)
+              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString()
+              : "",
         });
       }
       if (type == 2) {
@@ -421,16 +419,14 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime
-              .parse(startDate)
-              .toUtc()
-              .millisecondsSinceEpoch / 1000).toString()
+              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
+                      1000)
+                  .toString()
               : "",
-          "end_date":
-          (endDate != null && endDate.isNotEmpty) ? (DateTime
-              .parse(endDate)
-              .toUtc()
-              .millisecondsSinceEpoch / 1000).toString() : "",
+          "end_date": (endDate != null && endDate.isNotEmpty)
+              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString()
+              : "",
         });
       }
       if (type == 2) {
@@ -550,7 +546,9 @@ class AccountRepository extends IAccountRepository {
   @override
   Future<Either<AccountFailure, String>> addDocumentApi({
     required int documentType,
+    int? subType,
     required String documentFile,
+    String? documentBackFile,
     String? expiryDate,
     bool? expiryDateNotApplicable,
     String? registrationNumber,
@@ -566,6 +564,7 @@ class AccountRepository extends IAccountRepository {
 
       var formData = FormData.fromMap({
         "document_type": documentType,
+        "sub_type": subType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
             ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
@@ -582,6 +581,14 @@ class AccountRepository extends IAccountRepository {
           documentFile,
         );
         formData.files.add(MapEntry('file', multipartFile));
+      }
+      if (documentBackFile != null &&
+          documentBackFile.isNotEmpty &&
+          !documentBackFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentBackFile,
+        );
+        formData.files.add(MapEntry('back_file', multipartFile));
       }
 
       print('Sending Data: ${formData.fields.map((e) => e)}');
@@ -620,7 +627,9 @@ class AccountRepository extends IAccountRepository {
   Future<Either<AccountFailure, String>> updateDocumentApi({
     required int id,
     required int documentType,
+    int? subType,
     required String documentFile,
+    String? documentBackFile,
     String? expiryDate,
     bool? expiryDateNotApplicable,
     String? registrationNumber,
@@ -636,6 +645,7 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
+        "sub_type": subType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
             ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
@@ -651,6 +661,14 @@ class AccountRepository extends IAccountRepository {
           documentFile,
         );
         formData.files.add(MapEntry('file', multipartFile));
+      }
+      if (documentBackFile != null &&
+          documentBackFile.isNotEmpty &&
+          !documentBackFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentBackFile,
+        );
+        formData.files.add(MapEntry('back_file', multipartFile));
       }
 
       print('Sending Data: ${formData.fields.map((e) => e)}');
@@ -1095,7 +1113,6 @@ class AccountRepository extends IAccountRepository {
     required String longitude,
     required bool fromRegister,
     int? type,
-
   }) async {
     try {
       var mapData = {
@@ -1207,7 +1224,7 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       var mapData = {
-        "id":id,
+        "id": id,
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
         "facility_type_other": facilityTypeOther,
@@ -1232,10 +1249,11 @@ class AccountRepository extends IAccountRepository {
       print('Sending Data: ${jsonEncode(mapData)}');
 
       final response = await apiService.postMethod(
-        ApiConstants.updateLocation ,
+        ApiConstants.updateLocation,
         mapData,
       );
-      print("Response of Add location details---> ${jsonEncode(response.data)}");
+      print(
+          "Response of Add location details---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
@@ -1249,7 +1267,8 @@ class AccountRepository extends IAccountRepository {
         var commonResponse = CommonResponse.fromJson(err.response?.data);
 
         if (commonResponse.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonResponse.dioMessage!));
+          return left(AccountFailure.showAPIResponseMessage(
+              commonResponse.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());

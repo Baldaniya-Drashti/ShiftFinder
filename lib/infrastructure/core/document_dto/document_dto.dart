@@ -10,6 +10,7 @@ class DocumentDTO with _$DocumentDTO {
     int? id,
     int? document_type,
     String? file,
+    String? back_file,
     int? expiry_date,
     String? registration_number,
     String? province_of_registration,

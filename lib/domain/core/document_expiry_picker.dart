@@ -14,6 +14,7 @@ class DocumentExpiryDatePicker {
   static Widget expiryDateTextField(
     BuildContext context, {
     required String selectedDate,
+    DateTime? lastDate,
     required void Function(DateTime) onPickedDate,
     required void Function() onCancelClick,
     bool isDisabled = false,
@@ -36,6 +37,7 @@ class DocumentExpiryDatePicker {
               customDatePicker(
                 context,
                 firstDate: DateTime.now(),
+                lastDate: lastDate,
                 onPickedDate: onPickedDate,
                 onCancelClick: onCancelClick,
                 selectedDate: (selectedDate.isNotEmpty)

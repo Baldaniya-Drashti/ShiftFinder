@@ -647,6 +647,14 @@ class StringConstant {
   static const String occupiedDesc =
       "This contractor cannot be hired for the selected shift as they are already booked for another shift during this time. Please select a different contractor.";
   static const String filter = "Filter";
+  static const String selectAGovtIssuedId = "Select a Govt. Issued Id";
+  static const String selectYourId = "Select Your Id";
+  static const String selectYourIdDesc =
+      "Please select your Govt. issued Id document from the list";
+  static const String frontPage = "Front Page";
+  static const String backPage = "Back Page";
+  static const String addressProof = "Address Proof";
+  static const String selectAnAddressProof = "Select an Address Proof";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -872,4 +880,9 @@ class StringConstant {
   static const String pleaseSelectLocation = "Please select location";
   static const String pleaseEnterValidName = "Please enter valid name";
   static const String pleaseEnterYourName = "Please enter your name";
+  static const String pleaseSelectFrontPageOfGoverIssuedId =
+      "Please select front page of Goverment issued id!";
+  static const String pleaseSelectBackPageOfGoverIssuedId =
+      "Please select back page of Goverment issued id!";
+  static const String pleaseSelectExpiryDate = "Please add expiry date";
 }
