@@ -118,7 +118,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             documentType: 8,
             documentFile: "",
             documentTitle: "",
-            lastPage: "AddressProofScreen",
+            lastPage: "BankDetail",
           );
 
           failureOrSuccess.fold(
@@ -2543,7 +2543,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               documentType: 8,
               documentFile: state.equipmentDoc.getValue() ?? "",
               documentTitle: state.equipmentName.getValue(),
-              lastPage: "AddressProofScreen",
+              lastPage: "BankDetail",
             );
 
             failureOrSuccess.fold(
@@ -2599,7 +2599,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
                 documentType: 8,
                 documentFile: state.equipmentDoc.getValue() ?? "",
                 documentTitle: state.equipmentName.getValue(),
-                lastPage: "AddressProofScreen",
+                lastPage: "BankDetail",
               );
 
               failureOrSuccess.fold(

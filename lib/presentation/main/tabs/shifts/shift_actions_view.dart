@@ -21,7 +21,8 @@ import '../../../../domain/core/string_constant.dart';
 
 @RoutePage(name: 'ShiftActionsView')
 class ShiftActionsView extends StatelessWidget {
-  const ShiftActionsView({super.key, required this.postId, required this.userId});
+  const ShiftActionsView(
+      {super.key, required this.postId, required this.userId});
 
   final int postId;
   final int userId;
@@ -29,11 +30,15 @@ class ShiftActionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<ShiftActionBloc>()..add(ShiftActionEvent.getEmployerData(context: context, postId: postId, userId: userId)),
+      create: (context) => getIt<ShiftActionBloc>()
+        ..add(ShiftActionEvent.getEmployerData(
+            context: context, postId: postId, userId: userId)),
       child: Scaffold(
         appBar: CommonAppBar(
-          onBackPressed: () => Navigator.pop(context),
+          onBackPressed: () {
+            // context.router.popUntil((route) => route.isFirst);
+            Navigator.pop(context);
+          },
           title: "Shift Approved",
         ),
         body: BlocBuilder<ShiftActionBloc, ShiftActionState>(
@@ -70,7 +75,8 @@ class ShiftActionsView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(getSize(10)),
                             color: AppColors.scaffoldColor,
                             child: Padding(
-                              padding: EdgeInsets.all(getSize(18)).copyWith(top: getSize(8)),
+                              padding: EdgeInsets.all(getSize(18))
+                                  .copyWith(top: getSize(8)),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -84,13 +90,16 @@ class ShiftActionsView extends StatelessWidget {
                           ),
                           Gap(16),
                           _ActionButton(
-                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            backgroundColor: isBlock
+                                ? AppColors.white.withOpacity(0.5)
+                                : AppColors.white,
                             onPressed: !isBlock
                                 ? () async {
                                     final postId = data?.post_id ?? 0;
                                     final userId = data?.user_id ?? 0;
                                     if (data?.isFavourite ?? false) {
-                                      final result = await AppDialog.showCommonDialog(
+                                      final result =
+                                          await AppDialog.showCommonDialog(
                                         context: context,
                                         title: "Unfavorite",
                                         content:
@@ -117,35 +126,54 @@ class ShiftActionsView extends StatelessWidget {
                                     }
                                   }
                                 : null,
-                            icon: (data?.isFavourite ?? false) ? SvgImageConstant.heartChecked : SvgImageConstant.heart1,
-                            label: "${(data?.isFavourite ?? false) ? "Added" : "Add"} to favorite",
-                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                            icon: (data?.isFavourite ?? false)
+                                ? SvgImageConstant.heartChecked
+                                : SvgImageConstant.heart1,
+                            label:
+                                "${(data?.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                            textColor: isBlock
+                                ? AppColors.black.withOpacity(0.5)
+                                : null,
                           ),
                           Gap(16),
                           _ActionButton(
-                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            backgroundColor: isBlock
+                                ? AppColors.white.withOpacity(0.5)
+                                : AppColors.white,
                             onPressed: !isBlock
                                 ? () => _onAddRating(
-                                      contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
+                                      contractorName:
+                                          "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
                                       context,
                                       defaultRating: data?.rating,
                                       userId: data?.user_id ?? -1,
                                       postId: data?.post_id ?? -1,
                                     )
                                 : null,
-                            icon: (data?.isRating == true && data?.rating != null && data?.rating != 0)
+                            icon: (data?.isRating == true &&
+                                    data?.rating != null &&
+                                    data?.rating != 0)
                                 ? SvgImageConstant.starFilled
                                 : SvgImageConstant.starOutlined,
-                            iconColor:
-                                (data?.isRating == true && data?.rating != null && data?.rating != 0) ? AppColors.primaryColor : null,
-                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
-                            label: (data?.isRating == true && data?.rating != null && data?.rating != 0)
+                            iconColor: (data?.isRating == true &&
+                                    data?.rating != null &&
+                                    data?.rating != 0)
+                                ? AppColors.primaryColor
+                                : null,
+                            textColor: isBlock
+                                ? AppColors.black.withOpacity(0.5)
+                                : null,
+                            label: (data?.isRating == true &&
+                                    data?.rating != null &&
+                                    data?.rating != 0)
                                 ? "${data?.rating!.toDouble()}"
                                 : "Leave a Rating",
                           ),
                           Gap(16),
                           _ActionButton(
-                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            backgroundColor: isBlock
+                                ? AppColors.white.withOpacity(0.5)
+                                : AppColors.white,
                             onPressed: !isBlock
                                 ? () {
                                     _onAddRemark(
@@ -155,9 +183,15 @@ class ShiftActionsView extends StatelessWidget {
                                     );
                                   }
                                 : null,
-                            label: data?.isRemark == true ? "Remark Added" : "Remark",
-                            icon: data?.isRemark == true ? SvgImageConstant.remarkAdded : SvgImageConstant.medalStar,
-                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                            label: data?.isRemark == true
+                                ? "Remark Added"
+                                : "Remark",
+                            icon: data?.isRemark == true
+                                ? SvgImageConstant.remarkAdded
+                                : SvgImageConstant.medalStar,
+                            textColor: isBlock
+                                ? AppColors.black.withOpacity(0.5)
+                                : null,
                           ),
                           Gap(16),
                           _ActionButton(
@@ -167,20 +201,28 @@ class ShiftActionsView extends StatelessWidget {
                                   context,
                                   postId: data?.post_id ?? 0,
                                   userId: data?.user_id ?? 0,
-                                  contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
+                                  contractorName:
+                                      "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
                                 );
                               } else {
                                 _onBlock(
                                   context,
                                   postId: data?.post_id ?? 0,
                                   userId: data?.user_id ?? 0,
-                                  contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
+                                  contractorName:
+                                      "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
                                 );
                               }
                             },
-                            label: isBlock ? StringConstant.blocked : StringConstant.block,
-                            icon: isBlock ? SvgImageConstant.blockedFilled : SvgImageConstant.block,
-                            backgroundColor: isBlock ? AppColors.redAccent.withOpacity(0.15) : AppColors.white,
+                            label: isBlock
+                                ? StringConstant.blocked
+                                : StringConstant.block,
+                            icon: isBlock
+                                ? SvgImageConstant.blockedFilled
+                                : SvgImageConstant.block,
+                            backgroundColor: isBlock
+                                ? AppColors.redAccent.withOpacity(0.15)
+                                : AppColors.white,
                           ),
                         ],
                       ),
@@ -216,13 +258,15 @@ class ShiftActionsView extends StatelessWidget {
     final result = await AppDialog.showCommonDialog(
       context: context,
       title: "Unblock",
-      content: "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      content:
+          "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
       successLabel: "Unblock",
     );
 
     if (result ?? false) {
       context.read<ShiftActionBloc>().add(
-            ShiftActionEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+            ShiftActionEvent.blockUnblockPost(
+                userId: userId, postId: postId, context: context),
           );
     }
   }
@@ -251,13 +295,15 @@ class ShiftActionsView extends StatelessWidget {
           ),
         ],
       ),
-      infoMessage: "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage:
+          "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => Navigator.pop(context),
       onDeleteClick: () {
         context.router.maybePop().then(
           (value) {
             context.read<ShiftActionBloc>().add(
-                  ShiftActionEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+                  ShiftActionEvent.blockUnblockPost(
+                      userId: userId, postId: postId, context: context),
                 );
           },
         );
@@ -340,7 +386,11 @@ class ShiftActionsView extends StatelessWidget {
     );
     if (result != null) {
       context.read<ShiftActionBloc>().add(
-            ShiftActionEvent.addRemark(userId: userId, postId: postId, context: context, remark: result),
+            ShiftActionEvent.addRemark(
+                userId: userId,
+                postId: postId,
+                context: context,
+                remark: result),
           );
     }
   }

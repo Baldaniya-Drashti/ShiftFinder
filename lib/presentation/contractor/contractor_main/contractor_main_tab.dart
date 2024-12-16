@@ -36,6 +36,9 @@ class ContractorMainTabView extends StatelessWidget {
           create: (context) => getIt<ContractorMainTabBloc>()
             ..add(ContractorMainTabEvent.tabChange(0)),
         ),
+        BlocProvider(
+          create: (context) => getIt<ContractorHomeBloc>(),
+        ),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -105,88 +108,8 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
   switch (state.selectedTab) {
     case 0:
       return ContractorHomeAppBar(
-        leading: Container(
-          height: getSize(50),
-          width: getSize(50),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: AppColors.darkGreen, width: getSize(3)),
-            image: DecorationImage(
-              image: (getCurrentUser().profileImage != null &&
-                      getCurrentUser().profileImage!.isNotEmpty)
-                  ? CachedNetworkImageProvider(
-                      getCurrentUser().profileImage!,
-                      // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
-                    )
-                  : AssetImage(
-                      PngImageConstants.profile_employer,
-                    ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        titleWidget: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BaseText(
-              text: StringConstant.welcome,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              fontFamily: "Aclonica",
-              lineHeight: getSize(1),
-              textColor: AppColors.black.withOpacity(0.7),
-            ),
-            BaseText(
-              text:
-                  "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              fontFamily: "Aclonica",
-            ),
-            // BaseText(
-            //   text: "${getCurrentUser().companyName ?? ''}",
-            //   fontSize: 10,
-            //   fontWeight: FontWeight.w600,
-            //   textColor: AppColors.primaryColor,
-            // ),
-          ],
-        ),
-        actions: [
-          // SvgPicture.asset(
-          //   SvgImageConstant.filter,
-          //   height: getSize(38),
-          //   width: getSize(38),
-          // ),
-          PopupMenuButton<String>(
-            icon: SvgPicture.asset(
-              SvgImageConstant.filter, // Replace with your SVG icon path
-              height: getSize(38),
-              width: getSize(38),
-            ),
-            color: AppColors.white,
-            padding: EdgeInsets.zero,
-            onSelected: (String result) {
-              context
-                  .read<ContractorHomeBloc>()
-                  .add(ContractorHomeEvent.filterShiftEvent(result));
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: StringConstant.all,
-                child: Text(StringConstant.all),
-              ),
-              PopupMenuItem<String>(
-                value: StringConstant.singleShifts,
-                child: Text(StringConstant.singleShifts),
-              ),
-              PopupMenuItem<String>(
-                value: StringConstant.multiShifts,
-                child: Text(StringConstant.multiShifts),
-              ),
-            ],
-          ),
-        ],
+        showAppBar: false,
+        titleText: null,
       );
     case 1:
       return ContractorHomeAppBar(

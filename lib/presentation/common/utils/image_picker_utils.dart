@@ -25,6 +25,7 @@ class ImagePickerUtils {
 
       if (imageSource == ImageSource.gallery) {
         var permission = await checkAndRequestStoragePermissions();
+        print("Storage permission ---> $permission");
         print(permission);
         if (permission) {
           pickedImage = await picker.pickImage(
@@ -145,9 +146,14 @@ class ImagePickerUtils {
       }
     } else {
       PermissionStatus permission = await Permission.photos.status;
-      if (permission != PermissionStatus.granted) {
+
+      if (permission != PermissionStatus.granted &&
+          permission != PermissionStatus.limited) {
+        print("Permission Status---> $permission");
+
         var permissionStatus = await Permission.photos.request();
-        if (permissionStatus.isGranted) {
+        if (permissionStatus.isGranted ||
+            permission != PermissionStatus.limited) {
           return true;
         } else if (permissionStatus.isPermanentlyDenied) {
           galleryPermissionPermanentlyDenied = true;

@@ -85,7 +85,9 @@ class AppliedTab extends StatelessWidget {
                                           shift.proposal_date ?? -1,
                                           isYear: true,
                                         ),
-                                        showArrow: true,
+                                        showArrow:
+                                            (shift.applied_date_status == 2 &&
+                                                shift.deleteAt == false),
                                       )
                                     : dateView(
                                         context,

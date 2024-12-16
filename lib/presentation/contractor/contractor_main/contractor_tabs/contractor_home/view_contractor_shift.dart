@@ -723,7 +723,7 @@ class ViewContractorShift extends StatelessWidget {
               BaseText(
                 text: title,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               (showBtn)
@@ -775,7 +775,7 @@ class ViewContractorShift extends StatelessWidget {
               BaseText(
                 text: StringConstant.time,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               Row(

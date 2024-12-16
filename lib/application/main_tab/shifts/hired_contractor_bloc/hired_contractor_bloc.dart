@@ -27,7 +27,8 @@ part 'hired_contractor_state.dart';
 part 'hired_contractor_bloc.freezed.dart';
 
 @injectable
-class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorState> {
+class HiredContractorBloc
+    extends Bloc<HiredContractorEvent, HiredContractorState> {
   int currentPage = 1;
   int lastPage = 1;
 
@@ -90,7 +91,8 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
@@ -105,7 +107,8 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                     return AlertDialog(
                       contentPadding: EdgeInsets.all(24).copyWith(top: 0),
                       clipBehavior: Clip.none,
-                      insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      insetPadding:
+                          EdgeInsets.symmetric(horizontal: getSize(20)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(getSize(15)),
                       ),
@@ -125,7 +128,8 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                         ],
                       ),
                       content: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)).copyWith(top: getSize(10)),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20))
+                            .copyWith(top: getSize(10)),
                         child: BaseText(
                           text: StringConstant.approvedDesc,
                           fontSize: 14,
@@ -150,7 +154,9 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
 
                 if (result ?? false) {
                   e.context.router.push(
-                    PageRouteInfo(ShiftActionsView.name, args: ShiftActionsViewArgs(postId: e.postId, userId: e.userId)),
+                    PageRouteInfo(ShiftActionsView.name,
+                        args: ShiftActionsViewArgs(
+                            postId: e.postId, userId: e.userId)),
                   );
                 }
               },
@@ -200,12 +206,18 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
-                  hiredFilledContractorList: List.from(state.hiredFilledContractorList)
-                    ..addAll(
-                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
-                    ),
+                  hiredFilledContractorList:
+                      List.from(state.hiredFilledContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
                 ),
               );
             },
@@ -248,12 +260,18 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
-                  hiredApproveContractorList: List.from(state.hiredApproveContractorList)
-                    ..addAll(
-                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
-                    ),
+                  hiredApproveContractorList:
+                      List.from(state.hiredApproveContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
                 ),
               );
             },

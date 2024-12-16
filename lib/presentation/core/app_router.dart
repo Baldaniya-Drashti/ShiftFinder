@@ -120,7 +120,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: FullPositionReviewView.page),
         AutoRoute(page: EmployerCompletedShiftView.page),
         AutoRoute(page: ViewCollegueProfile.page),
-        AutoRoute(page: AddressProofScreen.page),
+        // AutoRoute(page: AddressProofScreen.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

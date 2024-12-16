@@ -181,6 +181,7 @@ class CustomTextField extends StatelessWidget {
           // elevation: 0.3,
           child: TextFormField(
             autovalidateMode: autoValidateMode,
+            autocorrect: false,
             validator: (inputString) {
               return validator?.call(inputString, context);
             },
