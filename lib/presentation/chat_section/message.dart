@@ -16,9 +16,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-@RoutePage(
-  name: 'message',
-)
+@RoutePage(name: 'message')
 class Message extends StatelessWidget {
   final int receiverId;
   const Message({
@@ -63,9 +61,8 @@ class Message extends StatelessWidget {
                   shrinkWrap: true,
                   reverse: true,
                   physics: BouncingScrollPhysics(),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: getSize(15),
-                  ),
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: getSize(15)),
                   padding: EdgeInsets.only(
                     left: getSize(20),
                     right: getSize(20),

@@ -18,6 +18,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? end_time,
     String? unpaid_break,
     double? estimated_payables,
+    String? formatted_payables,
     int? total_shifts,
     int? total_shift,
     HiredContractorDTO? user,

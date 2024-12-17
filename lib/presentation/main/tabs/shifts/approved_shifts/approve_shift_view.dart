@@ -356,7 +356,7 @@ class ApproveShiftView extends StatelessWidget {
                     ),
               displayDateBreak(
                 context,
-                boldValue: "\$${shift.estimated_payables ?? ""}",
+                boldValue: "\$${shift.formatted_payables ?? ""}",
                 timidValue: "",
                 title: StringConstant.estimatedPayables,
                 svgPrefixIcon: SvgImageConstant.dollorRound,

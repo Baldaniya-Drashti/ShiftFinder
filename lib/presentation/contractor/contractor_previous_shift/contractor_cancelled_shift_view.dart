@@ -216,7 +216,7 @@ class ContractorCancelledShiftView extends StatelessWidget {
                                         child: BaseText(
                                           text: StringConstant.reason,
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Gap(getSize(6)),

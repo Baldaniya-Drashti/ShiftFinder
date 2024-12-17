@@ -52,6 +52,14 @@ class HiredContractorBloc
   HiredContractorBloc(this.mainFacade) : super(HiredContractorState.initial()) {
     on<HiredContractorEvent>((event, emit) async {
       await event.map(
+        getEditClockInTime: (e) {
+          emit(
+            state.copyWith(
+              clockIn: e.clockIn,
+              clockOut: e.clockOut,
+            ),
+          );
+        },
         changeClockInClockOutTime: (value) async {
           if (value.isClockIn) {
             final clockInTimeStamp = convertToTimestamp(value.time);
@@ -78,6 +86,8 @@ class HiredContractorBloc
           final isClockOutValid = formatedClockOut != null;
 
           if (isClockInValid && isClockOutValid) {
+            emit(state.copyWith(isSubmitting: true));
+
             failureOrSuccess = await mainFacade.submitEmployerClockInClockOut(
               shiftId: e.postId,
               userId: e.userId,
@@ -87,6 +97,8 @@ class HiredContractorBloc
 
             failureOrSuccess.fold(
               (l) {
+                emit(state.copyWith(isSubmitting: false));
+
                 e.context.router.maybePop();
                 showError(
                   message: l.maybeMap(
@@ -98,14 +110,17 @@ class HiredContractorBloc
                 ).show(e.context);
               },
               (r) async {
-                // e.context.router.maybePop();
+                emit(state.copyWith(isSubmitting: false));
+
+                e.context.router.maybePop();
 
                 final result = await showDialog<bool?>(
                   barrierDismissible: false,
                   context: e.context,
                   builder: (context) {
                     return AlertDialog(
-                      contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+                      contentPadding:
+                          EdgeInsets.all(getSize(24)).copyWith(top: 0),
                       clipBehavior: Clip.none,
                       insetPadding:
                           EdgeInsets.symmetric(horizontal: getSize(20)),

@@ -304,7 +304,7 @@ class UpcomingShift extends StatelessWidget {
               ),
               if (state.showErrorMessages)
                 commonErrorText(
-                  "Please add valid reason to delete post",
+                  StringConstant.pleaseAddValidReasonToDeletePost,
                   padding: EdgeInsets.symmetric(
                       horizontal: getSize(15), vertical: getSize(10)),
                 ),

@@ -141,14 +141,19 @@ class DeleteShiftDialog extends StatelessWidget {
                   onChanged: (p0) => context
                       .read<ShiftsBloc>()
                       .add(ShiftsBlocEvent.deleteReasonChange(p0)),
-                  validator: (p0, p1) =>
-                      context.read<ShiftsBloc>().state.deleteReason.value.fold(
-                            (l) => l.maybeMap(
-                              empty: (_) => StringConstant.pleaseEnterReason,
-                              orElse: () => null,
-                            ),
-                            (r) => null,
-                          ),
+                  validator: (p0, p1) => context
+                      .read<ShiftsBloc>()
+                      .state
+                      .deleteReason
+                      .value
+                      .fold(
+                        (l) => l.maybeMap(
+                          empty: (_) =>
+                              StringConstant.pleaseAddValidReasonToDeletePost,
+                          orElse: () => null,
+                        ),
+                        (r) => null,
+                      ),
                 ),
               ),
               SizedBox(height: getSize(30)),

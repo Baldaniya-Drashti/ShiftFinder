@@ -401,7 +401,7 @@ class FilledShiftsView extends StatelessWidget {
                     ),
               displayDateBreak(
                 context,
-                boldValue: "\$${shift.estimated_payables ?? 0.0}",
+                boldValue: "\$${shift.formatted_payables ?? 0.0}",
                 timidValue: "",
                 title: StringConstant.estimatedPayables,
                 svgPrefixIcon: SvgImageConstant.dollorRound,

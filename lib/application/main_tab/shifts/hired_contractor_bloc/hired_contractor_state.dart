@@ -14,6 +14,7 @@ class HiredContractorState with _$HiredContractorState {
     required int? clockIn,
     required int? clockOut,
     required bool showClockTimeError,
+    required bool isSubmitting,
   }) = _HiredContractorState;
   factory HiredContractorState.initial() => HiredContractorState(
         authFailureOrSuccessOption: none(),
@@ -21,6 +22,7 @@ class HiredContractorState with _$HiredContractorState {
         hiredFilledContractorList: [],
         hiredApproveContractorList: [],
         isLoading: false,
+        isSubmitting: false,
         noDataFound: false,
         showErrorMessages: false,
         clockIn: null,

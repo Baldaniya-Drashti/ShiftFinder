@@ -34,7 +34,10 @@ class EditClockTimeDialog extends StatelessWidget {
     final result = await showDialog<bool?>(
       context: con,
       builder: (__) => BlocProvider(
-        create: (_) => getIt<HiredContractorBloc>(),
+        create: (_) => getIt<HiredContractorBloc>()
+          ..add(HiredContractorEvent.getEditClockInTime(
+              clockIn: contractor.clock_in_time,
+              clockOut: contractor.clock_out_time)),
         child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
           // bloc: con.read<HiredContractorBloc>()
           //   ..state.copyWith(
@@ -228,8 +231,9 @@ class EditClockTimeDialog extends StatelessWidget {
                         SizedBox(width: getSize(25)),
                         Expanded(
                           child: CommonButton(
+                            isSubmitting: state.isSubmitting,
                             onPressed: () {
-                              context.router.maybePop(true);
+                              // context.router.maybePop(true);
 
                               context.read<HiredContractorBloc>().add(
                                       HiredContractorEvent.submitClockInOutTime(

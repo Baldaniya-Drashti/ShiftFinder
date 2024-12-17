@@ -655,6 +655,8 @@ class StringConstant {
   static const String backPage = "Back Page";
   static const String addressProof = "Address Proof";
   static const String selectAnAddressProof = "Select an Address Proof";
+  static const String counterProposalConfirmation =
+      "Are you sure you want to send this counter proposal to the contractor?";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -885,4 +887,6 @@ class StringConstant {
   static const String pleaseSelectBackPageOfGoverIssuedId =
       "Please select back page of Goverment issued id!";
   static const String pleaseSelectExpiryDate = "Please add expiry date";
+  static const String pleaseAddValidReasonToDeletePost =
+      "Please add valid reason to delete post";
 }

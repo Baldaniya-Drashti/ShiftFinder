@@ -92,8 +92,7 @@ class CounterProposalDetailBloc
                           height: getSize(10),
                         ),
                         BaseText(
-                          text:
-                              "Are you sure you want to send a counter proposal?",
+                          text: StringConstant.counterProposalConfirmation,
                           fontSize: 14,
                           showFullDescription: true,
                           textAlign: TextAlign.center,
