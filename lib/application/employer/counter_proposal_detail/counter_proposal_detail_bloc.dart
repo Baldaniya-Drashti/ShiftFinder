@@ -183,12 +183,150 @@ class CounterProposalDetailBloc
               );
             }
           } else {
-            showError(
+            final result = await showDialog<bool?>(
+              context: value.context,
+              builder: (context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.zero,
+                  clipBehavior: Clip.none,
+                  elevation: 0,
+                  backgroundColor: AppColors.white,
+                  insetPadding: EdgeInsets.symmetric(horizontal: getSize(17)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getSize(15)),
+                  ),
+                  content: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(25)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: getSize(30),
+                        ),
+                        BaseText(
+                          text: "Counter Propose",
+                          fontSize: 22,
+                          fontFamily: 'Aclonica',
+                        ),
+                        SizedBox(
+                          height: getSize(10),
+                        ),
+                        BaseText(
+                          text: StringConstant.counterProposalExistingValueDesc,
+                          fontSize: 14,
+                          showFullDescription: true,
+                          textAlign: TextAlign.center,
+                          fontWeight: FontWeight.w500,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                        SizedBox(height: getSize(10)),
+                        BaseText(
+                          text: StringConstant
+                              .wouldYouLikeToProceedWithSendingTheCounterProposal,
+                          fontSize: 14,
+                          showFullDescription: true,
+                          textAlign: TextAlign.center,
+                          fontWeight: FontWeight.w500,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                        SizedBox(height: getSize(30)),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CommonButton(
+                                backgroundColor: AppColors.white,
+                                borderColor: AppColors.green,
+                                buttonTextColor: AppColors.green,
+                                onPressed: () {
+                                  value.context.router.maybePop();
+                                },
+                                buttonText: StringConstant.no,
+                              ),
+                            ),
+                            SizedBox(width: getSize(25)),
+                            Expanded(
+                              child: CommonButton(
+                                onPressed: () async {
+                                  value.context.router.maybePop(true);
+                                },
+                                buttonText: StringConstant.yes,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: getSize(25)),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ).then((newVal) async {
+              if (newVal == true) {
+                emit(state.copyWith(
+                    postDataLoading: true, showErrorMessages: false));
+                Either<MainFailure, CommonResponse> failureOrSuccess;
+
+                failureOrSuccess =
+                    await _mainFacade.sendEmployerApplicantsCounterPropose(
+                  id: state.data.id ?? -1,
+                  counterRateHour: (state.data.proposed_hourly_rate ?? 0.0),
+                  commuteAllowanceType: state.data.commute_allowance_type ?? -1,
+                  accommodationAllowanceType:
+                      state.data.accommodation_allowance_type ?? -1,
+                  counterCommuteAllowance: (state.data.commute_allowance_type ==
+                          1)
+                      ? (state.data.proposed_commute_allowance_rate ?? 0.0)
+                      : (state.data.commute_allowance_type == 2)
+                          ? (state.data.proposed_commute_allowance_hour_id ??
+                              -1)
+                          : 0,
+                  counterAccommodationAllowance: (state
+                              .data.accommodation_allowance_type ==
+                          1)
+                      ? (state.data.proposed_accommodation_allowance_rate ??
+                          0.0)
+                      : (state.data.accommodation_allowance_type == 2)
+                          ? (state.data
+                                  .proposed_accommodation_allowance_hour_id ??
+                              -1)
+                          : 0,
+                );
+                emit(state.copyWith(postDataLoading: false));
+
+                failureOrSuccess.fold(
+                  (l) async {
+                    showError(
+                      message: l.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(value.context);
+                  },
+                  (r) async {
+                    showSuccess(message: r.dioMessage ?? "")
+                        .show(value.context)
+                        .then((_) {
+                      value.context.router.maybePop(true);
+                    });
+                  },
+                );
+              } else {
+                showError(
+                        message: StringConstant
+                            .someDetailsAreMissingOrInvalidPleaseCheck)
+                    .show(value.context);
+                emit(state.copyWith(showErrorMessages: true));
+              }
+            });
+
+            /* showError(
                     message: StringConstant
                         .someDetailsAreMissingOrInvalidPleaseCheck)
                 .show(value.context);
 
-            emit(state.copyWith(showErrorMessages: true));
+            emit(state.copyWith(showErrorMessages: true)); */
           }
 
           // emit(state.copyWith(postDataLoading: true));

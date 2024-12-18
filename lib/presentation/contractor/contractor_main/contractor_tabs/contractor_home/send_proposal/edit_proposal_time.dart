@@ -38,29 +38,6 @@ class EditProposalTime extends StatelessWidget {
                     : startEndTime(context, index, state.multiDates[index]);
               },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(30)),
-              child: CommonButton(
-                onPressed: () {
-                  final isLessThanTwoHours = state.multiDates.any((dto) {
-                    final totalPayableDuration =
-                        CustomDateTimeFormat.parseTotalPayableHours(
-                            dto.totalPaybleHours!);
-                    return totalPayableDuration < Duration(hours: 2);
-                  });
-
-                  if (isLessThanTwoHours) {
-                    showError(
-                            message: StringConstant
-                                .theTotalPayableHourMustBeAtLeastTwo)
-                        .show(context);
-                  } else {
-                    Navigator.pop(context, state.multiDates);
-                  }
-                },
-                buttonText: StringConstant.done,
-              ),
-            ),
           ],
         );
       },

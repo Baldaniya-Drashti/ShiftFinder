@@ -12,10 +12,13 @@ import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/edit_proposal_time.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/mark_availability.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProposeAvailability')
@@ -28,7 +31,8 @@ class ProposeAvailability extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SendProposalBloc>()..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
+      create: (context) => getIt<SendProposalBloc>()
+        ..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
       child: BlocConsumer<SendProposalBloc, SendProposalState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -64,7 +68,34 @@ class ProposeAvailability extends StatelessWidget {
                             "${StringConstant.totalNumberOfShifts} - ${(post.shift_detail?.detail != null && post.shift_detail!.detail!.isNotEmpty) ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}" : "00"}",
                       ),
                       paddingBetweenFields(),
-                      (state.selectedTab == 0) ? EditProposalTime(shift: post.shift_detail ?? ShiftDetailDTO()) : MarkUnavailability(),
+                      (state.selectedTab == 0)
+                          ? EditProposalTime(
+                              shift: post.shift_detail ?? ShiftDetailDTO())
+                          : MarkUnavailability(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: getSize(30)),
+                        child: CommonButton(
+                          onPressed: () {
+                            final isLessThanTwoHours =
+                                state.multiDates.any((dto) {
+                              final totalPayableDuration =
+                                  CustomDateTimeFormat.parseTotalPayableHours(
+                                      dto.totalPaybleHours!);
+                              return totalPayableDuration < Duration(hours: 2);
+                            });
+
+                            if (isLessThanTwoHours) {
+                              showError(
+                                      message: StringConstant
+                                          .theTotalPayableHourMustBeAtLeastTwo)
+                                  .show(context);
+                            } else {
+                              Navigator.pop(context, state.multiDates);
+                            }
+                          },
+                          buttonText: StringConstant.done,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -94,7 +125,9 @@ class ProposeAvailability extends StatelessWidget {
       ),
       child: TabBar(
         onTap: (value) {
-          context.read<SendProposalBloc>().add(SendProposalEvent.tabChangeEvent(value));
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.tabChangeEvent(value));
         },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(

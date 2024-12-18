@@ -657,6 +657,12 @@ class StringConstant {
   static const String selectAnAddressProof = "Select an Address Proof";
   static const String counterProposalConfirmation =
       "Are you sure you want to send this counter proposal to the contractor?";
+  static const String counterProposalExistingValueDesc =
+      "Some fields in your counter proposal are unfilled. For these fields, the contractor proposed values remain the same as the originally posted values. By proceeding, you confirm that you agree with these values and do not wish to modify them.";
+  static const String wouldYouLikeToProceedWithSendingTheCounterProposal =
+      "Would you like to proceed with sending the counter proposal?";
+  static const String proposalAvailabilityConfirmationDesc =
+      "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 

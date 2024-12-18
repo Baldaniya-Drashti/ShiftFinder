@@ -292,6 +292,60 @@ class HiredContractorBloc
             },
           );
         },
+        getHiredCancelledContractorList: (e) async {
+          if (e.refresh) {
+            currentPage = 1;
+            emit(state.copyWith(
+              hiredCancelledContractorList: [],
+              isLoading: e.refresh,
+            ));
+            hiredContractorListController.resetNoData();
+          } else {
+            if (currentPage > lastPage) {
+              hiredContractorListController.loadNoData();
+              return;
+            }
+          }
+          var res = await mainFacade.hiredCancelledContractorList(
+            postId: e.postId,
+            page: currentPage,
+            shortType: 0,
+          );
+          currentPage++;
+          res.fold(
+            (l) => emit(
+              state.copyWith(
+                errorApi: true,
+                isLoading: false,
+                hiredCancelledContractorList: [],
+              ),
+            ),
+            (r) {
+              lastPage = r.meta?.lastPage ?? 1;
+              if (e.refresh) {
+                List.from(state.hiredCancelledContractorList).clear();
+              }
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  errorApi: false,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
+                  //  getProductList: []
+                  hiredCancelledContractorList:
+                      List.from(state.hiredCancelledContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
+                ),
+              );
+            },
+          );
+        },
       );
     });
   }

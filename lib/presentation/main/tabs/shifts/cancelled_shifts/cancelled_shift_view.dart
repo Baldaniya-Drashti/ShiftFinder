@@ -218,13 +218,8 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
-          if ((state.currentCancelFilter.id == 2 &&
-                  shift.users != null &&
-                  shift.users!.isNotEmpty &&
-                  shift.users!.length == 1) ||
-              (state.currentCancelFilter.id == 1 &&
-                  shift.users != null &&
-                  shift.users!.isNotEmpty)) ...[
+          if ((state.currentCancelFilter.id == 2 && shift.total_user == 1) ||
+              (state.currentCancelFilter.id == 1)) ...[
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: getSize(18), vertical: getSize(5)),
@@ -246,16 +241,16 @@ class CancelledShiftView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(getSize(10)),
               ),
               child: BaseText(
-                text: shift.users?[0].reason ?? "",
+                text: (state.currentCancelFilter.id == 1)
+                    ? shift.reason ?? ""
+                    : shift.user?.reason ?? "",
                 fontSize: 12,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
             ),
             SizedBox(height: getSize(10)),
           ],
-          (shift.users != null &&
-                  shift.users!.isNotEmpty &&
-                  shift.users!.length == 1)
+          (shift.total_user == 1)
               ? Container(
                   padding: EdgeInsets.symmetric(
                     vertical: getSize(10),
@@ -271,7 +266,7 @@ class CancelledShiftView extends StatelessWidget {
                       context.router.push(
                         PageRouteInfo(ViewApplicantProfile.name,
                             args: ViewApplicantProfileArgs(
-                              id: shift.users![0].user_id ?? -1,
+                              id: shift.user?.user_id ?? -1,
                               postId: shift.id ?? -1,
                             )),
                       );
@@ -283,10 +278,10 @@ class CancelledShiftView extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: AppColors.transparent,
                           radius: getSize(20),
-                          backgroundImage: (shift.users![0].profile != null &&
-                                  shift.users![0].profile != null &&
-                                  shift.users![0].profile!.isNotEmpty)
-                              ? NetworkImage(shift.users![0].profile ?? "")
+                          backgroundImage: (shift.user != null &&
+                                  shift.user!.profile != null &&
+                                  shift.user!.profile!.isNotEmpty)
+                              ? NetworkImage(shift.user?.profile ?? "")
                               : null,
                         ),
                         Padding(
@@ -294,7 +289,7 @@ class CancelledShiftView extends StatelessWidget {
                               left: getSize(10), right: getSize(5)),
                           child: BaseText(
                             text:
-                                "${shift.users![0].first_name ?? ""} ${shift.users![0].last_name ?? ""}",
+                                "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -348,8 +343,7 @@ class CancelledShiftView extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      if (shift.total_contractor != null &&
-                          shift.total_contractor != 0) {
+                      if (shift.hired_user != null && shift.hired_user != 0) {
                         context.router
                             .push(PageRouteInfo(CancelledContractorList.name,
                                 args: CancelledContractorListArgs(
@@ -375,7 +369,7 @@ class CancelledShiftView extends StatelessWidget {
                         BaseText(
                           text:
                               // "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
-                              "${StringConstant.allHiredContractors} (${shift.total_contractor ?? 00}/${shift.total_shift})",
+                              "${StringConstant.allHiredContractors} (${shift.hired_user}/${shift.total_user})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

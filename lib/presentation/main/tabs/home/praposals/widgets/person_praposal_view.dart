@@ -193,12 +193,9 @@ class PraposalPersonView extends StatelessWidget {
                         ),
                       )
                           .then((result) {
-                        if (result != null && result == true) {
-                          Log.success("result=> $result");
-                          context.read<ProposalDetailBloc>().add(
-                              ProposalDetailEvent.addConfirmDialogFlag(
-                                  result as bool));
-                        }
+                        context.read<ProposalDetailBloc>().add(
+                            ProposalDetailEvent.addConfirmDialogFlag(
+                                result as bool));
                       });
                       // Log.success("result=> $result");
                     },

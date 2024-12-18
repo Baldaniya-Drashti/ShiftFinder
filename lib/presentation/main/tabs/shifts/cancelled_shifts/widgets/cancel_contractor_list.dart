@@ -27,7 +27,7 @@ class CancelledContractorList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<HiredContractorBloc>()
-        ..add(HiredContractorEvent.getHiredFilledContractorList(
+        ..add(HiredContractorEvent.getHiredCancelledContractorList(
             refresh: true, postId: postId)),
       child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
         builder: (context, state) {
@@ -48,12 +48,12 @@ class CancelledContractorList extends StatelessWidget {
                           onRefresh: () => context
                               .read<HiredContractorBloc>()
                               .add(HiredContractorEvent
-                                  .getHiredFilledContractorList(
+                                  .getHiredCancelledContractorList(
                                       refresh: true, postId: postId)),
                           onLoading: () => context
                               .read<HiredContractorBloc>()
                               .add(HiredContractorEvent
-                                  .getHiredFilledContractorList(
+                                  .getHiredCancelledContractorList(
                                 refresh: false,
                                 postId: postId,
                               )),
@@ -63,10 +63,11 @@ class CancelledContractorList extends StatelessWidget {
                           child: ListView.builder(
                               padding:
                                   EdgeInsets.symmetric(vertical: getSize(10)),
-                              itemCount: state.hiredFilledContractorList.length,
+                              itemCount:
+                                  state.hiredCancelledContractorList.length,
                               itemBuilder: (context, index) {
                                 return contractorDetail(context,
-                                    state.hiredFilledContractorList[index]);
+                                    state.hiredCancelledContractorList[index]);
                               }),
                         ));
         },
