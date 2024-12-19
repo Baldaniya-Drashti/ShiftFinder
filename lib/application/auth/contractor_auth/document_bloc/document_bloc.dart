@@ -226,11 +226,15 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
             (r) {
               if (r.isNotEmpty) {
-                print("ExpiryDate--> ${r[0].expiry_date}");
+                print("ExpiryDate--> ${r}");
                 return emit(
                   state.copyWith(
                     isLoading: false,
-                    currentGovermentDocType: SkillDTO(),
+                    currentGovermentDocType:
+                        CommonList.govermentIdList.firstWhere(
+                      (skill) => skill.id == r[0].sub_type,
+                      orElse: () => SkillDTO(),
+                    ),
                     govermentDocId: (r[0].id != null) ? r[0].id! : -1,
                     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
                     govermentFrontDoc: InputEmptyOrNot(r[0].file ?? ""),
@@ -262,15 +266,15 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               }
             },
           );
-          emit(
-            state.copyWith(
-              isLoading: false,
-              currentGovermentDocType: SkillDTO(),
+          // emit(
+          //   state.copyWith(
+          //     isLoading: false,
+          //     currentGovermentDocType: SkillDTO(),
 
-              // governmentDocAuthFailureOrSuccessOption:
-              //     optionOf(failureOrSuccess),
-            ),
-          );
+          //     // governmentDocAuthFailureOrSuccessOption:
+          //     //     optionOf(failureOrSuccess),
+          //   ),
+          // );
         },
         govtDocumentTitleChanged: (e) {
           emit(

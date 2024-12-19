@@ -51,7 +51,7 @@ class LocationDialog {
                       LocationDialog().addressField(context, state),
                       if (state.searchLocationList.isNotEmpty)
                         SizedBox(
-                          height: getSize(300),
+                          // height: getSize(300),
                           width: getSize(400),
                           child: ListView.builder(
                             shrinkWrap: true,

@@ -241,9 +241,7 @@ class CancelledShiftView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(getSize(10)),
               ),
               child: BaseText(
-                text: (state.currentCancelFilter.id == 1)
-                    ? shift.reason ?? ""
-                    : shift.user?.reason ?? "",
+                text: shift.reason ?? "",
                 fontSize: 12,
                 textColor: AppColors.black.withOpacity(0.7),
               ),

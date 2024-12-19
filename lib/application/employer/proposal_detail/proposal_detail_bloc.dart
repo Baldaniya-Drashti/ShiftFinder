@@ -137,7 +137,7 @@ class ProposalDetailBloc
                       ),
                       BaseText(
                         text:
-                            "Application accepted, Contractor\nnotified for Confirmation.",
+                            "Proposal accepted, Contractor\nnotified for Confirmation.",
                         fontSize: 14,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.w500,
