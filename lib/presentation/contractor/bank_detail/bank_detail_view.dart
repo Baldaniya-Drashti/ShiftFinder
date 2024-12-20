@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -60,14 +61,20 @@ class _NoBankAddedView extends StatelessWidget {
             height: 90,
             width: 90,
             SvgImageConstant.bankDollar,
-            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                AppColors.black.withOpacity(0.7), BlendMode.srcIn),
           ),
           Gap(30),
-          BaseText(text: "No Bank Details Added", fontFamily: "Aclonica", fontSize: 20, fontWeight: FontWeight.w400),
+          BaseText(
+              text: "No Bank Details Added",
+              fontFamily: "Aclonica",
+              fontSize: 20,
+              fontWeight: FontWeight.w400),
           Gap(5),
           BaseText(
             fontSize: 14,
-            text: "To ensure uninterrupted service and prompt payment deposits, please add your bank account details.",
+            text:
+                "To ensure uninterrupted service and prompt payment deposits, please add your bank account details.",
             textAlign: TextAlign.center,
           ),
         ],
@@ -117,7 +124,8 @@ class _ListTile extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "Misty Evans",
+                        text:
+                            "${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -126,7 +134,8 @@ class _ListTile extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SvgPicture.asset(SvgImageConstant.verify, height: 14),
+                            SvgPicture.asset(SvgImageConstant.verify,
+                                height: 14),
                             Gap(5),
                             BaseText(
                               text: "Verified",
@@ -142,7 +151,10 @@ class _ListTile extends StatelessWidget {
                   SizedBox(
                     height: getSize(5),
                   ),
-                  BaseText(text: "Transit Number", fontSize: 10, fontWeight: FontWeight.w500),
+                  BaseText(
+                      text: "Transit Number",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500),
                   SizedBox(
                     height: getSize(10),
                   ),
@@ -163,7 +175,8 @@ class _ListTile extends StatelessWidget {
                   AppDialog.showDelete(
                     context,
                     title: "Delete Account",
-                    infoMessage: "Are you sure you want to delete this bank account?",
+                    infoMessage:
+                        "Are you sure you want to delete this bank account?",
                     onCancelClick: () {
                       context.router.maybePop();
                     },

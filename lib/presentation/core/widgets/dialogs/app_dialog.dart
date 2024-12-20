@@ -35,7 +35,7 @@ class AppDialog {
               fontSize: 16,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
-              maxLines: maxLines ?? 3,
+              maxLines: maxLines ?? 5,
             ),
             elevation: 80,
             backgroundColor: AppColors.white,

@@ -91,11 +91,16 @@ class RegisterProfileScreen extends StatelessWidget {
                     AppFocus.unfocus(context);
                     VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
+                      // (getCurrentRole() == 1)
+                      //     ? state.enteredPhoneNo
+                      //     : state.email.getValue(),
+                      // "+${state.selectedCountrycode}",
                       (getCurrentRole() == 1)
-                          ? state.enteredPhoneNo
-                          : state.email.getValue(),
-                      "+${state.selectedCountrycode}",
-                      state.selectedCountryFlag,
+                          ? "${getCurrentUser().phone ?? ''}"
+                          : getCurrentUser().email ?? '',
+                      getCurrentUser().countryCode ?? '',
+                      getCurrentUser().countryNameCode ?? '',
+                      // state.selectedCountryFlag,
                       state.password.getValue(),
                     );
                   },

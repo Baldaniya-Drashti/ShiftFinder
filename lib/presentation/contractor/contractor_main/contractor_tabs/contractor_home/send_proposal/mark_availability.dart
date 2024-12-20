@@ -26,7 +26,7 @@ class MarkUnavailability extends StatelessWidget {
             selectMultiDate(context, state),
             // selectMultiDate2(context, state),
             paddingBetweenFields(),
-            if (state.shift.shift_detail?.same_or_different_time == 1)
+            /*  if (state.shift.shift_detail?.same_or_different_time == 1)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: getSize(30)),
                 child: CommonButton(
@@ -35,7 +35,7 @@ class MarkUnavailability extends StatelessWidget {
                   },
                   buttonText: StringConstant.done,
                 ),
-              ),
+              ), */
           ],
         );
       },

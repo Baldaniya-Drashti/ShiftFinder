@@ -60,7 +60,8 @@ class _EditProfileViewState extends State<EditProfileView> {
     _companyNameController = TextEditingController(text: user.companyName);
     _phoneNumberController = TextEditingController(text: user.phone.toString());
     _associationController = TextEditingController(text: user.association);
-    _companyDescriptionController = TextEditingController(text: user.companyDescription);
+    _companyDescriptionController =
+        TextEditingController(text: user.companyDescription);
   }
 
   @override
@@ -79,7 +80,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -87,8 +89,10 @@ class _EditProfileViewState extends State<EditProfileView> {
               },
               (r) {
                 final user = getCurrentUser();
-                var phone = user.phone.toString() == _phoneNumberController.text.trim();
-                var email = user.email.toString() == _emailController.text.trim();
+                var phone =
+                    user.phone.toString() == _phoneNumberController.text.trim();
+                var email =
+                    user.email.toString() == _emailController.text.trim();
                 AppFocus.unfocus(context);
 
                 // if (getCurrentRole() == 1 && phone) {
@@ -96,12 +100,14 @@ class _EditProfileViewState extends State<EditProfileView> {
                 // } else if (getCurrentRole() == 2 && email) {
                 //   return;
                 // }
-                  Log.debug("==>${_phoneNumberController.text}");
-                  Log.debug(user.phone);
+                Log.debug("==>${_phoneNumberController.text}");
+                Log.debug(user.phone);
                 VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                     context,
-                    (getCurrentRole() == 1) ? _phoneNumberController.text.trim() : _emailController.text.trim(),
-                    "+${state.selectedCountrycode.isEmpty ? user.countryCode : state.selectedCountrycode}",
+                    (getCurrentRole() == 1)
+                        ? _phoneNumberController.text.trim()
+                        : _emailController.text.trim(),
+                    "${state.selectedCountrycode.isEmpty ? user.countryCode : state.selectedCountrycode}",
                     "${state.selectedCountryFlag.isEmpty ? user.countryNameCode : state.selectedCountrycode}",
                     "");
               },
@@ -132,23 +138,32 @@ class _EditProfileViewState extends State<EditProfileView> {
                               onTap: () {
                                 ImageChooserDialog().showImageChooserDialog(
                                   takePhotoCallback: () async {
-                                    String path =
-                                        await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
+                                    String path = await ImagePickerUtils()
+                                            .pickImage(
+                                                imageSource: ImageSource.camera,
+                                                context: context) ??
+                                        '';
                                     if (path.isNotEmpty) {
                                       print("CAMERA IMAGE PATH: $path");
                                       context.read<EditProfileBloc>().add(
-                                            EditProfileEvent.changeProfilePic(path),
+                                            EditProfileEvent.changeProfilePic(
+                                                path),
                                           );
                                     }
                                   },
                                   selectPhotoCallback: () async {
-                                    String path =
-                                        await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
+                                    String path = await ImagePickerUtils()
+                                            .pickImage(
+                                                imageSource:
+                                                    ImageSource.gallery,
+                                                context: context) ??
+                                        '';
 
                                     if (path.isNotEmpty) {
                                       print("GALLERY IMAGE PATH: $path");
                                       context.read<EditProfileBloc>().add(
-                                            EditProfileEvent.changeProfilePic(path),
+                                            EditProfileEvent.changeProfilePic(
+                                                path),
                                           );
                                     }
                                   },
@@ -168,7 +183,10 @@ class _EditProfileViewState extends State<EditProfileView> {
                                     width: getSize(15),
                                   ),
                                   badgeStyle: badges.BadgeStyle(
-                                      badgeColor: AppColors.white, borderSide: BorderSide(color: AppColors.primaryColor, width: 0.4)),
+                                      badgeColor: AppColors.white,
+                                      borderSide: BorderSide(
+                                          color: AppColors.primaryColor,
+                                          width: 0.4)),
                                   child: Container(
                                     height: getSize(100),
                                     width: getSize(100),
@@ -185,14 +203,19 @@ class _EditProfileViewState extends State<EditProfileView> {
                                             )
                                           : user.profileImage != null
                                               ? DecorationImage(
-                                                  image: CachedNetworkImageProvider(user.profileImage ?? ""),
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                          user.profileImage ??
+                                                              ""),
                                                   fit: BoxFit.cover,
                                                 )
                                               : DecorationImage(
                                                   image: AssetImage(
                                                     (getCurrentRole() == 1)
-                                                        ? PngImageConstants.contractor_employer
-                                                        : PngImageConstants.profile_employer,
+                                                        ? PngImageConstants
+                                                            .contractor_employer
+                                                        : PngImageConstants
+                                                            .profile_employer,
                                                   ),
                                                 ),
                                       border: Border.all(
@@ -206,7 +229,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                             ),
                             Gap(getSize(8)),
                             BaseText(
-                              text: (getCurrentRole() == 1) ? StringConstant.profilePhoto : StringConstant.companyLogo,
+                              text: (getCurrentRole() == 1)
+                                  ? StringConstant.profilePhoto
+                                  : StringConstant.companyLogo,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               textColor: AppColors.black.withOpacity(0.7),
@@ -225,7 +250,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                       textCapitalization: TextCapitalization.words,
                       errorMaxLines: 2,
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z\s]')),
                       ],
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(
@@ -238,7 +264,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                           width: getSize(24),
                         ),
                       ),
-                      onChanged: (value) => context.read<EditProfileBloc>().add(EditProfileEvent.firstNameChanged(value)),
+                      onChanged: (value) => context
+                          .read<EditProfileBloc>()
+                          .add(EditProfileEvent.firstNameChanged(value)),
                       validator: (value, context) {
                         // empty: (value) => StringConstant.pleaseEnterYourFirstName,
                         // invalidUsername: (value) => StringConstant.pleaseEnterYourValidFirstName,
@@ -260,7 +288,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                       errorMaxLines: 2,
                       textCapitalization: TextCapitalization.words,
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z\s]')),
                       ],
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(
@@ -273,7 +302,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                           width: getSize(24),
                         ),
                       ),
-                      onChanged: (value) => context.read<EditProfileBloc>().add(EditProfileEvent.lastNameChanged(value)),
+                      onChanged: (value) => context
+                          .read<EditProfileBloc>()
+                          .add(EditProfileEvent.lastNameChanged(value)),
                       // validator: (_, context) => context.read<EditProfileBloc>().state.lastName.value.fold(
                       //       (f) => f.maybeMap(
                       //         empty: (value) => StringConstant.pleaseEnterYourLastName,
@@ -312,7 +343,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                           width: getSize(24),
                         ),
                       ),
-                      onChanged: (value) => context.read<EditProfileBloc>().add(EditProfileEvent.companyNameChanged(value)),
+                      onChanged: (value) => context
+                          .read<EditProfileBloc>()
+                          .add(EditProfileEvent.companyNameChanged(value)),
                       // validator: (p0, p1) => context.read<EditProfileBloc>().state.companyName.value.fold(
                       //       (f) => f.maybeMap(
                       //         empty: (value) => StringConstant.pleaseEnterCompanyName,
@@ -361,12 +394,15 @@ class _EditProfileViewState extends State<EditProfileView> {
                         if (value == null || value.isEmpty) {
                           return StringConstant.pleaseEnterMobileNumber;
                         } else if (value.length < 10) {
-                          return StringConstant.phoneNumberShouldBeBetween10And15Digits;
+                          return StringConstant
+                              .phoneNumberShouldBeBetween10And15Digits;
                         }
                         return null;
                       },
                       prefixIcon: CommonCountryCodePicker(
-                        initialSelection: state.selectedCountryFlag.isEmpty ? user.countryNameCode : state.selectedCountryFlag,
+                        initialSelection: state.selectedCountryFlag.isEmpty
+                            ? user.countryNameCode
+                            : state.selectedCountryFlag,
                         onChanged: (countryCode) {
                           print("===> ${user.countryNameCode}");
                           print("===> ${state.selectedCountryFlag}");
@@ -399,7 +435,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                           width: getSize(24),
                         ),
                       ),
-                      onChanged: (value) => context.read<EditProfileBloc>().add(EditProfileEvent.associationTextChanged(value)),
+                      onChanged: (value) => context
+                          .read<EditProfileBloc>()
+                          .add(EditProfileEvent.associationTextChanged(value)),
                     ),
                     SizedBox(height: getSize(10)),
                     CustomTextField(
@@ -412,7 +450,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                       isOptional: true,
                       maxLines: 4,
                       keyboardType: TextInputType.multiline,
-                      onChanged: (value) => context.read<EditProfileBloc>().add(EditProfileEvent.companyDescChanged(value)),
+                      onChanged: (value) => context
+                          .read<EditProfileBloc>()
+                          .add(EditProfileEvent.companyDescChanged(value)),
                     ),
                     SizedBox(height: getSize(25)),
                     BlocSelector<EditProfileBloc, EditProfileState, bool>(
@@ -422,16 +462,22 @@ class _EditProfileViewState extends State<EditProfileView> {
                           isSubmitting: isSubmitting,
                           onPressed: () {
                             if (!_formKey.currentState!.validate()) {
-                              showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                              showError(
+                                      message: StringConstant
+                                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                                  .show(context);
                               return;
                             }
 
                             final number = _phoneNumberController.text.trim();
                             final firstName = _firstNameController.text.trim();
                             final lastName = _lastNameController.text.trim();
-                            final companyName = _companyNameController.text.trim();
-                            final association = _associationController.text.trim();
-                            final companyDescription = _companyDescriptionController.text.trim();
+                            final companyName =
+                                _companyNameController.text.trim();
+                            final association =
+                                _associationController.text.trim();
+                            final companyDescription =
+                                _companyDescriptionController.text.trim();
 
                             context.read<EditProfileBloc>().add(
                                   EditProfileEvent.updateProfile(

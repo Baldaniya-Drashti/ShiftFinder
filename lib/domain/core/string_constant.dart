@@ -664,6 +664,8 @@ class StringConstant {
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String currentCompleteShiftDesc =
+      "Your submitted shift will appear under Profile > Previous Shifts > Completed once the payment has been processed.";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
   /// ERROR ///

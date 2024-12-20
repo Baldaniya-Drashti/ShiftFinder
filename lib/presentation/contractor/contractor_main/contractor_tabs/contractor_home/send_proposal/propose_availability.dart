@@ -76,19 +76,26 @@ class ProposeAvailability extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: getSize(30)),
                         child: CommonButton(
                           onPressed: () {
-                            final isLessThanTwoHours =
-                                state.multiDates.any((dto) {
-                              final totalPayableDuration =
-                                  CustomDateTimeFormat.parseTotalPayableHours(
-                                      dto.totalPaybleHours!);
-                              return totalPayableDuration < Duration(hours: 2);
-                            });
+                            if (state.shift.shift_detail
+                                    ?.same_or_different_time !=
+                                1) {
+                              final isLessThanTwoHours =
+                                  state.multiDates.any((dto) {
+                                final totalPayableDuration =
+                                    CustomDateTimeFormat.parseTotalPayableHours(
+                                        dto.totalPaybleHours!);
+                                return totalPayableDuration <
+                                    Duration(hours: 2);
+                              });
 
-                            if (isLessThanTwoHours) {
-                              showError(
-                                      message: StringConstant
-                                          .theTotalPayableHourMustBeAtLeastTwo)
-                                  .show(context);
+                              if (isLessThanTwoHours) {
+                                showError(
+                                        message: StringConstant
+                                            .theTotalPayableHourMustBeAtLeastTwo)
+                                    .show(context);
+                              } else {
+                                Navigator.pop(context, state.multiDates);
+                              }
                             } else {
                               Navigator.pop(context, state.multiDates);
                             }

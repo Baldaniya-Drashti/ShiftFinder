@@ -12,6 +12,7 @@ class DocumentState with _$DocumentState {
     /// FOR GOVERNMENT DOCUMENT
     required bool isLoading,
     required int govermentDocId,
+    required DocumentDTO existingGovermentDoc,
     required SkillDTO currentGovermentDocType,
     required List<SkillDTO> govermentDropDownList,
     required InputEmptyOrNot govmentDocTitle,
@@ -74,6 +75,7 @@ class DocumentState with _$DocumentState {
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
         continueFailureOrSuccessOption: none(),
+        existingGovermentDoc: DocumentDTO(),
       );
 }
 

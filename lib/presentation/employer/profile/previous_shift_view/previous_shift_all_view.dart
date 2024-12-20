@@ -286,7 +286,9 @@ class _PreviousShiftListTile extends StatelessWidget {
       url: data.profile ?? "",
       title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
       subTitle: "${data.role_lists_name}",
-      trailing: RatingStar(rating: data.rating?.toDouble() ?? 0.0),
+      trailing: RatingStar(
+          rating:
+              double.parse(data.all_over_rating?.toStringAsFixed(1) ?? "0.0")),
     );
   }
 

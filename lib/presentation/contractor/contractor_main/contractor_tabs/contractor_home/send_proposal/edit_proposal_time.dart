@@ -24,21 +24,16 @@ class EditProposalTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SendProposalBloc, SendProposalState>(
       builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListView.builder(
-              itemCount: state.multiDates.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                // return startEndTime(context, index, state.multiDates[index]);
-                return (state.multiDates[index].isUnAvailable)
-                    ? notAvailable(context, state.multiDates[index])
-                    : startEndTime(context, index, state.multiDates[index]);
-              },
-            ),
-          ],
+        return ListView.builder(
+          itemCount: state.multiDates.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            // return startEndTime(context, index, state.multiDates[index]);
+            return (state.multiDates[index].isUnAvailable)
+                ? notAvailable(context, state.multiDates[index])
+                : startEndTime(context, index, state.multiDates[index]);
+          },
         );
       },
     );

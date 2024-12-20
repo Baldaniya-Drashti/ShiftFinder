@@ -50,36 +50,42 @@ class LocationDialog {
                     children: [
                       LocationDialog().addressField(context, state),
                       if (state.searchLocationList.isNotEmpty)
-                        SizedBox(
-                          // height: getSize(300),
-                          width: getSize(400),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: state.searchLocationList.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                onTap: () {
-                                  // final selectedLocation = state.searchLocationList[index]["description"];
-                                  final selectedLocation =
-                                      state.searchLocationList[index];
-                                  context.read<PickLocationDialogBloc>().add(
-                                      PickLocationDialogEvent
-                                          .locationSelectedFromSearchList(
-                                              selectedLocation));
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              // height: getSize(300),
+                              width: getSize(400),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: state.searchLocationList.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    onTap: () {
+                                      // final selectedLocation = state.searchLocationList[index]["description"];
+                                      final selectedLocation =
+                                          state.searchLocationList[index];
+                                      context
+                                          .read<PickLocationDialogBloc>()
+                                          .add(PickLocationDialogEvent
+                                              .locationSelectedFromSearchList(
+                                                  selectedLocation));
+                                    },
+                                    dense: true,
+                                    titleAlignment: ListTileTitleAlignment.top,
+                                    leading: SvgPicture.asset(
+                                        SvgImageConstant.locationIcon),
+                                    title: BaseText(
+                                      text: state.searchLocationList[index]
+                                              .description ??
+                                          "",
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  );
                                 },
-                                dense: true,
-                                titleAlignment: ListTileTitleAlignment.top,
-                                leading: SvgPicture.asset(
-                                    SvgImageConstant.locationIcon),
-                                title: BaseText(
-                                  text: state.searchLocationList[index]
-                                          .description ??
-                                      "",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              );
-                            },
+                              ),
+                            ),
                           ),
                         ),
                     ],

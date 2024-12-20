@@ -39,7 +39,8 @@ class LoginForm extends StatelessWidget {
               showError(
                 message: failure.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(context);
@@ -51,10 +52,12 @@ class LoginForm extends StatelessWidget {
                   context.router.replace(PageRouteInfo(MainTabView.name));
                 } else {
                   // showSuccess(message:"Success! Next Process is under development!!").show(context);
-                  context.router.replace(PageRouteInfo(ContractorMainTabView.name));
+                  context.router
+                      .replace(PageRouteInfo(ContractorMainTabView.name));
                 }
               } else {
-                context.router.replace(getCurrentPage(r.lastPage ?? '', fromSplash: true));
+                context.router.replace(
+                    getCurrentPage(r.lastPage ?? '', fromSplash: true));
               }
             },
           ),
@@ -66,7 +69,8 @@ class LoginForm extends StatelessWidget {
               showError(
                 message: failure.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(context);
@@ -76,9 +80,13 @@ class LoginForm extends StatelessWidget {
               AppFocus.unfocus(context);
               VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                 context,
-                (getCurrentRole() == 1) ? "${r.phone}" : state.emailId.getValue(),
-                "+${r.countryCode}",
-                r.countryNameCode ?? "",
+                (getCurrentRole() == 1)
+                    ? "${r.phone}"
+                    : state.emailId.getValue(),
+                // "+${r.countryCode}",
+                // r.countryNameCode ?? "",
+                getCurrentUser().countryCode ?? '',
+                getCurrentUser().countryNameCode ?? '',
                 state.password.getValue(),
               );
             },
@@ -96,7 +104,9 @@ class LoginForm extends StatelessWidget {
             child: BackGroundImage(
               imageString: PngImageConstants.login_frame,
               child: Form(
-                autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                autovalidateMode: state.showErrorMessages
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -108,7 +118,8 @@ class LoginForm extends StatelessWidget {
                         child: createAccount(
                           onRegisterTap: () async {
                             print("create an account clicked!");
-                            context.router.replace(const PageRouteInfo(RegisterPage.name));
+                            context.router.replace(
+                                const PageRouteInfo(RegisterPage.name));
                             // context.router.replaceAll(
                             //     [const PageRouteInfo(RegisterPage.name)]);
                           },
@@ -127,7 +138,10 @@ class LoginForm extends StatelessWidget {
     );
   }
 
-  RichText createAccount({required String title, required String description, required VoidCallback onRegisterTap}) {
+  RichText createAccount(
+      {required String title,
+      required String description,
+      required VoidCallback onRegisterTap}) {
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -201,8 +215,15 @@ class LoginForm extends StatelessWidget {
               ),
             ),
             focusNode: state.mobileNumberFocusNode,
-            onChanged: (value) => context.read<LoginFormBloc>().add(LoginFormEvent.emailChanged(value)),
-            validator: (_, context) => context.read<LoginFormBloc>().state.emailId.value.fold(
+            onChanged: (value) => context
+                .read<LoginFormBloc>()
+                .add(LoginFormEvent.emailChanged(value)),
+            validator: (_, context) => context
+                .read<LoginFormBloc>()
+                .state
+                .emailId
+                .value
+                .fold(
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterEmail,
                     invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
@@ -242,22 +263,29 @@ class LoginForm extends StatelessWidget {
                 color: AppColors.transparent,
                 padding: EdgeInsets.all(getSize(9)),
                 child: SvgPicture.asset(
-                  (state.isObscure) ? SvgImageConstant.closeEye : SvgImageConstant.openEye,
+                  (state.isObscure)
+                      ? SvgImageConstant.closeEye
+                      : SvgImageConstant.openEye,
                   height: getSize(24),
                   width: getSize(24),
                 ),
               ),
             ),
-            onChanged: (value) => context.read<LoginFormBloc>().add(LoginFormEvent.passwordChanged(value)),
-            validator: (_, context) => context.read<LoginFormBloc>().state.password.value.fold(
-                  (f) => f.maybeMap(
-                    empty: (value) => StringConstant.pleaseEnterPassword,
-                    shortPassword: (_) => StringConstant.passwordShouldBeMinimum8Digit,
-                    invalidPassword: (value) => StringConstant.pleaseEnterCorrectPasswordFormat,
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                ),
+            onChanged: (value) => context
+                .read<LoginFormBloc>()
+                .add(LoginFormEvent.passwordChanged(value)),
+            validator: (_, context) =>
+                context.read<LoginFormBloc>().state.password.value.fold(
+                      (f) => f.maybeMap(
+                        empty: (value) => StringConstant.pleaseEnterPassword,
+                        shortPassword: (_) =>
+                            StringConstant.passwordShouldBeMinimum8Digit,
+                        invalidPassword: (value) =>
+                            StringConstant.pleaseEnterCorrectPasswordFormat,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    ),
           ),
           SizedBox(
             height: getSize(10),
@@ -287,7 +315,9 @@ class LoginForm extends StatelessWidget {
           CommonButton(
             isSubmitting: state.isSubmitting,
             onPressed: () {
-              context.read<LoginFormBloc>().add(const LoginFormEvent.loginPressed());
+              context
+                  .read<LoginFormBloc>()
+                  .add(const LoginFormEvent.loginPressed());
             },
             borderRadius: 30,
             buttonText: StringConstant.login,

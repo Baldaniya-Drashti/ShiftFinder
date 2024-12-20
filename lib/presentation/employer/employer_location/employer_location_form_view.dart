@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart';
+import 'package:shift/application/location_details/location_details_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -31,17 +32,17 @@ class EmployerLocationFormView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        AppFocus.unfocus(context);
-      },
-      child: BlocProvider(
-        create: (context) => getIt<EmployerLocationFormBloc>()
-          ..add(EmployerLocationFormEvent.getFacilityTypeList())
-          ..add(
-            EmployerLocationFormEvent.getLocationInfo(
-                id: id ?? -1, context: context),
-          ),
+    return BlocProvider(
+      create: (_) => getIt<EmployerLocationFormBloc>()
+        ..add(EmployerLocationFormEvent.getFacilityTypeList())
+        ..add(
+          EmployerLocationFormEvent.getLocationInfo(
+              id: id ?? -1, context: context),
+        ),
+      child: GestureDetector(
+        onTap: () {
+          AppFocus.unfocus(context);
+        },
         child: Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () {
@@ -418,9 +419,10 @@ class EmployerLocationFormView extends StatelessWidget {
   ) {
     return CustomTextField(
       labelText: StringConstant.locationID,
+      // initialValue: state.locationId,
+      controller: EmployerLocationFormBloc.locationIDCtrl,
       hintText: StringConstant.locationID,
       isLabelPadding: true,
-      initialValue: state.locationData.location_id,
       isOptional: true,
       errorMaxLines: 2,
       prefixIcon: Padding(
@@ -454,7 +456,9 @@ class EmployerLocationFormView extends StatelessWidget {
       isLabelPadding: true,
       isOptional: true,
       errorMaxLines: 2,
-      initialValue: state.accreditationNumber,
+      // initialValue: state.accreditationNumber,
+      controller: EmployerLocationFormBloc.accredationNOCtrl,
+
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -481,7 +485,9 @@ class EmployerLocationFormView extends StatelessWidget {
     EmployerLocationFormState state,
   ) {
     return CustomTextField(
-      initialValue: state.locationData.location_note ?? "",
+      // initialValue: state.locationData.location_note ?? "",
+      controller: EmployerLocationFormBloc.locationNoteCtrl,
+
       labelText: StringConstant.locationNote,
       hintText: StringConstant.typeHere,
       isLabelPadding: true,
@@ -779,36 +785,5 @@ class EmployerLocationFormView extends StatelessWidget {
             },
           );
         });
-  }
-}
-
-class _LocationForm extends StatefulWidget {
-  const _LocationForm();
-
-  @override
-  State<_LocationForm> createState() => _LocationFormState();
-}
-
-class _LocationFormState extends State<_LocationForm> {
-  late TextEditingController _locationIdController;
-  late TextEditingController _accreditationNumberController;
-
-  @override
-  void initState() {
-    super.initState();
-    _locationIdController = TextEditingController();
-    _accreditationNumberController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _locationIdController.dispose();
-    _accreditationNumberController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Placeholder();
   }
 }

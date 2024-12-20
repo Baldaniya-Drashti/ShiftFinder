@@ -462,11 +462,15 @@ class CurrentShift extends StatelessWidget {
                         title: StringConstant.clockOut,
                         infoMessage: StringConstant.clockOutConfirmationDesc,
                         onSubmit: () {
-                          context.read<ContractorShiftBloc>().add(
-                              ContractorShiftEvent.submitClockInOut(context,
-                                  clockInOutTime:
-                                      shift.selectedClockOutTime ?? -1,
-                                  postId: shift.post_id ?? -1));
+                          context
+                              .read<ContractorShiftBloc>()
+                              .add(ContractorShiftEvent.submitClockInOut(
+                                context,
+                                clockInOutTime:
+                                    shift.selectedClockOutTime ?? -1,
+                                postId: shift.post_id ?? -1,
+                                isClockOut: true,
+                              ));
                         },
                       );
                     }

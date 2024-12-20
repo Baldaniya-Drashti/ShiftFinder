@@ -230,6 +230,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 return emit(
                   state.copyWith(
                     isLoading: false,
+                    existingGovermentDoc: r[0],
                     currentGovermentDocType:
                         CommonList.govermentIdList.firstWhere(
                       (skill) => skill.id == r[0].sub_type,
@@ -630,17 +631,51 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               showGovernmentIdErrorMessages: false,
             ));
             await Future.delayed(Duration(seconds: 1));
-            emit(state.copyWith(
-              isLoading: false,
-              currentGovermentDocType: e.selectedType,
-              govermentDoc: InputEmptyOrNot(""),
-              govermentFrontDoc: InputEmptyOrNot(""),
-              govermentBackDoc: InputEmptyOrNot(""),
-              govmentDocTitle: InputEmptyOrNot(""),
-              governmentExpiryDate: "",
-              isGovernemtExpiryCheck: false,
-              showGovernmentIdErrorMessages: false,
-            ));
+            if (e.selectedType.id == state.existingGovermentDoc.sub_type) {
+              emit(state.copyWith(
+                isLoading: false,
+                currentGovermentDocType: e.selectedType,
+
+                govermentDocId: state.existingGovermentDoc.id ?? -1,
+                govermentDoc:
+                    InputEmptyOrNot(state.existingGovermentDoc.file ?? ""),
+                govermentFrontDoc:
+                    InputEmptyOrNot(state.existingGovermentDoc.file ?? ""),
+                govermentBackDoc:
+                    InputEmptyOrNot(state.existingGovermentDoc.back_file ?? ""),
+                govmentDocTitle: InputEmptyOrNot(
+                    state.existingGovermentDoc.document_title ?? ""),
+                governmentExpiryDate: (state.existingGovermentDoc.expiry_date !=
+                        null)
+                    ? DateTime.fromMillisecondsSinceEpoch(
+                        (state.existingGovermentDoc.expiry_date ?? -1) * 1000,
+                      ).toIso8601String()
+                    : "",
+                isGovernemtExpiryCheck:
+                    (state.existingGovermentDoc.expiry_date_not_applicable == 0)
+                        ? false
+                        : true,
+                // govermentDoc: InputEmptyOrNot(""),
+                // govermentFrontDoc: InputEmptyOrNot(""),
+                // govermentBackDoc: InputEmptyOrNot(""),
+                // govmentDocTitle: InputEmptyOrNot(""),
+                // governmentExpiryDate: "",
+                // isGovernemtExpiryCheck: false,
+                showGovernmentIdErrorMessages: false,
+              ));
+            } else {
+              emit(state.copyWith(
+                isLoading: false,
+                currentGovermentDocType: e.selectedType,
+                govermentDoc: InputEmptyOrNot(""),
+                govermentFrontDoc: InputEmptyOrNot(""),
+                govermentBackDoc: InputEmptyOrNot(""),
+                govmentDocTitle: InputEmptyOrNot(""),
+                governmentExpiryDate: "",
+                isGovernemtExpiryCheck: false,
+                showGovernmentIdErrorMessages: false,
+              ));
+            }
           }
         },
 

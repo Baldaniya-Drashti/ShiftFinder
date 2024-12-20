@@ -16,7 +16,9 @@ class ContractorShiftEvent with _$ContractorShiftEvent {
   const factory ContractorShiftEvent.setClockOut(BuildContext context,
       {required int index, required TimeOfDay clockOutTime}) = SetClockOut;
   const factory ContractorShiftEvent.submitClockInOut(BuildContext context,
-      {required int clockInOutTime, required int postId}) = SubmitClockInOut;
+      {required int clockInOutTime,
+      required int postId,
+      bool? isClockOut}) = SubmitClockInOut;
   const factory ContractorShiftEvent.deleteUpcomingShift(BuildContext context,
       {required int postId, int? isCad}) = DeleteUpcomingShift;
 

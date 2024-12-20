@@ -56,7 +56,15 @@ class EmployerCompletedShiftView extends StatelessWidget {
                           child:
                               BaseText(text: StringConstant.somethindWentWrong),
                         )
-                      : SingleChildScrollView(
+                      : Center(
+                          child: BaseText(
+                            textColor: AppColors.black.withOpacity(0.65),
+                            text: 'No result found.',
+                            textAlign: TextAlign.center,
+                            lineHeight: 1.2,
+                          ),
+                        ),
+              /* SingleChildScrollView(
                           physics: BouncingScrollPhysics(),
                           padding: EdgeInsets.all(getSize(16)),
                           child: Column(
@@ -76,11 +84,10 @@ class EmployerCompletedShiftView extends StatelessWidget {
                                 },
                               ),
                               SizedBox(height: getSize(16)),
-                              _CompletedShiftListView(
-                                  allPostList: state.employerPreviousList)
+                              _CompletedShiftListView( allPostList: state.employerPreviousList)
                             ],
                           ),
-                        ),
+                        ), */
             ),
             if (state.postDataLoading) CenterLoadingIndicator()
           ],
@@ -553,8 +560,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               ),
               displayDateBreak(
                 context,
-                boldValue: "Drashti",
-                // boldValue: "\$${shift.estimated_payables ?? 0.0}",
+                boldValue: "\$${shift.total_amount ?? 0.0}",
                 timidValue: "",
                 title: StringConstant.totalAmount,
                 svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -593,7 +599,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                     PageRouteInfo(
                       ViewHomeShiftDetails.name,
                       args: ViewHomeShiftDetailsArgs(
-                        postId: shift.id ?? -1,
+                        postId: shift.post_id ?? -1,
                       ),
                     ),
                   );

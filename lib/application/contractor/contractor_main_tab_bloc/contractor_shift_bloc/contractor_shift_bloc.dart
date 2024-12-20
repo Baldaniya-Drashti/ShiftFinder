@@ -10,6 +10,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
@@ -18,6 +19,7 @@ import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/up
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 part 'contractor_shift_event.dart';
 
@@ -220,7 +222,18 @@ class ContractorShiftBloc
                 showSuccess(message: r.dioMessage ?? "")
                     .show(e.context)
                     .then((value) {
-                  add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+                  if (e.isClockOut == true) {
+                    AppDialog.showInfo(
+                        e.context, StringConstant.currentCompleteShiftDesc,
+                        onPressed: () {
+                      e.context.router.maybePop().then((value) {
+                        add(ContractorShiftEvent.getCurrentShiftDetailAPI(
+                            true));
+                      });
+                    });
+                  } else {
+                    add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+                  }
                 });
               },
             );

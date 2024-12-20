@@ -34,6 +34,9 @@ class EmployerLocationFormBloc
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
   static TextEditingController locationCtrl = TextEditingController();
+  static TextEditingController locationIDCtrl = TextEditingController();
+  static TextEditingController locationNoteCtrl = TextEditingController();
+  static TextEditingController accredationNOCtrl = TextEditingController();
   List<dynamic> placeList = [];
 
   EmployerLocationFormBloc(this._repository, this._mainFacade)
@@ -401,44 +404,56 @@ class EmployerLocationFormBloc
           await LocationHelper.getPlaceDetail(value.placeId);
         },
         getLocationInfo: (GetLocationInfo value) async {
-          if (value.id.isNegative) return;
-          emit(state.copyWith(id: value.id));
           Either<MainFailure, CommonResponse>? failureOrSuccess;
-          emit(state.copyWith(isLoading: true));
-          failureOrSuccess = await _mainFacade.getLocationDetail(id: value.id);
-          failureOrSuccess.fold(
-            (l) {
-              showError(
-                message: l.maybeMap(
-                  showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
-                  orElse: () => "Server Error. Try again later.",
-                ),
-              ).show(value.context);
-              emit(state.copyWith(isLoading: false));
-            },
-            (r) async {
-              final locationData = LocationDTO.fromJson(r.data);
-              Log.debug("==> ${locationData.facility_type?.name}");
-              locationCtrl.text = locationData.location ?? "";
-              print("=>0000 ${locationData.accreditation_number ?? ""}");
+          if (value.id != -1) {
+            emit(state.copyWith(
+              id: value.id,
+              isLoading: true,
+              authFailureOrSuccessOption: none(),
+            ));
+            failureOrSuccess =
+                await _mainFacade.getLocationDetail(id: value.id);
 
-              emit(
-                state.copyWith(
-                    locationData: locationData,
-                    locationId: locationData.location_id ?? "",
-                    accreditationNumber: "Test",
-                    locationNote: "locationNote",
-                    listOfUnit: locationData.add_units ?? [],
-                    faciltyTypeDDValue: locationData.facility_type?.name ?? "",
-                    faciltyType:
-                        InputEmptyOrNot(locationData.facility_type?.name ?? ""),
-                    address: InputEmptyOrNot(locationData.location ?? ""),
-                    isLoading: false),
-              );
-            },
-          );
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                print("post--> $r");
+                if (r.data != null) {
+                  final locationData = LocationDTO.fromJson(r.data);
+                  emit(
+                    state.copyWith(
+                      locationData: locationData,
+                      locationId: locationData.location_id ?? "",
+                      accreditationNumber:
+                          locationData.accreditation_number ?? "",
+                      locationNote: locationData.location_note ?? "",
+                      listOfUnit: locationData.add_units ?? [],
+                      faciltyTypeDDValue:
+                          locationData.facility_type?.name ?? "",
+                      faciltyType: InputEmptyOrNot(
+                          locationData.facility_type?.name ?? ""),
+                      address: InputEmptyOrNot(locationData.location ?? ""),
+                    ),
+                  );
+                  locationCtrl.text = locationData.location ?? "";
+                  locationIDCtrl.text = locationData.location_id ?? "";
+                  locationNoteCtrl.text = locationData.location_note ?? "";
+                  accredationNOCtrl.text =
+                      locationData.accreditation_number ?? "";
+                }
+              },
+            );
+            emit(state.copyWith(isLoading: false));
+          }
         },
       );
     });
