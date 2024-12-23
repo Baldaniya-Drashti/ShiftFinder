@@ -96,6 +96,16 @@ abstract class IAccountRepository {
     String? lastPage,
   });
 
+  Future<Either<AccountFailure, String>> addAddressProofApi({
+    required int documentType,
+    int? subType,
+    required String documentFile,
+    String? documentBackFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? lastPage,
+  });
+
   Future<Either<AccountFailure, Account>> addMultiDocumentApi({
     required int documentType,
     required String documentFile,

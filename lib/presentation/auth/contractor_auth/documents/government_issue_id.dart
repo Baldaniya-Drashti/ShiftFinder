@@ -337,7 +337,7 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
               horizontal: getSize(18), vertical: getSize(15)),
           child: BaseText(
             text: StringConstant.frontPage,
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -370,7 +370,7 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
               .copyWith(top: getSize(15)),
           child: BaseText(
             text: StringConstant.backPage,
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),

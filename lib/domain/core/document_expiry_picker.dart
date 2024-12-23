@@ -18,18 +18,23 @@ class DocumentExpiryDatePicker {
     required void Function(DateTime) onPickedDate,
     required void Function() onCancelClick,
     bool isDisabled = false,
+    String? labelText,
+    String? hintText,
+    TextStyle? labelStyle,
   }) {
     return CustomTextField(
-      labelText: StringConstant.expiryDate,
+      labelText: labelText ?? StringConstant.expiryDate,
       labelStyle: (!isDisabled)
-          ? TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.3))
-          : null,
+          ? TextStyle(
+              fontSize: getFontSize(14),
+              color: AppColors.black.withOpacity(0.3))
+          : labelStyle ?? null,
       fillColor: (!isDisabled) ? AppColors.grey04 : null,
       isLabelPadding: true,
       readOnly: true,
       hintText: (selectedDate.isNotEmpty)
           ? DateFormat('d MMM, yyyy').format(DateTime.parse(selectedDate))
-          : StringConstant.expiryDate,
+          : hintText ?? StringConstant.expiryDate,
       hintAsValue: (selectedDate.isNotEmpty) ? true : false,
       onTap: (!isDisabled)
           ? null

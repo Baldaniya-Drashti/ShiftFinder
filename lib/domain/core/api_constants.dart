@@ -78,6 +78,9 @@ class ApiConstants {
   static String employerInvoices = 'employer_invoices';
   static String employerMonthlyStatements = 'employer_monthly_statements';
 
+  /// Stripe doc
+  static String stripeDocument = 'stripe_document';
+
   //chat
   static String getChatList = 'chat-list';
   static String getMessageList = 'chat';

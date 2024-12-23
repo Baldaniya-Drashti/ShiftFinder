@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart';
+import 'package:shift/application/auth/contractor_auth/proof__of_legal_status_bloc/proof_of_legal_status_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -22,20 +23,20 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: 'AddressProofScreen')
-class AddressProofScreen extends StatelessWidget {
+@RoutePage(name: 'ProofOfLegalStatus')
+class ProofOfLegalStatus extends StatelessWidget {
   bool isFromSplash = false;
 
-  AddressProofScreen({super.key, this.isFromSplash = false});
+  ProofOfLegalStatus({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddressProofBloc>(),
-      // ..add(AddressProofEvent.getAddressProof()),
-      child: BlocConsumer<AddressProofBloc, AddressProofState>(
+      create: (context) => getIt<ProofOfLegalStatusBloc>(),
+      // ..add(ProofOfLegalStatusEvent.getAddressProof()),
+      child: BlocConsumer<ProofOfLegalStatusBloc, ProofOfLegalStatusState>(
         listener: (context, state) {
-          state.addressProofFailureOrSuccessOption.fold(
+          state.proofFailureOrSuccessOption.fold(
             () {},
             (either) => either.fold(
               (failure) {},
@@ -52,7 +53,7 @@ class AddressProofScreen extends StatelessWidget {
               onBackPressed: () {
                 context.router.maybePop();
               },
-              title: StringConstant.addressProof,
+              title: StringConstant.proofOfLegalWorkStatus,
             ),
             body: (state.isLoading)
                 ? CenterLoadingIndicator(isOnlyLoader: true)
@@ -61,13 +62,25 @@ class AddressProofScreen extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        selectIdTypeDropdown(context, state),
-                        Gap(getSize(10)),
-                        docLimitNote(
-                          limit: state.currentAddressProofType.short_name ?? "",
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: getSize(15), bottom: getSize(15)),
+                          child: BaseText(
+                            text: StringConstant.proofOfLegalDesc1,
+                            fontSize: 12,
+                          ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: getSize(15), bottom: getSize(15)),
+                          child: BaseText(
+                            text: StringConstant.proofOfLegalDesc2,
+                            fontSize: 12,
+                          ),
+                        ),
+                        selectIdTypeDropdown(context, state),
                         Gap(getSize(15)),
-                        (state.currentAddressProofType.id != null)
+                        (state.currentProofType.id != null)
                             ? Expanded(
                                 child: SingleChildScrollView(
                                   child: Form(
@@ -79,7 +92,52 @@ class AddressProofScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        driverLicenseView(state, context),
+                                        pickImageView(state, context),
+                                        if (state
+                                                .currentProofType.isMandatory ==
+                                            true) ...[
+                                          DocumentExpiryDatePicker
+                                              .expiryDateTextField(
+                                            context,
+                                            labelStyle: TextStyle(
+                                              fontSize: getFontSize(12),
+                                            ),
+                                            lastDate: DateTime.now()
+                                                .add(Duration(days: 25 * 365)),
+                                            onPickedDate: (pickedDate) {
+                                              context
+                                                  .read<
+                                                      ProofOfLegalStatusBloc>()
+                                                  .add(ProofOfLegalStatusEvent
+                                                      .expiryDateChanged(
+                                                          pickedDate
+                                                              .toString()));
+                                            },
+                                            onCancelClick: () {
+                                              context
+                                                  .read<
+                                                      ProofOfLegalStatusBloc>()
+                                                  .add(ProofOfLegalStatusEvent
+                                                      .expiryDateChanged(""));
+                                            },
+                                            selectedDate: state.docExpiryDate,
+                                            isDisabled: true,
+                                          ),
+                                          if (((state.docExpiryDate.isEmpty) &&
+                                                  state.showErrorMesages) ||
+                                              (state.docExpiryDate.isEmpty) &&
+                                                  (state.isExpiryInValid))
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: getSize(5)),
+                                              child: BaseText(
+                                                text:
+                                                    "* ${(!(state.isExpiryInValid)) ? "Expiry date must be before ${state.currentProofType.yearLimit}" : StringConstant.pleaseSelectExpiryDate}",
+                                                fontSize: 12,
+                                                textColor: AppColors.red,
+                                              ),
+                                            ),
+                                        ],
                                         SizedBox(height: getSize(30)),
                                       ],
                                     ),
@@ -87,7 +145,7 @@ class AddressProofScreen extends StatelessWidget {
                                 ),
                               )
                             : blankView(),
-                        if (state.currentAddressProofType.id != null)
+                        if (state.currentProofType.id != null)
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
@@ -96,11 +154,9 @@ class AddressProofScreen extends StatelessWidget {
                               child: CommonButton(
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
-                                  /* context.read<AddressProofBloc>().add(
-                                      AddressProofEvent.addressProofSubmit(
+                                  /* context.read<ProofOfLegalStatusBloc>().add(
+                                      ProofOfLegalStatusEvent.addressProofSubmit(
                                           context)); */
-                                  context.router.push(
-                                      PageRouteInfo(BackgroundDocument.name));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
@@ -116,7 +172,7 @@ class AddressProofScreen extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required AddressProofState state, bool isBackFile = false}) {
+      {required ProofOfLegalStatusState state, bool isBackFile = false}) {
     return ShowPickedFile(
       selectedFile: selectedFile,
       mainBoxHeight: getSize(300),
@@ -126,20 +182,20 @@ class AddressProofScreen extends StatelessWidget {
         AppDialog.showDelete(
           context,
           title: StringConstant.delete,
-          infoMessage: StringConstant.deleteAddressProofDesc,
+          infoMessage: StringConstant.deleteProofLegalDesc,
           onCancelClick: () {
             Navigator.pop(context);
           },
           onDeleteClick: () {
             if (isBackFile) {
-              context.read<AddressProofBloc>().add(
-                    AddressProofEvent.deleteAddressBackDoc(
-                        state.addressProofBackDoc.getValue()!),
+              context.read<ProofOfLegalStatusBloc>().add(
+                    ProofOfLegalStatusEvent.deleteBackDoc(
+                        state.proofBackDoc.getValue()!),
                   );
             } else {
-              context.read<AddressProofBloc>().add(
-                    AddressProofEvent.deleteAddressFrontDoc(
-                        state.addressproofFrontDoc.getValue()!),
+              context.read<ProofOfLegalStatusBloc>().add(
+                    ProofOfLegalStatusEvent.deleteFrontDoc(
+                        state.proofFrontDoc.getValue()!),
                   );
             }
             Navigator.pop(context);
@@ -151,44 +207,22 @@ class AddressProofScreen extends StatelessWidget {
 
   Widget selectIdTypeDropdown(
     BuildContext context,
-    AddressProofState state,
+    ProofOfLegalStatusState state,
   ) {
     return CustomDropdownField(
-      label: StringConstant.selectAnAddressProof,
-      fontSize: 14,
       onChanged: (value) {
         if (value != null) {
-          context.read<AddressProofBloc>().add(
-              AddressProofEvent.selectAddressProofType(value ?? SkillDTO()));
+          context.read<ProofOfLegalStatusBloc>().add(
+              ProofOfLegalStatusEvent.selectAddressProofType(
+                  value ?? SkillDTO()));
         }
       },
-      hintText: StringConstant.selectYourAddressProof,
-      value: (state.currentAddressProofType.id != null)
-          ? state.currentAddressProofType
-          : null,
-      items: state.addressProofDropDownList.map((val) {
+      hintText: StringConstant.selectYourLegalWorkStatus,
+      value:
+          (state.currentProofType.id != null) ? state.currentProofType : null,
+      items: state.proofDropDownList.map((val) {
         return DropdownMenuItem<SkillDTO>(
-          value: val,
-          child: RichText(
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            text: TextSpan(
-              text: val.name ?? "",
-              style: TextStyle(
-                fontSize: getFontSize(14),
-                color: AppColors.black,
-              ),
-              children: [
-                TextSpan(
-                  text: (val.short_name != null && val.short_name!.isNotEmpty)
-                      ? "  (${val.short_name ?? ""})"
-                      : "",
-                  style: TextStyle(fontSize: getFontSize(10)),
-                ),
-              ],
-            ),
-          ),
-        );
+            value: val, child: BaseText(text: val.name ?? "", fontSize: 12));
       }).toList(),
     );
   }
@@ -212,9 +246,8 @@ class AddressProofScreen extends StatelessWidget {
         : Container();
   }
 
-  Widget driverLicenseView(AddressProofState state, BuildContext context) {
-    print(
-        "state.currentAddressProofType-----------> ${state.currentAddressProofType}");
+  Widget pickImageView(ProofOfLegalStatusState state, BuildContext context) {
+    print("state.currentProofType-----------> ${state.currentProofType}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -223,30 +256,30 @@ class AddressProofScreen extends StatelessWidget {
           padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
           child: BaseText(
             text: StringConstant.frontPage,
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
         imageView(
           state,
           context,
-          doc: state.addressproofFrontDoc.getValue(),
+          doc: state.proofFrontDoc.getValue(),
           showDocError:
-              (state.showErrorMesages && !state.addressproofFrontDoc.isValid()),
+              (state.showErrorMesages && !state.proofFrontDoc.isValid()),
           errorMsg: StringConstant.pleaseSelectFrontPageOfAddressProof,
           takePhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectFrontDoc(path),
                 );
           },
           selectPhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectFrontDoc(path),
                 );
           },
           selectPdfCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectFrontDoc(path),
                 );
           },
         ),
@@ -255,7 +288,7 @@ class AddressProofScreen extends StatelessWidget {
               .copyWith(top: getSize(15)),
           child: BaseText(
             text: StringConstant.backPage,
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -263,41 +296,41 @@ class AddressProofScreen extends StatelessWidget {
           state,
           context,
           isBackFile: true,
-          doc: state.addressProofBackDoc.getValue(),
+          doc: state.proofBackDoc.getValue(),
           showDocError:
-              (state.showErrorMesages && !state.addressProofBackDoc.isValid()),
+              (state.showErrorMesages && !state.proofBackDoc.isValid()),
           errorMsg: StringConstant.pleaseSelectBackPageOfAddressProof,
           takePhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectBackDoc(path),
                 );
           },
           selectPhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectBackDoc(path),
                 );
           },
           selectPdfCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.selectBackDoc(path),
                 );
           },
         ),
-        /* if (state.currentAddressProofType.id != 3 &&
-            state.currentAddressProofType.id != 4) ...[
+        /* if (state.currentProofType.id != 3 &&
+            state.currentProofType.id != 4) ...[
           SizedBox(height: getSize(15)),
           DocumentExpiryDatePicker.expiryDateTextField(
             context,
             lastDate: DateTime.now().add(Duration(days: 25 * 365)),
             onPickedDate: (pickedDate) {
-              context.read<AddressProofBloc>().add(
-                  AddressProofEvent.govermentExpiryDateChanged(
+              context.read<ProofOfLegalStatusBloc>().add(
+                  ProofOfLegalStatusEvent.govermentExpiryDateChanged(
                       pickedDate.toString()));
             },
             onCancelClick: () {
               context
-                  .read<AddressProofBloc>()
-                  .add(AddressProofEvent.govermentExpiryDateChanged(""));
+                  .read<ProofOfLegalStatusBloc>()
+                  .add(ProofOfLegalStatusEvent.govermentExpiryDateChanged(""));
             },
             selectedDate: state.governmentExpiryDate,
             isDisabled: !state.isGovernemtExpiryCheck,
@@ -320,7 +353,7 @@ class AddressProofScreen extends StatelessWidget {
   }
 
   Widget imageView(
-    AddressProofState state,
+    ProofOfLegalStatusState state,
     BuildContext context, {
     String? doc,
     bool showDocError = false,
@@ -353,8 +386,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         takePhotoCallback(path);
                         print("CAMERA IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<ProofOfLegalStatusBloc>().add(
+                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -367,8 +400,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPhotoCallback(path);
                         print("GALLERY IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<ProofOfLegalStatusBloc>().add(
+                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -379,8 +412,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPdfCallback(path);
                         print("PDF FILE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<ProofOfLegalStatusBloc>().add(
+                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -408,7 +441,7 @@ class AddressProofScreen extends StatelessWidget {
           width: getSize(350),
           child: BaseText(
             text:
-                StringConstant.pleaseSelectYourAddressProofDocumentFromTheList,
+                StringConstant.pleaseSelectYourLegalWorkStatusProofFromTheList,
             textAlign: TextAlign.center,
             fontSize: 16,
             fontWeight: FontWeight.w600,

@@ -663,9 +663,26 @@ class StringConstant {
       "Would you like to proceed with sending the counter proposal?";
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
-  static const String iRoidSolutions = "iRoid Solutions";
   static const String currentCompleteShiftDesc =
       "Your submitted shift will appear under Profile > Previous Shifts > Completed once the payment has been processed.";
+  static const String pleaseSelectYourAddressProofDocumentFromTheList =
+      "Please select your address proof document from the list";
+  static const String selectYourAddressProof = "Select Your Address Proof";
+  static const String note = "Note";
+  static const String backgroundCheckDocument = "Background Check Document";
+  static const String pleaseUploadCriminalBackgroundCheckDocument =
+      "Please upload criminal background check document";
+  static const String issueDate = "Issue Date";
+  static const String proofOfLegalWorkStatus = "Proof of Legal Work Status";
+  static const String proofOfLegalDesc1 =
+      "Please upload a valid, non-expired document from the  list below to confirm your eligibility to work as an  independent contractor in Canada.";
+  static const String proofOfLegalDesc2 =
+      "Please upload a clear photo of the original document,  as scanned copies will not be accepted";
+  static const String pleaseSelectYourLegalWorkStatusProofFromTheList =
+      "Please select your legal work status proof from the list.";
+  static const String selectYourLegalWorkStatus =
+      "Select Your Legal Work Status";
+  static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
   /// ERROR ///
@@ -870,7 +887,7 @@ class StringConstant {
   static const String aboutShiftFinder = "About ShiftFinder";
   static const String ourPolicies = "Our Policies";
   static const String ourPoliciesDes =
-      "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs";
+      "Access key information about the platform, including terms, privacy, cancellation policies and FAQs";
   static const String cancellationPolicy = "Cancellation Policy";
   static const String faq = "FAQs";
   static const String customerSupport = "Customer Support";
@@ -897,4 +914,15 @@ class StringConstant {
   static const String pleaseSelectExpiryDate = "Please add expiry date";
   static const String pleaseAddValidReasonToDeletePost =
       "Please add valid reason to delete post";
+  static const String pleaseSelectBackPageOfAddressProof =
+      "Please select back page of Address proof";
+  static const String pleaseSelectFrontPageOfAddressProof =
+      "Please select front page of Address proof";
+  static const String deleteAddressProofDesc =
+      "Are you sure you want to delete Address Proof document?";
+  static const String deleteBackgroundCheckDesc =
+      "Are you sure you want to delete Background check document?";
+  static const String deleteProofLegalDesc =
+      "Are you sure you want to delete Proof legal work status document?";
+  static const String pleaseSelectIssueDate = "Please add issue date";
 }

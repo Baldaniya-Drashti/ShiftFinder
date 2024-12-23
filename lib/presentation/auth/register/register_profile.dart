@@ -193,15 +193,19 @@ class RegisterProfileScreen extends StatelessWidget {
               onTap: () {
                 ImageChooserDialog().showImageChooserDialog(
                   takePhotoCallback: () async {
-                    String path = await ImagePickerUtils().pickImage(
-                            imageSource: ImageSource.camera,
-                            context: context) ??
-                        '';
-                    if (path.isNotEmpty) {
-                      print("CAMERA IMAGE PATH: $path");
-                      context.read<RegisterFormBloc>().add(
-                            RegisterFormEvent.changeProfilePic(path),
-                          );
+                    try {
+                      String path = await ImagePickerUtils().pickImage(
+                              imageSource: ImageSource.camera,
+                              context: context) ??
+                          '';
+                      if (path.isNotEmpty) {
+                        print("CAMERA IMAGE PATH: $path");
+                        context.read<RegisterFormBloc>().add(
+                              RegisterFormEvent.changeProfilePic(path),
+                            );
+                      }
+                    } catch (e) {
+                      print("Camera picker catch errorr---> $e");
                     }
                   },
                   selectPhotoCallback: () async {

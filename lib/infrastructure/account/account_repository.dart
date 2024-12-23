@@ -624,6 +624,78 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, String>> addAddressProofApi({
+    required int documentType,
+    int? subType,
+    required String documentFile,
+    String? documentBackFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? lastPage,
+  }) async {
+    try {
+      print("expiry dat---> $expiryDate");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+
+      var formData = FormData.fromMap({
+        "document_type": documentType,
+        "sub_type": subType,
+        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                .toString()
+            : "",
+        // "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
+        "last_page": lastPage ?? "AddressProofScreen",
+      });
+      if (documentFile.isNotEmpty && !documentFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentFile,
+        );
+        formData.files.add(MapEntry('file', multipartFile));
+      }
+      if (documentBackFile != null &&
+          documentBackFile.isNotEmpty &&
+          !documentBackFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentBackFile,
+        );
+        formData.files.add(MapEntry('back_file', multipartFile));
+      }
+
+      print('Sending Data: ${formData.fields.map((e) => e)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.stripeDocument,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      print("Response of Add Address proof---> ${jsonEncode(response.data)}");
+
+      // var account = response.data as List<dynamic>;
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, String>> updateDocumentApi({
     required int id,
     required int documentType,

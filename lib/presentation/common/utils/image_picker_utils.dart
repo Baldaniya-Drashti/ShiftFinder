@@ -73,7 +73,7 @@ class ImagePickerUtils {
 
       return pickedImage?.path;
     } catch (ex) {
-      print('Error ===> ${ex.toString()}');
+      print('Pick image catch Error ===> ${ex.toString()}');
       return null;
     }
   }

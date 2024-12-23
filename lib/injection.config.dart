@@ -16,6 +16,10 @@ import 'package:shift/application/auth/auth_status/auth_status_bloc.dart'
     as _i1033;
 import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form_bloc/add_contractor_skill_form_bloc.dart'
     as _i471;
+import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart'
+    as _i596;
+import 'package:shift/application/auth/contractor_auth/background_doc_bloc/background_doc_bloc.dart'
+    as _i900;
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
     as _i1025;
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
@@ -28,6 +32,8 @@ import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_vi
     as _i897;
 import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
     as _i653;
+import 'package:shift/application/auth/contractor_auth/proof__of_legal_status_bloc/proof_of_legal_status_bloc.dart'
+    as _i285;
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart'
     as _i48;
 import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart'
@@ -265,6 +271,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i111.IMainFacade>(),
           gh<_i616.SocketChatService>(),
         ));
+    gh.factory<_i596.AddressProofBloc>(
+        () => _i596.AddressProofBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i897.IntroVideoBloc>(
         () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i161.ExperienceBloc>(
@@ -287,6 +295,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i944.SpecialityExperienceBloc>(
         () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i900.BackgroundDocBloc>(
+        () => _i900.BackgroundDocBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i285.ProofOfLegalStatusBloc>(
+        () => _i285.ProofOfLegalStatusBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(

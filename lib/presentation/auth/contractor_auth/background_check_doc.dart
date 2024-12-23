@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart';
+import 'package:shift/application/auth/contractor_auth/background_doc_bloc/background_doc_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -22,20 +23,20 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: 'AddressProofScreen')
-class AddressProofScreen extends StatelessWidget {
+@RoutePage(name: 'BackgroundDocument')
+class BackgroundDocument extends StatelessWidget {
   bool isFromSplash = false;
 
-  AddressProofScreen({super.key, this.isFromSplash = false});
+  BackgroundDocument({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddressProofBloc>(),
-      // ..add(AddressProofEvent.getAddressProof()),
-      child: BlocConsumer<AddressProofBloc, AddressProofState>(
+      create: (context) => getIt<BackgroundDocBloc>(),
+      // ..add(BackgroundDocEvent.getAddressProof()),
+      child: BlocConsumer<BackgroundDocBloc, BackgroundDocState>(
         listener: (context, state) {
-          state.addressProofFailureOrSuccessOption.fold(
+          state.bgDocFailureOrSuccessOption.fold(
             () {},
             (either) => either.fold(
               (failure) {},
@@ -52,60 +53,101 @@ class AddressProofScreen extends StatelessWidget {
               onBackPressed: () {
                 context.router.maybePop();
               },
-              title: StringConstant.addressProof,
+              title: StringConstant.backgroundCheckDocument,
             ),
             body: (state.isLoading)
                 ? CenterLoadingIndicator(isOnlyLoader: true)
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: getSize(15)),
+                          child: BaseText(
+                            text: StringConstant
+                                .pleaseUploadCriminalBackgroundCheckDocument,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        /* Gap(getSize(10)),
                         selectIdTypeDropdown(context, state),
                         Gap(getSize(10)),
                         docLimitNote(
-                          limit: state.currentAddressProofType.short_name ?? "",
-                        ),
+                          limit: state.currentBgDocType.short_name ?? "",
+                        ), */
                         Gap(getSize(15)),
-                        (state.currentAddressProofType.id != null)
-                            ? Expanded(
-                                child: SingleChildScrollView(
-                                  child: Form(
-                                    autovalidateMode: (state.showErrorMesages)
-                                        ? AutovalidateMode.always
-                                        : AutovalidateMode.disabled,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        driverLicenseView(state, context),
-                                        SizedBox(height: getSize(30)),
-                                      ],
-                                    ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Form(
+                              autovalidateMode: (state.showErrorMesages)
+                                  ? AutovalidateMode.always
+                                  : AutovalidateMode.disabled,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  pickImageView(state, context),
+                                  Gap(getSize(10)),
+                                  DocumentExpiryDatePicker.expiryDateTextField(
+                                    context,
+                                    labelText: StringConstant.issueDate,
+                                    hintText: StringConstant.issueDate,
+                                    lastDate: DateTime.now()
+                                        .add(Duration(days: 25 * 365)),
+                                    onPickedDate: (pickedDate) {
+                                      context.read<BackgroundDocBloc>().add(
+                                          BackgroundDocEvent
+                                              .backgroundDocIssueDateChanged(
+                                                  pickedDate.toString()));
+                                    },
+                                    onCancelClick: () {
+                                      context.read<BackgroundDocBloc>().add(
+                                          BackgroundDocEvent
+                                              .backgroundDocIssueDateChanged(
+                                                  ""));
+                                    },
+                                    selectedDate: state.bgDocIssueDate,
+                                    isDisabled: true,
                                   ),
-                                ),
-                              )
-                            : blankView(),
-                        if (state.currentAddressProofType.id != null)
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: getSize(20), bottom: getSize(20)),
-                              child: CommonButton(
-                                isSubmitting: state.isSubmitting,
-                                onPressed: () {
-                                  /* context.read<AddressProofBloc>().add(
-                                      AddressProofEvent.addressProofSubmit(
-                                          context)); */
-                                  context.router.push(
-                                      PageRouteInfo(BackgroundDocument.name));
-                                },
-                                buttonText: StringConstant.txtContinue,
+                                  if ((state.bgDocIssueDate.isEmpty) &&
+                                      state.showErrorMesages)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(5)),
+                                      child: const BaseText(
+                                        text:
+                                            "* ${StringConstant.pleaseSelectIssueDate}",
+                                        fontSize: 12,
+                                        textColor: AppColors.red,
+                                      ),
+                                    ),
+                                  SizedBox(height: getSize(30)),
+                                ],
                               ),
                             ),
                           ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: getSize(20), bottom: getSize(20)),
+                            child: CommonButton(
+                              isSubmitting: state.isSubmitting,
+                              onPressed: () {
+                                /* context.read<BackgroundDocBloc>().add(
+                                    BackgroundDocEvent.bgProofSubmit(context)); */
+                                context.router.push(
+                                    PageRouteInfo(ProofOfLegalStatus.name));
+                              },
+                              buttonText: StringConstant.txtContinue,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -116,7 +158,7 @@ class AddressProofScreen extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required AddressProofState state, bool isBackFile = false}) {
+      {required BackgroundDocState state, bool isBackFile = false}) {
     return ShowPickedFile(
       selectedFile: selectedFile,
       mainBoxHeight: getSize(300),
@@ -126,20 +168,20 @@ class AddressProofScreen extends StatelessWidget {
         AppDialog.showDelete(
           context,
           title: StringConstant.delete,
-          infoMessage: StringConstant.deleteAddressProofDesc,
+          infoMessage: StringConstant.deleteBackgroundCheckDesc,
           onCancelClick: () {
             Navigator.pop(context);
           },
           onDeleteClick: () {
             if (isBackFile) {
-              context.read<AddressProofBloc>().add(
-                    AddressProofEvent.deleteAddressBackDoc(
-                        state.addressProofBackDoc.getValue()!),
+              context.read<BackgroundDocBloc>().add(
+                    BackgroundDocEvent.deleteBGBackDoc(
+                        state.bgDocBackDoc.getValue()!),
                   );
             } else {
-              context.read<AddressProofBloc>().add(
-                    AddressProofEvent.deleteAddressFrontDoc(
-                        state.addressproofFrontDoc.getValue()!),
+              context.read<BackgroundDocBloc>().add(
+                    BackgroundDocEvent.deleteBGFrontDoc(
+                        state.bgDocFrontDoc.getValue()!),
                   );
             }
             Navigator.pop(context);
@@ -151,22 +193,22 @@ class AddressProofScreen extends StatelessWidget {
 
   Widget selectIdTypeDropdown(
     BuildContext context,
-    AddressProofState state,
+    BackgroundDocState state,
   ) {
     return CustomDropdownField(
       label: StringConstant.selectAnAddressProof,
       fontSize: 14,
       onChanged: (value) {
         if (value != null) {
-          context.read<AddressProofBloc>().add(
-              AddressProofEvent.selectAddressProofType(value ?? SkillDTO()));
+          context
+              .read<BackgroundDocBloc>()
+              .add(BackgroundDocEvent.selectBGProofType(value ?? SkillDTO()));
         }
       },
       hintText: StringConstant.selectYourAddressProof,
-      value: (state.currentAddressProofType.id != null)
-          ? state.currentAddressProofType
-          : null,
-      items: state.addressProofDropDownList.map((val) {
+      value:
+          (state.currentBgDocType.id != null) ? state.currentBgDocType : null,
+      items: state.bgDocDropDownList.map((val) {
         return DropdownMenuItem<SkillDTO>(
           value: val,
           child: RichText(
@@ -212,9 +254,7 @@ class AddressProofScreen extends StatelessWidget {
         : Container();
   }
 
-  Widget driverLicenseView(AddressProofState state, BuildContext context) {
-    print(
-        "state.currentAddressProofType-----------> ${state.currentAddressProofType}");
+  Widget pickImageView(BackgroundDocState state, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -230,23 +270,23 @@ class AddressProofScreen extends StatelessWidget {
         imageView(
           state,
           context,
-          doc: state.addressproofFrontDoc.getValue(),
+          doc: state.bgDocFrontDoc.getValue(),
           showDocError:
-              (state.showErrorMesages && !state.addressproofFrontDoc.isValid()),
+              (state.showErrorMesages && !state.bgDocFrontDoc.isValid()),
           errorMsg: StringConstant.pleaseSelectFrontPageOfAddressProof,
           takePhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGFrontDoc(path),
                 );
           },
           selectPhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGFrontDoc(path),
                 );
           },
           selectPdfCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressFrontDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGFrontDoc(path),
                 );
           },
         ),
@@ -263,64 +303,32 @@ class AddressProofScreen extends StatelessWidget {
           state,
           context,
           isBackFile: true,
-          doc: state.addressProofBackDoc.getValue(),
+          doc: state.bgDocBackDoc.getValue(),
           showDocError:
-              (state.showErrorMesages && !state.addressProofBackDoc.isValid()),
+              (state.showErrorMesages && !state.bgDocBackDoc.isValid()),
           errorMsg: StringConstant.pleaseSelectBackPageOfAddressProof,
           takePhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGBackDoc(path),
                 );
           },
           selectPhotoCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGBackDoc(path),
                 );
           },
           selectPdfCallback: (path) {
-            context.read<AddressProofBloc>().add(
-                  AddressProofEvent.selectAddressBackDoc(path),
+            context.read<BackgroundDocBloc>().add(
+                  BackgroundDocEvent.selectBGBackDoc(path),
                 );
           },
         ),
-        /* if (state.currentAddressProofType.id != 3 &&
-            state.currentAddressProofType.id != 4) ...[
-          SizedBox(height: getSize(15)),
-          DocumentExpiryDatePicker.expiryDateTextField(
-            context,
-            lastDate: DateTime.now().add(Duration(days: 25 * 365)),
-            onPickedDate: (pickedDate) {
-              context.read<AddressProofBloc>().add(
-                  AddressProofEvent.govermentExpiryDateChanged(
-                      pickedDate.toString()));
-            },
-            onCancelClick: () {
-              context
-                  .read<AddressProofBloc>()
-                  .add(AddressProofEvent.govermentExpiryDateChanged(""));
-            },
-            selectedDate: state.governmentExpiryDate,
-            isDisabled: !state.isGovernemtExpiryCheck,
-          ),
-          if ((!state.isGovernemtExpiryCheck &&
-                  state.governmentExpiryDate.isEmpty) &&
-              state.showErrorMesages)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(5)),
-              child: const BaseText(
-                text: "* ${StringConstant.pleaseSelectExpiryDate}",
-                fontSize: 12,
-                textColor: AppColors.red,
-              ),
-            ),
-        ], */
-        SizedBox(height: getSize(30)),
       ],
     );
   }
 
   Widget imageView(
-    AddressProofState state,
+    BackgroundDocState state,
     BuildContext context, {
     String? doc,
     bool showDocError = false,
@@ -353,8 +361,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         takePhotoCallback(path);
                         print("CAMERA IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<BackgroundDocBloc>().add(
+                              BackgroundDocEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -367,8 +375,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPhotoCallback(path);
                         print("GALLERY IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<BackgroundDocBloc>().add(
+                              BackgroundDocEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -379,8 +387,8 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPdfCallback(path);
                         print("PDF FILE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
+                        /* context.read<BackgroundDocBloc>().add(
+                              BackgroundDocEvent.selectGovermentDoc(path),
                             ); */
                       }
                     },
@@ -398,23 +406,6 @@ class AddressProofScreen extends StatelessWidget {
             ),
           ),
       ],
-    );
-  }
-
-  Widget blankView() {
-    return Expanded(
-      child: Center(
-        child: SizedBox(
-          width: getSize(350),
-          child: BaseText(
-            text:
-                StringConstant.pleaseSelectYourAddressProofDocumentFromTheList,
-            textAlign: TextAlign.center,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
     );
   }
 }
