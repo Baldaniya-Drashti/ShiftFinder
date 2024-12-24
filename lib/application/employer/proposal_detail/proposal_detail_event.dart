@@ -18,4 +18,6 @@ class ProposalDetailEvent with _$ProposalDetailEvent {
   const factory ProposalDetailEvent.getHoursList() = GetHoursList;
   const factory ProposalDetailEvent.checkConfirmAvailability(bool isCheck) =
       CheckConfirmAvailability;
+  const factory ProposalDetailEvent.isCheckAvailability(BuildContext context) =
+      IsCheckAvailability;
 }

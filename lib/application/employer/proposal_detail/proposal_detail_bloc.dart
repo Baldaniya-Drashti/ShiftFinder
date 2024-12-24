@@ -19,9 +19,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 part 'proposal_detail_event.dart';
-
 part 'proposal_detail_state.dart';
-
 part 'proposal_detail_bloc.freezed.dart';
 
 @injectable
@@ -32,6 +30,18 @@ class ProposalDetailBloc
   ProposalDetailBloc(this._mainFacade) : super(ProposalDetailState.initial()) {
     on<ProposalDetailEvent>((event, emit) async {
       await event.map(
+        isCheckAvailability: (e) {
+          if (state.isConfirmProposalDate == true) {
+            emit(state.copyWith(
+              isConfirmError: false,
+            ));
+            Navigator.pop(e.context, state.isConfirmProposalDate);
+          } else {
+            emit(state.copyWith(
+              isConfirmError: true,
+            ));
+          }
+        },
         checkConfirmAvailability: (e) {
           emit(state.copyWith(
             isConfirmProposalDate: e.isCheck,

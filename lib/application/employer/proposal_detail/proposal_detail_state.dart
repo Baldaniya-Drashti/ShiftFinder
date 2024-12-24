@@ -11,6 +11,7 @@ class ProposalDetailState with _$ProposalDetailState {
     required List<SkillDTO> hoursList,
     bool? confirmDialog,
     bool? isConfirmProposalDate,
+    required bool isConfirmError,
   }) = _ProposalDetailState;
 
   factory ProposalDetailState.initial() => ProposalDetailState(
@@ -21,5 +22,6 @@ class ProposalDetailState with _$ProposalDetailState {
         isLoading: false,
         postDataLoading: false,
         isConfirmProposalDate: false,
+        isConfirmError: false,
       );
 }

@@ -58,40 +58,42 @@ class CounterPurposeView extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                       children: [
-                        SizedBox(height: getSize(20)),
-                        BaseText(
-                          text: DateFormat("dd MMM, yyyy").format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (data.start_date ?? 0) * 1000)),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          textColor: AppColors.green,
-                        ),
-                        SizedBox(height: getSize(10)),
-                        Container(
-                          padding: EdgeInsets.all(getSize(20)),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFEDEDED),
-                            borderRadius: BorderRadius.circular(getSize(20)),
+                        if (data.shift_type == 1) ...[
+                          SizedBox(height: getSize(20)),
+                          BaseText(
+                            text: DateFormat("dd MMM, yyyy").format(
+                                DateTime.fromMillisecondsSinceEpoch(
+                                    (data.start_date ?? 0) * 1000)),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            textColor: AppColors.green,
                           ),
-                          child: Column(
-                            children: [
-                              getTitleAndDescription(
-                                context,
-                                title: 'Posted Time',
-                                description:
-                                    '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: 'Agreed Time',
-                                description:
-                                    '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
-                              ),
-                            ],
+                          SizedBox(height: getSize(10)),
+                          Container(
+                            padding: EdgeInsets.all(getSize(20)),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEDEDED),
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                            ),
+                            child: Column(
+                              children: [
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Posted Time',
+                                  description:
+                                      '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
+                                ),
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Agreed Time',
+                                  description:
+                                      '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                         SizedBox(height: getSize(20)),
                         BaseText(
                           text: 'Hourly Rate',

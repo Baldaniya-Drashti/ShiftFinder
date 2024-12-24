@@ -1242,7 +1242,8 @@ class CommonDocumentView extends _i124.PageRouteInfo<CommonDocumentViewArgs> {
   CommonDocumentView({
     _i125.Key? key,
     required String title,
-    required String pdfUrl,
+    required String frontPage,
+    required String backPage,
     required List<_i133.DocumentDTO> documentList,
     List<_i124.PageRouteInfo>? children,
   }) : super(
@@ -1250,7 +1251,8 @@ class CommonDocumentView extends _i124.PageRouteInfo<CommonDocumentViewArgs> {
           args: CommonDocumentViewArgs(
             key: key,
             title: title,
-            pdfUrl: pdfUrl,
+            frontPage: frontPage,
+            backPage: backPage,
             documentList: documentList,
           ),
           initialChildren: children,
@@ -1265,7 +1267,8 @@ class CommonDocumentView extends _i124.PageRouteInfo<CommonDocumentViewArgs> {
       return _i26.CommonDocumentView(
         key: args.key,
         title: args.title,
-        pdfUrl: args.pdfUrl,
+        frontPage: args.frontPage,
+        backPage: args.backPage,
         documentList: args.documentList,
       );
     },
@@ -1276,7 +1279,8 @@ class CommonDocumentViewArgs {
   const CommonDocumentViewArgs({
     this.key,
     required this.title,
-    required this.pdfUrl,
+    required this.frontPage,
+    required this.backPage,
     required this.documentList,
   });
 
@@ -1284,13 +1288,15 @@ class CommonDocumentViewArgs {
 
   final String title;
 
-  final String pdfUrl;
+  final String frontPage;
+
+  final String backPage;
 
   final List<_i133.DocumentDTO> documentList;
 
   @override
   String toString() {
-    return 'CommonDocumentViewArgs{key: $key, title: $title, pdfUrl: $pdfUrl, documentList: $documentList}';
+    return 'CommonDocumentViewArgs{key: $key, title: $title, frontPage: $frontPage, backPage: $backPage, documentList: $documentList}';
   }
 }
 

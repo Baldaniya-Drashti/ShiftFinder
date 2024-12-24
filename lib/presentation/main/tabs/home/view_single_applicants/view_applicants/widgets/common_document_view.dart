@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
@@ -16,13 +15,15 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 @RoutePage(name: 'CommonDocumentView')
 class CommonDocumentView extends StatelessWidget {
   final String title;
-  final String pdfUrl;
+  final String frontPage;
+  final String backPage;
   final List<DocumentDTO> documentList;
 
   const CommonDocumentView(
       {super.key,
       required this.title,
-      required this.pdfUrl,
+      required this.frontPage,
+      required this.backPage,
       required this.documentList});
 
   @override
@@ -63,20 +64,63 @@ class CommonDocumentView extends StatelessWidget {
             document.document_type == 4 ||
             document.document_type == 6)
           expiryDate(document),
-        if (pdfUrl.contains("jpg") || pdfUrl.contains("png")) ...[
+
+        /// Front page
+        if (backPage.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(left: getSize(15), top: getSize(10)),
+            child: BaseText(
+              text: StringConstant.frontPage,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        if (frontPage.contains("jpg") || frontPage.contains("png")) ...[
           Padding(
             padding: EdgeInsets.symmetric(vertical: getSize(20)),
-            child: Center(child: CachedNetworkImage(imageUrl: pdfUrl)),
+            child: Center(
+                child: CachedNetworkImage(
+              imageUrl: frontPage,
+            )),
           ),
-        ] else if (pdfUrl.contains("pdf")) ...[
+        ] else if (frontPage.contains("pdf")) ...[
           Padding(
             padding: EdgeInsets.symmetric(vertical: getSize(20)),
             child: SfPdfViewer.network(
-              pdfUrl,
+              frontPage,
               // scrollDirection: PdfScrollDirection.horizontal,
             ),
           ),
         ],
+
+        /// Back page
+        if (backPage.isNotEmpty) ...[
+          Padding(
+            padding: EdgeInsets.only(left: getSize(15)),
+            child: BaseText(
+              text: StringConstant.backPage,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          if (backPage.contains("jpg") || backPage.contains("png")) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(20)),
+              child: Center(
+                  child: CachedNetworkImage(
+                imageUrl: backPage,
+              )),
+            ),
+          ] else if (backPage.contains("pdf")) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(20)),
+              child: SfPdfViewer.network(
+                backPage,
+                // scrollDirection: PdfScrollDirection.horizontal,
+              ),
+            ),
+          ],
+        ]
       ],
     );
   }
