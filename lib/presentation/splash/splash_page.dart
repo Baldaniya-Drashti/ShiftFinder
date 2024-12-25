@@ -195,11 +195,11 @@ PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
         DocumentPageScreen.name,
         args: DocumentPageScreenArgs(isFromSplash: fromSplash),
       );
-    /* case "AddressProofScreen":
+    case "AddressProofScreen":
       return PageRouteInfo(
         AddressProofScreen.name,
         args: AddressProofScreenArgs(isFromSplash: fromSplash),
-      ); */
+      );
     case "BankDetail":
       return PageRouteInfo(
         AddBankDetailsScreen.name,

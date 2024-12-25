@@ -187,36 +187,43 @@ class CommonList {
       id: 1,
       name: "Driver’s License",
       short_name: "",
+      yearLimit: "",
     ),
     SkillDTO(
       id: 2,
       name: "Utility Bill",
       short_name: "No more than 3 months old",
+      yearLimit: "0.3",
     ),
     SkillDTO(
       id: 3,
       name: "Bank Statement",
       short_name: "No more than 3 months old",
+      yearLimit: "0.3",
     ),
     SkillDTO(
       id: 4,
       name: "Pay Slip",
       short_name: "No more than 3 months old",
+      yearLimit: "0.3",
     ),
     SkillDTO(
       id: 5,
       name: "Home Insurance Certificate",
       short_name: "No more than 1 year old",
+      yearLimit: "1",
     ),
     SkillDTO(
       id: 6,
       name: "Car Insurance Certificate",
       short_name: "No more than 1 year old",
+      yearLimit: "1",
     ),
     SkillDTO(
       id: 7,
       name: "Municipal Tax Bill",
       short_name: "No more than 1 year old",
+      yearLimit: "1",
     ),
   ];
 

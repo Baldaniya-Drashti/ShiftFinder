@@ -22,6 +22,29 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
   AddressProofBloc(this._repository) : super(AddressProofState.initial()) {
     on<AddressProofEvent>((event, emit) async {
       await event.map(
+        expiryDateChanged: (e) {
+          final isValid = validateExpiryDate(
+            expiryDate: e.expiryDate,
+            yearLimit: state.currentAddressProofType.yearLimit ?? "",
+          );
+          if (isValid) {
+            emit(
+              state.copyWith(
+                docExpiryDate: e.expiryDate,
+                isExpiryInValid: false,
+                addressProofFailureOrSuccessOption: none(),
+              ),
+            );
+          } else {
+            emit(
+              state.copyWith(
+                docExpiryDate: "",
+                isExpiryInValid: true,
+                addressProofFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         getAddressProof: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
           emit(
@@ -269,5 +292,57 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
         },
       );
     });
+  }
+
+  /* bool validateExpiryDate(
+      {required String yearLimit, required String expiryDate}) {
+    final date = DateTime.parse(expiryDate);
+    if (yearLimit.isEmpty) return true;
+
+    List<int> yearLimits =
+        yearLimit.split(',').map((e) => int.tryParse(e) ?? 0).toList();
+
+    int minYearLimit =
+        yearLimits.isNotEmpty ? yearLimits.reduce((a, b) => a < b ? a : b) : 0;
+
+    DateTime maxAllowedDate =
+        DateTime.now().add(Duration(days: minYearLimit * 365));
+
+    return date.isBefore(maxAllowedDate) ||
+        date.isAtSameMomentAs(maxAllowedDate);
+  } */
+  bool validateExpiryDate(
+      {required String yearLimit, required String expiryDate}) {
+    if (expiryDate.isNotEmpty) {
+      final date = DateTime.parse(expiryDate);
+      if (yearLimit.isEmpty) return true;
+
+      List<double> yearLimits =
+          yearLimit.split(',').map((e) => double.tryParse(e) ?? 0).toList();
+
+      double minYearLimit = yearLimits.isNotEmpty
+          ? yearLimits.reduce((a, b) => a < b ? a : b)
+          : 0;
+
+      Duration duration;
+      print("minYearLimit----> $minYearLimit");
+      if (minYearLimit < 1) {
+        // Treat as months if less than 1
+        duration = Duration(days: (minYearLimit * 10 * 30).toInt());
+      } else {
+        // Treat as years if 1 or greater
+        duration = Duration(days: (minYearLimit * 365).toInt());
+      }
+      print("duration----> $duration");
+
+      DateTime maxAllowedDate = DateTime.now().add(duration);
+
+      print("maxAllowedDate----> $maxAllowedDate");
+
+      return date.isBefore(maxAllowedDate) ||
+          date.isAtSameMomentAs(maxAllowedDate);
+    }
+
+    return false;
   }
 }

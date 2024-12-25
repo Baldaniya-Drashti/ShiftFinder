@@ -52,6 +52,7 @@ class LocationDetailsBloc
           );
         },
         getFacilityTypeList: (e) async {
+          locationCtrl.clear();
           emit(
             state.copyWith(
               isLoading: true,

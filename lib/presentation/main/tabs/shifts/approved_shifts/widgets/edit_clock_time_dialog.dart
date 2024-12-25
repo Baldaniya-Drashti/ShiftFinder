@@ -44,7 +44,7 @@ class EditClockTimeDialog extends StatelessWidget {
           //     clockIn: contractor.clock_in_time ?? -1,
           //     clockOut: contractor.clock_out_time ?? -1,
           //   ),
-          builder: (context, state) {
+          builder: (co, state) {
             print("state.clockIn-----////>  ${contractor.clock_in_time}");
             return AlertDialog(
               contentPadding: EdgeInsets.zero,
@@ -141,9 +141,9 @@ class EditClockTimeDialog extends StatelessWidget {
                         }
 
                         final clockInTime =
-                            await _showTimePicker(context, dateTime: dateTime);
+                            await _showTimePicker(con, dateTime: dateTime);
                         if (clockInTime != null) {
-                          context.read<HiredContractorBloc>().add(
+                          con.read<HiredContractorBloc>().add(
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockInTime, true));
                         }
@@ -194,9 +194,9 @@ class EditClockTimeDialog extends StatelessWidget {
                         }
 
                         final clockOutTime =
-                            await _showTimePicker(context, dateTime: dateTime);
+                            await _showTimePicker(con, dateTime: dateTime);
                         if (clockOutTime != null) {
-                          context.read<HiredContractorBloc>().add(
+                          con.read<HiredContractorBloc>().add(
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockOutTime, false));
                         }
@@ -224,7 +224,7 @@ class EditClockTimeDialog extends StatelessWidget {
                             backgroundColor: AppColors.white,
                             borderColor: AppColors.green,
                             buttonTextColor: AppColors.green,
-                            onPressed: () => context.router.maybePop(),
+                            onPressed: () => con.router.maybePop(),
                             buttonText: StringConstant.cancle,
                           ),
                         ),
@@ -234,15 +234,17 @@ class EditClockTimeDialog extends StatelessWidget {
                             isSubmitting: state.isSubmitting,
                             onPressed: () {
                               // context.router.maybePop(true);
-
-                              context.read<HiredContractorBloc>().add(
-                                      HiredContractorEvent.submitClockInOutTime(
-                                    context,
-                                    postId: contractor.post_id ?? -1,
-                                    userId: contractor.user_id ?? -1,
-                                    clockIn: state.clockIn,
-                                    clockOut: state.clockOut,
-                                  ));
+                              con.router.maybePop().then((value) {
+                                con.read<HiredContractorBloc>().add(
+                                        HiredContractorEvent
+                                            .submitClockInOutTime(
+                                      con,
+                                      postId: contractor.post_id ?? -1,
+                                      userId: contractor.user_id ?? -1,
+                                      clockIn: state.clockIn,
+                                      clockOut: state.clockOut,
+                                    ));
+                              });
                             },
                             buttonText: StringConstant.approve,
                           ),
@@ -362,7 +364,7 @@ class EditClockTimeDialog extends StatelessWidget {
     }*/
   }
 
-  approveDialog(BuildContext context, HiredContractorListDTO contractor) {
+  /* approveDialog(BuildContext context, HiredContractorListDTO contractor) {
     AcceptRejectDialog(
       title: StringConstant.approve,
       description:
@@ -440,7 +442,13 @@ class EditClockTimeDialog extends StatelessWidget {
           },
         ).then((result) {
           if (result ?? true) {
-            context.router.push(PageRouteInfo(ShiftActionsView.name));
+            context.router
+                .push(PageRouteInfo(ShiftActionsView.name))
+                .then((value) {
+              if (value == true) {
+                Navigator.pop(context, true);
+              }
+            });
           }
         });
       },
@@ -450,7 +458,7 @@ class EditClockTimeDialog extends StatelessWidget {
       },
     ).acceptRejectDialog(context);
   }
-
+ */
   String formatTimeOfDay(TimeOfDay tod) {
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);

@@ -311,7 +311,7 @@ class AppDialog {
     required ValueSetter<int> onSubmit,
     required String contractorName,
   }) async {
-    int rating = defaultRating ?? 0;
+    int rating = (defaultRating == 0) ? 1 : defaultRating ?? 1;
     final result = await showDialog<bool?>(
       barrierDismissible: false,
       context: context,

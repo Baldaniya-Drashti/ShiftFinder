@@ -91,9 +91,7 @@ class AcceptRejectDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: getSize(25),
-              ),
+              SizedBox(height: getSize(25)),
             ],
           ),
         ),

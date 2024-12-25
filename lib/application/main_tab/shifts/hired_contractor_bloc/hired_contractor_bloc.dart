@@ -112,9 +112,7 @@ class HiredContractorBloc
               (r) async {
                 emit(state.copyWith(isSubmitting: false));
 
-                e.context.router.maybePop();
-
-                final result = await showDialog<bool?>(
+                await showDialog<bool?>(
                   barrierDismissible: false,
                   context: e.context,
                   builder: (context) {
@@ -165,15 +163,22 @@ class HiredContractorBloc
                       ],
                     );
                   },
-                );
-
-                if (result ?? false) {
-                  e.context.router.push(
-                    PageRouteInfo(ShiftActionsView.name,
-                        args: ShiftActionsViewArgs(
-                            postId: e.postId, userId: e.userId)),
-                  );
-                }
+                ).then((value) {
+                  if (value == true) {
+                    e.context.router
+                        .push(
+                      PageRouteInfo(ShiftActionsView.name,
+                          args: ShiftActionsViewArgs(
+                              postId: e.postId, userId: e.userId)),
+                    )
+                        .then((value) {
+                      if (value == true) {
+                        e.context.router.maybePop(true);
+                        // Navigator.pop(e.context, true);
+                      }
+                    });
+                  }
+                });
               },
             );
           } else {

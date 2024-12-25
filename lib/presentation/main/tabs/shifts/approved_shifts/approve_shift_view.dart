@@ -120,14 +120,24 @@ class ApproveShiftView extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                           onTap: () {
-                                            context.router.push(PageRouteInfo(
-                                                ApprovedHiredList.name,
-                                                args: ApprovedHiredListArgs(
-                                                    postId: state
-                                                            .approveShiftList[
-                                                                index]
-                                                            .id ??
-                                                        -1)));
+                                            context.router
+                                                .push(PageRouteInfo(
+                                                    ApprovedHiredList.name,
+                                                    args: ApprovedHiredListArgs(
+                                                        postId: state
+                                                                .approveShiftList[
+                                                                    index]
+                                                                .id ??
+                                                            -1)))
+                                                .then((value) {
+                                              print("shift value---> ${value}");
+                                              if (value == true) {
+                                                context.read<ShiftsBloc>().add(
+                                                    ShiftsBlocEvent
+                                                        .fetchApprovedShiftList(
+                                                            refresh: true));
+                                              }
+                                            });
                                           },
                                           child: Row(
                                             children: [

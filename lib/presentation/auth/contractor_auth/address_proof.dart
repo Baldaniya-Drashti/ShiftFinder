@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -79,7 +80,46 @@ class AddressProofScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        driverLicenseView(state, context),
+                                        pickImageView(state, context),
+                                        DocumentExpiryDatePicker
+                                            .expiryDateTextField(
+                                          context,
+                                          labelStyle: TextStyle(
+                                            fontSize: getFontSize(12),
+                                          ),
+                                          lastDate: DateTime.now()
+                                              .add(Duration(days: 25 * 365)),
+                                          onPickedDate: (pickedDate) {
+                                            context
+                                                .read<AddressProofBloc>()
+                                                .add(AddressProofEvent
+                                                    .expiryDateChanged(
+                                                        pickedDate.toString()));
+                                          },
+                                          onCancelClick: () {
+                                            context
+                                                .read<AddressProofBloc>()
+                                                .add(AddressProofEvent
+                                                    .expiryDateChanged(""));
+                                          },
+                                          selectedDate: state.docExpiryDate,
+                                          isDisabled: true,
+                                        ),
+                                        if (((state.docExpiryDate.isEmpty) &&
+                                                state.showErrorMesages) ||
+                                            (state.docExpiryDate.isEmpty) &&
+                                                (state.isExpiryInValid))
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: getSize(5)),
+                                            child: BaseText(
+                                              text:
+                                                  // "* ${((state.isExpiryInValid)) ? "Expiry date must be before ${(double.parse(state.currentAddressProofType.yearLimit ?? "0.0") * 10).toInt()}" : StringConstant.pleaseSelectExpiryDate}",
+                                                  "* ${((state.isExpiryInValid)) ? "Expiry date ${state.currentAddressProofType.short_name?.toLowerCase()}" : StringConstant.pleaseSelectExpiryDate}",
+                                              fontSize: 12,
+                                              textColor: AppColors.red,
+                                            ),
+                                          ),
                                         SizedBox(height: getSize(30)),
                                       ],
                                     ),
@@ -212,7 +252,7 @@ class AddressProofScreen extends StatelessWidget {
         : Container();
   }
 
-  Widget driverLicenseView(AddressProofState state, BuildContext context) {
+  Widget pickImageView(AddressProofState state, BuildContext context) {
     print(
         "state.currentAddressProofType-----------> ${state.currentAddressProofType}");
     return Column(

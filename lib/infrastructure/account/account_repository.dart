@@ -744,6 +744,10 @@ class AccountRepository extends IAccountRepository {
       }
 
       print('Sending Data: ${formData.fields.map((e) => e)}');
+      print('Sending Data frontpage: $documentFile');
+      print('Sending Data backpage: $documentBackFile');
+      print(
+          'Sending Data with send proposal: ${formData.fields.map((e) => e.value)}');
       // print('Sending Data: ${formData['file']}');
 
       final response = await apiService.postMethod(
@@ -771,7 +775,7 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
+      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }

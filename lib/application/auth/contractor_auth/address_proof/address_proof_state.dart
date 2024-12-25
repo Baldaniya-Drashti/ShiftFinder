@@ -14,6 +14,8 @@ class AddressProofState with _$AddressProofState {
     required bool isAddressProofDocSubmitting,
     required Option<Either<AccountFailure, String>>
         addressProofFailureOrSuccessOption,
+    required String docExpiryDate,
+    required bool isExpiryInValid,
 
     /// SUBMIT
     required bool isSubmitting,
@@ -30,5 +32,7 @@ class AddressProofState with _$AddressProofState {
         addressProofFailureOrSuccessOption: none(),
         isSubmitting: false,
         existingAddressProof: DocumentDTO(),
+        docExpiryDate: "",
+        isExpiryInValid: false,
       );
 }
