@@ -44,6 +44,7 @@ class DateRangePickerTile extends StatelessWidget {
           child: InkWell(
             onTap: () => pickMultiDateDialog(
               context,
+              selectedDates: selectedDate,
               onDateSelected: onDateSelected,
             ),
             child: Padding(

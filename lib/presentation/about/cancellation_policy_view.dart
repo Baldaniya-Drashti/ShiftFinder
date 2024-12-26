@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -19,7 +20,9 @@ class CancellationPolicyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Cancellation Policy"),
+      appBar: CommonAppBar(
+          onBackPressed: () => context.router.maybePop(),
+          title: "Cancellation Policy"),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
         child: Column(
@@ -37,7 +40,8 @@ class CancellationPolicyView extends StatelessWidget {
             ),
             Gap(8),
             BaseText(
-              text: "Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor",
+              text:
+                  "Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor",
               fontSize: 12,
               fontWeight: FontWeight.w400,
               maxLines: 10,
@@ -51,8 +55,10 @@ class CancellationPolicyView extends StatelessWidget {
   Widget documentImage() {
     return Container(
       // height: getSize(103),
-      padding: EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(32)),
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(32)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           SvgPicture.asset(
@@ -69,7 +75,8 @@ class CancellationPolicyView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BaseText(
-                  text: "Hello,✋  Misty Evans",
+                  text:
+                      "Hello,✋ ${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   lineHeight: 1.5,

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,10 +24,7 @@ class _NotificationViewState extends State<NotificationView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<NotificationBloc>(),
-      child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Notifications"),
-        body: _NotificationListView(),
-      ),
+      child: _NotificationListView(),
     );
   }
 }
@@ -60,7 +56,8 @@ class _NotificationTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(PngImageConstants.homeAppBarLogo, height: 35, width: 35),
+                Image.asset(PngImageConstants.homeAppBarLogo,
+                    height: 35, width: 35),
                 Gap(10),
                 Flexible(
                   child: Column(
@@ -103,7 +100,8 @@ class _NotificationTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: BaseText(
-                  text: "Your shift is going to be start in 2 min please submit your clock in time.",
+                  text:
+                      "Your shift is going to be start in 2 min please submit your clock in time.",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),

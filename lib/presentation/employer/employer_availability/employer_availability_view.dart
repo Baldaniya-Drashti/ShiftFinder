@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -84,7 +85,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                 title: StringConstant.viewAvailability,
               ),
               body: Padding(
-                padding: const EdgeInsets.all(18),
+                padding: EdgeInsets.all(getSize(20)),
                 child: Column(
                   children: [
                     Container(
@@ -136,6 +137,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListView.separated(
                               shrinkWrap: true,
@@ -146,7 +148,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                               separatorBuilder: (context, index) => Gap(28),
                               itemCount: widget.list.length,
                             ),
-                            Gap(25),
+                            Gap(getSize(25)),
                             Container(
                               decoration: BoxDecoration(
                                 color: Color(0XFFEDEDED),
@@ -206,7 +208,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                         ),
                                       ),
                                     ),
-                                    Gap(12),
+                                    Gap(getSize(15)),
                                     Expanded(
                                       child: BaseText(
                                         fontWeight: FontWeight.w500,
@@ -219,16 +221,23 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                 ),
                               ),
                             ),
+                            if (state.isConfirmError &&
+                                state.isConfirmProposalDate == false)
+                              commonErrorText(
+                                  "* Please confirm that you reviewed proposed availability",
+                                  padding: EdgeInsets.only(
+                                      left: getSize(10), top: getSize(15))),
                             Padding(
                               padding: EdgeInsets.only(
                                   top: getSize(40), bottom: getSize(40)),
                               child: CommonButton(
                                   onPressed: () {
-                                    Navigator.pop(
-                                        context, state.isConfirmProposalDate);
+                                    context.read<ProposalDetailBloc>().add(
+                                        ProposalDetailEvent.isCheckAvailability(
+                                            context));
                                   },
                                   buttonText: StringConstant.confirm),
-                            )
+                            ),
                           ],
                         ),
                       ),

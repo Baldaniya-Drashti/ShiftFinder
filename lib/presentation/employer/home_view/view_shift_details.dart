@@ -182,7 +182,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             value: "\$${payable.total_wage ?? 00}",
           ),
           paybaleTitleRate(
-            title: StringConstant.totalAllowance,
+            title: StringConstant.totalAllowances,
             value: "\$${payable.total_allowance ?? 00}",
           ),
           paybaleTitleRate(
@@ -654,7 +654,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('dd MMMM, yyyy').format(dateTime);
+        return DateFormat('dd MMM, yyyy').format(dateTime);
       }
     }
   }
@@ -752,7 +752,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
               BaseText(
                 text: title,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               (showBtn)
@@ -804,7 +804,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
               BaseText(
                 text: StringConstant.time,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               Row(

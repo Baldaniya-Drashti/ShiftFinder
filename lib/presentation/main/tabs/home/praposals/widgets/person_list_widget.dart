@@ -14,6 +14,7 @@ import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class PersonListWidget extends StatelessWidget {
@@ -90,23 +91,42 @@ class PersonListWidget extends StatelessWidget {
                                   ),
                                   Visibility(
                                     visible: list[index].occupied ?? false,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: getSize(7),
-                                        vertical: getSize(5),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.redAccent
-                                            .withOpacity(0.1),
-                                        borderRadius:
-                                            BorderRadius.circular(getSize(10)),
-                                      ),
-                                      child: BaseText(
-                                        text: 'Occupied',
-                                        fontSize: 8,
-                                        fontWeight: FontWeight.w600,
-                                        textColor: AppColors.redAccent
-                                            .withOpacity(0.8),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        AppDialog.showInfo(
+                                          context,
+                                          StringConstant.occupiedDesc,
+                                          maxLines: 10,
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: getSize(7),
+                                          vertical: getSize(5),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.redAccent
+                                              .withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(
+                                              getSize(10)),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            BaseText(
+                                              text: StringConstant.occupied,
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w600,
+                                              textColor: AppColors.redAccent
+                                                  .withOpacity(0.8),
+                                            ),
+                                            Gap(getSize(2)),
+                                            SvgPicture.asset(
+                                              SvgImageConstant.infoCircle,
+                                              color: AppColors.redAccent,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -114,7 +134,7 @@ class PersonListWidget extends StatelessWidget {
                               ),
                               if (list[index].revoke_status != null &&
                                   list[index].deleteAt != 1) ...[
-                                Gap(8),
+                                Gap(getSize(8)),
                                 SvgPicture.asset(
                                   SvgImageConstant.rightArrow,
                                   height: 13,

@@ -9,7 +9,7 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
   const factory ShiftsBlocEvent.getLocationListAPI() = GetLocationListAPI;
 
   const factory ShiftsBlocEvent.withdrawShift(BuildContext context,
-      {required int postId}) = WithdrawShift;
+      {required int postId, int? isCad}) = WithdrawShift;
 
   factory ShiftsBlocEvent.deleteReasonChange(String value) = DeleteReasonChange;
 

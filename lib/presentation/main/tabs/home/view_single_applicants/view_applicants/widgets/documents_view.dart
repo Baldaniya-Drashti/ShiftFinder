@@ -32,6 +32,7 @@ class DocumentsView extends StatelessWidget {
           getDocumentsContainer(
             title: StringConstant.governmentIssuedId,
             onTap: () {
+              print("data.document----> ${data.document}");
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
@@ -41,10 +42,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 1)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 1)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 1)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -67,10 +73,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 2)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 2)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 2)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -93,10 +104,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 3)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 3)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 3)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -121,10 +137,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 4)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 4)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 4)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -149,10 +170,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 5)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 5)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 5)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -177,10 +203,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 6)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 6)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 6)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -203,10 +234,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 7)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 7)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 7)
+                            .back_file ??
                         "",
                   ),
                 ),
@@ -229,10 +265,15 @@ class DocumentsView extends StatelessWidget {
                             ?.where((element) => element.document_type == 8)
                             .toList() ??
                         [],
-                    pdfUrl: data.document
+                    frontPage: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 8)
                             .file ??
+                        "",
+                    backPage: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 8)
+                            .back_file ??
                         "",
                   ),
                 ),

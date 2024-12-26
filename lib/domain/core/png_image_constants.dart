@@ -49,6 +49,7 @@ class PngImageConstants {
   static const withdrawDialogImage = "assets/png/withdraw_dialog_image.png";
   static const fullPosition = "assets/png/full_position.png";
   static const send = "assets/png/send.png";
+  static const shiftFinderWhiteLogo = "assets/png/shift_finder_white_logo.png";
 
   static const List<String> allImages = [
     fullPosition,

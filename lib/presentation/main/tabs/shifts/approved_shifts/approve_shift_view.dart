@@ -89,8 +89,21 @@ class ApproveShiftView extends StatelessWidget {
                                       userDetail(context,
                                           state.approveShiftList[index]),
                                       paddingBetweenFields(),
-                                      remainingTime(context,
-                                          state.approveShiftList[index]),
+                                      if (state.approveShiftList[index]
+                                                  .shift_type !=
+                                              null &&
+                                          state.approveShiftList[index]
+                                                  .shift_type ==
+                                              2 &&
+                                          state.approveShiftList[index]
+                                                  .remaining_shift !=
+                                              null &&
+                                          state.approveShiftList[index]
+                                                  .remaining_shift! >
+                                              0) ...[
+                                        remainingTime(context,
+                                            state.approveShiftList[index]),
+                                      ],
                                       paddingBetweenFields(),
                                       dateAndTime(context,
                                           state.approveShiftList[index]),
@@ -107,14 +120,24 @@ class ApproveShiftView extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                           onTap: () {
-                                            context.router.push(PageRouteInfo(
-                                                ApprovedHiredList.name,
-                                                args: ApprovedHiredListArgs(
-                                                    postId: state
-                                                            .approveShiftList[
-                                                                index]
-                                                            .id ??
-                                                        -1)));
+                                            context.router
+                                                .push(PageRouteInfo(
+                                                    ApprovedHiredList.name,
+                                                    args: ApprovedHiredListArgs(
+                                                        postId: state
+                                                                .approveShiftList[
+                                                                    index]
+                                                                .id ??
+                                                            -1)))
+                                                .then((value) {
+                                              print("shift value---> ${value}");
+                                              if (value == true) {
+                                                context.read<ShiftsBloc>().add(
+                                                    ShiftsBlocEvent
+                                                        .fetchApprovedShiftList(
+                                                            refresh: true));
+                                              }
+                                            });
                                           },
                                           child: Row(
                                             children: [
@@ -343,7 +366,7 @@ class ApproveShiftView extends StatelessWidget {
                     ),
               displayDateBreak(
                 context,
-                boldValue: "\$${shift.estimated_payables ?? ""}",
+                boldValue: "\$${shift.formatted_payables ?? ""}",
                 timidValue: "",
                 title: StringConstant.estimatedPayables,
                 svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -351,6 +374,7 @@ class ApproveShiftView extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(width: getSize(2)),
         Flexible(
           flex: 13,
           child: Column(
@@ -522,21 +546,23 @@ class ApproveShiftView extends StatelessWidget {
                   width: getSize(16),
                 ),
                 SizedBox(width: getSize(10)),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BaseText(
-                      text: title,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.7),
-                    ),
-                    highLightText(
-                        boldValue: boldValue,
-                        timidValue: timidValue,
-                        valueColor: valueColor),
-                  ],
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: title,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.black.withOpacity(0.7),
+                      ),
+                      highLightText(
+                          boldValue: boldValue,
+                          timidValue: timidValue,
+                          valueColor: valueColor),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -549,26 +575,28 @@ class ApproveShiftView extends StatelessWidget {
       String? thirdValue,
       Color? valueColor}) {
     return RichText(
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         text: TextSpan(
-      text: boldValue,
-      style: TextStyle(
-        fontSize: getFontSize(13),
-        fontWeight: FontWeight.w500,
-        color: valueColor ?? AppColors.black,
-      ),
-      children: [
-        TextSpan(
-          text: timidValue,
+          text: boldValue,
           style: TextStyle(
             fontSize: getFontSize(13),
             fontWeight: FontWeight.w500,
-            color: valueColor ?? AppColors.black.withOpacity(0.5),
+            color: valueColor ?? AppColors.black,
           ),
-        ),
-        TextSpan(
-          text: thirdValue ?? "",
-        ),
-      ],
-    ));
+          children: [
+            TextSpan(
+              text: timidValue,
+              style: TextStyle(
+                fontSize: getFontSize(13),
+                fontWeight: FontWeight.w500,
+                color: valueColor ?? AppColors.black.withOpacity(0.5),
+              ),
+            ),
+            TextSpan(
+              text: thirdValue ?? "",
+            ),
+          ],
+        ));
   }
 }

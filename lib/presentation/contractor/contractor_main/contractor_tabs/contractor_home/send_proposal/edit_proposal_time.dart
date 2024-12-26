@@ -24,44 +24,16 @@ class EditProposalTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SendProposalBloc, SendProposalState>(
       builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListView.builder(
-              itemCount: state.multiDates.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                // return startEndTime(context, index, state.multiDates[index]);
-                return (state.multiDates[index].isUnAvailable)
-                    ? notAvailable(context, state.multiDates[index])
-                    : startEndTime(context, index, state.multiDates[index]);
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(30)),
-              child: CommonButton(
-                onPressed: () {
-                  final isLessThanTwoHours = state.multiDates.any((dto) {
-                    final totalPayableDuration =
-                        CustomDateTimeFormat.parseTotalPayableHours(
-                            dto.totalPaybleHours!);
-                    return totalPayableDuration < Duration(hours: 2);
-                  });
-
-                  if (isLessThanTwoHours) {
-                    showError(
-                            message: StringConstant
-                                .theTotalPayableHourMustBeAtLeastTwo)
-                        .show(context);
-                  } else {
-                    Navigator.pop(context, state.multiDates);
-                  }
-                },
-                buttonText: StringConstant.done,
-              ),
-            ),
-          ],
+        return ListView.builder(
+          itemCount: state.multiDates.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            // return startEndTime(context, index, state.multiDates[index]);
+            return (state.multiDates[index].isUnAvailable)
+                ? notAvailable(context, state.multiDates[index])
+                : startEndTime(context, index, state.multiDates[index]);
+          },
         );
       },
     );

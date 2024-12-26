@@ -9,7 +9,9 @@ class DocumentDTO with _$DocumentDTO {
   const factory DocumentDTO({
     int? id,
     int? document_type,
+    int? sub_type,
     String? file,
+    String? back_file,
     int? expiry_date,
     String? registration_number,
     String? province_of_registration,

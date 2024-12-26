@@ -36,7 +36,8 @@ class LocationDetailForm extends StatelessWidget {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<LocationDetailsBloc>()..add(LocationDetailsEvent.getFacilityTypeList()),
+        create: (context) => getIt<LocationDetailsBloc>()
+          ..add(LocationDetailsEvent.getFacilityTypeList()),
         child: Scaffold(
             appBar: CommonAppBar(
               isShowBackBtn: !isFromSplash,
@@ -55,14 +56,17 @@ class LocationDetailForm extends StatelessWidget {
                       showError(
                         message: failure.maybeMap(
                           showAPIResponseMessage: (value) => value.message,
-                          networkError: (value) => 'Please check your internet connectivity',
+                          networkError: (value) =>
+                              'Please check your internet connectivity',
                           orElse: () => "Server Error. Try again later.",
                         ),
                       ).show(context);
                     },
                     (r) {
                       AppFocus.unfocus(context);
-                      context.router.push(const PageRouteInfo(AddCardDetailPage.name)).then((value) {
+                      context.router
+                          .push(const PageRouteInfo(AddCardDetailPage.name))
+                          .then((value) {
                         AppFocus.unfocus(context);
                       });
                     },
@@ -75,7 +79,9 @@ class LocationDetailForm extends StatelessWidget {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
                           child: SingleChildScrollView(
                             physics: BouncingScrollPhysics(),
                             child: Column(
@@ -109,7 +115,8 @@ class LocationDetailForm extends StatelessWidget {
                                             style: TextStyle(
                                               fontSize: getFontSize(10),
                                               fontWeight: FontWeight.w500,
-                                              color: AppColors.black.withOpacity(0.8),
+                                              color: AppColors.black
+                                                  .withOpacity(0.8),
                                               fontFamily: "Roboto Flex",
                                             ),
                                           ),
@@ -121,12 +128,16 @@ class LocationDetailForm extends StatelessWidget {
                                 paddingBetweenFields(height: 10),
                                 unitBox(context, state),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      print("Address---> ${state.address.getValue()}");
-                                      context.read<LocationDetailsBloc>().add(LocationDetailsEvent.continueBtnPressed(context));
+                                      print(
+                                          "Address---> ${state.address.getValue()}");
+                                      context.read<LocationDetailsBloc>().add(
+                                          LocationDetailsEvent
+                                              .continueBtnPressed(context));
                                       unitNoNamecontroller.clear();
                                       unitNotecontroller.clear();
                                     },
@@ -174,13 +185,14 @@ class LocationDetailForm extends StatelessWidget {
               ),
             );
           }).toList(),
-          validator: (p0) => context.read<LocationDetailsBloc>().state.faciltyType.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterFacilityType,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+          validator: (p0) =>
+              context.read<LocationDetailsBloc>().state.faciltyType.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterFacilityType,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
           onChanged: (value) {
             if (value != null) {
               context.read<LocationDetailsBloc>().add(
@@ -213,7 +225,7 @@ class LocationDetailForm extends StatelessWidget {
     );
   }
 
-  Widget locationAddressTextField(
+  /* Widget locationAddressTextField(
     BuildContext context,
     LocationDetailsState state,
   ) {
@@ -289,6 +301,71 @@ class LocationDetailForm extends StatelessWidget {
       ],
     );
   }
+ */
+
+  Widget locationAddressTextField(
+    BuildContext context,
+    LocationDetailsState state,
+  ) {
+    return Column(
+      children: [
+        CustomTextField(
+          labelText: StringConstant.locationAddress,
+          isLabelPadding: true,
+          hintText: StringConstant.locationAddress,
+          isOptional: true,
+          optionalWidget: GestureDetector(
+            onTap: () {
+              AppDialog.showInfo(
+                  context, StringConstant.mutltiplelocationInfoDesc);
+            },
+            child: SvgPicture.asset(
+              SvgImageConstant.infoCircle,
+            ),
+          ),
+          errorMaxLines: 2,
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(14),
+              vertical: getSize(14),
+            ),
+            child: SvgPicture.asset(
+              SvgImageConstant.locationIcon,
+              height: getSize(24),
+              width: getSize(24),
+              color: AppColors.primaryColor,
+            ),
+          ),
+          // controller: addressController..text = state.address.getValue() ?? "",
+          controller: LocationDetailsBloc.locationCtrl,
+          readOnly: true,
+          readOnlyTextStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: AppColors.black),
+          onTap: () {
+            LocationDialog.showLocationDialog(context,
+                    predictions: state.selectedLocationPrediction)
+                .then((value) {
+              if (value != null) {
+                print("selected location ---> $value");
+                context.read<LocationDetailsBloc>().add(
+                    LocationDetailsEvent.locationSelectedFromSearchList(value));
+              }
+            });
+          },
+          validator: (p0, p1) =>
+              context.read<LocationDetailsBloc>().state.address.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterAddress,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
+        ),
+      ],
+    );
+  }
 
   Widget locationIdField(
     BuildContext context,
@@ -313,7 +390,9 @@ class LocationDetailForm extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationIdChanged(value));
+        context
+            .read<LocationDetailsBloc>()
+            .add(LocationDetailsEvent.locationIdChanged(value));
       },
       validator: null,
     );
@@ -342,7 +421,9 @@ class LocationDetailForm extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.accreditationNumberChanged(value));
+        context
+            .read<LocationDetailsBloc>()
+            .add(LocationDetailsEvent.accreditationNumberChanged(value));
       },
       validator: null,
     );
@@ -360,7 +441,9 @@ class LocationDetailForm extends StatelessWidget {
       errorMaxLines: 2,
       maxLines: 3,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationNoteChanged(value));
+        context
+            .read<LocationDetailsBloc>()
+            .add(LocationDetailsEvent.locationNoteChanged(value));
       },
       validator: null,
     );
@@ -403,7 +486,8 @@ class LocationDetailForm extends StatelessWidget {
               onPressed: (state.unitNumber.isNotEmpty)
                   ? () {
                       context.read<LocationDetailsBloc>().add(
-                            LocationDetailsEvent.addUnitNumberChipList(state.unitNumber, state.notes),
+                            LocationDetailsEvent.addUnitNumberChipList(
+                                state.unitNumber, state.notes),
                           );
                       unitNoNamecontroller.clear();
                       unitNotecontroller.clear();
@@ -415,9 +499,12 @@ class LocationDetailForm extends StatelessWidget {
               buttonFontSize: 12,
               buttonFontWeight: FontWeight.w600,
               height: 35,
-              backgroundColor:
-                  (state.unitNumber.isNotEmpty) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
-              buttonTextColor: (state.unitNumber.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+              backgroundColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor.withOpacity(0.15)
+                  : AppColors.primaryColor.withOpacity(0.05),
+              buttonTextColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor.withOpacity(0.3),
             ),
           )
         ],
@@ -439,7 +526,9 @@ class LocationDetailForm extends StatelessWidget {
       isLabelPadding: false,
       errorMaxLines: 2,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.unitNumberChanged(value));
+        context
+            .read<LocationDetailsBloc>()
+            .add(LocationDetailsEvent.unitNumberChanged(value));
       },
       /*suffixIcon: CommonButton(
         height: getSize(27),
@@ -474,7 +563,9 @@ class LocationDetailForm extends StatelessWidget {
       errorMaxLines: 2,
       controller: unitNotecontroller,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.notesChanged(value));
+        context
+            .read<LocationDetailsBloc>()
+            .add(LocationDetailsEvent.notesChanged(value));
       },
       validator: null,
     );
@@ -515,14 +606,16 @@ class LocationDetailForm extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      editUnitDialog(context, context.read<LocationDetailsBloc>(), state, index);
+                      editUnitDialog(context,
+                          context.read<LocationDetailsBloc>(), state, index);
                     },
                     child: SvgPicture.asset(SvgImageConstant.editWithBg),
                   ),
                   SizedBox(width: getSize(10)),
                   GestureDetector(
                     onTap: () {
-                      context.read<LocationDetailsBloc>().add(LocationDetailsEvent.removeUnitNumberChip(index));
+                      context.read<LocationDetailsBloc>().add(
+                          LocationDetailsEvent.removeUnitNumberChip(index));
                     },
                     child: SvgPicture.asset(SvgImageConstant.bin),
                   ),
@@ -575,7 +668,8 @@ class LocationDetailForm extends StatelessWidget {
                         isLabelPadding: false,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(LocationDetailsEvent.updateUnitNumberChanged(value.trim()));
+                          bloc.add(LocationDetailsEvent.updateUnitNumberChanged(
+                              value.trim()));
                         },
                         validator: null,
                       ),
@@ -589,7 +683,8 @@ class LocationDetailForm extends StatelessWidget {
                         maxLines: 3,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(LocationDetailsEvent.updateUnitNotesChanged(value.trim()));
+                          bloc.add(LocationDetailsEvent.updateUnitNotesChanged(
+                              value.trim()));
                         },
                         validator: null,
                       ),
@@ -599,13 +694,16 @@ class LocationDetailForm extends StatelessWidget {
                         child: CommonButton(
                           onPressed: (updateUnitNameCtrl.text.isNotEmpty)
                               ? () {
-                                  bloc.add(LocationDetailsEvent.editUnitNumberChip(
-                                      context,
-                                      index,
-                                      UnitDTO(
-                                        number_or_name: updateUnitNameCtrl.text.trim(),
-                                        note: updateUnitNoteCtrl.text.trim(),
-                                      )));
+                                  bloc.add(
+                                      LocationDetailsEvent.editUnitNumberChip(
+                                          context,
+                                          index,
+                                          UnitDTO(
+                                            number_or_name:
+                                                updateUnitNameCtrl.text.trim(),
+                                            note:
+                                                updateUnitNoteCtrl.text.trim(),
+                                          )));
                                 }
                               : () {},
                           buttonText: StringConstant.update,
@@ -616,8 +714,9 @@ class LocationDetailForm extends StatelessWidget {
                           backgroundColor: (updateUnitNameCtrl.text.isNotEmpty)
                               ? AppColors.primaryColor.withOpacity(0.15)
                               : AppColors.primaryColor.withOpacity(0.05),
-                          buttonTextColor:
-                              (updateUnitNameCtrl.text.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+                          buttonTextColor: (updateUnitNameCtrl.text.isNotEmpty)
+                              ? AppColors.primaryColor
+                              : AppColors.primaryColor.withOpacity(0.3),
                         ),
                       )
                     ],

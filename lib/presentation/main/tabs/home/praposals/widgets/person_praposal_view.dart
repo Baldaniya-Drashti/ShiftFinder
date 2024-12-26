@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -12,6 +13,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 class PraposalPersonView extends StatelessWidget {
   const PraposalPersonView({
@@ -72,22 +74,42 @@ class PraposalPersonView extends StatelessWidget {
                               ),
                               Visibility(
                                 visible: data.occupied ?? false,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: getSize(7),
-                                    vertical: getSize(5),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.redAccent.withOpacity(0.1),
-                                    borderRadius:
-                                        BorderRadius.circular(getSize(10)),
-                                  ),
-                                  child: BaseText(
-                                    text: 'Occupied',
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w600,
-                                    textColor:
-                                        AppColors.redAccent.withOpacity(0.8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    AppDialog.showInfo(
+                                      context,
+                                      StringConstant.occupiedDesc,
+                                      maxLines: 10,
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(7),
+                                      vertical: getSize(5),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          AppColors.redAccent.withOpacity(0.1),
+                                      borderRadius:
+                                          BorderRadius.circular(getSize(10)),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        BaseText(
+                                          text: StringConstant.occupied,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.w600,
+                                          textColor: AppColors.redAccent
+                                              .withOpacity(0.8),
+                                        ),
+                                        Gap(getSize(2)),
+                                        SvgPicture.asset(
+                                          SvgImageConstant.infoCircle,
+                                          color: AppColors.redAccent,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -171,12 +193,9 @@ class PraposalPersonView extends StatelessWidget {
                         ),
                       )
                           .then((result) {
-                        if (result != null && result == true) {
-                          Log.success("result=> $result");
-                          context.read<ProposalDetailBloc>().add(
-                              ProposalDetailEvent.addConfirmDialogFlag(
-                                  result as bool));
-                        }
+                        context.read<ProposalDetailBloc>().add(
+                            ProposalDetailEvent.addConfirmDialogFlag(
+                                result as bool));
                       });
                       // Log.success("result=> $result");
                     },

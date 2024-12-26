@@ -83,7 +83,10 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         if (widget.label != null) ...[
           Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
+            child: BaseText(
+                text: widget.label!,
+                fontSize: widget.fontSize ?? 10,
+                fontWeight: FontWeight.w500),
           ),
           Gap(8),
         ],
@@ -94,7 +97,8 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           ),
           isDense: true,
           validator: widget.validator,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+          style: TextStyle(
+              fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
           isExpanded: true,
           menuItemStyleData: const MenuItemStyleData(
             height: 45,

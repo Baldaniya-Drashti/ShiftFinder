@@ -15,6 +15,7 @@ class EmployerPreviousShiftDto with _$EmployerPreviousShiftDto {
     String? profile,
     String? role_lists_name,
     int? rating,
+    double? all_over_rating,
     double? latitude,
     double? longitude,
     String? location,
@@ -28,8 +29,10 @@ class EmployerPreviousShiftDto with _$EmployerPreviousShiftDto {
     bool? isRemark,
     bool? isBlock,
     String? email,
-   String? remark,
+    String? remark,
+    String? total_amount,
   }) = _EmployerPreviousShiftDto;
 
-  factory EmployerPreviousShiftDto.fromJson(Map<String, dynamic> json) => _$EmployerPreviousShiftDtoFromJson(json);
+  factory EmployerPreviousShiftDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerPreviousShiftDtoFromJson(json);
 }

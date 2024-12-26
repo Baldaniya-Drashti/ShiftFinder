@@ -85,7 +85,9 @@ class AppliedTab extends StatelessWidget {
                                           shift.proposal_date ?? -1,
                                           isYear: true,
                                         ),
-                                        showArrow: true,
+                                        showArrow:
+                                            (shift.applied_date_status == 2 &&
+                                                shift.deleteAt == false),
                                       )
                                     : dateView(
                                         context,
@@ -172,6 +174,7 @@ class AppliedTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: (shift.shift_type == 1)
               ? displayDateBreak(
                   context,
@@ -191,6 +194,7 @@ class AppliedTab extends StatelessWidget {
                 ),
         ),
         Flexible(
+          flex: 13,
           child: (shift.shift_type == 1)
               ? displayTime(
                   title: StringConstant.time,

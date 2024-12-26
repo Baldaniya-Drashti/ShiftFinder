@@ -13,6 +13,8 @@ _$SkillDTOImpl _$$SkillDTOImplFromJson(Map<String, dynamic> json) =>
       short_name: json['short_name'] as String?,
       answer: (json['answer'] as num?)?.toInt(),
       minute: (json['minute'] as num?)?.toInt(),
+      isMandatory: json['isMandatory'] as bool?,
+      yearLimit: json['yearLimit'] as String?,
     );
 
 Map<String, dynamic> _$$SkillDTOImplToJson(_$SkillDTOImpl instance) =>
@@ -22,4 +24,6 @@ Map<String, dynamic> _$$SkillDTOImplToJson(_$SkillDTOImpl instance) =>
       'short_name': instance.short_name,
       'answer': instance.answer,
       'minute': instance.minute,
+      'isMandatory': instance.isMandatory,
+      'yearLimit': instance.yearLimit,
     };

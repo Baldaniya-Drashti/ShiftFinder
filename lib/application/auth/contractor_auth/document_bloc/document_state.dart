@@ -12,8 +12,13 @@ class DocumentState with _$DocumentState {
     /// FOR GOVERNMENT DOCUMENT
     required bool isLoading,
     required int govermentDocId,
+    required DocumentDTO existingGovermentDoc,
+    required SkillDTO currentGovermentDocType,
+    required List<SkillDTO> govermentDropDownList,
     required InputEmptyOrNot govmentDocTitle,
     required InputEmptyOrNot govermentDoc,
+    required InputEmptyOrNot govermentFrontDoc,
+    required InputEmptyOrNot govermentBackDoc,
     required bool isGovernemtExpiryCheck,
     required String governmentExpiryDate,
     required bool showGovernmentIdErrorMessages,
@@ -45,6 +50,10 @@ class DocumentState with _$DocumentState {
 
         /// FOR GOVERNMENT DOCUMENT
         govermentDoc: InputEmptyOrNot(""),
+        govermentFrontDoc: InputEmptyOrNot(""),
+        govermentBackDoc: InputEmptyOrNot(""),
+        currentGovermentDocType: SkillDTO(),
+        govermentDropDownList: CommonList.govermentIdList,
         govmentDocTitle: InputEmptyOrNot(""),
         showGovernmentIdErrorMessages: false,
         isGovermentDocSubmitting: false,
@@ -66,6 +75,7 @@ class DocumentState with _$DocumentState {
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
         continueFailureOrSuccessOption: none(),
+        existingGovermentDoc: DocumentDTO(),
       );
 }
 

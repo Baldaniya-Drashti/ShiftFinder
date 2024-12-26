@@ -699,6 +699,7 @@ class PostShiftRecurring extends StatelessWidget {
                 shrinkWrap: true,
                 // physics: NeverScrollableScrollPhysics(),
                 itemCount: state.teamList.length,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final teamList = state.teamList;
                   bool isTeamCheck = state.selectedTeamList.getValue().any((item) {

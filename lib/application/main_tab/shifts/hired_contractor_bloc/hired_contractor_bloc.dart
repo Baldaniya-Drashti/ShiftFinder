@@ -27,7 +27,8 @@ part 'hired_contractor_state.dart';
 part 'hired_contractor_bloc.freezed.dart';
 
 @injectable
-class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorState> {
+class HiredContractorBloc
+    extends Bloc<HiredContractorEvent, HiredContractorState> {
   int currentPage = 1;
   int lastPage = 1;
 
@@ -51,6 +52,14 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
   HiredContractorBloc(this.mainFacade) : super(HiredContractorState.initial()) {
     on<HiredContractorEvent>((event, emit) async {
       await event.map(
+        getEditClockInTime: (e) {
+          emit(
+            state.copyWith(
+              clockIn: e.clockIn,
+              clockOut: e.clockOut,
+            ),
+          );
+        },
         changeClockInClockOutTime: (value) async {
           if (value.isClockIn) {
             final clockInTimeStamp = convertToTimestamp(value.time);
@@ -77,6 +86,8 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
           final isClockOutValid = formatedClockOut != null;
 
           if (isClockInValid && isClockOutValid) {
+            emit(state.copyWith(isSubmitting: true));
+
             failureOrSuccess = await mainFacade.submitEmployerClockInClockOut(
               shiftId: e.postId,
               userId: e.userId,
@@ -86,26 +97,31 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
 
             failureOrSuccess.fold(
               (l) {
+                emit(state.copyWith(isSubmitting: false));
+
                 e.context.router.maybePop();
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
               },
               (r) async {
-                // e.context.router.maybePop();
+                emit(state.copyWith(isSubmitting: false));
 
-                final result = await showDialog<bool?>(
+                await showDialog<bool?>(
                   barrierDismissible: false,
                   context: e.context,
                   builder: (context) {
                     return AlertDialog(
-                      contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+                      contentPadding:
+                          EdgeInsets.all(getSize(24)).copyWith(top: 0),
                       clipBehavior: Clip.none,
-                      insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      insetPadding:
+                          EdgeInsets.symmetric(horizontal: getSize(20)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(getSize(15)),
                       ),
@@ -125,7 +141,8 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                         ],
                       ),
                       content: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)).copyWith(top: getSize(10)),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20))
+                            .copyWith(top: getSize(10)),
                         child: BaseText(
                           text: StringConstant.approvedDesc,
                           fontSize: 14,
@@ -146,13 +163,22 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                       ],
                     );
                   },
-                );
-
-                if (result ?? false) {
-                  e.context.router.push(
-                    PageRouteInfo(ShiftActionsView.name, args: ShiftActionsViewArgs(postId: e.postId, userId: e.userId)),
-                  );
-                }
+                ).then((value) {
+                  if (value == true) {
+                    e.context.router
+                        .push(
+                      PageRouteInfo(ShiftActionsView.name,
+                          args: ShiftActionsViewArgs(
+                              postId: e.postId, userId: e.userId)),
+                    )
+                        .then((value) {
+                      if (value == true) {
+                        e.context.router.maybePop(true);
+                        // Navigator.pop(e.context, true);
+                      }
+                    });
+                  }
+                });
               },
             );
           } else {
@@ -200,12 +226,18 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
-                  hiredFilledContractorList: List.from(state.hiredFilledContractorList)
-                    ..addAll(
-                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
-                    ),
+                  hiredFilledContractorList:
+                      List.from(state.hiredFilledContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
                 ),
               );
             },
@@ -248,12 +280,72 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
-                  hiredApproveContractorList: List.from(state.hiredApproveContractorList)
-                    ..addAll(
-                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
-                    ),
+                  hiredApproveContractorList:
+                      List.from(state.hiredApproveContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
+                ),
+              );
+            },
+          );
+        },
+        getHiredCancelledContractorList: (e) async {
+          if (e.refresh) {
+            currentPage = 1;
+            emit(state.copyWith(
+              hiredCancelledContractorList: [],
+              isLoading: e.refresh,
+            ));
+            hiredContractorListController.resetNoData();
+          } else {
+            if (currentPage > lastPage) {
+              hiredContractorListController.loadNoData();
+              return;
+            }
+          }
+          var res = await mainFacade.hiredCancelledContractorList(
+            postId: e.postId,
+            page: currentPage,
+            shortType: 0,
+          );
+          currentPage++;
+          res.fold(
+            (l) => emit(
+              state.copyWith(
+                errorApi: true,
+                isLoading: false,
+                hiredCancelledContractorList: [],
+              ),
+            ),
+            (r) {
+              lastPage = r.meta?.lastPage ?? 1;
+              if (e.refresh) {
+                List.from(state.hiredCancelledContractorList).clear();
+              }
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  errorApi: false,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => HiredContractorListDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
+                  //  getProductList: []
+                  hiredCancelledContractorList:
+                      List.from(state.hiredCancelledContractorList)
+                        ..addAll(
+                          (r.data as List<dynamic>)
+                              .map((e) => HiredContractorListDTO.fromJson(e))
+                              .toList(),
+                        ),
                 ),
               );
             },

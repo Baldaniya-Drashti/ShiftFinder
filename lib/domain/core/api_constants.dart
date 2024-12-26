@@ -74,6 +74,12 @@ class ApiConstants {
   static String addPaymentCard = 'employer_add_card';
   static String getPaymetCardList = 'employer_list_card';
   static String deletePaymentCard = 'employer_delete_card';
+  static String employerPaymentHistory = 'employer_payment_history';
+  static String employerInvoices = 'employer_invoices';
+  static String employerMonthlyStatements = 'employer_monthly_statements';
+
+  /// Stripe doc
+  static String stripeDocument = 'stripe_document';
 
   //chat
   static String getChatList = 'chat-list';
@@ -99,6 +105,8 @@ class ApiConstants {
   static String getSendProposalDetail = 'send_proposal';
   static String contractorPerformanceInsights =
       'contractor_performance_insights';
+  static String contractorTotalEarningStatement =
+      'contractor_total_earning_statement';
 
   //team
   static String getTeamList = 'get_team';
@@ -123,6 +131,7 @@ class ApiConstants {
   static String employerShift = 'get_employer_shift';
   static String deleteEmployerShift = 'employer_shift';
   static String getEmployerShiftUser = 'get_employer_shift_user';
+  static String getEmployerDeleteShiftUser = 'get_employer_delete_shift_user';
   static String employerClockInOut = 'employer_clock_in_or_out';
   static String submitTicket = 'submit_ticket';
   static String contractorUser = 'contractor_user';

@@ -84,13 +84,25 @@ abstract class IAccountRepository {
 
   Future<Either<AccountFailure, String>> addDocumentApi({
     required int documentType,
+    int? subType,
     required String documentFile,
+    String? documentBackFile,
     String? expiryDate,
     bool? expiryDateNotApplicable,
     String? registrationNumber,
     String? provinceOfRegistration,
     String? documentTitle,
     String? nameOfVaccinations,
+    String? lastPage,
+  });
+
+  Future<Either<AccountFailure, String>> addAddressProofApi({
+    required int documentType,
+    int? subType,
+    required String documentFile,
+    String? documentBackFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
     String? lastPage,
   });
 
@@ -109,7 +121,9 @@ abstract class IAccountRepository {
   Future<Either<AccountFailure, String>> updateDocumentApi({
     required int id,
     required int documentType,
+    int? subType,
     required String documentFile,
+    String? documentBackFile,
     String? expiryDate,
     bool? expiryDateNotApplicable,
     String? registrationNumber,
@@ -162,7 +176,6 @@ abstract class IAccountRepository {
     required String longitude,
     required bool fromRegister,
     int? type,
-
   });
 
   Future<Either<AccountFailure, Account>> updateLocation({
@@ -179,7 +192,5 @@ abstract class IAccountRepository {
     required String longitude,
     required bool fromRegister,
     required int id,
-
   });
-
 }

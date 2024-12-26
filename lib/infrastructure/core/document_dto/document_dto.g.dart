@@ -10,7 +10,9 @@ _$DocumentDTOImpl _$$DocumentDTOImplFromJson(Map<String, dynamic> json) =>
     _$DocumentDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       document_type: (json['document_type'] as num?)?.toInt(),
+      sub_type: (json['sub_type'] as num?)?.toInt(),
       file: json['file'] as String?,
+      back_file: json['back_file'] as String?,
       expiry_date: (json['expiry_date'] as num?)?.toInt(),
       registration_number: json['registration_number'] as String?,
       province_of_registration: json['province_of_registration'] as String?,
@@ -24,7 +26,9 @@ Map<String, dynamic> _$$DocumentDTOImplToJson(_$DocumentDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'document_type': instance.document_type,
+      'sub_type': instance.sub_type,
       'file': instance.file,
+      'back_file': instance.back_file,
       'expiry_date': instance.expiry_date,
       'registration_number': instance.registration_number,
       'province_of_registration': instance.province_of_registration,

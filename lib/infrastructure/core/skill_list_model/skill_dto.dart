@@ -10,6 +10,8 @@ class SkillDTO with _$SkillDTO {
     String? short_name,
     int? answer,
     int? minute,
+    bool? isMandatory,
+    String? yearLimit,
   }) = _SkillDTO;
 
   factory SkillDTO.fromJson(Map<String, dynamic> json) =>

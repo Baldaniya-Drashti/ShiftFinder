@@ -1115,6 +1115,7 @@ class HealthCarePostForm extends StatelessWidget {
               AppDialog.showInfo(
                 context,
                 StringConstant.missingLocationInfoDesc,
+                maxLines: 5,
                 insetPadding: EdgeInsets.symmetric(
                   horizontal: getSize(30),
                 ),

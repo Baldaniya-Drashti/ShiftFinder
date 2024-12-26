@@ -171,7 +171,13 @@ class UpcomingShift extends StatelessWidget {
             ),
             trailing: GestureDetector(
               onTap: () {
-                if (shift.check_delete != null && shift.check_delete!) {
+                if (shift.check_delete != null &&
+                    shift.check_delete! &&
+                    shift.isCad != null &&
+                    shift.isCad!) {
+                  showWithdrawDialog(
+                      context, shift, context.read<ContractorShiftBloc>());
+                } else if (shift.check_delete != null && shift.check_delete!) {
                   AppDialog.showSuccess(
                     context,
                     image: Container(),
@@ -298,7 +304,7 @@ class UpcomingShift extends StatelessWidget {
               ),
               if (state.showErrorMessages)
                 commonErrorText(
-                  "Please add valid reason to delete post",
+                  StringConstant.pleaseAddValidReasonToDeletePost,
                   padding: EdgeInsets.symmetric(
                       horizontal: getSize(15), vertical: getSize(10)),
                 ),
@@ -312,6 +318,7 @@ class UpcomingShift extends StatelessWidget {
       onDeleteClick: () {
         context.read<ContractorShiftBloc>().add(
             ContractorShiftEvent.deleteUpcomingShift(context,
+                isCad: (shift.isCad == true) ? 1 : null,
                 postId: shift.id ?? -1));
       },
     );
@@ -391,6 +398,7 @@ class UpcomingShift extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: (shift.shift_type == 1)
               ? displayDateBreak(
                   context,
@@ -410,6 +418,7 @@ class UpcomingShift extends StatelessWidget {
                 ),
         ),
         Flexible(
+          flex: 13,
           child: (shift.shift_type == 1)
               ? displayTime(
                   title: StringConstant.time,

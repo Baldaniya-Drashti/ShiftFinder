@@ -36,10 +36,19 @@ class MyCalendarViewBloc
             )),
             (r) {
               print("post--> $r");
+              List<MyCalendarDTO> sortedMultiDates = List.from(r)
+                ..sort((a, b) {
+                  if (a.date != null && b.date != null) {
+                    return a.date!.compareTo(b.date!);
+                  } else {
+                    return -1;
+                  }
+                });
+
               emit(state.copyWith(
                 isLoading: false,
                 showErrorMessages: false,
-                multiDates: r,
+                multiDates: sortedMultiDates,
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               ));
               List<DateTime> dateTimeList = state.multiDates.isNotEmpty

@@ -45,7 +45,7 @@ class PaginatedListView extends StatelessWidget {
         radius: Radius.circular(getSize(10)),
       ),
       child: Scrollbar(
-        thumbVisibility: true,
+        // thumbVisibility: true,
         child: SmartRefresher(
           header: MaterialClassicHeader(
             color: AppColors.primaryColor,

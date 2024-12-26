@@ -13,19 +13,22 @@ part 'hired_contractor_state.dart';
 part 'hired_contractor_bloc.freezed.dart';
 
 @injectable
-class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorState> {
+class HiredContractorBloc
+    extends Bloc<HiredContractorEvent, HiredContractorState> {
   final IMainFacade _mainFacade;
   final RefreshController refreshController = RefreshController();
   int page = 1;
   int lastPage = 1;
 
-  HiredContractorBloc(this._mainFacade) : super(HiredContractorState.initial()) {
+  HiredContractorBloc(this._mainFacade)
+      : super(HiredContractorState.initial()) {
     on<HiredContractorEvent>((event, emit) async {
       event.map(
         getHiredContractorList: (value) async {
           if (value.refresh) {
             page = 1;
-            emit(state.copyWith(hiredContractorList: [], loading: value.refresh));
+            emit(state
+                .copyWith(hiredContractorList: [], loading: value.refresh));
             refreshController.resetNoData();
           } else {
             if (page > lastPage) {
@@ -33,11 +36,13 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
               return;
             }
           }
-          var res = await _mainFacade.getHiredContractorList(page: page, postId: value.postId);
+          var res = await _mainFacade.getHiredContractorList(
+              page: page, postId: value.postId);
           page++;
           res.fold(
             (l) => emit(
-              state.copyWith(apiError: true, loading: false, hiredContractorList: []),
+              state.copyWith(
+                  apiError: true, loading: false, hiredContractorList: []),
             ),
             (r) {
               lastPage = r.meta?.lastPage ?? 1;
@@ -48,10 +53,15 @@ class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorStat
                 state.copyWith(
                   loading: false,
                   apiError: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerPreviousShiftDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   hiredContractorList: List.from(state.hiredContractorList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map((e) => EmployerPreviousShiftDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );

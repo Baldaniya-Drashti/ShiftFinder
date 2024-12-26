@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart';
 import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -18,43 +19,28 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ViewCollegueProfile')
 class ViewCollegueProfile extends StatelessWidget {
   final int id;
-  final int postId;
 
-  const ViewCollegueProfile(
-      {super.key, required this.id, required this.postId});
+  const ViewCollegueProfile({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ApplicantProfileBloc>()
+      create: (context) => getIt<ReferColleagueBloc>()
         ..add(
-          ApplicantProfileEvent.fetchApplicantProfile(
-              id: id, context: context, postId: postId),
+          ReferColleagueEvent.getCollegueProfile(id: id, context: context),
         ),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
           title: StringConstant.viewProfile,
         ),
-        body: BlocBuilder<ApplicantProfileBloc, ApplicantProfileState>(
+        body: BlocBuilder<ReferColleagueBloc, ReferColleagueState>(
           builder: (context, state) {
             if (state.isLoading) {
               return CenterLoadingIndicator();
-            } else if (!state.isLoading && state.isErrorInAPI) {
+            } else if (!state.isLoading && state.showErrorMessages) {
               return Center(
                   child: BaseText(text: StringConstant.somethindWentWrong));
-            } else if (!state.isLoading && state.isNoDataFound) {
-              return Center(
-                child: SizedBox(
-                  width: getSize(280),
-                  child: BaseText(
-                    textColor: AppColors.black.withOpacity(0.65),
-                    text: StringConstant.noResultFound,
-                    textAlign: TextAlign.center,
-                    lineHeight: 1.2,
-                  ),
-                ),
-              );
             }
 
             return SafeArea(
@@ -66,187 +52,9 @@ class ViewCollegueProfile extends StatelessWidget {
                 ),
                 children: [
                   ApplicantsDetailView(data: state.account),
-                  SizedBox(
-                    height: getSize(10),
-                  ),
+                  SizedBox(height: getSize(10)),
                   ApplicantSpecialize(data: state.account),
-                  SizedBox(
-                    height: getSize(16),
-                  ),
-                  if (state.account.education != null &&
-                      state.account.education!.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BaseText(
-                          text: StringConstant.education,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          textColor: Colors.black.withOpacity(0.8),
-                        ),
-                        SizedBox(height: getSize(8)),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(20),
-                            vertical: getSize(14),
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              context.router.push(
-                                PageRouteInfo(EducationProfileListView.name,
-                                    args: EducationProfileListViewArgs(
-                                        applicantDto: state.account)),
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  PngImageConstants.education,
-                                  height: getSize(28),
-                                  width: getSize(28),
-                                ),
-                                SizedBox(width: getSize(15)),
-                                Image.asset(
-                                  PngImageConstants.line,
-                                  height: getSize(25),
-                                ),
-                                SizedBox(width: getSize(15)),
-                                Expanded(
-                                  child: BaseText(
-                                    text: StringConstant.programCompleted,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Icon(Icons.arrow_forward_rounded)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  if (state.account.reference != null &&
-                      state.account.reference!.isNotEmpty) ...[
-                    SizedBox(height: getSize(12)),
-                    BaseText(
-                      text: StringConstant.referencesTapToView,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      textColor: Colors.black.withOpacity(0.8),
-                    ),
-                    if (state.account.reference
-                            ?.where((element) => element.type == 1)
-                            .toList()
-                            .isNotEmpty ??
-                        false) ...[
-                      SizedBox(height: getSize(12)),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(20),
-                          vertical: getSize(14),
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            context.router.push(
-                              PageRouteInfo(
-                                ProfessionalProfileView.name,
-                                args: ProfessionalProfileViewArgs(
-                                    applicantDto: state.account),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                PngImageConstants.person,
-                                height: getSize(30),
-                                width: getSize(30),
-                              ),
-                              SizedBox(
-                                width: getSize(15),
-                              ),
-                              Image.asset(
-                                PngImageConstants.line,
-                                height: getSize(25),
-                              ),
-                              SizedBox(
-                                width: getSize(15),
-                              ),
-                              Expanded(
-                                child: BaseText(
-                                  text: StringConstant.professional,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_rounded)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                    if (state.account.reference
-                            ?.where((element) => element.type == 2)
-                            .toList()
-                            .isNotEmpty ??
-                        false) ...[
-                      SizedBox(height: getSize(16)),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(20),
-                          vertical: getSize(14),
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            context.router.push(
-                              PageRouteInfo(
-                                PersonalProfileView.name,
-                                args: PersonalProfileViewArgs(
-                                    applicantDto: state.account),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                PngImageConstants.person,
-                                height: getSize(30),
-                                width: getSize(30),
-                              ),
-                              SizedBox(width: getSize(15)),
-                              Image.asset(
-                                PngImageConstants.line,
-                                height: getSize(25),
-                              ),
-                              SizedBox(width: getSize(15)),
-                              Expanded(
-                                child: BaseText(
-                                  text: StringConstant.personal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_rounded)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                  SizedBox(height: getSize(20)),
-                  DocumentsView(data: state.account),
+                  SizedBox(height: getSize(16)),
                 ],
               ),
             );

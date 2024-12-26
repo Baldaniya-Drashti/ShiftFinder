@@ -9,31 +9,31 @@ part 'account.freezed.dart';
 class Account with _$Account {
   const Account._();
 
-  const factory Account({
-    int? userId,
-    int? isDialogBox,
-    String? firstName,
-    String? lastName,
-    String? email,
-    int? isVerified,
-    int? serviceRole,
-    int? industryId,
-    String? profileImage,
-    int? isProfileComplete,
-    String? companyName,
-    String? countryCode,
-    String? countryNameCode,
-    int? phone,
-    String? association,
-    String? companyDescription,
-    String? location,
-    String? referralCode,
-    String? lastPage,
-    List<EducationDTO>? education,
-    List<ReferenceDTO>? reference,
-    List<DocumentDTO>? document,
-    Auth? auth,
-  }) = _Account;
+  const factory Account(
+      {int? userId,
+      int? isDialogBox,
+      String? firstName,
+      String? lastName,
+      String? email,
+      int? isVerified,
+      int? serviceRole,
+      int? industryId,
+      String? profileImage,
+      int? isProfileComplete,
+      String? companyName,
+      String? countryCode,
+      String? countryNameCode,
+      int? phone,
+      String? association,
+      String? companyDescription,
+      String? location,
+      String? referralCode,
+      String? lastPage,
+      List<EducationDTO>? education,
+      List<ReferenceDTO>? reference,
+      List<DocumentDTO>? document,
+      Auth? auth,
+      String? your_referral_code}) = _Account;
 }
 
 @freezed

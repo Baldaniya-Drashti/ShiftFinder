@@ -16,6 +16,10 @@ import 'package:shift/application/auth/auth_status/auth_status_bloc.dart'
     as _i1033;
 import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form_bloc/add_contractor_skill_form_bloc.dart'
     as _i471;
+import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart'
+    as _i596;
+import 'package:shift/application/auth/contractor_auth/background_doc_bloc/background_doc_bloc.dart'
+    as _i900;
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
     as _i1025;
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
@@ -28,6 +32,8 @@ import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_vi
     as _i897;
 import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
     as _i653;
+import 'package:shift/application/auth/contractor_auth/proof__of_legal_status_bloc/proof_of_legal_status_bloc.dart'
+    as _i285;
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart'
     as _i48;
 import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart'
@@ -39,6 +45,7 @@ import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart
 import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i31;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i134;
+import 'package:shift/application/bloc/pick_location_dialog_bloc.dart' as _i730;
 import 'package:shift/application/change_password/change_password_bloc.dart'
     as _i723;
 import 'package:shift/application/chat_section/chat/chat_bloc.dart' as _i790;
@@ -46,6 +53,8 @@ import 'package:shift/application/chat_section/message/message_bloc.dart'
     as _i544;
 import 'package:shift/application/consumer_support/support_ticket/support_ticket_bloc.dart'
     as _i942;
+import 'package:shift/application/contractor/contractor_earning_bloc/contractor_earning_bloc.dart'
+    as _i608;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -82,6 +91,8 @@ import 'package:shift/application/employer/employer_full_position/employer_posti
     as _i429;
 import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart'
     as _i152;
+import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart'
+    as _i1020;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
@@ -92,6 +103,8 @@ import 'package:shift/application/employer/hired_contractor/hired_contractor_blo
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
     as _i319;
+import 'package:shift/application/employer/payment_history/payment_history_bloc.dart'
+    as _i398;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -162,12 +175,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
-    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i515.FullPositionReviewBloc>(
         () => _i515.FullPositionReviewBloc());
     gh.factory<_i152.EmployerFullPositionConfirmBloc>(
         () => _i152.EmployerFullPositionConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i730.PickLocationDialogBloc>(
+        () => _i730.PickLocationDialogBloc());
     gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
@@ -176,10 +190,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
-    gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc(
-          gh<_i111.IMainFacade>(),
-          gh<_i253.IAccountRepository>(),
-        ));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),
@@ -265,6 +275,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i111.IMainFacade>(),
           gh<_i616.SocketChatService>(),
         ));
+    gh.factory<_i596.AddressProofBloc>(
+        () => _i596.AddressProofBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i897.IntroVideoBloc>(
         () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i161.ExperienceBloc>(
@@ -287,6 +299,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i944.SpecialityExperienceBloc>(
         () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i900.BackgroundDocBloc>(
+        () => _i900.BackgroundDocBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i285.ProofOfLegalStatusBloc>(
+        () => _i285.ProofOfLegalStatusBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(
@@ -309,7 +325,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i608.ContractorEarningBloc>(
+        () => _i608.ContractorEarningBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i810.ReferColleagueBloc>(
+        () => _i810.ReferColleagueBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i398.PaymentHistoryBloc>(
+        () => _i398.PaymentHistoryBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1020.EmployerInvoiceBloc>(
+        () => _i1020.EmployerInvoiceBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i319.MonthlyStatementBloc>(
+        () => _i319.MonthlyStatementBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(

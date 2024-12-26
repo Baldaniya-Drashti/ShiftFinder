@@ -244,7 +244,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                         final result = await showDialog<bool?>(
                                           barrierDismissible: false,
                                           context: context,
-                                          builder: (context) {
+                                          builder: (_) {
                                             return AlertDialog(
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -260,17 +260,40 @@ class ViewPersonPraposalView extends StatelessWidget {
                                                 textAlign: TextAlign.center,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                text:
-                                                    "Please confirm that you have reviewed the proposed availability to accept the proposal.",
+                                                text: StringConstant
+                                                    .proposalAvailabilityConfirmationDesc,
                                               ),
                                               actions: [
                                                 Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 30),
                                                   child: CommonButton(
-                                                    onPressed: () => context
-                                                        .router
-                                                        .maybePop(true),
+                                                    onPressed: () async {
+                                                      context.router.maybePop();
+                                                      await context.router
+                                                          .push(
+                                                        PageRouteInfo(
+                                                          EmployerAvailabilityView
+                                                              .name,
+                                                          args: EmployerAvailabilityViewArgs(
+                                                              list:
+                                                                  data.shift_details ??
+                                                                      [],
+                                                              confirmDialog:
+                                                                  state.confirmDialog ??
+                                                                      false),
+                                                        ),
+                                                      )
+                                                          .then((result) {
+                                                        context
+                                                            .read<
+                                                                ProposalDetailBloc>()
+                                                            .add(ProposalDetailEvent
+                                                                .addConfirmDialogFlag(
+                                                                    result
+                                                                        as bool));
+                                                      });
+                                                    },
                                                     buttonText: "Ok",
                                                   ),
                                                 )

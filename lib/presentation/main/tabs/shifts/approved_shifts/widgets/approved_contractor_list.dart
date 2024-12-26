@@ -397,7 +397,7 @@ class ApprovedHiredList extends StatelessWidget {
     ).acceptRejectDialog(context);
   }
 
-  successFullyApproved(BuildContext context) async {
+/*   successFullyApproved(BuildContext context) async {
     await showDialog<bool?>(
       barrierDismissible: false,
       context: context,
@@ -449,9 +449,14 @@ class ApprovedHiredList extends StatelessWidget {
       },
     ).then((value) {
       if (value == true) {
-        // showUnderDevelopment(context);
-        context.router.push(PageRouteInfo(ShiftActionsView.name));
+        showUnderDevelopment(context);
+        context.router.push(PageRouteInfo(ShiftActionsView.name)).then((value) {
+          if (value == true) {
+            Navigator.pop(context, true);
+          }
+        });
       }
     });
   }
+ */
 }

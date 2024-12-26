@@ -102,7 +102,10 @@ class FilledShiftsView extends StatelessWidget {
         children: [
           userDetail(context, shift),
           SizedBox(height: getSize(10)),
-          if (shift.remaining_shift != null && shift.remaining_shift! > 0)
+          if (shift.shift_type != null &&
+              shift.shift_type == 2 &&
+              shift.remaining_shift != null &&
+              shift.remaining_shift! > 0)
             remainingTime(context, shift),
           dateAndTime(context, shift),
           (shift.total_user == 1)
@@ -375,6 +378,7 @@ class FilledShiftsView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -397,7 +401,7 @@ class FilledShiftsView extends StatelessWidget {
                     ),
               displayDateBreak(
                 context,
-                boldValue: "\$${shift.estimated_payables ?? 0.0}",
+                boldValue: "\$${shift.formatted_payables ?? 0.0}",
                 timidValue: "",
                 title: StringConstant.estimatedPayables,
                 svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -406,6 +410,7 @@ class FilledShiftsView extends StatelessWidget {
           ),
         ),
         Flexible(
+          flex: 13,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

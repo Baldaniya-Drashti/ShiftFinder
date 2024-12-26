@@ -23,6 +23,7 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       end_time: (json['end_time'] as num?)?.toInt(),
       unpaid_break: json['unpaid_break'] as String?,
       estimated_payables: (json['estimated_payables'] as num?)?.toDouble(),
+      formatted_payables: json['formatted_payables'] as String?,
       total_shifts: (json['total_shifts'] as num?)?.toInt(),
       total_shift: (json['total_shift'] as num?)?.toInt(),
       user: json['user'] == null
@@ -39,6 +40,7 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       cancel_shift: (json['cancel_shift'] as num?)?.toInt(),
       total_contractor: (json['total_contractor'] as num?)?.toInt(),
       isCad: json['isCad'] as bool?,
+      reason: json['reason'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
@@ -56,6 +58,7 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'end_time': instance.end_time,
       'unpaid_break': instance.unpaid_break,
       'estimated_payables': instance.estimated_payables,
+      'formatted_payables': instance.formatted_payables,
       'total_shifts': instance.total_shifts,
       'total_shift': instance.total_shift,
       'user': instance.user,
@@ -68,6 +71,7 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'cancel_shift': instance.cancel_shift,
       'total_contractor': instance.total_contractor,
       'isCad': instance.isCad,
+      'reason': instance.reason,
     };
 
 _$HiredContractorDTOImpl _$$HiredContractorDTOImplFromJson(

@@ -63,18 +63,17 @@ class BillingView extends StatelessWidget {
                   children: [
                     titleUI(
                       icon: SvgImageConstant.paymentHistory,
-                      // onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
-                      onPressed: () {
-                        showUnderDevelopment(context);
-                      },
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(PaymentHistoryView.name)),
+                      // onPressed: () => showUnderDevelopment(context),
+
                       label: StringConstant.paymentHistory,
                     ),
                     titleUI(
                       icon: SvgImageConstant.invoice,
-                      // onPressed: () =>context.router.push(PageRouteInfo(InvoiceView.name)),
-                      onPressed: () {
-                        showUnderDevelopment(context);
-                      },
+                      onPressed: () =>
+                          context.router.push(PageRouteInfo(InvoiceView.name)),
+                      // onPressed: () => showUnderDevelopment(context),
                       label: StringConstant.invoices,
                     ),
                     titleUI(
@@ -85,10 +84,9 @@ class BillingView extends StatelessWidget {
                     ),
                     titleUI(
                       icon: SvgImageConstant.calenderStatement,
-                      // onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
-                      onPressed: () {
-                        showUnderDevelopment(context);
-                      },
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(MonthlyStatementView.name)),
+                      // onPressed: () => showUnderDevelopment(context),
                       label: StringConstant.monthlyStatement,
                     ),
                   ],

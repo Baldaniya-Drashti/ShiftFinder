@@ -17,6 +17,7 @@ _$EmployerPreviousShiftDtoImpl _$$EmployerPreviousShiftDtoImplFromJson(
       profile: json['profile'] as String?,
       role_lists_name: json['role_lists_name'] as String?,
       rating: (json['rating'] as num?)?.toInt(),
+      all_over_rating: (json['all_over_rating'] as num?)?.toDouble(),
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       location: json['location'] as String?,
@@ -31,6 +32,7 @@ _$EmployerPreviousShiftDtoImpl _$$EmployerPreviousShiftDtoImplFromJson(
       isBlock: json['isBlock'] as bool?,
       email: json['email'] as String?,
       remark: json['remark'] as String?,
+      total_amount: json['total_amount'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
@@ -44,6 +46,7 @@ Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
       'profile': instance.profile,
       'role_lists_name': instance.role_lists_name,
       'rating': instance.rating,
+      'all_over_rating': instance.all_over_rating,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'location': instance.location,
@@ -58,4 +61,5 @@ Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
       'isBlock': instance.isBlock,
       'email': instance.email,
       'remark': instance.remark,
+      'total_amount': instance.total_amount,
     };

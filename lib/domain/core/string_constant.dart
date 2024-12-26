@@ -344,7 +344,8 @@ class StringConstant {
   static const String payables = "Payables";
   static const String totalWage = "Total Wage";
   static const String estimatedWage = "Estimated Wage";
-  static const String totalAllowance = "Total Allowances";
+  static const String totalAllowances = "Total Allowances";
+  static const String totalAllowance = "Total Allowance";
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
   static const String postTheShift = "Post The Shift";
@@ -600,8 +601,89 @@ class StringConstant {
   static const String cancelledByEmployer = "Cancelled by Employer";
   static const String share = "Share";
   static const String yourReferrals = "Your Referrals";
+  static const String cancelled = "Cancelled";
+  static const String completed = "Completed";
+  static const String statementDetails = "Statement Details";
+  static const String dateOfTransaction = "Date of Transaction";
+  static const String contractorName = "Contractor Name";
+  static const String wage = "Wage";
+  static const String netAmount = "Net Amount";
+  static const String totalShiftCancellationFee =
+      "Total Shift Cancellation Fee";
 
+  static const String multiShift = "Multi Shift";
+  static const String shiftCancellationFee = "Shift Cancellation Fee";
+  static const String occupied = "Occupied";
+  static const String paymentsDetails = "Payment’s Details";
+  static const String contractorsDetails = "Contractor’s Details";
+  static const String shiftsDetails = "Shift’s Details";
+  static const String earningsAndStatements = "Earnings & Statements";
+  static const String earningDesc =
+      "Track your earnings and download statements for a complete financial summary";
+  static const String wallet = "Wallet";
+  static const String statements = "Statements";
+  static const String totalEarningsStatement = "Total Earnings Statement";
+  static const String completedShiftsEarning = "Completed Shifts Earning";
+  static const String wages = "Wages";
+  static const String allowances = "Allowances";
+  static const String compensationReceivedFromCancellations =
+      "Compensation Received From Cancellations";
+  static const String cancellationFee = "Cancellation Fee";
+  static const String totalCancellationFee = "Total Cancellation Fee";
+  static const String referralBonusReceived = "Referral Bonus Received";
+  static const String referredContractorName = "Referred Contractor Name";
+  static const String bonusAmount = "Bonus Amount";
+  static const String totalBonus = "Total Bonus";
+  static const String totalReferralBonusReceived =
+      "Total Referral Bonus Received";
+  static const String totalCompletedShiftEarnings =
+      "Total Completed Shift Earnings";
+  static const String totalCompensationReceived = "Total Compensation Received";
+  static const String netEarnings = "Net Earnings";
+  static const String shiftFinderInc = "ShiftFinder Inc.";
+  static const String website = "Website";
+  static const String compensationFee = "Compensation Fee";
+  static const String depositAmount = "Deposit Amount";
+  static const String occupiedDesc =
+      "This contractor cannot be hired for the selected shift as they are already booked for another shift during this time. Please select a different contractor.";
+  static const String filter = "Filter";
+  static const String selectAGovtIssuedId = "Select a Govt. Issued Id";
+  static const String selectYourId = "Select Your Id";
+  static const String selectYourIdDesc =
+      "Please select your Govt. issued Id document from the list";
+  static const String frontPage = "Front Page";
+  static const String backPage = "Back Page";
+  static const String addressProof = "Address Proof";
+  static const String selectAnAddressProof = "Select an Address Proof";
+  static const String counterProposalConfirmation =
+      "Are you sure you want to send this counter proposal to the contractor?";
+  static const String counterProposalExistingValueDesc =
+      "Some fields in your counter proposal are unfilled. For these fields, the contractor proposed values remain the same as the originally posted values. By proceeding, you confirm that you agree with these values and do not wish to modify them.";
+  static const String wouldYouLikeToProceedWithSendingTheCounterProposal =
+      "Would you like to proceed with sending the counter proposal?";
+  static const String proposalAvailabilityConfirmationDesc =
+      "Please confirm that you have reviewed the proposed availability to accept the proposal.";
+  static const String currentCompleteShiftDesc =
+      "Your submitted shift will appear under Profile > Previous Shifts > Completed once the payment has been processed.";
+  static const String pleaseSelectYourAddressProofDocumentFromTheList =
+      "Please select your address proof document from the list";
+  static const String selectYourAddressProof = "Select Your Address Proof";
+  static const String note = "Note";
+  static const String backgroundCheckDocument = "Background Check Document";
+  static const String pleaseUploadCriminalBackgroundCheckDocument =
+      "Please upload criminal background check document";
+  static const String issueDate = "Issue Date";
+  static const String proofOfLegalWorkStatus = "Proof of Legal Work Status";
+  static const String proofOfLegalDesc1 =
+      "Please upload a valid, non-expired document from the  list below to confirm your eligibility to work as an  independent contractor in Canada.";
+  static const String proofOfLegalDesc2 =
+      "Please upload a clear photo of the original document,  as scanned copies will not be accepted";
+  static const String pleaseSelectYourLegalWorkStatusProofFromTheList =
+      "Please select your legal work status proof from the list.";
+  static const String selectYourLegalWorkStatus =
+      "Select Your Legal Work Status";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";
@@ -805,7 +887,7 @@ class StringConstant {
   static const String aboutShiftFinder = "About ShiftFinder";
   static const String ourPolicies = "Our Policies";
   static const String ourPoliciesDes =
-      "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs";
+      "Access key information about the platform, including terms, privacy, cancellation policies and FAQs";
   static const String cancellationPolicy = "Cancellation Policy";
   static const String faq = "FAQs";
   static const String customerSupport = "Customer Support";
@@ -825,5 +907,22 @@ class StringConstant {
   static const String pleaseSelectLocation = "Please select location";
   static const String pleaseEnterValidName = "Please enter valid name";
   static const String pleaseEnterYourName = "Please enter your name";
-  static const String savedTemplates = "Saved Templates";
+  static const String pleaseSelectFrontPageOfGoverIssuedId =
+      "Please select front page of Goverment issued id!";
+  static const String pleaseSelectBackPageOfGoverIssuedId =
+      "Please select back page of Goverment issued id!";
+  static const String pleaseSelectExpiryDate = "Please add expiry date";
+  static const String pleaseAddValidReasonToDeletePost =
+      "Please add valid reason to delete post";
+  static const String pleaseSelectBackPageOfAddressProof =
+      "Please select back page of Address proof";
+  static const String pleaseSelectFrontPageOfAddressProof =
+      "Please select front page of Address proof";
+  static const String deleteAddressProofDesc =
+      "Are you sure you want to delete Address Proof document?";
+  static const String deleteBackgroundCheckDesc =
+      "Are you sure you want to delete Background check document?";
+  static const String deleteProofLegalDesc =
+      "Are you sure you want to delete Proof legal work status document?";
+  static const String pleaseSelectIssueDate = "Please add issue date";
 }

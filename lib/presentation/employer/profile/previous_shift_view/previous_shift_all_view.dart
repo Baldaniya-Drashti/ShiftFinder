@@ -286,7 +286,9 @@ class _PreviousShiftListTile extends StatelessWidget {
       url: data.profile ?? "",
       title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
       subTitle: "${data.role_lists_name}",
-      trailing: RatingStar(rating: data.rating?.toDouble() ?? 0.0),
+      trailing: RatingStar(
+          rating:
+              double.parse(data.all_over_rating?.toStringAsFixed(1) ?? "0.0")),
     );
   }
 
@@ -489,6 +491,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                               context,
                               postId: data.post_id ?? 0,
                               userId: data.user_id ?? 0,
+                              existingRemark:
+                                  (data.isRemark == true) ? data.remarks : null,
                             );
                           }
                         : null,
@@ -544,10 +548,13 @@ class _PreviousShiftListTile extends StatelessWidget {
     BuildContext context, {
     required int postId,
     required int userId,
+    String? existingRemark,
   }) async {
     final result = await showDialog<String?>(
       context: context,
-      builder: (context) => AddRemarkModal(),
+      builder: (context) => AddRemarkModal(
+        initialValue: existingRemark,
+      ),
     );
     if (result != null) {
       context.read<PreviousShiftBloc>().add(

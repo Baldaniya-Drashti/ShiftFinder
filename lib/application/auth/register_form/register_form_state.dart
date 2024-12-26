@@ -21,6 +21,7 @@ class RegisterFormState with _$RegisterFormState {
     required EmailAddress email,
     required InputEmptyOrNot locationAddress,
     required List<Predictions> searchLocationList,
+    required Predictions selectedLocationPrediction,
     required Password password,
     required ConfirmPassword confirmPassword,
     required String association,
@@ -79,6 +80,7 @@ class RegisterFormState with _$RegisterFormState {
         enteredPassword: "",
         enteredPhoneNo: "",
         selectedAddress: PlaceDetailDTO(),
+        selectedLocationPrediction: Predictions(),
 
         /// OTP VIEW
         enteredOTP: OTPText(''),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -19,6 +21,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ContractorHomeView')
 class ContractorHomeView extends StatelessWidget {
@@ -31,43 +34,129 @@ class ContractorHomeView extends StatelessWidget {
         ..add(ContractorHomeEvent.getContractorDashboardList(true)),
       child: BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
         builder: (context, state) {
-          // return getCheckoutContainer(context);
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(5)),
-            child: PaginatedListView(
-              onRefresh: () {
-                context
-                    .read<ContractorHomeBloc>()
-                    .add(ContractorHomeEvent.getContractorDashboardList(true));
-              },
-              refreshController:
-                  context.read<ContractorHomeBloc>().refreshController,
-              onLoading: () {
-                context
-                    .read<ContractorHomeBloc>()
-                    .add(ContractorHomeEvent.getContractorDashboardList(false));
-              },
-              isNoDataFound: state.isNoDataFound,
-              child: state.isLoading
-                  ? CenterLoadingIndicator(isOnlyLoader: true)
-                  : state.isErrorInAPI
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : ListView.builder(
-                          itemCount: state.contractorDashboardList.length,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(10),
-                            vertical: getSize(10),
+          return Scaffold(
+            appBar: ContractorHomeAppBar(
+              leading: Container(
+                height: getSize(50),
+                width: getSize(50),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border:
+                      Border.all(color: AppColors.darkGreen, width: getSize(3)),
+                  image: DecorationImage(
+                    image: (getCurrentUser().profileImage != null &&
+                            getCurrentUser().profileImage!.isNotEmpty)
+                        ? CachedNetworkImageProvider(
+                            getCurrentUser().profileImage!,
+                            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
+                          )
+                        : AssetImage(
+                            PngImageConstants.profile_employer,
                           ),
-                          clipBehavior: Clip.none,
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (_, index) {
-                            return getCheckoutContainer(index, context, state);
-                          },
-                        ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              titleWidget: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  BaseText(
+                    text: StringConstant.welcome,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Aclonica",
+                    lineHeight: getSize(1),
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                  BaseText(
+                    text:
+                        "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Aclonica",
+                  ),
+                  // BaseText(
+                  //   text: "${getCurrentUser().companyName ?? ''}",
+                  //   fontSize: 10,
+                  //   fontWeight: FontWeight.w600,
+                  //   textColor: AppColors.primaryColor,
+                  // ),
+                ],
+              ),
+              actions: [
+                // SvgPicture.asset(
+                //   SvgImageConstant.filter,
+                //   height: getSize(38),
+                //   width: getSize(38),
+                // ),
+                PopupMenuButton<String>(
+                  icon: SvgPicture.asset(
+                    SvgImageConstant.filter, // Replace with your SVG icon path
+                    height: getSize(38),
+                    width: getSize(38),
+                  ),
+                  color: AppColors.white,
+                  padding: EdgeInsets.zero,
+                  onSelected: (String result) {
+                    context
+                        .read<ContractorHomeBloc>()
+                        .add(ContractorHomeEvent.filterShiftEvent(result));
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: StringConstant.all,
+                      child: Text(StringConstant.all),
+                    ),
+                    PopupMenuItem<String>(
+                      value: StringConstant.singleShifts,
+                      child: Text(StringConstant.singleShifts),
+                    ),
+                    PopupMenuItem<String>(
+                      value: StringConstant.multiShifts,
+                      child: Text(StringConstant.multiShifts),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+              child: PaginatedListView(
+                onRefresh: () {
+                  context.read<ContractorHomeBloc>().add(
+                      ContractorHomeEvent.getContractorDashboardList(true));
+                },
+                refreshController:
+                    context.read<ContractorHomeBloc>().refreshController,
+                onLoading: () {
+                  context.read<ContractorHomeBloc>().add(
+                      ContractorHomeEvent.getContractorDashboardList(false));
+                },
+                isNoDataFound: state.isNoDataFound,
+                child: state.isLoading
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : state.isErrorInAPI
+                        ? Center(
+                            child: BaseText(
+                                text: StringConstant.somethindWentWrong),
+                          )
+                        : ListView.builder(
+                            itemCount: state.contractorDashboardList.length,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getSize(10),
+                              vertical: getSize(10),
+                            ),
+                            clipBehavior: Clip.none,
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (_, index) {
+                              return getCheckoutContainer(
+                                  index, context, state);
+                            },
+                          ),
+              ),
             ),
           );
         },
@@ -499,7 +588,8 @@ class ContractorHomeView extends StatelessWidget {
               ),
               (list.shift_type == 2)
                   ? displayDateBreak(context, list,
-                      boldValue: "${list.total_shift ?? -1}",
+                      boldValue:
+                          "${list.total_shift != null ? (list.total_shift! > 9 ? list.total_shift! : "0${list.total_shift!}") : "00"}",
                       timidValue: "",
                       title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.clock)
@@ -553,7 +643,7 @@ class ContractorHomeView extends StatelessWidget {
               BaseText(
                 text: title,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               (showBtn)
@@ -606,7 +696,7 @@ class ContractorHomeView extends StatelessWidget {
               BaseText(
                 text: StringConstant.time,
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
               Row(
@@ -741,7 +831,9 @@ class ContractorHomeView extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithBag,
               title: StringConstant.hourlyRate,
-              value: (post.rate_hour != null) ? "\$${post.rate_hour}" : "\$0",
+              value: (post.rate_hour != null)
+                  ? "\$${post.rate_hour!.toDouble()}"
+                  : "\$0",
             ),
             Container(
               width: getSize(40),
@@ -751,7 +843,7 @@ class ContractorHomeView extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
-              value: post.total_payable_hour ?? "81h 15min",
+              value: post.total_payable_hour ?? "0h 0min",
               // value: "81h 15min",
             ),
           ],

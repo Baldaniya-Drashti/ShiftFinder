@@ -80,31 +80,36 @@ class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
-      style: ElevatedButton.styleFrom(
-        side: BorderSide(color: widget.borderColor ?? Colors.transparent),
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        splashFactory: NoSplash.splashFactory,
-        backgroundColor: widget.backgroundColor ?? AppColors.primaryColor,
-        disabledBackgroundColor: widget.backgroundColor ?? AppColors.primaryColor,
-        padding: EdgeInsets.zero,
-        fixedSize: Size(
+      onPressed:
+          widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
+      style: ButtonStyle(
+        side: WidgetStatePropertyAll(
+            BorderSide(color: widget.borderColor ?? Colors.transparent)),
+        elevation: WidgetStatePropertyAll(0),
+        // shadowColor: WidgetStatePropertyAll(Colors.transparent),
+        // splashFactory: NoSplash.splashFactory,
+        overlayColor: WidgetStatePropertyAll(AppColors.grey04),
+
+        backgroundColor: WidgetStatePropertyAll(
+            widget.backgroundColor ?? AppColors.primaryColor),
+        // disabledBackgroundColor:widget.backgroundColor ?? AppColors.primaryColor,
+        padding: WidgetStatePropertyAll(EdgeInsets.zero),
+        fixedSize: WidgetStatePropertyAll(Size(
           getSize(widget.width ?? MediaQuery.of(context).size.width * 100),
           // (widget.width != null) ? getSize(widget.width!) : double.infinity,
           getSize(
             widget.height ?? 50,
           ),
-        ),
+        )),
         visualDensity: VisualDensity(
           vertical: VisualDensity.minimumDensity,
           horizontal: VisualDensity.minimumDensity,
         ),
-        shape: RoundedRectangleBorder(
+        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             getSize(widget.borderRadius),
           ),
-        ),
+        )),
       ),
       child: widget.isSubmitting
           ? SizedBox(
@@ -128,7 +133,8 @@ class _CommonButtonState extends State<CommonButton> {
   }
 }
 
-Widget documentSkipButton(BuildContext context, {required VoidCallback onPressed}) {
+Widget documentSkipButton(BuildContext context,
+    {required VoidCallback onPressed}) {
   return Align(
     alignment: Alignment.center,
     child: CommonButton(
@@ -185,8 +191,10 @@ class CommonMaterialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    final baseTextStyle = TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
-    final Widget title = BaseText(text: label, style: textStyle ?? baseTextStyle);
+    final baseTextStyle =
+        TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
+    final Widget title =
+        BaseText(text: label, style: textStyle ?? baseTextStyle);
 
     if (_icon != null) {
       child = Row(

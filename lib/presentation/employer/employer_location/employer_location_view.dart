@@ -32,7 +32,8 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerLocationBloc>()..add(EmployerLocationEvent.getLocationList(context)),
+      create: (context) => getIt<EmployerLocationBloc>()
+        ..add(EmployerLocationEvent.getLocationList(context)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
@@ -57,7 +58,9 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
             }
             return PaginatedListView(
               onRefresh: () {
-                context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context, refresh: true));
+                context.read<EmployerLocationBloc>().add(
+                    EmployerLocationEvent.getLocationList(context,
+                        refresh: true));
               },
               onLoading: () {},
               refreshController: RefreshController(),
@@ -77,7 +80,8 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return _LocationInfoTile(data: state.locationList[index]);
+                            return _LocationInfoTile(
+                                data: state.locationList[index]);
                           },
                         ),
                         Material(
@@ -86,13 +90,18 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                           borderRadius: BorderRadius.circular(7),
                           child: InkWell(
                             onTap: () async {
-                              final result = await context.router.push(PageRouteInfo(EmployerLocationFormView.name)) as bool?;
+                              final result = await context.router.push(
+                                  PageRouteInfo(
+                                      EmployerLocationFormView.name)) as bool?;
                               if (result ?? false) {
-                                context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context));
+                                context.read<EmployerLocationBloc>().add(
+                                    EmployerLocationEvent.getLocationList(
+                                        context));
                               }
                             },
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 8),
                               child: BaseText(
                                 text: "+ Add New Location",
                                 fontSize: 12,
@@ -125,7 +134,12 @@ class _LocationInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? units;
-    if ((data.add_units ?? []).isNotEmpty) units = data.add_units!.map((e) => e.number_or_name ?? "").toString().split(",").join(",");
+    if ((data.add_units ?? []).isNotEmpty) {
+      units = data.add_units!
+          .map((e) => e.number_or_name ?? "")
+          .where((value) => value != "N/A")
+          .join(",");
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -165,9 +179,9 @@ class _LocationInfoTile extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
-                if (units != null)
+                if (units != null && units.isNotEmpty)
                   BaseText(
-                    text: units,
+                    text: "($units)",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontSize: 10,
@@ -183,10 +197,13 @@ class _LocationInfoTile extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   final result = await context.router.push(
-                    PageRouteInfo(EmployerLocationFormView.name, args: EmployerLocationFormViewArgs(id: data.id ?? -1)),
+                    PageRouteInfo(EmployerLocationFormView.name,
+                        args: EmployerLocationFormViewArgs(id: data.id ?? -1)),
                   ) as bool?;
                   if (result ?? false) {
-                    context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context));
+                    context
+                        .read<EmployerLocationBloc>()
+                        .add(EmployerLocationEvent.getLocationList(context));
                   }
                 },
                 child: SvgPicture.asset(SvgImageConstant.editWithBg),
@@ -202,7 +219,9 @@ class _LocationInfoTile extends StatelessWidget {
                     successLabel: "Delete",
                   );
                   if (result ?? false) {
-                    context.read<EmployerLocationBloc>().add(EmployerLocationEvent.deleteLocation(id: data.id ?? -1, context: context));
+                    context.read<EmployerLocationBloc>().add(
+                        EmployerLocationEvent.deleteLocation(
+                            id: data.id ?? -1, context: context));
                   }
                 },
                 child: SvgPicture.asset(SvgImageConstant.bin),
