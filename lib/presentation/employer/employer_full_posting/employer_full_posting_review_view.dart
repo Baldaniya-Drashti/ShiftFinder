@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/application/contractor/full_time_position_detail/full_time_position_detail_bloc.dart';
-import 'package:shift/application/employer/full_position_review/full_position_review_bloc.dart';
+import 'package:shift/application/employer/employer_full_posting_review/employer_full_posting_review_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -19,14 +19,14 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "FullPositionReviewView")
-class FullPositionReviewView extends StatelessWidget {
-  const FullPositionReviewView({super.key});
+@RoutePage(name: "EmployerFullPostingReviewView")
+class EmployerFullPostingReviewView extends StatelessWidget {
+  const EmployerFullPostingReviewView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<FullPositionReviewBloc>(),
+      create: (context) => getIt<EmployerFullPostingReviewBloc>(),
       child: Scaffold(
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Review Details"),
         body: SingleChildScrollView(
@@ -56,30 +56,30 @@ class FullPositionReviewView extends StatelessWidget {
                     _buildBulletPointsList(context, title: "Required Skills"),
                     _buildBulletPointsList(context, title: "Other"),
                     _buildNumberOfVacancy(context),
-                    BlocSelector<FullPositionReviewBloc, FullPositionReviewState, bool>(
+                    BlocSelector<EmployerFullPostingReviewBloc, EmployerFullPostingReviewState, bool>(
                       selector: (state) => state.includeCall,
                       builder: (context, includeCall) {
                         return _buildCheckListTile(
                           context,
                           value: includeCall,
                           onChanged: (value) {
-                            context.read<FullPositionReviewBloc>().add(
-                              FullPositionReviewEvent.onIncludeCallChanged(value: value),
+                            context.read<EmployerFullPostingReviewBloc>().add(
+                              EmployerFullPostingReviewEvent.onIncludeCallChanged(value: value),
                             );
                           },
                           label: "This position may include on call.",
                         );
                       },
                     ),
-                    BlocSelector<FullPositionReviewBloc, FullPositionReviewState, bool>(
+                    BlocSelector<EmployerFullPostingReviewBloc, EmployerFullPostingReviewState, bool>(
                       selector: (state) => state.saveTemplateFuture,
                       builder: (context, saveTemplateFuture) {
                         return _buildCheckListTile(
                           context,
                           value: saveTemplateFuture,
                           onChanged: (value) {
-                            context.read<FullPositionReviewBloc>().add(
-                              FullPositionReviewEvent.onSaveTemplateFutureChanged(value: value),
+                            context.read<EmployerFullPostingReviewBloc>().add(
+                              EmployerFullPostingReviewEvent.onSaveTemplateFutureChanged(value: value),
                             );
                           },
                           label: "This position may include on call.",

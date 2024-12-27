@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart';
+import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -13,14 +13,14 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "EmployerFullPositionConfirmView")
-class EmployerFullPositionConfirmView extends StatelessWidget {
-  const EmployerFullPositionConfirmView({super.key});
+@RoutePage(name: "EmployerFullPostingConfirmView")
+class EmployerFullPostingConfirmView extends StatelessWidget {
+  const EmployerFullPostingConfirmView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerFullPositionConfirmBloc>(),
+      create: (context) => getIt<EmployerFullPostingConfirmBloc>(),
       child: Scaffold(
         bottomNavigationBar: SafeArea(
           minimum: EdgeInsets.all(16),
@@ -68,15 +68,15 @@ class EmployerFullPositionConfirmView extends StatelessWidget {
                 ),
               ),
               Gap(16),
-              BlocSelector<EmployerFullPositionConfirmBloc, EmployerFullPositionConfirmState, bool>(
+              BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.includeOnCall,
                 builder: (context, includeOnCall) {
                   return _buildCheckListTile(
                     context,
                     value: includeOnCall,
                     onChanged: (value) {
-                      context.read<EmployerFullPositionConfirmBloc>().add(
-                            EmployerFullPositionConfirmEvent.onIncludeOnCallChanged(value: value),
+                      context.read<EmployerFullPostingConfirmBloc>().add(
+                        EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(value: value),
                           );
                     },
                     label: "This position may include on call.",
@@ -84,15 +84,15 @@ class EmployerFullPositionConfirmView extends StatelessWidget {
                 },
               ),
               Gap(16),
-              BlocSelector<EmployerFullPositionConfirmBloc, EmployerFullPositionConfirmState, bool>(
+              BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.saveFuturePosting,
                 builder: (context, saveFuturePosting) {
                   return _buildCheckListTile(
                     context,
                     value: saveFuturePosting,
                     onChanged: (value) {
-                      context.read<EmployerFullPositionConfirmBloc>().add(
-                            EmployerFullPositionConfirmEvent.onFuturePostingChanged(value: value),
+                      context.read<EmployerFullPostingConfirmBloc>().add(
+                            EmployerFullPostingConfirmEvent.onFuturePostingChanged(value: value),
                           );
                     },
                     label: "Save this as a template for future posting",
@@ -100,15 +100,15 @@ class EmployerFullPositionConfirmView extends StatelessWidget {
                 },
               ),
               Gap(16),
-              BlocSelector<EmployerFullPositionConfirmBloc, EmployerFullPositionConfirmState, bool>(
+              BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.moreVacancy,
                 builder: (context, moreVacancy) {
                   return _buildCheckListTile(
                     context,
                     value: moreVacancy,
                     onChanged: (value) {
-                      context.read<EmployerFullPositionConfirmBloc>().add(
-                            EmployerFullPositionConfirmEvent.onMoreVacancyChanged(value: value),
+                      context.read<EmployerFullPostingConfirmBloc>().add(
+                            EmployerFullPostingConfirmEvent.onMoreVacancyChanged(value: value),
                           );
                     },
                     label: "We are looking to fill more than one vacancies with the same  requirements.",
@@ -116,15 +116,15 @@ class EmployerFullPositionConfirmView extends StatelessWidget {
                 },
               ),
               Gap(16),
-              BlocSelector<EmployerFullPositionConfirmBloc, EmployerFullPositionConfirmState, bool>(
+              BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.termsAndCondition,
                 builder: (context, termsAndCondition) {
                   return _buildCheckListTile(
                     context,
                     value: termsAndCondition,
                     onChanged: (value) {
-                      context.read<EmployerFullPositionConfirmBloc>().add(
-                            EmployerFullPositionConfirmEvent.onTermsAndConditionChanged(value: value),
+                      context.read<EmployerFullPostingConfirmBloc>().add(
+                            EmployerFullPostingConfirmEvent.onTermsAndConditionChanged(value: value),
                           );
                     },
                     label:

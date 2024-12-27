@@ -114,10 +114,12 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ReferenceListView.page),
         AutoRoute(page: FullTimePositionView.page),
         AutoRoute(page: FullPositionDetailView.page),
-        AutoRoute(page: EmployerFullPositionView.page),
-        AutoRoute(page: AddFullPositionView.page),
-        AutoRoute(page: EmployerFullPositionConfirmView.page),
-        AutoRoute(page: FullPositionReviewView.page),
+
+        AutoRoute(page: EmployerFullPostingView.page),
+        AutoRoute(page: EmployerFullPostingConfirmView.page),
+        AutoRoute(page: EmployerFullPostingReviewView.page),
+
+        AutoRoute(page: EmployerFullPositionAddView.page),
         AutoRoute(page: EmployerCompletedShiftView.page),
         AutoRoute(page: SaveTemplateView.page),
         AutoRoute(page: ViewCollegueProfile.page),

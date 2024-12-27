@@ -1063,7 +1063,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
 
-              final post = continueWithPostDetail(state, passShiftData(state));
+              final post = continueWithPostDetail(state, passShiftData(state),e.fromSaveTemplate);
 
               /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state),

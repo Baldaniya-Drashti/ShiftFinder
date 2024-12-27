@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
-import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart';
+import 'package:shift/application/employer/employer_full_posting/employer_full_posting_bloc.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
@@ -16,14 +15,14 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "EmployerFullPositionView")
-class EmployerFullPositionView extends StatelessWidget {
-  const EmployerFullPositionView({super.key});
+@RoutePage(name: "EmployerFullPostingView")
+class EmployerFullPostingView extends StatelessWidget {
+  const EmployerFullPostingView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerPostionBloc>(),
+      create: (context) => getIt<EmployerFullPostingBloc>(),
       child: Scaffold(
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Full Time Positions"),
         body: ListView.separated(
@@ -53,7 +52,7 @@ class EmployerFullPositionView extends StatelessWidget {
           padding: const EdgeInsets.all(16.0).copyWith(top: 12),
           child: CommonButton(
             onPressed: () {
-              context.router.push(PageRouteInfo(AddFullPositionView.name));
+              context.router.push(PageRouteInfo(EmployerFullPositionAddView.name));
             },
             buttonText: "Post a Full Time Position",
           ),

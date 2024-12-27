@@ -25,9 +25,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-@RoutePage(name: "AddFullPositionView")
-class AddFullPositionView extends StatelessWidget {
-  const AddFullPositionView({super.key});
+@RoutePage(name: "EmployerFullPositionAddView")
+class EmployerFullPositionAddView extends StatelessWidget {
+  const EmployerFullPositionAddView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -683,7 +683,7 @@ class _BulletListViewState extends State<_BulletListView> {
             //
             // if (_formKey.currentState?.validate() != true) return;
 
-            context.router.navigate(PageRouteInfo(EmployerFullPositionConfirmView.name));
+            context.router.navigate(PageRouteInfo(EmployerFullPostingConfirmView.name));
           },
           buttonText: "Continue",
         )

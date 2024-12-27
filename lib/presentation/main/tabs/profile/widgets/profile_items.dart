@@ -45,7 +45,7 @@ class ProfileItems extends StatelessWidget {
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          // context.router.push(PageRouteInfo(EmployerFullPositionView.name));
+          context.router.push(PageRouteInfo(EmployerFullPostingView.name));
         },
       ),
       ProfileItemModel(
@@ -75,7 +75,6 @@ class ProfileItems extends StatelessWidget {
         image: SvgImageConstant.savedTemplates,
         onTap: () {
           context.router.push(PageRouteInfo(SaveTemplateView.name));
-
         },
       ),
       ProfileItemModel(
@@ -117,9 +116,7 @@ class ProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context
-                        .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
+                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
                   );
             },
             onPressedReject: () {
@@ -247,8 +244,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.shareShiftFinder,
         image: SvgImageConstant.share,
         onTap: () async {
-          final byteData =
-              await rootBundle.load(PngImageConstants.shiftFinderWhiteLogo);
+          final byteData = await rootBundle.load(PngImageConstants.shiftFinderWhiteLogo);
 
           final tempDir = await getTemporaryDirectory();
           final file = File('${tempDir.path}/logo.png');
@@ -298,9 +294,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context
-                        .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
+                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut(isDeleteAccount: false)),
                   );
             },
             onPressedReject: () {
