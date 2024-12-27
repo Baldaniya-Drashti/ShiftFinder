@@ -29,7 +29,7 @@ class ProposalReceived extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final proposal = post.proposal_received;
-    print("Proposal sharee---> $proposal");
+    print("Proposal sharee---> ${post.last_request}");
     return BlocProvider(
       create: (context) => getIt<ContractorShiftBloc>(),
       child: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
@@ -97,7 +97,7 @@ class ProposalReceived extends StatelessWidget {
                         "${proposal?.counter_proposal_accommodation_allowance ?? 0.0}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
                   ),
-                  if (post.last_request != 1) ...[
+                  if (post.last_request != null && post.last_request != 1) ...[
                     paddingBetweenFields(height: 20),
                     Row(
                       children: [

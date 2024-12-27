@@ -690,7 +690,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }

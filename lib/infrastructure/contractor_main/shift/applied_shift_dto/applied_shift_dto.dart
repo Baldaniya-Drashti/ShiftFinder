@@ -32,6 +32,7 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     ProposalReceivedDTO? proposal_received,
     Duration? remainingRevokeTime,
     bool? deleteAt,
+    bool? isVacancies,
     int? shift_type,
     int? total_shift,
     int? date,

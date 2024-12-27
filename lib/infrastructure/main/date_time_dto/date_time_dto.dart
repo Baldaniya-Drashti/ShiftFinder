@@ -19,7 +19,8 @@ class DateTimeDTO with _$DateTimeDTO {
     String? endMinute,
     String? totalPaybleHours,
     String? unpaidBreak,
-    @Default(false)bool isUnAvailable,
+    int? unpaidBreakId,
+    @Default(false) bool isUnAvailable,
     String? colorText,
   }) = _DateTimeDTO;
 

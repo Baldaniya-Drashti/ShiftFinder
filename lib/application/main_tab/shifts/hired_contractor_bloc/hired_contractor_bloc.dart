@@ -59,6 +59,7 @@ class HiredContractorBloc
               clockOut: e.clockOut,
             ),
           );
+          print("clock in timee---> ${state.clockIn}");
         },
         changeClockInClockOutTime: (value) async {
           if (value.isClockIn) {
@@ -67,20 +68,29 @@ class HiredContractorBloc
 
             emit(state.copyWith(
               clockIn: clockInTimeStamp,
+              clockOut: null,
             ));
           } else {
             final clockOutTimeStamp = convertToTimestamp(value.time);
-            emit(
-              state.copyWith(
-                clockOut: clockOutTimeStamp,
-              ),
-            );
+
+            if (state.clockIn != null && clockOutTimeStamp < state.clockIn!) {
+              showError(message: StringConstant.pleaseSelectAValidTime)
+                  .show(value.context);
+            } else {
+              emit(
+                state.copyWith(
+                  clockOut: clockOutTimeStamp,
+                ),
+              );
+            }
           }
         },
         submitClockInOutTime: (e) async {
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           final formatedClockIn = state.clockIn ?? e.clockIn;
           final formatedClockOut = state.clockOut ?? e.clockOut;
+
+          print("formatedClockOut----> $formatedClockOut");
 
           final isClockInValid = formatedClockIn != null;
           final isClockOutValid = formatedClockOut != null;
@@ -110,6 +120,7 @@ class HiredContractorBloc
                 ).show(e.context);
               },
               (r) async {
+                e.context.router.maybePop();
                 emit(state.copyWith(isSubmitting: false));
 
                 await showDialog<bool?>(

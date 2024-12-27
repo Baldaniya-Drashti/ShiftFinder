@@ -14,7 +14,8 @@ class HiredContractorEvent with _$HiredContractorEvent {
       required int postId}) = GetHiredApproveContractorList;
 
   factory HiredContractorEvent.changeClockInClockOutTime(
-      TimeOfDay time, bool isClockIn) = ChangeClockInClockOutTime;
+          BuildContext context, TimeOfDay time, bool isClockIn) =
+      ChangeClockInClockOutTime;
 
   factory HiredContractorEvent.getEditClockInTime(
       {int? clockIn, int? clockOut}) = GetEditClockInTime;
