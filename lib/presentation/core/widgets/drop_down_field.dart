@@ -53,6 +53,7 @@ class CustomDropdownField<T> extends StatefulWidget {
     this.radius,
     this.label,
     this.fontSize,
+    this.selectedItemBuilder,
   });
 
   // final ValueChanged<T?> onChanged;
@@ -66,6 +67,7 @@ class CustomDropdownField<T> extends StatefulWidget {
   final double? radius;
   final String? label;
   final double? fontSize;
+  final List<Widget> Function(BuildContext)? selectedItemBuilder;
 
   @override
   State<CustomDropdownField> createState() => _CustomDropdownFieldState();
@@ -104,6 +106,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
             height: 45,
             padding: EdgeInsets.only(left: 14, right: 14),
           ),
+          selectedItemBuilder: widget.selectedItemBuilder,
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
             padding: EdgeInsets.zero,

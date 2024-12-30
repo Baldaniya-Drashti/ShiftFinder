@@ -193,45 +193,46 @@ class ApprovedHiredList extends StatelessWidget {
           ] else if (contractor.clock_in_out_status == 1) ...[
             clocInOut(context, contractor),
             SizedBox(height: getSize(10)),
-            Row(
-              children: [
-                Expanded(
-                  child: CommonButton(
-                    height: 40,
-                    onPressed: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
-                        ? () {
-                            approveDialog(context, contractor);
-                          }
-                        : () {},
-                    borderRadius: 7,
-                    buttonFontSize: 12,
-                    buttonText: StringConstant.approve,
-                    backgroundColor: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
-                        ? AppColors.primaryColor
-                        : AppColors.primaryColor.withOpacity(0.3),
+            if (contractor.shift_complete != true)
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      height: 40,
+                      onPressed: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? () {
+                              approveDialog(context, contractor);
+                            }
+                          : () {},
+                      borderRadius: 7,
+                      buttonFontSize: 12,
+                      buttonText: StringConstant.approve,
+                      backgroundColor: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? AppColors.primaryColor
+                          : AppColors.primaryColor.withOpacity(0.3),
+                    ),
                   ),
-                ),
-                SizedBox(width: getSize(10)),
-                Expanded(
-                  child: CommonButton(
-                    height: 40,
-                    backgroundColor: AppColors.scaffoldColor,
-                    borderColor: AppColors.scaffoldColor,
-                    buttonTextColor: AppColors.black,
-                    onPressed: () {
-                      EditClockTimeDialog()
-                          .editClockTimeDialog(context, contractor);
-                      // showUnderDevelopment(context);
-                    },
-                    buttonFontSize: 12,
-                    borderRadius: 7,
-                    buttonText: StringConstant.edit,
+                  SizedBox(width: getSize(10)),
+                  Expanded(
+                    child: CommonButton(
+                      height: 40,
+                      backgroundColor: AppColors.scaffoldColor,
+                      borderColor: AppColors.scaffoldColor,
+                      buttonTextColor: AppColors.black,
+                      onPressed: () {
+                        EditClockTimeDialog()
+                            .editClockTimeDialog(context, contractor);
+                        // showUnderDevelopment(context);
+                      },
+                      buttonFontSize: 12,
+                      borderRadius: 7,
+                      buttonText: StringConstant.edit,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ],
         ],
       ),

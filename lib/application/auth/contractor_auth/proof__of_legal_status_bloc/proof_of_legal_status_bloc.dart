@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 part 'proof_of_legal_status_event.dart';
@@ -148,15 +150,28 @@ class ProofOfLegalStatusBloc
         proofLegalDocSubmit: (e) async {
           Either<AccountFailure, String>? failureOrSuccess;
 
-          final isGovernmentFrontDocValid = state.proofFrontDoc.isValid();
-          final isGovernmentBackDocValid = state.proofBackDoc.isValid();
+          final isFronDocValid = state.proofFrontDoc.isValid();
+          final isBackDocValid = state.proofBackDoc.isValid();
 
           print("DOC IS VALID--> ${state.proofBackDoc}");
           print("DOC ID--> ${state.selectedDocId}");
 
-          if (isGovernmentFrontDocValid &&
-              isGovernmentBackDocValid &&
-              state.docExpiryDate.isNotEmpty) {
+          if (isFronDocValid && isBackDocValid) {
+            final isExpiryDateMandatory =
+                (state.currentProofType.isMandatory ?? false);
+
+            if (isExpiryDateMandatory && state.docExpiryDate.isEmpty) {
+              emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  showErrorMesages: true,
+                  proofFailureOrSuccessOption: none(),
+                ),
+              );
+              return;
+            }
+            print("All Details are valid!");
+
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -165,7 +180,7 @@ class ProofOfLegalStatusBloc
             );
 
             if (state.selectedDocId != -1) {
-              failureOrSuccess = await _repository.updateDocumentApi(
+              /*  failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.selectedDocId,
                 documentType: 1,
                 subType: state.currentProofType.id,
@@ -173,18 +188,19 @@ class ProofOfLegalStatusBloc
                 documentFile: state.proofFrontDoc.getValue() ?? "",
                 documentBackFile: state.proofBackDoc.getValue() ?? "",
                 expiryDate: state.docExpiryDate,
-              );
+              ); */
             } else {
               failureOrSuccess = await _repository.addAddressProofApi(
-                documentType: 2,
+                documentType: 4,
                 subType: state.currentProofType.id,
                 documentFile: state.proofFrontDoc.getValue() ?? "",
                 documentBackFile: state.proofBackDoc.getValue() ?? "",
                 expiryDate: state.docExpiryDate,
+                lastPage: "BankDetail",
               );
             }
 
-            failureOrSuccess.fold(
+            failureOrSuccess?.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -198,12 +214,15 @@ class ProofOfLegalStatusBloc
                   state.copyWith(isSubmitting: false),
                 );
               },
-              (success) {},
+              (success) {
+                e.context.router.push(PageRouteInfo(AddBankDetailsScreen.name));
+              },
             );
 
             emit(
               state.copyWith(
                 isLoading: false,
+                isSubmitting: false,
                 proofFailureOrSuccessOption: optionOf(failureOrSuccess),
               ),
             );

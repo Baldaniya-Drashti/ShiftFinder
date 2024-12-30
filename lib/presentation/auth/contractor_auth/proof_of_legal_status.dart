@@ -16,7 +16,6 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -132,7 +131,7 @@ class ProofOfLegalStatus extends StatelessWidget {
                                                   vertical: getSize(5)),
                                               child: BaseText(
                                                 text:
-                                                    "* ${(!(state.isExpiryInValid)) ? "Expiry date must be before ${state.currentProofType.yearLimit}" : StringConstant.pleaseSelectExpiryDate}",
+                                                    "* ${(state.isExpiryInValid) ? "Expiry date of ${state.currentProofType.name} valid for ${state.currentProofType.yearLimit} year, Please enter valid expiry date" : StringConstant.pleaseSelectExpiryDate}",
                                                 fontSize: 12,
                                                 textColor: AppColors.red,
                                               ),
@@ -154,9 +153,9 @@ class ProofOfLegalStatus extends StatelessWidget {
                               child: CommonButton(
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
-                                  /* context.read<ProofOfLegalStatusBloc>().add(
-                                      ProofOfLegalStatusEvent.addressProofSubmit(
-                                          context)); */
+                                  context.read<ProofOfLegalStatusBloc>().add(
+                                      ProofOfLegalStatusEvent
+                                          .proofLegalDocSubmit(context));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),

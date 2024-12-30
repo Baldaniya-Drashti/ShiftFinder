@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 part 'address_proof_event.dart';
@@ -61,7 +63,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
               state.copyWith(
                 isLoading: false,
                 currentAddressProofType: SkillDTO(),
-
                 addressproofFrontDoc: InputEmptyOrNot(""),
                 addressProofBackDoc: InputEmptyOrNot(""),
                 // governmentExpiryDate: "",
@@ -168,19 +169,17 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
         addressProofSubmit: (e) async {
           Either<AccountFailure, String>? failureOrSuccess;
 
-          final isGovernmentFrontDocValid =
-              state.addressproofFrontDoc.isValid();
-          final isGovernmentBackDocValid = state.addressProofBackDoc.isValid();
+          final isFrontDocValid = state.addressproofFrontDoc.isValid();
+          final isBackDocValid = state.addressProofBackDoc.isValid();
 
           print("DOC IS VALID--> ${state.addressProofBackDoc}");
           print("DOC ID--> ${state.addressProofDocId}");
 
-          if (isGovernmentFrontDocValid && isGovernmentBackDocValid) {
-            /* final isExpiryDateMandatory =
-                state.currentAddressProofType.id != 3 &&
-                    state.currentAddressProofType.id != 4;
+          if (isFrontDocValid && isBackDocValid) {
+            final isExpiryDateMandatory =
+                (state.currentAddressProofType.yearLimit != null);
 
-            if (isExpiryDateMandatory && state.governmentExpiryDate.isEmpty) {
+            if (isExpiryDateMandatory && state.docExpiryDate.isEmpty) {
               emit(
                 state.copyWith(
                   isSubmitting: false,
@@ -189,7 +188,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 ),
               );
               return;
-            } */
+            }
+            print("All Details are valid!");
 
             emit(
               state.copyWith(
@@ -199,7 +199,7 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
             );
 
             if (state.addressProofDocId != -1) {
-              failureOrSuccess = await _repository.updateDocumentApi(
+              /* failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.addressProofDocId,
                 documentType: 1,
                 subType: state.currentAddressProofType.id,
@@ -208,19 +208,19 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 documentBackFile: state.addressProofBackDoc.getValue() ?? "",
                 // expiryDate: state.governmentExpiryDate,
                 // expiryDateNotApplicable: state.isGovernemtExpiryCheck,
-              );
+              ); */
             } else {
               failureOrSuccess = await _repository.addAddressProofApi(
                 documentType: 2,
                 subType: state.currentAddressProofType.id,
                 documentFile: state.addressproofFrontDoc.getValue() ?? "",
                 documentBackFile: state.addressProofBackDoc.getValue() ?? "",
-                // expiryDate: state.governmentExpiryDate,
-                // expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+                expiryDate: state.docExpiryDate,
+                lastPage: "BackgroundCheckDocument",
               );
             }
 
-            failureOrSuccess.fold(
+            failureOrSuccess?.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -236,16 +236,20 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                   ),
                 );
               },
-              (success) {},
+              (success) {
+                e.context.router.push(PageRouteInfo(BackgroundDocument.name));
+              },
             );
 
             emit(
               state.copyWith(
+                isSubmitting: false,
                 isLoading: false,
                 addressProofFailureOrSuccessOption: optionOf(failureOrSuccess),
               ),
             );
           } else {
+            print("Some Details are invalid!");
             emit(
               state.copyWith(
                 isSubmitting: false,
@@ -275,6 +279,15 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     InputEmptyOrNot(state.existingAddressProof.back_file ?? ""),
                 /* governmentExpiryDate: (state.existingAddressProof.expiry_date !=null)? DateTime.fromMillisecondsSinceEpoch((state.existingAddressProof.expiry_date ?? -1) * 1000,).toIso8601String() : "",
                 isGovernemtExpiryCheck:(state.existingAddressProof.expiry_date_not_applicable == 0)? false: true, */
+                docExpiryDate: (state.existingAddressProof.expiry_date != null)
+                    ? DateTime.fromMillisecondsSinceEpoch(
+                        (state.existingAddressProof.expiry_date ?? -1) * 1000,
+                      ).toIso8601String()
+                    : "",
+                /* isGovernemtExpiryCheck:
+                    (state.existingGovermentDoc.expiry_date_not_applicable == 0)
+                        ? false
+                        : true, */
                 showErrorMesages: false,
               ));
             } else {

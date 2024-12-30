@@ -7,12 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/auth/contractor_auth/bank_details_bloc/bank_details_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -74,17 +78,33 @@ class AddBankDetailsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        accountHolderNameField(context, state),
-                        paddingBetweenFields(),
                         bankNameDropdown(context, state),
+                        paddingBetweenFields(),
+                        jobTitleField(context, state),
+                        paddingBetweenFields(),
+                        accountNumberField(context, state),
                         paddingBetweenFields(),
                         transitNumberField(context, state),
                         paddingBetweenFields(),
                         bankInstitutionNumberField(context, state),
                         paddingBetweenFields(),
-                        accountNumberField(context, state),
+                        accountTypeDropdown(context, state),
+                        paddingBetweenFields(),
+                        firstNameField(context, state),
+                        paddingBetweenFields(),
+                        lastNameField(context, state),
+                        paddingBetweenFields(),
+                        phoneNumberTextField(context, state),
+                        paddingBetweenFields(),
+                        dobField(context, state),
                         paddingBetweenFields(),
                         bankAddressField(context, state),
+                        paddingBetweenFields(),
+                        cityField(context, state),
+                        paddingBetweenFields(),
+                        stateField(context, state),
+                        paddingBetweenFields(),
+                        postalCodeField(context, state),
                         paddingBetweenFields(height: getSize(30)),
                         termsCheckBox(state, context),
                         paddingBetweenFields(height: getSize(10)),
@@ -112,9 +132,9 @@ class AddBankDetailsScreen extends StatelessWidget {
                           ),
                           child: CommonButton(
                             onPressed: () {
-                              context
-                                  .read<BankDetailsBloc>()
-                                  .add(BankDetailsEvent.submitBtnPressed());
+                              // context
+                              //     .read<BankDetailsBloc>()
+                              //     .add(BankDetailsEvent.submitBtnPressed());
                             },
                             buttonText: StringConstant.txtContinue,
                           ),
@@ -172,6 +192,88 @@ class AddBankDetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget jobTitleField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.jobTitle,
+      hintText: StringConstant.jobTitle,
+      textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.jobTitleChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.jobTitle.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddJobTitle,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget accountNumberField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.accountNumber,
+      hintText: StringConstant.accountNumber,
+      textCapitalization: TextCapitalization.characters,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        // FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.accountNumberChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.accountNumber.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddAccountNumber,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget accountTypeDropdown(BuildContext context, BankDetailsState state) {
+    return CustomDropdwonWithTextField(
+      labelText: StringConstant.accountType,
+      hintText: StringConstant.accountType,
+      isLabelPadding: true,
+      showTextfield: false,
+      items: CommonList.accountTypeList.map((val) {
+        return DropdownMenuItem<String>(
+          value: val.name,
+          child: BaseText(
+            text: val.name ?? "",
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
+      validator: (p0) =>
+          context.read<BankDetailsBloc>().state.accountType.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectAccountType,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+      value:
+          (state.accountType.isValid()) ? state.accountType.getValue() : null,
+      onChanged: (value) {
+        if (value != null) {
+          context
+              .read<BankDetailsBloc>()
+              .add(BankDetailsEvent.accountTypeChanged(value));
+        }
+      },
+    );
+  }
+
   Widget transitNumberField(BuildContext context, BankDetailsState state) {
     return CustomTextField(
       labelText: StringConstant.transitNumber,
@@ -221,23 +323,21 @@ class AddBankDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget accountNumberField(BuildContext context, BankDetailsState state) {
+  Widget firstNameField(BuildContext context, BankDetailsState state) {
     return CustomTextField(
-      labelText: StringConstant.accountNumber,
-      hintText: StringConstant.accountNumber,
-      textCapitalization: TextCapitalization.characters,
-      keyboardType: TextInputType.number,
+      labelText: StringConstant.firstName,
+      hintText: StringConstant.firstName,
+      textCapitalization: TextCapitalization.words,
       inputFormatters: [
-        // FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
-        FilteringTextInputFormatter.digitsOnly,
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
       ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
-          .add(BankDetailsEvent.accountNumberChanged(value)),
+          .add(BankDetailsEvent.firstNameChanged(value)),
       validator: (_, context) =>
-          context.read<BankDetailsBloc>().state.accountNumber.value.fold(
+          context.read<BankDetailsBloc>().state.firstName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddAccountNumber,
+                  empty: (value) => StringConstant.pleaseAddFirstName,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -245,21 +345,86 @@ class AddBankDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget accountHolderNameField(BuildContext context, BankDetailsState state) {
+  Widget lastNameField(BuildContext context, BankDetailsState state) {
     return CustomTextField(
-      labelText: StringConstant.accountHolderName,
-      hintText: StringConstant.accountHolderName,
+      labelText: StringConstant.lastName,
+      hintText: StringConstant.lastName,
       textCapitalization: TextCapitalization.words,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
       ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
-          .add(BankDetailsEvent.accountHolderNameChanged(value)),
+          .add(BankDetailsEvent.lastNameChanged(value)),
       validator: (_, context) =>
-          context.read<BankDetailsBloc>().state.accountHolderName.value.fold(
+          context.read<BankDetailsBloc>().state.lastName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddAccountHolderName,
+                  empty: (value) => StringConstant.pleaseAddLastName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget phoneNumberTextField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.phoneNumber,
+      hintText: StringConstant.phoneNumber,
+      keyboardType: TextInputType.phone,
+      isLabelPadding: true,
+      maxLength: 10,
+      errorMaxLines: 2,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        CountryCodeRemovingFormatter(),
+      ],
+      onChanged: (value) {
+        print("Filter Phone number --> $value");
+        context.read<BankDetailsBloc>().add(
+              BankDetailsEvent.phoneNumberChanged(value),
+            );
+      },
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.phoneNumber.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterMobileNumber,
+                  invalidMobileNumber: (_) =>
+                      StringConstant.phoneNumberShouldBeBetween10And15Digits,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+      prefixIcon: CommonCountryCodePicker(
+        initialSelection: state.selectedCountryFlag,
+        onChanged: (countryCode) {
+          print(countryCode.flagEmoji);
+          context.read<BankDetailsBloc>().add(
+                BankDetailsEvent.selectCountryCode(
+                  countryCode.phoneCode,
+                  countryCode.flagEmoji,
+                ),
+              );
+        },
+      ),
+    );
+  }
+
+  Widget dobField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.dateOfBirth,
+      hintText: StringConstant.dateOfBirth,
+      textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.dobChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.dateOfBirth.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectDob,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -278,6 +443,60 @@ class AddBankDetailsScreen extends StatelessWidget {
           context.read<BankDetailsBloc>().state.bankAddress.value.fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseAddBankAddress,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget cityField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.city,
+      hintText: StringConstant.city,
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.cityChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.city.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddCityName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget stateField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.state,
+      hintText: StringConstant.state,
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.stateChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.stateName.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddStateName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget postalCodeField(BuildContext context, BankDetailsState state) {
+    return CustomTextField(
+      labelText: StringConstant.postalCode,
+      hintText: StringConstant.postalCode,
+      onChanged: (value) => context
+          .read<BankDetailsBloc>()
+          .add(BankDetailsEvent.postalCodeChanged(value)),
+      validator: (_, context) =>
+          context.read<BankDetailsBloc>().state.postalCode.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddPostalCode,
                   orElse: () => null,
                 ),
                 (_) => null,

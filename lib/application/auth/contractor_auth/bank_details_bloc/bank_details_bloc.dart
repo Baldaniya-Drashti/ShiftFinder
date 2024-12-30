@@ -28,6 +28,80 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
   BankDetailsBloc() : super(BankDetailsState.initial()) {
     on<BankDetailsEvent>((event, emit) {
       event.map(
+        accountTypeChanged: (e) {},
+        cityChanged: (e) {
+          emit(
+            state.copyWith(
+              city: InputEmptyOrNot(e.city),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        dobChanged: (e) {
+          emit(
+            state.copyWith(
+              dateOfBirth: InputEmptyOrNot(e.dob),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        firstNameChanged: (e) {
+          emit(
+            state.copyWith(
+              firstName: Username(e.firstName),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        jobTitleChanged: (e) {
+          emit(
+            state.copyWith(
+              jobTitle: InputEmptyOrNot(e.jobTitle),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        lastNameChanged: (e) {
+          emit(
+            state.copyWith(
+              lastName: Username(e.lastName),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        phoneNumberChanged: (e) {
+          emit(
+            state.copyWith(
+              phoneNumber: MobileNumber(e.phoneNumber),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        selectCountryCode: (e) {
+          emit(
+            state.copyWith(
+              selectedCountrycode: e.countryCode,
+              selectedCountryFlag: e.countryFlag,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        postalCodeChanged: (e) {
+          emit(
+            state.copyWith(
+              postalCode: InputEmptyOrNot(e.postalCode),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        stateChanged: (e) {
+          emit(
+            state.copyWith(
+              stateName: InputEmptyOrNot(e.state),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         bankNameChanged: (e) {
           emit(
             state.copyWith(
@@ -86,16 +160,24 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
         },
         submitBtnPressed: (e) {
           Either<AuthFailure, String>? failureOrSuccess;
-          final isHolderNameValid = state.accountHolderName.isValid();
           final isBankNameValid = state.bankName.isValid();
+          final isJobTitleValid = state.jobTitle.isValid();
+          final isAccountNumberValid = state.accountNumber.isValid();
           final isTransitNumberValid = state.transitNumber.isValid();
           final isInstituteNumberValid = state.bankInstitutionNumber.isValid();
-          final isAccountNumberValid = state.accountNumber.isValid();
+          final isAccountTypeValid = state.accountType.isValid();
+          final isFirstNameValid = state.firstName.isValid();
+          final isLastNameValid = state.lastName.isValid();
+          final isDobValid = state.dateOfBirth.isValid();
           final isBankAddressValid = state.bankAddress.isValid();
+          final isCityValid = state.city.isValid();
+          final isStateValid = state.stateName.isValid();
+          final isPostalCodeValid = state.postalCode.isValid();
+          final isPhoneNoValid = state.phoneNumber.isValid();
+
           final isCheckTerms = state.isCheck;
 
-          if (isHolderNameValid &&
-              isBankNameValid &&
+          if (isBankNameValid &&
               isTransitNumberValid &&
               isInstituteNumberValid &&
               isAccountNumberValid &&

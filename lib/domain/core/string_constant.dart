@@ -682,6 +682,12 @@ class StringConstant {
       "Please select your legal work status proof from the list.";
   static const String selectYourLegalWorkStatus =
       "Select Your Legal Work Status";
+  static const String dateOfBirth = "Date of Birth";
+  static const String city = "City";
+  static const String state = "State";
+  static const String postalCode = "Postal Code";
+  static const String jobTitle = "Job Title";
+  static const String accountType = "Account Type";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -925,4 +931,12 @@ class StringConstant {
   static const String deleteProofLegalDesc =
       "Are you sure you want to delete Proof legal work status document?";
   static const String pleaseSelectIssueDate = "Please add issue date";
+  static const String pleaseAddJobTitle = "Please add job title";
+  static const String pleaseAddFirstName = "Please add first name";
+  static const String pleaseSelectDob = "Please select date of birth";
+  static const String pleaseAddLastName = "Please add last name";
+  static const String pleaseAddCityName = "Please add city name";
+  static const String pleaseAddStateName = "Please add state name";
+  static const String pleaseAddPostalCode = "Please add postal code";
+  static const String pleaseSelectAccountType = "Please select account type";
 }

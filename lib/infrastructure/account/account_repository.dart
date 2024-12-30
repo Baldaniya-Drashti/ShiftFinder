@@ -641,10 +641,10 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "sub_type": subType,
-        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
-                .toString()
-            : "",
+        if (expiryDate != null && expiryDate.isNotEmpty)
+          "expiry_date":
+              (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString(),
         // "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "last_page": lastPage ?? "AddressProofScreen",
       });
