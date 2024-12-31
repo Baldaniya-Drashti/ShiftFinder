@@ -119,6 +119,8 @@ class CounterProposalTab extends StatelessWidget {
                                                       .offerRevokedByTheEmployer,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
+                                                  textColor:
+                                                      AppColors.redAccent,
                                                 ),
                                               )
                                             : GestureDetector(
@@ -234,7 +236,7 @@ class CounterProposalTab extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Row(

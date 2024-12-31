@@ -194,6 +194,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                                       text: StringConstant
                                                           .awaitingAcknowledgement,
                                                       fontSize: 12,
+                                                      textColor: AppColors
+                                                          .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
@@ -494,7 +496,7 @@ class ViewSingleApplicants extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Container(

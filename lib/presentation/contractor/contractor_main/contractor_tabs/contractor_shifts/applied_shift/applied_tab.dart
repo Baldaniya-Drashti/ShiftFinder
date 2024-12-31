@@ -120,6 +120,7 @@ class AppliedTab extends StatelessWidget {
                                           .offerRevokedByTheEmployer,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
                                     ),
                                   ),
                                 ] else ...[
@@ -357,7 +358,7 @@ class AppliedTab extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Container(
@@ -644,6 +645,7 @@ class AppliedTab extends StatelessWidget {
           infoMessage: StringConstant.urgentActionRequiredDesc,
           cancelText: StringConstant.declineShift,
           deleteBtnText: StringConstant.confirmAcceptance,
+          deleteBTnBgColor: AppColors.primaryColor,
           onCancelClick: () {
             AppDialog.showDelete(
               context,

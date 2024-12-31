@@ -462,6 +462,7 @@ class AppDialog {
     EdgeInsets? insetPadding,
     String? cancelText,
     String? deleteBtnText,
+    Color? deleteBTnBgColor,
     Widget? otherContent,
     bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
@@ -528,7 +529,7 @@ class AppDialog {
                   AppFocus.unfocus(context);
                 },
                 buttonText: cancelText ?? StringConstant.cancle,
-                backgroundColor: AppColors.white,
+                backgroundColor: deleteBTnBgColor ?? AppColors.white,
                 buttonTextColor: AppColors.primaryColor,
                 borderColor: AppColors.primaryColor,
               ),
