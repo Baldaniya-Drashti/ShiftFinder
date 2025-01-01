@@ -1,17 +1,28 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
+import 'package:injectable/injectable.dart';
+import 'package:shift/domain/account/account_failure.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 
 part 'bank_details_event.dart';
 part 'bank_details_state.dart';
 part 'bank_details_bloc.freezed.dart';
 
+@injectable
 class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
+  final IAccountRepository repository;
+
   static List<SkillDTO> bankNameList = [
     SkillDTO(id: 1, name: "HDFC"),
     SkillDTO(id: 2, name: "State Bank of India"),
@@ -25,10 +36,65 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
     SkillDTO(id: 10, name: "Yes Bank"),
   ];
 
-  BankDetailsBloc() : super(BankDetailsState.initial()) {
-    on<BankDetailsEvent>((event, emit) {
-      event.map(
-        accountTypeChanged: (e) {},
+  static TextEditingController locationCtrl = TextEditingController(text: "");
+
+  BankDetailsBloc(this.repository) : super(BankDetailsState.initial()) {
+    on<BankDetailsEvent>((event, emit) async {
+      await event.map(
+        locationSelectedFromSearchList: (e) async {
+          Location? locationDetails;
+          locationCtrl.text = e.selectedLocation.description ?? "";
+
+          emit(state.copyWith(
+            isLoading: true,
+            authFailureOrSuccessOption: none(),
+          ));
+
+          var res = await LocationHelper.getPlaceDetail(
+              e.selectedLocation.place_id ?? "");
+          if (res != null &&
+              res.result != null &&
+              res.result!.geometry != null &&
+              res.result!.geometry!.location != null) {
+            var location = res.result!.geometry!.location;
+            locationDetails = await LocationHelper.getLocationDetailsFromLatLng(
+                location?.lat, location?.lng);
+
+            if (locationDetails != null) {
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  bankAddress:
+                      InputEmptyOrNot(e.selectedLocation.description ?? ""),
+                  searchLocationList: [],
+                  city: InputEmptyOrNot(locationDetails.city ?? ""),
+                  stateName: InputEmptyOrNot(locationDetails.state ?? ""),
+                  postalCode: InputEmptyOrNot(locationDetails.postalCode ?? ""),
+                  selectedLocationPrediction: e.selectedLocation,
+                  authFailureOrSuccessOption: none(),
+                ),
+              );
+            } else {
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  authFailureOrSuccessOption: none(),
+                ),
+              );
+            }
+          }
+          print("state.city---> ${state.city}");
+          print("state.stateName---> ${state.stateName}");
+          print("state.postalCode---> ${state.postalCode}");
+        },
+        accountTypeChanged: (e) {
+          emit(
+            state.copyWith(
+              accountType: InputEmptyOrNot(e.accountType),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         cityChanged: (e) {
           emit(
             state.copyWith(
@@ -82,6 +148,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
             state.copyWith(
               selectedCountrycode: e.countryCode,
               selectedCountryFlag: e.countryFlag,
+              selectedCountryCodeName: e.countryCodeName,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -158,18 +225,18 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
             ),
           );
         },
-        submitBtnPressed: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        submitBtnPressed: (e) async {
+          Either<AccountFailure, String>? failureOrSuccess;
           final isBankNameValid = state.bankName.isValid();
-          final isJobTitleValid = state.jobTitle.isValid();
           final isAccountNumberValid = state.accountNumber.isValid();
           final isTransitNumberValid = state.transitNumber.isValid();
           final isInstituteNumberValid = state.bankInstitutionNumber.isValid();
+          final isBankAddressValid = state.bankAddress.isValid();
+          final isJobTitleValid = state.jobTitle.isValid();
           final isAccountTypeValid = state.accountType.isValid();
           final isFirstNameValid = state.firstName.isValid();
           final isLastNameValid = state.lastName.isValid();
           final isDobValid = state.dateOfBirth.isValid();
-          final isBankAddressValid = state.bankAddress.isValid();
           final isCityValid = state.city.isValid();
           final isStateValid = state.stateName.isValid();
           final isPostalCodeValid = state.postalCode.isValid();
@@ -182,36 +249,66 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               isInstituteNumberValid &&
               isAccountNumberValid &&
               isBankAddressValid &&
+              isJobTitleValid &&
+              isAccountTypeValid &&
+              isFirstNameValid &&
+              isLastNameValid &&
+              isDobValid &&
+              isCityValid &&
+              isStateValid &&
+              isPostalCodeValid &&
+              isPhoneNoValid &&
               isCheckTerms) {
+            print("All Details are validdddddd! ");
             // Find the ID of the selected bank name
-            final selectedBankName = state.bankName.getValue();
+            /* final selectedBankName = state.bankName.getValue();
             final selectedBank = bankNameList.firstWhere(
               (bank) => bank.name == selectedBankName,
               orElse: () => SkillDTO(id: -1, name: ""),
             );
 
-            final selectedBankId = selectedBank.id;
+            final selectedBankId = selectedBank.id; */
 
-            print("Selected Bank ID: $selectedBankId");
-
-            print("All Details are validdddddd! ");
             emit(
               state.copyWith(
-                isSubmitting: true,
+                isLoading: true,
                 authFailureOrSuccessOption: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: state.emailId,
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
-            failureOrSuccess = right("success");
+            failureOrSuccess = await repository.addBankDetail(
+              bankName: state.bankName.getValue() ?? "",
+              jobTitle: state.jobTitle.getValue() ?? "",
+              accountNumber: state.accountNumber.getValue() ?? "",
+              transitNumber: state.transitNumber.getValue() ?? "",
+              institutionNumber: state.bankInstitutionNumber.getValue() ?? "",
+              accountType: (state.accountType.getValue() ?? "").toLowerCase(),
+              firstName: state.firstName.getValue(),
+              lastName: state.lastName.getValue(),
+              // dateOfBirth: state.dateOfBirth.getValue() ?? "",
+              dateOfBirth: (DateTime.parse(state.dateOfBirth.getValue() ?? "")
+                          .toUtc()
+                          .millisecondsSinceEpoch /
+                      1000)
+                  .toString(),
+              bankAddress: state.bankAddress.getValue() ?? "",
+              city: state.city.getValue() ?? "",
+              state: state.stateName.getValue() ?? "",
+              postalCode: state.postalCode.getValue() ?? "",
+              countryFlag: state.selectedCountryCodeName,
+              countryCode: '+${state.selectedCountrycode}',
+              phone: state.phoneNumber.getValue(),
+            );
+            // failureOrSuccess = right("success");
           } else {
-            print("Some Details are invalid! ");
+            print("Some Details are invalid!");
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
           }
           emit(
             state.copyWith(
-              isSubmitting: false,
+              isLoading: false,
               showErrorMessages: true,
               authFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),

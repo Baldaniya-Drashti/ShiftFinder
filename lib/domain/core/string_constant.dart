@@ -455,9 +455,9 @@ class StringConstant {
       "Offer Revoked by the Employer";
   static const String offerRevokedByYou = "Offer Revoked by You";
   static const String clockInConfirmationDesc =
-      "Are you sure you want to add the clock in time?";
+      "Once submitted, the Clock In time cannot be modified. Are you sure you want to proceed?";
   static const String clockOutConfirmationDesc =
-      "Are you sure you want to add the clock out time?";
+      "Once submitted, the Clock Out time cannot be modified. Are you sure you want to proceed?";
   static const String confirmationRequired = "Confirmation Required";
   static const String confirmationRecurringDesc1 = "You are about to post";
   static const String sortBy = "Sort by";
@@ -527,9 +527,9 @@ class StringConstant {
       "Approve Shifts for Contractors";
   static const String cancelledByYou = "Cancelled by You";
   static const String approveShiftDesc1 =
-      "By approving these clock in and out times, you confirm that you have reviewed the ";
+      "By approving the clock-in and clock-out times, you confirm that ";
   static const String approveShiftDesc2 =
-      "’s hours. Once approved, the times will be finalized.";
+      "’s shift hours have been reviewed. Once approved, these times will be final";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String allWithdralContractors = "All Withdrwal Contractors";
@@ -939,4 +939,5 @@ class StringConstant {
   static const String pleaseAddStateName = "Please add state name";
   static const String pleaseAddPostalCode = "Please add postal code";
   static const String pleaseSelectAccountType = "Please select account type";
+  static const String pleaseSelectBankAddress = "Please select bank address";
 }

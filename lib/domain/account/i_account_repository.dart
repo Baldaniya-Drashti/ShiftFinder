@@ -193,4 +193,24 @@ abstract class IAccountRepository {
     required bool fromRegister,
     required int id,
   });
+
+  Future<Either<AccountFailure, String>> addBankDetail({
+    required String bankName,
+    required String jobTitle,
+    required String accountNumber,
+    required String transitNumber,
+    required String institutionNumber,
+    required String accountType,
+    required String firstName,
+    required String lastName,
+    required String dateOfBirth,
+    required String bankAddress,
+    required String city,
+    required String state,
+    required String postalCode,
+    required String countryFlag,
+    required String countryCode,
+    required String phone,
+    String? lastPage,
+  });
 }

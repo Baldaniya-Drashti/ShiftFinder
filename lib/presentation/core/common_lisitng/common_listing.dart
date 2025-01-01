@@ -175,7 +175,7 @@ class CommonList {
 
   static List<SkillDTO> accountTypeList = [
     SkillDTO(id: 1, name: "Checking"),
-    SkillDTO(id: 2, name: "Saving")
+    SkillDTO(id: 2, name: "Savings")
   ];
 
   static List<SkillDTO> govermentIdList = [

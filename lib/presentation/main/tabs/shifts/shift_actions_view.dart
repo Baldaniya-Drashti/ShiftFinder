@@ -240,7 +240,7 @@ class ShiftActionsView extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           text:
-                              "Once a shift is approved, you can rate, add to favorites, remark or block the user. These actions can also be completed later in the profile section.",
+                              "You can now rate, favorite, add remarks, or block the contractor. These actions can also be performed later from the profile section.",
                         ),
                       )
                     ],

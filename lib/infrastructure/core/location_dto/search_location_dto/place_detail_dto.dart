@@ -39,6 +39,9 @@ class Location with _$Location {
   const factory Location({
     double? lat,
     double? lng,
+    String? city,
+    String? state,
+    String? postalCode,
   }) = _Location;
 
   factory Location.fromJson(Map<String, dynamic> json) =>

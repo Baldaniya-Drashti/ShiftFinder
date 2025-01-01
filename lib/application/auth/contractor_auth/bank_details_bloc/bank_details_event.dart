@@ -15,7 +15,8 @@ class BankDetailsEvent with _$BankDetailsEvent {
   const factory BankDetailsEvent.lastNameChanged(String lastName) =
       LastNameChanged;
   const factory BankDetailsEvent.selectCountryCode(
-      String countryCode, String countryFlag) = SelectCountryCode;
+          String countryCode, String countryFlag, String countryCodeName) =
+      SelectCountryCode;
   const factory BankDetailsEvent.dobChanged(String dob) = DobChanged;
   const factory BankDetailsEvent.cityChanged(String city) = CityChanged;
   const factory BankDetailsEvent.stateChanged(String state) = StateChanged;
@@ -33,5 +34,9 @@ class BankDetailsEvent with _$BankDetailsEvent {
       BankAddressChanged;
   const factory BankDetailsEvent.checkTermsCondition(bool isCheck) =
       CheckTermsCondition;
-  const factory BankDetailsEvent.submitBtnPressed() = SubmitBtnPressed;
+  const factory BankDetailsEvent.submitBtnPressed(BuildContext context) =
+      SubmitBtnPressed;
+
+  const factory BankDetailsEvent.locationSelectedFromSearchList(
+      Predictions selectedLocation) = LocationSelectedFromSearchList;
 }

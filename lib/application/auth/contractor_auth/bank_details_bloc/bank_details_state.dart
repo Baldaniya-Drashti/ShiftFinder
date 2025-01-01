@@ -15,6 +15,7 @@ class BankDetailsState with _$BankDetailsState {
     required MobileNumber phoneNumber,
     required String selectedCountrycode,
     required String selectedCountryFlag,
+    required String selectedCountryCodeName,
     required InputEmptyOrNot bankName,
     required InputEmptyOrNot transitNumber,
     required InputEmptyOrNot bankInstitutionNumber,
@@ -23,7 +24,11 @@ class BankDetailsState with _$BankDetailsState {
     required bool isCheck,
     required bool showErrorMessages,
     required bool isSubmitting,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AccountFailure, String>> authFailureOrSuccessOption,
+    required InputEmptyOrNot locationAddress,
+    required List<Predictions> searchLocationList,
+    required Predictions selectedLocationPrediction,
+    required bool isLoading,
   }) = _BankDetailsState;
 
   factory BankDetailsState.initial() => BankDetailsState(
@@ -35,6 +40,7 @@ class BankDetailsState with _$BankDetailsState {
         phoneNumber: MobileNumber(""),
         selectedCountrycode: "1",
         selectedCountryFlag: "🇨🇦",
+        selectedCountryCodeName: "CA",
         dateOfBirth: InputEmptyOrNot(""),
         city: InputEmptyOrNot(""),
         stateName: InputEmptyOrNot(""),
@@ -48,5 +54,9 @@ class BankDetailsState with _$BankDetailsState {
         isSubmitting: false,
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
+        selectedLocationPrediction: Predictions(),
+        locationAddress: InputEmptyOrNot(""),
+        searchLocationList: [],
+        isLoading: false,
       );
 }

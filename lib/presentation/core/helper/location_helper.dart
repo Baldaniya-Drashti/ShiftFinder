@@ -74,4 +74,42 @@ class LocationHelper {
     }
     return null;
   }
+
+  static Future<Location?> getLocationDetailsFromLatLng(
+      double? lat, double? lng) async {
+    final apiKey = dotenv.env['GOOGLE_PLACE_API_KEY'];
+    // Example API endpoint or geocoding service
+    // final response = await http.get(Uri.parse('https://geocoding.api.com?lat=$lat&lng=$lng'));
+    final response = await http.get(Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$apiKey'));
+
+    print(
+        "Selected Location full details---> ${jsonEncode(json.decode(response.body))}");
+
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+
+      var addressComponents = data['results'][0]['address_components'];
+      String? city, state, postalCode;
+
+      for (var component in addressComponents) {
+        if (component['types'].contains('locality')) {
+          city = component['long_name'];
+        } else if (component['types'].contains('administrative_area_level_1')) {
+          state = component['long_name'];
+        } else if (component['types'].contains('postal_code')) {
+          postalCode = component['long_name'];
+        }
+      }
+
+      return Location(
+        lat: lat,
+        lng: lng,
+        city: city,
+        state: state,
+        postalCode: postalCode,
+      );
+    }
+    return null;
+  }
 }

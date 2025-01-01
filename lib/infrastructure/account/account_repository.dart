@@ -695,6 +695,74 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, String>> addBankDetail({
+    required String bankName,
+    required String jobTitle,
+    required String accountNumber,
+    required String transitNumber,
+    required String institutionNumber,
+    required String accountType,
+    required String firstName,
+    required String lastName,
+    required String dateOfBirth,
+    required String bankAddress,
+    required String city,
+    required String state,
+    required String postalCode,
+    required String countryFlag,
+    required String countryCode,
+    required String phone,
+    String? lastPage,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'bank_name': bankName,
+        'job_title': jobTitle,
+        'account_number': accountNumber,
+        'transit_number': transitNumber,
+        'institution_number': institutionNumber,
+        'account_type': accountType,
+        'first_name': firstName,
+        'last_name': lastName,
+        'dob': dateOfBirth,
+        'bank_address': bankAddress,
+        'city': city,
+        'state': state,
+        'postal_code': postalCode,
+        'country_name_code': countryFlag,
+        'country_code': countryCode,
+        'phone': phone,
+        if (lastPage != null) 'lastPage': lastPage,
+      };
+
+      print('Sending Data: ${jsonEncode(mapData)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.contractorConnectAccount,
+        mapData,
+      );
+
+      print("Response of Add Bank Detail---> ${jsonEncode(response.data)}");
+
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, String>> updateDocumentApi({
     required int id,
     required int documentType,
