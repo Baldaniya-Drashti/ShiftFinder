@@ -42,7 +42,7 @@ import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart
     as _i141;
 import 'package:shift/presentation/about/about_view.dart' as _i1;
 import 'package:shift/presentation/about/cancellation_policy_view.dart' as _i21;
-import 'package:shift/presentation/about/faq_view.dart' as _i54;
+import 'package:shift/presentation/about/faq_view.dart' as _i55;
 import 'package:shift/presentation/account_management/account_management_view.dart'
     as _i2;
 import 'package:shift/presentation/account_management/change_password_view.dart'
@@ -128,7 +128,7 @@ import 'package:shift/presentation/contractor/contractor_rating/contractor_ratin
 import 'package:shift/presentation/contractor/contractor_update_profile/contractor_update_profile_view.dart'
     as _i36;
 import 'package:shift/presentation/contractor/full_position_detail/full_position_detail_view.dart'
-    as _i57;
+    as _i58;
 import 'package:shift/presentation/contractor/full_time_position/full_time_position_view.dart'
     as _i59;
 import 'package:shift/presentation/contractor/my_calendar_view/my_calendar_view.dart'
@@ -170,6 +170,8 @@ import 'package:shift/presentation/employer/employer_location/employer_location_
     as _i51;
 import 'package:shift/presentation/employer/employer_location/employer_location_view.dart'
     as _i52;
+import 'package:shift/presentation/employer/employer_long_term/employer_long_term_view.dart'
+    as _i53;
 import 'package:shift/presentation/employer/healthcare_post/add_multi_date_time.dart'
     as _i9;
 import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
@@ -197,10 +199,8 @@ import 'package:shift/presentation/employer/profile/previous_shift_view/previous
     as _i88;
 import 'package:shift/presentation/employer/save_template/save_template_view.dart'
     as _i103;
-import 'package:shift/presentation/full_position_review/full_position_review_view.dart'
-    as _i58;
 import 'package:shift/presentation/main/main_tab.dart' as _i72;
-import 'package:shift/presentation/main/tabs/employer_shift_view.dart' as _i53;
+import 'package:shift/presentation/main/tabs/employer_shift_view.dart' as _i54;
 import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i63;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/awaiting_confirmation_view.dart'
     as _i17;
@@ -245,9 +245,9 @@ import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/appr
 import 'package:shift/presentation/main/tabs/shifts/cancelled_shifts/widgets/cancel_contractor_list.dart'
     as _i22;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/filled_shifts_view.dart'
-    as _i56;
+    as _i57;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/filled_hired_contractor_list.dart'
-    as _i55;
+    as _i56;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_agreed_praposal.dart'
     as _i114;
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/view_filled_shifts_dates.dart'
@@ -1980,7 +1980,26 @@ class EmployerLocationView extends _i126.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i53.EmployerShiftView]
+/// [_i53.EmployerLongTermView]
+class EmployerLongTermView extends _i126.PageRouteInfo<void> {
+  const EmployerLongTermView({List<_i126.PageRouteInfo>? children})
+      : super(
+          EmployerLongTermView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EmployerLongTermView';
+
+  static _i126.PageInfo page = _i126.PageInfo(
+    name,
+    builder: (data) {
+      return const _i53.EmployerLongTermView();
+    },
+  );
+}
+
+/// generated route for
+/// [_i54.EmployerShiftView]
 class EmployerShiftView extends _i126.PageRouteInfo<void> {
   const EmployerShiftView({List<_i126.PageRouteInfo>? children})
       : super(
@@ -1993,13 +2012,13 @@ class EmployerShiftView extends _i126.PageRouteInfo<void> {
   static _i126.PageInfo page = _i126.PageInfo(
     name,
     builder: (data) {
-      return const _i53.EmployerShiftView();
+      return const _i54.EmployerShiftView();
     },
   );
 }
 
 /// generated route for
-/// [_i54.FaqView]
+/// [_i55.FaqView]
 class FaqView extends _i126.PageRouteInfo<void> {
   const FaqView({List<_i126.PageRouteInfo>? children})
       : super(
@@ -2012,13 +2031,13 @@ class FaqView extends _i126.PageRouteInfo<void> {
   static _i126.PageInfo page = _i126.PageInfo(
     name,
     builder: (data) {
-      return const _i54.FaqView();
+      return const _i55.FaqView();
     },
   );
 }
 
 /// generated route for
-/// [_i55.FilledHiredContractorList]
+/// [_i56.FilledHiredContractorList]
 class FilledHiredContractorList
     extends _i126.PageRouteInfo<FilledHiredContractorListArgs> {
   FilledHiredContractorList({
@@ -2036,7 +2055,7 @@ class FilledHiredContractorList
     name,
     builder: (data) {
       final args = data.argsAs<FilledHiredContractorListArgs>();
-      return _i55.FilledHiredContractorList(postId: args.postId);
+      return _i56.FilledHiredContractorList(postId: args.postId);
     },
   );
 }
@@ -2053,7 +2072,7 @@ class FilledHiredContractorListArgs {
 }
 
 /// generated route for
-/// [_i56.FilledShiftsView]
+/// [_i57.FilledShiftsView]
 class FilledShiftsView extends _i126.PageRouteInfo<void> {
   const FilledShiftsView({List<_i126.PageRouteInfo>? children})
       : super(
@@ -2066,13 +2085,13 @@ class FilledShiftsView extends _i126.PageRouteInfo<void> {
   static _i126.PageInfo page = _i126.PageInfo(
     name,
     builder: (data) {
-      return const _i56.FilledShiftsView();
+      return const _i57.FilledShiftsView();
     },
   );
 }
 
 /// generated route for
-/// [_i57.FullPositionDetailView]
+/// [_i58.FullPositionDetailView]
 class FullPositionDetailView extends _i126.PageRouteInfo<void> {
   const FullPositionDetailView({List<_i126.PageRouteInfo>? children})
       : super(
@@ -2085,26 +2104,7 @@ class FullPositionDetailView extends _i126.PageRouteInfo<void> {
   static _i126.PageInfo page = _i126.PageInfo(
     name,
     builder: (data) {
-      return const _i57.FullPositionDetailView();
-    },
-  );
-}
-
-/// generated route for
-/// [_i58.FullPositionReviewView]
-class FullPositionReviewView extends _i126.PageRouteInfo<void> {
-  const FullPositionReviewView({List<_i126.PageRouteInfo>? children})
-      : super(
-          FullPositionReviewView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'FullPositionReviewView';
-
-  static _i126.PageInfo page = _i126.PageInfo(
-    name,
-    builder: (data) {
-      return const _i58.FullPositionReviewView();
+      return const _i58.FullPositionDetailView();
     },
   );
 }

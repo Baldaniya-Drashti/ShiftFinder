@@ -26,7 +26,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
           minimum: EdgeInsets.all(16),
           child: CommonButton(
             onPressed: () {
-              context.router.navigate(PageRouteInfo(FullPositionReviewView.name));
+              context.router.navigate(PageRouteInfo(EmployerFullPostingReviewView.name));
             },
             buttonText: "Continue",
           ),

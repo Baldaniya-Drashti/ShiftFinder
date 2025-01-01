@@ -174,16 +174,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
-    gh.factory<_i730.PickLocationDialogBloc>(
-        () => _i730.PickLocationDialogBloc());
-    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
+    gh.factory<_i79.EmployerFullPostingReviewBloc>(
+        () => _i79.EmployerFullPostingReviewBloc());
     gh.factory<_i24.EmployerFullPostingBloc>(
         () => _i24.EmployerFullPostingBloc());
     gh.factory<_i454.EmployerFullPostingConfirmBloc>(
         () => _i454.EmployerFullPostingConfirmBloc());
-    gh.factory<_i79.EmployerFullPostingReviewBloc>(
-        () => _i79.EmployerFullPostingReviewBloc());
+    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i730.PickLocationDialogBloc>(
+        () => _i730.PickLocationDialogBloc());
+    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -204,16 +204,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
     gh.factory<_i990.EmployerLocationFormBloc>(
         () => _i990.EmployerLocationFormBloc(
               gh<_i253.IAccountRepository>(),
               gh<_i111.IMainFacade>(),
             ));
     gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
-          gh<_i253.IAccountRepository>(),
-          gh<_i111.IMainFacade>(),
-        ));
-    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
