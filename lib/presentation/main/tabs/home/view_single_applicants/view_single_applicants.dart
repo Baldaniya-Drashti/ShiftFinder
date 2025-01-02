@@ -655,22 +655,39 @@ class ViewSingleApplicants extends StatelessWidget {
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                colorFilter: ColorFilter.mode(
-                  AppColors.black,
-                  BlendMode.srcATop,
+          GestureDetector(
+            onTap: () {
+              final latitude = data.latitude;
+              final longitude = data.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.black,
+                    BlendMode.srcATop,
+                  ),
                 ),
-              ),
-              SizedBox(width: getSize(5)),
-              BaseText(
-                text: data.location ?? "",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-              ),
-            ],
+                SizedBox(width: getSize(5)),
+                BaseText(
+                  text: data.location ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -10,6 +10,8 @@ _$LocationDTOImpl _$$LocationDTOImplFromJson(Map<String, dynamic> json) =>
     _$LocationDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       location: json['location'] as String?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
       add_units: (json['add_units'] as List<dynamic>?)
           ?.map((e) => UnitDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$LocationDTOImplToJson(_$LocationDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'location': instance.location,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'add_units': instance.add_units,
       'facility_type': instance.facility_type,
       'accreditation_number': instance.accreditation_number,

@@ -69,7 +69,8 @@ class InvoiceView extends StatelessWidget {
                                 ),
                                 child: Column(
                                   children: [
-                                    userDetail(state.invoiceList[index]),
+                                    userDetail(
+                                        context, state.invoiceList[index]),
                                     Gap(getSize(10)),
                                     CommonButton(
                                       onPressed: () {
@@ -139,7 +140,7 @@ class InvoiceView extends StatelessWidget {
     );
   }
 
-  Widget userDetail(PaymentHistoryDTO shift) {
+  Widget userDetail(BuildContext context, PaymentHistoryDTO shift) {
     final industry = CommonList.industryList
         .firstWhere((element) => element.id == shift.industry);
     return Container(
@@ -208,18 +209,36 @@ class InvoiceView extends StatelessWidget {
             ),
           ),
           commonDivider(),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                color: AppColors.black,
-              ),
-              Gap(getSize(5)),
-              BaseText(
-                text: shift.location?.location ?? "",
-                fontSize: 10,
-              )
-            ],
+          GestureDetector(
+            onTap: () {
+              final location = shift.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  color: AppColors.black,
+                ),
+                Gap(getSize(5)),
+                BaseText(
+                  text: shift.location?.location ?? "",
+                  fontSize: 10,
+                )
+              ],
+            ),
           ),
           commonDivider(),
           ListTile(

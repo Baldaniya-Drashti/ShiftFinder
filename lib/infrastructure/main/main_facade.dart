@@ -2423,7 +2423,7 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
-      {required int date}) async {
+      {required double date}) async {
     try {
       Map<String, dynamic> mapData = {
         "date": date,
@@ -2693,8 +2693,8 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
-    required int startDate,
-    required int endDate,
+    required String startDate,
+    required String endDate,
   }) async {
     try {
       final response = await apiService.getMethod(

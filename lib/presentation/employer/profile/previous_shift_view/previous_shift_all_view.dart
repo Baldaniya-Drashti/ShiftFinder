@@ -357,26 +357,43 @@ class _PreviousShiftListTile extends StatelessWidget {
   }
 
   Widget _buildLocationInfo(BuildContext context) {
-    return CommonInfoTile(
-      key: ValueKey("location_info"),
-      leading: SvgPicture.asset(
-        SvgImageConstant.location,
-        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-        height: 24,
-        width: 24,
-      ),
-      title: BaseText(
-        text: data.location ?? "",
-        fontWeight: FontWeight.w500,
-        fontSize: 11,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-      ),
-      subtitle: BaseText(
-        text: data.distance ?? "",
-        fontWeight: FontWeight.w500,
-        textColor: AppColors.green,
-        fontSize: 10,
+    return GestureDetector(
+      onTap: () {
+        final latitude = data.latitude;
+        final longitude = data.longitude;
+        if (latitude != null && longitude != null) {
+          context.router.push(
+            PageRouteInfo(
+              ShowGoogleMap.name,
+              args: ShowGoogleMapArgs(
+                latitude: latitude,
+                longitude: longitude,
+              ),
+            ),
+          );
+        }
+      },
+      child: CommonInfoTile(
+        key: ValueKey("location_info"),
+        leading: SvgPicture.asset(
+          SvgImageConstant.location,
+          colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+          height: 24,
+          width: 24,
+        ),
+        title: BaseText(
+          text: data.location ?? "",
+          fontWeight: FontWeight.w500,
+          fontSize: 11,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+        subtitle: BaseText(
+          text: data.distance ?? "",
+          fontWeight: FontWeight.w500,
+          textColor: AppColors.green,
+          fontSize: 10,
+        ),
       ),
     );
   }

@@ -18,6 +18,7 @@ import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
@@ -39,98 +40,109 @@ class ContractorTotalEarningView extends StatelessWidget {
               onBackPressed: () => context.router.maybePop(),
               title: StringConstant.totalEarningsStatement,
             ),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(getSize(12)),
-              child: Column(
-                children: [
-                  BlocSelector<ContractorEarningBloc, ContractorEarningState,
-                      List<DateTime>>(
-                    selector: (state) => state.selectedDateTime,
-                    builder: (context, selectedDateTime) {
-                      return DateRangePickerTile(
-                        label: StringConstant.period,
-                        selectedDate: selectedDateTime,
-                        onDateSelected: (value) {
-                          print("selected range dates---> $value");
-                          context.read<ContractorEarningBloc>().add(
-                              ContractorEarningEvent.onDateSelected(
-                                  dates: value));
-                        },
-                      );
-                    },
-                  ),
-                  Gap(getSize(12)),
-                  Container(
-                    padding: EdgeInsets.all(getSize(16)),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        companyDetail(context,
-                            statementPeriod: state.selectedDateTime,
-                            statement:
-                                state.statement ?? MonthlyStatementDTO()),
-                        commonDivider(),
-                        _Earning(),
-                        Gap(getSize(15)),
-                        _Compensation(),
-                        Gap(getSize(15)),
-                        _ReferralBonus(),
-                        Gap(getSize(15)),
-                        Material(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.scaffoldColor,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
+            body: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BlocSelector<ContractorEarningBloc, ContractorEarningState,
+                    List<DateTime>>(
+                  selector: (state) => state.selectedDateTime,
+                  builder: (context, selectedDateTime) {
+                    return DateRangePickerTile(
+                      label: StringConstant.period,
+                      selectedDate: selectedDateTime,
+                      onDateSelected: (value) {
+                        print("selected range dates---> $value");
+                        context.read<ContractorEarningBloc>().add(
+                            ContractorEarningEvent.onDateSelected(
+                                dates: value));
+                      },
+                    );
+                  },
+                ),
+                Gap(getSize(12)),
+                Expanded(
+                  child: (state.statement == null)
+                      ? Center(
+                          child: NoDataText(
+                            title: "",
+                            description: StringConstant
+                                .pleaseSelectDateToViewEarningStatement,
+                          ),
+                        )
+                      : Container(
+                          padding: EdgeInsets.all(getSize(16)),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: SingleChildScrollView(
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MonthlyStatementInfo(
-                                  label: StringConstant
-                                      .totalCompletedShiftEarnings,
-                                  value: "\$1350.00",
-                                  showSign: false,
+                                companyDetail(context,
+                                    statementPeriod: state.selectedDateTime,
+                                    statement: state.statement ??
+                                        MonthlyStatementDTO()),
+                                commonDivider(),
+                                _Earning(),
+                                Gap(getSize(15)),
+                                _Compensation(),
+                                Gap(getSize(15)),
+                                _ReferralBonus(),
+                                Gap(getSize(15)),
+                                Material(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColors.scaffoldColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        MonthlyStatementInfo(
+                                          label: StringConstant
+                                              .totalCompletedShiftEarnings,
+                                          value: "\$1350.00",
+                                          showSign: false,
+                                        ),
+                                        MonthlyStatementInfo(
+                                          label: StringConstant
+                                              .totalCompensationReceived,
+                                          value: "\$1350.00",
+                                          showSign: false,
+                                        ),
+                                        MonthlyStatementInfo(
+                                          label: StringConstant
+                                              .totalReferralBonusReceived,
+                                          value: "\$1350.00",
+                                          showSign: false,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                MonthlyStatementInfo(
-                                  label:
-                                      StringConstant.totalCompensationReceived,
-                                  value: "\$1350.00",
-                                  showSign: false,
+                                Gap(22),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.green.withOpacity(0.2),
+                                  ),
+                                  padding: EdgeInsets.all(getSize(16)),
+                                  child: MonthlyStatementInfo(
+                                    label: StringConstant.netEarnings,
+                                    value: "\$1070.00",
+                                    showSign: false,
+                                  ),
                                 ),
-                                MonthlyStatementInfo(
-                                  label:
-                                      StringConstant.totalReferralBonusReceived,
-                                  value: "\$1350.00",
-                                  showSign: false,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(22)),
+                                  child: _Footer(),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        Gap(22),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.green.withOpacity(0.2),
-                          ),
-                          padding: EdgeInsets.all(getSize(16)),
-                          child: MonthlyStatementInfo(
-                            label: StringConstant.netEarnings,
-                            value: "\$1070.00",
-                            showSign: false,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: getSize(22)),
-                          child: _Footer(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

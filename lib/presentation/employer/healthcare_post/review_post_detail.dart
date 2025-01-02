@@ -459,27 +459,45 @@ class ReviewPostShiftDetail extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           commonDivider(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                color: AppColors.black,
-                height: getSize(25),
-                width: getSize(25),
-              ),
-              SizedBox(
-                width: getSize(10),
-              ),
-              Flexible(
-                child: BaseText(
-                  text: post.location?.location ?? "",
-                  fontSize: 10,
-                  maxLines: 5,
-                  fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  color: AppColors.black,
+                  height: getSize(25),
+                  width: getSize(25),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Flexible(
+                  child: BaseText(
+                    text: post.location?.location ?? "",
+                    fontSize: 10,
+                    maxLines: 5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

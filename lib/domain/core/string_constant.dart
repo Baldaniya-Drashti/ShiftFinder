@@ -614,9 +614,9 @@ class StringConstant {
   static const String multiShift = "Multi Shift";
   static const String shiftCancellationFee = "Shift Cancellation Fee";
   static const String occupied = "Occupied";
-  static const String paymentsDetails = "Payment’s Details";
-  static const String contractorsDetails = "Contractor’s Details";
-  static const String shiftsDetails = "Shift’s Details";
+  static const String paymentsDetails = "Payment's Details";
+  static const String contractorsDetails = "Contractor's Details";
+  static const String shiftsDetails = "Shift's Details";
   static const String earningsAndStatements = "Earnings & Statements";
   static const String earningDesc =
       "Track your earnings and download statements for a complete financial summary";
@@ -664,7 +664,7 @@ class StringConstant {
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String currentCompleteShiftDesc =
-      "Your submitted shift will appear under Profile > Previous Shifts > Completed once the payment has been processed.";
+      "Your submitted shift will move to Profile → Previous Shifts → Completed after the payment is processed.";
   static const String pleaseSelectYourAddressProofDocumentFromTheList =
       "Please select your address proof document from the list";
   static const String selectYourAddressProof = "Select Your Address Proof";
@@ -688,6 +688,11 @@ class StringConstant {
   static const String postalCode = "Postal Code";
   static const String jobTitle = "Job Title";
   static const String accountType = "Account Type";
+  static const String pleaseSelectDateToViewEarningStatement =
+      "Please select date to view Earning Statement";
+  static const String pleaseSelectMonthToViewPerformanceInsights =
+      "Please select month to view Performance Insights";
+  static const String chooseMonth = "Choose Month";
   static const String iRoidSolutions = "iRoid Solutions";
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -941,3 +946,5 @@ class StringConstant {
   static const String pleaseSelectAccountType = "Please select account type";
   static const String pleaseSelectBankAddress = "Please select bank address";
 }
+// latitude: 21.191535534205194,
+// longitude: 72.78582206137469,

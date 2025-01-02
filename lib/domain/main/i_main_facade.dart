@@ -324,7 +324,7 @@ abstract class IMainFacade {
   });
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
   Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
-      {required int date});
+      {required double date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
@@ -353,7 +353,7 @@ abstract class IMainFacade {
     required int id,
   });
   Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
-    required int startDate,
-    required int endDate,
+    required String startDate,
+    required String endDate,
   });
 }

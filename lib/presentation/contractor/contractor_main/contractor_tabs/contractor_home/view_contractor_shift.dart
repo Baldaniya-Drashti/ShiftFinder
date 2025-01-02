@@ -517,39 +517,57 @@ class ViewContractorShift extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           commonDivider(),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                color: AppColors.black,
-                height: getSize(25),
-                width: getSize(25),
-              ),
-              SizedBox(
-                width: getSize(10),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BaseText(
-                      text: post.location?.location ?? "",
-                      fontSize: 12,
-                      maxLines: 1,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.black,
+          GestureDetector(
+            onTap: () {
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                    BaseText(
-                      text: post.distance ?? "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      textColor: AppColors.primaryColor,
-                    ),
-                  ],
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  color: AppColors.black,
+                  height: getSize(25),
+                  width: getSize(25),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text: post.location?.location ?? "",
+                        fontSize: 12,
+                        maxLines: 1,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
+                      ),
+                      BaseText(
+                        text: post.distance ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        textColor: AppColors.primaryColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

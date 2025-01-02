@@ -223,7 +223,8 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.performanceInsights,
         image: SvgImageConstant.insights,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorPerformanceInsightView.name));
+          context.router
+              .push(PageRouteInfo(ContractorPerformanceInsightView.name));
         },
       ),
       ProfileItemModel(

@@ -10,6 +10,7 @@ import 'package:shift/infrastructure/core/employer_previous_shift/employer_previ
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -357,26 +358,43 @@ class ShiftActionsView extends StatelessWidget {
     BuildContext context, {
     required EmployerPreviousShiftDto? data,
   }) {
-    return CommonInfoTile(
-      key: ValueKey("location_info"),
-      leading: SvgPicture.asset(
-        SvgImageConstant.location,
-        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-        height: 24,
-        width: 24,
-      ),
-      title: BaseText(
-        text: data?.location ?? "",
-        fontWeight: FontWeight.w500,
-        fontSize: 11,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-      ),
-      subtitle: BaseText(
-        text: data?.distance ?? "",
-        fontWeight: FontWeight.w500,
-        textColor: AppColors.green,
-        fontSize: 10,
+    return GestureDetector(
+      onTap: () {
+        final latitude = data?.latitude;
+        final longitude = data?.longitude;
+        if (latitude != null && longitude != null) {
+          context.router.push(
+            PageRouteInfo(
+              ShowGoogleMap.name,
+              args: ShowGoogleMapArgs(
+                latitude: latitude,
+                longitude: longitude,
+              ),
+            ),
+          );
+        }
+      },
+      child: CommonInfoTile(
+        key: ValueKey("location_info"),
+        leading: SvgPicture.asset(
+          SvgImageConstant.location,
+          colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+          height: 24,
+          width: 24,
+        ),
+        title: BaseText(
+          text: data?.location ?? "",
+          fontWeight: FontWeight.w500,
+          fontSize: 11,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+        subtitle: BaseText(
+          text: data?.distance ?? "",
+          fontWeight: FontWeight.w500,
+          textColor: AppColors.green,
+          fontSize: 10,
+        ),
       ),
     );
   }

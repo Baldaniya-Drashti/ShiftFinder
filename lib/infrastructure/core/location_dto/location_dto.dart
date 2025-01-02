@@ -9,6 +9,8 @@ class LocationDTO with _$LocationDTO {
   const factory LocationDTO({
     final int? id,
     final String? location,
+    final double? latitude,
+    final double? longitude,
     final List<UnitDTO>? add_units,
     final FacilityTypeDto? facility_type,
     final String? accreditation_number,
@@ -32,7 +34,7 @@ class UnitDTO with _$UnitDTO {
 }
 
 @freezed
-class FacilityTypeDto with _$FacilityTypeDto{
+class FacilityTypeDto with _$FacilityTypeDto {
   const factory FacilityTypeDto({
     final int? id,
     final String? name,

@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class ApplicantsDetailView extends StatelessWidget {
@@ -32,7 +34,7 @@ class ApplicantsDetailView extends StatelessWidget {
                 child: CircleAvatar(
                   radius: getSize(19),
                   backgroundImage: NetworkImage(
-                    data.profile??"",
+                    data.profile ?? "",
                   ),
                 ),
               ),
@@ -42,13 +44,13 @@ class ApplicantsDetailView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BaseText(
-                      text: "${data.first_name??""} ${data.last_name??""}",
+                      text: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: getSize(3)),
                     BaseText(
-                      text: 'Distance - ${data.distance??""}',
+                      text: 'Distance - ${data.distance ?? ""}',
                       fontSize: 8,
                       textColor: AppColors.black.withOpacity(0.8),
                     )
@@ -64,25 +66,41 @@ class ApplicantsDetailView extends StatelessWidget {
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                colorFilter: ColorFilter.mode(
-                  AppColors.black,
-                  BlendMode.srcATop,
+          GestureDetector(
+            onTap: () {
+              final latitude = data.latitude;
+              final longitude = data.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.black,
+                    BlendMode.srcATop,
+                  ),
                 ),
-              ),
-              SizedBox(width: getSize(5)),
-              Expanded(
-                child: BaseText(
-                  text: '${data.location??""}',
+                SizedBox(width: getSize(5)),
+                Expanded(
+                    child: BaseText(
+                  text: '${data.location ?? ""}',
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   maxLines: 4,
-                )
-              ),
-            ],
+                )),
+              ],
+            ),
           ),
         ],
       ),

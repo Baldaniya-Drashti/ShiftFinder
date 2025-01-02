@@ -5,6 +5,6 @@ class ContractorPerformanceInsightEvent
     with _$ContractorPerformanceInsightEvent {
   const factory ContractorPerformanceInsightEvent.onDateSelected(
     BuildContext context, {
-    required List<DateTime> dates,
+    required DateTime? selectedDate,
   }) = _OnDateSelected;
 }
