@@ -150,14 +150,14 @@ class AppliedTab extends StatelessWidget {
                                         bgColor: AppColors.primaryColor
                                             .withOpacity(0.10),
                                       ),
-                                      if (shift.isVacancies == false) ...[
-                                        SizedBox(width: getSize(10)),
-                                        (shift.request == 1 &&
-                                                shift.urgent_action == 0)
-                                            ? urgentActionRequiredBtn(
-                                                context, shift.id ?? -1)
-                                            : cancelBtn(context, shift.id ?? -1)
-                                      ],
+                                      // if (shift.isVacancies == false) ...[
+                                      SizedBox(width: getSize(10)),
+                                      (shift.request == 1 &&
+                                              shift.urgent_action == 0)
+                                          ? urgentActionRequiredBtn(
+                                              context, shift.id ?? -1)
+                                          : cancelBtn(context, shift.id ?? -1)
+                                      // ],
                                     ],
                                   ),
                                 ],

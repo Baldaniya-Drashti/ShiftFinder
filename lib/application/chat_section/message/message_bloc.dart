@@ -111,6 +111,13 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
             updatedList.insert(0, data);
             return state.copyWith(messageList: updatedList);
           });
+          /* final data = await chatService.receiveMessage();
+          var updatedList = List<MessageData>.from(state.messageList);
+          print("Chat Received message---> $data");
+          if (data != null) {
+            updatedList.insert(0, data);
+            return state.copyWith(messageList: updatedList);
+          } */
         },
         sendMessage: (_SendMessage value) {
           log('Date : ${DateTime.now().millisecondsSinceEpoch}');

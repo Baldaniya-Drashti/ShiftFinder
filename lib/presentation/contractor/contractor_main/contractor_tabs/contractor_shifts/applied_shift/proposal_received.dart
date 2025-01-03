@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -56,6 +57,67 @@ class ProposalReceived extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   userDetail(context),
+                  if (post.shift_type == 2) ...[
+                    CommonButton(
+                      height: 34,
+                      onPressed: () async {
+                        /*         await context.router
+                          .push(
+                        PageRouteInfo(
+                          ContractorProposedAvailability.name,
+                          args: ContractorProposedAvailabilityArgs(
+                              list: data.shift_details ?? [],
+                              confirmDialog: confirmDialog),
+                        ),
+                      )
+                          .then((result) {
+                        context.read<ProposalDetailBloc>().add(
+                            ProposalDetailEvent.addConfirmDialogFlag(
+                                result as bool));
+                      }); */
+                      },
+                      backgroundColor: AppColors.green.withOpacity(0.1),
+                      buttonText: StringConstant.viewAvailability,
+                      borderRadius: 7,
+                      buttonFontSize: 11,
+                      buttonTextColor: AppColors.black,
+                    ),
+                  ] else ...[
+                    BaseText(
+                      text: DateFormat("dd MMM, yyyy").format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (post.date ?? 0) * 1000)),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.green,
+                    ),
+                    SizedBox(height: getSize(10)),
+                    Container(
+                      padding: EdgeInsets.all(getSize(20)),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEDEDED),
+                        borderRadius: BorderRadius.circular(getSize(20)),
+                      ),
+                      child: Column(
+                        children: [
+                          // getTitleAndDescription(
+                          //   context,
+                          //   title: 'Posted Time',
+                          //   description:
+                          //       '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
+                          // ),
+                          // SizedBox(height: getSize(20)),
+                          // getTitleAndDescription(
+                          //   context,
+                          //   title: 'Proposed Time',
+                          //   description:
+                          //       '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
+                          // ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: getSize(20)),
+                  ],
                   proposedBox(
                     title: StringConstant.hourlyRate,
                     postedValue: allowncValue(

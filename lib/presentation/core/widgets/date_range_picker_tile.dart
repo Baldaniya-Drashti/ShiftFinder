@@ -85,7 +85,6 @@ class MonthPickerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("selectedMonthselectedMonth---> ${selectedMonth}");
     final label = selectedMonth != null
         ? DateFormat('MMM yyyy').format(selectedMonth!)
         : StringConstant.chooseMonth;
@@ -97,7 +96,7 @@ class MonthPickerTile extends StatelessWidget {
           padding: EdgeInsets.only(left: getSize(18)),
           child: BaseText(text: this.label, fontSize: 10),
         ),
-        Gap(8),
+        Gap(getSize(8)),
         Material(
           color: AppColors.white,
           shape: RoundedRectangleBorder(
@@ -111,19 +110,20 @@ class MonthPickerTile extends StatelessWidget {
               onDateSelected: onDateSelected,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(20), vertical: getSize(12)),
               child: Row(
                 children: [
                   SvgPicture.asset(SvgImageConstant.calendar,
-                      height: 20, width: 20),
-                  Gap(8),
+                      height: getSize(20), width: getSize(20)),
+                  Gap(getSize(8)),
                   Expanded(
                       child: BaseText(
                           text: label,
                           fontSize: 12,
                           fontWeight: FontWeight.w600)),
                   SvgPicture.asset(SvgImageConstant.rightArrow,
-                      height: 15, width: 15),
+                      height: getSize(15), width: getSize(15)),
                 ],
               ),
             ),

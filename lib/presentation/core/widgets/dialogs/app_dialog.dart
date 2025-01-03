@@ -741,9 +741,32 @@ Future<void> pickMonthDialog(
   required DateTime? selectedMonth,
 }) {
   return showMonthPicker(
-    context: context,
-    initialDate: selectedMonth,
-  ).then((date) {
+      context: context,
+      initialDate: selectedMonth,
+      cancelWidget: BaseText(
+        text: StringConstant.cancle,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      confirmWidget: BaseText(
+        text: StringConstant.ok,
+        fontSize: 14,
+        textColor: AppColors.primaryColor,
+        fontWeight: FontWeight.w500,
+      ),
+      monthPickerDialogSettings: MonthPickerDialogSettings(
+          dialogSettings: PickerDialogSettings(
+            dialogRoundedCornersRadius: getSize(10),
+          ),
+          buttonsSettings: PickerButtonsSettings(
+            selectedMonthBackgroundColor: AppColors.primaryColor,
+            monthTextStyle: TextStyle(fontSize: getFontSize(14)),
+            unselectedMonthsTextColor: AppColors.black,
+            selectedDateRadius: getSize(5),
+          ),
+          headerSettings: PickerHeaderSettings(
+            headerBackgroundColor: AppColors.primaryColor,
+          ))).then((date) {
     if (date != null) {
       onDateSelected(date);
     }

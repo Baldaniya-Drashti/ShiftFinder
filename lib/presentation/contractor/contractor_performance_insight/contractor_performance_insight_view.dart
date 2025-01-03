@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_performance_insight/contractor_performance_insight_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -88,7 +89,12 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                         children: [
                                           titleText(StringConstant.monthIndex),
                                           BaseText(
-                                              text: "July 2024",
+                                              text: (state.selectedMonth !=
+                                                      null)
+                                                  ? DateFormat('MMM yyyy')
+                                                      .format(
+                                                          state.selectedMonth!)
+                                                  : "",
                                               fontSize: 10,
                                               fontWeight: FontWeight.w600,
                                               textColor: AppColors.green),
