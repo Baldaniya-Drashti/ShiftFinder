@@ -39,11 +39,11 @@ class EmployerFullPositionAddView extends StatelessWidget {
           builder: (context, state) {
             if (state.loading) return CenterLoadingIndicator();
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(getSize(16)),
               child: Column(
                 children: [
                   Image.asset(PngImageConstants.fullPosition),
-                  Gap(24),
+                  Gap(getSize(24)),
                   _PositionForm(),
                 ],
               ),
@@ -100,7 +100,7 @@ class _PositionFormState extends State<_PositionForm> {
               return null;
             },
           ),
-          Gap(18),
+          Gap(getSize(18)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
             selector: (state) => state.selectedJobType,
             builder: (context, selectedJobType) {
@@ -112,7 +112,7 @@ class _PositionFormState extends State<_PositionForm> {
               );
             },
           ),
-          Gap(18),
+          Gap(getSize(18)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
             selector: (state) => state.selectedShiftSchedule,
             builder: (context, selectedShiftSchedule) {
@@ -124,7 +124,7 @@ class _PositionFormState extends State<_PositionForm> {
               );
             },
           ),
-          Gap(18),
+          Gap(getSize(18)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, LocationDTO?>(
             selector: (state) => state.selectedLocation,
             builder: (context, selectedLocation) {
@@ -139,7 +139,7 @@ class _PositionFormState extends State<_PositionForm> {
               );
             },
           ),
-          Gap(18),
+          Gap(getSize(18)),
           CustomTextField(
             controller: _unionUnitController,
             labelText: "Union/Bargaining Unit",
@@ -153,7 +153,7 @@ class _PositionFormState extends State<_PositionForm> {
             },
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
-          Gap(18),
+          Gap(getSize(18)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, TimeOfDay?>(
             selector: (state) => state.selectedEstimatedHours,
             builder: (context, selectedEstimatedHours) {
@@ -188,9 +188,9 @@ class _PositionFormState extends State<_PositionForm> {
               );
             },
           ),
-          Gap(18),
+          Gap(getSize(18)),
           _CompensationType(),
-          Gap(18),
+          Gap(getSize(18)),
           _BulletListView()
         ],
       ),
@@ -297,7 +297,7 @@ class _LocationDropdown extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 16),
+          padding: EdgeInsets.only(left: getSize(16)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -310,10 +310,10 @@ class _LocationDropdown extends StatelessWidget {
             ],
           ),
         ),
-        Gap(8),
+        Gap(getSize(8)),
         Material(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(getSize(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -365,15 +365,15 @@ class _CompensationTypeState extends State<_CompensationType> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 16),
+          padding: EdgeInsets.only(left: getSize(16)),
           child: BaseText(text: "Compensation Type", fontWeight: FontWeight.w500, fontSize: 14),
         ),
         Gap(12),
         Material(
           color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(getSize(20)),
           child: Padding(
-            padding: const EdgeInsets.all(18.0),
+            padding: EdgeInsets.all(getSize(18)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -382,7 +382,7 @@ class _CompensationTypeState extends State<_CompensationType> {
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
-                Gap(8),
+                Gap(getSize(8)),
                 BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
                   selector: (state) => state.selectedRadioOption,
                   builder: (context, selectedRadioOption) {
@@ -392,10 +392,10 @@ class _CompensationTypeState extends State<_CompensationType> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Material(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(getSize(10)),
                           color: AppColors.white,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 22),
+                            padding: EdgeInsets.symmetric(vertical: getSize(16), horizontal: getSize(22)),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
@@ -426,7 +426,7 @@ class _CompensationTypeState extends State<_CompensationType> {
                             ),
                           ),
                         ),
-                        Gap(8),
+                        Gap(getSize(8)),
                         CustomTextField(
                           controller: _rateAndSalaryController,
                           hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
@@ -570,12 +570,12 @@ class _BulletListViewState extends State<_BulletListView> {
           controller: _benefitController,
           label: "Benefits Provided",
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _compensationController,
           label: "Compensation Package",
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _jobSummaryController,
           label: "Job Summary",
@@ -588,7 +588,7 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _keyResponsibilityController,
           label: "Key Responsibilities",
@@ -601,12 +601,12 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _externalInternalRelationshipController,
           label: "External and Internal Relationships",
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _qualificationController,
           label: "Required Qualifications",
@@ -619,7 +619,7 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _experienceController,
           label: "Required Experience",
@@ -632,7 +632,7 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _licenseController,
           label: "Required Licenses/Certifications",
@@ -645,7 +645,7 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _skillController,
           label: "Required Skills",
@@ -658,12 +658,12 @@ class _BulletListViewState extends State<_BulletListView> {
             return null;
           },
         ),
-        Gap(16),
+        Gap(getSize(16)),
         _BulletTextField(
           controller: _otherController,
           label: "Other",
         ),
-        Gap(28),
+        Gap(getSize(28)),
         CommonButton(
           onPressed: () {
             // if (state.selectedShiftSchedule == null) {
@@ -712,7 +712,7 @@ class _BulletTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding:  EdgeInsets.only(left: getSize(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,

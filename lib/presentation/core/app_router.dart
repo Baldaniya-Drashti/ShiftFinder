@@ -5,6 +5,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
+
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashPage.page, initial: true),
@@ -121,6 +122,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EmployerFullPositionAddView.page),
 
         AutoRoute(page: EmployerLongTermView.page),
+        AutoRoute(page: EmployerLongTermPositionDetailView.page),
 
 
         AutoRoute(page: EmployerCompletedShiftView.page),

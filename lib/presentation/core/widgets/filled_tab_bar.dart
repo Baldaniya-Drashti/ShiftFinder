@@ -11,26 +11,39 @@ class FilledTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   final List<Widget> tabs;
   final ValueSetter<int>? onTap;
-  static const _kDefaultTabBarHeight = 46.0;
+  static const _kDefaultTabBarHeight = 48.0;
 
   @override
   Widget build(BuildContext context) {
-    final baseTextStyle = TextStyle(fontSize: getFontSize(14), fontWeight: FontWeight.w500, color: AppColors.primaryColor);
-    final unselectedLabelStyle = baseTextStyle.copyWith(color: Colors.black.withOpacity(0.5));
+    final baseTextStyle = TextStyle(fontSize: getFontSize(14), fontWeight: FontWeight.w500, color: AppColors.white);
+    final unselectedLabelStyle = baseTextStyle.copyWith(color: Colors.black.withOpacity(0.6));
 
-    return TabBar(
-      onTap: onTap,
-      tabs: tabs,
-      padding: EdgeInsets.zero,
-      labelStyle: baseTextStyle,
-      overlayColor: WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
-      unselectedLabelStyle: unselectedLabelStyle,
-      dividerHeight: getSize(3),
-      indicatorSize: TabBarIndicatorSize.tab,
-      dividerColor: AppColors.black.withOpacity(0.2),
-      indicatorColor: AppColors.primaryColor,
-      labelPadding: EdgeInsets.zero,
-      unselectedLabelColor: AppColors.black.withOpacity(0.2),
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      color: AppColors.white,
+      child: SizedBox(
+        height: preferredSize.height,
+        child: Padding(
+          padding: const EdgeInsets.all(2),
+          child: TabBar(
+            onTap: onTap,
+            tabs: tabs,
+            padding: EdgeInsets.zero,
+            labelStyle: baseTextStyle,
+            overlayColor: WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
+            unselectedLabelStyle: unselectedLabelStyle,
+            indicatorSize: TabBarIndicatorSize.tab,
+            dividerColor: Colors.transparent,
+            indicatorColor: AppColors.primaryColor,
+            labelPadding: EdgeInsets.zero,
+            unselectedLabelColor: AppColors.black.withOpacity(0.2),
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.primaryColor,
+            ),
+          ),
+        ),
+      ),
     );
   }
 

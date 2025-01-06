@@ -42,6 +42,13 @@ class ProfileItems extends StatelessWidget {
         },
       ),
       ProfileItemModel(
+        title: StringConstant.longTermPositions,
+        image: SvgImageConstant.previousShifts,
+        onTap: () {
+          context.router.push(PageRouteInfo(EmployerLongTermView.name));
+        },
+      ),
+      ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {

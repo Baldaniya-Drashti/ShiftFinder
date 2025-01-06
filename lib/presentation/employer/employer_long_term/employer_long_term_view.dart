@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/filled_tab_bar.dart';
 import 'package:shift/presentation/employer/employer_long_term/tabs/filled_position_tab_view.dart';
 import 'package:shift/presentation/employer/employer_long_term/tabs/open_position_tab_view.dart';
@@ -14,20 +16,27 @@ class EmployerLongTermView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(onBackPressed: context.maybePop, title: StringConstant.longTermPositions),
+      bottomNavigationBar: Padding(
+        padding:  EdgeInsets.all(getSize(16)),
+        child: CommonButton(
+          onPressed: () {},
+          buttonText: "Post a Long Term Position",
+        ),
+      ),
       body: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Column(
           children: [
-            FilledTabBar(tabs: [
-              Tab(text: "Open Positions"),
-              Tab(text: "Filled Positions"),
-            ]),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(28)),
+              child: FilledTabBar(tabs: [
+                Tab(text: "Open Positions"),
+                Tab(text: "Filled Positions"),
+              ]),
+            ),
             Expanded(
               child: TabBarView(
-                children: [
-                  OpenPositionTabView(),
-                  FilledPositionTabView()
-                ],
+                children: [OpenPositionTabView(), FilledPositionTabView()],
               ),
             )
           ],

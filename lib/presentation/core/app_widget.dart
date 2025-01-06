@@ -54,6 +54,7 @@ class _AppState extends State<_App> {
           debugShowCheckedModeBanner: false,
           theme: ThemeConfig.lightTheme,
           routerConfig: appRouter.config(),
+
           // locale: state1.locale,
           // supportedLocales: AppLocalizations.supportedLocales,
           // localizationsDelegates: [

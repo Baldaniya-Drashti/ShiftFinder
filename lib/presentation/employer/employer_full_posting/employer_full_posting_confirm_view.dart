@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -23,7 +24,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
       create: (context) => getIt<EmployerFullPostingConfirmBloc>(),
       child: Scaffold(
         bottomNavigationBar: SafeArea(
-          minimum: EdgeInsets.all(16),
+          minimum: EdgeInsets.all(getSize(16)),
           child: CommonButton(
             onPressed: () {
               context.router.navigate(PageRouteInfo(EmployerFullPostingReviewView.name));
@@ -33,27 +34,27 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
         ),
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(getSize(16)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 16),
+                padding:  EdgeInsets.only(left: getSize(16)),
                 child: BaseText(text: "Application Deadline", fontWeight: FontWeight.w500, fontSize: 14),
               ),
               Gap(6),
               Material(
                 clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(10))),
                 color: AppColors.white,
                 child: InkWell(
                   onTap: () {},
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
+                    padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(15)),
                     child: Row(
                       children: [
                         SvgPicture.asset(SvgImageConstant.calendar),
-                        Gap(18),
+                        Gap(getSize(18)),
                         Expanded(
                           child: BaseText(
                             text: "Application Deadline",
@@ -67,7 +68,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(16),
+              Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.includeOnCall,
                 builder: (context, includeOnCall) {
@@ -83,7 +84,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                   );
                 },
               ),
-              Gap(16),
+              Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.saveFuturePosting,
                 builder: (context, saveFuturePosting) {
@@ -99,7 +100,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                   );
                 },
               ),
-              Gap(16),
+              Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.moreVacancy,
                 builder: (context, moreVacancy) {
@@ -115,7 +116,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                   );
                 },
               ),
-              Gap(16),
+              Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
                 selector: (state) => state.termsAndCondition,
                 builder: (context, termsAndCondition) {
@@ -147,9 +148,9 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
   }) {
     return Material(
       color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(getSize(10)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.all(getSize(16)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -5,6 +6,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -15,19 +17,22 @@ class OpenPositionTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.all(getSize(16)),
+      padding: EdgeInsets.all(getSize(12)),
       separatorBuilder: (context, index) => Gap(getSize(16)),
       itemCount: 4,
       itemBuilder: (context, index) => Container(
         decoration: BoxDecoration(
           color: AppColors.white,
+          borderRadius: BorderRadius.circular(getSize(20)),
           boxShadow: [
-            BoxShadow(color: AppColors.lightGrey.withOpacity(0.3), blurRadius: getSize(20), spreadRadius: 5),
+            BoxShadow(
+              color: AppColors.lightGrey.withOpacity(0.1),
+              blurRadius: getSize(20),
+            ),
           ],
-          borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
-          padding: EdgeInsets.all(getSize(14)),
+          padding: EdgeInsets.all(getSize(12)),
           child: Column(
             children: [
               _buildPositionTile(context),
@@ -35,7 +40,7 @@ class OpenPositionTabView extends StatelessWidget {
               _positionDetailButton(
                 context,
                 onPressed: () {
-                  //context.router.push(PageRouteInfo(FullPositionDetailView.name));
+                  context.router.push(PageRouteInfo(EmployerLongTermPositionDetailView.name));
                 },
               ),
               Gap(getSize(12)),
@@ -76,7 +81,7 @@ class OpenPositionTabView extends StatelessWidget {
         children: [
           Image.asset(
             PngImageConstants.nurse2,
-            height: 50,
+            height: getSize(50),
             color: AppColors.white,
           ),
           Gap(getSize(16)),
@@ -151,7 +156,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildTotalApplication(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
         padding: EdgeInsets.all(getSize(16)),
