@@ -9,6 +9,7 @@ import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -41,6 +42,22 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
   BankDetailsBloc(this.repository) : super(BankDetailsState.initial()) {
     on<BankDetailsEvent>((event, emit) async {
       await event.map(
+        getBankDetails: (e) async {
+          emit(state.copyWith(isLoading: true));
+          final res = await repository.getBankDetailAPI();
+          res.fold(
+            (l) {
+              emit(state.copyWith(isLoading: false));
+            },
+            (r) {
+              print("Bank Detail R---> $r");
+              return emit(state.copyWith(
+                isLoading: false,
+                bankDetail: r,
+              ));
+            },
+          );
+        },
         locationSelectedFromSearchList: (e) async {
           Location? locationDetails;
           locationCtrl.text = e.selectedLocation.description ?? "";
@@ -275,7 +292,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
                 authFailureOrSuccessOption: none(),
               ),
             );
-            failureOrSuccess = await repository.addBankDetail(
+            /* failureOrSuccess = await repository.addBankDetail(
               bankName: state.bankName.getValue() ?? "",
               jobTitle: state.jobTitle.getValue() ?? "",
               accountNumber: state.accountNumber.getValue() ?? "",
@@ -297,8 +314,9 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               countryFlag: state.selectedCountryCodeName,
               countryCode: '+${state.selectedCountrycode}',
               phone: state.phoneNumber.getValue(),
-            );
-            // failureOrSuccess = right("success");
+            ); */
+
+            failureOrSuccess = right("success");
           } else {
             print("Some Details are invalid!");
             showError(

@@ -178,7 +178,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(

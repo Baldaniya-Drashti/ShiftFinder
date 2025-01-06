@@ -29,9 +29,11 @@ class BankDetailsState with _$BankDetailsState {
     required List<Predictions> searchLocationList,
     required Predictions selectedLocationPrediction,
     required bool isLoading,
+    required BankDTO? bankDetail,
   }) = _BankDetailsState;
 
   factory BankDetailsState.initial() => BankDetailsState(
+        bankDetail: null,
         accountHolderName: Username(""),
         jobTitle: InputEmptyOrNot(""),
         accountType: InputEmptyOrNot(""),

@@ -170,8 +170,6 @@ import 'package:shift/presentation/employer/employer_location/employer_location_
     as _i51;
 import 'package:shift/presentation/employer/employer_location/employer_location_view.dart'
     as _i52;
-import 'package:shift/presentation/employer/full_position_review/full_position_review_view.dart'
-    as _i58;
 import 'package:shift/presentation/employer/healthcare_post/add_multi_date_time.dart'
     as _i10;
 import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
@@ -197,6 +195,8 @@ import 'package:shift/presentation/employer/profile/previous_shift_view/previous
     as _i87;
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_view.dart'
     as _i88;
+import 'package:shift/presentation/full_position_review/full_position_review_view.dart'
+    as _i58;
 import 'package:shift/presentation/main/main_tab.dart' as _i72;
 import 'package:shift/presentation/main/tabs/employer_shift_view.dart' as _i53;
 import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i63;

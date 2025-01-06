@@ -39,4 +39,6 @@ class BankDetailsEvent with _$BankDetailsEvent {
 
   const factory BankDetailsEvent.locationSelectedFromSearchList(
       Predictions selectedLocation) = LocationSelectedFromSearchList;
+
+  const factory BankDetailsEvent.getBankDetails() = GetBankDetails;
 }

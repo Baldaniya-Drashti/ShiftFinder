@@ -81,6 +81,8 @@ class ApiConstants {
   /// Stripe doc
   static String stripeDocument = 'stripe_document';
   static String contractorConnectAccount = 'contractor_connect_account';
+  static String contractorRetrieveAccountDetail =
+      'contractor_retrieve_account_detail';
 
   //chat
   static String getChatList = 'chat-list';
