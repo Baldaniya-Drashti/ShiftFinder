@@ -88,6 +88,11 @@ class _SupportFormState extends State<_SupportForm> {
                           autoValidateMode: AutovalidateMode.onUserInteraction,
                           hintText: StringConstant.companyName,
                           labelText: StringConstant.companyName,
+                          textCapitalization: TextCapitalization.words,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z\s]')),
+                          ],
                           isLabelPadding: false,
                           textInputAction: TextInputAction.next,
                           validator: (value, context) {
@@ -111,6 +116,11 @@ class _SupportFormState extends State<_SupportForm> {
                         autoValidateMode: AutovalidateMode.onUserInteraction,
                         hintText: StringConstant.name,
                         labelText: StringConstant.name,
+                        textCapitalization: TextCapitalization.words,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-Z\s]')),
+                        ],
                         isLabelPadding: false,
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {

@@ -60,6 +60,11 @@ class EmployerLocationFormBloc
           );
         },
         getFacilityTypeList: (e) async {
+          locationCtrl.clear();
+          locationIDCtrl.clear();
+          locationNoteCtrl.clear();
+          accredationNOCtrl.clear();
+
           emit(
             state.copyWith(
               isLoading: true,

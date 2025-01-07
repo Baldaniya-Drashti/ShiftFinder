@@ -114,8 +114,10 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             labelText: "Current Password",
             validator: (value, context) {
               value = value?.trim() ?? '';
-              if (value.isEmpty) return StringConstant.pleaseEnterPassword;
 
+              if (value.isEmpty) {
+                return StringConstant.pleaseEnterCurrentPassword;
+              }
               return null;
             },
             controller: _currentPasswordController,
@@ -123,14 +125,15 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
           _PasswordInputField(
             hintText: "New Password",
             labelText: "New Password",
-            validator: (value, context) => _validatePassword(value),
+            validator: (value, context) =>
+                validateCurrentPass(value?.trim() ?? ""),
             controller: _newPasswordController,
           ),
           _PasswordInputField(
             hintText: "Confirm Password",
             labelText: "Confirm Password",
             validator: (value, context) =>
-                _validateConfirmPassword(value, _newPasswordController.text),
+                validateConfirmPassword(value, _newPasswordController.text),
             controller: _confirmPasswordController,
           ),
           Gap(16),
@@ -151,6 +154,30 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
         ],
       ),
     );
+  }
+
+  String? validateCurrentPass(String input) {
+    if (input.isEmpty) {
+      return StringConstant.pleaseEnterNewPassword;
+    } else {
+      if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
+          .hasMatch(input)) {
+        return StringConstant.invalidPasswordErrorText;
+      } else if (input.length < 8) {
+        return StringConstant.passwordShouldBeMinimum8Digit;
+      } else {
+        return null;
+      }
+    }
+  }
+
+  String? validateConfirmPassword(String? value, String password) {
+    value = value?.trim() ?? '';
+    if (value.isEmpty) return StringConstant.pleaseEnterConfirmPassword;
+    if (password != value.trim()) {
+      return StringConstant.bothPasswordsAreDoesNotMatch;
+    }
+    return null;
   }
 }
 
@@ -230,12 +257,4 @@ String? _validatePassword(String? input) {
       return null;
     }
   }
-}
-
-String? _validateConfirmPassword(String? value, String password) {
-  value = value?.trim() ?? '';
-  if (value.isEmpty) return StringConstant.pleaseEnterPassword;
-  if (password != value.trim())
-    return "Confirm password must match new password";
-  return null;
 }

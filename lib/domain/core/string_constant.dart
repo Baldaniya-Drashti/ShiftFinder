@@ -703,6 +703,7 @@ class StringConstant {
   static const String areYouSureYouWantToDeleteThisBankccount =
       "Are you sure you want to delete this bank account?";
   static const String verified = "Verified";
+  static const String viewPdf = "View Pdf";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -955,6 +956,8 @@ class StringConstant {
   static const String pleaseAddPostalCode = "Please add postal code";
   static const String pleaseSelectAccountType = "Please select account type";
   static const String pleaseSelectBankAddress = "Please select bank address";
+  static const String pleaseEnterCurrentPassword =
+      "Please enter current password";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

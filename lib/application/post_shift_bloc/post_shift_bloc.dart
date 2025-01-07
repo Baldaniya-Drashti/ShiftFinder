@@ -982,14 +982,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             shiftType: 2,
           );
 
-          final isLessThanTwoHours = state.multiDateTimeList.any((dto) {
-            final totalPayableDuration =
-                CustomDateTimeFormat.parseTotalPayableHours(
-                    dto.totalPaybleHours!);
-            return totalPayableDuration < Duration(hours: 2);
-          });
-
           if (isAllDatesValid && !timeIsBefore) {
+            final isLessThanTwoHours = state.multiDateTimeList.any((dto) {
+              final totalPayableDuration =
+                  CustomDateTimeFormat.parseTotalPayableHours(
+                      dto.totalPaybleHours!);
+              return totalPayableDuration < Duration(hours: 2);
+            });
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(
               state,

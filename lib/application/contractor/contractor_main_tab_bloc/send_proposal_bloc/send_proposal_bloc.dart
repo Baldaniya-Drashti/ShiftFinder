@@ -374,6 +374,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                     .show(e.context);
               } else {
+                emit(state.copyWith(
+                  isLoading: true,
+                  failureOrSuccessOption: none(),
+                ));
+
                 print("show success on submit ${state.multiDates}");
 
                 Either<MainFailure, String>? failureOrSuccess;
@@ -390,6 +395,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
                 failureOrSuccess.fold(
                   (l) {
+                    emit(state.copyWith(isLoading: false));
+
                     e.context.router.maybePop();
                     showError(
                       message: l.maybeMap(
@@ -404,6 +411,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                     showSuccess(message: r).show(e.context).then((value) {
                       e.context.router.maybePop(true);
                     });
+                    emit(state.copyWith(isLoading: false));
                   },
                 );
               }
@@ -413,6 +421,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
               emit(
                 state.copyWith(
+                  isLoading: false,
                   showErrorMessages: true,
                   failureOrSuccessOption: none(),
                 ),
@@ -455,6 +464,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                     .show(e.context);
               } else {
+                emit(state.copyWith(
+                  isLoading: true,
+                  failureOrSuccessOption: none(),
+                ));
                 final post = continueWithPostDetail(state);
 
                 failureOrSuccess = await _mainFacade
@@ -462,6 +475,9 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
                 failureOrSuccess.fold(
                   (l) {
+                    emit(state.copyWith(
+                      isLoading: false,
+                    ));
                     e.context.router.maybePop();
                     showError(
                       message: l.maybeMap(
@@ -477,6 +493,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                     showSuccess(message: r).show(e.context).then((value) {
                       e.context.router.maybePop(true);
                     });
+                    emit(state.copyWith(
+                      isLoading: true,
+                      failureOrSuccessOption: none(),
+                    ));
                   },
                 );
               }

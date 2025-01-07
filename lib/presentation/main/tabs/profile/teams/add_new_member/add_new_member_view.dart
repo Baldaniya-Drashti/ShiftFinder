@@ -76,7 +76,7 @@ class AddNewMemberView extends StatelessWidget {
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
               title: isUpdateMember
-                  ? 'Edit Member’s Details'
+                  ? "dit Member’s Details"
                   : 'Add New Team Member',
             ),
             body: GestureDetector(

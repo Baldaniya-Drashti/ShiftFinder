@@ -57,7 +57,7 @@ class ProposalReceived extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   userDetail(context),
-                  if (post.shift_type == 2) ...[
+                  /* if (post.shift_type == 2) ...[
                     CommonButton(
                       height: 34,
                       onPressed: () async {
@@ -117,7 +117,7 @@ class ProposalReceived extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: getSize(20)),
-                  ],
+                  ], */
                   proposedBox(
                     title: StringConstant.hourlyRate,
                     postedValue: allowncValue(

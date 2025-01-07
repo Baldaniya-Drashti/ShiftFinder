@@ -672,6 +672,8 @@ class ViewSingleApplicants extends StatelessWidget {
               }
             },
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
                   SvgImageConstant.location,
@@ -681,10 +683,13 @@ class ViewSingleApplicants extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: getSize(5)),
-                BaseText(
-                  text: data.location ?? "",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
+                Expanded(
+                  child: BaseText(
+                    text: "${data.location ?? ""} ${data.location}",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    maxLines: 2,
+                  ),
                 ),
               ],
             ),
