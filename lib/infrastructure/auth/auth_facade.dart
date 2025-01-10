@@ -230,6 +230,30 @@ class AuthFacade implements IAuthFacade {
         "referral_code": referralCode,
         "last_page": "Login",
       });
+
+      var mapD = {
+        "service_roles": getCurrentRole(),
+        "industry_id": getCurrentIndustry(),
+        "country_code": countryCode,
+        "country_name_code": countryFlag,
+        "first_name": firstName.getOrCrash(),
+        "last_name": lastName.getOrCrash(),
+        "check_terms_privacy": check_terms_privacy,
+        "email": email.getOrCrash(),
+        "password": password.getOrCrash(),
+        "password_confirmation": confirmPassword.getOrCrash(),
+        "company_name": companyName,
+        "phone": phoneNumber.getOrCrash(),
+        "association_you_belong_to": association,
+        "company_description": companyDescription,
+        "location": locationAddress,
+        "latitude": latitude,
+        "longitude": longitude,
+        "referral_code": referralCode,
+        "last_page": "Login",
+      };
+
+      print("Sending data---> ${jsonEncode(mapD)}");
       // var formData = FormData.fromMap({
       //   "service_roles": 2,
       //   "industry_id": 2,

@@ -679,12 +679,17 @@ class SendProposal extends StatelessWidget {
                     args: ProposeAvailabilityArgs(
                       post: state.shift,
                       updatedDates: state.multiDates,
+                      totalPayableHours: state.totalPaybleHours,
                     )))
                 .then((value) {
               if (value != null) {
-                context.read<SendProposalBloc>().add(
-                    SendProposalEvent.setMultiDate(
-                        updatedDates: value as List<DateTimeDTO>));
+                final newValue = value as List;
+                context
+                    .read<SendProposalBloc>()
+                    .add(SendProposalEvent.setMultiDate(
+                      updatedDates: newValue[0] as List<DateTimeDTO>,
+                      totalPayableHours: newValue[1] as String,
+                    ));
               }
             });
           },
@@ -796,7 +801,6 @@ class SendProposal extends StatelessWidget {
             }
           },
         ),
-
         /*(state.singleShiftErrorMessages &&
                 (!isEndHourValid(state) && !isEndMinValid(state)))
             ? commonErrorText(

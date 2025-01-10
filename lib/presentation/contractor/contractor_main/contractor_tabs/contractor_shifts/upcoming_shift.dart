@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -287,7 +288,9 @@ class UpcomingShift extends StatelessWidget {
       infoMsgTextStyle: TextStyle(fontSize: getFontSize(14)),
       deleteBtnText: StringConstant.withdraw,
       otherContent: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
-        bloc: bloc..emit(bloc.state.copyWith(showErrorMessages: false)),
+        bloc: bloc
+          ..emit(bloc.state.copyWith(
+              showErrorMessages: false, deletePostReason: InputEmptyOrNot(""))),
         builder: (_, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

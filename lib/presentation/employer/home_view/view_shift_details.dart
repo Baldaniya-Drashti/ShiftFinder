@@ -166,7 +166,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }*/
 
-  Widget payableBox(
+  /* Widget payableBox(
       HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
     return Container(
       padding:
@@ -212,6 +212,126 @@ class ViewHomeShiftDetails extends StatelessWidget {
             value:
                 "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
             isFirst: true,
+          ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: StringConstant.estimatedTotalPayable,
+            value: "\$${payable.total_amount_payable ?? 00}",
+            isLast: true,
+          ),
+          /* paybaleTitleRate(
+            title: StringConstant.totalNumberOfVacancy,
+            value:
+                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
+            isFirst: true,
+          ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: "${StringConstant.estimatedWage}:-",
+            value: "\$${payable.total_wage ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: "${StringConstant.accommodationAllowance}:-",
+            value: "\$${payable.accommodation_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: "${StringConstant.commuteAllowance}:-",
+            value: "\$${payable.commute_allowance ?? 00}",
+          ),
+          if (route != ShiftDetailRoute.employerCancelledShift)
+            paybaleTitleRate(
+              title: "${StringConstant.shiftFinderServiceFee}:-",
+              value: "\$${payable.service_fee ?? 00}",
+            ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: StringConstant.estimatedTotalPayable,
+            value: "\$${payable.total_amount_payable ?? 00}",
+            isLast: true,
+          ), */
+        ],
+      ),
+    );
+  }
+ */
+
+  Widget payableBox(
+      HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          paybaleTitleRate(
+            title: StringConstant.numberOfShifts,
+            value:
+                "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
+            // isFirst: true,
+          ),
+          SizedBox(height: getSize(10)),
+          paybaleTitleRate(
+            title: StringConstant.payableHours,
+            value: payable.total_payable_hour ?? "",
+            // isFirst: true,
+          ),
+          paybaleTitleRate(
+            title: StringConstant.hourlyRate,
+            value: "\$${payable.rate_hour ?? ""}",
+            // isFirst: true,
+          ),
+          paybaleTitleRate(
+            title: StringConstant.totalWage,
+            value: "\$${payable.total_wage ?? 00}",
+            isBold: true,
+          ),
+          SizedBox(height: getSize(10)),
+          paybaleTitleRate(
+            title: StringConstant.commuteAllowance,
+            value: "\$${payable.commute_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: StringConstant.accommodationAllowance,
+            value: "\$${payable.accommodation_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: StringConstant.totalAllowances,
+            value: "\$${payable.total_allowance ?? 00}",
+            isBold: true,
+          ),
+          SizedBox(height: getSize(10)),
+          paybaleTitleRate(
+            title: (shift.shift_detail?.shift_type == 2 &&
+                    shift.shift_detail?.same_or_different_time == 1)
+                ? StringConstant.shiftFinderServiceFee
+                : StringConstant.totalShiftFinderServiceFee,
+            value: "\$${double.parse(payable.service_fee ?? "00.00")}",
+          ),
+          paybaleTitleRate(
+            title: StringConstant.thirdPartyProcessingFee,
+            value: "\$${payable.third_party_fee ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: StringConstant.tax,
+            value: "\$${payable.third_party_tax_fee ?? 00}",
+          ),
+          SizedBox(height: getSize(10)),
+          if (shift.shift_detail?.shift_type == 2 &&
+              shift.shift_detail?.same_or_different_time == 1) ...[
+            paybaleTitleRate(
+              title: StringConstant.totalPayableForOneShift,
+              value: "\$${payable.total_one_shift ?? 00}",
+              // isFirst: true,
+            ),
+          ],
+          paybaleTitleRate(
+            title: StringConstant.numberOfVacancies,
+            value:
+                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
+            // isFirst: true,
           ),
           commonDivider(),
           paybaleTitleRate(
@@ -981,24 +1101,26 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget paybaleTitleRate(
-      {required String title,
-      required String value,
-      bool isFirst = false,
-      isLast = false}) {
+  Widget paybaleTitleRate({
+    required String title,
+    required String value,
+    bool isFirst = false,
+    bool isLast = false,
+    bool isBold = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         BaseText(
           text: title,
           fontSize: 12,
-          fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
+          fontWeight: (isLast || isBold) ? FontWeight.w600 : FontWeight.w400,
           textColor: AppColors.black.withOpacity(0.7),
         ),
         BaseText(
           text: value,
           fontSize: (isLast) ? 18 : 14,
-          fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
+          fontWeight: (isLast || isBold) ? FontWeight.w600 : FontWeight.w400,
           textColor: (isFirst) ? AppColors.primaryColor : AppColors.black,
         ),
       ],

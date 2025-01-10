@@ -4,14 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/auth/contractor_auth/bank_details_bloc/bank_details_bloc.dart';
 import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -30,9 +28,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addBankDetailsScreen')
 class AddBankDetailsScreen extends StatelessWidget {
+  BankDTO? bankDetail;
   bool isFromSplash = false;
 
-  AddBankDetailsScreen({super.key, this.isFromSplash = false});
+  AddBankDetailsScreen({super.key, this.isFromSplash = false, this.bankDetail});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,8 @@ class AddBankDetailsScreen extends StatelessWidget {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<BankDetailsBloc>(),
+        create: (context) => getIt<BankDetailsBloc>()
+          ..add(BankDetailsEvent.getCurrentBank(currentBank: bankDetail)),
         child: BlocConsumer<BankDetailsBloc, BankDetailsState>(
           listener: (context, state) {
             state.authFailureOrSuccessOption.fold(
@@ -59,8 +59,7 @@ class AddBankDetailsScreen extends StatelessWidget {
                 },
                 (r) {
                   context.router.push(
-                    const PageRouteInfo(LegalScreeningQuestionsPage.name),
-                  );
+                      const PageRouteInfo(LegalScreeningQuestionsPage.name));
                 },
               ),
             );
@@ -74,89 +73,86 @@ class AddBankDetailsScreen extends StatelessWidget {
                 },
                 title: StringConstant.addBankDetails,
               ),
-              body: Stack(
-                children: [
-                  Form(
-                    autovalidateMode: (state.showErrorMessages)
-                        ? AutovalidateMode.always
-                        : AutovalidateMode.disabled,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(20),
-                        ),
-                        child: Column(
-                          children: [
-                            bankNameDropdown(context, state),
-                            paddingBetweenFields(),
-                            jobTitleField(context, state),
-                            paddingBetweenFields(),
-                            accountNumberField(context, state),
-                            paddingBetweenFields(),
-                            transitNumberField(context, state),
-                            paddingBetweenFields(),
-                            bankInstitutionNumberField(context, state),
-                            paddingBetweenFields(),
-                            accountTypeDropdown(context, state),
-                            paddingBetweenFields(),
-                            firstNameField(context, state),
-                            paddingBetweenFields(),
-                            lastNameField(context, state),
-                            paddingBetweenFields(),
-                            phoneNumberTextField(context, state),
-                            paddingBetweenFields(),
-                            dobField(context, state),
-                            paddingBetweenFields(),
-                            bankAddressField(context, state),
-                            paddingBetweenFields(),
-                            cityField(context, state),
-                            paddingBetweenFields(),
-                            stateField(context, state),
-                            paddingBetweenFields(),
-                            postalCodeField(context, state),
-                            paddingBetweenFields(height: getSize(30)),
-                            termsCheckBox(state, context),
-                            paddingBetweenFields(height: getSize(10)),
-                            if (state.showErrorMessages && !state.isCheck)
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: getSize(20),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: BaseText(
-                                    text: StringConstant.bankTermsErrorText,
-                                    style: TextStyle(
-                                      color: AppColors.red,
-                                      fontSize: getFontSize(11),
-                                      fontWeight: FontWeight.w500,
+              body: (state.isLoading)
+                  ? CenterLoadingIndicator()
+                  : Form(
+                      autovalidateMode: (state.showErrorMessages)
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getSize(20),
+                          ),
+                          child: Column(
+                            children: [
+                              bankNameDropdown(context, state),
+                              paddingBetweenFields(),
+                              jobTitleField(context, state),
+                              paddingBetweenFields(),
+                              accountNumberField(context, state),
+                              paddingBetweenFields(),
+                              transitNumberField(context, state),
+                              paddingBetweenFields(),
+                              bankInstitutionNumberField(context, state),
+                              paddingBetweenFields(),
+                              accountTypeDropdown(context, state),
+                              paddingBetweenFields(),
+                              firstNameField(context, state),
+                              paddingBetweenFields(),
+                              lastNameField(context, state),
+                              paddingBetweenFields(),
+                              phoneNumberTextField(context, state),
+                              paddingBetweenFields(),
+                              dobField(context, state),
+                              paddingBetweenFields(),
+                              bankAddressField(context, state),
+                              paddingBetweenFields(),
+                              cityField(context, state),
+                              paddingBetweenFields(),
+                              stateField(context, state),
+                              paddingBetweenFields(),
+                              postalCodeField(context, state),
+                              paddingBetweenFields(height: getSize(30)),
+                              termsCheckBox(state, context),
+                              paddingBetweenFields(height: getSize(10)),
+                              if (state.showErrorMessages && !state.isCheck)
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(20),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: BaseText(
+                                      text: StringConstant.bankTermsErrorText,
+                                      style: TextStyle(
+                                        color: AppColors.red,
+                                        fontSize: getFontSize(11),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                 ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: getSize(40),
+                                  bottom: getSize(20),
+                                ),
+                                child: CommonButton(
+                                  isSubmitting: state.isSubmitting,
+                                  onPressed: () {
+                                    context.read<BankDetailsBloc>().add(
+                                        BankDetailsEvent.submitBtnPressed(
+                                            context));
+                                  },
+                                  buttonText: StringConstant.txtContinue,
+                                ),
                               ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: getSize(40),
-                                bottom: getSize(20),
-                              ),
-                              child: CommonButton(
-                                isSubmitting: state.isSubmitting,
-                                onPressed: () {
-                                  context.read<BankDetailsBloc>().add(
-                                      BankDetailsEvent.submitBtnPressed(
-                                          context));
-                                },
-                                buttonText: StringConstant.txtContinue,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  if (state.isLoading) CenterLoadingIndicator(),
-                ],
-              ),
             );
           },
         ),
@@ -209,6 +205,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.jobTitle,
       hintText: StringConstant.jobTitle,
+      initialValue: state.jobTitle.getValue(),
       textCapitalization: TextCapitalization.words,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
@@ -231,6 +228,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.accountNumber,
       hintText: StringConstant.accountNumber,
+      initialValue: state.accountNumber.getValue(),
       textCapitalization: TextCapitalization.characters,
       keyboardType: TextInputType.number,
       maxLength: 15,
@@ -256,6 +254,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accountType,
       hintText: StringConstant.accountType,
+      fieldInitialValue: state.accountType.getValue(),
       isLabelPadding: true,
       showTextfield: false,
       items: CommonList.accountTypeList.map((val) {
@@ -292,6 +291,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.transitNumber,
       hintText: StringConstant.transitNumber,
+      initialValue: state.transitNumber.getValue(),
       keyboardType: TextInputType.number,
       maxLength: 5,
       inputFormatters: [
@@ -316,6 +316,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.bankInstitutionNumber,
       hintText: StringConstant.bankInstitutionNumber,
+      initialValue: state.bankInstitutionNumber.getValue(),
       keyboardType: TextInputType.number,
       maxLength: 3,
       inputFormatters: [
@@ -343,6 +344,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.firstName,
       hintText: StringConstant.firstName,
+      initialValue: state.firstName.getValue(),
       textCapitalization: TextCapitalization.words,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
@@ -365,6 +367,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.lastName,
       hintText: StringConstant.lastName,
+      initialValue: state.lastName.getValue(),
       textCapitalization: TextCapitalization.words,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
@@ -387,6 +390,7 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.phoneNumber,
       hintText: StringConstant.phoneNumber,
+      initialValue: state.phoneNumber.getValue(),
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
       maxLength: 10,

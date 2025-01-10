@@ -325,7 +325,7 @@ class HiredContractorBloc
           var res = await mainFacade.hiredCancelledContractorList(
             postId: e.postId,
             page: currentPage,
-            shortType: 0,
+            shortType: e.shortType,
           );
           currentPage++;
           res.fold(

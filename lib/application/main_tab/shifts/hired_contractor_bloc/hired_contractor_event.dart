@@ -6,9 +6,11 @@ class HiredContractorEvent with _$HiredContractorEvent {
       {required bool refresh,
       required int postId}) = GetHiredFilledContractorList;
 
-  const factory HiredContractorEvent.getHiredCancelledContractorList(
-      {required bool refresh,
-      required int postId}) = GetHiredCancelledContractorList;
+  const factory HiredContractorEvent.getHiredCancelledContractorList({
+    required bool refresh,
+    required int postId,
+    required int shortType,
+  }) = GetHiredCancelledContractorList;
   const factory HiredContractorEvent.getHiredApproveContractorList(
       {required bool refresh,
       required int postId}) = GetHiredApproveContractorList;

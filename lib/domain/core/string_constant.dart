@@ -139,6 +139,7 @@ class StringConstant {
   static const String addMoreReference = "Add More Reference";
   static const String addMoreEducation = "Add More Education";
   static const String roleExperience = "Role Experience";
+  static const String roleAndExperience = "Role and Experience";
   static const String specialityExperience = "Specialties Experience";
   static const String deleteEducationDesc =
       "Are you sure you want to delete this education details?";
@@ -561,6 +562,8 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String youHaveCancelledThisShiftApplication =
+      "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
   static const String actionRequiredBeforeModifyingShift =
       "Action Required Before Modifying Shift";
@@ -694,6 +697,8 @@ class StringConstant {
       "Please select month to view Performance Insights";
   static const String chooseMonth = "Choose Month";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String awaitingContractorApprovalDesc =
+      "The contractor has not yet submitted their clock-in and/or clock-out  times for the shift. Once submitted, you can review and approve the shift hours.";
   static const String updateProfileDesc =
       "Keep your profile up-to-date to ensure accurate and complete information, boosting your hiring chances.";
   static const String bankDetails = "Bank Details";
@@ -703,7 +708,11 @@ class StringConstant {
   static const String areYouSureYouWantToDeleteThisBankccount =
       "Are you sure you want to delete this bank account?";
   static const String verified = "Verified";
+  static const String rejected = "Rejected";
   static const String viewPdf = "View Pdf";
+  static const String thirdPartyProcessingFee = "Third Party Processing Fee";
+  static const String estimatedTotalEarnings = "Estimated Total Earnings";
+  static const String tax = "Tax";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -886,7 +895,7 @@ class StringConstant {
   static const String pleaseAddClockOutTime = "Please add clock out time!";
   static const String pleaseAddClockInTime = "Please add clock in time!";
   static const String awaitingClockInOutDesc =
-      "Awaiting for contractor’s clock in & out...";
+      "Awaiting for contractor’s clock in & out";
   static const String awaitingAcknowledgement = "Awaiting Acknowledgement";
   static const String underDevelopment = "Under Development";
 

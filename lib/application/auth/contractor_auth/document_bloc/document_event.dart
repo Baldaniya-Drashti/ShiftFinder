@@ -35,8 +35,8 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.deleteCovidDoc(String covidDoc) = _DeleteCovidDoc;
   const factory DocumentEvent.getCovidDoc() = _GetCovidDoc;
 
-  const factory DocumentEvent.covidDocSubmit({required bool isSkip}) =
-      _CovidDocSubmit;
+  const factory DocumentEvent.covidDocSubmit(BuildContext context,
+      {required bool isSkip}) = _CovidDocSubmit;
   const factory DocumentEvent.govtDocumentTitleChanged(String documentTitle) =
       GovtDocumentTitleChanged;
 
@@ -79,7 +79,7 @@ class CredentialEvent with _$CredentialEvent {
   const factory CredentialEvent.addMoreCredentialDoc() = _AddMoreCredentialDoc;
   const factory CredentialEvent.deleteCredentialObject(int index) =
       _DeleteCredentialObject;
-  const factory CredentialEvent.credentialDocSubmit(
+  const factory CredentialEvent.credentialDocSubmit(BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _CredentialDocSubmit;
 }
@@ -108,6 +108,7 @@ class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
   const factory ProfessionalLicensesEvent.deleteLicensesObject(int index) =
       _DeleteLicensesObject;
   const factory ProfessionalLicensesEvent.licensesDocSubmit(
+      BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _LicensesDocSubmit;
 }
@@ -131,7 +132,7 @@ class ImmunizationEvent with _$ImmunizationEvent {
       _AddMoreImmunizationDoc;
   const factory ImmunizationEvent.deleteImmunizationObject(int index) =
       _DeleteImmunizationObject;
-  const factory ImmunizationEvent.immunizationDocSubmit(
+  const factory ImmunizationEvent.immunizationDocSubmit(BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _ImmunizationDocSubmit;
 }
@@ -154,6 +155,7 @@ class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
   const factory ProfessionalLiabilityEvent.deleteLiabilityObject(int index) =
       _DeleteLiabilityObject;
   const factory ProfessionalLiabilityEvent.liabilityDocSubmit(
+      BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _LiabilityDocSubmit;
 }
@@ -166,8 +168,8 @@ class ResumeEvent with _$ResumeEvent {
       _SelectResumeDoc;
   const factory ResumeEvent.deleteResumeDoc(String resumeDoc) =
       _DeleteResumeDoc;
-  const factory ResumeEvent.resumeDocSubmit({required bool isSkip}) =
-      _ResumeDocSubmit;
+  const factory ResumeEvent.resumeDocSubmit(BuildContext context,
+      {required bool isSkip}) = _ResumeDocSubmit;
 }
 
 @freezed
@@ -184,7 +186,7 @@ class EquipmentEvent with _$EquipmentEvent {
   const factory EquipmentEvent.addMoreEquipmentDoc() = _AddMoreEquipmentDoc;
   const factory EquipmentEvent.deleteEquipmentObject(int index) =
       _DeleteEquipmentObject;
-  const factory EquipmentEvent.equipmentDocSubmit(
+  const factory EquipmentEvent.equipmentDocSubmit(BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _EquipmentDocSubmit;
 }

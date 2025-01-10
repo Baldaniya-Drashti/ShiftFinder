@@ -231,9 +231,10 @@ class ProfessionalLicenses extends StatelessWidget {
                           child: CommonButton(
                             onPressed: () {
                               context.read<ProfessionalLicensesBloc>().add(
-                                  const ProfessionalLicensesEvent
-                                      .licensesDocSubmit(
-                                      isAddMoreBtnClick: false, isSkip: false));
+                                  ProfessionalLicensesEvent.licensesDocSubmit(
+                                      context,
+                                      isAddMoreBtnClick: false,
+                                      isSkip: false));
                             },
                             buttonText: StringConstant.txtContinue,
                           ),
@@ -244,9 +245,10 @@ class ProfessionalLicenses extends StatelessWidget {
                           context,
                           onPressed: () {
                             context.read<ProfessionalLicensesBloc>().add(
-                                const ProfessionalLicensesEvent
-                                    .licensesDocSubmit(
-                                    isAddMoreBtnClick: false, isSkip: true));
+                                ProfessionalLicensesEvent.licensesDocSubmit(
+                                    context,
+                                    isAddMoreBtnClick: false,
+                                    isSkip: true));
                           },
                         ),
                       paddingBetweenFields()

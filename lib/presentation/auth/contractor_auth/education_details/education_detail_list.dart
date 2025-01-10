@@ -23,8 +23,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'educationListScreen')
 class EducationListScreen extends StatelessWidget {
   bool isFromSplash = false;
+  final bool isFromProfile;
 
-  EducationListScreen({super.key, this.isFromSplash = false});
+  EducationListScreen(
+      {super.key, this.isFromSplash = false, this.isFromProfile = false});
   // bool isNext = false;
 
   @override
@@ -80,7 +82,9 @@ class EducationListScreen extends StatelessWidget {
                 context.router.maybePop();
               },
               title: StringConstant.education,
-              showSkipBtn: (state.educationList.isEmpty) ? true : false,
+              showSkipBtn: (state.educationList.isEmpty && !isFromProfile)
+                  ? true
+                  : false,
               onSkipped: (state.educationList.isEmpty)
                   ? () {
                       context

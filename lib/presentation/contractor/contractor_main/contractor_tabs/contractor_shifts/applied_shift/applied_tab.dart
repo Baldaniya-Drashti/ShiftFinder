@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -100,7 +101,21 @@ class AppliedTab extends StatelessWidget {
                                             isYear: true),
                                       ),
                                 paddingBetweenFields(),
-                                if (shift.deleteAt == true) ...[
+                                if (shift.deleteAt == true &&
+                                    shift.request == 0) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .youHaveCancelledThisShiftApplication,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
+                                    ),
+                                  ),
+                                ] else if (shift.deleteAt == true &&
+                                    shift.request == 1) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),
@@ -109,6 +124,7 @@ class AppliedTab extends StatelessWidget {
                                           .youHaveDeclinedThisShift,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
                                     ),
                                   ),
                                 ] else if (shift.revoke_status == 3) ...[
@@ -365,7 +381,7 @@ class AppliedTab extends StatelessWidget {
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
           decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.1),
+              color: AppColors.redAccent.withOpacity(0.10),
               borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -374,12 +390,13 @@ class AppliedTab extends StatelessWidget {
                 SvgImageConstant.clock,
                 height: getSize(15),
                 width: getSize(15),
+                color: AppColors.black,
               ),
               BaseText(
                 text: "$hours h $minutes min",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.primaryColor,
+                textColor: AppColors.black,
               ),
             ],
           ),

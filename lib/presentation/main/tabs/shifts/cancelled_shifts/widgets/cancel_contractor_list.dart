@@ -28,7 +28,7 @@ class CancelledContractorList extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<HiredContractorBloc>()
         ..add(HiredContractorEvent.getHiredCancelledContractorList(
-            refresh: true, postId: postId)),
+            refresh: true, postId: postId, shortType: cancelFilter)),
       child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
         builder: (context, state) {
           return Scaffold(
@@ -49,14 +49,16 @@ class CancelledContractorList extends StatelessWidget {
                               .read<HiredContractorBloc>()
                               .add(HiredContractorEvent
                                   .getHiredCancelledContractorList(
-                                      refresh: true, postId: postId)),
+                                      refresh: true,
+                                      postId: postId,
+                                      shortType: cancelFilter)),
                           onLoading: () => context
                               .read<HiredContractorBloc>()
                               .add(HiredContractorEvent
                                   .getHiredCancelledContractorList(
-                                refresh: false,
-                                postId: postId,
-                              )),
+                                      refresh: false,
+                                      postId: postId,
+                                      shortType: cancelFilter)),
                           refreshController: context
                               .read<HiredContractorBloc>()
                               .hiredContractorListController,

@@ -42,6 +42,39 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
   BankDetailsBloc(this.repository) : super(BankDetailsState.initial()) {
     on<BankDetailsEvent>((event, emit) async {
       await event.map(
+        getCurrentBank: (e) async {
+          final bank = e.currentBank;
+          emit(state.copyWith(isLoading: true));
+          await Future.delayed(Duration(seconds: 2)).then((value) {
+            if (bank != null) {
+              locationCtrl.text = bank.bank_address ?? "";
+              emit(state.copyWith(
+                bankDetail: bank,
+                bankName: InputEmptyOrNot("HDFC"),
+                jobTitle: InputEmptyOrNot("TILE POSITION"),
+                accountHolderName: Username(""),
+                accountNumber:
+                    InputEmptyOrNot(bank.account_number ?? "123456789523"),
+                transitNumber: InputEmptyOrNot(bank.transit_number ?? "1234"),
+                bankInstitutionNumber: InputEmptyOrNot(
+                    bank.institution_number ?? "SURAT ADAJAN PATIYA"),
+                accountType: InputEmptyOrNot(bank.account_type ?? "Savings"),
+                firstName: Username(bank.first_name ?? "DRASHTI"),
+                lastName: Username(bank.first_name ?? "BALDANIYA"),
+                phoneNumber: MobileNumber("9638527412"),
+                dateOfBirth: InputEmptyOrNot(bank.dob ?? "09-12-2002"),
+                bankAddress: InputEmptyOrNot(
+                    bank.bank_address ?? "ADAJAN PATIYA SURAT GUJRAT"),
+                city: InputEmptyOrNot(bank.city ?? "SURAT"),
+                stateName: InputEmptyOrNot(bank.state ?? "GUJARAT"),
+                postalCode: InputEmptyOrNot(bank.postal_code ?? "006 899"),
+                isLoading: false,
+              ));
+            } else {
+              emit(state.copyWith(isLoading: false));
+            }
+          });
+        },
         getBankDetails: (e) async {
           emit(state.copyWith(isLoading: true));
           final res = await repository.getBankDetailAPI();
@@ -52,8 +85,8 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
             (r) {
               print("Bank Detail R---> $r");
               return emit(state.copyWith(
-                isLoading: false,
                 bankDetail: r,
+                isLoading: false,
               ));
             },
           );
@@ -292,7 +325,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
                 authFailureOrSuccessOption: none(),
               ),
             );
-            /* failureOrSuccess = await repository.addBankDetail(
+            failureOrSuccess = await repository.addBankDetail(
               bankName: state.bankName.getValue() ?? "",
               jobTitle: state.jobTitle.getValue() ?? "",
               accountNumber: state.accountNumber.getValue() ?? "",
@@ -314,9 +347,10 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               countryFlag: state.selectedCountryCodeName,
               countryCode: '+${state.selectedCountrycode}',
               phone: state.phoneNumber.getValue(),
-            ); */
+              lastPage: 'LegalScreening',
+            );
 
-            failureOrSuccess = right("success");
+            // failureOrSuccess = right("success");
           } else {
             print("Some Details are invalid!");
             showError(

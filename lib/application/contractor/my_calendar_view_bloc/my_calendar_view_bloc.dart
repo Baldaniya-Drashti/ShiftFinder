@@ -105,78 +105,88 @@ class MyCalendarViewBloc
         selectDateEvent: (e) async {
           String? currentDateId;
           int? currentDate;
+
           Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
+          if (e.selectedDateList.isNotEmpty) {
+            List<MyCalendarDTO> updatedDateTimeDTOList =
+                List.from(state.multiDates);
 
-          List<MyCalendarDTO> updatedDateTimeDTOList =
-              List.from(state.multiDates);
+            Set<DateTime> set2 = e.selectedDateList.toSet();
 
-          Set<DateTime> set2 = e.selectedDateList.toSet();
+            List<MyCalendarDTO> result = updatedDateTimeDTOList.map((item) {
+              bool isSelected = set2.contains(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      (item.date ?? -1) * 1000));
 
-          List<MyCalendarDTO> result = updatedDateTimeDTOList.map((item) {
-            bool isSelected = set2.contains(
-                DateTime.fromMillisecondsSinceEpoch((item.date ?? -1) * 1000));
+              if (!isSelected) {
+                currentDateId = item.employer_post_id;
+                currentDate = item.date;
+                print("currentDateId---> $currentDateId");
+                print("currentDate---> $currentDate");
 
-            if (!isSelected) {
-              currentDateId = item.employer_post_id;
-              currentDate = item.date;
-              print("currentDateId---> $currentDateId");
-              print("currentDate---> $currentDate");
+                return item.copyWith(
+                  isUnAvailable: !item.isUnAvailable,
+                  colorText: (!item.isUnAvailable == true)
+                      ? "0xFFE1E8ED"
+                      : "0xFF0FB62A",
+                );
+              } else {
+                return item.copyWith(
+                  isUnAvailable: false,
+                  colorText: "0xFF0FB62A",
+                );
+              }
+            }).toList();
 
-              return item.copyWith(
-                isUnAvailable: !item.isUnAvailable,
-                colorText:
-                    (!item.isUnAvailable == true) ? "0xFFE1E8ED" : "0xFF0FB62A",
-              );
-            } else {
-              return item.copyWith(
-                isUnAvailable: false,
-                colorText: "0xFF0FB62A",
-              );
-            }
-          }).toList();
+            List<MyCalendarDTO> unAvailableDates =
+                result.where((item) => item.isUnAvailable == true).toList();
 
-          List<MyCalendarDTO> unAvailableDates =
-              result.where((item) => item.isUnAvailable == true).toList();
+            emit(
+              state.copyWith(
+                multiDates: result,
+                unAvailableDates: unAvailableDates,
+                isGetting: true,
+              ),
+            );
 
-          emit(
-            state.copyWith(
-              multiDates: result,
-              unAvailableDates: unAvailableDates,
-              isGetting: true,
-            ),
-          );
+            print("mycalendar result---> $result");
 
-          print("mycalendar result---> $result");
+            failureOrSuccess =
+                await _mainFacade.getContractorMyCalendarDetailApi(
+              (currentDateId != null)
+                  ? currentDateId!
+                  : (result.isNotEmpty)
+                      ? "${result[0].employer_post_id ?? -1}"
+                      : "-1",
+              currentDate,
+            );
 
-          failureOrSuccess = await _mainFacade.getContractorMyCalendarDetailApi(
-            (currentDateId != null)
-                ? currentDateId!
-                : (result.isNotEmpty)
-                    ? "${result[0].employer_post_id ?? -1}"
-                    : "-1",
-            currentDate,
-          );
-
-          failureOrSuccess.fold(
-            (l) {
-              emit(state.copyWith(isGetting: false));
-              showError(
-                message: l.maybeMap(
-                  showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
-                  orElse: () => "Server Error. Try again later.",
-                ),
-              ).show(e.context);
-            },
-            (r) {
-              print("post--> $r");
-              emit(state.copyWith(
-                isGetting: false,
-                contractorDetail: r,
-              ));
-            },
-          );
+            failureOrSuccess.fold(
+              (l) {
+                emit(state.copyWith(isGetting: false));
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                print("post--> $r");
+                emit(state.copyWith(
+                  isGetting: false,
+                  contractorDetail: r,
+                ));
+              },
+            );
+          } else {
+            emit(state.copyWith(
+              isGetting: false,
+              contractorDetail: null,
+            ));
+          }
         },
       );
     });

@@ -1949,6 +1949,7 @@ class MainFacade implements IMainFacade {
           queryParameters: {
             "page": page,
             "perPage": _perPage,
+            "short_type": shortType
           });
 
       if (res != null) {

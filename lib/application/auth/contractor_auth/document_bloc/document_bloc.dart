@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -118,7 +117,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             documentType: 8,
             documentFile: "",
             documentTitle: "",
-            lastPage: "BankDetail",
+            lastPage: "AddressProofScreen",
           );
 
           failureOrSuccess.fold(
@@ -620,6 +619,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 governmentDocAuthFailureOrSuccessOption: none(),
               ),
             );
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
           }
         },
 
@@ -838,6 +841,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 ),
               );
             } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isCovidDocSubmitting: false,
@@ -1192,6 +1199,10 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             /// True When click on continue - add more btn and some details are empty or not valid
 
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isCredintialDocSubmitting: false,
@@ -1532,6 +1543,10 @@ class ProfessionalLicensesBloc
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isLicensesDocSubmitting: false,
@@ -1848,6 +1863,10 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
             /// True When click on continue - add more btn and some details are empty or not valid
 
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isImmunizationDocSubmitting: false,
@@ -2128,6 +2147,10 @@ class ProfessionalLiabilityBloc
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isLiabilityDocSubmitting: false,
@@ -2367,6 +2390,10 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
                 ),
               );
             } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isResumeDocSubmitting: false,
@@ -2582,7 +2609,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               documentType: 8,
               documentFile: state.equipmentDoc.getValue() ?? "",
               documentTitle: state.equipmentName.getValue(),
-              lastPage: "BankDetail",
+              lastPage: "AddressProofScreen",
             );
 
             failureOrSuccess.fold(
@@ -2638,7 +2665,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
                 documentType: 8,
                 documentFile: state.equipmentDoc.getValue() ?? "",
                 documentTitle: state.equipmentName.getValue(),
-                lastPage: "BankDetail",
+                lastPage: "AddressProofScreen",
               );
 
               failureOrSuccess.fold(
@@ -2674,6 +2701,10 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isEquipmentDocSubmitting: false,

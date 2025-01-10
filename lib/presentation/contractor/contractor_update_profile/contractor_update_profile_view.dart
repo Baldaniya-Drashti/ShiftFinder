@@ -42,15 +42,17 @@ class ContractorUpdateProfileView extends StatelessWidget {
                         context.router.push(
                             PageRouteInfo(AddExperienceDetailScreen.name));
                       },
-                      label: "Role and Experience",
+                      label: StringConstant.roleAndExperience,
                     ),
                     fieldTypeTile(
                       icon: SvgImageConstant.capOutline,
                       onPressed: () {
-                        context.router
-                            .push(PageRouteInfo(EducationListScreen.name));
+                        context.router.push(PageRouteInfo(
+                            EducationListScreen.name,
+                            args:
+                                EducationListScreenArgs(isFromProfile: true)));
                       },
-                      label: "Education",
+                      label: StringConstant.education,
                     ),
                     fieldTypeTile(
                       icon: SvgImageConstant.document,
@@ -58,22 +60,24 @@ class ContractorUpdateProfileView extends StatelessWidget {
                         context.router
                             .push(PageRouteInfo(DocumentPageScreen.name));
                       },
-                      label: "Documents",
+                      label: StringConstant.documents,
                     ),
                     fieldTypeTile(
                       icon: SvgImageConstant.bank,
                       onPressed: () {
                         context.router.push(PageRouteInfo(BankListView.name));
                       },
-                      label: "Bank Details",
+                      label: StringConstant.bankDetails,
                     ),
                     fieldTypeTile(
                       icon: SvgImageConstant.references,
                       onPressed: () {
-                        context.router
-                            .push(PageRouteInfo(ReferenceListView.name));
+                        context.router.push(PageRouteInfo(
+                            ReferenceListScreen.name,
+                            args:
+                                ReferenceListScreenArgs(isFromProfile: true)));
                       },
-                      label: "References",
+                      label: StringConstant.reference,
                     ),
                   ],
                 ),

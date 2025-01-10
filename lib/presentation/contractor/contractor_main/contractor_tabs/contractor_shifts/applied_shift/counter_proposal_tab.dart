@@ -107,13 +107,13 @@ class CounterProposalTab extends StatelessWidget {
                                                   .youHaveDeclinedThisShift,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
+                                              textColor: AppColors.redAccent,
                                             ),
                                           )
                                         : (shift.revoke_status == 3)
                                             ? Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical: getSize(10),
-                                                ),
+                                                    vertical: getSize(10)),
                                                 child: BaseText(
                                                   text: StringConstant
                                                       .offerRevokedByTheEmployer,
@@ -246,7 +246,7 @@ class CounterProposalTab extends StatelessWidget {
               width: getSize(108),
               padding: EdgeInsets.symmetric(vertical: getSize(5)),
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
+                  color: AppColors.redAccent.withOpacity(0.10),
                   borderRadius: BorderRadius.circular(6)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -255,12 +255,13 @@ class CounterProposalTab extends StatelessWidget {
                     SvgImageConstant.clock,
                     height: getSize(15),
                     width: getSize(15),
+                    color: AppColors.black,
                   ),
                   BaseText(
                     text: "$hours h $minutes min",
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.primaryColor,
+                    textColor: AppColors.black,
                   ),
                 ],
               ),

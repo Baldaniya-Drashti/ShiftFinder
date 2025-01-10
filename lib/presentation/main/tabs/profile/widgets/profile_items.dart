@@ -42,6 +42,11 @@ class ProfileItems extends StatelessWidget {
         },
       ),
       ProfileItemModel(
+        title: StringConstant.longTermPositions,
+        image: SvgImageConstant.calendarWithClock,
+        onTap: () {},
+      ),
+      ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
@@ -80,6 +85,32 @@ class ProfileItems extends StatelessWidget {
         image: SvgImageConstant.billing,
         onTap: () {
           context.router.push(PageRouteInfo(BillingView.name));
+        },
+      ),
+      ProfileItemModel(
+        title: StringConstant.shareShiftFinder,
+        image: SvgImageConstant.share,
+        onTap: () async {
+          final byteData =
+              await rootBundle.load(PngImageConstants.shiftFinderWhiteLogo);
+
+          final tempDir = await getTemporaryDirectory();
+          final file = File('${tempDir.path}/logo.png');
+          await file.writeAsBytes(byteData.buffer.asUint8List());
+
+          String message = '''
+ShiftFinder: Your Gateway to Healthcare Opportunities.\n
+Explore your opportunities in healthcare! Download the ShiftFinder app to connect with top facilities across sectors like healthcare, pharmacy, dental, ophthalmology, and hospitality. Explore shifts that fit your schedule or find skilled professionals to meet your staffing needs. Start building better connections today!
+
+Download now: ${StringConstant.shiftFinderWebsite}
+''';
+// https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf&pcampaignid=web_share
+
+          Share.shareXFiles(
+            [XFile(file.path)],
+            text: message,
+            subject: 'Join ShiftFinder',
+          );
         },
       ),
       ProfileItemModel(
@@ -178,7 +209,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(
@@ -252,7 +283,8 @@ class ContractorProfileItems extends StatelessWidget {
           await file.writeAsBytes(byteData.buffer.asUint8List());
 
           String message = '''
-Hi! Download the ShiftFinder app and start exploring shifts that suit your schedule.
+ShiftFinder: Your Gateway to Healthcare Opportunities.\n
+Explore your opportunities in healthcare! Download the ShiftFinder app to connect with top facilities across sectors like healthcare, pharmacy, dental, ophthalmology, and hospitality. Explore shifts that fit your schedule or find skilled professionals to meet your staffing needs. Start building better connections today!
 
 Download now: ${StringConstant.shiftFinderWebsite}
 ''';

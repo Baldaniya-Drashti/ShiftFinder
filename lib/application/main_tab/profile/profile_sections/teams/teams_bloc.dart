@@ -50,6 +50,7 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
             emit(
               state.copyWith(
                 teamNameTextField: InputEmptyOrNot(value.teamName),
+                failureOrSuccessOption: none(),
               ),
             );
           },

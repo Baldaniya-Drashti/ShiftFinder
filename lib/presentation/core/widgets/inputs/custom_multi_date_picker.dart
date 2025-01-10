@@ -10,6 +10,7 @@ class CustomMultiDatePicker extends StatelessWidget {
   final List<DateTime?> value;
   final Color? selectedDateBGColor;
   final void Function(List<DateTime>)? onValueChanged;
+  final void Function(DateTime)? onDisplayedMonthChanged;
   final bool isDisabled;
   final bool Function(DateTime)? selectableDayPredicate;
   final Map<DateTime, Color>? selectedDateColors;
@@ -25,6 +26,7 @@ class CustomMultiDatePicker extends StatelessWidget {
     super.key,
     required this.value,
     this.onValueChanged,
+    this.onDisplayedMonthChanged,
     this.selectedDateBGColor,
     this.selectableDayPredicate,
     this.isDisabled = false,
@@ -72,6 +74,7 @@ class CustomMultiDatePicker extends StatelessWidget {
                 },
         ),
         value: value,
+        onDisplayedMonthChanged: onDisplayedMonthChanged,
         onValueChanged: onValueChanged,
       ),
     );

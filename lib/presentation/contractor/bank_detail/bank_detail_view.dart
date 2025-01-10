@@ -9,10 +9,11 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -30,36 +31,46 @@ class BankListView extends StatelessWidget {
       child: BlocBuilder<BankDetailsBloc, BankDetailsState>(
         builder: (context, state) {
           return Scaffold(
-            bottomNavigationBar: Padding(
-              padding:
-                  EdgeInsets.all(getSize(20)).copyWith(bottom: getSize(40)),
-              child: CommonButton(
-                onPressed: () {},
-                buttonText: StringConstant.addBankDetails,
-              ),
-            ),
+            bottomNavigationBar: (state.bankDetail == null && !state.isLoading)
+                ? Padding(
+                    padding: EdgeInsets.all(getSize(20))
+                        .copyWith(bottom: getSize(40)),
+                    child: CommonButton(
+                      onPressed: () {
+                        context.router
+                            .push(PageRouteInfo(AddBankDetailsScreen.name))
+                            .then((value) {
+                          if (value == true) {
+                            context
+                                .read<BankDetailsBloc>()
+                                .add(BankDetailsEvent.getBankDetails());
+                          }
+                        });
+                      },
+                      buttonText: StringConstant.addBankDetails,
+                    ),
+                  )
+                : null,
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
               title: StringConstant.bankDetails,
             ),
             body: (state.isLoading)
                 ? CenterLoadingIndicator(isOnlyLoader: true)
-                : Visibility(
-                    visible: state.bankDetail != null,
-                    replacement: noBankDetailView(),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: getSize(20), vertical: getSize(12)),
-                      child: bankDetail(context),
-                    ),
-                  ),
+                : (state.bankDetail != null)
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: getSize(20), vertical: getSize(12)),
+                        child: bankDetail(context, bank: state.bankDetail!),
+                      )
+                    : noBankDetailView(),
           );
         },
       ),
     );
   }
 
-  Widget bankDetail(BuildContext context) {
+  Widget bankDetail(BuildContext context, {required BankDTO bank}) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: getSize(20),
@@ -93,7 +104,7 @@ class BankListView extends StatelessWidget {
                     Expanded(
                       child: BaseText(
                         text:
-                            "${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
+                            "${bank.first_name ?? ""} ${bank.last_name ?? ""}",
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -106,16 +117,26 @@ class BankListView extends StatelessWidget {
                       label: StringConstant.verified,
                       icon: SvgImageConstant.verify,
                     ),
+                    /* verificationTag(
+                      color: AppColors.red,
+                      label: StringConstant.rejected,
+                      icon: SvgImageConstant.rejected,
+                    ), */
+                    /* verificationTag(
+                      color: AppColors.yellowColor,
+                      label: StringConstant.verified,
+                      icon: SvgImageConstant.pending,
+                    ), */
                   ],
                 ),
                 SizedBox(height: getSize(5)),
                 BaseText(
-                    text: "Transit Number",
+                    text: bank.transit_number ?? "",
                     fontSize: 10,
                     fontWeight: FontWeight.w500),
                 SizedBox(height: getSize(10)),
                 BaseText(
-                  text: "********2548",
+                  text: "********${bank.account_number}",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                 ),
@@ -123,33 +144,47 @@ class BankListView extends StatelessWidget {
             ),
           ),
           SizedBox(width: getSize(15)),
-          Material(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(6),
-            color: AppColors.red.withOpacity(0.15),
-            child: InkWell(
-              onTap: () {
-                AppDialog.showDelete(
-                  context,
-                  title: StringConstant.deleteAccount,
-                  infoMessage:
-                      StringConstant.areYouSureYouWantToDeleteThisBankccount,
-                  onCancelClick: () {
-                    context.router.maybePop();
-                  },
-                  onDeleteClick: () {},
-                );
-              },
-              child: Padding(
-                padding: EdgeInsets.all(getSize(5)),
-                child: SvgPicture.asset(
-                  SvgImageConstant.delete,
-                  color: AppColors.red,
-                  height: 20,
-                ),
+          InkWell(
+            onTap: () {
+              context.router
+                  .push(PageRouteInfo(AddBankDetailsScreen.name,
+                      args: AddBankDetailsScreenArgs(bankDetail: bank)))
+                  .then((value) {
+                if (value == true) {
+                  context
+                      .read<BankDetailsBloc>()
+                      .add(BankDetailsEvent.getBankDetails());
+                }
+              });
+            },
+            child: Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(5), vertical: getSize(10)),
+              child: SvgPicture.asset(
+                SvgImageConstant.editWithBg,
               ),
             ),
-          )
+          ),
+          InkWell(
+            onTap: () {
+              AppDialog.showDelete(
+                context,
+                title: StringConstant.deleteAccount,
+                infoMessage:
+                    StringConstant.areYouSureYouWantToDeleteThisBankccount,
+                onCancelClick: () {
+                  context.router.maybePop();
+                },
+                onDeleteClick: () {},
+              );
+            },
+            child: Container(
+                color: Colors.transparent,
+                padding: EdgeInsets.symmetric(
+                    horizontal: getSize(5), vertical: getSize(10)),
+                child: SvgPicture.asset(SvgImageConstant.bin)),
+          ),
         ],
       ),
     );

@@ -230,8 +230,9 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           child: CommonButton(
                             onPressed: () {
                               context.read<ProfessionalLiabilityBloc>().add(
-                                      const ProfessionalLiabilityEvent
+                                      ProfessionalLiabilityEvent
                                           .liabilityDocSubmit(
+                                    context,
                                     isAddMoreBtnClick: false,
                                     isSkip: false,
                                   ));
@@ -245,8 +246,9 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           context,
                           onPressed: () {
                             context.read<ProfessionalLiabilityBloc>().add(
-                                    const ProfessionalLiabilityEvent
+                                    ProfessionalLiabilityEvent
                                         .liabilityDocSubmit(
+                                  context,
                                   isAddMoreBtnClick: false,
                                   isSkip: true,
                                 ));

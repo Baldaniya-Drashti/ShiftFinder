@@ -23,8 +23,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'referenceListScreen')
 class ReferenceListScreen extends StatelessWidget {
   final bool isFromSplash;
+  final bool isFromProfile;
 
-  const ReferenceListScreen({super.key, this.isFromSplash = false});
+  const ReferenceListScreen(
+      {super.key, this.isFromSplash = false, this.isFromProfile = false});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,9 @@ class ReferenceListScreen extends StatelessWidget {
                 context.router.maybePop();
               },
               title: StringConstant.reference,
-              showSkipBtn: (state.referenceList.isEmpty) ? true : false,
+              showSkipBtn: (state.referenceList.isEmpty && !isFromProfile)
+                  ? true
+                  : false,
               onSkipped: () {
                 context
                     .read<ReferenceBloc>()

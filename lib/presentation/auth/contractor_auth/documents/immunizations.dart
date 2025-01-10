@@ -214,8 +214,10 @@ class ImmunizationsVaccinations extends StatelessWidget {
                           child: CommonButton(
                             onPressed: () {
                               context.read<ImmunizationBloc>().add(
-                                  const ImmunizationEvent.immunizationDocSubmit(
-                                      isAddMoreBtnClick: false, isSkip: false));
+                                  ImmunizationEvent.immunizationDocSubmit(
+                                      context,
+                                      isAddMoreBtnClick: false,
+                                      isSkip: false));
                             },
                             buttonText: StringConstant.txtContinue,
                           ),
@@ -226,7 +228,7 @@ class ImmunizationsVaccinations extends StatelessWidget {
                           context,
                           onPressed: () {
                             context.read<ImmunizationBloc>().add(
-                                const ImmunizationEvent.immunizationDocSubmit(
+                                ImmunizationEvent.immunizationDocSubmit(context,
                                     isAddMoreBtnClick: false, isSkip: true));
                           },
                         ),

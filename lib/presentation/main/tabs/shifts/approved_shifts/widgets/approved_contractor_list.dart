@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -19,6 +20,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/edit_clock_time_dialog.dart';
@@ -185,21 +187,7 @@ class ApprovedHiredList extends StatelessWidget {
           SizedBox(height: getSize(10)),
           dateTime(contractor),
           SizedBox(height: getSize(10)),
-          if (contractor.clock_in_out_status == 2) ...[
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(
-                  vertical: getSize(8), horizontal: getSize(20)),
-              decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(getSize(5))),
-              child: BaseText(
-                text: StringConstant.awaitingClockInOutDesc,
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ] else if (contractor.clock_in_out_status == 1) ...[
+          if (contractor.clock_in_out_status == 1) ...[
             clocInOut(context, contractor),
             SizedBox(height: getSize(10)),
             if (contractor.shift_complete != true)
@@ -249,7 +237,38 @@ class ApprovedHiredList extends StatelessWidget {
                   ),
                 ],
               ),
-          ],
+          ] else
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(
+                  vertical: getSize(8), horizontal: getSize(20)),
+              decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(getSize(5))),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: StringConstant.awaitingClockInOutDesc,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  Gap(getSize(5)),
+                  GestureDetector(
+                    onTap: () {
+                      AppDialog.showInfo(
+                        context,
+                        StringConstant.awaitingContractorApprovalDesc,
+                        maxLines: 10,
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      SvgImageConstant.infoCircle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

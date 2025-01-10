@@ -182,6 +182,19 @@ class ViewContractorShift extends StatelessWidget {
       child: Column(
         children: [
           paybaleTitleRate(
+            title: StringConstant.totalNumberOfShifts,
+            value:
+                "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
+            isFirst: true,
+          ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalWage}:-",
+            value:
+                "\$${((payable.total_wage ?? "0.0").length > 1) ? payable.total_wage : "0${payable.total_wage}"}",
+          ),
+          commonDivider(),
+          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),
@@ -189,6 +202,12 @@ class ViewContractorShift extends StatelessWidget {
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value: "\$${payable.commute_allowance ?? 00}",
+          ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalAllowances}:-",
+            value:
+                "\$${((payable.total_allowance ?? "0.0").length > 1) ? payable.total_allowance : "0${payable.total_allowance}"}",
           ),
           commonDivider(),
           paybaleTitleRate(

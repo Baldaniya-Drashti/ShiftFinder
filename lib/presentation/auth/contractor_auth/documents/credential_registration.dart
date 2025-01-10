@@ -223,8 +223,10 @@ class CredentialRegistration extends StatelessWidget {
                           alignment: Alignment.center,
                           child: CommonButton(
                             onPressed: () {
-                              context.read<CredentialBloc>().add(
-                                      const CredentialEvent.credentialDocSubmit(
+                              context
+                                  .read<CredentialBloc>()
+                                  .add(CredentialEvent.credentialDocSubmit(
+                                    context,
                                     isAddMoreBtnClick: false,
                                     isSkip: false,
                                   ));
@@ -239,7 +241,8 @@ class CredentialRegistration extends StatelessWidget {
                           onPressed: () {
                             context
                                 .read<CredentialBloc>()
-                                .add(const CredentialEvent.credentialDocSubmit(
+                                .add(CredentialEvent.credentialDocSubmit(
+                                  context,
                                   isAddMoreBtnClick: false,
                                   isSkip: true,
                                 ));

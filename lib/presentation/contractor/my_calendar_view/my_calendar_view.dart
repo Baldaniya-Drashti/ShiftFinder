@@ -177,6 +177,12 @@ class MyCalendarView extends StatelessWidget {
         final dateExist = isDateExist(selectedDates, date);
         return dateExist;
       },
+      onDisplayedMonthChanged: (value) {
+        print("Month changed---> $value");
+        context
+            .read<MyCalendarViewBloc>()
+            .add(MyCalendarViewEvent.selectDateEvent(context, []));
+      },
       onValueChanged: (value) {
         context
             .read<MyCalendarViewBloc>()
@@ -238,9 +244,9 @@ class MyCalendarView extends StatelessWidget {
                 PageRouteInfo(
                   ViewContractorShift.name,
                   args: ViewContractorShiftArgs(
-                    postId: detail.list![index].id ?? -1,
+                    postId: detail.list![index].application_id ?? -1,
                     isTotalApplicants: true,
-                    fromDashboard: true,
+                    fromDashboard: false,
                   ),
                 ),
               );

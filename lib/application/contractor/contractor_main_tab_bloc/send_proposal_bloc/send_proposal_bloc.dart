@@ -204,6 +204,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             emit(
               state.copyWith(
                   multiDates: e.updatedDates,
+                  totalPaybleHours: e.totalPayableHours,
                   unAvailableDates: e.updatedDates
                       .where((item) => item.isUnAvailable == true)
                       .toList()),
@@ -228,6 +229,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 state.copyWith(
                     shift: e.post,
                     multiDates: e.updatedDates!,
+                    totalPaybleHours: e.totalPayableHours ?? "",
                     unAvailableDates: e.updatedDates!
                         .where((item) => item.isUnAvailable == true)
                         .toList()),
@@ -236,6 +238,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               emit(
                 state.copyWith(
                     shift: e.post,
+                    totalPaybleHours:
+                        e.post.shift_detail?.total_payable_hour ?? "",
                     multiDates: getDifferentMultiDate(
                         e.post.shift_detail?.detail ?? [])),
               );
@@ -258,7 +262,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -272,7 +276,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -286,7 +290,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -300,14 +304,15 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
           setDateUnavailableEvent: (e) {
             List<DateTimeDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
-            print("updatedDateTimeDTOList----> $updatedDateTimeDTOList");
+            print(
+                "updatedDateTimeDTOList----> ${jsonEncode(updatedDateTimeDTOList)}");
 
             Set<DateTime> set2 = e.selectedDateList.toSet();
 
@@ -333,9 +338,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 .where((item) => item.isUnAvailable == true)
                 .toList();
 
+            print("Total payable hours---> ${state.totalPaybleHours}");
             emit(
               state.copyWith(
                 multiDates: updatedDateTimeDTOList,
+                totalPaybleHours: allTimesFilled(updatedDateTimeDTOList),
                 unAvailableDates: unAvailableDates,
               ),
             );
@@ -418,7 +425,6 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               // }
             } else {
               print("Some details are invalid!");
-
               emit(
                 state.copyWith(
                   isLoading: false,
@@ -569,6 +575,65 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
         );
       },
     );
+  }
+
+  String allTimesFilled(List<DateTimeDTO> multiDateTimeList) {
+    List<DateTimeDTO> filteredList = multiDateTimeList.where((dto) {
+      return dto.start_time != null &&
+          dto.start_time!.isNotEmpty &&
+          dto.end_time != null &&
+          dto.end_time!.isNotEmpty &&
+          dto.isUnAvailable == false;
+    }).toList();
+    bool areAllTimesFilled = filteredList.every((dto) =>
+        dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+
+    print("filteredList---> ${jsonEncode(filteredList)}");
+
+    if (areAllTimesFilled) {
+      // Substract unpaid break list
+      List<DateTimeDTO> updatedList = filteredList.map((dto) {
+        if (isTimeFilled(dto)) {
+          final unpaidBreak =
+              CustomDateTimeFormat.extractUnpaidBreak(dto.unpaidBreak ?? "0");
+          var timeDiffBetweenEndStartTime = DateTime.parse(dto.end_time!)
+              .difference(DateTime.parse(dto.start_time!));
+
+          final timeDifference =
+              timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+          // print("timeDifference---> timeDifference ${timeDifference}");
+          print("timeDifference---> timeDifference $unpaidBreak");
+          return dto.copyWith(totalPaybleHours: timeDifference.toString());
+        } else {
+          return dto;
+        }
+      }).toList();
+
+      final totalHour = CustomDateTimeFormat.formatDuration(
+          sumTotalPayableHours(updatedList));
+      print("totalHour--> $totalHour");
+      return totalHour;
+    } else {
+      return "00h 00min";
+    }
+  }
+
+  Duration sumTotalPayableHours(List<DateTimeDTO> multiDateTimeList) {
+    print("payable hours: $multiDateTimeList");
+    final totalDuration = multiDateTimeList.fold(Duration.zero, (total, dto) {
+      return total + parseDuration(dto.totalPaybleHours ?? "");
+    });
+    return totalDuration;
+  }
+
+  Duration parseDuration(String duration) {
+    final parts = duration.split(':');
+    final hours = int.parse(parts[0]);
+    final minutes = int.parse(parts[1]);
+    final seconds = double.parse(parts[2]).round();
+    final duration1 =
+        Duration(hours: hours, minutes: minutes, seconds: seconds);
+    return duration1;
   }
 
   Map<String, dynamic> singleShiftData(SendProposalState state) {
@@ -729,6 +794,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                   state, state.accomdationHour.getValue() ?? "")
               : "",
       'multi_date': mapMultiDateToApiFormat(),
+      'total_payable_hour': state.totalPaybleHours,
       'unavailability_date': unAvailableDateFormat(),
     };
     return mapData;

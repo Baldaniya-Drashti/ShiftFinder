@@ -30,7 +30,8 @@ class ApparelEquipment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
+      create: (context) =>
+          getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
       child: BlocConsumer<EquipmentBloc, EquipmentState>(
         listener: (context, state) {
           state.equipmentDocAuthFailureOrSuccessOption.fold(
@@ -40,7 +41,8 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -55,7 +57,8 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -71,7 +74,9 @@ class ApparelEquipment extends StatelessWidget {
                   curve: Curves.easeInOut,
                 )
                     .then((value) {
-                  context.read<DocumentBloc>().add(const DocumentEvent.getAllDocumentStatus());
+                  context
+                      .read<DocumentBloc>()
+                      .add(const DocumentEvent.getAllDocumentStatus());
                 });
               },
             ),
@@ -84,7 +89,9 @@ class ApparelEquipment extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   child: SingleChildScrollView(
                     child: Form(
-                      autovalidateMode: (state.showEquipmentErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                      autovalidateMode: (state.showEquipmentErrorMessages)
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -94,19 +101,27 @@ class ApparelEquipment extends StatelessWidget {
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    DocumentDTO immunizationObject = state.equipmentList[index];
+                                    DocumentDTO immunizationObject =
+                                        state.equipmentList[index];
                                     return Padding(
-                                      padding: EdgeInsets.only(top: getSize(10)),
+                                      padding:
+                                          EdgeInsets.only(top: getSize(10)),
                                       child: SelectedDocumentBox(
                                         pickedFile: immunizationObject.file,
-                                        title: immunizationObject.document_title ?? "",
+                                        title:
+                                            immunizationObject.document_title ??
+                                                "",
                                         showDeleteButton: true,
-                                        deleteDescription: StringConstant.deleteEquipmentDesc,
+                                        deleteDescription:
+                                            StringConstant.deleteEquipmentDesc,
                                         onCancelClick: () {
                                           context.router.maybePop();
                                         },
                                         onDeleteClick: () {
-                                          context.read<EquipmentBloc>().add(EquipmentEvent.deleteEquipmentObject(index));
+                                          context.read<EquipmentBloc>().add(
+                                              EquipmentEvent
+                                                  .deleteEquipmentObject(
+                                                      index));
                                           context.router.maybePop();
                                         },
                                       ),
@@ -130,11 +145,15 @@ class ApparelEquipment extends StatelessWidget {
                                     clickUploadButton(context);
                                   },
                                 ),
-                          if (state.showEquipmentErrorMessages && !state.equipmentDoc.isValid())
+                          if (state.showEquipmentErrorMessages &&
+                              !state.equipmentDoc.isValid())
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(20)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(10),
+                                  horizontal: getSize(20)),
                               child: const BaseText(
-                                text: StringConstant.pleaseSelectEquipmentDocument,
+                                text: StringConstant
+                                    .pleaseSelectEquipmentDocument,
                                 fontSize: 12,
                                 textColor: AppColors.red,
                               ),
@@ -144,16 +163,21 @@ class ApparelEquipment extends StatelessWidget {
                             context,
                             state,
                             onPressed: () {
-                              context.read<EquipmentBloc>().add(const EquipmentEvent.addMoreEquipmentDoc());
+                              context.read<EquipmentBloc>().add(
+                                  const EquipmentEvent.addMoreEquipmentDoc());
                             },
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: getSize(50), bottom: getSize(10)),
+                            padding: EdgeInsets.only(
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
-                                  context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                  context
+                                      .read<EquipmentBloc>()
+                                      .add(EquipmentEvent.equipmentDocSubmit(
+                                        context,
                                         isAddMoreBtnClick: false,
                                         isSkip: false,
                                       ));
@@ -166,7 +190,10 @@ class ApparelEquipment extends StatelessWidget {
                             documentSkipButton(
                               context,
                               onPressed: () {
-                                context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                context
+                                    .read<EquipmentBloc>()
+                                    .add(EquipmentEvent.equipmentDocSubmit(
+                                      context,
                                       isAddMoreBtnClick: false,
                                       isSkip: true,
                                     ));
@@ -183,7 +210,8 @@ class ApparelEquipment extends StatelessWidget {
     );
   }
 
-  Widget selectedImage(BuildContext context, String selectedFile, {required EquipmentState state}) {
+  Widget selectedImage(BuildContext context, String selectedFile,
+      {required EquipmentState state}) {
     return ShowPickedFile(
       selectedFile: selectedFile,
       mainBoxHeight: getSize(400),
@@ -200,7 +228,8 @@ class ApparelEquipment extends StatelessWidget {
           onDeleteClick: () {
             if (state.equipmentDoc.isValid()) {
               context.read<EquipmentBloc>().add(
-                    EquipmentEvent.deleteEquipmentDoc(state.equipmentDoc.getValue()!),
+                    EquipmentEvent.deleteEquipmentDoc(
+                        state.equipmentDoc.getValue()!),
                   );
             }
             Navigator.pop(context);
@@ -213,7 +242,9 @@ class ApparelEquipment extends StatelessWidget {
   clickUploadButton(BuildContext context) {
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
+        String path = await ImagePickerUtils()
+                .pickImage(imageSource: ImageSource.camera, context: context) ??
+            '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
           context.read<EquipmentBloc>().add(
@@ -222,7 +253,9 @@ class ApparelEquipment extends StatelessWidget {
         }
       },
       selectPhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
+        String path = await ImagePickerUtils().pickImage(
+                imageSource: ImageSource.gallery, context: context) ??
+            '';
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
@@ -255,19 +288,26 @@ class ApparelEquipment extends StatelessWidget {
       labelText: StringConstant.documentTitle,
       hintText: StringConstant.documentTitle,
       textCapitalization: TextCapitalization.sentences,
-      onChanged: (value) => context.read<EquipmentBloc>().add(EquipmentEvent.equipmentNameChanegd(value)),
-      validator: (_, context) => context.read<EquipmentBloc>().state.equipmentName.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseAddTitle,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      onChanged: (value) => context
+          .read<EquipmentBloc>()
+          .add(EquipmentEvent.equipmentNameChanegd(value)),
+      validator: (_, context) =>
+          context.read<EquipmentBloc>().state.equipmentName.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddTitle,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
-  Widget addMoreButton(BuildContext context, EquipmentState state, {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.equipmentName.isValid() && state.equipmentDoc.isValid()) ? true : false;
+  Widget addMoreButton(BuildContext context, EquipmentState state,
+      {required VoidCallback onPressed}) {
+    bool isAllDetailsAdded =
+        (state.equipmentName.isValid() && state.equipmentDoc.isValid())
+            ? true
+            : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(
@@ -278,8 +318,12 @@ class ApparelEquipment extends StatelessWidget {
         buttonFontSize: 12,
         buttonFontWeight: FontWeight.w600,
         height: 35,
-        backgroundColor: (isAllDetailsAdded) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
-        buttonTextColor: (isAllDetailsAdded) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+        backgroundColor: (isAllDetailsAdded)
+            ? AppColors.primaryColor.withOpacity(0.15)
+            : AppColors.primaryColor.withOpacity(0.05),
+        buttonTextColor: (isAllDetailsAdded)
+            ? AppColors.primaryColor
+            : AppColors.primaryColor.withOpacity(0.3),
       ),
     );
   }

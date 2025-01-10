@@ -138,7 +138,8 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                           onPressed: () {
                             context
                                 .read<DocumentBloc>()
-                                .add(const DocumentEvent.covidDocSubmit(
+                                .add(DocumentEvent.covidDocSubmit(
+                                  context,
                                   isSkip: false,
                                 ));
                           },
@@ -152,7 +153,8 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                         onPressed: () {
                           context
                               .read<DocumentBloc>()
-                              .add(const DocumentEvent.covidDocSubmit(
+                              .add(DocumentEvent.covidDocSubmit(
+                                context,
                                 isSkip: true,
                               ));
                         },
