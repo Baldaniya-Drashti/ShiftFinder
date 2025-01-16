@@ -113,17 +113,17 @@ class _PositionFormState extends State<_PositionForm> {
             },
           ),
           Gap(getSize(18)),
-          BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
-            selector: (state) => state.selectedShiftSchedule,
-            builder: (context, selectedShiftSchedule) {
-              return _ShiftScheduleDropdownField(
-                selectedShiftSchedule: selectedShiftSchedule,
-                onChanged: (value) {
-                  context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onShiftScheduleChanged(value));
-                },
-              );
-            },
-          ),
+            BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
+              selector: (state) => state.selectedShiftSchedule,
+              builder: (context, selectedShiftSchedule) {
+                return ShiftScheduleDropdownField(
+                  selectedShiftSchedule: selectedShiftSchedule,
+                  onChanged: (value) {
+                    context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onShiftScheduleChanged(value));
+                  },
+                );
+              },
+            ),
           Gap(getSize(18)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, LocationDTO?>(
             selector: (state) => state.selectedLocation,
@@ -237,47 +237,7 @@ class _JobTypeDropdownField extends StatelessWidget {
   }
 }
 
-class _ShiftScheduleDropdownField extends StatelessWidget {
-  const _ShiftScheduleDropdownField({
-    required this.onChanged,
-    required this.selectedShiftSchedule,
-  });
 
-  final Function(CommonDropdownModel value) onChanged;
-  final CommonDropdownModel? selectedShiftSchedule;
-
-  @override
-  Widget build(BuildContext context) {
-    final List<CommonDropdownModel> list = [
-      CommonDropdownModel(id: 1, label: "Morning"),
-      CommonDropdownModel(id: 2, label: "Evening"),
-      CommonDropdownModel(id: 3, label: "Night"),
-      CommonDropdownModel(id: 4, label: "Weekends"),
-      CommonDropdownModel(id: 5, label: "Weekdays"),
-    ];
-
-    return CustomDropdownField<CommonDropdownModel>(
-      hintText: "Shift Schedule",
-      fontSize: 13,
-      label: "Shift Schedule",
-      hintTextStyle: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: AppColors.black.withOpacity(0.5),
-      ),
-      onChanged: (value) => onChanged(value as CommonDropdownModel),
-      value: selectedShiftSchedule,
-      items: list.map(
-        (e) {
-          return DropdownMenuItem<CommonDropdownModel>(
-            value: e,
-            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
-          );
-        },
-      ).toList(),
-    );
-  }
-}
 
 class _LocationDropdown extends StatelessWidget {
   const _LocationDropdown({

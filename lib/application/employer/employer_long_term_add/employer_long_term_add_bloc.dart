@@ -1,173 +1,7 @@
-// import 'package:dartz/dartz.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:freezed_annotation/freezed_annotation.dart';
-// import 'package:injectable/injectable.dart';
-// import 'package:shift/domain/auth/auth_failure.dart';
-// import 'package:shift/domain/auth/auth_value_objects.dart';
-// part 'healthcare_post_event.dart';
-// part 'healthcare_post_state.dart';
-// part 'healthcare_post_bloc.freezed.dart';
-
-// @injectable
-// class HealthcarePostBloc
-//     extends Bloc<HealthcarePostEvent, HealthcarePostState> {
-//   HealthcarePostBloc() : super(HealthcarePostState.initial()) {
-//     on<HealthcarePostEvent>((event, emit) {
-//       event.map(
-//         roleTypeChanged: (e) {
-//           emit(
-//             state.copyWith(
-//               roleType: InputEmptyOrNot(e.roleType),
-//             ),
-//           );
-//         },
-//         locationChanged: (e) {
-//           emit(
-//             state.copyWith(
-//               location: InputEmptyOrNot(e.location),
-//               authFailureOrSuccessOption: none(),
-//             ),
-//           );
-//         },
-//         locationUnitSelectionChanged: (e) {
-//           emit(
-//             state.copyWith(
-//               selectedLocationUnit: e.selectedUnit,
-//               authFailureOrSuccessOption: none(),
-//             ),
-//           );
-//         },
-//         rateHourChanged: (e) {
-//           emit(
-//             state.copyWith(
-//               rateHour: InputEmptyOrNot(e.rateHour),
-//               authFailureOrSuccessOption: none(),
-//             ),
-//           );
-//         },
-//         selectedLanguageChanged: (e) {
-//           emit(
-//             state.copyWith(
-//               selectedLanguage: InputEmptyOrNot(e.language),
-//             ),
-//           );
-//         },
-//         addRequiredSpecialitichips: (e) {
-//           if (!(e.selectedValue.toLowerCase() == "other") &&
-//               (state.requiredSpecialityChipList.isEmpty ||
-//                   !state.requiredSpecialityChipList
-//                       .contains(e.selectedValue))) {
-//             emit(
-//               state.copyWith(
-//                 requiredSpecialityChipList:
-//                     List.from(state.requiredSpecialityChipList)
-//                       ..add(e.selectedValue),
-//                 requiredSpecialityChip:
-//                     (e.isOtherValue == true) ? "" : e.selectedValue,
-//                 authFailureOrSuccessOption: none(),
-//               ),
-//             );
-//           } else {
-//             emit(
-//               state.copyWith(
-//                 requiredSpecialityChipList:
-//                     List.from(state.requiredSpecialityChipList),
-//                 requiredSpecialityChip:
-//                     (e.isOtherValue == true) ? "" : e.selectedValue,
-//                 authFailureOrSuccessOption: none(),
-//               ),
-//             );
-//           }
-//         },
-//         removeRequiredSpecialitichips: (e) {
-//           emit(
-//             state.copyWith(
-//               requiredSpecialityChipList:
-//                   List.from(state.requiredSpecialityChipList)
-//                     ..remove(e.selectedValue),
-//               requiredSpecialityChip: "",
-//               authFailureOrSuccessOption: none(),
-//             ),
-//           );
-//         },
-//         addPreferedSoftwareSkillchips: (e) {
-//           if (e.selectedValue.isNotEmpty &&
-//               !(e.selectedValue.toLowerCase() == "other") &&
-//               (state.requiredSoftwareSkillChipList.isEmpty ||
-//                   !state.requiredSoftwareSkillChipList
-//                       .contains(e.selectedValue))) {
-//             emit(
-//               state.copyWith(
-//                 requiredSoftwareSkillChipList:
-//                     List.from(state.requiredSoftwareSkillChipList)
-//                       ..add(e.selectedValue),
-//                 requiredSoftwareSkillChip:
-//                     (e.isOtherValue == true) ? "" : e.selectedValue,
-//                 authFailureOrSuccessOption: none(),
-//               ),
-//             );
-//           } else {
-//             emit(
-//               state.copyWith(
-//                 requiredSoftwareSkillChipList:
-//                     List.from(state.requiredSoftwareSkillChipList),
-//                 requiredSoftwareSkillChip:
-//                     (e.isOtherValue == true) ? "" : e.selectedValue,
-//                 authFailureOrSuccessOption: none(),
-//               ),
-//             );
-//           }
-//         },
-//         removePreferedSoftwareSkillchips: (e) {
-//           emit(
-//             state.copyWith(
-//               requiredSoftwareSkillChipList:
-//                   List.from(state.requiredSoftwareSkillChipList)
-//                     ..remove(e.selectedValue),
-//               requiredSoftwareSkillChip: "",
-//               authFailureOrSuccessOption: none(),
-//             ),
-//           );
-//         },
-//         continueBtnPressed: (e) {
-//           Either<AuthFailure, String>? failureOrSuccess;
-//           final isLocationValid = state.location.isValid();
-//           final isRateHourValid = state.rateHour.isValid();
-//           final roleType = state.roleType.isValid();
-//           final language = state.selectedLanguage.isValid();
-
-//           if (roleType && language && isLocationValid && isRateHourValid) {
-//             emit(
-//               state.copyWith(
-//                 isSubmitting: true,
-//                 authFailureOrSuccessOption: none(),
-//               ),
-//             );
-//             // failureOrSuccess = await _authFacade.login(
-//             //   mobileNumber: EmailAddress(""),
-//             //   countryCode: '+${state.selectedCountrycode}',
-//             // );
-//             failureOrSuccess = right("sucess");
-//           }
-//           emit(
-//             state.copyWith(
-//               isSubmitting: false,
-//               showErrorMessages: true,
-//               authFailureOrSuccessOption: optionOf(failureOrSuccess),
-//             ),
-//           );
-//         },
-//       );
-//     });
-//   }
-// }
-
-// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, prefer_const_constructors, unused_field, unused_local_variable
-
 import 'package:auto_route/auto_route.dart';
+import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
@@ -185,20 +19,17 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 
-part 'healthcare_post_event.dart';
-
-part 'healthcare_post_state.dart';
-
-part 'healthcare_post_bloc.freezed.dart';
+part 'employer_long_term_add_event.dart';
+part 'employer_long_term_add_state.dart';
+part 'employer_long_term_add_bloc.freezed.dart';
 
 @injectable
-class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> {
+class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLongTermAddState> {
   final IAuthFacade _authFacade;
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
-
-  HealthcarePostBloc(this._authFacade, this._repository, this._mainFacade) : super(HealthcarePostState.initial()) {
-    on<HealthcarePostEvent>((event, emit) async {
+  EmployerLongTermAddBloc(this._authFacade, this._repository, this._mainFacade) : super( EmployerLongTermAddState.initial()) {
+    on<EmployerLongTermAddEvent>((event, emit) async {
       await event.map(
         confirmSoftwareSkill: (e) {
           emit(state.copyWith(
@@ -259,7 +90,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             emit(
               state.copyWith(
                 requiredSpecialityChipList:
-                    ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
+                ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
                 requiredSpecialityChip: (e.isOtherValue == true) ? "" : e.selectedValue,
                 specialityOther: (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
                 showSpecialityError: false,
@@ -327,7 +158,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             emit(
               state.copyWith(
                 requiredSoftwareSkillChipList:
-                    ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
+                ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
                 requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
                 softwareSkillOther: (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
                 showSoftwareSkillError: false,
@@ -451,7 +282,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
         /// LOCATION
         locationChanged: (e) {
           final selectedLocationObject = state.locationList.firstWhere(
-            (location) => location.location == e.selectedValue,
+                (location) => location.location == e.selectedValue,
             orElse: () => LocationDTO(),
           );
 
@@ -496,15 +327,15 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           final isRateHourValid = state.rateHour.isValid();
 
           if (
-              // !state.showSoftwareSkillError &&
-              roleTypeListValid &&
-                  (languageListValid || state.languageOther.isNotEmpty) &&
-                  !state.showRoleTypeError &&
-                  // !state.showLanguageError &&
-                  // !state.showSpeExperienceError &&
-                  isLocationValid &&
-                  !state.showLocationError &&
-                  isRateHourValid) {
+          // !state.showSoftwareSkillError &&
+          roleTypeListValid &&
+              (languageListValid || state.languageOther.isNotEmpty) &&
+              !state.showRoleTypeError &&
+              // !state.showLanguageError &&
+              // !state.showSpeExperienceError &&
+              isLocationValid &&
+              !state.showLocationError &&
+              isRateHourValid) {
             print("ALL DETAILS ARE VALID!---->  ");
             PostShiftDTO post = PostShiftDTO(
               roles_list_id: getSelectedRoleIds(),
@@ -527,14 +358,22 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             print("language id--> ${getSelectedLanguageId()} ");
             print("language other--> ${state.languageOther.join(',')} ");
 
-            e.context.router
-                .push(PageRouteInfo(
-              HealthcarePostShift.name,
-              args: HealthcarePostShiftArgs(postId: -1, post: post, updateShift: state.updatePost, fromSaveTemplate: e.fromSaveTemplate),
-            ))
-                .then((value) {
-              AppFocus.unfocus(e.context);
-            });
+            // e.context.router
+            //     .push(PageRouteInfo(
+            //   HealthcarePostShift.name,
+            //   args: HealthcarePostShiftArgs(
+            //       postId: -1,
+            //       post: post,
+            //       updateShift: state.updatePost,
+            //       fromSaveTemplate: e.fromSaveTemplate
+            //   ),
+            // ))
+            //     .then((value) {
+            //   AppFocus.unfocus(e.context);
+            // });
+
+            e.context.router.push(PageRouteInfo(EmployerLongTermPositionAddDetailView.name));
+
 
             /*emit(
               state.copyWith(
@@ -570,9 +409,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
         },
       );
     });
-  }
 
-  String getSelectedLanguageId() {
+  
+
+  }  String getSelectedLanguageId() {
     /*List<int> outputIds = [];
     for (String title in state.languageChipList.getValue()) {
       for (ListDTO item in CommonList.languageList) {
@@ -588,9 +428,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     final languageIds = state.languageChipList
         .getValue()
         .map((chipName) => state.languageList.firstWhere(
-              (language) => language.name == chipName,
-              orElse: () => const SkillDTO(), // Handle cases where no match is found
-            ))
+          (language) => language.name == chipName,
+      orElse: () => const SkillDTO(), // Handle cases where no match is found
+    ))
         .where((language) => language.id != null) // Filter out null values
         .map((language) => language.id) // Extract IDs
         .toList();
@@ -609,9 +449,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     final specialityIds = state.requiredSpecialityChipList
         .getValue()
         .map((chipName) => state.specialityList.firstWhere(
-              (speciality) => speciality.name == chipName,
-              orElse: () => SpecialityDTO(),
-            ))
+          (speciality) => speciality.name == chipName,
+      orElse: () => SpecialityDTO(),
+    ))
         .where((speciality) => speciality.id != null)
         .map((specialtiy) => specialtiy.id)
         .toList();
@@ -625,9 +465,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     final softwareIds = state.requiredSoftwareSkillChipList
         .getValue()
         .map((chipName) => state.softwareList.firstWhere(
-              (software) => software.name == chipName,
-              orElse: () => SkillDTO(), // Handle cases where no match is found
-            ))
+          (software) => software.name == chipName,
+      orElse: () => SkillDTO(), // Handle cases where no match is found
+    ))
         .where((software) => software.id != null) // Filter out null values
         .map((software) => software.id) // Extract IDs
         .toList();
@@ -639,22 +479,22 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
 
   String getSelectedLocationIds() {
     final locationIds =
-        state.locationList.firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
+    state.locationList.firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
     print("Location ID --> $locationIds");
     return "${locationIds.id ?? -1}";
   }
 
-  getShiftDetailApi(Emitter<HealthcarePostState> emit, int postId) async {
+  getShiftDetailApi(Emitter<EmployerLongTermAddState> emit, int postId) async {
     Either<MainFailure, HealthcarePostDTO> failureOrSuccess = await _mainFacade.getPostApi(
       postId: postId,
     );
     failureOrSuccess.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
         ),
       ),
-      (r) {
+          (r) {
         print("r.location--> ${r.specialties_detail_list}");
         return emit(
           state.copyWith(
@@ -667,7 +507,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
                 (r.specialties_detail_list != null) ? r.specialties_detail_list!.map((element) => element.name ?? "").toList() : []),
             specialityOther: r.specialties_detail_other?.split(',') ?? [],
             languageChipList:
-                ListInputEmptyOrNot((r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
+            ListInputEmptyOrNot((r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
             languageOther: r.language_other?.split(',') ?? [],
             location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
             locationObj: r.location ?? LocationDTO(),
@@ -680,17 +520,17 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     );
   }
 
-  getRoleListApi(Emitter<HealthcarePostState> emit) async {
+  getRoleListApi(Emitter<EmployerLongTermAddState> emit) async {
     final roleList = await _authFacade.getRoleList();
     print("Role List ---> ${roleList}");
     roleList.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
           roleList: [],
         ),
       ),
-      (r) {
+          (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -701,18 +541,18 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     );
   }
 
-  getLocationListApi(Emitter<HealthcarePostState> emit) async {
+  getLocationListApi(Emitter<EmployerLongTermAddState> emit) async {
     final locationList = await _repository.getLocationListApi();
 
     print("Location List ---> ${locationList}");
     locationList.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
           locationList: [],
         ),
       ),
-      (r) {
+          (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -723,17 +563,17 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     );
   }
 
-  getSpecialityListApi(Emitter<HealthcarePostState> emit) async {
+  getSpecialityListApi(Emitter<EmployerLongTermAddState> emit) async {
     final specialityList = await _authFacade.getSpecialityList();
     print("Speciality List ---> ${specialityList}");
     specialityList.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
           specialityList: [],
         ),
       ),
-      (r) {
+          (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -744,17 +584,17 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     );
   }
 
-  getSoftwareListApi(Emitter<HealthcarePostState> emit) async {
+  getSoftwareListApi(Emitter<EmployerLongTermAddState> emit) async {
     final softwareList = await _authFacade.getSoftwareSkillList();
     print("Software List ---> ${softwareList}");
     softwareList.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
           softwareList: [],
         ),
       ),
-      (r) {
+          (r) {
         return emit(
           state.copyWith(
             isLoading: false,
@@ -765,17 +605,17 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
     );
   }
 
-  getLanguageListApi(Emitter<HealthcarePostState> emit) async {
+  getLanguageListApi(Emitter<EmployerLongTermAddState> emit) async {
     final languageList = await _authFacade.getLanguageList();
     print("Language List ---> ${languageList}");
     languageList.fold(
-      (l) => emit(
+          (l) => emit(
         state.copyWith(
           isLoading: false,
           languageList: [],
         ),
       ),
-      (r) {
+          (r) {
         return emit(
           state.copyWith(
             // isLoading: false,

@@ -37,13 +37,17 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> updatePostApi({
     required PostShiftDTO postShiftDetail,
   });
+
   Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({
     required int postId,
   });
+
   Future<Either<MainFailure, String>> deletePostApi({
     required int postId,
   });
+
   Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck();
+
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
     required int page,
   });
@@ -62,10 +66,12 @@ abstract class IMainFacade {
     required int page,
     String? id,
   });
+
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
+
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
-      {required MultiShiftDTO shift});
+
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi({required MultiShiftDTO shift});
 
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftRecurringApi({
     required int postShiftId,
@@ -89,6 +95,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> postShiftApi({
     required int postId,
   });
+
   Future<Either<MainFailure, String>> createTeamApi({
     required String locationId,
     required InputEmptyOrNot teamName,
@@ -103,6 +110,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deleteTeamApi({
     required String teamId,
   });
+
   Future<Either<MainFailure, String>> createTeamMemberApi({
     required String teamId,
     required InputEmptyOrNot teamMemberName,
@@ -122,6 +130,7 @@ abstract class IMainFacade {
     required EmailAddress email,
     required MobileNumber phoneNumber,
   });
+
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
   });
@@ -151,8 +160,7 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
-      {required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
@@ -160,16 +168,13 @@ abstract class IMainFacade {
     String reason = "",
   });
 
-  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
-      {required int postId});
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
-      {required int postId, required int urgentAction});
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({required int postId, required int urgentAction});
 
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
 
-  Future<Either<MainFailure, ContractorMyCalendarDTO>>
-      getContractorMyCalendarDetailApi(String id, int? date);
+  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(String id, int? date);
 
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
@@ -231,8 +236,7 @@ abstract class IMainFacade {
     required int request,
   });
 
-  Future<Either<MainFailure, CommonResponse>>
-      sendEmployerApplicantsCounterPropose({
+  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
     required int id,
     required num counterRateHour,
     required int commuteAllowanceType,
@@ -263,6 +267,7 @@ abstract class IMainFacade {
     required int shortType,
     required int page,
   });
+
   Future<Either<MainFailure, CommonResponse>> hiredCancelledContractorList({
     required int postId,
     required int shortType,
@@ -294,8 +299,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getLocationListApi();
 
-  Future<Either<MainFailure, CommonResponse>> getLocationDetail(
-      {required int id});
+  Future<Either<MainFailure, CommonResponse>> getLocationDetail({required int id});
 
   Future<Either<MainFailure, CommonResponse>> updateLocation({required int id});
 
@@ -305,6 +309,7 @@ abstract class IMainFacade {
     required int postId,
     required int userId,
   });
+
   Future<Either<MainFailure, CommonResponse>> getContractorRatings({
     required int page,
   });
@@ -315,21 +320,23 @@ abstract class IMainFacade {
     int? sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> addCardAPI(
-      {required String paymentMethodId});
+  Future<Either<MainFailure, CommonResponse>> addCardAPI({required String paymentMethodId});
 
   Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI();
+
   Future<Either<MainFailure, CommonResponse>> getFaqList({
     required int page,
   });
+
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
-  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
-      {required int date});
+
+  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI({required int date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
     required int postId,
   });
+
   Future<Either<MainFailure, CommonResponse>> getReferCollegueAPI({
     required int page,
   });
@@ -344,9 +351,11 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate({
     required int id,
   });
+
   Future<Either<MainFailure, ApplicantDto>> getReferrealContractorInfoApi({
     required int id,
   });
+
   Future<Either<MainFailure, CommonResponse>> getPaymentHistoryAPI({
     required int page,
   });
@@ -355,16 +364,26 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, MonthlyStatementDTO>>
-      getEmployerMonthlyStatementAPI({
+  Future<Either<MainFailure, MonthlyStatementDTO>> getEmployerMonthlyStatementAPI({
     required double? startDate,
     required double? endDate,
   });
+
   Future<Either<MainFailure, EmployerInvoiceDTO>> getInvoiceDetailAPI({
     required int id,
   });
+
   Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
     required int startDate,
     required int endDate,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPosition({
+    required int positionType,
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerFullTermPosition({
+    required int page,
   });
 }

@@ -148,6 +148,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+
       bottom: bottom,
       forceMaterialTransparency: forceMaterialTransparency,
       scrolledUnderElevation: 0,

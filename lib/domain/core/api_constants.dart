@@ -150,4 +150,5 @@ class ApiConstants {
   static String faqsList = 'faqs';
   static String employerSavedTemplates = 'employer_saved_templates';
   static String destroyEmployerSavedTemplates  = 'destroy_employer_saved_templates';
+  static String employerDashboardLongFullTermPost  = 'employer_dashboard_long_full_term_post';
 }

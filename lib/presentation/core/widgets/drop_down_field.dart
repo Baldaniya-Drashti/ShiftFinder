@@ -5,6 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -145,6 +146,48 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           items: widget.items,
         ),
       ],
+    );
+  }
+}
+
+class ShiftScheduleDropdownField extends StatelessWidget {
+  const ShiftScheduleDropdownField({super.key,
+    required this.onChanged,
+    required this.selectedShiftSchedule,
+  });
+
+  final Function(CommonDropdownModel value) onChanged;
+  final CommonDropdownModel? selectedShiftSchedule;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<CommonDropdownModel> list = [
+      CommonDropdownModel(id: 1, label: "Morning"),
+      CommonDropdownModel(id: 2, label: "Evening"),
+      CommonDropdownModel(id: 3, label: "Night"),
+      CommonDropdownModel(id: 4, label: "Weekends"),
+      CommonDropdownModel(id: 5, label: "Weekdays"),
+    ];
+
+    return CustomDropdownField<CommonDropdownModel>(
+      hintText: "Shift Schedule",
+      fontSize: 13,
+      label: "Shift Schedule",
+      hintTextStyle: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.black.withOpacity(0.5),
+      ),
+      onChanged: (value) => onChanged(value as CommonDropdownModel),
+      value: selectedShiftSchedule,
+      items: list.map(
+            (e) {
+          return DropdownMenuItem<CommonDropdownModel>(
+            value: e,
+            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+          );
+        },
+      ).toList(),
     );
   }
 }

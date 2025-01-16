@@ -99,6 +99,12 @@ import 'package:shift/application/employer/employer_location/employer_location_b
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
     as _i990;
+import 'package:shift/application/employer/employer_long_term/employer_long_term_bloc.dart'
+    as _i89;
+import 'package:shift/application/employer/employer_long_term_add/employer_long_term_add_bloc.dart'
+    as _i165;
+import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
+    as _i218;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
@@ -174,16 +180,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
-    gh.factory<_i730.PickLocationDialogBloc>(
-        () => _i730.PickLocationDialogBloc());
-    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
+    gh.factory<_i79.EmployerFullPostingReviewBloc>(
+        () => _i79.EmployerFullPostingReviewBloc());
+    gh.factory<_i218.EmployerLongTermPositionAddDetailBloc>(
+        () => _i218.EmployerLongTermPositionAddDetailBloc());
     gh.factory<_i24.EmployerFullPostingBloc>(
         () => _i24.EmployerFullPostingBloc());
     gh.factory<_i454.EmployerFullPostingConfirmBloc>(
         () => _i454.EmployerFullPostingConfirmBloc());
-    gh.factory<_i79.EmployerFullPostingReviewBloc>(
-        () => _i79.EmployerFullPostingReviewBloc());
+    gh.factory<_i89.EmployerLongTermBloc>(() => _i89.EmployerLongTermBloc());
+    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i730.PickLocationDialogBloc>(
+        () => _i730.PickLocationDialogBloc());
+    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -199,8 +208,18 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i111.IMainFacade>(),
           gh<_i253.IAccountRepository>(),
         ));
+    gh.factory<_i165.EmployerLongTermAddBloc>(
+        () => _i165.EmployerLongTermAddBloc(
+              gh<_i277.IAuthFacade>(),
+              gh<_i253.IAccountRepository>(),
+              gh<_i111.IMainFacade>(),
+            ));
     gh.factory<_i383.HealthcarePostBloc>(() => _i383.HealthcarePostBloc(
           gh<_i277.IAuthFacade>(),
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
+    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
@@ -210,10 +229,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i111.IMainFacade>(),
             ));
     gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
-          gh<_i253.IAccountRepository>(),
-          gh<_i111.IMainFacade>(),
-        ));
-    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));

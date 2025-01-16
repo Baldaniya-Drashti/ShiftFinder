@@ -123,6 +123,8 @@ class AppRouter extends RootStackRouter {
 
         AutoRoute(page: EmployerLongTermView.page),
         AutoRoute(page: EmployerLongTermPositionDetailView.page),
+        AutoRoute(page: EmployerLongTermPositionAddView.page),
+        AutoRoute(page: EmployerLongTermPositionAddDetailView.page),
 
 
         AutoRoute(page: EmployerCompletedShiftView.page),
