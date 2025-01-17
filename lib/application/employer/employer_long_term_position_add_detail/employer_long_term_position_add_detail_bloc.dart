@@ -30,6 +30,10 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
         onShiftScheduleChanged: (OnShiftScheduleChanged value) {
           emit(state.copyWith(selectedShiftSchedule: value.value));
         },
+        selectDocument: (SelectDocument value) {
+          emit(state.copyWith(documentPath: value.path));
+          print("=> ${value.path}");
+        },
       );
     });
   }

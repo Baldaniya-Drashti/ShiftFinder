@@ -36,9 +36,9 @@ class AppliedPositionView extends StatelessWidget {
   }
 
   Widget _positionDetailButton(
-    BuildContext context, {
-    required VoidCallback onPressed,
-  }) {
+      BuildContext context, {
+        required VoidCallback onPressed,
+      }) {
     return CommonButton(
       borderRadius: 7,
       height: 40,
@@ -146,7 +146,7 @@ class AppliedPositionView extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14,
               text:
-                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
+              "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
             ),
           ],
         ),

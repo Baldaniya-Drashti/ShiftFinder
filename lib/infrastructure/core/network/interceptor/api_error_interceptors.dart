@@ -5,6 +5,7 @@ class AppInterceptors extends Interceptor {
   final DioConnectivityRequestRetrier requestRetrier;
 
   AppInterceptors({required this.requestRetrier});
+
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     // switch (err.type) {

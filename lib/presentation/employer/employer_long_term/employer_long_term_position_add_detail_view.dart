@@ -16,8 +16,10 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -41,6 +43,7 @@ class _EmployerLongTermPositionAddDetailViewState extends State<EmployerLongTerm
   final TextEditingController _licensesController = TextEditingController();
   final TextEditingController _termsController = TextEditingController();
   final TextEditingController _onBoardingController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,173 +51,188 @@ class _EmployerLongTermPositionAddDetailViewState extends State<EmployerLongTerm
       create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>(),
       child: Scaffold(
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
-        body: ListView(
-          padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
-          children: [
-            BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
-              builder: (context, state) {
-                return DatePickerInputField(
-                  label: "Start Date",
-                  hint: "Start Date",
-                  initialDate: state.startDate,
-                  onPickedDate: (DateTime date) {
-                    context
-                        .read<EmployerLongTermPositionAddDetailBloc>()
-                        .add(EmployerLongTermPositionAddDetailEvent.selectStartDate(startDate: date));
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
-              builder: (context, state) {
-                final endDate = state.startDate != null
-                    ? DateTime(state.startDate!.year, state.startDate!.month + 3, state.startDate!.day)
-                    : DateTime.now();
-
-                return DatePickerInputField(
-                  firstDate: endDate,
-                  label: "End Date",
-                  hint: "End Date",
-                  initialDate: endDate,
-                  onPickedDate: (DateTime date) {
-                    context
-                        .read<EmployerLongTermPositionAddDetailBloc>()
-                        .add(EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date));
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-              selector: (state) => state.applicationDeadlineDate,
-              builder: (context, startDate) {
-                return DatePickerInputField(
-                  label: "Application Deadline",
-                  hint: "Application Deadline",
-                  initialDate: startDate,
-                  onPickedDate: (DateTime date) {
-                    context
-                        .read<EmployerLongTermPositionAddDetailBloc>()
-                        .add(EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date));
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, CommonDropdownModel?>(
-              selector: (state) => state.selectedShiftSchedule,
-              builder: (context, selectedShiftSchedule) {
-                return ShiftScheduleDropdownField(
-                  selectedShiftSchedule: selectedShiftSchedule,
-                  onChanged: (value) {
-                    context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onShiftScheduleChanged(value));
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Job Description",
-              controller: _jobDescriptionController,
-              hintText: "Type Here...",
-              maxLines: 3,
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Requirements",
-              controller: _requirementsController,
-              hintText: "Type Here...",
-              maxLines: 3,
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Responsibilities",
-              controller: _responsibilityController,
-              hintText: "Type Here...",
-              maxLines: 3,
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Qualifications",
-              controller: _requirementsController,
-              hintText: "Type Here...",
-              maxLines: 3,
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Licenses/Certifications",
-              controller: _licensesController,
-              hintText: "Type Here...",
-              maxLines: 3,
-            ),
-            Gap(getSize(16)),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Row(
-                children: [
-                  BaseText(
-                    text: "Contract Terms",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  Gap(2),
-                  BaseText(
-                    text: "(Optional)",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ],
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
+            children: [
+              BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
+                builder: (context, state) {
+                  return DatePickerInputField(
+                    validator: (value, _) {
+                      value = value?.trim() ?? "";
+                    },
+                    label: "Start Date",
+                    hint: "Start Date",
+                    initialDate: state.startDate,
+                    onPickedDate: (DateTime date) {
+                      context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                            EmployerLongTermPositionAddDetailEvent.selectStartDate(startDate: date),
+                          );
+                    },
+                  );
+                },
               ),
-            ),
-            Gap(getSize(8)),
-            Material(
-              color: AppColors.grey04,
-              borderRadius: BorderRadius.circular(getSize(20)),
-              child: Padding(
-                padding: EdgeInsets.all(getSize(16)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+              Gap(getSize(12)),
+              BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
+                builder: (context, state) {
+                  return DatePickerInputField(
+                    firstDate: state.endDate,
+                    label: "End Date",
+                    hint: "End Date",
+                    initialDate: state.endDate,
+                    onPickedDate: (DateTime date) {
+                      context
+                          .read<EmployerLongTermPositionAddDetailBloc>()
+                          .add(EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date));
+                    },
+                  );
+                },
+              ),
+              Gap(getSize(12)),
+              BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                selector: (state) => state.applicationDeadlineDate,
+                builder: (context, startDate) {
+                  return DatePickerInputField(
+                    label: "Application Deadline",
+                    hint: "Application Deadline",
+                    initialDate: startDate,
+                    onPickedDate: (DateTime date) {
+                      context
+                          .read<EmployerLongTermPositionAddDetailBloc>()
+                          .add(EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date));
+                    },
+                  );
+                },
+              ),
+              Gap(getSize(12)),
+              BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, CommonDropdownModel?>(
+                selector: (state) => state.selectedShiftSchedule,
+                builder: (context, selectedShiftSchedule) {
+                  return ShiftScheduleDropdownField(
+                    selectedShiftSchedule: selectedShiftSchedule,
+                    onChanged: (value) {
+                      context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                            EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged(value: value),
+                          );
+                    },
+                  );
+                },
+              ),
+              Gap(getSize(12)),
+              CustomTextField(
+                labelText: "Job Description",
+                controller: _jobDescriptionController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+              Gap(getSize(12)),
+              CustomTextField(
+                labelText: "Requirements",
+                controller: _requirementsController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+              Gap(getSize(12)),
+              CustomTextField(
+                labelText: "Responsibilities",
+                controller: _responsibilityController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+              Gap(getSize(12)),
+              CustomTextField(
+                labelText: "Qualifications",
+                controller: _requirementsController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+              Gap(getSize(12)),
+              CustomTextField(
+                labelText: "Licenses/Certifications",
+                controller: _licensesController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+              Gap(getSize(16)),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Row(
                   children: [
-                    BaseText(text: "Terms", fontSize: 14),
-                    Gap(getSize(12)),
-                    CustomTextField(
-                      hintText: "Type Here...",
-                      maxLines: 3,
+                    BaseText(
+                      text: "Contract Terms",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
-                    Gap(getSize(16)),
-                    _UploadDocument(),
+                    Gap(2),
+                    BaseText(
+                      text: "(Optional)",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ],
                 ),
               ),
-            )
-          ],
+              Gap(getSize(8)),
+              Material(
+                color: AppColors.grey04,
+                borderRadius: BorderRadius.circular(getSize(20)),
+                child: Padding(
+                  padding: EdgeInsets.all(getSize(16)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(text: "Terms", fontSize: 14),
+                      Gap(getSize(12)),
+                      CustomTextField(
+                        hintText: "Type Here...",
+                        maxLines: 3,
+                      ),
+                      Gap(getSize(16)),
+                      BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
+                        selector: (state) => state.documentPath,
+                        builder: (context, documentPath) {
+                          if (documentPath != null) return selectedImage(context, documentPath);
+                          return _UploadDocument();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Gap(getSize(16)),
+              CustomTextField(
+                labelText: "Onboarding Process",
+                controller: _onBoardingController,
+                hintText: "Type Here...",
+                maxLines: 3,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void clickUploadButton(BuildContext context) {
-    ImageChooserDialog().showImageChooserDialog(
-      takePhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
-        if (path.isNotEmpty) {
-          print("CAMERA IMAGE PATH: $path");
-        }
+  Widget selectedImage(
+    BuildContext context,
+    String selectedFile,
+  ) {
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(300),
+      childBoxHeight: getSize(250),
+      childBoxWidth: getSize(260),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteGovernmentIdDesc,
+          onCancelClick: () => Navigator.pop(context),
+          onDeleteClick: () {},
+        );
       },
-      selectPhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
-
-        if (path.isNotEmpty) {}
-      },
-      selectPdfCallback: () async {
-        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
-        if (path.isNotEmpty) {
-          print("SELECTED FILE PATH: $path");
-        }
-      },
-      context: context,
     );
   }
 }
@@ -228,6 +246,7 @@ class DatePickerInputField extends StatelessWidget {
     required this.onPickedDate,
     this.firstDate,
     this.lastDate,
+    this.validator,
   });
 
   final String label;
@@ -236,10 +255,13 @@ class DatePickerInputField extends StatelessWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final void Function(DateTime date) onPickedDate;
+  final String? Function(String? value, BuildContext context)? validator;
 
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      controller: TextEditingController(text: initialDate != null ? initialDate.toString() : ""),
+      validator: validator,
       labelText: label,
       hintText: hint,
       readOnly: true,
@@ -342,23 +364,28 @@ class _UploadDocument extends StatelessWidget {
       ],
     );
   }
+
   void clickUploadButton(BuildContext context) {
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
-        if (path.isNotEmpty) {}
+        if (path.isNotEmpty) {
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+        }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,

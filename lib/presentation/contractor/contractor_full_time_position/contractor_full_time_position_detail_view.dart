@@ -16,43 +16,40 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "FullPositionDetailView")
-class FullPositionDetailView extends StatelessWidget {
-  const FullPositionDetailView({super.key});
+@RoutePage(name: "ContractorFullTimePositionDetailView")
+class ContractorFullTimePositionDetailView extends StatelessWidget {
+  const ContractorFullTimePositionDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<FullTimePositionDetailBloc>(),
-      child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Position Details"),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(12),
-          child: BaseTileDecoration(
-            child: OverflowBar(
-              overflowSpacing: 12,
-              children: [
-                _buildPositionTile(context),
-                _buildPositionDescription(context),
-                _buildSalaryInformation(context),
-                _buildEstimatedHours(context),
-                _buildShiftSchedule(context),
-                _buildLanguageRequirement(context),
-                _buildLocationDetail(context),
-                _buildBargainingUnit(context),
-                _buildOnCall(context),
-                _buildBulletPointsList(context, title: "Benefits Provided"),
-                _buildBulletPointsList(context, title: "Compensation Package"),
-                _buildBulletPointsList(context, title: "Job Summary"),
-                _buildBulletPointsList(context, title: "External and Internal Relationships"),
-                _buildBulletPointsList(context, title: "Required Qualifications"),
-                _buildBulletPointsList(context, title: "Required Experience"),
-                _buildBulletPointsList(context, title: "Required Licenses/Certifications"),
-                _buildBulletPointsList(context, title: "Required Skills"),
-                _buildBulletPointsList(context, title: "Other"),
-                _buildNumberOfVacancy(context)
-              ],
-            ),
+    return Scaffold(
+      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Position Details"),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(12),
+        child: BaseTileDecoration(
+          child: OverflowBar(
+            overflowSpacing: 12,
+            children: [
+              _buildPositionTile(context),
+              _buildPositionDescription(context),
+              _buildSalaryInformation(context),
+              _buildEstimatedHours(context),
+              _buildShiftSchedule(context),
+              _buildLanguageRequirement(context),
+              _buildLocationDetail(context),
+              _buildBargainingUnit(context),
+              _buildOnCall(context),
+              _buildBulletPointsList(context, title: "Benefits Provided"),
+              _buildBulletPointsList(context, title: "Compensation Package"),
+              _buildBulletPointsList(context, title: "Job Summary"),
+              _buildBulletPointsList(context, title: "External and Internal Relationships"),
+              _buildBulletPointsList(context, title: "Required Qualifications"),
+              _buildBulletPointsList(context, title: "Required Experience"),
+              _buildBulletPointsList(context, title: "Required Licenses/Certifications"),
+              _buildBulletPointsList(context, title: "Required Skills"),
+              _buildBulletPointsList(context, title: "Other"),
+              _buildNumberOfVacancy(context)
+            ],
           ),
         ),
       ),

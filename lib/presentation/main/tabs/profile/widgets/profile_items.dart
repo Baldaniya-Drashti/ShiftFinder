@@ -198,13 +198,16 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.calendarWithClock,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorLongTermView.name));
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          // context.router.push(PageRouteInfo(FullTimePositionView.name));
+           context.router.push(PageRouteInfo(ContractorFullTimePositionView.name));
         },
       ),
       ProfileItemModel(

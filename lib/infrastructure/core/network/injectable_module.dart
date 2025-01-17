@@ -34,26 +34,24 @@ class ApiService {
       },
     );
     var acceptHeader = Headers.jsonContentType;
-    var contentTypeHeader = isMultipart
-        ? Headers.multipartFormDataContentType
-        : Headers.jsonContentType;
+    var contentTypeHeader = isMultipart ? Headers.multipartFormDataContentType : Headers.jsonContentType;
     var headers = {
       HttpHeaders.acceptHeader: acceptHeader,
       HttpHeaders.contentTypeHeader: contentTypeHeader,
     };
     final BaseOptions options = BaseOptions(
       baseUrl: ApiConstants.baseUrl,
-      connectTimeout: const Duration(milliseconds: 5000), //5s
-      receiveTimeout: const Duration(milliseconds: 15000), //15s
+      connectTimeout: const Duration(milliseconds: 5000),
+      //5s
+      receiveTimeout: const Duration(milliseconds: 15000),
+      //15s
       headers: headers,
-      contentType: isMultipart
-          ? Headers.multipartFormDataContentType
-          : Headers.jsonContentType,
+      contentType: isMultipart ? Headers.multipartFormDataContentType : Headers.jsonContentType,
     );
 
     dio = Dio(options)
       ..interceptors.addAll([
-       /* LogInterceptor(
+        /* LogInterceptor(
           requestBody: true,
           responseBody: true,
         ),*/
@@ -70,9 +68,7 @@ class ApiService {
   }
 
   Future<CommonResponse> postMethod(String path, dynamic data,
-      {bool isMultipart = false,
-      FormData? formData,
-      Map<String, dynamic>? queryParameters}) async {
+      {bool isMultipart = false, FormData? formData, Map<String, dynamic>? queryParameters}) async {
     dio = initAPIService(isMultipart: isMultipart);
 
     var response = await dio.post(
@@ -84,8 +80,7 @@ class ApiService {
     return CommonResponse.fromJson(response.data);
   }
 
-  Future<CommonResponse?> getMethod(String path,
-      {Map<String, dynamic>? queryParameters}) async {
+  Future<CommonResponse?> getMethod(String path, {Map<String, dynamic>? queryParameters}) async {
     dio = initAPIService();
 
     var response = await dio.get(
@@ -97,10 +92,7 @@ class ApiService {
   }
 
   Future<CommonResponse?> putMethod(String path,
-      {Map<String, dynamic>? queryParameters,
-      dynamic data,
-      bool isMultipart = false,
-      FormData? formData}) async {
+      {Map<String, dynamic>? queryParameters, dynamic data, bool isMultipart = false, FormData? formData}) async {
     dio = initAPIService(isMultipart: isMultipart);
 
     var response = await dio.put(

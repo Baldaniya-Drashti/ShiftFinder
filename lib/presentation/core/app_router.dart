@@ -113,8 +113,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ContractorUpdateProfileView.page),
         AutoRoute(page: BankListView.page),
         AutoRoute(page: ReferenceListView.page),
-        AutoRoute(page: FullTimePositionView.page),
-        AutoRoute(page: FullPositionDetailView.page),
+        // AutoRoute(page: FullTimePositionView.page),
+        // AutoRoute(page: FullPositionDetailView.page),
 
         AutoRoute(page: EmployerFullPostingView.page),
         AutoRoute(page: EmployerFullPostingConfirmView.page),
@@ -125,6 +125,12 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EmployerLongTermPositionDetailView.page),
         AutoRoute(page: EmployerLongTermPositionAddView.page),
         AutoRoute(page: EmployerLongTermPositionAddDetailView.page),
+        AutoRoute(page: EmployerLongTermApplicantView.page),
+
+        AutoRoute(page: ContractorFullTimePositionView.page),
+        AutoRoute(page: ContractorFullTimePositionDetailView.page),
+        AutoRoute(page: ContractorLongTermView.page),
+
 
 
         AutoRoute(page: EmployerCompletedShiftView.page),

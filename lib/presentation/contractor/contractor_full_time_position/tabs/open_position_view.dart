@@ -27,7 +27,7 @@ class OpenPositionView extends StatelessWidget {
             _positionDetailButton(
               context,
               onPressed: () {
-                context.router.push(PageRouteInfo(FullPositionDetailView.name));
+                context.router.push(PageRouteInfo(ContractorFullTimePositionDetailView.name));
               },
             ),
             Gap(12),

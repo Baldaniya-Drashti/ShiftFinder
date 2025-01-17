@@ -12,4 +12,7 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
 
   const factory EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged({required CommonDropdownModel value}) =
       OnShiftScheduleChanged;
+
+  const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) =
+  SelectDocument;
 }

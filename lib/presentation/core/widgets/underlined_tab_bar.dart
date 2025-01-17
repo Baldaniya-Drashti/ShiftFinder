@@ -4,7 +4,7 @@
   import 'package:shift/presentation/core/style/app_colors.dart';
 
   class UnderlinedTabBar extends StatelessWidget implements PreferredSizeWidget {
-    const UnderlinedTabBar({
+    const   UnderlinedTabBar({
       super.key,
       required this.tabs,
       this.onTap,

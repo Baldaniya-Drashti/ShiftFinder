@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -60,7 +61,7 @@ class CustomDropdownField<T> extends StatefulWidget {
   final void Function(dynamic) onChanged;
   final T? value;
   final List<DropdownMenuItem<T?>> items;
-  final FormFieldValidator<T?>? validator;
+  final FormFieldValidator<dynamic>? validator;
   final Widget? prefixIcon;
   final String? hintText;
   final TextStyle? hintTextStyle;
@@ -84,10 +85,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         if (widget.label != null) ...[
           Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: BaseText(
-                text: widget.label!,
-                fontSize: widget.fontSize ?? 10,
-                fontWeight: FontWeight.w500),
+            child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
           ),
           Gap(8),
         ],
@@ -98,8 +96,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           ),
           isDense: true,
           validator: widget.validator,
-          style: TextStyle(
-              fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
           isExpanded: true,
           menuItemStyleData: const MenuItemStyleData(
             height: 45,
@@ -133,7 +130,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           decoration: InputDecoration(
             fillColor: AppColors.white,
             filled: true,
-            contentPadding: EdgeInsets.only(right: 16, top: 10, bottom: 10),
+            contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10),
             isDense: true,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
@@ -151,7 +148,8 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
 }
 
 class ShiftScheduleDropdownField extends StatelessWidget {
-  const ShiftScheduleDropdownField({super.key,
+  const ShiftScheduleDropdownField({
+    super.key,
     required this.onChanged,
     required this.selectedShiftSchedule,
   });
@@ -169,25 +167,35 @@ class ShiftScheduleDropdownField extends StatelessWidget {
       CommonDropdownModel(id: 5, label: "Weekdays"),
     ];
 
-    return CustomDropdownField<CommonDropdownModel>(
-      hintText: "Shift Schedule",
-      fontSize: 13,
-      label: "Shift Schedule",
-      hintTextStyle: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: AppColors.black.withOpacity(0.5),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        boxShadow: [BoxShadow(color: AppColors.lightGrey.withOpacity(0.2), blurRadius: 30)],
       ),
-      onChanged: (value) => onChanged(value as CommonDropdownModel),
-      value: selectedShiftSchedule,
-      items: list.map(
-            (e) {
-          return DropdownMenuItem<CommonDropdownModel>(
-            value: e,
-            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
-          );
+      child: CustomDropdownField<CommonDropdownModel>(
+        validator: (value) {
+          if(value==null)return "Please select the cc ";
+          return null;
         },
-      ).toList(),
+        hintText: "Shift Schedule",
+        fontSize: 13,
+        label: "Shift Schedule",
+        hintTextStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.black.withOpacity(0.5),
+        ),
+        onChanged: (value) => onChanged(value as CommonDropdownModel),
+        value: selectedShiftSchedule,
+        items: list.map(
+          (e) {
+            return DropdownMenuItem<CommonDropdownModel>(
+              value: e,
+              child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }
