@@ -15,4 +15,8 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
 
   const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) =
   SelectDocument;
+  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(bool value) =
+  AddMoreVacancy;
+  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto) =
+  OnCreate;
 }

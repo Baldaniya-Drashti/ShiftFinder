@@ -20,7 +20,9 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 
 part 'employer_long_term_add_event.dart';
+
 part 'employer_long_term_add_state.dart';
+
 part 'employer_long_term_add_bloc.freezed.dart';
 
 @injectable
@@ -28,7 +30,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   final IAuthFacade _authFacade;
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
-  EmployerLongTermAddBloc(this._authFacade, this._repository, this._mainFacade) : super( EmployerLongTermAddState.initial()) {
+
+  EmployerLongTermAddBloc(this._authFacade, this._repository, this._mainFacade)
+      : super(EmployerLongTermAddState.initial()) {
     on<EmployerLongTermAddEvent>((event, emit) async {
       await event.map(
         confirmSoftwareSkill: (e) {
@@ -90,9 +94,10 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             emit(
               state.copyWith(
                 requiredSpecialityChipList:
-                ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
+                    ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
                 requiredSpecialityChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                specialityOther: (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
+                specialityOther:
+                    (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
                 showSpecialityError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -100,7 +105,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           }
 
           /// when click on add button
-          else if ((state.requiredSpecialityChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
+          else if ((state.requiredSpecialityChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSpecialityError: true,
@@ -157,10 +164,11 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
                   !state.requiredSoftwareSkillChipList.getValue().contains(e.selectedValue))) {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList:
-                ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
+                requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                    List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
                 requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                softwareSkillOther: (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
+                softwareSkillOther:
+                    (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
                 showSoftwareSkillError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -168,7 +176,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           }
 
           /// when click on add button
-          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
+          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSoftwareSkillError: true,
@@ -181,7 +191,8 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           else {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue())),
+                requiredSoftwareSkillChipList:
+                    ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue())),
                 requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
                 showSoftwareSkillError: true,
                 authFailureOrSuccessOption: none(),
@@ -222,17 +233,22 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
         addLanguageChips: (e) {
           if (e.selectedLanguage.isNotEmpty &&
               !e.selectedLanguage.toLowerCase().contains("other") &&
-              (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+              (state.languageChipList.getValue().isEmpty ||
+                  !state.languageChipList.getValue().contains(e.selectedLanguage))) {
             emit(
               state.copyWith(
-                languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                languageChipList:
+                    ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
                 showLanguageError: false,
                 languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
-                languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                languageOther:
+                    (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
                 authFailureOrSuccessOption: none(),
               ),
             );
-          } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
+          } else if ((state.languageChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedLanguage.isEmpty)) {
             emit(
               state.copyWith(
                 showLanguageError: true,
@@ -282,7 +298,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
         /// LOCATION
         locationChanged: (e) {
           final selectedLocationObject = state.locationList.firstWhere(
-                (location) => location.location == e.selectedValue,
+            (location) => location.location == e.selectedValue,
             orElse: () => LocationDTO(),
           );
 
@@ -293,7 +309,10 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
               location: InputEmptyOrNot(selectedLocationObject.location ?? ""),
               unitList: selectedLocationObject.add_units ?? [],
               selectedLocationUnit: "",
-              showLocationError: (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
+              showLocationError:
+                  (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
+                      ? true
+                      : false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -327,15 +346,15 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           final isRateHourValid = state.rateHour.isValid();
 
           if (
-          // !state.showSoftwareSkillError &&
-          roleTypeListValid &&
-              (languageListValid || state.languageOther.isNotEmpty) &&
-              !state.showRoleTypeError &&
-              // !state.showLanguageError &&
-              // !state.showSpeExperienceError &&
-              isLocationValid &&
-              !state.showLocationError &&
-              isRateHourValid) {
+              // !state.showSoftwareSkillError &&
+              roleTypeListValid &&
+                  (languageListValid || state.languageOther.isNotEmpty) &&
+                  !state.showRoleTypeError &&
+                  // !state.showLanguageError &&
+                  // !state.showSpeExperienceError &&
+                  isLocationValid &&
+                  !state.showLocationError &&
+                  isRateHourValid) {
             print("ALL DETAILS ARE VALID!---->  ");
             PostShiftDTO post = PostShiftDTO(
               roles_list_id: getSelectedRoleIds(),
@@ -372,8 +391,12 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             //   AppFocus.unfocus(e.context);
             // });
 
-            e.context.router.push(PageRouteInfo(EmployerLongTermPositionAddDetailView.name));
-
+            e.context.router.push(
+              PageRouteInfo(
+                EmployerLongTermPositionAddDetailView.name,
+                args: EmployerLongTermPositionAddDetailViewArgs(postShiftDTO: post),
+              ),
+            );
 
             /*emit(
               state.copyWith(
@@ -409,10 +432,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
         },
       );
     });
+  }
 
-  
-
-  }  String getSelectedLanguageId() {
+  String getSelectedLanguageId() {
     /*List<int> outputIds = [];
     for (String title in state.languageChipList.getValue()) {
       for (ListDTO item in CommonList.languageList) {
@@ -428,9 +450,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final languageIds = state.languageChipList
         .getValue()
         .map((chipName) => state.languageList.firstWhere(
-          (language) => language.name == chipName,
-      orElse: () => const SkillDTO(), // Handle cases where no match is found
-    ))
+              (language) => language.name == chipName,
+              orElse: () => const SkillDTO(), // Handle cases where no match is found
+            ))
         .where((language) => language.id != null) // Filter out null values
         .map((language) => language.id) // Extract IDs
         .toList();
@@ -440,7 +462,8 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   }
 
   String getSelectedRoleIds() {
-    final roleIds = state.roleList.firstWhere((role) => role.name == state.roleType.getValue(), orElse: () => SkillDTO());
+    final roleIds =
+        state.roleList.firstWhere((role) => role.name == state.roleType.getValue(), orElse: () => SkillDTO());
     print("Role ID --> $roleIds");
     return "${roleIds.id ?? -1}";
   }
@@ -449,9 +472,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final specialityIds = state.requiredSpecialityChipList
         .getValue()
         .map((chipName) => state.specialityList.firstWhere(
-          (speciality) => speciality.name == chipName,
-      orElse: () => SpecialityDTO(),
-    ))
+              (speciality) => speciality.name == chipName,
+              orElse: () => SpecialityDTO(),
+            ))
         .where((speciality) => speciality.id != null)
         .map((specialtiy) => specialtiy.id)
         .toList();
@@ -465,9 +488,9 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final softwareIds = state.requiredSoftwareSkillChipList
         .getValue()
         .map((chipName) => state.softwareList.firstWhere(
-          (software) => software.name == chipName,
-      orElse: () => SkillDTO(), // Handle cases where no match is found
-    ))
+              (software) => software.name == chipName,
+              orElse: () => SkillDTO(), // Handle cases where no match is found
+            ))
         .where((software) => software.id != null) // Filter out null values
         .map((software) => software.id) // Extract IDs
         .toList();
@@ -478,8 +501,8 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   }
 
   String getSelectedLocationIds() {
-    final locationIds =
-    state.locationList.firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
+    final locationIds = state.locationList
+        .firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
     print("Location ID --> $locationIds");
     return "${locationIds.id ?? -1}";
   }
@@ -489,25 +512,27 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
       postId: postId,
     );
     failureOrSuccess.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
         ),
       ),
-          (r) {
+      (r) {
         print("r.location--> ${r.specialties_detail_list}");
         return emit(
           state.copyWith(
             updatePost: r,
             roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
-            requiredSoftwareSkillChipList: ListInputEmptyOrNot(
-                (r.softwares_skill_list != null) ? r.softwares_skill_list!.map((element) => element.name ?? "").toList() : []),
+            requiredSoftwareSkillChipList: ListInputEmptyOrNot((r.softwares_skill_list != null)
+                ? r.softwares_skill_list!.map((element) => element.name ?? "").toList()
+                : []),
             softwareSkillOther: r.software_skill_other?.split(',') ?? [],
-            requiredSpecialityChipList: ListInputEmptyOrNot(
-                (r.specialties_detail_list != null) ? r.specialties_detail_list!.map((element) => element.name ?? "").toList() : []),
+            requiredSpecialityChipList: ListInputEmptyOrNot((r.specialties_detail_list != null)
+                ? r.specialties_detail_list!.map((element) => element.name ?? "").toList()
+                : []),
             specialityOther: r.specialties_detail_other?.split(',') ?? [],
-            languageChipList:
-            ListInputEmptyOrNot((r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
+            languageChipList: ListInputEmptyOrNot(
+                (r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
             languageOther: r.language_other?.split(',') ?? [],
             location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
             locationObj: r.location ?? LocationDTO(),
@@ -524,13 +549,13 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final roleList = await _authFacade.getRoleList();
     print("Role List ---> ${roleList}");
     roleList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
           roleList: [],
         ),
       ),
-          (r) {
+      (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -546,13 +571,13 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
 
     print("Location List ---> ${locationList}");
     locationList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
           locationList: [],
         ),
       ),
-          (r) {
+      (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -567,13 +592,13 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final specialityList = await _authFacade.getSpecialityList();
     print("Speciality List ---> ${specialityList}");
     specialityList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
           specialityList: [],
         ),
       ),
-          (r) {
+      (r) {
         return emit(
           state.copyWith(
             // isLoading: false,
@@ -588,13 +613,13 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final softwareList = await _authFacade.getSoftwareSkillList();
     print("Software List ---> ${softwareList}");
     softwareList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
           softwareList: [],
         ),
       ),
-          (r) {
+      (r) {
         return emit(
           state.copyWith(
             isLoading: false,
@@ -609,13 +634,13 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
     final languageList = await _authFacade.getLanguageList();
     print("Language List ---> ${languageList}");
     languageList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           isLoading: false,
           languageList: [],
         ),
       ),
-          (r) {
+      (r) {
         return emit(
           state.copyWith(
             // isLoading: false,

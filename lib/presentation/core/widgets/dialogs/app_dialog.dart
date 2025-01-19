@@ -42,8 +42,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -107,8 +106,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,8 +201,7 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -268,8 +265,7 @@ class AppDialog {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          insetPadding:
-              insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -376,13 +372,13 @@ class AppDialog {
     }
   }
 
-  static Future<bool?> showCommonDialog({
-    required BuildContext context,
-    String? title,
-    String? content,
-    String? extraContent,
-    String? successLabel,
-  }) async {
+  static Future<bool?> showCommonDialog(
+      {required BuildContext context,
+      String? title,
+      String? content,
+      String? extraContent,
+      String? successLabel,
+      Widget? action}) async {
     return showDialog<bool?>(
       context: context,
       builder: (context) => AlertDialog(
@@ -430,26 +426,27 @@ class AppDialog {
               )
             : null,
         actions: [
-          Row(
-            children: [
-              Expanded(
-                child: CommonButton(
-                  onPressed: () => context.router.maybePop(false),
-                  buttonText: "Cancel",
-                  backgroundColor: AppColors.white,
-                  borderColor: AppColors.green,
-                  buttonTextColor: AppColors.green,
-                ),
+          action ??
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      onPressed: () => context.router.maybePop(false),
+                      buttonText: "Cancel",
+                      backgroundColor: AppColors.white,
+                      borderColor: AppColors.green,
+                      buttonTextColor: AppColors.green,
+                    ),
+                  ),
+                  Gap(16),
+                  Expanded(
+                    child: CommonButton(
+                      onPressed: () => context.router.maybePop(true),
+                      buttonText: successLabel ?? "Done",
+                    ),
+                  ),
+                ],
               ),
-              Gap(16),
-              Expanded(
-                child: CommonButton(
-                  onPressed: () => context.router.maybePop(true),
-                  buttonText: successLabel ?? "Done",
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -507,8 +504,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -662,14 +658,11 @@ Future<void> pickMultiDateDialog(
               disableMonthPicker: true,
               disableModePicker: true,
               weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-              weekdayLabelTextStyle: TextStyle(
-                  color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+              weekdayLabelTextStyle: TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.bold),
               calendarType: CalendarDatePicker2Type.range,
               lastDate: DateTime.now(),
-              disabledDayTextStyle:
-                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
-              dayTextStyle:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              disabledDayTextStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
+              dayTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               selectedDayTextStyle: TextStyle(color: AppColors.white),
             ),
             value: selectedDates,

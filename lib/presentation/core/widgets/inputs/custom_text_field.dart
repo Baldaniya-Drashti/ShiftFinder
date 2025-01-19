@@ -87,6 +87,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final border = OutlineInputBorder(
       borderSide: BorderSide(
           color: (fillColor != null)
@@ -123,7 +124,6 @@ class CustomTextField extends StatelessWidget {
   ) {
     final focusNodeToUse = focusNode;
     print("focusNodeToUse----> $focusNodeToUse");
-
     return Column(
       key: key,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,12 +265,10 @@ class CustomTextField extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-            style: readOnly
-                ? readOnlyTextStyle ??
-                    Theme.of(context)
+            style: readOnly ? readOnlyTextStyle ?? Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: AppColors.lightGrey)
+                        .copyWith(color: AppColors.black)
                 : Theme.of(context).textTheme.bodyMedium,
           ),
         ),

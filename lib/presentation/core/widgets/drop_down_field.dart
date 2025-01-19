@@ -132,9 +132,14 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
             filled: true,
             contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10),
             isDense: true,
+            errorStyle: TextStyle(),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(widget.radius ?? 6),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.red),
+              borderRadius: BorderRadius.circular(getSize(10)),
             ),
           ),
           value: widget.value,
@@ -174,7 +179,7 @@ class ShiftScheduleDropdownField extends StatelessWidget {
       ),
       child: CustomDropdownField<CommonDropdownModel>(
         validator: (value) {
-          if(value==null)return "Please select the cc ";
+          if (value == null) return "Please select shift schedule";
           return null;
         },
         hintText: "Shift Schedule",

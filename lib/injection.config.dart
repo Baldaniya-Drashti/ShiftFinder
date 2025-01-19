@@ -103,6 +103,8 @@ import 'package:shift/application/employer/employer_long_term/employer_long_term
     as _i89;
 import 'package:shift/application/employer/employer_long_term_add/employer_long_term_add_bloc.dart'
     as _i165;
+import 'package:shift/application/employer/employer_long_term_confirmation/employer_long_term_confirmation_bloc.dart'
+    as _i1042;
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
     as _i218;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
@@ -253,6 +255,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i119.HiredContractorBloc>(
         () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1042.EmployerLongTermConfirmationBloc>(
+        () => _i1042.EmployerLongTermConfirmationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i93.CounterProposalDetailBloc>(
         () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i819.TotalProposalBloc>(

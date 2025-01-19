@@ -417,6 +417,9 @@ class _$PostShiftEventCopyWithImpl<$Res, $Val extends PostShiftEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -444,6 +447,8 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
       _$ChangeShiftTypeImpl _value, $Res Function(_$ChangeShiftTypeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -477,6 +482,8 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res>? get post {
@@ -489,6 +496,8 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -546,7 +555,9 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
   int get hashCode => Object.hash(
       runtimeType, shiftType, postId, post, updateShift, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChangeShiftTypeImplCopyWith<_$ChangeShiftTypeImpl> get copyWith =>
@@ -976,7 +987,10 @@ abstract class ChangeShiftType implements PostShiftEvent {
   PostShiftDTO? get post;
   HealthcarePostDTO? get updateShift;
   bool? get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChangeShiftTypeImplCopyWith<_$ChangeShiftTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1002,6 +1016,8 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
       $Res Function(_$GetBreakAllownceListApiImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1015,6 +1031,8 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -1053,7 +1071,9 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
   @override
   int get hashCode => Object.hash(runtimeType, updateShift);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
@@ -1473,7 +1493,10 @@ abstract class GetBreakAllownceListApi implements PostShiftEvent {
       _$GetBreakAllownceListApiImpl;
 
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1498,6 +1521,8 @@ class __$$SingleShiftDateChangedEventImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftDateChangedEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1537,7 +1562,9 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftDateChangedEventImplCopyWith<_$SingleShiftDateChangedEventImpl>
@@ -1957,7 +1984,10 @@ abstract class SingleShiftDateChangedEvent implements PostShiftEvent {
       _$SingleShiftDateChangedEventImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftDateChangedEventImplCopyWith<_$SingleShiftDateChangedEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1979,6 +2009,8 @@ class __$$StartHourChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartHourChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2017,7 +2049,9 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartHourChangedImplCopyWith<_$StartHourChangedImpl> get copyWith =>
@@ -2436,7 +2470,10 @@ abstract class StartHourChanged implements PostShiftEvent {
   const factory StartHourChanged(final String hour) = _$StartHourChangedImpl;
 
   String get hour;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartHourChangedImplCopyWith<_$StartHourChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2458,6 +2495,8 @@ class __$$StartMinuteChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartMinuteChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2496,7 +2535,9 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartMinuteChangedImplCopyWith<_$StartMinuteChangedImpl> get copyWith =>
@@ -2916,7 +2957,10 @@ abstract class StartMinuteChanged implements PostShiftEvent {
       _$StartMinuteChangedImpl;
 
   String get minute;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartMinuteChangedImplCopyWith<_$StartMinuteChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2938,6 +2982,8 @@ class __$$EndHourChangedImplCopyWithImpl<$Res>
       _$EndHourChangedImpl _value, $Res Function(_$EndHourChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2976,7 +3022,9 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndHourChangedImplCopyWith<_$EndHourChangedImpl> get copyWith =>
@@ -3395,7 +3443,10 @@ abstract class EndHourChanged implements PostShiftEvent {
   const factory EndHourChanged(final String hour) = _$EndHourChangedImpl;
 
   String get hour;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndHourChangedImplCopyWith<_$EndHourChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3417,6 +3468,8 @@ class __$$EndMinuteChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndMinuteChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3455,7 +3508,9 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndMinuteChangedImplCopyWith<_$EndMinuteChangedImpl> get copyWith =>
@@ -3874,7 +3929,10 @@ abstract class EndMinuteChanged implements PostShiftEvent {
   const factory EndMinuteChanged(final String minute) = _$EndMinuteChangedImpl;
 
   String get minute;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndMinuteChangedImplCopyWith<_$EndMinuteChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3896,6 +3954,8 @@ class __$$UnpaidBreakChangedImplCopyWithImpl<$Res>
       $Res Function(_$UnpaidBreakChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3935,7 +3995,9 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @override
   int get hashCode => Object.hash(runtimeType, breakTime);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnpaidBreakChangedImplCopyWith<_$UnpaidBreakChangedImpl> get copyWith =>
@@ -4355,7 +4417,10 @@ abstract class UnpaidBreakChanged implements PostShiftEvent {
       _$UnpaidBreakChangedImpl;
 
   String get breakTime;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnpaidBreakChangedImplCopyWith<_$UnpaidBreakChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4376,6 +4441,9 @@ class __$$TotalPayableHoursChangedImplCopyWithImpl<$Res>
       _$TotalPayableHoursChangedImpl _value,
       $Res Function(_$TotalPayableHoursChangedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4829,6 +4897,8 @@ class __$$CommuteAllownceChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteAllownceChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4868,7 +4938,9 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteAllownceChangedImplCopyWith<_$CommuteAllownceChangedImpl>
@@ -5288,7 +5360,10 @@ abstract class CommuteAllownceChanged implements PostShiftEvent {
       _$CommuteAllownceChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteAllownceChangedImplCopyWith<_$CommuteAllownceChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5310,6 +5385,8 @@ class __$$CommuteHoursChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteHoursChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5349,7 +5426,9 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteHoursChangedImplCopyWith<_$CommuteHoursChangedImpl> get copyWith =>
@@ -5769,7 +5848,10 @@ abstract class CommuteHoursChanged implements PostShiftEvent {
       _$CommuteHoursChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteHoursChangedImplCopyWith<_$CommuteHoursChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -5791,6 +5873,8 @@ class __$$CommuteRateChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteRateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5830,7 +5914,9 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteRateChangedImplCopyWith<_$CommuteRateChangedImpl> get copyWith =>
@@ -6250,7 +6336,10 @@ abstract class CommuteRateChanged implements PostShiftEvent {
       _$CommuteRateChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteRateChangedImplCopyWith<_$CommuteRateChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -6274,6 +6363,8 @@ class __$$AccomdationAllownceChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationAllownceChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6313,7 +6404,9 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationAllownceChangedImplCopyWith<_$AccomdationAllownceChangedImpl>
@@ -6733,7 +6826,10 @@ abstract class AccomdationAllownceChanged implements PostShiftEvent {
       _$AccomdationAllownceChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationAllownceChangedImplCopyWith<_$AccomdationAllownceChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6757,6 +6853,8 @@ class __$$AccomdationHoursChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationHoursChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6796,7 +6894,9 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationHoursChangedImplCopyWith<_$AccomdationHoursChangedImpl>
@@ -7216,7 +7316,10 @@ abstract class AccomdationHoursChanged implements PostShiftEvent {
       _$AccomdationHoursChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationHoursChangedImplCopyWith<_$AccomdationHoursChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7240,6 +7343,8 @@ class __$$AccomdationRateChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationRateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7279,7 +7384,9 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationRateChangedImplCopyWith<_$AccomdationRateChangedImpl>
@@ -7699,7 +7806,10 @@ abstract class AccomdationRateChanged implements PostShiftEvent {
       _$AccomdationRateChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationRateChangedImplCopyWith<_$AccomdationRateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7721,6 +7831,8 @@ class __$$SingleShiftNotesImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftNotesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7759,7 +7871,9 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @override
   int get hashCode => Object.hash(runtimeType, note);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftNotesImplCopyWith<_$SingleShiftNotesImpl> get copyWith =>
@@ -8178,7 +8292,10 @@ abstract class SingleShiftNotes implements PostShiftEvent {
   const factory SingleShiftNotes(final String note) = _$SingleShiftNotesImpl;
 
   String get note;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftNotesImplCopyWith<_$SingleShiftNotesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8200,6 +8317,8 @@ class __$$CheckIsMoreVancancyImplCopyWithImpl<$Res>
       $Res Function(_$CheckIsMoreVancancyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8239,7 +8358,9 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @override
   int get hashCode => Object.hash(runtimeType, isMoreVacancy);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckIsMoreVancancyImplCopyWith<_$CheckIsMoreVancancyImpl> get copyWith =>
@@ -8659,7 +8780,10 @@ abstract class CheckIsMoreVancancy implements PostShiftEvent {
       _$CheckIsMoreVancancyImpl;
 
   bool get isMoreVacancy;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckIsMoreVancancyImplCopyWith<_$CheckIsMoreVancancyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8681,6 +8805,8 @@ class __$$AddVacancyChangedImplCopyWithImpl<$Res>
       $Res Function(_$AddVacancyChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8719,7 +8845,9 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @override
   int get hashCode => Object.hash(runtimeType, vacancy);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddVacancyChangedImplCopyWith<_$AddVacancyChangedImpl> get copyWith =>
@@ -9139,7 +9267,10 @@ abstract class AddVacancyChanged implements PostShiftEvent {
       _$AddVacancyChangedImpl;
 
   String get vacancy;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddVacancyChangedImplCopyWith<_$AddVacancyChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9161,6 +9292,8 @@ class __$$SingleShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9208,7 +9341,9 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
   @override
   int get hashCode => Object.hash(runtimeType, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftSubmittedImplCopyWith<_$SingleShiftSubmittedImpl>
@@ -9631,7 +9766,10 @@ abstract class SingleShiftSubmitted implements PostShiftEvent {
 
   BuildContext get context;
   bool get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftSubmittedImplCopyWith<_$SingleShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9656,6 +9794,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
       _$GetTeamsListImpl _value, $Res Function(_$GetTeamsListImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9674,6 +9814,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -9682,6 +9824,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -9723,7 +9867,9 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   int get hashCode => Object.hash(runtimeType, post, updateShift);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
@@ -10144,7 +10290,10 @@ abstract class GetTeamsList implements PostShiftEvent {
 
   PostShiftDTO get post;
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10166,6 +10315,8 @@ class __$$RecurringCheckImplCopyWithImpl<$Res>
       _$RecurringCheckImpl _value, $Res Function(_$RecurringCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10204,7 +10355,9 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringCheckImplCopyWith<_$RecurringCheckImpl> get copyWith =>
@@ -10623,7 +10776,10 @@ abstract class RecurringCheck implements PostShiftEvent {
   const factory RecurringCheck(final bool isCheck) = _$RecurringCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringCheckImplCopyWith<_$RecurringCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10645,6 +10801,8 @@ class __$$ShareWithTeamsCheckImplCopyWithImpl<$Res>
       $Res Function(_$ShareWithTeamsCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10683,7 +10841,9 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShareWithTeamsCheckImplCopyWith<_$ShareWithTeamsCheckImpl> get copyWith =>
@@ -11103,7 +11263,10 @@ abstract class ShareWithTeamsCheck implements PostShiftEvent {
       _$ShareWithTeamsCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShareWithTeamsCheckImplCopyWith<_$ShareWithTeamsCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11125,6 +11288,8 @@ class __$$SaveAsTemplateCheckImplCopyWithImpl<$Res>
       $Res Function(_$SaveAsTemplateCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11163,7 +11328,9 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveAsTemplateCheckImplCopyWith<_$SaveAsTemplateCheckImpl> get copyWith =>
@@ -11583,7 +11750,10 @@ abstract class SaveAsTemplateCheck implements PostShiftEvent {
       _$SaveAsTemplateCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveAsTemplateCheckImplCopyWith<_$SaveAsTemplateCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11605,6 +11775,8 @@ class __$$DisclaimerChangedImplCopyWithImpl<$Res>
       $Res Function(_$DisclaimerChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11643,7 +11815,9 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @override
   int get hashCode => Object.hash(runtimeType, note);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DisclaimerChangedImplCopyWith<_$DisclaimerChangedImpl> get copyWith =>
@@ -12062,7 +12236,10 @@ abstract class DisclaimerChanged implements PostShiftEvent {
   const factory DisclaimerChanged(final String note) = _$DisclaimerChangedImpl;
 
   String get note;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DisclaimerChangedImplCopyWith<_$DisclaimerChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -12086,6 +12263,8 @@ class __$$RecurringStartDateChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurringStartDateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12125,7 +12304,9 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringStartDateChangedImplCopyWith<_$RecurringStartDateChangedImpl>
@@ -12545,7 +12726,10 @@ abstract class RecurringStartDateChanged implements PostShiftEvent {
       _$RecurringStartDateChangedImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringStartDateChangedImplCopyWith<_$RecurringStartDateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -12568,6 +12752,8 @@ class __$$RecurrenceModeChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurrenceModeChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12614,7 +12800,9 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @override
   int get hashCode => Object.hash(runtimeType, mode, context);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurrenceModeChangedImplCopyWith<_$RecurrenceModeChangedImpl>
@@ -13036,7 +13224,10 @@ abstract class RecurrenceModeChanged implements PostShiftEvent {
 
   String get mode;
   BuildContext get context;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurrenceModeChangedImplCopyWith<_$RecurrenceModeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13062,6 +13253,8 @@ class __$$RecurrenceWeeksChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurrenceWeeksChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -13075,6 +13268,8 @@ class __$$RecurrenceWeeksChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SkillDTOCopyWith<$Res> get day {
@@ -13108,7 +13303,9 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @override
   int get hashCode => Object.hash(runtimeType, day);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurrenceWeeksChangedImplCopyWith<_$RecurrenceWeeksChangedImpl>
@@ -13528,7 +13725,10 @@ abstract class RecurrenceWeeksChanged implements PostShiftEvent {
       _$RecurrenceWeeksChangedImpl;
 
   SkillDTO get day;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurrenceWeeksChangedImplCopyWith<_$RecurrenceWeeksChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13552,6 +13752,8 @@ class __$$RecurringEndDateChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurringEndDateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -13591,7 +13793,9 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringEndDateChangedImplCopyWith<_$RecurringEndDateChangedImpl>
@@ -14011,7 +14215,10 @@ abstract class RecurringEndDateChanged implements PostShiftEvent {
       _$RecurringEndDateChangedImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringEndDateChangedImplCopyWith<_$RecurringEndDateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -14035,6 +14242,8 @@ class __$$SelectTeamEventImplCopyWithImpl<$Res>
       _$SelectTeamEventImpl _value, $Res Function(_$SelectTeamEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -14048,6 +14257,8 @@ class __$$SelectTeamEventImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TeamDTOCopyWith<$Res> get team {
@@ -14081,7 +14292,9 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @override
   int get hashCode => Object.hash(runtimeType, team);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectTeamEventImplCopyWith<_$SelectTeamEventImpl> get copyWith =>
@@ -14500,7 +14713,10 @@ abstract class SelectTeamEvent implements PostShiftEvent {
   const factory SelectTeamEvent(final TeamDTO team) = _$SelectTeamEventImpl;
 
   TeamDTO get team;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SelectTeamEventImplCopyWith<_$SelectTeamEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -14522,6 +14738,8 @@ class __$$RecurringButtonEventImplCopyWithImpl<$Res>
       $Res Function(_$RecurringButtonEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -14580,7 +14798,9 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
   int get hashCode =>
       Object.hash(runtimeType, context, postShiftId, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringButtonEventImplCopyWith<_$RecurringButtonEventImpl>
@@ -15005,7 +15225,10 @@ abstract class RecurringButtonEvent implements PostShiftEvent {
   BuildContext get context;
   int get postShiftId;
   bool get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringButtonEventImplCopyWith<_$RecurringButtonEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15028,6 +15251,8 @@ class __$$CheckIsIndividualPostImplCopyWithImpl<$Res>
       $Res Function(_$CheckIsIndividualPostImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -15067,7 +15292,9 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @override
   int get hashCode => Object.hash(runtimeType, isIndividualPost);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
@@ -15487,7 +15714,10 @@ abstract class CheckIsIndividualPost implements PostShiftEvent {
       _$CheckIsIndividualPostImpl;
 
   bool get isIndividualPost;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15511,6 +15741,8 @@ class __$$multiDateSelectionChangedImplCopyWithImpl<$Res>
       $Res Function(_$multiDateSelectionChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -15557,7 +15789,9 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_selectedDates));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
@@ -15977,7 +16211,10 @@ abstract class multiDateSelectionChanged implements PostShiftEvent {
       _$multiDateSelectionChangedImpl;
 
   List<DateTime> get selectedDates;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -16002,6 +16239,8 @@ class __$$MultidateContinueButtonPressedImplCopyWithImpl<$Res>
       $Res Function(_$MultidateContinueButtonPressedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -16042,7 +16281,9 @@ class _$MultidateContinueButtonPressedImpl
   @override
   int get hashCode => Object.hash(runtimeType, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MultidateContinueButtonPressedImplCopyWith<
@@ -16464,7 +16705,10 @@ abstract class MultidateContinueButtonPressed implements PostShiftEvent {
       _$MultidateContinueButtonPressedImpl;
 
   bool get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MultidateContinueButtonPressedImplCopyWith<
           _$MultidateContinueButtonPressedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -16490,6 +16734,8 @@ class __$$MultiDateSameDiffTypeChangedImplCopyWithImpl<$Res>
       $Res Function(_$MultiDateSameDiffTypeChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -16530,7 +16776,9 @@ class _$MultiDateSameDiffTypeChangedImpl
   @override
   int get hashCode => Object.hash(runtimeType, selectedType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MultiDateSameDiffTypeChangedImplCopyWith<
@@ -16951,7 +17199,10 @@ abstract class MultiDateSameDiffTypeChanged implements PostShiftEvent {
       _$MultiDateSameDiffTypeChangedImpl;
 
   int get selectedType;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MultiDateSameDiffTypeChangedImplCopyWith<
           _$MultiDateSameDiffTypeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -16976,6 +17227,8 @@ class __$$UnpaidBreakListChangedImplCopyWithImpl<$Res>
       $Res Function(_$UnpaidBreakListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -17031,7 +17284,9 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, breakTime, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
@@ -17454,7 +17709,10 @@ abstract class UnpaidBreakListChanged implements PostShiftEvent {
   String get breakTime;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -17475,6 +17733,9 @@ class __$$PayableHourListChangedImplCopyWithImpl<$Res>
       _$PayableHourListChangedImpl _value,
       $Res Function(_$PayableHourListChangedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -17926,6 +18187,8 @@ class __$$StartHourListChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartHourListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -17980,7 +18243,9 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
@@ -18404,7 +18669,10 @@ abstract class StartHourListChanged implements PostShiftEvent {
   String get hour;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -18428,6 +18696,8 @@ class __$$StartMinuteListChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartMinuteListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -18482,7 +18752,9 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
@@ -18905,7 +19177,10 @@ abstract class StartMinuteListChanged implements PostShiftEvent {
   String get minute;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -18927,6 +19202,8 @@ class __$$EndHourListChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndHourListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -18981,7 +19258,9 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
@@ -19404,7 +19683,10 @@ abstract class EndHourListChanged implements PostShiftEvent {
   String get hour;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -19426,6 +19708,8 @@ class __$$EndMinuteListChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndMinuteListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -19480,7 +19764,9 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
@@ -19904,7 +20190,10 @@ abstract class EndMinuteListChanged implements PostShiftEvent {
   String get minute;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -19932,6 +20221,8 @@ class __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$DifferentTimeShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -19955,6 +20246,8 @@ class __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MultiShiftDTOCopyWith<$Res> get shiftDetail {
@@ -19998,7 +20291,9 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
   int get hashCode =>
       Object.hash(runtimeType, shiftDetail, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DifferentTimeShiftSubmittedImplCopyWith<_$DifferentTimeShiftSubmittedImpl>
@@ -20424,7 +20719,10 @@ abstract class DifferentTimeShiftSubmitted implements PostShiftEvent {
   MultiShiftDTO get shiftDetail;
   BuildContext get context;
   bool get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DifferentTimeShiftSubmittedImplCopyWith<_$DifferentTimeShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -20456,6 +20754,8 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
       $Res Function(_$InitMultiDifferentDateEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -20484,6 +20784,8 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -20492,6 +20794,8 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -20555,7 +20859,9 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
       updateShift,
       fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
@@ -20984,7 +21290,10 @@ abstract class InitMultiDifferentDateEvent implements PostShiftEvent {
   PostShiftDTO get post;
   HealthcarePostDTO? get updateShift;
   bool? get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -21003,6 +21312,9 @@ class __$$BackEventImplCopyWithImpl<$Res>
   __$$BackEventImplCopyWithImpl(
       _$BackEventImpl _value, $Res Function(_$BackEventImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -21455,6 +21767,8 @@ class __$$SameTimeShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$SameTimeShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -21502,7 +21816,9 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
   @override
   int get hashCode => Object.hash(runtimeType, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SameTimeShiftSubmittedImplCopyWith<_$SameTimeShiftSubmittedImpl>
@@ -21924,7 +22240,10 @@ abstract class SameTimeShiftSubmitted implements PostShiftEvent {
 
   BuildContext get context;
   bool get fromSaveTemplate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SameTimeShiftSubmittedImplCopyWith<_$SameTimeShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -21948,6 +22267,8 @@ class __$$PostTheShiftEventImplCopyWithImpl<$Res>
       $Res Function(_$PostTheShiftEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -21966,6 +22287,8 @@ class __$$PostTheShiftEventImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res>? get updatedPost {
@@ -22007,7 +22330,9 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, updatedPost);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
@@ -22429,7 +22754,10 @@ abstract class PostTheShiftEvent implements PostShiftEvent {
 
   int get postId;
   PostShiftDTO? get updatedPost;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -22511,7 +22839,9 @@ mixin _$PostShiftState {
   Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PostShiftStateCopyWith<PostShiftState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -22594,6 +22924,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -22864,6 +23196,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     ) as $Val);
   }
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res> get updateShift {
@@ -22872,6 +23206,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     });
   }
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -22961,6 +23297,8 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
       _$PostShiftStateImpl _value, $Res Function(_$PostShiftStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -23620,7 +23958,9 @@ class _$PostShiftStateImpl implements _PostShiftState {
         postShiftFailureOrSuccessOption
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>
@@ -23688,9 +24028,8 @@ abstract class _PostShiftState implements PostShiftState {
       required final Option<Either<MainFailure, String>>
           postShiftFailureOrSuccessOption}) = _$PostShiftStateImpl;
 
-  @override
-
   /// Change hift Type(Single, Multi,Long-Term)
+  @override
   HealthcarePostDTO get updateShift;
   @override
   int get shiftType;
@@ -23700,9 +24039,9 @@ abstract class _PostShiftState implements PostShiftState {
   bool get isLoading;
   @override
   PostShiftDTO get post;
-  @override
 
   /// Single Shift
+  @override
   InputEmptyOrNot get signleShiftDate;
   @override
   InputEmptyOrNot get startHour;
@@ -23743,9 +24082,9 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   Option<Either<MainFailure, HealthcarePostDTO>>
       get singleShiftFailureOrSuccessOption;
-  @override
 
   /// For recurring,sahre with teams, save as template
+  @override
   List<TeamDTO> get teamList;
   @override
   bool get isToBeRecurring;
@@ -23775,9 +24114,9 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   Option<Either<MainFailure, CommonResponse>>
       get updatePostFailureOrSuccessOption;
-  @override
 
   /// Multi shift
+  @override
   bool get isIndividualPost;
   @override
   int get selectedMultiShiftType;
@@ -23802,12 +24141,15 @@ abstract class _PostShiftState implements PostShiftState {
       get differentDateFailureOrSuccessOption;
   @override
   bool get fromPreviousShift;
-  @override
 
   /// Post the Shift
-  Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption;
   @override
-  @JsonKey(ignore: true)
+  Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption;
+
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

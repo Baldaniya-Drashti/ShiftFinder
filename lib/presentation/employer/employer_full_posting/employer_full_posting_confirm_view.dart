@@ -7,6 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -17,6 +19,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: "EmployerFullPostingConfirmView")
 class EmployerFullPostingConfirmView extends StatelessWidget {
   const EmployerFullPostingConfirmView({super.key});
+
 
   @override
   Widget build(BuildContext context) {

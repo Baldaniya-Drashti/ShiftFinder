@@ -160,7 +160,8 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
@@ -385,5 +386,37 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getEmployerFullTermPosition({
     required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({
+    required String roleListId,
+    String? specialtiesDetailId,
+    String? specialtiesDetailOther,
+    String? softwareSkillListId,
+    String? softwareSkillOther,
+    required String languagesListId,
+    String? languagesListOther,
+    required String locationId,
+    required String locationUnit,
+    required num rateHour,
+    required String startDate,
+    required String endDate,
+    required String applicationDeadline,
+    required String estimatedWeeklyHours,
+    required int shiftScheduleType,
+    required String jobDescription,
+    required String requirements,
+    required String responsibilities,
+    required String qualifications,
+    required String licensesCertifications,
+    required String onboardingProcess,
+    String? terms,
+    String? documentPath,
+    required int onCallIncluded,
+    required int numberOfVacancy,
+    required int shareTeamStatus,
+    int? teamId,
+    required int saveTemplateStatus,
+    required int employerPaymentConfirmation,
   });
 }
