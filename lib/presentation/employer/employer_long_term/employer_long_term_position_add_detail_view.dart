@@ -23,6 +23,7 @@ import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/datetime_extensions.dart';
+import 'package:shift/presentation/core/helper/time_extension.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
@@ -88,8 +89,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
 
   @override
   Widget build(BuildContext context) {
-    final hasMoreVacancy =
-        context.select<EmployerLongTermPositionAddDetailBloc, bool>((value) => value.state.hasMoreVacancy);
+    final hasMoreVacancy = context.select<EmployerLongTermPositionAddDetailBloc, bool>((value) => value.state.hasMoreVacancy);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -169,8 +169,30 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                CommonDropdownModel?>(
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, TimeOfDay?>(
+              selector: (state) => state.employerLongTermAddDetailDto.estimated_weekly_hours,
+              builder: (context, estimatedHours) {
+                return TimePickerInputField(
+                  label: "Estimated Weekly Hours",
+                  hint: "00h 00min",
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) {
+                      return "Please select estimation hours";
+                    }
+                    return null;
+                  },
+                  initialTime: estimatedHours,
+                  onPickedTime: (value) {
+                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                          EmployerLongTermPositionAddDetailEvent.selectEstimatedHour(estimatedHour: value),
+                        );
+                  },
+                );
+              },
+            ),
+            Gap(getSize(12)),
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, CommonDropdownModel?>(
               selector: (state) => state.selectedShiftSchedule,
               builder: (context, selectedShiftSchedule) {
                 return ShiftScheduleDropdownField(
@@ -284,9 +306,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       maxLines: 3,
                     ),
                     Gap(getSize(16)),
-                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                        String?>(
-                      selector: (state) => state.documentPath,
+                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
+                      selector: (state) => state.employerLongTermAddDetailDto.terms_document,
                       builder: (context, documentPath) {
                         if (documentPath != null) return selectedImage(context, documentPath);
                         return _UploadDocument();
@@ -310,11 +331,22 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(16)),
-            _buildCheckListTile(
-              context,
-              value: false,
-              onChanged: (value) {},
-              label: "This contract may include on call.",
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+              selector: (state) {
+                return state.employerLongTermAddDetailDto.on_call_included == 1;
+              },
+              builder: (context, onCallIncluded) {
+                return _buildCheckListTile(
+                  context,
+                  value: onCallIncluded,
+                  onChanged: (value) {
+                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                          EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(onCallIncluded ? 0 : 1),
+                        );
+                  },
+                  label: "This contract may include on call.",
+                );
+              },
             ),
             Gap(getSize(16)),
             _buildCheckListTile(
@@ -361,13 +393,12 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             CommonButton(
               onPressed: () {
                 if (_formKey.currentState?.validate() != true) return;
-                final employer =
-                    context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;
                 if (startDate == null || endDate == null) return;
                 final difference = endDate.difference(startDate);
-                final months = (difference.inDays % 365 / 30).toInt();
+                final months = difference.inDays % 365 ~/ 30;
                 if (months < 3) {
                   AppDialog.showCommonDialog(
                     context: context,
@@ -385,14 +416,18 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   );
                   return;
                 }
-                final postShift = context.read<EmployerLongTermPositionAddDetailBloc>().state.postShiftDto;
-
-                context.router.push(
-                  PageRouteInfo(
-                    EmployerLongTermPostConfirmationView.name,
-                    args: EmployerLongTermPostConfirmationView(postShiftDTO: postShift, employerAddDetailDto: employer),
-                  ),
-                );
+                context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                      EmployerLongTermPositionAddDetailEvent.onContinue(
+                        context: context,
+                        jobDescription: _jobDescriptionController.text.trim(),
+                        requirements: _responsibilityController.text.trim(),
+                        responsibilities: _responsibilityController.text.trim(),
+                        qualification: _qualificationController.text.trim(),
+                        licences: _licensesController.text.trim(),
+                        onboarding: _onBoardingController.text.trim(),
+                        terms: _termsController.text.trim(),
+                      ),
+                    );
               },
               buttonText: "Continue",
             )
@@ -458,7 +493,10 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteGovernmentIdDesc,
           onCancelClick: () => Navigator.pop(context),
-          onDeleteClick: () {},
+          onDeleteClick: () {
+            Navigator.pop(context);
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+          },
         );
       },
     );
@@ -490,11 +528,35 @@ class DatePickerInputField extends StatefulWidget {
 }
 
 class _DatePickerInputFieldState extends State<DatePickerInputField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: widget.initialDate != null ? widget.initialDate!.formattedString : "",
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant DatePickerInputField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialDate != oldWidget.initialDate) {
+      _controller.text = widget.initialDate != null ? widget.initialDate!.formattedString : "";
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
       autoValidateMode: AutovalidateMode.onUserInteraction,
-      controller: TextEditingController(text: widget.initialDate != null ? widget.initialDate?.formattedString : ""),
+      controller: _controller,
       validator: widget.validator,
       labelText: widget.label,
       hintText: widget.hint,
@@ -511,8 +573,8 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
         ),
         child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
       ),
-      onTap: () {
-        DocumentExpiryDatePicker.customDatePicker(
+      onTap: () async {
+        await DocumentExpiryDatePicker.customDatePicker(
           context,
           firstDate: widget.firstDate ?? DateTime.now(),
           onPickedDate: widget.onPickedDate,
@@ -521,6 +583,110 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
         );
       },
     );
+  }
+}
+
+class TimePickerInputField extends StatefulWidget {
+  const TimePickerInputField({
+    super.key,
+    required this.label,
+    required this.hint,
+    this.initialTime,
+    required this.onPickedTime,
+    this.validator,
+  });
+
+  final String label;
+  final String hint;
+  final TimeOfDay? initialTime;
+  final void Function(TimeOfDay time) onPickedTime;
+  final String? Function(String? value, BuildContext context)? validator;
+
+  @override
+  State<TimePickerInputField> createState() => _TimePickerInputFieldState();
+}
+
+class _TimePickerInputFieldState extends State<TimePickerInputField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "",
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant TimePickerInputField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialTime != oldWidget.initialTime) {
+      _controller.text = widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "";
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTextField(
+      autoValidateMode: AutovalidateMode.onUserInteraction,
+      controller: _controller,
+      validator: widget.validator,
+      labelText: widget.label,
+      hintText: widget.hint,
+      hintAsValue: widget.initialTime != null,
+      readOnly: true,
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.red),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
+      ),
+      onTap: () async {
+        final time = await _showTimePicker(context);
+        if (time != null) {
+          widget.onPickedTime(time);
+        }
+      },
+    );
+  }
+
+  Future<TimeOfDay?> _showTimePicker(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showDialog(
+        context: context,
+        builder: (context) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              timePickerTheme: TimePickerThemeData(
+                dayPeriodColor: AppColors.primaryColor,
+                dayPeriodTextColor: AppColors.black,
+              ),
+              colorScheme: ColorScheme.light(
+                primary: AppColors.primaryColor,
+                onSurface: AppColors.black,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(),
+              ),
+            ),
+            child: TimePickerDialog(
+              initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+            ),
+          );
+        });
+
+    print("Selected Time:  ${pickedTime?.format(context)}");
+    return pickedTime;
   }
 }
 
@@ -606,27 +772,21 @@ class _UploadDocument extends StatelessWidget {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,

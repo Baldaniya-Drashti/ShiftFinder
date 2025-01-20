@@ -20,88 +20,101 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: "EmployerLongTermPostConfirmationView")
 class EmployerLongTermPostConfirmationView extends StatelessWidget {
   const EmployerLongTermPostConfirmationView({super.key, required this.postShiftDTO, required this.employerAddDetailDto});
+
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermAddDetailDto employerAddDetailDto;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermConfirmationBloc>()
         ..add(
-          EmployerLongTermConfirmationEvent.getTeamList(),
+          EmployerLongTermConfirmationEvent.onCreate(postShiftDTO, employerAddDetailDto),
         ),
-      child: Scaffold(
-        bottomNavigationBar: SafeArea(
-          minimum: EdgeInsets.all(getSize(16)),
-          child: CommonButton(
-            onPressed: () {},
-            buttonText: "Continue",
-          ),
-        ),
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
-        body: BlocBuilder<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
-              child: Column(
-                children: [
-                  _buildCheckListTile(
-                    context,
-                    value: state.shareWithTeam,
-                    onChanged: (value) {
-                      context.read<EmployerLongTermConfirmationBloc>().add(
-                            EmployerLongTermConfirmationEvent.selectSharePostWithTeam(value),
-                          );
-                    },
-                    label: "Share this posting with the Team",
-                  ),
-                  if (state.shareWithTeam) ...[
-                    Gap(getSize(18)),
-                    _TeamsListView(
-                      teamList: state.teamList,
-                      selectedTeamList: state.selectedTeamList,
-                    ),
-                  ],
-                  Gap(getSize(18)),
-                  _buildCheckListTile(
-                    context,
-                    value: state.saveAsFuturePost,
-                    onChanged: (value) {
-                      context.read<EmployerLongTermConfirmationBloc>().add(
-                            EmployerLongTermConfirmationEvent.selectFuturePosting(value),
-                          );
-                    },
-                    label: "Save this as a template for future posting",
-                    trailing: GestureDetector(
-                      onTap: () {
-                        AppDialog.showInfo(
-                          context,
-                          StringConstant.teamInfoDesc,
-                          maxLines: 10,
-                        );
-                      },
-                      child: SvgPicture.asset(
-                        SvgImageConstant.infoCircle,
-                      ),
-                    ),
-                  ),
-                  Gap(getSize(18)),
-                  _buildCheckListTile(
-                    context,
-                    value: state.agreeTermsAndCondition,
-                    onChanged: (value) {
-                      context.read<EmployerLongTermConfirmationBloc>().add(
-                            EmployerLongTermConfirmationEvent.selectTermsAndCondition(value),
-                          );
-                    },
-                    padding: EdgeInsets.all(getSize(16)),
-                    label:
-                        "By proceeding, I confirm that we, the employer, are responsible for making payments  directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract  violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a  contractor for the position.",
-                  ),
-                ],
+      child: Builder(
+        builder: (context) {
+          final shareWithTeam = employerAddDetailDto.share_team_status==1;
+          final shareFuturePosting = employerAddDetailDto.on_call_included==1;
+          final employerPaymentConfirmation = employerAddDetailDto.employer_payment_confirmation==1;
+          return Scaffold(
+            bottomNavigationBar: SafeArea(
+              minimum: EdgeInsets.all(getSize(16)),
+              child: CommonButton(
+                onPressed: () {
+                  context.read<EmployerLongTermConfirmationBloc>().add(
+                        EmployerLongTermConfirmationEvent.onContinue(),
+                      );
+                },
+                buttonText: "Continue",
               ),
-            );
-          },
-        ),
+            ),
+            appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
+            body: BlocBuilder<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
+                  child: Column(
+                    children: [
+                      _buildCheckListTile(
+                        context,
+                        value: employerAddDetailDto.employer_payment_confirmation==1,
+                        onChanged: (value) {
+                          context.read<EmployerLongTermConfirmationBloc>().add(
+                                EmployerLongTermConfirmationEvent.selectSharePostWithTeam(employerPaymentConfirmation  ? 0 : 1),
+                              );
+                        },
+                        label: "Share this posting with the Team",
+                      ),
+                      if (state.shareWithTeam) ...[
+                        Gap(getSize(18)),
+                        _TeamsListView(
+                          teamList: state.teamList,
+                          selectedTeamList: state.selectedTeamList,
+                        ),
+                      ],
+                      Gap(getSize(18)),
+                      _buildCheckListTile(
+                        context,
+                        value: employerAddDetailDto.share_team_status==1,
+                        onChanged: (value) {
+                          context
+                              .read<EmployerLongTermConfirmationBloc>()
+                              .add(EmployerLongTermConfirmationEvent.selectFuturePosting(shareFuturePosting));
+                        },
+                        label: "Save this as a template for future posting",
+                        trailing: GestureDetector(
+                          onTap: () {
+                            AppDialog.showInfo(
+                              context,
+                              StringConstant.teamInfoDesc,
+                              maxLines: 10,
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            SvgImageConstant.infoCircle,
+                          ),
+                        ),
+                      ),
+                      Gap(getSize(18)),
+                      _buildCheckListTile(
+                        context,
+                        value: employerPaymentConfirmation == 1,
+                        onChanged: (value) {
+                          context.read<EmployerLongTermConfirmationBloc>().add(
+                                EmployerLongTermConfirmationEvent.selectTermsAndCondition(employerPaymentConfirmation == 1 ? 0 : 1),
+                              );
+                        },
+                        padding: EdgeInsets.symmetric(horizontal: 18,vertical: 12),
+                        label:
+                            "By proceeding, I confirm that we, the employer, are responsible for making payments  directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract  violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a  contractor for the position.",
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -114,35 +127,47 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
     EdgeInsets? padding,
     Widget? trailing,
   }) {
-    return Material(
-      color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(getSize(10)),
-      child: Padding(
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+    return Container(
+      padding: padding??EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: GestureDetector(
+        onTap: () {},
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Transform.scale(
-              scale: 0.9,
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
               child: Checkbox(
-                activeColor: AppColors.primaryColor,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                visualDensity: VisualDensity.compact,
-                side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                 value: value,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 onChanged: (value) {
-                  if (value == null) return;
-                  onChanged(value);
+
                 },
               ),
             ),
-            Gap(4),
-            Expanded(
-              child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
+            SizedBox(
+              width: getSize(15),
             ),
-            if (trailing != null) trailing,
+            Expanded(
+              child: BaseText(
+                text: label,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                maxLines: 15,
+              ),
+            ),
+            if(trailing!=null)trailing
           ],
         ),
       ),

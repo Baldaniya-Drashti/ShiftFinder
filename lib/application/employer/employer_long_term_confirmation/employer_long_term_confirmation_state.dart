@@ -8,6 +8,9 @@ class EmployerLongTermConfirmationState with _$EmployerLongTermConfirmationState
     @Default(false) bool shareWithTeam,
     @Default(false) bool saveAsFuturePost,
     @Default(false) bool agreeTermsAndCondition,
+
+    @Default(PostShiftDTO()) PostShiftDTO postShiftDTO,
+    @Default(EmployerLongTermAddDetailDto()) EmployerLongTermAddDetailDto employerAddDetailDto,
   }) = _EmployerLongTermConfirmationState;
 
   factory EmployerLongTermConfirmationState.initial() => EmployerLongTermConfirmationState();

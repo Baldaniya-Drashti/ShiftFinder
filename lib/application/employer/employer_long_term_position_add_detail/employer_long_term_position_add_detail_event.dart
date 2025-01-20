@@ -13,10 +13,23 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
   const factory EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged({required CommonDropdownModel value}) =
       OnShiftScheduleChanged;
 
-  const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) =
-  SelectDocument;
-  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(bool value) =
-  AddMoreVacancy;
-  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto) =
-  OnCreate;
+  const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) = SelectDocument;
+
+  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(bool value) = AddMoreVacancy;
+
+  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto) = OnCreate;
+
+  const factory EmployerLongTermPositionAddDetailEvent.removeDocument() = RemoveDocument;
+  const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(int value) = OnChangeContractIncludeCall;
+
+  const factory EmployerLongTermPositionAddDetailEvent.onContinue({
+    required BuildContext context,
+    required String jobDescription,
+    required String requirements,
+    required String responsibilities,
+    required String qualification,
+    required String licences,
+    required String onboarding,
+    String? terms,
+  }) = OnContinue;
 }

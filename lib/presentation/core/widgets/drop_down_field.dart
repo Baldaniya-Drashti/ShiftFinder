@@ -152,7 +152,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
   }
 }
 
-class ShiftScheduleDropdownField extends StatelessWidget {
+class ShiftScheduleDropdownField extends StatefulWidget {
   const ShiftScheduleDropdownField({
     super.key,
     required this.onChanged,
@@ -161,6 +161,19 @@ class ShiftScheduleDropdownField extends StatelessWidget {
 
   final Function(CommonDropdownModel value) onChanged;
   final CommonDropdownModel? selectedShiftSchedule;
+
+  @override
+  State<ShiftScheduleDropdownField> createState() => _ShiftScheduleDropdownFieldState();
+}
+
+class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField> {
+  @override
+  void didUpdateWidget(covariant ShiftScheduleDropdownField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedShiftSchedule != oldWidget.selectedShiftSchedule) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -190,8 +203,8 @@ class ShiftScheduleDropdownField extends StatelessWidget {
           fontWeight: FontWeight.w400,
           color: AppColors.black.withOpacity(0.5),
         ),
-        onChanged: (value) => onChanged(value as CommonDropdownModel),
-        value: selectedShiftSchedule,
+        onChanged: (value) => widget.onChanged(value as CommonDropdownModel),
+        value: widget.selectedShiftSchedule,
         items: list.map(
           (e) {
             return DropdownMenuItem<CommonDropdownModel>(
