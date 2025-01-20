@@ -105,7 +105,6 @@ Explore your opportunities in healthcare! Download the ShiftFinder app to connec
 Download now: ${StringConstant.shiftFinderWebsite}
 ''';
 // https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf&pcampaignid=web_share
-
           Share.shareXFiles(
             [XFile(file.path)],
             text: message,
@@ -209,7 +208,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(

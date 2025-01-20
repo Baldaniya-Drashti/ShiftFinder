@@ -12,6 +12,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -20,6 +21,9 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -90,6 +94,10 @@ class LocationDetailForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 facilityTypeField(context, state),
                                 paddingBetweenFields(),
+                                if (getCurrentIndustry() == 2) ...[
+                                  locationBrandField(context, state),
+                                  paddingBetweenFields(),
+                                ],
                                 locationIdField(context, state),
                                 paddingBetweenFields(),
                                 accreditationNumberField(context, state),
@@ -221,6 +229,67 @@ class LocationDetailForm extends StatelessWidget {
             (state.otherFaciltyType.getValue()!.isEmpty) &&
             state.showErrorMessages)
           commonErrorText(StringConstant.pleaseEnterOtherFacilityType),
+      ],
+    );
+  }
+
+  Widget locationBrandField(
+    BuildContext context,
+    LocationDetailsState state,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomDropdwonWithTextField(
+          labelText: StringConstant.locationBrand,
+          fieldHintText: StringConstant.typeYourLocationBrand,
+          isLabelPadding: true,
+          showPrefixIcon: true,
+          ddPrefixIcon: SvgPicture.asset(
+            SvgImageConstant.injection,
+            height: getSize(24),
+            width: getSize(24),
+          ),
+          showTextfield: state.locationBrandDDValue.toLowerCase() == "other",
+          items: state.locationBrandList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
+              child: BaseText(
+                text: val.name ?? '',
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
+          validator: (p0) => context
+              .read<LocationDetailsBloc>()
+              .state
+              .locationBrand
+              .value
+              .fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectLocationBrand,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+          onChanged: (value) {
+            if (value != null) {
+              context.read<LocationDetailsBloc>().add(
+                    LocationDetailsEvent.locationBrandChanged(value),
+                  );
+            }
+          },
+          fieldOnChanged: (value) => context.read<LocationDetailsBloc>().add(
+                LocationDetailsEvent.addOtherLocationBrand(value),
+              ),
+          hintText: StringConstant.locationBrand,
+        ),
+        if (state.locationBrand.getValue()!.toLowerCase() == "other" &&
+            (state.otherLocationBrand.getValue()!.isEmpty) &&
+            state.showErrorMessages)
+          commonErrorText(StringConstant.pleaseSelectOtherLocationBrand),
       ],
     );
   }

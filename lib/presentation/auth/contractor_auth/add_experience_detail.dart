@@ -25,13 +25,15 @@ import '../../common/widgets/center_loading_indicator.dart';
 @RoutePage(name: 'addExperienceDetailScreen')
 class AddExperienceDetail extends StatelessWidget {
   bool isFromSplash = false;
-  AddExperienceDetail({super.key, this.isFromSplash = false});
+  bool isUpdate;
+  AddExperienceDetail(
+      {super.key, this.isFromSplash = false, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ExperienceBloc>()
-        ..add(const ExperienceEvent.getExperinceDataEvent()),
+        ..add(ExperienceEvent.getExperinceDataEvent(isUpdate)),
       child: Scaffold(
         appBar: CommonAppBar(
           isShowBackBtn: !isFromSplash,
@@ -60,7 +62,17 @@ class AddExperienceDetail extends StatelessWidget {
                   // context.router
                   //     .push(const PageRouteInfo(EducationListScreen.name));
                   context.router
-                      .push(const PageRouteInfo(AddSpecialityExperience.name));
+                      .push(PageRouteInfo(
+                    AddSpecialityExperience.name,
+                    args: AddSpecialityExperienceArgs(
+                      isUpdate: isUpdate,
+                    ),
+                  ))
+                      .then((value) {
+                    if (value == true) {
+                      Navigator.pop(context, value);
+                    }
+                  });
                 },
               ),
             );
@@ -94,9 +106,12 @@ class AddExperienceDetail extends StatelessWidget {
                         isSubmitting: state.isSubmitting,
                         onPressed: () {
                           context.read<ExperienceBloc>().add(
-                              const ExperienceEvent.continueBtnPressedEvent());
+                              ExperienceEvent.continueBtnPressedEvent(
+                                  isUpdate));
                         },
-                        buttonText: StringConstant.txtContinue,
+                        buttonText: (isUpdate)
+                            ? StringConstant.update
+                            : StringConstant.txtContinue,
                       ),
                     ),
                   ],
@@ -135,7 +150,8 @@ class AddExperienceDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BaseText(
-                text: "${index + 1}. ${currentObj.name}",
+                text:
+                    "${index + 1}. ${(isUpdate) ? currentObj.role?.name ?? "" : currentObj.name}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -148,6 +164,10 @@ class AddExperienceDetail extends StatelessWidget {
                 Flexible(
                   child: customeDropDown(
                     hintText: StringConstant.year,
+                    value: (currentObj.experience_year != null &&
+                            currentObj.experience_year!.isNotEmpty)
+                        ? currentObj.experience_year
+                        : null,
                     items: CommonList.yearList.map((val) {
                       return DropdownMenuItem<String>(
                         value: val,
@@ -180,6 +200,10 @@ class AddExperienceDetail extends StatelessWidget {
                 Flexible(
                   child: customeDropDown(
                     hintText: StringConstant.month,
+                    value: (currentObj.experience_month != null &&
+                            currentObj.experience_month!.isNotEmpty)
+                        ? currentObj.experience_month
+                        : null,
                     items: CommonList.monthList.map((val) {
                       return DropdownMenuItem<String>(
                         value: val,

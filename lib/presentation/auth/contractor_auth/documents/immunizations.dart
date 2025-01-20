@@ -25,7 +25,8 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ImmunizationsVaccinations extends StatelessWidget {
-  const ImmunizationsVaccinations({super.key});
+  bool isUpdate;
+  ImmunizationsVaccinations({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +105,11 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                                             index));
                                                 context.router.maybePop();
                                               },
+                                              showEditButton: isUpdate,
+                                              onEditClick: () {
+                                                editDocument(context,
+                                                    immunizationObject);
+                                              },
                                             ),
                                           );
                                         })
@@ -118,7 +124,7 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                 SizedBox(
                                   height: getSize(20),
                                 ),
-                                immunizationNameField(context),
+                                immunizationNameField(context, state),
                                 paddingBetweenFields(),
                                 (state.immunizationDoc.isValid())
                                     ? selectedImage(
@@ -314,10 +320,97 @@ class ImmunizationsVaccinations extends StatelessWidget {
     );
   }
 
-  Widget immunizationNameField(BuildContext context) {
+  editDocument(
+    BuildContext context,
+    DocumentDTO? currentDoc,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => getIt<ImmunizationBloc>()
+              ..add(ImmunizationEvent.getCurrentImmunizationDoc(currentDoc)),
+            child: BlocBuilder<ImmunizationBloc, ImmunizationState>(
+              builder: (context, state) {
+                return (state.isImmunizationDocSubmitting)
+                    ? CenterLoadingIndicator()
+                    : AlertDialog(
+                        backgroundColor: AppColors.scaffoldColor,
+                        insetPadding: EdgeInsets.symmetric(
+                            vertical: getSize(50), horizontal: getSize(10)),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              immunizationNameField(context, state),
+                              paddingBetweenFields(),
+                              (state.immunizationDoc.isValid())
+                                  ? selectedImage(
+                                      context,
+                                      state.immunizationDoc.getValue() ?? "",
+                                      state: state,
+                                    )
+                                  : UploadDocumentBox(
+                                      height: getSize(300),
+                                      onUploadBtnPressed: () {
+                                        clickUploadButton(context);
+                                      },
+                                    ),
+                              if (state.showImmunizationErrorMessages &&
+                                  !state.immunizationDoc.isValid())
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10),
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text: StringConstant
+                                        .pleaseSelectCredentialRegistrationDocument,
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: getSize(20), bottom: getSize(10)),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context.read<ImmunizationBloc>().add(
+                                              ImmunizationEvent
+                                                  .immunizationDocUpdate(
+                                            context,
+                                            id: currentDoc?.id,
+                                          ));
+                                    },
+                                    buttonText: StringConstant.update,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+              },
+            ),
+          );
+        }).then((value) {
+      print("On update back value ---> $value");
+      if (value == true) {
+        context
+            .read<ImmunizationBloc>()
+            .add(ImmunizationEvent.getImmunizationDataOnInit());
+      }
+    });
+  }
+
+  Widget immunizationNameField(BuildContext context, ImmunizationState state) {
     return CustomTextField(
       labelText: StringConstant.nameOfImmunizationsVaccinations,
       hintText: StringConstant.nameOfImmunizationsVaccinations,
+      initialValue: state.immunizationName.getValue(),
       onChanged: (value) => context
           .read<ImmunizationBloc>()
           .add(ImmunizationEvent.immunizationsNameChanegd(value)),

@@ -69,6 +69,10 @@ class PostShiftState with _$PostShiftState {
     /// Post the Shift
     required Option<Either<MainFailure, String>>
         postShiftFailureOrSuccessOption,
+    required InputEmptyOrNot scriptVolume,
+    required List<SkillDTO> scriptVolumeList,
+    required bool isAssistantOnSite,
+    required bool isTechnicianOnSite,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -86,8 +90,7 @@ class PostShiftState with _$PostShiftState {
         startMinute: InputEmptyOrNot("00 Min"),
         endHour: InputEmptyOrNot(""),
         endMinute: InputEmptyOrNot("00 Min"),
-        totalPaybleHours:
-        "00h 00min",
+        totalPaybleHours: "00h 00min",
         breakList: [],
         accomdationHoursList: [],
         unpaidBreak: InputEmptyOrNot(""),
@@ -133,5 +136,10 @@ class PostShiftState with _$PostShiftState {
         /// Post the shift
         postShiftFailureOrSuccessOption: none(),
         updatePostFailureOrSuccessOption: none(),
+
+        scriptVolume: InputEmptyOrNot(""),
+        scriptVolumeList: CommonList.scriptVolumeList,
+        isAssistantOnSite: false,
+        isTechnicianOnSite: false,
       );
 }

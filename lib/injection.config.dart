@@ -216,6 +216,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i471.AddContractorSkillFormBloc>(
+        () => _i471.AddContractorSkillFormBloc(
+              gh<_i277.IAuthFacade>(),
+              gh<_i253.IAccountRepository>(),
+            ));
     gh.factory<_i73.MainTabBloc>(() => _i73.MainTabBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i111.IMainFacade>(),
@@ -257,8 +262,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
         () => _i1033.AuthStatusBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i471.AddContractorSkillFormBloc>(
-        () => _i471.AddContractorSkillFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1026.TermsAndConditionBloc>(
         () => _i1026.TermsAndConditionBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i134.RegisterFormBloc>(

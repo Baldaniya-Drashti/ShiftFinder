@@ -33,6 +33,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
     return BlocConsumer<PostShiftBloc, PostShiftState>(
       listener: (context, state) {
         if (state.isDifferentDateDataValid) {
+          final volumeId = state.scriptVolumeList.firstWhere((volume) {
+            return volume.name == state.scriptVolume.getValue();
+          }, orElse: () => SkillDTO());
           final data = MultiShiftDTO(
             commute_allowance_type:
                 (state.selectedCommuteAllownce.getValue() == "Flat Rate")
@@ -74,6 +77,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             post_id: state.postId,
             same_or_different_time: state.selectedMultiShiftType,
             shift_type: state.shiftType,
+            script_volume: volumeId.id,
           );
           context.router
               .push(PageRouteInfo(

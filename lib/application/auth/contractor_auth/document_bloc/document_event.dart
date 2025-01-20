@@ -4,7 +4,8 @@ part of 'document_bloc.dart';
 class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.nextPage(int page) = _NextPage;
   const factory DocumentEvent.submitDocumentsEvent() = _SubmitDocumentsEvent;
-  const factory DocumentEvent.getAllDocumentStatus() = _GetAllDocumentStatus;
+  const factory DocumentEvent.getAllDocumentStatus({bool? isUpdate}) =
+      _GetAllDocumentStatus;
   // FOR GOVERNMENT DOCUMENT
 
   const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
@@ -82,11 +83,21 @@ class CredentialEvent with _$CredentialEvent {
   const factory CredentialEvent.credentialDocSubmit(BuildContext context,
       {required bool isAddMoreBtnClick,
       required bool isSkip}) = _CredentialDocSubmit;
+
+  const factory CredentialEvent.credDocUpdate(BuildContext context,
+      {required int? id}) = CredDocUpdate;
+
+  const factory CredentialEvent.getCurrentCredDoc(DocumentDTO? currentCred) =
+      GetCurrentCredDoc;
 }
 
 @freezed
 class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
   /// FOR PROFESSIONAL LICENSES DOCUMENT
+  const factory ProfessionalLicensesEvent.getCurrentLicenseDoc(
+      DocumentDTO? currentCred) = GetCurrentLicenseDoc;
+  const factory ProfessionalLicensesEvent.licenseDocUpdate(BuildContext context,
+      {required int? id}) = LicenseDocUpdate;
   const factory ProfessionalLicensesEvent.getProfessinalLicensesList() =
       GetProfessinalLicensesList;
   const factory ProfessionalLicensesEvent.checkNALicensesExpiryDate(
@@ -116,6 +127,10 @@ class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
 @freezed
 class ImmunizationEvent with _$ImmunizationEvent {
   /// FOR Immunizations-Vaccinations DOCUMENT
+  const factory ImmunizationEvent.getCurrentImmunizationDoc(
+      DocumentDTO? currentCred) = GetCurrentImmunizationDoc;
+  const factory ImmunizationEvent.immunizationDocUpdate(BuildContext context,
+      {required int? id}) = ImmunizationDocUpdate;
   const factory ImmunizationEvent.getImmunizationDataOnInit() =
       _GetImmunizationDataOnInit;
   const factory ImmunizationEvent.immunizationsNameChanegd(
@@ -140,6 +155,12 @@ class ImmunizationEvent with _$ImmunizationEvent {
 @freezed
 class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
   /// FOR Professional Liability Protection DOCUMENT
+  const factory ProfessionalLiabilityEvent.getCurrentDoc(
+      DocumentDTO? currentCred) = GetCurrentDoc;
+
+  const factory ProfessionalLiabilityEvent.liabilityDocUpdate(
+      BuildContext context,
+      {required int? id}) = LiabilityDocUpdate;
   const factory ProfessionalLiabilityEvent.getLiabilityList() =
       GetLiabilityList;
   const factory ProfessionalLiabilityEvent.checkNALiabilityExpiryDate(
@@ -175,6 +196,11 @@ class ResumeEvent with _$ResumeEvent {
 @freezed
 class EquipmentEvent with _$EquipmentEvent {
   /// FOR Apparel/Equipment DOCUMENT
+  const factory EquipmentEvent.getCurrentEquipmentDoc(
+      DocumentDTO? currentCred) = GetCurrentEquipmentDoc;
+
+  const factory EquipmentEvent.equipmentDocUpdate(BuildContext context,
+      {required int? id}) = EquipmentDocUpdate;
   const factory EquipmentEvent.getEquipmentList() = GetEquipmentList;
   const factory EquipmentEvent.equipmentNameChanegd(String equipmentName) =
       _EquipmentNameChanegd;

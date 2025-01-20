@@ -19,6 +19,7 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 
@@ -43,6 +44,24 @@ class EmployerLocationFormBloc
       : super(EmployerLocationFormState.initial()) {
     on<EmployerLocationFormEvent>((event, emit) async {
       await event.map(
+        locationBrandChanged: (e) {
+          emit(
+            state.copyWith(
+              locationBrandDDValue: e.locationBrand,
+              locationBrand: InputEmptyOrNot(e.locationBrand),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        addOtherLocationBrand: (e) {
+          emit(
+            state.copyWith(
+              otherLocationBrandValue: e.locationBrand,
+              otherLocationBrand: InputEmptyOrNot(e.locationBrand),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         updateUnitNumberChanged: (e) {
           emit(
             state.copyWith(
@@ -85,6 +104,37 @@ class EmployerLocationFormBloc
                 state.copyWith(
                   isLoading: false,
                   facilityTypeList: List.from(state.facilityTypeList)
+                    ..addAll(r),
+                ),
+              );
+            },
+          );
+
+          if (getCurrentIndustry() == 2) {
+            add(EmployerLocationFormEvent.getLocationBrandList());
+          }
+        },
+        getLocationBrandList: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          final locationBrandList = await _repository.getLocationBrandList();
+          print("Location brand List ---> $locationBrandList");
+          locationBrandList.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                locationBrandList: [],
+              ),
+            ),
+            (r) {
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  locationBrandList: List.from(state.locationBrandList)
                     ..addAll(r),
                 ),
               );
@@ -305,12 +355,19 @@ class EmployerLocationFormBloc
           await Future.delayed(Duration(milliseconds: 50));
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
+          bool isLocationBrandValid = state.locationBrand.isValid();
 
           if (state.faciltyType.getValue()!.toLowerCase() == "other") {
             isFaciltyTypeValid = state.otherFaciltyType.isValid();
           }
-
-          if (isAddressValid && isFaciltyTypeValid) {
+          if (state.locationBrand.getValue()!.toLowerCase() == "other") {
+            isLocationBrandValid = state.otherLocationBrand.isValid();
+          }
+          if (isAddressValid &&
+              isFaciltyTypeValid &&
+              (getCurrentIndustry() != 2 ||
+                  (getCurrentIndustry() == 2 && isLocationBrandValid))) {
+            // if (isAddressValid && isFaciltyTypeValid && (getCurrentIndustry() == 2 && isLocationBrandValid)) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -341,6 +398,14 @@ class EmployerLocationFormBloc
                     '',
                 fromRegister: false,
                 type: 1,
+                locationBrand:
+                    (state.locationBrand.getValue()!.toLowerCase() != "other")
+                        ? getSelectedLocationBrandId()
+                        : "",
+                locationBrandOther:
+                    (state.locationBrand.getValue()!.toLowerCase() == "other")
+                        ? state.otherLocationBrand.getValue() ?? ""
+                        : "",
               );
             } else {
               failureOrSuccess = await _repository.updateLocation(
@@ -360,11 +425,19 @@ class EmployerLocationFormBloc
                 units: state.listOfUnit,
                 latitude: state.selectedAddress.result?.geometry?.location?.lat
                         .toString() ??
-                    '',
+                    "${state.locationData.latitude ?? 0}",
                 longitude: state.selectedAddress.result?.geometry?.location?.lng
                         .toString() ??
-                    '',
+                    "${state.locationData.longitude ?? 0}",
                 fromRegister: false,
+                locationBrand:
+                    (state.locationBrand.getValue()!.toLowerCase() != "other")
+                        ? getSelectedLocationBrandId()
+                        : "",
+                locationBrandOther:
+                    (state.locationBrand.getValue()!.toLowerCase() == "other")
+                        ? state.otherLocationBrand.getValue() ?? ""
+                        : "",
               );
 
               Log.debug("locationAddress :: ${state.address.getValue() ?? ''}");
@@ -447,6 +520,10 @@ class EmployerLocationFormBloc
                       faciltyType: InputEmptyOrNot(
                           locationData.facility_type?.name ?? ""),
                       address: InputEmptyOrNot(locationData.location ?? ""),
+                      locationBrandDDValue:
+                          locationData.location_brand?.name ?? "",
+                      locationBrand: InputEmptyOrNot(
+                          locationData.location_brand?.name ?? ""),
                     ),
                   );
                   locationCtrl.text = locationData.location ?? "";
@@ -470,5 +547,13 @@ class EmployerLocationFormBloc
       orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
     );
     return selectedFacilityType.id.toString();
+  }
+
+  String getSelectedLocationBrandId() {
+    final selecteLocationBrand = state.locationBrandList.firstWhere(
+      (brand) => brand.name == state.locationBrand.getValue(),
+      orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
+    );
+    return selecteLocationBrand.id.toString();
   }
 }

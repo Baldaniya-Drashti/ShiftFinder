@@ -17,6 +17,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -35,6 +36,24 @@ class LocationDetailsBloc
       : super(LocationDetailsState.initial()) {
     on<LocationDetailsEvent>((event, emit) async {
       await event.map(
+        locationBrandChanged: (e) {
+          emit(
+            state.copyWith(
+              locationBrandDDValue: e.locationBrand,
+              locationBrand: InputEmptyOrNot(e.locationBrand),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        addOtherLocationBrand: (e) {
+          emit(
+            state.copyWith(
+              otherLocationBrandValue: e.locationBrand,
+              otherLocationBrand: InputEmptyOrNot(e.locationBrand),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         updateUnitNumberChanged: (e) {
           emit(
             state.copyWith(
@@ -73,6 +92,36 @@ class LocationDetailsBloc
                 state.copyWith(
                   isLoading: false,
                   facilityTypeList: List.from(state.facilityTypeList)
+                    ..addAll(r),
+                ),
+              );
+            },
+          );
+          if (getCurrentIndustry() == 2) {
+            add(LocationDetailsEvent.getLocationBrandList());
+          }
+        },
+        getLocationBrandList: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          final locationBrandList = await _repository.getLocationBrandList();
+          print("Location brand List ---> $locationBrandList");
+          locationBrandList.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                locationBrandList: [],
+              ),
+            ),
+            (r) {
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  locationBrandList: List.from(state.locationBrandList)
                     ..addAll(r),
                 ),
               );
@@ -159,7 +208,6 @@ class LocationDetailsBloc
           List<UnitDTO> updatedList = List.from(state.listOfUnit);
 
           final existingUnit = state.listOfUnit[e.index];
-
           bool isUnitNameAlreadyExist = state.listOfUnit.any((unit) =>
               unit.number_or_name?.toLowerCase() ==
                   e.updatedUnit.number_or_name?.toLowerCase() &&
@@ -296,12 +344,20 @@ class LocationDetailsBloc
           await Future.delayed(Duration(milliseconds: 50));
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
+          bool isLocationBrandValid = state.locationBrand.isValid();
 
           if (state.faciltyType.getValue()!.toLowerCase() == "other") {
             isFaciltyTypeValid = state.otherFaciltyType.isValid();
           }
 
-          if (isAddressValid && isFaciltyTypeValid) {
+          if (state.locationBrand.getValue()!.toLowerCase() == "other") {
+            isLocationBrandValid = state.otherLocationBrand.isValid();
+          }
+
+          if (isAddressValid &&
+              isFaciltyTypeValid &&
+              (getCurrentIndustry() != 2 ||
+                  (getCurrentIndustry() == 2 && isLocationBrandValid))) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -330,6 +386,14 @@ class LocationDetailsBloc
                       .toString() ??
                   '',
               fromRegister: true,
+              locationBrand:
+                  (state.locationBrand.getValue()!.toLowerCase() != "other")
+                      ? getSelectedLocationBrandId()
+                      : "",
+              locationBrandOther:
+                  (state.locationBrand.getValue()!.toLowerCase() == "other")
+                      ? state.otherLocationBrand.getValue() ?? ""
+                      : "",
             );
           } else {
             AppFocus.unfocus(e.context);
@@ -368,5 +432,13 @@ class LocationDetailsBloc
       orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
     );
     return selectedFacilityType.id.toString();
+  }
+
+  String getSelectedLocationBrandId() {
+    final selecteLocationBrand = state.locationBrandList.firstWhere(
+      (brand) => brand.name == state.locationBrand.getValue(),
+      orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
+    );
+    return selecteLocationBrand.id.toString();
   }
 }

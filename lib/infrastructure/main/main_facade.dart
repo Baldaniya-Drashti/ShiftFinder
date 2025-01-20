@@ -196,6 +196,38 @@ class MainFacade implements IMainFacade {
   }
 
   @override
+  Future<Either<MainFailure, List<SkillDTO>>> getScriptVolumeListApi() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.accomdationHourList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        print("Accomdation List Response---> $list");
+        return right(list);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
       {required MultiShiftDTO shift}) async {
     List<Map<String, dynamic>> mapMultiDateToApiFormat() {

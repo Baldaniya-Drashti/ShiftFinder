@@ -32,10 +32,11 @@ class ContractorEarningView extends StatelessWidget {
                 SvgPicture.asset(SvgImageConstant.myEarning),
                 Gap(getSize(25)),
                 BaseText(
-                    text: StringConstant.earningsAndStatements,
-                    fontFamily: "Aclonica",
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400),
+                  text: StringConstant.earningsAndStatements,
+                  fontFamily: "Aclonica",
+                  fontSize: 22,
+                  fontWeight: FontWeight.w400,
+                ),
                 Gap(getSize(10)),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.8,

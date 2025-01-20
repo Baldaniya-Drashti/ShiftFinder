@@ -14,6 +14,7 @@ _$ExperienceDTOImpl _$$ExperienceDTOImplFromJson(Map<String, dynamic> json) =>
           ? null
           : CompleteProfileDataDto.fromJson(
               json['role'] as Map<String, dynamic>),
+      specialtie_lists_other: json['specialtie_lists_other'] as String?,
       experience_year: json['experience_year'] as String?,
       experience_month: json['experience_month'] as String?,
     );
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$ExperienceDTOImplToJson(_$ExperienceDTOImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'role': instance.role,
+      'specialtie_lists_other': instance.specialtie_lists_other,
       'experience_year': instance.experience_year,
       'experience_month': instance.experience_month,
     };

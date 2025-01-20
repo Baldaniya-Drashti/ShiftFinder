@@ -161,9 +161,7 @@ class BankListView extends StatelessWidget {
               color: Colors.transparent,
               padding: EdgeInsets.symmetric(
                   horizontal: getSize(5), vertical: getSize(10)),
-              child: SvgPicture.asset(
-                SvgImageConstant.editWithBg,
-              ),
+              child: SvgPicture.asset(SvgImageConstant.editWithBg),
             ),
           ),
           InkWell(

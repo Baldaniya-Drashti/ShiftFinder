@@ -185,7 +185,9 @@ class _SupportFormState extends State<_SupportForm> {
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          if (value.isEmpty) return StringConstant.typeHere;
+                          if (value.isEmpty) {
+                            return StringConstant.pleaseEnterSubject;
+                          }
 
                           return null;
                         },
@@ -255,28 +257,37 @@ class _SupportFormState extends State<_SupportForm> {
                   Gap(28),
                   CommonButton(
                     onPressed: () {
-                      if (_formKey.currentState?.validate() != true) return;
-                      final selectedLocation = context
-                          .read<SupportTicketBloc>()
-                          .state
-                          .selectedLocation;
-                      if (selectedLocation == null && role == 2) {
-                        showError(message: StringConstant.pleaseSelectLocation)
+                      if (_formKey.currentState?.validate() != true) {
+                        showError(
+                                message: StringConstant
+                                    .someDetailsAreMissingOrInvalidPleaseCheck)
                             .show(context);
                         return;
-                      }
+                      } else {
+                        final selectedLocation = context
+                            .read<SupportTicketBloc>()
+                            .state
+                            .selectedLocation;
+                        if (selectedLocation == null && role == 2) {
+                          showError(
+                                  message: StringConstant.pleaseSelectLocation)
+                              .show(context);
+                          return;
+                        }
 
-                      context.read<SupportTicketBloc>().add(
-                            SupportTicketEvent.onSubmit(
-                              name: _nameController.text.trim(),
-                              email: _emailAddressController.text.trim(),
-                              subject: _subjectController.text.trim(),
-                              description: _descriptionController.text.trim(),
-                              companyName: _companyNameController.text.trim(),
-                              phoneNumber: _mobileNumberController.text.trim(),
-                              context: context,
-                            ),
-                          );
+                        context.read<SupportTicketBloc>().add(
+                              SupportTicketEvent.onSubmit(
+                                name: _nameController.text.trim(),
+                                email: _emailAddressController.text.trim(),
+                                subject: _subjectController.text.trim(),
+                                description: _descriptionController.text.trim(),
+                                companyName: _companyNameController.text.trim(),
+                                phoneNumber:
+                                    _mobileNumberController.text.trim(),
+                                context: context,
+                              ),
+                            );
+                      }
                     },
                     buttonText: StringConstant.submit,
                   )

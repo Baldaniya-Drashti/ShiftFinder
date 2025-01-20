@@ -2,8 +2,10 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/domain/account/account.dart';
+import 'package:shift/infrastructure/core/contractor_complete_profile_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'current_user_dto.freezed.dart';
@@ -32,7 +34,10 @@ class CurrentUserDto with _$CurrentUserDto {
     @JsonKey(name: 'location') String? location,
     @JsonKey(name: 'referral_code') String? referralCode,
     @JsonKey(name: 'last_page') String? lastPage,
+    @JsonKey(name: 'complete_profile')
+    ContractorCompleteProfileDTO? complete_profile,
     @JsonKey(name: 'education') List<EducationDTO>? education,
+    @JsonKey(name: 'experience') List<ExperienceDTO>? experience,
     @JsonKey(name: 'reference') List<ReferenceDTO>? reference,
     @JsonKey(name: 'document') List<DocumentDTO>? document,
     @JsonKey(name: 'auth') AuthDto? authDto,
@@ -64,6 +69,8 @@ class CurrentUserDto with _$CurrentUserDto {
       document: document,
       auth: authDto?.toDomain(),
       your_referral_code: your_referral_code,
+      complete_profile: complete_profile,
+      experience: experience,
     );
   }
 
@@ -93,6 +100,8 @@ class CurrentUserDto with _$CurrentUserDto {
       document: account.document,
       authDto: account.auth != null ? AuthDto.fromDomain(account.auth!) : null,
       your_referral_code: account.your_referral_code,
+      complete_profile: account.complete_profile,
+      experience: account.experience,
     );
   }
   factory CurrentUserDto.fromJson(Map<String, dynamic> json) =>

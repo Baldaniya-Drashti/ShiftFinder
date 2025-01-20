@@ -27,8 +27,15 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       location: json['location'] as String?,
       referralCode: json['referral_code'] as String?,
       lastPage: json['last_page'] as String?,
+      complete_profile: json['complete_profile'] == null
+          ? null
+          : ContractorCompleteProfileDTO.fromJson(
+              json['complete_profile'] as Map<String, dynamic>),
       education: (json['education'] as List<dynamic>?)
           ?.map((e) => EducationDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      experience: (json['experience'] as List<dynamic>?)
+          ?.map((e) => ExperienceDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       reference: (json['reference'] as List<dynamic>?)
           ?.map((e) => ReferenceDTO.fromJson(e as Map<String, dynamic>))
@@ -64,7 +71,9 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'location': instance.location,
       'referral_code': instance.referralCode,
       'last_page': instance.lastPage,
+      'complete_profile': instance.complete_profile,
       'education': instance.education,
+      'experience': instance.experience,
       'reference': instance.reference,
       'document': instance.document,
       'auth': instance.authDto,

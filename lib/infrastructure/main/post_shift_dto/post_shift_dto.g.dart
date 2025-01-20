@@ -49,6 +49,9 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       vacancie_type: json['vacancie_type'] as String?,
       number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
       multi_date: json['multi_date'] as String?,
+      script_volume: (json['script_volume'] as num?)?.toInt(),
+      assistant_on_site: (json['assistant_on_site'] as num?)?.toInt(),
+      technician_on_site: (json['technician_on_site'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
@@ -93,4 +96,7 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'vacancie_type': instance.vacancie_type,
       'number_of_vacancie': instance.number_of_vacancie,
       'multi_date': instance.multi_date,
+      'script_volume': instance.script_volume,
+      'assistant_on_site': instance.assistant_on_site,
+      'technician_on_site': instance.technician_on_site,
     };

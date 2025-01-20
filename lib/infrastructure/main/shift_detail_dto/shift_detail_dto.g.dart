@@ -48,6 +48,9 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       recurrence_mode: json['recurrence_mode'] as String?,
       recurrence_id: (json['recurrence_id'] as num?)?.toInt(),
       days: json['days'] as String?,
+      script_volume: (json['script_volume'] as num?)?.toInt(),
+      assistant_on_site: (json['assistant_on_site'] as num?)?.toInt(),
+      technician_on_site: (json['technician_on_site'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
@@ -83,4 +86,7 @@ Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
       'recurrence_mode': instance.recurrence_mode,
       'recurrence_id': instance.recurrence_id,
       'days': instance.days,
+      'script_volume': instance.script_volume,
+      'assistant_on_site': instance.assistant_on_site,
+      'technician_on_site': instance.technician_on_site,
     };

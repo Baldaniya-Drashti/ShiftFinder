@@ -64,6 +64,9 @@ mixin _$PostShiftDTO {
   String? get vacancie_type => throw _privateConstructorUsedError;
   int? get number_of_vacancie => throw _privateConstructorUsedError;
   String? get multi_date => throw _privateConstructorUsedError;
+  int? get script_volume => throw _privateConstructorUsedError;
+  int? get assistant_on_site => throw _privateConstructorUsedError;
+  int? get technician_on_site => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -117,7 +120,10 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       String? shift_note,
       String? vacancie_type,
       int? number_of_vacancie,
-      String? multi_date});
+      String? multi_date,
+      int? script_volume,
+      int? assistant_on_site,
+      int? technician_on_site});
 }
 
 /// @nodoc
@@ -173,6 +179,9 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? vacancie_type = freezed,
     Object? number_of_vacancie = freezed,
     Object? multi_date = freezed,
+    Object? script_volume = freezed,
+    Object? assistant_on_site = freezed,
+    Object? technician_on_site = freezed,
   }) {
     return _then(_value.copyWith(
       update_status: freezed == update_status
@@ -335,6 +344,18 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
           ? _value.multi_date
           : multi_date // ignore: cast_nullable_to_non_nullable
               as String?,
+      script_volume: freezed == script_volume
+          ? _value.script_volume
+          : script_volume // ignore: cast_nullable_to_non_nullable
+              as int?,
+      assistant_on_site: freezed == assistant_on_site
+          ? _value.assistant_on_site
+          : assistant_on_site // ignore: cast_nullable_to_non_nullable
+              as int?,
+      technician_on_site: freezed == technician_on_site
+          ? _value.technician_on_site
+          : technician_on_site // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -387,7 +408,10 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
       String? shift_note,
       String? vacancie_type,
       int? number_of_vacancie,
-      String? multi_date});
+      String? multi_date,
+      int? script_volume,
+      int? assistant_on_site,
+      int? technician_on_site});
 }
 
 /// @nodoc
@@ -441,6 +465,9 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? vacancie_type = freezed,
     Object? number_of_vacancie = freezed,
     Object? multi_date = freezed,
+    Object? script_volume = freezed,
+    Object? assistant_on_site = freezed,
+    Object? technician_on_site = freezed,
   }) {
     return _then(_$PostShiftDTOImpl(
       update_status: freezed == update_status
@@ -603,6 +630,18 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
           ? _value.multi_date
           : multi_date // ignore: cast_nullable_to_non_nullable
               as String?,
+      script_volume: freezed == script_volume
+          ? _value.script_volume
+          : script_volume // ignore: cast_nullable_to_non_nullable
+              as int?,
+      assistant_on_site: freezed == assistant_on_site
+          ? _value.assistant_on_site
+          : assistant_on_site // ignore: cast_nullable_to_non_nullable
+              as int?,
+      technician_on_site: freezed == technician_on_site
+          ? _value.technician_on_site
+          : technician_on_site // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -650,7 +689,10 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
       this.shift_note,
       this.vacancie_type,
       this.number_of_vacancie,
-      this.multi_date});
+      this.multi_date,
+      this.script_volume,
+      this.assistant_on_site,
+      this.technician_on_site});
 
   factory _$PostShiftDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostShiftDTOImplFromJson(json);
@@ -739,10 +781,16 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   final int? number_of_vacancie;
   @override
   final String? multi_date;
+  @override
+  final int? script_volume;
+  @override
+  final int? assistant_on_site;
+  @override
+  final int? technician_on_site;
 
   @override
   String toString() {
-    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date)';
+    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date, script_volume: $script_volume, assistant_on_site: $assistant_on_site, technician_on_site: $technician_on_site)';
   }
 
   @override
@@ -815,7 +863,10 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
             (identical(other.shift_note, shift_note) || other.shift_note == shift_note) &&
             (identical(other.vacancie_type, vacancie_type) || other.vacancie_type == vacancie_type) &&
             (identical(other.number_of_vacancie, number_of_vacancie) || other.number_of_vacancie == number_of_vacancie) &&
-            (identical(other.multi_date, multi_date) || other.multi_date == multi_date));
+            (identical(other.multi_date, multi_date) || other.multi_date == multi_date) &&
+            (identical(other.script_volume, script_volume) || other.script_volume == script_volume) &&
+            (identical(other.assistant_on_site, assistant_on_site) || other.assistant_on_site == assistant_on_site) &&
+            (identical(other.technician_on_site, technician_on_site) || other.technician_on_site == technician_on_site));
   }
 
   @JsonKey(ignore: true)
@@ -861,7 +912,10 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         shift_note,
         vacancie_type,
         number_of_vacancie,
-        multi_date
+        multi_date,
+        script_volume,
+        assistant_on_site,
+        technician_on_site
       ]);
 
   @JsonKey(ignore: true)
@@ -919,7 +973,10 @@ abstract class _PostShiftDTO implements PostShiftDTO {
       final String? shift_note,
       final String? vacancie_type,
       final int? number_of_vacancie,
-      final String? multi_date}) = _$PostShiftDTOImpl;
+      final String? multi_date,
+      final int? script_volume,
+      final int? assistant_on_site,
+      final int? technician_on_site}) = _$PostShiftDTOImpl;
 
   factory _PostShiftDTO.fromJson(Map<String, dynamic> json) =
       _$PostShiftDTOImpl.fromJson;
@@ -1007,6 +1064,12 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   int? get number_of_vacancie;
   @override
   String? get multi_date;
+  @override
+  int? get script_volume;
+  @override
+  int? get assistant_on_site;
+  @override
+  int? get technician_on_site;
   @override
   @JsonKey(ignore: true)
   _$$PostShiftDTOImplCopyWith<_$PostShiftDTOImpl> get copyWith =>

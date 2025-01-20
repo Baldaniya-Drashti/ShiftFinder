@@ -77,8 +77,11 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -138,7 +141,10 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -197,7 +203,10 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -268,7 +277,11 @@ mixin _$PostShiftEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -325,7 +338,10 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -382,7 +398,10 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -589,8 +608,11 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return changeShiftType(shiftType, postId, post, updateShift);
   }
@@ -653,7 +675,10 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return changeShiftType?.call(shiftType, postId, post, updateShift);
   }
@@ -715,7 +740,10 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
@@ -792,7 +820,11 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return changeShiftType(this);
   }
@@ -852,7 +884,10 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return changeShiftType?.call(this);
   }
@@ -912,7 +947,10 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
@@ -1078,8 +1116,11 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return getBreakAllownceListApi(updateShift);
   }
@@ -1142,7 +1183,10 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return getBreakAllownceListApi?.call(updateShift);
   }
@@ -1204,7 +1248,10 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
@@ -1281,7 +1328,11 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return getBreakAllownceListApi(this);
   }
@@ -1341,7 +1392,10 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return getBreakAllownceListApi?.call(this);
   }
@@ -1401,7 +1455,10 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
@@ -1549,8 +1606,11 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return singleShiftDateChangedEvent(selectedDate);
   }
@@ -1613,7 +1673,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return singleShiftDateChangedEvent?.call(selectedDate);
   }
@@ -1675,7 +1738,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftDateChangedEvent != null) {
@@ -1752,7 +1818,11 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return singleShiftDateChangedEvent(this);
   }
@@ -1812,7 +1882,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return singleShiftDateChangedEvent?.call(this);
   }
@@ -1872,7 +1945,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftDateChangedEvent != null) {
@@ -2016,8 +2092,11 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return startHourChanged(hour);
   }
@@ -2080,7 +2159,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return startHourChanged?.call(hour);
   }
@@ -2142,7 +2224,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startHourChanged != null) {
@@ -2219,7 +2304,11 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return startHourChanged(this);
   }
@@ -2279,7 +2368,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return startHourChanged?.call(this);
   }
@@ -2339,7 +2431,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startHourChanged != null) {
@@ -2482,8 +2577,11 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return startMinuteChanged(minute);
   }
@@ -2546,7 +2644,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return startMinuteChanged?.call(minute);
   }
@@ -2608,7 +2709,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startMinuteChanged != null) {
@@ -2685,7 +2789,11 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return startMinuteChanged(this);
   }
@@ -2745,7 +2853,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return startMinuteChanged?.call(this);
   }
@@ -2805,7 +2916,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startMinuteChanged != null) {
@@ -2949,8 +3063,11 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return endHourChanged(hour);
   }
@@ -3013,7 +3130,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return endHourChanged?.call(hour);
   }
@@ -3075,7 +3195,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endHourChanged != null) {
@@ -3152,7 +3275,11 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return endHourChanged(this);
   }
@@ -3212,7 +3339,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return endHourChanged?.call(this);
   }
@@ -3272,7 +3402,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endHourChanged != null) {
@@ -3415,8 +3548,11 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return endMinuteChanged(minute);
   }
@@ -3479,7 +3615,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return endMinuteChanged?.call(minute);
   }
@@ -3541,7 +3680,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endMinuteChanged != null) {
@@ -3618,7 +3760,11 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return endMinuteChanged(this);
   }
@@ -3678,7 +3824,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return endMinuteChanged?.call(this);
   }
@@ -3738,7 +3887,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endMinuteChanged != null) {
@@ -3882,8 +4034,11 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return unpaidBreakChanged(breakTime);
   }
@@ -3946,7 +4101,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return unpaidBreakChanged?.call(breakTime);
   }
@@ -4008,7 +4166,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (unpaidBreakChanged != null) {
@@ -4085,7 +4246,11 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return unpaidBreakChanged(this);
   }
@@ -4145,7 +4310,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return unpaidBreakChanged?.call(this);
   }
@@ -4205,7 +4373,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (unpaidBreakChanged != null) {
@@ -4325,8 +4496,11 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return totalPayableHoursChanged();
   }
@@ -4389,7 +4563,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return totalPayableHoursChanged?.call();
   }
@@ -4451,7 +4628,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (totalPayableHoursChanged != null) {
@@ -4528,7 +4708,11 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return totalPayableHoursChanged(this);
   }
@@ -4588,7 +4772,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return totalPayableHoursChanged?.call(this);
   }
@@ -4648,7 +4835,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (totalPayableHoursChanged != null) {
@@ -4789,8 +4979,11 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return commuteAllownceChanged(selectedValue);
   }
@@ -4853,7 +5046,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return commuteAllownceChanged?.call(selectedValue);
   }
@@ -4915,7 +5111,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteAllownceChanged != null) {
@@ -4992,7 +5191,11 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return commuteAllownceChanged(this);
   }
@@ -5052,7 +5255,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return commuteAllownceChanged?.call(this);
   }
@@ -5112,7 +5318,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteAllownceChanged != null) {
@@ -5257,8 +5466,11 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return commuteHoursChanged(selectedValue);
   }
@@ -5321,7 +5533,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return commuteHoursChanged?.call(selectedValue);
   }
@@ -5383,7 +5598,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteHoursChanged != null) {
@@ -5460,7 +5678,11 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return commuteHoursChanged(this);
   }
@@ -5520,7 +5742,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return commuteHoursChanged?.call(this);
   }
@@ -5580,7 +5805,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteHoursChanged != null) {
@@ -5725,8 +5953,11 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return commuteRateChanged(selectedValue);
   }
@@ -5789,7 +6020,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return commuteRateChanged?.call(selectedValue);
   }
@@ -5851,7 +6085,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteRateChanged != null) {
@@ -5928,7 +6165,11 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return commuteRateChanged(this);
   }
@@ -5988,7 +6229,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return commuteRateChanged?.call(this);
   }
@@ -6048,7 +6292,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (commuteRateChanged != null) {
@@ -6195,8 +6442,11 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return accomdationAllownceChanged(selectedValue);
   }
@@ -6259,7 +6509,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return accomdationAllownceChanged?.call(selectedValue);
   }
@@ -6321,7 +6574,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationAllownceChanged != null) {
@@ -6398,7 +6654,11 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return accomdationAllownceChanged(this);
   }
@@ -6458,7 +6718,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return accomdationAllownceChanged?.call(this);
   }
@@ -6518,7 +6781,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationAllownceChanged != null) {
@@ -6665,8 +6931,11 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return accomdationHoursChanged(selectedValue);
   }
@@ -6729,7 +6998,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return accomdationHoursChanged?.call(selectedValue);
   }
@@ -6791,7 +7063,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationHoursChanged != null) {
@@ -6868,7 +7143,11 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return accomdationHoursChanged(this);
   }
@@ -6928,7 +7207,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return accomdationHoursChanged?.call(this);
   }
@@ -6988,7 +7270,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationHoursChanged != null) {
@@ -7135,8 +7420,11 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return accomdationRateChanged(selectedValue);
   }
@@ -7199,7 +7487,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return accomdationRateChanged?.call(selectedValue);
   }
@@ -7261,7 +7552,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationRateChanged != null) {
@@ -7338,7 +7632,11 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return accomdationRateChanged(this);
   }
@@ -7398,7 +7696,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return accomdationRateChanged?.call(this);
   }
@@ -7458,7 +7759,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (accomdationRateChanged != null) {
@@ -7602,8 +7906,11 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return singleShiftNotesChanged(note);
   }
@@ -7666,7 +7973,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return singleShiftNotesChanged?.call(note);
   }
@@ -7728,7 +8038,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftNotesChanged != null) {
@@ -7805,7 +8118,11 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return singleShiftNotesChanged(this);
   }
@@ -7865,7 +8182,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return singleShiftNotesChanged?.call(this);
   }
@@ -7925,7 +8245,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftNotesChanged != null) {
@@ -8069,8 +8392,11 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return checkIsMoreVancancy(isMoreVacancy);
   }
@@ -8133,7 +8459,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return checkIsMoreVancancy?.call(isMoreVacancy);
   }
@@ -8195,7 +8524,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (checkIsMoreVancancy != null) {
@@ -8272,7 +8604,11 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return checkIsMoreVancancy(this);
   }
@@ -8332,7 +8668,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return checkIsMoreVancancy?.call(this);
   }
@@ -8392,7 +8731,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (checkIsMoreVancancy != null) {
@@ -8536,8 +8878,11 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return addVacancyChanged(vacancy);
   }
@@ -8600,7 +8945,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return addVacancyChanged?.call(vacancy);
   }
@@ -8662,7 +9010,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (addVacancyChanged != null) {
@@ -8739,7 +9090,11 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return addVacancyChanged(this);
   }
@@ -8799,7 +9154,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return addVacancyChanged?.call(this);
   }
@@ -8859,7 +9217,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (addVacancyChanged != null) {
@@ -9004,8 +9365,11 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return singleShiftSubmitted(context);
   }
@@ -9068,7 +9432,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return singleShiftSubmitted?.call(context);
   }
@@ -9130,7 +9497,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftSubmitted != null) {
@@ -9207,7 +9577,11 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return singleShiftSubmitted(this);
   }
@@ -9267,7 +9641,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return singleShiftSubmitted?.call(this);
   }
@@ -9327,7 +9704,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (singleShiftSubmitted != null) {
@@ -9502,8 +9882,11 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return getTeamsListEvent(post, updateShift);
   }
@@ -9566,7 +9949,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return getTeamsListEvent?.call(post, updateShift);
   }
@@ -9628,7 +10014,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (getTeamsListEvent != null) {
@@ -9705,7 +10094,11 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return getTeamsListEvent(this);
   }
@@ -9765,7 +10158,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return getTeamsListEvent?.call(this);
   }
@@ -9825,7 +10221,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (getTeamsListEvent != null) {
@@ -9971,8 +10370,11 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurringCheck(isCheck);
   }
@@ -10035,7 +10437,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurringCheck?.call(isCheck);
   }
@@ -10097,7 +10502,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringCheck != null) {
@@ -10174,7 +10582,11 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurringCheck(this);
   }
@@ -10234,7 +10646,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurringCheck?.call(this);
   }
@@ -10294,7 +10709,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringCheck != null) {
@@ -10437,8 +10855,11 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return shareWithTeamsCheck(isCheck);
   }
@@ -10501,7 +10922,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return shareWithTeamsCheck?.call(isCheck);
   }
@@ -10563,7 +10987,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (shareWithTeamsCheck != null) {
@@ -10640,7 +11067,11 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return shareWithTeamsCheck(this);
   }
@@ -10700,7 +11131,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return shareWithTeamsCheck?.call(this);
   }
@@ -10760,7 +11194,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (shareWithTeamsCheck != null) {
@@ -10904,8 +11341,11 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return saveAsTemplateCheck(isCheck);
   }
@@ -10968,7 +11408,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return saveAsTemplateCheck?.call(isCheck);
   }
@@ -11030,7 +11473,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (saveAsTemplateCheck != null) {
@@ -11107,7 +11553,11 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return saveAsTemplateCheck(this);
   }
@@ -11167,7 +11617,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return saveAsTemplateCheck?.call(this);
   }
@@ -11227,7 +11680,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (saveAsTemplateCheck != null) {
@@ -11371,8 +11827,11 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return disclaimerChanged(note);
   }
@@ -11435,7 +11894,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return disclaimerChanged?.call(note);
   }
@@ -11497,7 +11959,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (disclaimerChanged != null) {
@@ -11574,7 +12039,11 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return disclaimerChanged(this);
   }
@@ -11634,7 +12103,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return disclaimerChanged?.call(this);
   }
@@ -11694,7 +12166,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (disclaimerChanged != null) {
@@ -11840,8 +12315,11 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurringStartDateChanged(selectedDate);
   }
@@ -11904,7 +12382,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurringStartDateChanged?.call(selectedDate);
   }
@@ -11966,7 +12447,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringStartDateChanged != null) {
@@ -12043,7 +12527,11 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurringStartDateChanged(this);
   }
@@ -12103,7 +12591,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurringStartDateChanged?.call(this);
   }
@@ -12163,7 +12654,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringStartDateChanged != null) {
@@ -12316,8 +12810,11 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurrenceModeChanged(mode, context);
   }
@@ -12380,7 +12877,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurrenceModeChanged?.call(mode, context);
   }
@@ -12442,7 +12942,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
@@ -12519,7 +13022,11 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurrenceModeChanged(this);
   }
@@ -12579,7 +13086,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurrenceModeChanged?.call(this);
   }
@@ -12639,7 +13149,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
@@ -12797,8 +13310,11 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurrenceWeeksChanged(day);
   }
@@ -12861,7 +13377,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurrenceWeeksChanged?.call(day);
   }
@@ -12923,7 +13442,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurrenceWeeksChanged != null) {
@@ -13000,7 +13522,11 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurrenceWeeksChanged(this);
   }
@@ -13060,7 +13586,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurrenceWeeksChanged?.call(this);
   }
@@ -13120,7 +13649,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurrenceWeeksChanged != null) {
@@ -13267,8 +13799,11 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurringEndDateChanged(selectedDate);
   }
@@ -13331,7 +13866,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurringEndDateChanged?.call(selectedDate);
   }
@@ -13393,7 +13931,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringEndDateChanged != null) {
@@ -13470,7 +14011,11 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurringEndDateChanged(this);
   }
@@ -13530,7 +14075,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurringEndDateChanged?.call(this);
   }
@@ -13590,7 +14138,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringEndDateChanged != null) {
@@ -13744,8 +14295,11 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return selectTeamEvent(team);
   }
@@ -13808,7 +14362,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return selectTeamEvent?.call(team);
   }
@@ -13870,7 +14427,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (selectTeamEvent != null) {
@@ -13947,7 +14507,11 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return selectTeamEvent(this);
   }
@@ -14007,7 +14571,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return selectTeamEvent?.call(this);
   }
@@ -14067,7 +14634,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (selectTeamEvent != null) {
@@ -14220,8 +14790,11 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return recurringButtonEvent(context, postShiftId);
   }
@@ -14284,7 +14857,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return recurringButtonEvent?.call(context, postShiftId);
   }
@@ -14346,7 +14922,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
@@ -14423,7 +15002,11 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return recurringButtonEvent(this);
   }
@@ -14483,7 +15066,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return recurringButtonEvent?.call(this);
   }
@@ -14543,7 +15129,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
@@ -14691,8 +15280,11 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return checkIsIndividualPost(isIndividualPost);
   }
@@ -14755,7 +15347,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return checkIsIndividualPost?.call(isIndividualPost);
   }
@@ -14817,7 +15412,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (checkIsIndividualPost != null) {
@@ -14894,7 +15492,11 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return checkIsIndividualPost(this);
   }
@@ -14954,7 +15556,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return checkIsIndividualPost?.call(this);
   }
@@ -15014,7 +15619,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (checkIsIndividualPost != null) {
@@ -15168,8 +15776,11 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return multiDateSelectionChanged(selectedDates);
   }
@@ -15232,7 +15843,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return multiDateSelectionChanged?.call(selectedDates);
   }
@@ -15294,7 +15908,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multiDateSelectionChanged != null) {
@@ -15371,7 +15988,11 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return multiDateSelectionChanged(this);
   }
@@ -15431,7 +16052,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return multiDateSelectionChanged?.call(this);
   }
@@ -15491,7 +16115,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multiDateSelectionChanged != null) {
@@ -15613,8 +16240,11 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return multidateContinueButtonPressed();
   }
@@ -15677,7 +16307,10 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return multidateContinueButtonPressed?.call();
   }
@@ -15739,7 +16372,10 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multidateContinueButtonPressed != null) {
@@ -15816,7 +16452,11 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return multidateContinueButtonPressed(this);
   }
@@ -15876,7 +16516,10 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return multidateContinueButtonPressed?.call(this);
   }
@@ -15936,7 +16579,10 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multidateContinueButtonPressed != null) {
@@ -16081,8 +16727,11 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return multiDateSameDiffTypeChanged(selectedType);
   }
@@ -16145,7 +16794,10 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return multiDateSameDiffTypeChanged?.call(selectedType);
   }
@@ -16207,7 +16859,10 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multiDateSameDiffTypeChanged != null) {
@@ -16284,7 +16939,11 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return multiDateSameDiffTypeChanged(this);
   }
@@ -16344,7 +17003,10 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return multiDateSameDiffTypeChanged?.call(this);
   }
@@ -16404,7 +17066,10 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (multiDateSameDiffTypeChanged != null) {
@@ -16568,8 +17233,11 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return unpaidBreakListChanged(breakTime, index, date);
   }
@@ -16632,7 +17300,10 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return unpaidBreakListChanged?.call(breakTime, index, date);
   }
@@ -16694,7 +17365,10 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (unpaidBreakListChanged != null) {
@@ -16771,7 +17445,11 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return unpaidBreakListChanged(this);
   }
@@ -16831,7 +17509,10 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return unpaidBreakListChanged?.call(this);
   }
@@ -16891,7 +17572,10 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (unpaidBreakListChanged != null) {
@@ -17014,8 +17698,11 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return payableHourListChanged();
   }
@@ -17078,7 +17765,10 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return payableHourListChanged?.call();
   }
@@ -17140,7 +17830,10 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (payableHourListChanged != null) {
@@ -17217,7 +17910,11 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return payableHourListChanged(this);
   }
@@ -17277,7 +17974,10 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return payableHourListChanged?.call(this);
   }
@@ -17337,7 +18037,10 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (payableHourListChanged != null) {
@@ -17492,8 +18195,11 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return startHourListChanged(hour, index, date);
   }
@@ -17556,7 +18262,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return startHourListChanged?.call(hour, index, date);
   }
@@ -17618,7 +18327,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startHourListChanged != null) {
@@ -17695,7 +18407,11 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return startHourListChanged(this);
   }
@@ -17755,7 +18471,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return startHourListChanged?.call(this);
   }
@@ -17815,7 +18534,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startHourListChanged != null) {
@@ -17980,8 +18702,11 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return startMinuteListChanged(minute, index, date);
   }
@@ -18044,7 +18769,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return startMinuteListChanged?.call(minute, index, date);
   }
@@ -18106,7 +18834,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startMinuteListChanged != null) {
@@ -18183,7 +18914,11 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return startMinuteListChanged(this);
   }
@@ -18243,7 +18978,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return startMinuteListChanged?.call(this);
   }
@@ -18303,7 +19041,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (startMinuteListChanged != null) {
@@ -18466,8 +19207,11 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return endHourListChanged(hour, index, date);
   }
@@ -18530,7 +19274,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return endHourListChanged?.call(hour, index, date);
   }
@@ -18592,7 +19339,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endHourListChanged != null) {
@@ -18669,7 +19419,11 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return endHourListChanged(this);
   }
@@ -18729,7 +19483,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return endHourListChanged?.call(this);
   }
@@ -18789,7 +19546,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endHourListChanged != null) {
@@ -18953,8 +19713,11 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return endMinuteListChanged(minute, index, date);
   }
@@ -19017,7 +19780,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return endMinuteListChanged?.call(minute, index, date);
   }
@@ -19079,7 +19845,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endMinuteListChanged != null) {
@@ -19156,7 +19925,11 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return endMinuteListChanged(this);
   }
@@ -19216,7 +19989,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return endMinuteListChanged?.call(this);
   }
@@ -19276,7 +20052,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (endMinuteListChanged != null) {
@@ -19445,8 +20224,11 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return differentTimeShiftSubmitted(shiftDetail, context);
   }
@@ -19509,7 +20291,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return differentTimeShiftSubmitted?.call(shiftDetail, context);
   }
@@ -19571,7 +20356,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (differentTimeShiftSubmitted != null) {
@@ -19648,7 +20436,11 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return differentTimeShiftSubmitted(this);
   }
@@ -19708,7 +20500,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return differentTimeShiftSubmitted?.call(this);
   }
@@ -19768,7 +20563,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (differentTimeShiftSubmitted != null) {
@@ -19969,8 +20767,11 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return initMultiDifferentDateEvent(list, post, updateShift);
   }
@@ -20033,7 +20834,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return initMultiDifferentDateEvent?.call(list, post, updateShift);
   }
@@ -20095,7 +20899,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
@@ -20172,7 +20979,11 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return initMultiDifferentDateEvent(this);
   }
@@ -20232,7 +21043,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return initMultiDifferentDateEvent?.call(this);
   }
@@ -20292,7 +21106,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
@@ -20413,8 +21230,11 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return backEvent();
   }
@@ -20477,7 +21297,10 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return backEvent?.call();
   }
@@ -20539,7 +21362,10 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (backEvent != null) {
@@ -20616,7 +21442,11 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return backEvent(this);
   }
@@ -20676,7 +21506,10 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return backEvent?.call(this);
   }
@@ -20736,7 +21569,10 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (backEvent != null) {
@@ -20876,8 +21712,11 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return sameTimeShiftSubmitted(context);
   }
@@ -20940,7 +21779,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return sameTimeShiftSubmitted?.call(context);
   }
@@ -21002,7 +21844,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (sameTimeShiftSubmitted != null) {
@@ -21079,7 +21924,11 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return sameTimeShiftSubmitted(this);
   }
@@ -21139,7 +21988,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return sameTimeShiftSubmitted?.call(this);
   }
@@ -21199,7 +22051,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (sameTimeShiftSubmitted != null) {
@@ -21216,6 +22071,979 @@ abstract class SameTimeShiftSubmitted implements PostShiftEvent {
   BuildContext get context;
   @JsonKey(ignore: true)
   _$$SameTimeShiftSubmittedImplCopyWith<_$SameTimeShiftSubmittedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AssitantOnSiteCheckImplCopyWith<$Res> {
+  factory _$$AssitantOnSiteCheckImplCopyWith(_$AssitantOnSiteCheckImpl value,
+          $Res Function(_$AssitantOnSiteCheckImpl) then) =
+      __$$AssitantOnSiteCheckImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCheck});
+}
+
+/// @nodoc
+class __$$AssitantOnSiteCheckImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$AssitantOnSiteCheckImpl>
+    implements _$$AssitantOnSiteCheckImplCopyWith<$Res> {
+  __$$AssitantOnSiteCheckImplCopyWithImpl(_$AssitantOnSiteCheckImpl _value,
+      $Res Function(_$AssitantOnSiteCheckImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCheck = null,
+  }) {
+    return _then(_$AssitantOnSiteCheckImpl(
+      null == isCheck
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
+  const _$AssitantOnSiteCheckImpl(this.isCheck);
+
+  @override
+  final bool isCheck;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.assitantOnSiteCheck(isCheck: $isCheck)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AssitantOnSiteCheckImpl &&
+            (identical(other.isCheck, isCheck) || other.isCheck == isCheck));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCheck);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AssitantOnSiteCheckImplCopyWith<_$AssitantOnSiteCheckImpl> get copyWith =>
+      __$$AssitantOnSiteCheckImplCopyWithImpl<_$AssitantOnSiteCheckImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
+        changeShiftType,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
+        getTeamsListEvent,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(TeamDTO team) selectTeamEvent,
+    required TResult Function(BuildContext context, int postShiftId)
+        recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+        differentTimeShiftSubmitted,
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
+        initMultiDifferentDateEvent,
+    required TResult Function() backEvent,
+    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
+  }) {
+    return assitantOnSiteCheck(isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(TeamDTO team)? selectTeamEvent,
+    TResult? Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult? Function()? backEvent,
+    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
+  }) {
+    return assitantOnSiteCheck?.call(isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(TeamDTO team)? selectTeamEvent,
+    TResult Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult Function()? backEvent,
+    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (assitantOnSiteCheck != null) {
+      return assitantOnSiteCheck(isCheck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(SingleShiftSubmitted value) singleShiftSubmitted,
+    required TResult Function(GetTeamsList value) getTeamsListEvent,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(DifferentTimeShiftSubmitted value)
+        differentTimeShiftSubmitted,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+    required TResult Function(BackEvent value) backEvent,
+    required TResult Function(SameTimeShiftSubmitted value)
+        sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
+    required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
+  }) {
+    return assitantOnSiteCheck(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult? Function(GetTeamsList value)? getTeamsListEvent,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult? Function(BackEvent value)? backEvent,
+    TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+  }) {
+    return assitantOnSiteCheck?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult Function(GetTeamsList value)? getTeamsListEvent,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult Function(BackEvent value)? backEvent,
+    TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (assitantOnSiteCheck != null) {
+      return assitantOnSiteCheck(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AssitantOnSiteCheck implements PostShiftEvent {
+  const factory AssitantOnSiteCheck(final bool isCheck) =
+      _$AssitantOnSiteCheckImpl;
+
+  bool get isCheck;
+  @JsonKey(ignore: true)
+  _$$AssitantOnSiteCheckImplCopyWith<_$AssitantOnSiteCheckImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TechnicianOnSiteCheckImplCopyWith<$Res> {
+  factory _$$TechnicianOnSiteCheckImplCopyWith(
+          _$TechnicianOnSiteCheckImpl value,
+          $Res Function(_$TechnicianOnSiteCheckImpl) then) =
+      __$$TechnicianOnSiteCheckImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isCheck});
+}
+
+/// @nodoc
+class __$$TechnicianOnSiteCheckImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$TechnicianOnSiteCheckImpl>
+    implements _$$TechnicianOnSiteCheckImplCopyWith<$Res> {
+  __$$TechnicianOnSiteCheckImplCopyWithImpl(_$TechnicianOnSiteCheckImpl _value,
+      $Res Function(_$TechnicianOnSiteCheckImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isCheck = null,
+  }) {
+    return _then(_$TechnicianOnSiteCheckImpl(
+      null == isCheck
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
+  const _$TechnicianOnSiteCheckImpl(this.isCheck);
+
+  @override
+  final bool isCheck;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.technicianOnSiteCheck(isCheck: $isCheck)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TechnicianOnSiteCheckImpl &&
+            (identical(other.isCheck, isCheck) || other.isCheck == isCheck));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isCheck);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TechnicianOnSiteCheckImplCopyWith<_$TechnicianOnSiteCheckImpl>
+      get copyWith => __$$TechnicianOnSiteCheckImplCopyWithImpl<
+          _$TechnicianOnSiteCheckImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
+        changeShiftType,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
+        getTeamsListEvent,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(TeamDTO team) selectTeamEvent,
+    required TResult Function(BuildContext context, int postShiftId)
+        recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+        differentTimeShiftSubmitted,
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
+        initMultiDifferentDateEvent,
+    required TResult Function() backEvent,
+    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
+  }) {
+    return technicianOnSiteCheck(isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(TeamDTO team)? selectTeamEvent,
+    TResult? Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult? Function()? backEvent,
+    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
+  }) {
+    return technicianOnSiteCheck?.call(isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(TeamDTO team)? selectTeamEvent,
+    TResult Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult Function()? backEvent,
+    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (technicianOnSiteCheck != null) {
+      return technicianOnSiteCheck(isCheck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(SingleShiftSubmitted value) singleShiftSubmitted,
+    required TResult Function(GetTeamsList value) getTeamsListEvent,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(DifferentTimeShiftSubmitted value)
+        differentTimeShiftSubmitted,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+    required TResult Function(BackEvent value) backEvent,
+    required TResult Function(SameTimeShiftSubmitted value)
+        sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
+    required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
+  }) {
+    return technicianOnSiteCheck(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult? Function(GetTeamsList value)? getTeamsListEvent,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult? Function(BackEvent value)? backEvent,
+    TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+  }) {
+    return technicianOnSiteCheck?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult Function(GetTeamsList value)? getTeamsListEvent,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult Function(BackEvent value)? backEvent,
+    TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (technicianOnSiteCheck != null) {
+      return technicianOnSiteCheck(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TechnicianOnSiteCheck implements PostShiftEvent {
+  const factory TechnicianOnSiteCheck(final bool isCheck) =
+      _$TechnicianOnSiteCheckImpl;
+
+  bool get isCheck;
+  @JsonKey(ignore: true)
+  _$$TechnicianOnSiteCheckImplCopyWith<_$TechnicianOnSiteCheckImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -21366,8 +23194,11 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
     return postTheShiftEvent(postId, updatedPost);
   }
@@ -21430,7 +23261,10 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
     return postTheShiftEvent?.call(postId, updatedPost);
   }
@@ -21492,7 +23326,10 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (postTheShiftEvent != null) {
@@ -21569,7 +23406,11 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     required TResult Function(BackEvent value) backEvent,
     required TResult Function(SameTimeShiftSubmitted value)
         sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
     required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
   }) {
     return postTheShiftEvent(this);
   }
@@ -21629,7 +23470,10 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function(BackEvent value)? backEvent,
     TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
   }) {
     return postTheShiftEvent?.call(this);
   }
@@ -21689,7 +23533,10 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function(BackEvent value)? backEvent,
     TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
     TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
     required TResult orElse(),
   }) {
     if (postTheShiftEvent != null) {
@@ -21708,6 +23555,493 @@ abstract class PostTheShiftEvent implements PostShiftEvent {
   PostShiftDTO? get updatedPost;
   @JsonKey(ignore: true)
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ScriptVolumeChangedImplCopyWith<$Res> {
+  factory _$$ScriptVolumeChangedImplCopyWith(_$ScriptVolumeChangedImpl value,
+          $Res Function(_$ScriptVolumeChangedImpl) then) =
+      __$$ScriptVolumeChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String scriptVolume});
+}
+
+/// @nodoc
+class __$$ScriptVolumeChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$ScriptVolumeChangedImpl>
+    implements _$$ScriptVolumeChangedImplCopyWith<$Res> {
+  __$$ScriptVolumeChangedImplCopyWithImpl(_$ScriptVolumeChangedImpl _value,
+      $Res Function(_$ScriptVolumeChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? scriptVolume = null,
+  }) {
+    return _then(_$ScriptVolumeChangedImpl(
+      null == scriptVolume
+          ? _value.scriptVolume
+          : scriptVolume // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
+  const _$ScriptVolumeChangedImpl(this.scriptVolume);
+
+  @override
+  final String scriptVolume;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.scriptVolumeChanged(scriptVolume: $scriptVolume)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ScriptVolumeChangedImpl &&
+            (identical(other.scriptVolume, scriptVolume) ||
+                other.scriptVolume == scriptVolume));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, scriptVolume);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ScriptVolumeChangedImplCopyWith<_$ScriptVolumeChangedImpl> get copyWith =>
+      __$$ScriptVolumeChangedImplCopyWithImpl<_$ScriptVolumeChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
+        changeShiftType,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
+        getTeamsListEvent,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(TeamDTO team) selectTeamEvent,
+    required TResult Function(BuildContext context, int postShiftId)
+        recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+        differentTimeShiftSubmitted,
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
+        initMultiDifferentDateEvent,
+    required TResult Function() backEvent,
+    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(bool isCheck) assitantOnSiteCheck,
+    required TResult Function(bool isCheck) technicianOnSiteCheck,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
+    required TResult Function(String scriptVolume) scriptVolumeChanged,
+  }) {
+    return scriptVolumeChanged(scriptVolume);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(TeamDTO team)? selectTeamEvent,
+    TResult? Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult? Function()? backEvent,
+    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(bool isCheck)? assitantOnSiteCheck,
+    TResult? Function(bool isCheck)? technicianOnSiteCheck,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult? Function(String scriptVolume)? scriptVolumeChanged,
+  }) {
+    return scriptVolumeChanged?.call(scriptVolume);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(TeamDTO team)? selectTeamEvent,
+    TResult Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult Function()? backEvent,
+    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(bool isCheck)? assitantOnSiteCheck,
+    TResult Function(bool isCheck)? technicianOnSiteCheck,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
+    TResult Function(String scriptVolume)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (scriptVolumeChanged != null) {
+      return scriptVolumeChanged(scriptVolume);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(SingleShiftSubmitted value) singleShiftSubmitted,
+    required TResult Function(GetTeamsList value) getTeamsListEvent,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(DifferentTimeShiftSubmitted value)
+        differentTimeShiftSubmitted,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+    required TResult Function(BackEvent value) backEvent,
+    required TResult Function(SameTimeShiftSubmitted value)
+        sameTimeShiftSubmitted,
+    required TResult Function(AssitantOnSiteCheck value) assitantOnSiteCheck,
+    required TResult Function(TechnicianOnSiteCheck value)
+        technicianOnSiteCheck,
+    required TResult Function(PostTheShiftEvent value) postTheShiftEvent,
+    required TResult Function(ScriptVolumeChanged value) scriptVolumeChanged,
+  }) {
+    return scriptVolumeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult? Function(GetTeamsList value)? getTeamsListEvent,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult? Function(BackEvent value)? backEvent,
+    TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult? Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult? Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult? Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+  }) {
+    return scriptVolumeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult Function(GetTeamsList value)? getTeamsListEvent,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult Function(BackEvent value)? backEvent,
+    TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(AssitantOnSiteCheck value)? assitantOnSiteCheck,
+    TResult Function(TechnicianOnSiteCheck value)? technicianOnSiteCheck,
+    TResult Function(PostTheShiftEvent value)? postTheShiftEvent,
+    TResult Function(ScriptVolumeChanged value)? scriptVolumeChanged,
+    required TResult orElse(),
+  }) {
+    if (scriptVolumeChanged != null) {
+      return scriptVolumeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ScriptVolumeChanged implements PostShiftEvent {
+  const factory ScriptVolumeChanged(final String scriptVolume) =
+      _$ScriptVolumeChangedImpl;
+
+  String get scriptVolume;
+  @JsonKey(ignore: true)
+  _$$ScriptVolumeChangedImplCopyWith<_$ScriptVolumeChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -21785,6 +24119,10 @@ mixin _$PostShiftState {
   /// Post the Shift
   Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
+  InputEmptyOrNot get scriptVolume => throw _privateConstructorUsedError;
+  List<SkillDTO> get scriptVolumeList => throw _privateConstructorUsedError;
+  bool get isAssistantOnSite => throw _privateConstructorUsedError;
+  bool get isTechnicianOnSite => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostShiftStateCopyWith<PostShiftState> get copyWith =>
@@ -21851,7 +24189,11 @@ abstract class $PostShiftStateCopyWith<$Res> {
       bool isDifferentDateDataValid,
       Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
-      Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption});
+      Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
+      InputEmptyOrNot scriptVolume,
+      List<SkillDTO> scriptVolumeList,
+      bool isAssistantOnSite,
+      bool isTechnicianOnSite});
 
   $HealthcarePostDTOCopyWith<$Res> get updateShift;
   $PostShiftDTOCopyWith<$Res> get post;
@@ -21920,6 +24262,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? isDifferentDateDataValid = null,
     Object? differentDateFailureOrSuccessOption = null,
     Object? postShiftFailureOrSuccessOption = null,
+    Object? scriptVolume = null,
+    Object? scriptVolumeList = null,
+    Object? isAssistantOnSite = null,
+    Object? isTechnicianOnSite = null,
   }) {
     return _then(_value.copyWith(
       updateShift: null == updateShift
@@ -22124,6 +24470,22 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.postShiftFailureOrSuccessOption
           : postShiftFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, String>>,
+      scriptVolume: null == scriptVolume
+          ? _value.scriptVolume
+          : scriptVolume // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      scriptVolumeList: null == scriptVolumeList
+          ? _value.scriptVolumeList
+          : scriptVolumeList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      isAssistantOnSite: null == isAssistantOnSite
+          ? _value.isAssistantOnSite
+          : isAssistantOnSite // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTechnicianOnSite: null == isTechnicianOnSite
+          ? _value.isTechnicianOnSite
+          : isTechnicianOnSite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -22206,7 +24568,11 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       bool isDifferentDateDataValid,
       Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
-      Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption});
+      Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
+      InputEmptyOrNot scriptVolume,
+      List<SkillDTO> scriptVolumeList,
+      bool isAssistantOnSite,
+      bool isTechnicianOnSite});
 
   @override
   $HealthcarePostDTOCopyWith<$Res> get updateShift;
@@ -22275,6 +24641,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? isDifferentDateDataValid = null,
     Object? differentDateFailureOrSuccessOption = null,
     Object? postShiftFailureOrSuccessOption = null,
+    Object? scriptVolume = null,
+    Object? scriptVolumeList = null,
+    Object? isAssistantOnSite = null,
+    Object? isTechnicianOnSite = null,
   }) {
     return _then(_$PostShiftStateImpl(
       updateShift: null == updateShift
@@ -22479,6 +24849,22 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.postShiftFailureOrSuccessOption
           : postShiftFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, String>>,
+      scriptVolume: null == scriptVolume
+          ? _value.scriptVolume
+          : scriptVolume // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      scriptVolumeList: null == scriptVolumeList
+          ? _value._scriptVolumeList
+          : scriptVolumeList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      isAssistantOnSite: null == isAssistantOnSite
+          ? _value.isAssistantOnSite
+          : isAssistantOnSite // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTechnicianOnSite: null == isTechnicianOnSite
+          ? _value.isTechnicianOnSite
+          : isTechnicianOnSite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -22536,7 +24922,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
       required final List<DateTimeDTO> multiDateTimeList,
       required this.isDifferentDateDataValid,
       required this.differentDateFailureOrSuccessOption,
-      required this.postShiftFailureOrSuccessOption})
+      required this.postShiftFailureOrSuccessOption,
+      required this.scriptVolume,
+      required final List<SkillDTO> scriptVolumeList,
+      required this.isAssistantOnSite,
+      required this.isTechnicianOnSite})
       : _breakList = breakList,
         _accomdationHoursList = accomdationHoursList,
         _teamList = teamList,
@@ -22544,7 +24934,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
         _startMinuteList = startMinuteList,
         _endHourList = endHourList,
         _endMinuteList = endMinuteList,
-        _multiDateTimeList = multiDateTimeList;
+        _multiDateTimeList = multiDateTimeList,
+        _scriptVolumeList = scriptVolumeList;
 
   /// Change hift Type(Single, Multi,Long-Term)
   @override
@@ -22711,10 +25102,25 @@ class _$PostShiftStateImpl implements _PostShiftState {
   /// Post the Shift
   @override
   final Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption;
+  @override
+  final InputEmptyOrNot scriptVolume;
+  final List<SkillDTO> _scriptVolumeList;
+  @override
+  List<SkillDTO> get scriptVolumeList {
+    if (_scriptVolumeList is EqualUnmodifiableListView)
+      return _scriptVolumeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scriptVolumeList);
+  }
+
+  @override
+  final bool isAssistantOnSite;
+  @override
+  final bool isTechnicianOnSite;
 
   @override
   String toString() {
-    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, updatePostFailureOrSuccessOption: $updatePostFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
+    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, updatePostFailureOrSuccessOption: $updatePostFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption, scriptVolume: $scriptVolume, scriptVolumeList: $scriptVolumeList, isAssistantOnSite: $isAssistantOnSite, isTechnicianOnSite: $isTechnicianOnSite)';
   }
 
   @override
@@ -22803,7 +25209,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
             const DeepCollectionEquality().equals(other._multiDateTimeList, _multiDateTimeList) &&
             (identical(other.isDifferentDateDataValid, isDifferentDateDataValid) || other.isDifferentDateDataValid == isDifferentDateDataValid) &&
             (identical(other.differentDateFailureOrSuccessOption, differentDateFailureOrSuccessOption) || other.differentDateFailureOrSuccessOption == differentDateFailureOrSuccessOption) &&
-            (identical(other.postShiftFailureOrSuccessOption, postShiftFailureOrSuccessOption) || other.postShiftFailureOrSuccessOption == postShiftFailureOrSuccessOption));
+            (identical(other.postShiftFailureOrSuccessOption, postShiftFailureOrSuccessOption) || other.postShiftFailureOrSuccessOption == postShiftFailureOrSuccessOption) &&
+            (identical(other.scriptVolume, scriptVolume) || other.scriptVolume == scriptVolume) &&
+            const DeepCollectionEquality().equals(other._scriptVolumeList, _scriptVolumeList) &&
+            (identical(other.isAssistantOnSite, isAssistantOnSite) || other.isAssistantOnSite == isAssistantOnSite) &&
+            (identical(other.isTechnicianOnSite, isTechnicianOnSite) || other.isTechnicianOnSite == isTechnicianOnSite));
   }
 
   @override
@@ -22858,7 +25268,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
         const DeepCollectionEquality().hash(_multiDateTimeList),
         isDifferentDateDataValid,
         differentDateFailureOrSuccessOption,
-        postShiftFailureOrSuccessOption
+        postShiftFailureOrSuccessOption,
+        scriptVolume,
+        const DeepCollectionEquality().hash(_scriptVolumeList),
+        isAssistantOnSite,
+        isTechnicianOnSite
       ]);
 
   @JsonKey(ignore: true)
@@ -22925,7 +25339,11 @@ abstract class _PostShiftState implements PostShiftState {
       required final Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
       required final Option<Either<MainFailure, String>>
-          postShiftFailureOrSuccessOption}) = _$PostShiftStateImpl;
+          postShiftFailureOrSuccessOption,
+      required final InputEmptyOrNot scriptVolume,
+      required final List<SkillDTO> scriptVolumeList,
+      required final bool isAssistantOnSite,
+      required final bool isTechnicianOnSite}) = _$PostShiftStateImpl;
 
   @override
 
@@ -23041,6 +25459,14 @@ abstract class _PostShiftState implements PostShiftState {
 
   /// Post the Shift
   Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption;
+  @override
+  InputEmptyOrNot get scriptVolume;
+  @override
+  List<SkillDTO> get scriptVolumeList;
+  @override
+  bool get isAssistantOnSite;
+  @override
+  bool get isTechnicianOnSite;
   @override
   @JsonKey(ignore: true)
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>

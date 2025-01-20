@@ -17,6 +17,7 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -41,9 +42,15 @@ class PostShiftRecurring extends StatelessWidget {
       required this.updateShift,
       required this.post});
 
+  String postTitle() {
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
+    return industry.title ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("updatedShift--->  ${jsonEncode(updateShift?.shift_detail?.teams)}");
+    print("updatedShift--->  ${jsonEncode(post)}");
     return PopScope(
       canPop: false,
       child: GestureDetector(
@@ -90,7 +97,7 @@ class PostShiftRecurring extends StatelessWidget {
             builder: (context, state) {
               return Scaffold(
                 appBar: CommonAppBar(
-                  title: StringConstant.healthcare,
+                  title: postTitle(),
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
@@ -218,17 +225,39 @@ class PostShiftRecurring extends StatelessWidget {
                                                           .getValue() ??
                                                       "")
                                                   : null;
+                                          final selectedDayIndices = state
+                                              .recurrenceWeekList
+                                              .getValue()
+                                              .map((day) => day.id)
+                                              .toList();
+                                          print(
+                                              "Selected dayeeee--> ${state.recurrenceWeekList}");
+                                          int selectedDayCount = 0;
 
                                           if (startDate != null &&
+                                              endDate != null) {
+                                            for (DateTime date = startDate;
+                                                date.isBefore(endDate) ||
+                                                    date.isAtSameMomentAs(
+                                                        endDate);
+                                                date = date
+                                                    .add(Duration(days: 1))) {
+                                              if (selectedDayIndices
+                                                  .contains(date.weekday % 7)) {
+                                                selectedDayCount++;
+                                              }
+                                            }
+                                          }
+
+                                          /* if (startDate != null &&
                                               endDate != null) {
                                             difference = endDate
                                                 .difference(startDate)
                                                 .inDays;
-                                          }
-                                          if (difference != null &&
-                                              difference > 20) {
+                                          } */
+                                          if (selectedDayCount > 20) {
                                             confirmationDialog(context, state,
-                                                noOfShift: difference);
+                                                noOfShift: selectedDayCount);
                                           } else {
                                             context.read<PostShiftBloc>().add(
                                                 PostShiftEvent

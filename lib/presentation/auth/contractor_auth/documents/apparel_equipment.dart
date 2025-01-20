@@ -25,7 +25,8 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ApparelEquipment extends StatelessWidget {
-  const ApparelEquipment({super.key});
+  bool isUpdate;
+  ApparelEquipment({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class ApparelEquipment extends StatelessWidget {
               },
               (r) {
                 context.router.push(
-                  const PageRouteInfo(AddBankDetailsScreen.name),
+                  const PageRouteInfo(AddressProofScreen.name),
                 );
                 DocumentBloc.pageController
                     .animateToPage(
@@ -124,6 +125,11 @@ class ApparelEquipment extends StatelessWidget {
                                                       index));
                                           context.router.maybePop();
                                         },
+                                        showEditButton: isUpdate,
+                                        onEditClick: () {
+                                          editDocument(
+                                              context, immunizationObject);
+                                        },
                                       ),
                                     );
                                   })
@@ -174,13 +180,17 @@ class ApparelEquipment extends StatelessWidget {
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
-                                  context
-                                      .read<EquipmentBloc>()
-                                      .add(EquipmentEvent.equipmentDocSubmit(
-                                        context,
-                                        isAddMoreBtnClick: false,
-                                        isSkip: false,
-                                      ));
+                                  if (isUpdate) {
+                                    Navigator.pop(context);
+                                  } else {
+                                    context
+                                        .read<EquipmentBloc>()
+                                        .add(EquipmentEvent.equipmentDocSubmit(
+                                          context,
+                                          isAddMoreBtnClick: false,
+                                          isSkip: false,
+                                        ));
+                                  }
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
@@ -190,13 +200,17 @@ class ApparelEquipment extends StatelessWidget {
                             documentSkipButton(
                               context,
                               onPressed: () {
-                                context
-                                    .read<EquipmentBloc>()
-                                    .add(EquipmentEvent.equipmentDocSubmit(
-                                      context,
-                                      isAddMoreBtnClick: false,
-                                      isSkip: true,
-                                    ));
+                                if (isUpdate) {
+                                  Navigator.pop(context);
+                                } else {
+                                  context
+                                      .read<EquipmentBloc>()
+                                      .add(EquipmentEvent.equipmentDocSubmit(
+                                        context,
+                                        isAddMoreBtnClick: false,
+                                        isSkip: true,
+                                      ));
+                                }
                               },
                             ),
                           paddingBetweenFields(height: 40)
@@ -208,6 +222,88 @@ class ApparelEquipment extends StatelessWidget {
         },
       ),
     );
+  }
+
+  editDocument(
+    BuildContext context,
+    DocumentDTO? currentDoc,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => getIt<EquipmentBloc>()
+              ..add(EquipmentEvent.getCurrentEquipmentDoc(currentDoc)),
+            child: BlocBuilder<EquipmentBloc, EquipmentState>(
+              builder: (context, state) {
+                return (state.isEquipmentDocSubmitting)
+                    ? CenterLoadingIndicator()
+                    : AlertDialog(
+                        backgroundColor: AppColors.scaffoldColor,
+                        insetPadding: EdgeInsets.symmetric(
+                            vertical: getSize(50), horizontal: getSize(10)),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              equipmentNameField(context, state),
+                              paddingBetweenFields(),
+                              (state.equipmentDoc.isValid())
+                                  ? selectedImage(
+                                      context,
+                                      state.equipmentDoc.getValue() ?? "",
+                                      state: state,
+                                    )
+                                  : UploadDocumentBox(
+                                      height: getSize(300),
+                                      onUploadBtnPressed: () {
+                                        clickUploadButton(context);
+                                      },
+                                    ),
+                              if (state.showEquipmentErrorMessages &&
+                                  !state.equipmentDoc.isValid())
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10),
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text: StringConstant
+                                        .pleaseSelectCredentialRegistrationDocument,
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: getSize(20), bottom: getSize(10)),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context.read<EquipmentBloc>().add(
+                                              EquipmentEvent.equipmentDocUpdate(
+                                            context,
+                                            id: currentDoc?.id,
+                                          ));
+                                    },
+                                    buttonText: StringConstant.update,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+              },
+            ),
+          );
+        }).then((value) {
+      if (value == true) {
+        context.read<EquipmentBloc>().add(EquipmentEvent.getEquipmentList());
+      }
+    });
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
@@ -287,6 +383,9 @@ class ApparelEquipment extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.documentTitle,
       hintText: StringConstant.documentTitle,
+      initialValue: (state.equipmentName.isValid())
+          ? state.equipmentName.getValue()
+          : null,
       textCapitalization: TextCapitalization.sentences,
       onChanged: (value) => context
           .read<EquipmentBloc>()

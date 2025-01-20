@@ -13,6 +13,7 @@ class LocationDTO with _$LocationDTO {
     final double? longitude,
     final List<UnitDTO>? add_units,
     final FacilityTypeDto? facility_type,
+    final FacilityTypeDto? location_brand,
     final String? accreditation_number,
     final String? location_note,
     final String? location_id,

@@ -16,7 +16,8 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class DocumentList extends StatefulWidget {
-  const DocumentList({super.key});
+  bool isUpdate;
+  DocumentList({super.key, this.isUpdate = false});
 
   @override
   State<DocumentList> createState() => _DocumentListState();
@@ -43,7 +44,7 @@ class _DocumentListState extends State<DocumentList> {
             (r) {
               context.router
                   .push(
-                const PageRouteInfo(AddBankDetailsScreen.name),
+                const PageRouteInfo(AddressProofScreen.name),
               )
                   .then((value) {
                 if (context.mounted) {
@@ -121,19 +122,20 @@ class _DocumentListState extends State<DocumentList> {
                         ),
                       );
                     }),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: getSize(10), bottom: getSize(50)),
-                  child: CommonButton(
-                    isSubmitting: state.isSubmitting,
-                    onPressed: () {
-                      context
-                          .read<DocumentBloc>()
-                          .add(const DocumentEvent.submitDocumentsEvent());
-                    },
-                    buttonText: StringConstant.txtContinue,
+                if (!widget.isUpdate)
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: getSize(10), bottom: getSize(50)),
+                    child: CommonButton(
+                      isSubmitting: state.isSubmitting,
+                      onPressed: () {
+                        context
+                            .read<DocumentBloc>()
+                            .add(const DocumentEvent.submitDocumentsEvent());
+                      },
+                      buttonText: StringConstant.txtContinue,
+                    ),
                   ),
-                )
               ],
             ),
           ),

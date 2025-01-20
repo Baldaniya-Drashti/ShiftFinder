@@ -41,6 +41,9 @@ class ShiftDetailDTO with _$ShiftDetailDTO {
     String? recurrence_mode,
     int? recurrence_id,
     String? days,
+    int? script_volume,
+    int? assistant_on_site,
+    int? technician_on_site,
   }) = _ShiftDetailDTO;
 
   factory ShiftDetailDTO.fromJson(Map<String, dynamic> json) =>

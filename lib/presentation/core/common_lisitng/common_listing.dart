@@ -178,6 +178,12 @@ class CommonList {
     SkillDTO(id: 2, name: "Savings")
   ];
 
+  static List<SkillDTO> scriptVolumeList = [
+    SkillDTO(id: 1, name: "Low"),
+    SkillDTO(id: 2, name: "Medium"),
+    SkillDTO(id: 3, name: "High")
+  ];
+
   static List<SkillDTO> govermentIdList = [
     SkillDTO(id: 1, name: "Driver’s License"),
     SkillDTO(id: 2, name: "Health Card"),

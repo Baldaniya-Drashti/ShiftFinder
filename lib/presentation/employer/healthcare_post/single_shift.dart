@@ -14,6 +14,7 @@ import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.da
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -133,6 +134,14 @@ class SinglePostShift extends StatelessWidget {
                       paddingBetweenFields(),
                       shiftNotesField(context, state),
                       paddingBetweenFields(),
+                      if (getCurrentIndustry() == 2) ...[
+                        scriptVolumeDropDown(context, state),
+                        paddingBetweenFields(),
+                        assitantOnSiteCheckBox(context, state),
+                        paddingBetweenFields(),
+                        technicianOnSiteCheckBox(context, state),
+                        paddingBetweenFields(),
+                      ],
                       vacancyCheckBox(context, state),
                       if (state.isMoreVacancy) ...[
                         paddingBetweenFields(),
@@ -565,6 +574,44 @@ class SinglePostShift extends StatelessWidget {
     );
   }
 
+  Widget scriptVolumeDropDown(BuildContext context, PostShiftState state) {
+    return CustomDropdwonWithTextField(
+      labelText: StringConstant.scriptVolume,
+      hintText: StringConstant.selectScriptVolume,
+      isLabelPadding: true,
+      showTextfield: false,
+      value: (state.scriptVolume.getValue()!.isNotEmpty)
+          ? state.scriptVolume.getValue()
+          : null,
+      items: state.scriptVolumeList.map((val) {
+        return DropdownMenuItem<String>(
+          value: val.name,
+          child: BaseText(
+            text: val.name ?? "",
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
+      validator: (p0) =>
+          context.read<PostShiftBloc>().state.scriptVolume.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectScriptVolume,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+      removeErrorBorder: true,
+      onChanged: (value) {
+        if (value != null) {
+          context.read<PostShiftBloc>().add(
+                PostShiftEvent.scriptVolumeChanged(value),
+              );
+        }
+      },
+    );
+  }
+
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
@@ -580,6 +627,122 @@ class SinglePostShift extends StatelessWidget {
             .read<PostShiftBloc>()
             .add(PostShiftEvent.singleShiftNotesChanged(value));
       },
+    );
+  }
+
+  Widget assitantOnSiteCheckBox(
+    BuildContext context,
+    PostShiftState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isAssistantOnSite;
+          value = !value;
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.assitantOnSiteCheck(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isAssistantOnSite,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.assitantOnSiteCheck(value));
+                  }
+                },
+              ),
+            ),
+            SizedBox(width: getSize(15)),
+            Expanded(
+              child: BaseText(
+                text: StringConstant.assistantOnSite,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget technicianOnSiteCheckBox(
+    BuildContext context,
+    PostShiftState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isTechnicianOnSite;
+          value = !value;
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.technicianOnSiteCheck(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isTechnicianOnSite,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.technicianOnSiteCheck(value));
+                  }
+                },
+              ),
+            ),
+            SizedBox(width: getSize(15)),
+            Expanded(
+              child: BaseText(
+                text: StringConstant.technicianOnSite,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

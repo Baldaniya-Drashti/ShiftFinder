@@ -103,7 +103,8 @@ class ProposeAvailability extends StatelessWidget {
                                     [state.multiDates, state.totalPaybleHours]);
                               }
                             } else {
-                              Navigator.pop(context, state.multiDates);
+                              Navigator.pop(context,
+                                  [state.multiDates, state.totalPaybleHours]);
                             }
                           },
                           buttonText: StringConstant.done,

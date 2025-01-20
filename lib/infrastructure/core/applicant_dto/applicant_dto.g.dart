@@ -130,20 +130,20 @@ _$SpecialtiesDetailDtoImpl _$$SpecialtiesDetailDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$SpecialtiesDetailDtoImpl(
       id: (json['id'] as num?)?.toInt(),
-      specialtie_lists: json['specialtie_lists'] == null
+      role: json['role'] == null
           ? null
           : CompleteProfileDataDto.fromJson(
-              json['specialtie_lists'] as Map<String, dynamic>),
+              json['role'] as Map<String, dynamic>),
       specialtie_lists_other: json['specialtie_lists_other'] as String?,
-      experience_year: (json['experience_year'] as num?)?.toInt(),
-      experience_month: (json['experience_month'] as num?)?.toInt(),
+      experience_year: json['experience_year'] as String?,
+      experience_month: json['experience_month'] as String?,
     );
 
 Map<String, dynamic> _$$SpecialtiesDetailDtoImplToJson(
         _$SpecialtiesDetailDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'specialtie_lists': instance.specialtie_lists,
+      'role': instance.role,
       'specialtie_lists_other': instance.specialtie_lists_other,
       'experience_year': instance.experience_year,
       'experience_month': instance.experience_month,

@@ -167,4 +167,5 @@ class SvgImageConstant {
   static const questionMark = 'assets/svg/question_mark.svg';
   static const rejected = 'assets/svg/rejected.svg';
   static const pending = 'assets/svg/pending.svg';
+  static const injection = 'assets/svg/injection.svg';
 }

@@ -74,10 +74,11 @@ class CompleteProfileDataDto with _$CompleteProfileDataDto {
 class SpecialtiesDetailDto with _$SpecialtiesDetailDto {
   const factory SpecialtiesDetailDto({
     int? id,
-    CompleteProfileDataDto? specialtie_lists,
+    // CompleteProfileDataDto? specialtie_lists,
+    CompleteProfileDataDto? role,
     String? specialtie_lists_other,
-    int? experience_year,
-    int? experience_month,
+    String? experience_year,
+    String? experience_month,
   }) = _SpecialtiesDetailDto;
 
   factory SpecialtiesDetailDto.fromJson(Map<String, dynamic> json) =>

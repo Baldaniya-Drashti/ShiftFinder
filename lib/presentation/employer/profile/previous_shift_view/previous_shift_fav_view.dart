@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,7 @@ import 'package:shift/infrastructure/core/employer_previous_shift/employer_previ
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -76,52 +78,61 @@ class _PreviousShiftFavTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseTileDecoration(
-      padding: EdgeInsets.all(getSize(12)),
-      child: Material(
-        borderRadius: BorderRadius.circular(getSize(16)),
-        color: AppColors.scaffoldColor,
-        child: UserInfoTile(
-          titleIcon: SvgPicture.asset(
-            SvgImageConstant.rightArrow,
-            height: 13,
-            width: 13,
-            colorFilter: ColorFilter.mode(
-                AppColors.black.withOpacity(0.5), BlendMode.srcIn),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: getSize(16)),
-          url: data.profile ?? "",
-          title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
-          subTitle: "${data.role_lists_name}",
-          trailing: CommonMaterialButton.icon(
-            radius: 10.0,
-            backgroundColor: AppColors.green.withOpacity(0.2),
-            width: 80,
-            height: 33,
-            onPressed: () async {
-              final postId = data.post_id ?? 0;
-              final userId = data.user_id ?? 0;
-              final result = await AppDialog.showCommonDialog(
-                context: context,
-                title: "Unfavorite",
-                content:
-                    "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                successLabel: "Unfavorite",
-              );
-              if (result ?? false) {
-                context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.addUnFavorite(
-                        postId: postId,
-                        userId: userId,
-                        context: context,
-                      ),
-                    );
-              }
-            },
-            label: (data.isFavourite ?? false) ? "UnFavorite" : "Favorite",
-            textStyle: TextStyle(fontSize: 10, color: AppColors.green),
-            icon: SvgPicture.asset(SvgImageConstant.heartChecked,
-                height: 11, width: 11),
+    return GestureDetector(
+      onTap: () {
+        context.router.push(
+          PageRouteInfo(ViewApplicantProfile.name,
+              args: ViewApplicantProfileArgs(
+                  id: data.user_id ?? -1, postId: data.post_id ?? -1)),
+        );
+      },
+      child: BaseTileDecoration(
+        padding: EdgeInsets.all(getSize(12)),
+        child: Material(
+          borderRadius: BorderRadius.circular(getSize(16)),
+          color: AppColors.scaffoldColor,
+          child: UserInfoTile(
+            titleIcon: SvgPicture.asset(
+              SvgImageConstant.rightArrow,
+              height: 13,
+              width: 13,
+              colorFilter: ColorFilter.mode(
+                  AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: getSize(16)),
+            url: data.profile ?? "",
+            title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+            subTitle: "${data.role_lists_name}",
+            trailing: CommonMaterialButton.icon(
+              radius: 10.0,
+              backgroundColor: AppColors.green.withOpacity(0.2),
+              width: 80,
+              height: 33,
+              onPressed: () async {
+                final postId = data.post_id ?? 0;
+                final userId = data.user_id ?? 0;
+                final result = await AppDialog.showCommonDialog(
+                  context: context,
+                  title: "Unfavorite",
+                  content:
+                      "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
+                  successLabel: "Unfavorite",
+                );
+                if (result ?? false) {
+                  context.read<PreviousShiftBloc>().add(
+                        PreviousShiftEvent.addUnFavorite(
+                          postId: postId,
+                          userId: userId,
+                          context: context,
+                        ),
+                      );
+                }
+              },
+              label: (data.isFavourite ?? false) ? "UnFavorite" : "Favorite",
+              textStyle: TextStyle(fontSize: 10, color: AppColors.green),
+              icon: SvgPicture.asset(SvgImageConstant.heartChecked,
+                  height: 11, width: 11),
+            ),
           ),
         ),
       ),

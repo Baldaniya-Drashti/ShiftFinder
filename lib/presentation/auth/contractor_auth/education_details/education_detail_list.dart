@@ -122,13 +122,7 @@ class EducationListScreen extends StatelessWidget {
                               ),
                               child: CommonButton(
                                 onPressed: () {
-                                  if (state.educationList.isNotEmpty) {
-                                    print("This Next is called!!!");
-
-                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
-                                    context.router.push(const PageRouteInfo(
-                                        ReferenceListScreen.name));
-                                  } else {
+                                  if (state.educationList.isEmpty) {
                                     context.router
                                         .push(PageRouteInfo(
                                             AddEducationDetailScreen.name))
@@ -142,6 +136,13 @@ class EducationListScreen extends StatelessWidget {
                                         /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                                       }
                                     });
+                                  } else if (isFromProfile) {
+                                    Navigator.pop(context);
+                                  } else if (state.educationList.isNotEmpty) {
+                                    print("This Next is called!!!");
+                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
+                                    context.router.push(const PageRouteInfo(
+                                        ReferenceListScreen.name));
                                   }
                                 },
                                 buttonText: (state.educationList.isNotEmpty)

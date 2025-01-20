@@ -11,6 +11,7 @@ class ExperienceDTO with _$ExperienceDTO {
     int? id,
     String? name,
     CompleteProfileDataDto? role,
+    String? specialtie_lists_other,
     String? experience_year,
     String? experience_month,
   }) = _ExperienceDTO;

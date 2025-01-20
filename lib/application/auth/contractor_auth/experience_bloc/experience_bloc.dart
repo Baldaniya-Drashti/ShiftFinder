@@ -32,36 +32,34 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
               authFailureOrSuccessOption: none(),
             ),
           );
-          final roleList = await _repository.getExperienceRoleList();
-
-          roleList.fold(
-            (l) => emit(
-              state.copyWith(
-                  isLoading: false,
-                  records: [],
-                  authFailureOrSuccessOption:
-                      optionOf(left(AccountFailure.serverError()))),
-            ),
-            (r) {
-              return emit(
+          if (e.isUpdate) {
+            await getExistingRoleDetail(emit);
+          } else {
+            final roleList = await _repository.getExperienceRoleList();
+            roleList.fold(
+              (l) => emit(
                 state.copyWith(
-                  isLoading: false,
-                  records: List.from(state.records)..addAll(r),
-                  authFailureOrSuccessOption: none(),
-                ),
-              );
-            },
-          );
-          // emit(
-          //   state.copyWith(
-          //     records: experienceList,
-          //     authFailureOrSuccessOption: none(),
-          //   ),
-          // );
+                    isLoading: false,
+                    records: [],
+                    authFailureOrSuccessOption:
+                        optionOf(left(AccountFailure.serverError()))),
+              ),
+              (r) {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    records: List.from(state.records)..addAll(r),
+                    authFailureOrSuccessOption: none(),
+                  ),
+                );
+              },
+            );
+          }
         },
         updateRecordEvent: (e) {
           List<ExperienceDTO> updatedRecords = List.from(state.records);
           updatedRecords[e.index] = ExperienceDTO(
+            role: updatedRecords[e.index].role,
             name: updatedRecords[e.index].name,
             id: updatedRecords[e.index].id,
             experience_year: e.year,
@@ -100,8 +98,9 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             );
 
             failureOrSuccess = await _repository.addExperienceApi(
-              experienceDetail:
-                  jsonEncode(mapExperienceDTOToApiFormat(state.records)),
+              experienceDetail: jsonEncode(mapExperienceDTOToApiFormat(
+                  state.records,
+                  isUpdate: e.isUpdate)),
             );
           }
           print("failureOrSuccess--> $failureOrSuccess");
@@ -117,11 +116,84 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
     });
   }
 
+  getExistingRoleDetail(Emitter<ExperienceState> emit) async {
+    try {
+      final failureOrSuccess = await _repository.getCurrentUserApi();
+      failureOrSuccess.fold(
+        (l) => emit(
+          state.copyWith(
+            isLoading: false,
+          ),
+        ),
+        (r) {
+          print("Current user complete profile----> ${r.experience}");
+          return emit(
+            state.copyWith(
+              isLoading: false,
+              records: (r.experience != null && r.experience!.isNotEmpty)
+                  ? r.experience!
+                  : [],
+              authFailureOrSuccessOption: none(),
+              // roleTypeChipList: ListInputEmptyOrNot(
+              //     (r.complete_profile != null &&
+              //             r.complete_profile!.roles_list != null)
+              //         ? r.complete_profile!.roles_list!
+              //             .map((element) => element.name ?? "")
+              //             .toList()
+              //         : []),
+              // requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+              //     (r.complete_profile != null &&
+              //             r.complete_profile?.softwares_skill_list != null)
+              //         ? r.complete_profile!.softwares_skill_list!
+              //             .map((element) => element.name ?? "")
+              //             .toList()
+              //         : []),
+              // softwareSkillOther:
+              //     r.complete_profile?.software_skill_other?.split(',') ?? [],
+              // requiredSpecialityChipList: ListInputEmptyOrNot((r
+              //                 .complete_profile !=
+              //             null &&
+              //         r.complete_profile!.specialties_detail != null)
+              //     ? r.complete_profile!.specialties_detail!
+              //         .where((element) => element.specialtie_lists != null)
+              //         .map((element) => element.specialtie_lists?.name ?? "")
+              //         .toList()
+              //     : []),
+              // specialityOther: (r.complete_profile != null &&
+              //         r.complete_profile!.specialties_detail != null)
+              //     ? r.complete_profile!.specialties_detail!
+              //         .where(
+              //             (element) => element.specialtie_lists_other != null)
+              //         .map((element) => element.specialtie_lists_other ?? "")
+              //         .toList()
+              //     : [],
+              // // r.complete_profile?.specialties_other?.split(',') ?? [],
+              // languageChipList: ListInputEmptyOrNot(
+              //     (r.complete_profile != null &&
+              //             r.complete_profile!.languages_list != null)
+              //         ? r.complete_profile!.languages_list!
+              //             .map((element) => element.name ?? "")
+              //             .toList()
+              //         : []),
+              // languageOther: (r.complete_profile != null &&
+              //         r.complete_profile!.language_other != null)
+              //     ? r.complete_profile!.language_other?.split(',') ?? []
+              //     : [],
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print("Current user ERRORRR--> $e");
+    }
+  }
+
   List<Map<String, dynamic>> mapExperienceDTOToApiFormat(
-      List<ExperienceDTO?> experienceRoleList) {
+      List<ExperienceDTO?> experienceRoleList,
+      {bool isUpdate = false}) {
     return experienceRoleList.map((role) {
       return {
-        'role_id': role?.id,
+        'role_id': (isUpdate) ? role?.role?.id : role?.id,
         'experience_year': role?.experience_year,
         'experience_month': role?.experience_month,
       };

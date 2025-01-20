@@ -43,6 +43,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
     on<BankDetailsEvent>((event, emit) async {
       await event.map(
         getCurrentBank: (e) async {
+          locationCtrl.clear();
           final bank = e.currentBank;
           emit(state.copyWith(isLoading: true));
           await Future.delayed(Duration(seconds: 2)).then((value) {
@@ -349,7 +350,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               phone: state.phoneNumber.getValue(),
               lastPage: 'LegalScreening',
             );
-
             // failureOrSuccess = right("success");
           } else {
             print("Some Details are invalid!");

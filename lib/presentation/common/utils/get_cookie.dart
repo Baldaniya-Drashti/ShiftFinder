@@ -8,6 +8,7 @@ import 'package:shift/infrastructure/account/account_entity.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
 import 'package:shift/infrastructure/core/network/hive_box_names.dart';
 import 'package:hive/hive.dart';
+import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 
 String? getUserToken() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.userToken);
@@ -92,7 +93,6 @@ int? getCurrentIndustry() {
 }
 
 /// Show Onboarding / Introduction screen or not
-
 Future<void> setUserShowIntro(bool showIntro) async {
   return await Hive.box(BoxNames.settingsBox)
       .put(BoxKeys.isUserShowIntro, showIntro);

@@ -19,6 +19,10 @@ _$LocationDTOImpl _$$LocationDTOImplFromJson(Map<String, dynamic> json) =>
           ? null
           : FacilityTypeDto.fromJson(
               json['facility_type'] as Map<String, dynamic>),
+      location_brand: json['location_brand'] == null
+          ? null
+          : FacilityTypeDto.fromJson(
+              json['location_brand'] as Map<String, dynamic>),
       accreditation_number: json['accreditation_number'] as String?,
       location_note: json['location_note'] as String?,
       location_id: json['location_id'] as String?,
@@ -32,6 +36,7 @@ Map<String, dynamic> _$$LocationDTOImplToJson(_$LocationDTOImpl instance) =>
       'longitude': instance.longitude,
       'add_units': instance.add_units,
       'facility_type': instance.facility_type,
+      'location_brand': instance.location_brand,
       'accreditation_number': instance.accreditation_number,
       'location_note': instance.location_note,
       'location_id': instance.location_id,

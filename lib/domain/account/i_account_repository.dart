@@ -162,6 +162,7 @@ abstract class IAccountRepository {
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
   Future<Either<AccountFailure, List<SkillDTO>>> getFacilityTypeList();
+  Future<Either<AccountFailure, List<SkillDTO>>> getLocationBrandList();
   Future<Either<AccountFailure, List<LocationDTO>>> getLocationListApi();
 
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
@@ -177,6 +178,8 @@ abstract class IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
     int? type,
   });
 
@@ -194,6 +197,8 @@ abstract class IAccountRepository {
     required String longitude,
     required bool fromRegister,
     required int id,
+    String? locationBrand,
+    String? locationBrandOther,
   });
 
   Future<Either<AccountFailure, String>> addBankDetail({

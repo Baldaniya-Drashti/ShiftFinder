@@ -733,7 +733,7 @@ class AccountRepository extends IAccountRepository {
         'country_name_code': countryFlag,
         'country_code': countryCode,
         'phone': phone,
-        if (lastPage != null) 'lastPage': lastPage,
+        if (lastPage != null) 'last_page': lastPage,
       };
 
       print('Sending Data: ${jsonEncode(mapData)}');
@@ -1243,6 +1243,38 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, List<SkillDTO>>> getLocationBrandList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.locationBrandsList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        print("LOCATION BRAND LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
     required String locationAddress,
     required String facilityType,
@@ -1256,10 +1288,12 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
     int? type,
   }) async {
     try {
-      var mapData = {
+      Map<String, dynamic> mapData = {
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
         "facility_type_other": facilityTypeOther,
@@ -1283,6 +1317,13 @@ class AccountRepository extends IAccountRepository {
       if (units.isNotEmpty) {
         mapData.addAll({
           "units": jsonEncode(units),
+        });
+      }
+
+      if (getCurrentIndustry() == 2) {
+        mapData.addAll({
+          "location_brand_lists_id": locationBrand,
+          "location_brand_other": locationBrandOther,
         });
       }
 
@@ -1365,9 +1406,11 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
   }) async {
     try {
-      var mapData = {
+      Map<String, dynamic> mapData = {
         "id": id,
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
@@ -1388,6 +1431,13 @@ class AccountRepository extends IAccountRepository {
       if (units.isNotEmpty) {
         mapData.addAll({
           "units": jsonEncode(units),
+        });
+      }
+
+      if (getCurrentIndustry() == 2) {
+        mapData.addAll({
+          "location_brand_lists_id": locationBrand,
+          "location_brand_other": locationBrandOther,
         });
       }
       print('Sending Data: ${jsonEncode(mapData)}');

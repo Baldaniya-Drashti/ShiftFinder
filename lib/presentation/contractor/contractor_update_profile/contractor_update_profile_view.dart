@@ -39,8 +39,11 @@ class ContractorUpdateProfileView extends StatelessWidget {
                     fieldTypeTile(
                       icon: SvgImageConstant.editUser,
                       onPressed: () {
-                        context.router.push(
-                            PageRouteInfo(AddExperienceDetailScreen.name));
+                        /*  context.router.push(
+                            PageRouteInfo(AddExperienceDetailScreen.name)); */
+                        context.router.push(PageRouteInfo(
+                            AddContractorSkillsForm.name,
+                            args: AddContractorSkillsFormArgs(isUpdate: true)));
                       },
                       label: StringConstant.roleAndExperience,
                     ),
@@ -55,10 +58,21 @@ class ContractorUpdateProfileView extends StatelessWidget {
                       label: StringConstant.education,
                     ),
                     fieldTypeTile(
+                      icon: SvgImageConstant.references,
+                      onPressed: () {
+                        context.router.push(PageRouteInfo(
+                            ReferenceListScreen.name,
+                            args:
+                                ReferenceListScreenArgs(isFromProfile: true)));
+                      },
+                      label: StringConstant.reference,
+                    ),
+                    fieldTypeTile(
                       icon: SvgImageConstant.document,
                       onPressed: () {
-                        context.router
-                            .push(PageRouteInfo(DocumentPageScreen.name));
+                        context.router.push(PageRouteInfo(
+                            DocumentPageScreen.name,
+                            args: DocumentPageScreenArgs(isUpdate: true)));
                       },
                       label: StringConstant.documents,
                     ),
@@ -68,16 +82,6 @@ class ContractorUpdateProfileView extends StatelessWidget {
                         context.router.push(PageRouteInfo(BankListView.name));
                       },
                       label: StringConstant.bankDetails,
-                    ),
-                    fieldTypeTile(
-                      icon: SvgImageConstant.references,
-                      onPressed: () {
-                        context.router.push(PageRouteInfo(
-                            ReferenceListScreen.name,
-                            args:
-                                ReferenceListScreenArgs(isFromProfile: true)));
-                      },
-                      label: StringConstant.reference,
                     ),
                   ],
                 ),

@@ -684,11 +684,15 @@ class SendProposal extends StatelessWidget {
                 .then((value) {
               if (value != null) {
                 final newValue = value as List;
+
+                final updatedDates = newValue[0] as List<DateTimeDTO>;
+                final totalPayableHours = newValue[1] as String;
+
                 context
                     .read<SendProposalBloc>()
                     .add(SendProposalEvent.setMultiDate(
-                      updatedDates: newValue[0] as List<DateTimeDTO>,
-                      totalPayableHours: newValue[1] as String,
+                      updatedDates: updatedDates,
+                      totalPayableHours: totalPayableHours,
                     ));
               }
             });

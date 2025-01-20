@@ -356,4 +356,6 @@ abstract class IMainFacade {
     required String startDate,
     required String endDate,
   });
+
+  Future<Either<MainFailure, List<SkillDTO>>> getScriptVolumeListApi();
 }

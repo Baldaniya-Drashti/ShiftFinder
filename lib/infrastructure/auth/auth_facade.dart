@@ -84,6 +84,7 @@ class AuthFacade implements IAuthFacade {
     required EmailAddress email,
     required Password password,
   }) async {
+    print("getCurrentIndustry---> ${getCurrentIndustry()}");
     try {
       final response = await apiService.postMethod(
         ApiConstants.login,

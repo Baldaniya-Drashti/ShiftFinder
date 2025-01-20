@@ -100,10 +100,7 @@ class ReferenceListScreen extends StatelessWidget {
                               ),
                               child: CommonButton(
                                 onPressed: () {
-                                  if (state.referenceList.isNotEmpty) {
-                                    context.router.push(
-                                        PageRouteInfo(DocumentPageScreen.name));
-                                  } else {
+                                  if (state.referenceList.isEmpty) {
                                     context.router
                                         .push(PageRouteInfo(
                                             AddReferenceDetailScreen.name))
@@ -115,6 +112,11 @@ class ReferenceListScreen extends StatelessWidget {
                                             ReferenceEvent.getReferenceList());
                                       }
                                     });
+                                  } else if (isFromProfile) {
+                                    Navigator.pop(context);
+                                  } else if (state.referenceList.isNotEmpty) {
+                                    context.router.push(
+                                        PageRouteInfo(DocumentPageScreen.name));
                                   }
                                 },
                                 buttonText: (state.referenceList.isNotEmpty)

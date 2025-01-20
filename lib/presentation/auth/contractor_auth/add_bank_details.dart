@@ -529,7 +529,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       hintText:
           (state.city.isValid()) ? state.city.getValue() : StringConstant.city,
       hintAsValue: (state.city.isValid()),
-      readOnly: true,
+      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.cityChanged(value)),
@@ -551,7 +551,7 @@ class AddBankDetailsScreen extends StatelessWidget {
           ? state.stateName.getValue()
           : StringConstant.state,
       hintAsValue: (state.stateName.isValid()),
-      readOnly: true,
+      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.stateChanged(value)),
@@ -572,8 +572,9 @@ class AddBankDetailsScreen extends StatelessWidget {
       hintText: (state.postalCode.isValid())
           ? state.postalCode.getValue()
           : StringConstant.postalCode,
+      maxLength: 7,
       hintAsValue: (state.postalCode.isValid()),
-      readOnly: true,
+      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.postalCodeChanged(value)),

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,7 @@ import 'package:shift/infrastructure/core/employer_previous_shift/employer_previ
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -74,40 +76,49 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseTileDecoration(
-      padding: EdgeInsets.all(getSize(12)),
-      child: Material(
-        borderRadius: BorderRadius.circular(getSize(16)),
-        color: AppColors.scaffoldColor,
-        child: UserInfoTile(
-          titleIcon: SvgPicture.asset(
-            SvgImageConstant.rightArrow,
-            height: 13,
-            width: 13,
-            colorFilter: ColorFilter.mode(
-                AppColors.black.withOpacity(0.5), BlendMode.srcIn),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: getSize(16)),
-          url: data.profile ?? "",
-          title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
-          subTitle: "${data.role_lists_name}",
-          trailing: CommonMaterialButton.icon(
-            radius: 10.0,
-            backgroundColor: AppColors.redAccent.withOpacity(0.15),
-            width: 90,
-            height: 33,
-            onPressed: () {
-              _onUnblock(
-                context,
-                postId: data.post_id ?? 0,
-                userId: data.user_id ?? 0,
-                contractorName: "${data.first_name} ${data.last_name}",
-              );
-            },
-            label: "Blocked",
-            textStyle: TextStyle(fontSize: 10, color: AppColors.red),
-            icon: SvgPicture.asset(SvgImageConstant.blockedFilled,
-                height: 15, width: 15),
+    return GestureDetector(
+      onTap: () {
+        context.router.push(
+          PageRouteInfo(ViewApplicantProfile.name,
+              args: ViewApplicantProfileArgs(
+                  id: data.user_id ?? -1, postId: data.post_id ?? -1)),
+        );
+      },
+      child: BaseTileDecoration(
+        padding: EdgeInsets.all(getSize(12)),
+        child: Material(
+          borderRadius: BorderRadius.circular(getSize(16)),
+          color: AppColors.scaffoldColor,
+          child: UserInfoTile(
+            titleIcon: SvgPicture.asset(
+              SvgImageConstant.rightArrow,
+              height: 13,
+              width: 13,
+              colorFilter: ColorFilter.mode(
+                  AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: getSize(16)),
+            url: data.profile ?? "",
+            title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+            subTitle: "${data.role_lists_name}",
+            trailing: CommonMaterialButton.icon(
+              radius: 10.0,
+              backgroundColor: AppColors.redAccent.withOpacity(0.15),
+              width: 90,
+              height: 33,
+              onPressed: () {
+                _onUnblock(
+                  context,
+                  postId: data.post_id ?? 0,
+                  userId: data.user_id ?? 0,
+                  contractorName: "${data.first_name} ${data.last_name}",
+                );
+              },
+              label: "Blocked",
+              textStyle: TextStyle(fontSize: 10, color: AppColors.red),
+              icon: SvgPicture.asset(SvgImageConstant.blockedFilled,
+                  height: 15, width: 15),
+            ),
           ),
         ),
       ),

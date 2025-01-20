@@ -27,7 +27,8 @@ import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_text
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CredentialRegistration extends StatelessWidget {
-  const CredentialRegistration({super.key});
+  bool isUpdate;
+  CredentialRegistration({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +112,11 @@ class CredentialRegistration extends StatelessWidget {
                                                             index));
                                                 context.router.maybePop();
                                               },
+                                              showEditButton: isUpdate,
+                                              onEditClick: () {
+                                                editDocument(
+                                                    context, credObject);
+                                              },
                                             ),
                                           );
                                         })
@@ -123,11 +129,11 @@ class CredentialRegistration extends StatelessWidget {
                                         showDeleteButton: false,
                                       ),
                                 SizedBox(height: getSize(20)),
-                                registrationNoField(context),
+                                registrationNoField(context, state),
                                 paddingBetweenFields(),
                                 provinceRegistrationDropdown(context, state),
                                 paddingBetweenFields(),
-                                documentTitleField(context),
+                                documentTitleField(context, state),
                                 paddingBetweenFields(),
                                 (state.credentialRegistrationDoc.isValid())
                                     ? selectedImage(
@@ -257,6 +263,142 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
+  editDocument(
+    BuildContext context,
+    DocumentDTO? currentCred,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => getIt<CredentialBloc>()
+              ..add(CredentialEvent.getCurrentCredDoc(currentCred)),
+            child: BlocBuilder<CredentialBloc, CredentialState>(
+              builder: (context, state) {
+                return (state.isLoading)
+                    ? CenterLoadingIndicator()
+                    : AlertDialog(
+                        backgroundColor: AppColors.scaffoldColor,
+                        insetPadding: EdgeInsets.symmetric(
+                            vertical: getSize(50), horizontal: getSize(10)),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              registrationNoField(context, state),
+                              paddingBetweenFields(),
+                              provinceRegistrationDropdown(context, state),
+                              paddingBetweenFields(),
+                              documentTitleField(context, state),
+                              paddingBetweenFields(),
+                              (state.credentialRegistrationDoc.isValid())
+                                  ? selectedImage(
+                                      context,
+                                      state.credentialRegistrationDoc
+                                              .getValue() ??
+                                          "",
+                                      state: state,
+                                    )
+                                  : UploadDocumentBox(
+                                      height: getSize(300),
+                                      onUploadBtnPressed: () {
+                                        clickUploadButton(context);
+                                      },
+                                    ),
+                              if (state.showCredintialErrorMessages &&
+                                  !state.credentialRegistrationDoc.isValid())
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10),
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text: StringConstant
+                                        .pleaseSelectCredentialRegistrationDocument,
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              DocumentExpiryDatePicker()
+                                  .notApplicableExpiryCheckBox(
+                                context,
+                                value: state.isCredExpiryCheck,
+                                isDisabled:
+                                    (state.credentialExpiryDate.isNotEmpty),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    context.read<CredentialBloc>().add(
+                                        CredentialEvent.checkNACredExpiryDate(
+                                            value));
+                                  }
+                                },
+                              ),
+                              DocumentExpiryDatePicker.expiryDateTextField(
+                                context,
+                                onPickedDate: (pickedDate) {
+                                  context.read<CredentialBloc>().add(
+                                      CredentialEvent.credExpiryDateChanged(
+                                          pickedDate.toString()));
+                                },
+                                onCancelClick: () {
+                                  context.read<CredentialBloc>().add(
+                                      CredentialEvent.credExpiryDateChanged(
+                                          ""));
+                                },
+                                selectedDate: state.credentialExpiryDate,
+                                isDisabled: !state.isCredExpiryCheck,
+                              ),
+                              paddingBetweenFields(height: 5),
+                              if ((!state.isCredExpiryCheck &&
+                                      state.credentialExpiryDate.isEmpty) &&
+                                  state.showCredintialErrorMessages)
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text:
+                                        "${StringConstant.pleaseSelectExpiryDateIfApplicable}",
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: getSize(20), bottom: getSize(10)),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context
+                                          .read<CredentialBloc>()
+                                          .add(CredentialEvent.credDocUpdate(
+                                            context,
+                                            id: currentCred?.id,
+                                          ));
+                                    },
+                                    buttonText: StringConstant.update,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+              },
+            ),
+          );
+        }).then((value) {
+      print("On update back value ---> $value");
+      if (value == true) {
+        context
+            .read<CredentialBloc>()
+            .add(CredentialEvent.getCredentialDocList());
+      }
+    });
+  }
+
   Widget selectedImage(BuildContext context, String selectedFile,
       {required CredentialState state}) {
     return ShowPickedFile(
@@ -330,10 +472,11 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget registrationNoField(BuildContext context) {
+  Widget registrationNoField(BuildContext context, CredentialState state) {
     return CustomTextField(
       labelText: StringConstant.registrationNumber,
       hintText: StringConstant.registrationNumber,
+      initialValue: state.registrationNumber,
       keyboardType: TextInputType.number,
       isOptional: true,
       onChanged: (value) => context
@@ -342,10 +485,13 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget documentTitleField(BuildContext context) {
+  Widget documentTitleField(BuildContext context, CredentialState state) {
     return CustomTextField(
       labelText: StringConstant.documentTitle,
       hintText: StringConstant.documentTitle,
+      initialValue: (state.documentTitle.isValid())
+          ? state.documentTitle.getValue()
+          : null,
       onChanged: (value) => context
           .read<CredentialBloc>()
           .add(CredentialEvent.documentTitleChanged(value)),

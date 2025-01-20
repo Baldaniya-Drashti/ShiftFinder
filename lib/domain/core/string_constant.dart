@@ -697,8 +697,14 @@ class StringConstant {
       "Please select month to view Performance Insights";
   static const String chooseMonth = "Choose Month";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String assistantOnSite = "Assistant On-Site";
+  static const String technicianOnSite = "Technician On-Site";
+  static const String locationBrand = "Location Brand";
+  static const String scriptVolume = "Script Volume";
+  static const String selectScriptVolume = "Select Script Volume";
+  static const String typeYourLocationBrand = "Type Your Location Brand";
   static const String awaitingContractorApprovalDesc =
-      "The contractor has not yet submitted their clock-in and/or clock-out  times for the shift. Once submitted, you can review and approve the shift hours.";
+      "The contractor has not yet submitted their clock-in and/or clock-out times for the shift. Once submitted, you can review and approve the shift hours.";
   static const String updateProfileDesc =
       "Keep your profile up-to-date to ensure accurate and complete information, boosting your hiring chances.";
   static const String bankDetails = "Bank Details";
@@ -967,6 +973,11 @@ class StringConstant {
   static const String pleaseSelectBankAddress = "Please select bank address";
   static const String pleaseEnterCurrentPassword =
       "Please enter current password";
+  static const String pleaseSelectLocationBrand =
+      "Please select location brand";
+  static const String pleaseSelectOtherLocationBrand =
+      "Please select other location brand";
+  static const String pleaseSelectScriptVolume = "Please select script volume";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

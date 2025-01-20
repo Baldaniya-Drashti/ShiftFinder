@@ -13,7 +13,9 @@ import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.da
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/employer/healthcare_post/multi_shift.dart';
@@ -27,6 +29,12 @@ class HealthcarePostShift extends StatelessWidget {
   PostShiftDTO post;
   HealthcarePostShift(
       {super.key, required this.postId, this.updateShift, required this.post});
+
+  String postTitle() {
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
+    return industry.title ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +66,7 @@ class HealthcarePostShift extends StatelessWidget {
                                   1)
                               ? StringConstant.sameTimeForAllDates
                               : StringConstant.differentTimeForEachDate
-                      : StringConstant.healthcare,
+                      : postTitle(),
                 ),
                 body: LayoutBuilder(builder: (context, constraint) {
                   return SingleChildScrollView(

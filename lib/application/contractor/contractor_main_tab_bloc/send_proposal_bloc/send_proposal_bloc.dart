@@ -746,9 +746,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                     .toUtc()
                     .millisecondsSinceEpoch ~/
                 1000,
-            'payable_hour': (shiftDetail.same_or_different_time == 1)
-                ? state.totalPaybleHours
-                : multiDate.totalPaybleHours,
+            'payable_hour': multiDate.totalPaybleHours,
             'unpaid_break_id': (shiftDetail.same_or_different_time == 1)
                 ? state.shift.shift_detail?.unpaid_break?.id ?? -1
                 : multiDate.unpaidBreakId,

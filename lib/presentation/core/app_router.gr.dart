@@ -439,12 +439,14 @@ class AddContractorSkillsForm
   AddContractorSkillsForm({
     _i127.Key? key,
     bool isFromSplash = false,
+    bool isUpdate = false,
     List<_i126.PageRouteInfo>? children,
   }) : super(
           AddContractorSkillsForm.name,
           args: AddContractorSkillsFormArgs(
             key: key,
             isFromSplash: isFromSplash,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -459,6 +461,7 @@ class AddContractorSkillsForm
       return _i6.AddContractorSkillsForm(
         key: args.key,
         isFromSplash: args.isFromSplash,
+        isUpdate: args.isUpdate,
       );
     },
   );
@@ -468,15 +471,18 @@ class AddContractorSkillsFormArgs {
   const AddContractorSkillsFormArgs({
     this.key,
     this.isFromSplash = false,
+    this.isUpdate = false,
   });
 
   final _i127.Key? key;
 
   final bool isFromSplash;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'AddContractorSkillsFormArgs{key: $key, isFromSplash: $isFromSplash}';
+    return 'AddContractorSkillsFormArgs{key: $key, isFromSplash: $isFromSplash, isUpdate: $isUpdate}';
   }
 }
 
@@ -547,12 +553,14 @@ class AddExperienceDetailScreen
   AddExperienceDetailScreen({
     _i127.Key? key,
     bool isFromSplash = false,
+    bool isUpdate = false,
     List<_i126.PageRouteInfo>? children,
   }) : super(
           AddExperienceDetailScreen.name,
           args: AddExperienceDetailScreenArgs(
             key: key,
             isFromSplash: isFromSplash,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -567,6 +575,7 @@ class AddExperienceDetailScreen
       return _i8.AddExperienceDetail(
         key: args.key,
         isFromSplash: args.isFromSplash,
+        isUpdate: args.isUpdate,
       );
     },
   );
@@ -576,15 +585,18 @@ class AddExperienceDetailScreenArgs {
   const AddExperienceDetailScreenArgs({
     this.key,
     this.isFromSplash = false,
+    this.isUpdate = false,
   });
 
   final _i127.Key? key;
 
   final bool isFromSplash;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'AddExperienceDetailScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+    return 'AddExperienceDetailScreenArgs{key: $key, isFromSplash: $isFromSplash, isUpdate: $isUpdate}';
   }
 }
 
@@ -843,12 +855,14 @@ class AddSpecialityExperience
   AddSpecialityExperience({
     _i127.Key? key,
     bool isFromSplash = false,
+    bool isUpdate = false,
     List<_i126.PageRouteInfo>? children,
   }) : super(
           AddSpecialityExperience.name,
           args: AddSpecialityExperienceArgs(
             key: key,
             isFromSplash: isFromSplash,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -863,6 +877,7 @@ class AddSpecialityExperience
       return _i14.AddSpecialityExperience(
         key: args.key,
         isFromSplash: args.isFromSplash,
+        isUpdate: args.isUpdate,
       );
     },
   );
@@ -872,15 +887,18 @@ class AddSpecialityExperienceArgs {
   const AddSpecialityExperienceArgs({
     this.key,
     this.isFromSplash = false,
+    this.isUpdate = false,
   });
 
   final _i127.Key? key;
 
   final bool isFromSplash;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'AddSpecialityExperienceArgs{key: $key, isFromSplash: $isFromSplash}';
+    return 'AddSpecialityExperienceArgs{key: $key, isFromSplash: $isFromSplash, isUpdate: $isUpdate}';
   }
 }
 
@@ -1730,12 +1748,14 @@ class DocumentPageScreen extends _i126.PageRouteInfo<DocumentPageScreenArgs> {
   DocumentPageScreen({
     _i127.Key? key,
     bool isFromSplash = false,
+    bool isUpdate = false,
     List<_i126.PageRouteInfo>? children,
   }) : super(
           DocumentPageScreen.name,
           args: DocumentPageScreenArgs(
             key: key,
             isFromSplash: isFromSplash,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -1750,6 +1770,7 @@ class DocumentPageScreen extends _i126.PageRouteInfo<DocumentPageScreenArgs> {
       return _i44.DocumentPage(
         key: args.key,
         isFromSplash: args.isFromSplash,
+        isUpdate: args.isUpdate,
       );
     },
   );
@@ -1759,15 +1780,18 @@ class DocumentPageScreenArgs {
   const DocumentPageScreenArgs({
     this.key,
     this.isFromSplash = false,
+    this.isUpdate = false,
   });
 
   final _i127.Key? key;
 
   final bool isFromSplash;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'DocumentPageScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+    return 'DocumentPageScreenArgs{key: $key, isFromSplash: $isFromSplash, isUpdate: $isUpdate}';
   }
 }
 

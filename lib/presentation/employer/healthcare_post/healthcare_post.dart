@@ -509,8 +509,10 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -536,6 +538,12 @@ class HealthCarePostForm extends StatelessWidget {
   TextEditingController languageController = TextEditingController();
   bool isMultiLocation = true;
 
+  String postTitle() {
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
+    return industry.title ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Post id--> $postId");
@@ -551,10 +559,10 @@ class HealthCarePostForm extends StatelessWidget {
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
-
                 // Navigator.pop(context);
               },
-              title: StringConstant.healthcare,
+              // StringConstant.healthcare
+              title: postTitle(),
             ),
             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
               listener: (context, state) {
@@ -593,8 +601,7 @@ class HealthCarePostForm extends StatelessWidget {
                             child: Column(
                               children: [
                                 Image.asset(
-                                  PngImageConstants.healthcare_post_employer,
-                                ),
+                                    PngImageConstants.healthcare_post_employer),
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),

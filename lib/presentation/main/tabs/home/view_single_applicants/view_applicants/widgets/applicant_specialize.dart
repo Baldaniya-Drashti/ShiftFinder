@@ -17,10 +17,10 @@ class ApplicantSpecialize extends StatelessWidget {
   Widget build(BuildContext context) {
     final completeProfile = data.complete_profile;
     final specialityOther = completeProfile?.specialties_detail
-        ?.where((element) => element.specialtie_lists == null)
+        ?.where((element) => element.role == null)
         .toList();
     final speciality = completeProfile?.specialties_detail
-        ?.where((element) => element.specialtie_lists != null)
+        ?.where((element) => element.role != null)
         .toList();
     Log.info(data.experience);
     return Container(
@@ -98,7 +98,7 @@ class ApplicantSpecialize extends StatelessWidget {
               children: List.generate(
                 speciality?.length ?? 0,
                 (index) {
-                  final role = speciality?[index].specialtie_lists?.name ?? "";
+                  final role = speciality?[index].role?.name ?? "";
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

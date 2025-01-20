@@ -13,8 +13,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'DocumentPageScreen')
 class DocumentPage extends StatefulWidget {
   bool isFromSplash = false;
+  bool isUpdate;
 
-  DocumentPage({super.key, this.isFromSplash = false});
+  DocumentPage({super.key, this.isFromSplash = false, this.isUpdate = false});
 
   @override
   State<DocumentPage> createState() => _DocumentPageState();
@@ -31,7 +32,8 @@ class _DocumentPageState extends State<DocumentPage> {
         providers: [
           BlocProvider(
             create: (context) => getIt<DocumentBloc>()
-              ..add(DocumentEvent.getAllDocumentStatus()),
+              ..add(DocumentEvent.getAllDocumentStatus(
+                  isUpdate: widget.isUpdate)),
           ),
           BlocProvider(
             create: (context) => getIt<CredentialBloc>(),
@@ -110,9 +112,10 @@ class _DocumentPageState extends State<DocumentPage> {
   getPageView(DocumentState state, BuildContext context) {
     return PageView.builder(
       controller: DocumentBloc.pageController,
-      itemCount: DocumentBloc.documentPageList.length,
+      itemCount: DocumentBloc.documentPageList().length,
       physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) => DocumentBloc.documentPageList[index],
+      itemBuilder: (context, index) =>
+          DocumentBloc.documentPageList(isUpdate: widget.isUpdate)[index],
       onPageChanged: (value) {
         print("CURRENT PAGE IS===> $value");
         context.read<DocumentBloc>().add(DocumentEvent.nextPage(value));

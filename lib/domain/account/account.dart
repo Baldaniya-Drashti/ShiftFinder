@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/contractor_complete_profile_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'account.freezed.dart';
@@ -29,7 +31,9 @@ class Account with _$Account {
       String? location,
       String? referralCode,
       String? lastPage,
+      ContractorCompleteProfileDTO? complete_profile,
       List<EducationDTO>? education,
+      List<ExperienceDTO>? experience,
       List<ReferenceDTO>? reference,
       List<DocumentDTO>? document,
       Auth? auth,
