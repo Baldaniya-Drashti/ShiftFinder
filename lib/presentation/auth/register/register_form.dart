@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({super.key});
@@ -265,9 +266,7 @@ class RegisterForm extends StatelessWidget {
                   (_) => null,
                 ),
           ),
-          SizedBox(
-            height: getSize(20),
-          ),
+          SizedBox(height: getSize(20)),
           CustomTextField(
             hintText: StringConstant.lastName,
             labelText: StringConstant.lastName,
@@ -377,16 +376,36 @@ class RegisterForm extends StatelessWidget {
             title1: StringConstant.andAgreeToOur,
             terms: StringConstant.termsOfService,
             priacyPolicy: StringConstant.privacyPolicy,
-            onTermsClick: () {
-              context.router
+            onTermsClick: () async {
+              final Uri url = Uri.parse(StringConstant.shiftFinderWebsite);
+              try {
+                bool launched =
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                if (!launched) {
+                  print("Could not launch the URL");
+                }
+              } catch (e) {
+                print("Catch error: $e");
+              }
+              /* context.router
                   .push(const PageRouteInfo(TermsAndConditionsScreen.name,
                       args: TermsAndConditionsScreenArgs(
                         isFromRegister: true,
-                      )));
+                      ))); */
             },
-            onPrivacyPolicyClick: () {
-              context.router
-                  .push(const PageRouteInfo(PrivacyPolicyScreen.name));
+            onPrivacyPolicyClick: () async {
+              final Uri url = Uri.parse(StringConstant.shiftFinderWebsite);
+              try {
+                bool launched =
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                if (!launched) {
+                  print("Could not launch the URL");
+                }
+              } catch (e) {
+                print("Catch error: $e");
+              }
+              // context.router
+              //     .push(const PageRouteInfo(PrivacyPolicyScreen.name));
             },
           ),
         ),

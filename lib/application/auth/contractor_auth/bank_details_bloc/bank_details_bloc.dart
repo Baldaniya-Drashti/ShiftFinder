@@ -46,29 +46,34 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
           locationCtrl.clear();
           final bank = e.currentBank;
           emit(state.copyWith(isLoading: true));
-          await Future.delayed(Duration(seconds: 2)).then((value) {
+          await Future.delayed(Duration(seconds: 1)).then((value) {
             if (bank != null) {
               locationCtrl.text = bank.bank_address ?? "";
               emit(state.copyWith(
                 bankDetail: bank,
-                bankName: InputEmptyOrNot("HDFC"),
-                jobTitle: InputEmptyOrNot("TILE POSITION"),
+                bankName: InputEmptyOrNot(bank.bank_name ?? ""),
+                jobTitle: InputEmptyOrNot(bank.job_title ?? ""),
                 accountHolderName: Username(""),
-                accountNumber:
-                    InputEmptyOrNot(bank.account_number ?? "123456789523"),
-                transitNumber: InputEmptyOrNot(bank.transit_number ?? "1234"),
-                bankInstitutionNumber: InputEmptyOrNot(
-                    bank.institution_number ?? "SURAT ADAJAN PATIYA"),
-                accountType: InputEmptyOrNot(bank.account_type ?? "Savings"),
-                firstName: Username(bank.first_name ?? "DRASHTI"),
-                lastName: Username(bank.first_name ?? "BALDANIYA"),
-                phoneNumber: MobileNumber("9638527412"),
-                dateOfBirth: InputEmptyOrNot(bank.dob ?? "09-12-2002"),
-                bankAddress: InputEmptyOrNot(
-                    bank.bank_address ?? "ADAJAN PATIYA SURAT GUJRAT"),
-                city: InputEmptyOrNot(bank.city ?? "SURAT"),
-                stateName: InputEmptyOrNot(bank.state ?? "GUJARAT"),
-                postalCode: InputEmptyOrNot(bank.postal_code ?? "006 899"),
+                accountNumber: InputEmptyOrNot(bank.full_account_number ?? ""),
+                transitNumber: InputEmptyOrNot(bank.transit_number ?? ""),
+                bankInstitutionNumber:
+                    InputEmptyOrNot(bank.institution_number ?? ""),
+                accountType: InputEmptyOrNot(bank.account_type ?? ""),
+                firstName: Username(bank.first_name ?? ""),
+                lastName: Username(bank.first_name ?? ""),
+                phoneNumber: MobileNumber(bank.phone ?? ""),
+                dateOfBirth: (bank.dob != null)
+                    ? InputEmptyOrNot(DateTime.fromMillisecondsSinceEpoch(
+                        (bank.dob ?? -1) * 1000,
+                      ).toIso8601String())
+                    : InputEmptyOrNot(""),
+                bankAddress: InputEmptyOrNot(bank.bank_address ?? ""),
+                city: InputEmptyOrNot(bank.city ?? ""),
+                stateName: InputEmptyOrNot(bank.state ?? ""),
+                postalCode: InputEmptyOrNot(bank.postal_code ?? ""),
+                selectedCountrycode: bank.country_code ?? "",
+                selectedCountryFlag: bank.country_flag ?? "",
+                selectedCountryCodeName: bank.country ?? "",
                 isLoading: false,
               ));
             } else {
@@ -309,7 +314,8 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               isStateValid &&
               isPostalCodeValid &&
               isPhoneNoValid &&
-              isCheckTerms) {
+              ((state.bankDetail == null && isCheckTerms) ||
+                  state.bankDetail != null)) {
             print("All Details are validdddddd! ");
             // Find the ID of the selected bank name
             /* final selectedBankName = state.bankName.getValue();
@@ -322,7 +328,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
 
             emit(
               state.copyWith(
-                isLoading: true,
+                isSubmitting: true,
                 authFailureOrSuccessOption: none(),
               ),
             );
@@ -345,7 +351,8 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               city: state.city.getValue() ?? "",
               state: state.stateName.getValue() ?? "",
               postalCode: state.postalCode.getValue() ?? "",
-              countryFlag: state.selectedCountryCodeName,
+              countryFlag: state.selectedCountryFlag,
+              countryNameCode: state.selectedCountryCodeName,
               countryCode: '+${state.selectedCountrycode}',
               phone: state.phoneNumber.getValue(),
               lastPage: 'LegalScreening',
@@ -360,7 +367,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
           }
           emit(
             state.copyWith(
-              isLoading: false,
+              isSubmitting: false,
               showErrorMessages: true,
               authFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),

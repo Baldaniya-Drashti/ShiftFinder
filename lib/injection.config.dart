@@ -57,6 +57,8 @@ import 'package:shift/application/consumer_support/support_ticket/support_ticket
     as _i942;
 import 'package:shift/application/contractor/contractor_earning_bloc/contractor_earning_bloc.dart'
     as _i608;
+import 'package:shift/application/contractor/contractor_edit_profile_bloc/contractor_edit_profile_bloc.dart'
+    as _i392;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -169,7 +171,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i366.AccountManagementBloc());
     gh.factory<_i418.FullTimePositionDetailBloc>(
         () => _i418.FullTimePositionDetailBloc());
-    gh.factory<_i969.ContractorWalletBloc>(() => _i969.ContractorWalletBloc());
     gh.factory<_i422.ContractorStatementBloc>(
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
@@ -268,8 +269,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i134.RegisterFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i31.LoginFormBloc>(
         () => _i31.LoginFormBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i234.EditProfileBloc>(
-        () => _i234.EditProfileBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i723.ChangePasswordBloc>(
         () => _i723.ChangePasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i544.MessageBloc>(() => _i544.MessageBloc(
@@ -324,6 +323,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i286.ContractorPreviousShiftBloc>(
         () => _i286.ContractorPreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i969.ContractorWalletBloc>(
+        () => _i969.ContractorWalletBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i131.ContractorShiftBloc>(
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
@@ -347,6 +348,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i392.ContractorEditProfileBloc>(
+        () => _i392.ContractorEditProfileBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i234.EditProfileBloc>(
+        () => _i234.EditProfileBloc(gh<_i253.IAccountRepository>()));
     return this;
   }
 }

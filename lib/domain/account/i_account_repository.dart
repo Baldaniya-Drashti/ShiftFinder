@@ -217,9 +217,34 @@ abstract class IAccountRepository {
     required String postalCode,
     required String countryFlag,
     required String countryCode,
+    required String countryNameCode,
     required String phone,
     String? lastPage,
   });
 
   Future<Either<AccountFailure, BankDTO>> getBankDetailAPI();
+
+  Future<Either<AccountFailure, Account>> editContractorProfile({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String latitude,
+    required String longitude,
+    required String address,
+    required String profileImage,
+    required String lastPage,
+  });
+
+  Future<Either<AccountFailure, Account>> editEmployerProfile({
+    required String companyName,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String countryCode,
+    required String countryFlag,
+    required String profileImage,
+    required String association,
+    required String companyDesc,
+    required String lastPage,
+  });
 }

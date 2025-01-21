@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/register_form/register_form_bloc.dart';
-import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart';
+import 'package:shift/application/contractor/contractor_edit_profile_bloc/contractor_edit_profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -22,20 +22,20 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/location_dialog.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:badges/badges.dart' as badges;
 
-@RoutePage(name: 'EditProfileView')
-class EditProfileView extends StatelessWidget {
-  EditProfileView({super.key});
+@RoutePage(name: 'ContractorEditProfile')
+class ContractorEditProfile extends StatelessWidget {
+  ContractorEditProfile({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,11 @@ class EditProfileView extends StatelessWidget {
         preferredSize: Size.fromHeight(getSize(65)),
         child: CommonAppBar(
           onBackPressed: () {
+            ContractorEditProfileBloc.locationCtrl.clear();
+
             context.router.maybePop();
           },
-          title: StringConstant.companyDetails,
+          title: StringConstant.editProfile,
         ),
       ),
       body: GestureDetector(
@@ -54,10 +56,45 @@ class EditProfileView extends StatelessWidget {
           AppFocus.unfocus(context);
         },
         child: BlocProvider(
-          create: (context) => getIt<EditProfileBloc>()
-            ..add(EditProfileEvent.getCurrentProfileDetail()),
-          child: BlocConsumer<EditProfileBloc, EditProfileState>(
-            listener: (context, state) {},
+          create: (context) => getIt<ContractorEditProfileBloc>()
+            ..add(ContractorEditProfileEvent.getCurrentProfileDetail()),
+          child: BlocConsumer<ContractorEditProfileBloc,
+              ContractorEditProfileState>(
+            listener: (context, state) {
+              /* state.authFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold(
+                  (failure) {
+                    AppFocus.unfocus(context);
+                    showError(
+                      message: failure.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(context);
+                  },
+                  (r) {
+                    AppFocus.unfocus(context);
+                    VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
+                      context,
+                      // (getCurrentRole() == 1)
+                      //     ? state.enteredPhoneNo
+                      //     : state.email.getValue(),
+                      // "+${state.selectedCountrycode}",
+                      (getCurrentRole() == 1)
+                          ? "${getCurrentUser().phone ?? ''}"
+                          : getCurrentUser().email ?? '',
+                      getCurrentUser().countryCode ?? '',
+                      getCurrentUser().countryNameCode ?? '',
+                      // state.selectedCountryFlag,
+                      state.password.getValue(),
+                    );
+                  },
+                ),
+              ); */
+            },
             builder: (context, state) {
               return (state.isLoading)
                   ? CenterLoadingIndicator(isOnlyLoader: true)
@@ -77,24 +114,21 @@ class EditProfileView extends StatelessWidget {
                               paddingBetweenFields(),
                               lastNameField(context, state),
                               paddingBetweenFields(),
-                              companyNameTextField(context, state),
+                              emailTextField(context, state),
                               paddingBetweenFields(),
-                              phoneNumberTextField(context, state),
-                              paddingBetweenFields(),
-                              associationTextField(context, state),
-                              paddingBetweenFields(),
-                              companyDescTextField(context, state),
+                              addressField(context, state),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(vertical: getSize(50)),
                                 child: CommonButton(
                                   isSubmitting: state.isSubmitting,
                                   onPressed: () {
-                                    context.read<EditProfileBloc>().add(
-                                        EditProfileEvent.updateProfile(
-                                            context));
+                                    context
+                                        .read<ContractorEditProfileBloc>()
+                                        .add(ContractorEditProfileEvent
+                                            .updateProfile(context));
                                   },
-                                  buttonText: StringConstant.register,
+                                  buttonText: StringConstant.update,
                                 ),
                               ),
                             ],
@@ -109,7 +143,8 @@ class EditProfileView extends StatelessWidget {
     );
   }
 
-  Widget profileImageSection(BuildContext context, EditProfileState state) {
+  Widget profileImageSection(
+      BuildContext context, ContractorEditProfileState state) {
     return Stack(
       alignment: AlignmentDirectional.center,
       clipBehavior: Clip.none,
@@ -129,8 +164,8 @@ class EditProfileView extends StatelessWidget {
                           '';
                       if (path.isNotEmpty) {
                         print("CAMERA IMAGE PATH: $path");
-                        context.read<EditProfileBloc>().add(
-                              EditProfileEvent.changeProfilePic(path),
+                        context.read<ContractorEditProfileBloc>().add(
+                              ContractorEditProfileEvent.changeProfilePic(path),
                             );
                       }
                     } catch (e) {
@@ -145,8 +180,8 @@ class EditProfileView extends StatelessWidget {
 
                     if (path.isNotEmpty) {
                       print("GALLERY IMAGE PATH: $path");
-                      context.read<EditProfileBloc>().add(
-                            EditProfileEvent.changeProfilePic(path),
+                      context.read<ContractorEditProfileBloc>().add(
+                            ContractorEditProfileEvent.changeProfilePic(path),
                           );
                     }
                   },
@@ -227,7 +262,44 @@ class EditProfileView extends StatelessWidget {
     );
   }
 
-  Widget firstNameField(BuildContext context, EditProfileState state) {
+  Widget emailTextField(
+      BuildContext context, ContractorEditProfileState state) {
+    return CustomTextField(
+      initialValue: state.email.getValue(),
+      labelText: StringConstant.email,
+      isLabelPadding: true,
+      hintText: StringConstant.email,
+      keyboardType: TextInputType.emailAddress,
+      maxLength: 340,
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.email,
+          height: getSize(24),
+          width: getSize(24),
+          color: AppColors.primaryColor,
+        ),
+      ),
+      onChanged: (value) => context
+          .read<ContractorEditProfileBloc>()
+          .add(ContractorEditProfileEvent.emailChanged(value)),
+      validator: (p0, p1) =>
+          context.read<ContractorEditProfileBloc>().state.email.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterEmail,
+                  invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
+
+  Widget firstNameField(
+      BuildContext context, ContractorEditProfileState state) {
     return CustomTextField(
       hintText: StringConstant.firstName,
       labelText: StringConstant.firstName,
@@ -250,10 +322,10 @@ class EditProfileView extends StatelessWidget {
       ),
       // focusNode: state.firstNameFocusNode,
       onChanged: (value) => context
-          .read<EditProfileBloc>()
-          .add(EditProfileEvent.firstNameChanged(value)),
+          .read<ContractorEditProfileBloc>()
+          .add(ContractorEditProfileEvent.firstNameChanged(value)),
       validator: (_, context) =>
-          context.read<EditProfileBloc>().state.firstName.value.fold(
+          context.read<ContractorEditProfileBloc>().state.firstName.value.fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseEnterYourFirstName,
                   invalidUsername: (value) =>
@@ -265,7 +337,7 @@ class EditProfileView extends StatelessWidget {
     );
   }
 
-  Widget lastNameField(BuildContext context, EditProfileState state) {
+  Widget lastNameField(BuildContext context, ContractorEditProfileState state) {
     return CustomTextField(
       hintText: StringConstant.lastName,
       labelText: StringConstant.lastName,
@@ -287,10 +359,10 @@ class EditProfileView extends StatelessWidget {
         ),
       ),
       onChanged: (value) => context
-          .read<EditProfileBloc>()
-          .add(EditProfileEvent.lastNameChanged(value)),
+          .read<ContractorEditProfileBloc>()
+          .add(ContractorEditProfileEvent.lastNameChanged(value)),
       validator: (_, context) =>
-          context.read<EditProfileBloc>().state.lastName.value.fold(
+          context.read<ContractorEditProfileBloc>().state.lastName.value.fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseEnterYourLastName,
                   invalidUsername: (value) =>
@@ -302,119 +374,56 @@ class EditProfileView extends StatelessWidget {
     );
   }
 
-  Widget companyNameTextField(BuildContext context, EditProfileState state) {
+  Widget addressField(BuildContext context, ContractorEditProfileState state) {
     return CustomTextField(
-      initialValue: state.companyName.getValue(),
-      labelText: StringConstant.companyName,
+      labelText: StringConstant.address,
       isLabelPadding: true,
-      hintText: StringConstant.companyName,
-      textCapitalization: TextCapitalization.words,
-      errorMaxLines: 2,
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
-        ),
-        child: SvgPicture.asset(
-          SvgImageConstant.building,
-          height: getSize(24),
-          width: getSize(24),
-        ),
-      ),
-      onChanged: (value) => context
-          .read<EditProfileBloc>()
-          .add(EditProfileEvent.companyNameChanged(value)),
-      validator: (p0, p1) =>
-          context.read<EditProfileBloc>().state.companyName.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterCompanyName,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-    );
-  }
-
-  Widget phoneNumberTextField(BuildContext context, EditProfileState state) {
-    return CustomTextField(
-      initialValue: state.phoneNumber.getValue(),
-      labelText: StringConstant.phoneNumber,
-      hintText: StringConstant.phoneNumber,
-      keyboardType: TextInputType.phone,
-      isLabelPadding: true,
-      maxLength: 10,
-      errorMaxLines: 2,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        CountryCodeRemovingFormatter(),
-      ],
-      onChanged: (value) {
-        print("Filter Phone number --> $value");
-        context.read<EditProfileBloc>().add(
-              EditProfileEvent.phoneNumberChanged(value),
-            );
+      hintText: StringConstant.address,
+      readOnly: true,
+      readOnlyTextStyle: Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(color: AppColors.black),
+      onTap: () {
+        LocationDialog.showLocationDialog(context,
+                predictions: state.selectedLocationPrediction)
+            .then((value) {
+          if (value != null) {
+            print("selected location ---> $value");
+            context.read<ContractorEditProfileBloc>().add(
+                ContractorEditProfileEvent.locationSelectedFromSearchList(
+                    value));
+          }
+        });
       },
-      validator: (_, context) =>
-          context.read<EditProfileBloc>().state.phoneNumber.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterMobileNumber,
-                  invalidMobileNumber: (_) =>
-                      StringConstant.phoneNumberShouldBeBetween10And15Digits,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-      prefixIcon: CommonCountryCodePicker(
-        initialSelection: state.selectedCountryFlag,
-        onChanged: (countryCode) {
-          print(countryCode.flagEmoji);
-          context.read<EditProfileBloc>().add(
-                EditProfileEvent.selectCountryCode(
-                  countryCode.phoneCode,
-                  countryCode.flagEmoji,
-                ),
-              );
-        },
-      ),
-    );
-  }
-
-  Widget associationTextField(BuildContext context, EditProfileState state) {
-    return CustomTextField(
-      initialValue: state.association,
-      labelText: StringConstant.associationYouBelongTo,
-      isLabelPadding: true,
-      isOptional: true,
-      hintText: StringConstant.association,
+      controller: ContractorEditProfileBloc.locationCtrl,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
           vertical: getSize(14),
         ),
         child: SvgPicture.asset(
-          SvgImageConstant.association,
+          SvgImageConstant.locationIcon,
           height: getSize(24),
           width: getSize(24),
+          color: AppColors.primaryColor,
         ),
       ),
-      onChanged: (value) => context
-          .read<EditProfileBloc>()
-          .add(EditProfileEvent.associationTextChanged(value)),
-    );
-  }
-
-  Widget companyDescTextField(BuildContext context, EditProfileState state) {
-    return CustomTextField(
-      initialValue: state.companyDescription,
-      labelText: StringConstant.companyDescription,
-      hintText: StringConstant.typeHere,
-      isLabelPadding: true,
-      isOptional: true,
-      maxLines: 4,
-      keyboardType: TextInputType.multiline,
-      onChanged: (value) => context
-          .read<EditProfileBloc>()
-          .add(EditProfileEvent.companyDescChanged(value)),
+      /* onChanged: (value) => context.read<ContractorEditProfileBloc>().add(
+          ContractorEditProfileEvent.locationAddressChanged(
+              ContractorEditProfileBloc.locationCtrl.text)), */
+      validator: (p0, p1) => context
+          .read<ContractorEditProfileBloc>()
+          .state
+          .locationAddress
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseEnterAddress,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 }

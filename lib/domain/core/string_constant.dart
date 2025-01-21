@@ -696,7 +696,7 @@ class StringConstant {
   static const String pleaseSelectMonthToViewPerformanceInsights =
       "Please select month to view Performance Insights";
   static const String chooseMonth = "Choose Month";
-  static const String iRoidSolutions = "iRoid Solutions";
+  static const String editProfile = "Edit Profile";
   static const String assistantOnSite = "Assistant On-Site";
   static const String technicianOnSite = "Technician On-Site";
   static const String locationBrand = "Location Brand";
@@ -715,10 +715,13 @@ class StringConstant {
       "Are you sure you want to delete this bank account?";
   static const String verified = "Verified";
   static const String rejected = "Rejected";
+  static const String pending = "Pending..";
   static const String viewPdf = "View Pdf";
   static const String thirdPartyProcessingFee = "Third Party Processing Fee";
   static const String estimatedTotalEarnings = "Estimated Total Earnings";
   static const String tax = "Tax";
+  static const String availableBalance = "Available Balance";
+  static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 

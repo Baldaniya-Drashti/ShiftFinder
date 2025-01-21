@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/contractor/contractor_wallet/contractor_wallet_bloc.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -28,12 +29,12 @@ class ContractorWalletView extends StatelessWidget {
         return Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: "Wallet",
+            title: StringConstant.wallet,
           ),
           body: BlocBuilder<ContractorWalletBloc, ContractorWalletState>(
             builder: (context, state) {
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(getSize(16)),
                 child: CustomScrollView(
                   slivers: [
                     if (state.initialWalletFilter.id != 1) ...[
@@ -43,13 +44,16 @@ class ContractorWalletView extends StatelessWidget {
                       SliverGap(12)
                     ],
                     SliverToBoxAdapter(
-                      child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
+                      child: BlocSelector<ContractorWalletBloc,
+                          ContractorWalletState, WalletDropdownModel>(
                         selector: (state) => state.initialWalletFilter,
                         builder: (context, initialWalletFilter) {
                           return WalletDropdownField(
                             value: initialWalletFilter,
                             onChanged: (value) {
-                              context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
+                              context.read<ContractorWalletBloc>().add(
+                                  ContractorWalletEvent.onFilterChanged(
+                                      value: value));
                             },
                           );
                         },
@@ -70,7 +74,7 @@ class ContractorWalletView extends StatelessWidget {
                             padding: const EdgeInsets.all(20),
                             child: _WalletInfoItem(
                               icon: SvgImageConstant.availableBalance,
-                              label: "Available Balance",
+                              label: StringConstant.availableBalance,
                               balance: "\$632",
                             ),
                           ),
@@ -80,8 +84,13 @@ class ContractorWalletView extends StatelessWidget {
                     ],
                     SliverToBoxAdapter(
                       child: DateRangePickerTile(
-                        label: "Period",
-                        onDateSelected: (value) {},
+                        selectedDate: state.selectedDateTime,
+                        label: StringConstant.period,
+                        onDateSelected: (value) {
+                          context.read<ContractorWalletBloc>().add(
+                              ContractorWalletEvent.onDateSelected(
+                                  dates: value));
+                        },
                       ),
                     ),
                     SliverGap(16),
@@ -89,10 +98,12 @@ class ContractorWalletView extends StatelessWidget {
                     if (state.initialWalletFilter.id == 1)
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 22),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 22),
                           child: CommonButton(
                             onPressed: () {
-                              context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
+                              context.router.push(PageRouteInfo(
+                                  ContractorWithdrawPaymentView.name));
                             },
                             buttonText: "Withdraw Payment",
                           ),
@@ -143,8 +154,8 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
               height: 45,
               borderRadius: 5,
               onPressed: () {
-                context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
-
+                context.router
+                    .push(PageRouteInfo(ContractorWithdrawPaymentView.name));
               },
               buttonText: "Withdraw Payment",
               buttonFontWeight: FontWeight.w400,
@@ -211,7 +222,8 @@ class _WalletInfoItem extends StatelessWidget {
             icon!,
             height: 18,
             width: 18,
-            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.8), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                AppColors.black.withOpacity(0.8), BlendMode.srcIn),
           ),
           Gap(10),
         ],
@@ -223,7 +235,11 @@ class _WalletInfoItem extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        BaseText(text: balance, textColor: color, fontSize: 14, fontWeight: FontWeight.w600)
+        BaseText(
+            text: balance,
+            textColor: color,
+            fontSize: 14,
+            fontWeight: FontWeight.w600)
       ],
     );
   }
@@ -298,7 +314,11 @@ class _TransactionListView extends StatelessWidget {
           trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseText(text: "+\$560.35", textColor: AppColors.green, fontSize: 14, fontWeight: FontWeight.w600),
+              BaseText(
+                  text: "+\$560.35",
+                  textColor: AppColors.green,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
               BaseText(text: "Shift Earnings", fontSize: 10),
             ],
           ),
@@ -320,7 +340,11 @@ class WalletDropdownModel {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is WalletDropdownModel && runtimeType == other.runtimeType && id == other.id && label == other.label;
+      identical(this, other) ||
+      other is WalletDropdownModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          label == other.label;
 
   @override
   int get hashCode => id.hashCode ^ label.hashCode;

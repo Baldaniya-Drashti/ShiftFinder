@@ -30,8 +30,13 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class AddBankDetailsScreen extends StatelessWidget {
   BankDTO? bankDetail;
   bool isFromSplash = false;
+  bool isUpdate;
 
-  AddBankDetailsScreen({super.key, this.isFromSplash = false, this.bankDetail});
+  AddBankDetailsScreen(
+      {super.key,
+      this.isFromSplash = false,
+      this.bankDetail,
+      this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +63,12 @@ class AddBankDetailsScreen extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  context.router.push(
-                      const PageRouteInfo(LegalScreeningQuestionsPage.name));
+                  if (isUpdate) {
+                    context.router.maybePop(true);
+                  } else {
+                    context.router.push(
+                        const PageRouteInfo(LegalScreeningQuestionsPage.name));
+                  }
                 },
               ),
             );
@@ -113,26 +122,28 @@ class AddBankDetailsScreen extends StatelessWidget {
                               stateField(context, state),
                               paddingBetweenFields(),
                               postalCodeField(context, state),
-                              paddingBetweenFields(height: getSize(30)),
-                              termsCheckBox(state, context),
-                              paddingBetweenFields(height: getSize(10)),
-                              if (state.showErrorMessages && !state.isCheck)
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: getSize(20),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: BaseText(
-                                      text: StringConstant.bankTermsErrorText,
-                                      style: TextStyle(
-                                        color: AppColors.red,
-                                        fontSize: getFontSize(11),
-                                        fontWeight: FontWeight.w500,
+                              if (!isUpdate) ...[
+                                paddingBetweenFields(height: getSize(30)),
+                                termsCheckBox(state, context),
+                                paddingBetweenFields(height: getSize(10)),
+                                if (state.showErrorMessages && !state.isCheck)
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(20),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: BaseText(
+                                        text: StringConstant.bankTermsErrorText,
+                                        style: TextStyle(
+                                          color: AppColors.red,
+                                          fontSize: getFontSize(11),
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
+                              ],
                               Padding(
                                 padding: EdgeInsets.only(
                                   top: getSize(40),
@@ -254,7 +265,8 @@ class AddBankDetailsScreen extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accountType,
       hintText: StringConstant.accountType,
-      fieldInitialValue: state.accountType.getValue(),
+      fieldInitialValue:
+          (state.accountType.isValid()) ? state.accountType.getValue() : null,
       isLabelPadding: true,
       showTextfield: false,
       items: CommonList.accountTypeList.map((val) {

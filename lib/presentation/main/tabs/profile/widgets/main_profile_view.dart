@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -86,11 +87,17 @@ class MainProfileView extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       CommonButton(
                         onPressed: () {
-                          showUnderDevelopment(context);
+                          // showUnderDevelopment(context);
 
-                          // context.router.push(PageRouteInfo(EditProfileView.name));
+                          context.router
+                              .push(PageRouteInfo(EditProfileView.name))
+                              .then((value) {
+                            if (value != null) {
+                              context.read<AccountCubit>().getAccount();
+                            }
+                          });
                         },
-                        buttonText: 'Edit Profile',
+                        buttonText: StringConstant.editProfile,
                         buttonFontSize: 10,
                         height: 22,
                         width: 87,

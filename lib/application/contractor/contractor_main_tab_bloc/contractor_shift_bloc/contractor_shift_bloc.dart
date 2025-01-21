@@ -547,9 +547,7 @@ class ContractorShiftBloc
       DateTime timerStartTime, Duration totalDuration) {
     DateTime currentTime = DateTime.now();
     Duration elapsedTime = currentTime.difference(timerStartTime);
-
     Duration remainingTime = totalDuration - elapsedTime;
-
     if (remainingTime.isNegative) {
       return Duration.zero;
     } else {

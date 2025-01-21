@@ -1,21 +1,25 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
+import 'package:shift/application/splash/splash_bloc.dart';
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class ContractorMainProfileView extends StatelessWidget {
-  const ContractorMainProfileView({
-    super.key,
-  });
+  const ContractorMainProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +88,17 @@ class ContractorMainProfileView extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       CommonButton(
                         onPressed: () {
-                          showUnderDevelopment(context);
+                          context.router
+                              .push(PageRouteInfo(ContractorEditProfile.name))
+                              .then((value) {
+                            print("is Edit Profile---> $value");
+                            if (value != null) {
+                              context.read<AccountCubit>().getAccount();
+                            }
+                          });
+                          // showUnderDevelopment(context);
                         },
-                        buttonText: 'Edit Profile',
+                        buttonText: StringConstant.editProfile,
                         buttonFontSize: 10,
                         height: 22,
                         width: 87,
