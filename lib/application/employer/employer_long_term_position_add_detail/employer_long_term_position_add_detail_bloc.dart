@@ -40,7 +40,7 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
             emit(
               state.copyWith(
                 employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  applicationDeadline: value.deadLine,
+                  application_deadline: value.deadLine,
                 ),
               ),
             );

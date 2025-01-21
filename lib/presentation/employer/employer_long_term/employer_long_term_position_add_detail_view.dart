@@ -147,7 +147,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             ),
             Gap(getSize(12)),
             BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-              selector: (state) => state.employerLongTermAddDetailDto.applicationDeadline,
+              selector: (state) => state.employerLongTermAddDetailDto.application_deadline,
               builder: (context, applicationDeadline) {
                 return DatePickerInputField(
                   label: "Application Deadline",
@@ -392,7 +392,10 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
-                if (_formKey.currentState?.validate() != true) return;
+                if (_formKey.currentState?.validate() != true) {
+                  showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                  return;
+                }
                 final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;

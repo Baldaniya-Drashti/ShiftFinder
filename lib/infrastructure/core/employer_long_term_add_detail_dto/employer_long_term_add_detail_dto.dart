@@ -11,7 +11,7 @@ class EmployerLongTermAddDetailDto with _$EmployerLongTermAddDetailDto {
   const factory EmployerLongTermAddDetailDto({
     @DateTimeConverter() DateTime? start_date,
     @DateTimeConverter() DateTime? end_date,
-    @DateTimeConverter() DateTime? applicationDeadline,
+    @DateTimeConverter() DateTime? application_deadline,
     int? shift_schedule_type,
     String? job_description,
     String? requirements,
@@ -19,14 +19,15 @@ class EmployerLongTermAddDetailDto with _$EmployerLongTermAddDetailDto {
     String? benefits,
     String? qualifications,
     String? onboarding_process,
-    int? on_call_included,
+    @Default(0)int? on_call_included,
     String? licenses_certifications,
     String? terms_document,
     @TimeConverter() TimeOfDay? estimated_weekly_hours,
-    int? share_team_status,
-    int? employer_payment_confirmation,
-    int? save_template_status,
-    int? vacancie_type,
+    @Default(0) int? share_team_status,
+    @Default(0) int? employer_payment_confirmation,
+    @Default(0) int? save_template_status,
+    @Default(0)int? vacancie_type,
+    int? job_type,
   }) = _EmployerLongTermAddDetailDto;
 
   factory EmployerLongTermAddDetailDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermAddDetailDtoFromJson(json);

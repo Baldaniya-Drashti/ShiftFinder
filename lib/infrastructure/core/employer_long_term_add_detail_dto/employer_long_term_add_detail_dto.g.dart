@@ -13,8 +13,8 @@ _$EmployerLongTermAddDetailDtoImpl _$$EmployerLongTermAddDetailDtoImplFromJson(
           .fromJson((json['start_date'] as num?)?.toInt()),
       end_date: const DateTimeConverter()
           .fromJson((json['end_date'] as num?)?.toInt()),
-      applicationDeadline: const DateTimeConverter()
-          .fromJson((json['applicationDeadline'] as num?)?.toInt()),
+      application_deadline: const DateTimeConverter()
+          .fromJson((json['application_deadline'] as num?)?.toInt()),
       shift_schedule_type: (json['shift_schedule_type'] as num?)?.toInt(),
       job_description: json['job_description'] as String?,
       requirements: json['requirements'] as String?,
@@ -22,16 +22,18 @@ _$EmployerLongTermAddDetailDtoImpl _$$EmployerLongTermAddDetailDtoImplFromJson(
       benefits: json['benefits'] as String?,
       qualifications: json['qualifications'] as String?,
       onboarding_process: json['onboarding_process'] as String?,
-      on_call_included: (json['on_call_included'] as num?)?.toInt(),
+      on_call_included: (json['on_call_included'] as num?)?.toInt() ?? 0,
       licenses_certifications: json['licenses_certifications'] as String?,
       terms_document: json['terms_document'] as String?,
       estimated_weekly_hours: const TimeConverter()
           .fromJson(json['estimated_weekly_hours'] as String?),
-      share_team_status: (json['share_team_status'] as num?)?.toInt(),
+      share_team_status: (json['share_team_status'] as num?)?.toInt() ?? 0,
       employer_payment_confirmation:
-          (json['employer_payment_confirmation'] as num?)?.toInt(),
-      save_template_status: (json['save_template_status'] as num?)?.toInt(),
-      vacancie_type: (json['vacancie_type'] as num?)?.toInt(),
+          (json['employer_payment_confirmation'] as num?)?.toInt() ?? 0,
+      save_template_status:
+          (json['save_template_status'] as num?)?.toInt() ?? 0,
+      vacancie_type: (json['vacancie_type'] as num?)?.toInt() ?? 0,
+      job_type: (json['job_type'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EmployerLongTermAddDetailDtoImplToJson(
@@ -39,8 +41,8 @@ Map<String, dynamic> _$$EmployerLongTermAddDetailDtoImplToJson(
     <String, dynamic>{
       'start_date': const DateTimeConverter().toJson(instance.start_date),
       'end_date': const DateTimeConverter().toJson(instance.end_date),
-      'applicationDeadline':
-          const DateTimeConverter().toJson(instance.applicationDeadline),
+      'application_deadline':
+          const DateTimeConverter().toJson(instance.application_deadline),
       'shift_schedule_type': instance.shift_schedule_type,
       'job_description': instance.job_description,
       'requirements': instance.requirements,
@@ -57,4 +59,5 @@ Map<String, dynamic> _$$EmployerLongTermAddDetailDtoImplToJson(
       'employer_payment_confirmation': instance.employer_payment_confirmation,
       'save_template_status': instance.save_template_status,
       'vacancie_type': instance.vacancie_type,
+      'job_type': instance.job_type,
     };

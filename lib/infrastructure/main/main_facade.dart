@@ -233,16 +233,14 @@ class MainFacade implements IMainFacade {
         return shift.multi_date!.map((multiDate) {
           return {
             'date': DateTime.parse(multiDate.date ?? "").toUtc().millisecondsSinceEpoch / 1000,
-            'start_time': DateTime.parse(
-                        (shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "")
+            'start_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "")
                     .toUtc()
                     .millisecondsSinceEpoch /
                 1000,
-            'end_time':
-                DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "")
-                        .toUtc()
-                        .millisecondsSinceEpoch /
-                    1000
+            'end_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000
           };
         }).toList();
       } else {
@@ -667,8 +665,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI(
-      {required String postId, required bool isTotalApplicants}) {
+  Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({required String postId, required bool isTotalApplicants}) {
     throw UnimplementedError();
   }
 
@@ -712,8 +709,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, String>> createTeamApi(
-      {required String locationId, required InputEmptyOrNot teamName}) async {
+  Future<Either<MainFailure, String>> createTeamApi({required String locationId, required InputEmptyOrNot teamName}) async {
     try {
       Map<String, dynamic> mapData = {
         "location_id": locationId,
@@ -901,8 +897,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI(
-      {required int page, int? filterType}) async {
+  Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI({required int page, int? filterType}) async {
     try {
       DateTime now = DateTime.now();
       Map<String, dynamic> mapData = {
@@ -1132,8 +1127,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
-      {required int shiftId, required int clockTime}) async {
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime}) async {
     try {
       Map<String, dynamic> mapData = {
         'id': shiftId,
@@ -2788,35 +2782,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getEmployerFullTermPosition({required int page}) async {
-    try {
-      final response = await apiService.getMethod(
-        ApiConstants.employerDashboardLongFullTermPost,
-        queryParameters: {"post_type": 2},
-      );
-
-      if (response != null) {
-        return right(response);
-      } else {
-        return left(const MainFailure.serverError());
-      }
-    } on DioException catch (err) {
-      if (err.response != null) {
-        var commonRespose = CommonResponse.fromJson(err.response?.data);
-        if (commonRespose.dioMessage != null) {
-          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-        }
-      } else if (err.type == DioExceptionType.connectionError) {
-        return left(const MainFailure.networkError());
-      }
-
-      return left(const MainFailure.serverError());
-    }
-  }
-
-  @override
-  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPosition(
-      {required int positionType, required int page}) async {
+  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPosition({required int positionType, required int page}) async {
     try {
       final response = await apiService.getMethod(
         ApiConstants.employerDashboardLongFullTermPost,
@@ -2846,37 +2812,62 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({
-    required String roleListId,
-    String? specialtiesDetailId,
-    String? specialtiesDetailOther,
-    String? softwareSkillListId,
-    String? softwareSkillOther,
-    required String languagesListId,
-    String? languagesListOther,
-    required String locationId,
-    required String locationUnit,
-    required num rateHour,
-    required String startDate,
-    required String endDate,
-    required String applicationDeadline,
-    required String estimatedWeeklyHours,
-    required int shiftScheduleType,
-    required String jobDescription,
-    required String requirements,
-    required String responsibilities,
-    required String qualifications,
-    required String licensesCertifications,
-    required String onboardingProcess,
-    String? terms,
-    String? documentPath,
-    required int onCallIncluded,
-    required int numberOfVacancy,
-    required int shareTeamStatus,
-    int? teamId,
-    required int saveTemplateStatus,
-    required int employerPaymentConfirmation,
-  }) {
-    throw UnimplementedError();
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({required Map<String, dynamic> data}) async {
+    try {
+      final formData = FormData.fromMap(data);
+      if (data["terms_document"] != null) {
+        var multipartFile = await MultipartFile.fromFile(data['terms_document']);
+        formData.files.add(MapEntry('terms_document', multipartFile));
+      }
+      final res = await apiService.postMethod(
+        ApiConstants.createLongFullTermPost,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
+    required int positionsType,
+    required int page,
+  }) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerDashboardLongFullTermPost,
+        queryParameters: {"post_type": 1, "positions_type": positionsType, "page": page},
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
   }
 }

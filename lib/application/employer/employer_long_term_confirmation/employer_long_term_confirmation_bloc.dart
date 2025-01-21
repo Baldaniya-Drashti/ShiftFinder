@@ -1,10 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+
+import '../../../presentation/core/app_router.gr.dart';
 
 part 'employer_long_term_confirmation_event.dart';
 
@@ -69,6 +76,7 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
           final employer = state.employerAddDetailDto;
           final postShift = state.postShiftDTO;
           final Map<String, dynamic> data = {
+            "post_type": "1",
             "roles_list_id": postShift.roles_list_id,
             "specialties_detail_id": postShift.specialties_detail_id,
             "softwares_skill_list_id": postShift.softwares_skill_list_id,
@@ -82,30 +90,28 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             if (state.selectedTeamList.isNotEmpty) "team_id": state.selectedTeamList.join(","),
             ...employer.toJson(),
           };
-      print("=> ${data}");
-/*          await _mainFacade.createLongFullTermPost(
-            roleListId: roleListId,
-            languagesListId: languagesListId,
-            locationId: locationId,
-            locationUnit: locationUnit,
-            rateHour: rateHour,
-            startDate: startDate,
-            endDate: endDate,
-            applicationDeadline: applicationDeadline,
-            estimatedWeeklyHours: estimatedWeeklyHours,
-            shiftScheduleType: shiftScheduleType,
-            jobDescription: jobDescription,
-            requirements: requirements,
-            responsibilities: responsibilities,
-            qualifications: qualifications,
-            licensesCertifications: licensesCertifications,
-            onboardingProcess: onboardingProcess,
-            onCallIncluded: onCallIncluded,
-            numberOfVacancy: numberOfVacancy,
-            shareTeamStatus: shareTeamStatus,
-            saveTemplateStatus: saveTemplateStatus,
-            employerPaymentConfirmation: employerPaymentConfirmation,
-          );*/
+          print("=> ${data}");
+          emit(state.copyWith(postDataLoading: true));
+          final result = await _mainFacade.createLongFullTermPost(data: data);
+          emit(state.copyWith(postDataLoading: false));
+          result.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(value.context);
+            },
+            (r) {
+              final data = EmployerLongTermSuccessDto.fromJson(r.data);
+              value.context.router.push(
+                PageRouteInfo(EmployerLongTermReviewDetailView.name,
+                    args: EmployerLongTermReviewDetailViewArgs(employerLongTermSuccessDto: data)),
+              );
+            },
+          );
         },
         onCreate: (value) {
           emit(state.copyWith(postShiftDTO: value.postDetail, employerAddDetailDto: value.employer));

@@ -19,7 +19,7 @@ mixin _$PostShiftEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -39,7 +39,8 @@ mixin _$PostShiftEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -52,12 +53,14 @@ mixin _$PostShiftEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -70,13 +73,15 @@ mixin _$PostShiftEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -87,7 +92,7 @@ mixin _$PostShiftEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -106,7 +111,8 @@ mixin _$PostShiftEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -118,11 +124,12 @@ mixin _$PostShiftEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -134,13 +141,15 @@ mixin _$PostShiftEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -150,7 +159,7 @@ mixin _$PostShiftEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -169,7 +178,8 @@ mixin _$PostShiftEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -181,11 +191,12 @@ mixin _$PostShiftEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -196,13 +207,15 @@ mixin _$PostShiftEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -423,6 +436,9 @@ class _$PostShiftEventCopyWithImpl<$Res, $Val extends PostShiftEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -435,7 +451,8 @@ abstract class _$$ChangeShiftTypeImplCopyWith<$Res> {
       {String shiftType,
       int postId,
       PostShiftDTO? post,
-      HealthcarePostDTO? updateShift});
+      HealthcarePostDTO? updateShift,
+      bool? fromSaveTemplate});
 
   $PostShiftDTOCopyWith<$Res>? get post;
   $HealthcarePostDTOCopyWith<$Res>? get updateShift;
@@ -449,6 +466,8 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
       _$ChangeShiftTypeImpl _value, $Res Function(_$ChangeShiftTypeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -456,6 +475,7 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
     Object? postId = null,
     Object? post = freezed,
     Object? updateShift = freezed,
+    Object? fromSaveTemplate = freezed,
   }) {
     return _then(_$ChangeShiftTypeImpl(
       null == shiftType
@@ -474,9 +494,15 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
           ? _value.updateShift
           : updateShift // ignore: cast_nullable_to_non_nullable
               as HealthcarePostDTO?,
+      fromSaveTemplate: freezed == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res>? get post {
@@ -489,6 +515,8 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -506,7 +534,10 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
 
 class _$ChangeShiftTypeImpl implements ChangeShiftType {
   const _$ChangeShiftTypeImpl(this.shiftType,
-      {required this.postId, required this.post, required this.updateShift});
+      {required this.postId,
+      required this.post,
+      required this.updateShift,
+      this.fromSaveTemplate});
 
   @override
   final String shiftType;
@@ -516,10 +547,12 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
   final PostShiftDTO? post;
   @override
   final HealthcarePostDTO? updateShift;
+  @override
+  final bool? fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.changeShiftType(shiftType: $shiftType, postId: $postId, post: $post, updateShift: $updateShift)';
+    return 'PostShiftEvent.changeShiftType(shiftType: $shiftType, postId: $postId, post: $post, updateShift: $updateShift, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -532,14 +565,18 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.post, post) || other.post == post) &&
             (identical(other.updateShift, updateShift) ||
-                other.updateShift == updateShift));
+                other.updateShift == updateShift) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, shiftType, postId, post, updateShift);
+  int get hashCode => Object.hash(
+      runtimeType, shiftType, postId, post, updateShift, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChangeShiftTypeImplCopyWith<_$ChangeShiftTypeImpl> get copyWith =>
@@ -550,7 +587,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -570,7 +607,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -583,12 +621,14 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -601,27 +641,30 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return changeShiftType(shiftType, postId, post, updateShift);
+    return changeShiftType(
+        shiftType, postId, post, updateShift, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -640,7 +683,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -652,11 +696,12 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -668,26 +713,29 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return changeShiftType?.call(shiftType, postId, post, updateShift);
+    return changeShiftType?.call(
+        shiftType, postId, post, updateShift, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -706,7 +754,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -718,11 +767,12 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -733,13 +783,15 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -747,7 +799,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
-      return changeShiftType(shiftType, postId, post, updateShift);
+      return changeShiftType(
+          shiftType, postId, post, updateShift, fromSaveTemplate);
     }
     return orElse();
   }
@@ -964,13 +1017,18 @@ abstract class ChangeShiftType implements PostShiftEvent {
   const factory ChangeShiftType(final String shiftType,
       {required final int postId,
       required final PostShiftDTO? post,
-      required final HealthcarePostDTO? updateShift}) = _$ChangeShiftTypeImpl;
+      required final HealthcarePostDTO? updateShift,
+      final bool? fromSaveTemplate}) = _$ChangeShiftTypeImpl;
 
   String get shiftType;
   int get postId;
   PostShiftDTO? get post;
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+  bool? get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChangeShiftTypeImplCopyWith<_$ChangeShiftTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -996,6 +1054,8 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
       $Res Function(_$GetBreakAllownceListApiImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1009,6 +1069,8 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -1047,7 +1109,9 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
   @override
   int get hashCode => Object.hash(runtimeType, updateShift);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
@@ -1058,7 +1122,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -1078,7 +1142,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -1091,12 +1156,14 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -1109,13 +1176,15 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -1129,7 +1198,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -1148,7 +1217,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -1160,11 +1230,12 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -1176,13 +1247,15 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -1195,7 +1268,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -1214,7 +1287,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -1226,11 +1300,12 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -1241,13 +1316,15 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -1473,7 +1550,10 @@ abstract class GetBreakAllownceListApi implements PostShiftEvent {
       _$GetBreakAllownceListApiImpl;
 
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1498,6 +1578,8 @@ class __$$SingleShiftDateChangedEventImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftDateChangedEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1537,7 +1619,9 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftDateChangedEventImplCopyWith<_$SingleShiftDateChangedEventImpl>
@@ -1548,7 +1632,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -1568,7 +1652,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -1581,12 +1666,14 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -1599,13 +1686,15 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -1619,7 +1708,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -1638,7 +1727,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -1650,11 +1740,12 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -1666,13 +1757,15 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -1685,7 +1778,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -1704,7 +1797,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -1716,11 +1810,12 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -1731,13 +1826,15 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -1963,7 +2060,10 @@ abstract class SingleShiftDateChangedEvent implements PostShiftEvent {
       _$SingleShiftDateChangedEventImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftDateChangedEventImplCopyWith<_$SingleShiftDateChangedEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1985,6 +2085,8 @@ class __$$StartHourChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartHourChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2023,7 +2125,9 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartHourChangedImplCopyWith<_$StartHourChangedImpl> get copyWith =>
@@ -2034,7 +2138,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -2054,7 +2158,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -2067,12 +2172,14 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -2085,13 +2192,15 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -2105,7 +2214,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -2124,7 +2233,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -2136,11 +2246,12 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -2152,13 +2263,15 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -2171,7 +2284,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -2190,7 +2303,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -2202,11 +2316,12 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -2217,13 +2332,15 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -2448,7 +2565,10 @@ abstract class StartHourChanged implements PostShiftEvent {
   const factory StartHourChanged(final String hour) = _$StartHourChangedImpl;
 
   String get hour;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartHourChangedImplCopyWith<_$StartHourChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2470,6 +2590,8 @@ class __$$StartMinuteChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartMinuteChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2508,7 +2630,9 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartMinuteChangedImplCopyWith<_$StartMinuteChangedImpl> get copyWith =>
@@ -2519,7 +2643,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -2539,7 +2663,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -2552,12 +2677,14 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -2570,13 +2697,15 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -2590,7 +2719,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -2609,7 +2738,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -2621,11 +2751,12 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -2637,13 +2768,15 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -2656,7 +2789,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -2675,7 +2808,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -2687,11 +2821,12 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -2702,13 +2837,15 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -2934,7 +3071,10 @@ abstract class StartMinuteChanged implements PostShiftEvent {
       _$StartMinuteChangedImpl;
 
   String get minute;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartMinuteChangedImplCopyWith<_$StartMinuteChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2956,6 +3096,8 @@ class __$$EndHourChangedImplCopyWithImpl<$Res>
       _$EndHourChangedImpl _value, $Res Function(_$EndHourChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2994,7 +3136,9 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndHourChangedImplCopyWith<_$EndHourChangedImpl> get copyWith =>
@@ -3005,7 +3149,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -3025,7 +3169,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -3038,12 +3183,14 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -3056,13 +3203,15 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -3076,7 +3225,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -3095,7 +3244,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -3107,11 +3257,12 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -3123,13 +3274,15 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -3142,7 +3295,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -3161,7 +3314,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -3173,11 +3327,12 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -3188,13 +3343,15 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -3419,7 +3576,10 @@ abstract class EndHourChanged implements PostShiftEvent {
   const factory EndHourChanged(final String hour) = _$EndHourChangedImpl;
 
   String get hour;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndHourChangedImplCopyWith<_$EndHourChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3441,6 +3601,8 @@ class __$$EndMinuteChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndMinuteChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3479,7 +3641,9 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndMinuteChangedImplCopyWith<_$EndMinuteChangedImpl> get copyWith =>
@@ -3490,7 +3654,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -3510,7 +3674,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -3523,12 +3688,14 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -3541,13 +3708,15 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -3561,7 +3730,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -3580,7 +3749,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -3592,11 +3762,12 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -3608,13 +3779,15 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -3627,7 +3800,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -3646,7 +3819,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -3658,11 +3832,12 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -3673,13 +3848,15 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -3904,7 +4081,10 @@ abstract class EndMinuteChanged implements PostShiftEvent {
   const factory EndMinuteChanged(final String minute) = _$EndMinuteChangedImpl;
 
   String get minute;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndMinuteChangedImplCopyWith<_$EndMinuteChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3926,6 +4106,8 @@ class __$$UnpaidBreakChangedImplCopyWithImpl<$Res>
       $Res Function(_$UnpaidBreakChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3965,7 +4147,9 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @override
   int get hashCode => Object.hash(runtimeType, breakTime);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnpaidBreakChangedImplCopyWith<_$UnpaidBreakChangedImpl> get copyWith =>
@@ -3976,7 +4160,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -3996,7 +4180,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -4009,12 +4194,14 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -4027,13 +4214,15 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -4047,7 +4236,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -4066,7 +4255,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -4078,11 +4268,12 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -4094,13 +4285,15 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -4113,7 +4306,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -4132,7 +4325,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -4144,11 +4338,12 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -4159,13 +4354,15 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -4391,7 +4588,10 @@ abstract class UnpaidBreakChanged implements PostShiftEvent {
       _$UnpaidBreakChangedImpl;
 
   String get breakTime;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnpaidBreakChangedImplCopyWith<_$UnpaidBreakChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4412,6 +4612,9 @@ class __$$TotalPayableHoursChangedImplCopyWithImpl<$Res>
       _$TotalPayableHoursChangedImpl _value,
       $Res Function(_$TotalPayableHoursChangedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4438,7 +4641,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -4458,7 +4661,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -4471,12 +4675,14 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -4489,13 +4695,15 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -4509,7 +4717,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -4528,7 +4736,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -4540,11 +4749,12 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -4556,13 +4766,15 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -4575,7 +4787,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -4594,7 +4806,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -4606,11 +4819,12 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -4621,13 +4835,15 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -4871,6 +5087,8 @@ class __$$CommuteAllownceChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteAllownceChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4910,7 +5128,9 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteAllownceChangedImplCopyWith<_$CommuteAllownceChangedImpl>
@@ -4921,7 +5141,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -4941,7 +5161,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -4954,12 +5175,14 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -4972,13 +5195,15 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -4992,7 +5217,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -5011,7 +5236,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -5023,11 +5249,12 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -5039,13 +5266,15 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -5058,7 +5287,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -5077,7 +5306,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -5089,11 +5319,12 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -5104,13 +5335,15 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -5336,7 +5569,10 @@ abstract class CommuteAllownceChanged implements PostShiftEvent {
       _$CommuteAllownceChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteAllownceChangedImplCopyWith<_$CommuteAllownceChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5358,6 +5594,8 @@ class __$$CommuteHoursChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteHoursChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5397,7 +5635,9 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteHoursChangedImplCopyWith<_$CommuteHoursChangedImpl> get copyWith =>
@@ -5408,7 +5648,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -5428,7 +5668,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -5441,12 +5682,14 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -5459,13 +5702,15 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -5479,7 +5724,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -5498,7 +5743,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -5510,11 +5756,12 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -5526,13 +5773,15 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -5545,7 +5794,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -5564,7 +5813,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -5576,11 +5826,12 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -5591,13 +5842,15 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -5823,7 +6076,10 @@ abstract class CommuteHoursChanged implements PostShiftEvent {
       _$CommuteHoursChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteHoursChangedImplCopyWith<_$CommuteHoursChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -5845,6 +6101,8 @@ class __$$CommuteRateChangedImplCopyWithImpl<$Res>
       $Res Function(_$CommuteRateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5884,7 +6142,9 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommuteRateChangedImplCopyWith<_$CommuteRateChangedImpl> get copyWith =>
@@ -5895,7 +6155,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -5915,7 +6175,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -5928,12 +6189,14 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -5946,13 +6209,15 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -5966,7 +6231,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -5985,7 +6250,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -5997,11 +6263,12 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -6013,13 +6280,15 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -6032,7 +6301,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -6051,7 +6320,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -6063,11 +6333,12 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -6078,13 +6349,15 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -6310,7 +6583,10 @@ abstract class CommuteRateChanged implements PostShiftEvent {
       _$CommuteRateChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommuteRateChangedImplCopyWith<_$CommuteRateChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -6334,6 +6610,8 @@ class __$$AccomdationAllownceChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationAllownceChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6373,7 +6651,9 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationAllownceChangedImplCopyWith<_$AccomdationAllownceChangedImpl>
@@ -6384,7 +6664,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -6404,7 +6684,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -6417,12 +6698,14 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -6435,13 +6718,15 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -6455,7 +6740,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -6474,7 +6759,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -6486,11 +6772,12 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -6502,13 +6789,15 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -6521,7 +6810,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -6540,7 +6829,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -6552,11 +6842,12 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -6567,13 +6858,15 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -6799,7 +7092,10 @@ abstract class AccomdationAllownceChanged implements PostShiftEvent {
       _$AccomdationAllownceChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationAllownceChangedImplCopyWith<_$AccomdationAllownceChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6823,6 +7119,8 @@ class __$$AccomdationHoursChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationHoursChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6862,7 +7160,9 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationHoursChangedImplCopyWith<_$AccomdationHoursChangedImpl>
@@ -6873,7 +7173,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -6893,7 +7193,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -6906,12 +7207,14 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -6924,13 +7227,15 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -6944,7 +7249,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -6963,7 +7268,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -6975,11 +7281,12 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -6991,13 +7298,15 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -7010,7 +7319,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -7029,7 +7338,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -7041,11 +7351,12 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -7056,13 +7367,15 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -7288,7 +7601,10 @@ abstract class AccomdationHoursChanged implements PostShiftEvent {
       _$AccomdationHoursChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationHoursChangedImplCopyWith<_$AccomdationHoursChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7312,6 +7628,8 @@ class __$$AccomdationRateChangedImplCopyWithImpl<$Res>
       $Res Function(_$AccomdationRateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7351,7 +7669,9 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccomdationRateChangedImplCopyWith<_$AccomdationRateChangedImpl>
@@ -7362,7 +7682,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -7382,7 +7702,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -7395,12 +7716,14 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -7413,13 +7736,15 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -7433,7 +7758,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -7452,7 +7777,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -7464,11 +7790,12 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -7480,13 +7807,15 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -7499,7 +7828,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -7518,7 +7847,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -7530,11 +7860,12 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -7545,13 +7876,15 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -7777,7 +8110,10 @@ abstract class AccomdationRateChanged implements PostShiftEvent {
       _$AccomdationRateChangedImpl;
 
   String get selectedValue;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccomdationRateChangedImplCopyWith<_$AccomdationRateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7799,6 +8135,8 @@ class __$$SingleShiftNotesImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftNotesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7837,7 +8175,9 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @override
   int get hashCode => Object.hash(runtimeType, note);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftNotesImplCopyWith<_$SingleShiftNotesImpl> get copyWith =>
@@ -7848,7 +8188,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -7868,7 +8208,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -7881,12 +8222,14 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -7899,13 +8242,15 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -7919,7 +8264,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -7938,7 +8283,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -7950,11 +8296,12 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -7966,13 +8313,15 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -7985,7 +8334,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -8004,7 +8353,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -8016,11 +8366,12 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -8031,13 +8382,15 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -8262,7 +8615,10 @@ abstract class SingleShiftNotes implements PostShiftEvent {
   const factory SingleShiftNotes(final String note) = _$SingleShiftNotesImpl;
 
   String get note;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftNotesImplCopyWith<_$SingleShiftNotesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8284,6 +8640,8 @@ class __$$CheckIsMoreVancancyImplCopyWithImpl<$Res>
       $Res Function(_$CheckIsMoreVancancyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8323,7 +8681,9 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @override
   int get hashCode => Object.hash(runtimeType, isMoreVacancy);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckIsMoreVancancyImplCopyWith<_$CheckIsMoreVancancyImpl> get copyWith =>
@@ -8334,7 +8694,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -8354,7 +8714,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -8367,12 +8728,14 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -8385,13 +8748,15 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -8405,7 +8770,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -8424,7 +8789,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -8436,11 +8802,12 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -8452,13 +8819,15 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -8471,7 +8840,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -8490,7 +8859,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -8502,11 +8872,12 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -8517,13 +8888,15 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -8749,7 +9122,10 @@ abstract class CheckIsMoreVancancy implements PostShiftEvent {
       _$CheckIsMoreVancancyImpl;
 
   bool get isMoreVacancy;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckIsMoreVancancyImplCopyWith<_$CheckIsMoreVancancyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8771,6 +9147,8 @@ class __$$AddVacancyChangedImplCopyWithImpl<$Res>
       $Res Function(_$AddVacancyChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8809,7 +9187,9 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @override
   int get hashCode => Object.hash(runtimeType, vacancy);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddVacancyChangedImplCopyWith<_$AddVacancyChangedImpl> get copyWith =>
@@ -8820,7 +9200,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -8840,7 +9220,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -8853,12 +9234,14 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -8871,13 +9254,15 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -8891,7 +9276,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -8910,7 +9295,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -8922,11 +9308,12 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -8938,13 +9325,15 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -8957,7 +9346,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -8976,7 +9365,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -8988,11 +9378,12 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -9003,13 +9394,15 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -9235,7 +9628,10 @@ abstract class AddVacancyChanged implements PostShiftEvent {
       _$AddVacancyChangedImpl;
 
   String get vacancy;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddVacancyChangedImplCopyWith<_$AddVacancyChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9246,7 +9642,7 @@ abstract class _$$SingleShiftSubmittedImplCopyWith<$Res> {
           $Res Function(_$SingleShiftSubmittedImpl) then) =
       __$$SingleShiftSubmittedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext context});
+  $Res call({BuildContext context, bool fromSaveTemplate});
 }
 
 /// @nodoc
@@ -9257,16 +9653,23 @@ class __$$SingleShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$SingleShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? context = null,
+    Object? fromSaveTemplate = null,
   }) {
     return _then(_$SingleShiftSubmittedImpl(
       null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -9274,14 +9677,16 @@ class __$$SingleShiftSubmittedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
-  const _$SingleShiftSubmittedImpl(this.context);
+  const _$SingleShiftSubmittedImpl(this.context, this.fromSaveTemplate);
 
   @override
   final BuildContext context;
+  @override
+  final bool fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.singleShiftSubmitted(context: $context)';
+    return 'PostShiftEvent.singleShiftSubmitted(context: $context, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -9289,13 +9694,17 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SingleShiftSubmittedImpl &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context);
+  int get hashCode => Object.hash(runtimeType, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SingleShiftSubmittedImplCopyWith<_$SingleShiftSubmittedImpl>
@@ -9307,7 +9716,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -9327,7 +9736,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -9340,12 +9750,14 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -9358,27 +9770,29 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return singleShiftSubmitted(context);
+    return singleShiftSubmitted(context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -9397,7 +9811,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -9409,11 +9824,12 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -9425,26 +9841,28 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return singleShiftSubmitted?.call(context);
+    return singleShiftSubmitted?.call(context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -9463,7 +9881,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -9475,11 +9894,12 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -9490,13 +9910,15 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -9504,7 +9926,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult orElse(),
   }) {
     if (singleShiftSubmitted != null) {
-      return singleShiftSubmitted(context);
+      return singleShiftSubmitted(context, fromSaveTemplate);
     }
     return orElse();
   }
@@ -9718,11 +10140,16 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
 }
 
 abstract class SingleShiftSubmitted implements PostShiftEvent {
-  const factory SingleShiftSubmitted(final BuildContext context) =
+  const factory SingleShiftSubmitted(
+          final BuildContext context, final bool fromSaveTemplate) =
       _$SingleShiftSubmittedImpl;
 
   BuildContext get context;
-  @JsonKey(ignore: true)
+  bool get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SingleShiftSubmittedImplCopyWith<_$SingleShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9747,6 +10174,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
       _$GetTeamsListImpl _value, $Res Function(_$GetTeamsListImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9765,6 +10194,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -9773,6 +10204,8 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -9814,7 +10247,9 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   int get hashCode => Object.hash(runtimeType, post, updateShift);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
@@ -9824,7 +10259,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -9844,7 +10279,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -9857,12 +10293,14 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -9875,13 +10313,15 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -9895,7 +10335,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -9914,7 +10354,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -9926,11 +10367,12 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -9942,13 +10384,15 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -9961,7 +10405,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -9980,7 +10424,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -9992,11 +10437,12 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -10007,13 +10453,15 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -10241,7 +10689,10 @@ abstract class GetTeamsList implements PostShiftEvent {
 
   PostShiftDTO get post;
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10263,6 +10714,8 @@ class __$$RecurringCheckImplCopyWithImpl<$Res>
       _$RecurringCheckImpl _value, $Res Function(_$RecurringCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10301,7 +10754,9 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringCheckImplCopyWith<_$RecurringCheckImpl> get copyWith =>
@@ -10312,7 +10767,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -10332,7 +10787,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -10345,12 +10801,14 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -10363,13 +10821,15 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -10383,7 +10843,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -10402,7 +10862,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -10414,11 +10875,12 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -10430,13 +10892,15 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -10449,7 +10913,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -10468,7 +10932,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -10480,11 +10945,12 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -10495,13 +10961,15 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -10726,7 +11194,10 @@ abstract class RecurringCheck implements PostShiftEvent {
   const factory RecurringCheck(final bool isCheck) = _$RecurringCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringCheckImplCopyWith<_$RecurringCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10748,6 +11219,8 @@ class __$$ShareWithTeamsCheckImplCopyWithImpl<$Res>
       $Res Function(_$ShareWithTeamsCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10786,7 +11259,9 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShareWithTeamsCheckImplCopyWith<_$ShareWithTeamsCheckImpl> get copyWith =>
@@ -10797,7 +11272,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -10817,7 +11292,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -10830,12 +11306,14 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -10848,13 +11326,15 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -10868,7 +11348,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -10887,7 +11367,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -10899,11 +11380,12 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -10915,13 +11397,15 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -10934,7 +11418,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -10953,7 +11437,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -10965,11 +11450,12 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -10980,13 +11466,15 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -11212,7 +11700,10 @@ abstract class ShareWithTeamsCheck implements PostShiftEvent {
       _$ShareWithTeamsCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShareWithTeamsCheckImplCopyWith<_$ShareWithTeamsCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11234,6 +11725,8 @@ class __$$SaveAsTemplateCheckImplCopyWithImpl<$Res>
       $Res Function(_$SaveAsTemplateCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11272,7 +11765,9 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveAsTemplateCheckImplCopyWith<_$SaveAsTemplateCheckImpl> get copyWith =>
@@ -11283,7 +11778,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -11303,7 +11798,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -11316,12 +11812,14 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -11334,13 +11832,15 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -11354,7 +11854,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -11373,7 +11873,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -11385,11 +11886,12 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -11401,13 +11903,15 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -11420,7 +11924,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -11439,7 +11943,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -11451,11 +11956,12 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -11466,13 +11972,15 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -11698,7 +12206,10 @@ abstract class SaveAsTemplateCheck implements PostShiftEvent {
       _$SaveAsTemplateCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveAsTemplateCheckImplCopyWith<_$SaveAsTemplateCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11720,6 +12231,8 @@ class __$$DisclaimerChangedImplCopyWithImpl<$Res>
       $Res Function(_$DisclaimerChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11758,7 +12271,9 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @override
   int get hashCode => Object.hash(runtimeType, note);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DisclaimerChangedImplCopyWith<_$DisclaimerChangedImpl> get copyWith =>
@@ -11769,7 +12284,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -11789,7 +12304,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -11802,12 +12318,14 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -11820,13 +12338,15 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -11840,7 +12360,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -11859,7 +12379,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -11871,11 +12392,12 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -11887,13 +12409,15 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -11906,7 +12430,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -11925,7 +12449,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -11937,11 +12462,12 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -11952,13 +12478,15 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -12183,7 +12711,10 @@ abstract class DisclaimerChanged implements PostShiftEvent {
   const factory DisclaimerChanged(final String note) = _$DisclaimerChangedImpl;
 
   String get note;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DisclaimerChangedImplCopyWith<_$DisclaimerChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -12207,6 +12738,8 @@ class __$$RecurringStartDateChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurringStartDateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12246,7 +12779,9 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringStartDateChangedImplCopyWith<_$RecurringStartDateChangedImpl>
@@ -12257,7 +12792,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -12277,7 +12812,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -12290,12 +12826,14 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -12308,13 +12846,15 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -12328,7 +12868,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -12347,7 +12887,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -12359,11 +12900,12 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -12375,13 +12917,15 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -12394,7 +12938,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -12413,7 +12957,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -12425,11 +12970,12 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -12440,13 +12986,15 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -12672,7 +13220,10 @@ abstract class RecurringStartDateChanged implements PostShiftEvent {
       _$RecurringStartDateChangedImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringStartDateChangedImplCopyWith<_$RecurringStartDateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -12695,6 +13246,8 @@ class __$$RecurrenceModeChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurrenceModeChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12741,7 +13294,9 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @override
   int get hashCode => Object.hash(runtimeType, mode, context);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurrenceModeChangedImplCopyWith<_$RecurrenceModeChangedImpl>
@@ -12752,7 +13307,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -12772,7 +13327,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -12785,12 +13341,14 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -12803,13 +13361,15 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -12823,7 +13383,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -12842,7 +13402,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -12854,11 +13415,12 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -12870,13 +13432,15 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -12889,7 +13453,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -12908,7 +13472,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -12920,11 +13485,12 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -12935,13 +13501,15 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -13169,7 +13737,10 @@ abstract class RecurrenceModeChanged implements PostShiftEvent {
 
   String get mode;
   BuildContext get context;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurrenceModeChangedImplCopyWith<_$RecurrenceModeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13195,6 +13766,8 @@ class __$$RecurrenceWeeksChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurrenceWeeksChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -13208,6 +13781,8 @@ class __$$RecurrenceWeeksChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SkillDTOCopyWith<$Res> get day {
@@ -13241,7 +13816,9 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @override
   int get hashCode => Object.hash(runtimeType, day);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurrenceWeeksChangedImplCopyWith<_$RecurrenceWeeksChangedImpl>
@@ -13252,7 +13829,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -13272,7 +13849,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -13285,12 +13863,14 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -13303,13 +13883,15 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -13323,7 +13905,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -13342,7 +13924,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -13354,11 +13937,12 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -13370,13 +13954,15 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -13389,7 +13975,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -13408,7 +13994,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -13420,11 +14007,12 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -13435,13 +14023,15 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -13667,7 +14257,10 @@ abstract class RecurrenceWeeksChanged implements PostShiftEvent {
       _$RecurrenceWeeksChangedImpl;
 
   SkillDTO get day;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurrenceWeeksChangedImplCopyWith<_$RecurrenceWeeksChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13691,6 +14284,8 @@ class __$$RecurringEndDateChangedImplCopyWithImpl<$Res>
       $Res Function(_$RecurringEndDateChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -13730,7 +14325,9 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @override
   int get hashCode => Object.hash(runtimeType, selectedDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringEndDateChangedImplCopyWith<_$RecurringEndDateChangedImpl>
@@ -13741,7 +14338,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -13761,7 +14358,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -13774,12 +14372,14 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -13792,13 +14392,15 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -13812,7 +14414,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -13831,7 +14433,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -13843,11 +14446,12 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -13859,13 +14463,15 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -13878,7 +14484,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -13897,7 +14503,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -13909,11 +14516,12 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -13924,13 +14532,15 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -14156,7 +14766,10 @@ abstract class RecurringEndDateChanged implements PostShiftEvent {
       _$RecurringEndDateChangedImpl;
 
   String get selectedDate;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringEndDateChangedImplCopyWith<_$RecurringEndDateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -14180,6 +14793,8 @@ class __$$SelectTeamEventImplCopyWithImpl<$Res>
       _$SelectTeamEventImpl _value, $Res Function(_$SelectTeamEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -14193,6 +14808,8 @@ class __$$SelectTeamEventImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TeamDTOCopyWith<$Res> get team {
@@ -14226,7 +14843,9 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @override
   int get hashCode => Object.hash(runtimeType, team);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectTeamEventImplCopyWith<_$SelectTeamEventImpl> get copyWith =>
@@ -14237,7 +14856,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -14257,7 +14876,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -14270,12 +14890,14 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -14288,13 +14910,15 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -14308,7 +14932,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -14327,7 +14951,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -14339,11 +14964,12 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -14355,13 +14981,15 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -14374,7 +15002,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -14393,7 +15021,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -14405,11 +15034,12 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -14420,13 +15050,15 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -14651,7 +15283,10 @@ abstract class SelectTeamEvent implements PostShiftEvent {
   const factory SelectTeamEvent(final TeamDTO team) = _$SelectTeamEventImpl;
 
   TeamDTO get team;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SelectTeamEventImplCopyWith<_$SelectTeamEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -14662,7 +15297,7 @@ abstract class _$$RecurringButtonEventImplCopyWith<$Res> {
           $Res Function(_$RecurringButtonEventImpl) then) =
       __$$RecurringButtonEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext context, int postShiftId});
+  $Res call({BuildContext context, int postShiftId, bool fromSaveTemplate});
 }
 
 /// @nodoc
@@ -14673,11 +15308,14 @@ class __$$RecurringButtonEventImplCopyWithImpl<$Res>
       $Res Function(_$RecurringButtonEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? context = null,
     Object? postShiftId = null,
+    Object? fromSaveTemplate = null,
   }) {
     return _then(_$RecurringButtonEventImpl(
       null == context
@@ -14688,6 +15326,10 @@ class __$$RecurringButtonEventImplCopyWithImpl<$Res>
           ? _value.postShiftId
           : postShiftId // ignore: cast_nullable_to_non_nullable
               as int,
+      null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -14695,16 +15337,19 @@ class __$$RecurringButtonEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RecurringButtonEventImpl implements RecurringButtonEvent {
-  const _$RecurringButtonEventImpl(this.context, this.postShiftId);
+  const _$RecurringButtonEventImpl(
+      this.context, this.postShiftId, this.fromSaveTemplate);
 
   @override
   final BuildContext context;
   @override
   final int postShiftId;
+  @override
+  final bool fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.recurringButtonEvent(context: $context, postShiftId: $postShiftId)';
+    return 'PostShiftEvent.recurringButtonEvent(context: $context, postShiftId: $postShiftId, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -14714,13 +15359,18 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
             other is _$RecurringButtonEventImpl &&
             (identical(other.context, context) || other.context == context) &&
             (identical(other.postShiftId, postShiftId) ||
-                other.postShiftId == postShiftId));
+                other.postShiftId == postShiftId) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context, postShiftId);
+  int get hashCode =>
+      Object.hash(runtimeType, context, postShiftId, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RecurringButtonEventImplCopyWith<_$RecurringButtonEventImpl>
@@ -14732,7 +15382,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -14752,7 +15402,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -14765,12 +15416,14 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -14783,27 +15436,29 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return recurringButtonEvent(context, postShiftId);
+    return recurringButtonEvent(context, postShiftId, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -14822,7 +15477,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -14834,11 +15490,12 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -14850,26 +15507,28 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return recurringButtonEvent?.call(context, postShiftId);
+    return recurringButtonEvent?.call(context, postShiftId, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -14888,7 +15547,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -14900,11 +15560,12 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -14915,13 +15576,15 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -14929,7 +15592,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
-      return recurringButtonEvent(context, postShiftId);
+      return recurringButtonEvent(context, postShiftId, fromSaveTemplate);
     }
     return orElse();
   }
@@ -15144,12 +15807,17 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
 
 abstract class RecurringButtonEvent implements PostShiftEvent {
   const factory RecurringButtonEvent(
-          final BuildContext context, final int postShiftId) =
-      _$RecurringButtonEventImpl;
+      final BuildContext context,
+      final int postShiftId,
+      final bool fromSaveTemplate) = _$RecurringButtonEventImpl;
 
   BuildContext get context;
   int get postShiftId;
-  @JsonKey(ignore: true)
+  bool get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RecurringButtonEventImplCopyWith<_$RecurringButtonEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15172,6 +15840,8 @@ class __$$CheckIsIndividualPostImplCopyWithImpl<$Res>
       $Res Function(_$CheckIsIndividualPostImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -15211,7 +15881,9 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @override
   int get hashCode => Object.hash(runtimeType, isIndividualPost);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
@@ -15222,7 +15894,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -15242,7 +15914,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -15255,12 +15928,14 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -15273,13 +15948,15 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -15293,7 +15970,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -15312,7 +15989,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -15324,11 +16002,12 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -15340,13 +16019,15 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -15359,7 +16040,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -15378,7 +16059,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -15390,11 +16072,12 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -15405,13 +16088,15 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -15637,7 +16322,10 @@ abstract class CheckIsIndividualPost implements PostShiftEvent {
       _$CheckIsIndividualPostImpl;
 
   bool get isIndividualPost;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15661,6 +16349,8 @@ class __$$multiDateSelectionChangedImplCopyWithImpl<$Res>
       $Res Function(_$multiDateSelectionChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -15707,7 +16397,9 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_selectedDates));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
@@ -15718,7 +16410,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -15738,7 +16430,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -15751,12 +16444,14 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -15769,13 +16464,15 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -15789,7 +16486,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -15808,7 +16505,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -15820,11 +16518,12 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -15836,13 +16535,15 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -15855,7 +16556,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -15874,7 +16575,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -15886,11 +16588,12 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -15901,13 +16604,15 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -16133,7 +16838,10 @@ abstract class multiDateSelectionChanged implements PostShiftEvent {
       _$multiDateSelectionChangedImpl;
 
   List<DateTime> get selectedDates;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -16144,6 +16852,8 @@ abstract class _$$MultidateContinueButtonPressedImplCopyWith<$Res> {
           _$MultidateContinueButtonPressedImpl value,
           $Res Function(_$MultidateContinueButtonPressedImpl) then) =
       __$$MultidateContinueButtonPressedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool fromSaveTemplate});
 }
 
 /// @nodoc
@@ -16155,34 +16865,64 @@ class __$$MultidateContinueButtonPressedImplCopyWithImpl<$Res>
       _$MultidateContinueButtonPressedImpl _value,
       $Res Function(_$MultidateContinueButtonPressedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? fromSaveTemplate = null,
+  }) {
+    return _then(_$MultidateContinueButtonPressedImpl(
+      fromSaveTemplate: null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MultidateContinueButtonPressedImpl
     implements MultidateContinueButtonPressed {
-  const _$MultidateContinueButtonPressedImpl();
+  const _$MultidateContinueButtonPressedImpl({required this.fromSaveTemplate});
+
+  @override
+  final bool fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.multidateContinueButtonPressed()';
+    return 'PostShiftEvent.multidateContinueButtonPressed(fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MultidateContinueButtonPressedImpl);
+            other is _$MultidateContinueButtonPressedImpl &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, fromSaveTemplate);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MultidateContinueButtonPressedImplCopyWith<
+          _$MultidateContinueButtonPressedImpl>
+      get copyWith => __$$MultidateContinueButtonPressedImplCopyWithImpl<
+          _$MultidateContinueButtonPressedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -16202,7 +16942,8 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -16215,12 +16956,14 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -16233,27 +16976,29 @@ class _$MultidateContinueButtonPressedImpl
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return multidateContinueButtonPressed();
+    return multidateContinueButtonPressed(fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -16272,7 +17017,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -16284,11 +17030,12 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -16300,26 +17047,28 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return multidateContinueButtonPressed?.call();
+    return multidateContinueButtonPressed?.call(fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -16338,7 +17087,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -16350,11 +17100,12 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -16365,13 +17116,15 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -16379,7 +17132,7 @@ class _$MultidateContinueButtonPressedImpl
     required TResult orElse(),
   }) {
     if (multidateContinueButtonPressed != null) {
-      return multidateContinueButtonPressed();
+      return multidateContinueButtonPressed(fromSaveTemplate);
     }
     return orElse();
   }
@@ -16593,8 +17346,18 @@ class _$MultidateContinueButtonPressedImpl
 }
 
 abstract class MultidateContinueButtonPressed implements PostShiftEvent {
-  const factory MultidateContinueButtonPressed() =
+  const factory MultidateContinueButtonPressed(
+          {required final bool fromSaveTemplate}) =
       _$MultidateContinueButtonPressedImpl;
+
+  bool get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MultidateContinueButtonPressedImplCopyWith<
+          _$MultidateContinueButtonPressedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -16617,6 +17380,8 @@ class __$$MultiDateSameDiffTypeChangedImplCopyWithImpl<$Res>
       $Res Function(_$MultiDateSameDiffTypeChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -16657,7 +17422,9 @@ class _$MultiDateSameDiffTypeChangedImpl
   @override
   int get hashCode => Object.hash(runtimeType, selectedType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MultiDateSameDiffTypeChangedImplCopyWith<
@@ -16669,7 +17436,7 @@ class _$MultiDateSameDiffTypeChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -16689,7 +17456,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -16702,12 +17470,14 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -16720,13 +17490,15 @@ class _$MultiDateSameDiffTypeChangedImpl
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -16740,7 +17512,7 @@ class _$MultiDateSameDiffTypeChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -16759,7 +17531,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -16771,11 +17544,12 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -16787,13 +17561,15 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -16806,7 +17582,7 @@ class _$MultiDateSameDiffTypeChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -16825,7 +17601,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -16837,11 +17614,12 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -16852,13 +17630,15 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -17084,7 +17864,10 @@ abstract class MultiDateSameDiffTypeChanged implements PostShiftEvent {
       _$MultiDateSameDiffTypeChangedImpl;
 
   int get selectedType;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MultiDateSameDiffTypeChangedImplCopyWith<
           _$MultiDateSameDiffTypeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -17109,6 +17892,8 @@ class __$$UnpaidBreakListChangedImplCopyWithImpl<$Res>
       $Res Function(_$UnpaidBreakListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -17164,7 +17949,9 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, breakTime, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
@@ -17175,7 +17962,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -17195,7 +17982,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -17208,12 +17996,14 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -17226,13 +18016,15 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -17246,7 +18038,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -17265,7 +18057,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -17277,11 +18070,12 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -17293,13 +18087,15 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -17312,7 +18108,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -17331,7 +18127,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -17343,11 +18140,12 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -17358,13 +18156,15 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -17593,7 +18393,10 @@ abstract class UnpaidBreakListChanged implements PostShiftEvent {
   String get breakTime;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -17614,6 +18417,9 @@ class __$$PayableHourListChangedImplCopyWithImpl<$Res>
       _$PayableHourListChangedImpl _value,
       $Res Function(_$PayableHourListChangedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -17640,7 +18446,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -17660,7 +18466,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -17673,12 +18480,14 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -17691,13 +18500,15 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -17711,7 +18522,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -17730,7 +18541,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -17742,11 +18554,12 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -17758,13 +18571,15 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -17777,7 +18592,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -17796,7 +18611,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -17808,11 +18624,12 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -17823,13 +18640,15 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -18071,6 +18890,8 @@ class __$$StartHourListChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartHourListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -18125,7 +18946,9 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
@@ -18137,7 +18960,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -18157,7 +18980,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -18170,12 +18994,14 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -18188,13 +19014,15 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -18208,7 +19036,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -18227,7 +19055,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -18239,11 +19068,12 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -18255,13 +19085,15 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -18274,7 +19106,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -18293,7 +19125,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -18305,11 +19138,12 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -18320,13 +19154,15 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -18555,7 +19391,10 @@ abstract class StartHourListChanged implements PostShiftEvent {
   String get hour;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -18579,6 +19418,8 @@ class __$$StartMinuteListChangedImplCopyWithImpl<$Res>
       $Res Function(_$StartMinuteListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -18633,7 +19474,9 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
@@ -18644,7 +19487,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -18664,7 +19507,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -18677,12 +19521,14 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -18695,13 +19541,15 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -18715,7 +19563,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -18734,7 +19582,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -18746,11 +19595,12 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -18762,13 +19612,15 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -18781,7 +19633,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -18800,7 +19652,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -18812,11 +19665,12 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -18827,13 +19681,15 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -19062,7 +19918,10 @@ abstract class StartMinuteListChanged implements PostShiftEvent {
   String get minute;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -19084,6 +19943,8 @@ class __$$EndHourListChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndHourListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -19138,7 +19999,9 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, hour, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
@@ -19149,7 +20012,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -19169,7 +20032,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -19182,12 +20046,14 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -19200,13 +20066,15 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -19220,7 +20088,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -19239,7 +20107,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -19251,11 +20120,12 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -19267,13 +20137,15 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -19286,7 +20158,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -19305,7 +20177,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -19317,11 +20190,12 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -19332,13 +20206,15 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -19567,7 +20443,10 @@ abstract class EndHourListChanged implements PostShiftEvent {
   String get hour;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -19589,6 +20468,8 @@ class __$$EndMinuteListChangedImplCopyWithImpl<$Res>
       $Res Function(_$EndMinuteListChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -19643,7 +20524,9 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @override
   int get hashCode => Object.hash(runtimeType, minute, index, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
@@ -19655,7 +20538,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -19675,7 +20558,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -19688,12 +20572,14 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -19706,13 +20592,15 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -19726,7 +20614,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -19745,7 +20633,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -19757,11 +20646,12 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -19773,13 +20663,15 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -19792,7 +20684,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -19811,7 +20703,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -19823,11 +20716,12 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -19838,13 +20732,15 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -20073,7 +20969,10 @@ abstract class EndMinuteListChanged implements PostShiftEvent {
   String get minute;
   int get index;
   String get date;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -20085,7 +20984,8 @@ abstract class _$$DifferentTimeShiftSubmittedImplCopyWith<$Res> {
           $Res Function(_$DifferentTimeShiftSubmittedImpl) then) =
       __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({MultiShiftDTO shiftDetail, BuildContext context});
+  $Res call(
+      {MultiShiftDTO shiftDetail, BuildContext context, bool fromSaveTemplate});
 
   $MultiShiftDTOCopyWith<$Res> get shiftDetail;
 }
@@ -20100,11 +21000,14 @@ class __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$DifferentTimeShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? shiftDetail = null,
     Object? context = null,
+    Object? fromSaveTemplate = null,
   }) {
     return _then(_$DifferentTimeShiftSubmittedImpl(
       null == shiftDetail
@@ -20115,9 +21018,15 @@ class __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MultiShiftDTOCopyWith<$Res> get shiftDetail {
@@ -20130,16 +21039,19 @@ class __$$DifferentTimeShiftSubmittedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
-  const _$DifferentTimeShiftSubmittedImpl(this.shiftDetail, this.context);
+  const _$DifferentTimeShiftSubmittedImpl(
+      this.shiftDetail, this.context, this.fromSaveTemplate);
 
   @override
   final MultiShiftDTO shiftDetail;
   @override
   final BuildContext context;
+  @override
+  final bool fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.differentTimeShiftSubmitted(shiftDetail: $shiftDetail, context: $context)';
+    return 'PostShiftEvent.differentTimeShiftSubmitted(shiftDetail: $shiftDetail, context: $context, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -20149,13 +21061,18 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
             other is _$DifferentTimeShiftSubmittedImpl &&
             (identical(other.shiftDetail, shiftDetail) ||
                 other.shiftDetail == shiftDetail) &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, shiftDetail, context);
+  int get hashCode =>
+      Object.hash(runtimeType, shiftDetail, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DifferentTimeShiftSubmittedImplCopyWith<_$DifferentTimeShiftSubmittedImpl>
@@ -20166,7 +21083,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -20186,7 +21103,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -20199,12 +21117,14 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -20217,27 +21137,29 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return differentTimeShiftSubmitted(shiftDetail, context);
+    return differentTimeShiftSubmitted(shiftDetail, context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -20256,7 +21178,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -20268,11 +21191,12 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -20284,26 +21208,29 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return differentTimeShiftSubmitted?.call(shiftDetail, context);
+    return differentTimeShiftSubmitted?.call(
+        shiftDetail, context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -20322,7 +21249,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -20334,11 +21262,12 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -20349,13 +21278,15 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -20363,7 +21294,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult orElse(),
   }) {
     if (differentTimeShiftSubmitted != null) {
-      return differentTimeShiftSubmitted(shiftDetail, context);
+      return differentTimeShiftSubmitted(
+          shiftDetail, context, fromSaveTemplate);
     }
     return orElse();
   }
@@ -20578,12 +21510,17 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
 
 abstract class DifferentTimeShiftSubmitted implements PostShiftEvent {
   const factory DifferentTimeShiftSubmitted(
-          final MultiShiftDTO shiftDetail, final BuildContext context) =
-      _$DifferentTimeShiftSubmittedImpl;
+      final MultiShiftDTO shiftDetail,
+      final BuildContext context,
+      final bool fromSaveTemplate) = _$DifferentTimeShiftSubmittedImpl;
 
   MultiShiftDTO get shiftDetail;
   BuildContext get context;
-  @JsonKey(ignore: true)
+  bool get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DifferentTimeShiftSubmittedImplCopyWith<_$DifferentTimeShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -20598,7 +21535,8 @@ abstract class _$$InitMultiDifferentDateEventImplCopyWith<$Res> {
   $Res call(
       {List<DateTimeDTO> list,
       PostShiftDTO post,
-      HealthcarePostDTO? updateShift});
+      HealthcarePostDTO? updateShift,
+      bool? fromSaveTemplate});
 
   $PostShiftDTOCopyWith<$Res> get post;
   $HealthcarePostDTOCopyWith<$Res>? get updateShift;
@@ -20614,12 +21552,15 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
       $Res Function(_$InitMultiDifferentDateEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? list = null,
     Object? post = null,
     Object? updateShift = freezed,
+    Object? fromSaveTemplate = freezed,
   }) {
     return _then(_$InitMultiDifferentDateEventImpl(
       null == list
@@ -20634,9 +21575,15 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
           ? _value.updateShift
           : updateShift // ignore: cast_nullable_to_non_nullable
               as HealthcarePostDTO?,
+      fromSaveTemplate: freezed == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -20645,6 +21592,8 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res>? get updateShift {
@@ -20662,7 +21611,9 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
 
 class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   const _$InitMultiDifferentDateEventImpl(final List<DateTimeDTO> list,
-      {required this.post, required this.updateShift})
+      {required this.post,
+      required this.updateShift,
+      required this.fromSaveTemplate})
       : _list = list;
 
   final List<DateTimeDTO> _list;
@@ -20677,10 +21628,12 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   final PostShiftDTO post;
   @override
   final HealthcarePostDTO? updateShift;
+  @override
+  final bool? fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list, post: $post, updateShift: $updateShift)';
+    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list, post: $post, updateShift: $updateShift, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -20691,14 +21644,22 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
             const DeepCollectionEquality().equals(other._list, _list) &&
             (identical(other.post, post) || other.post == post) &&
             (identical(other.updateShift, updateShift) ||
-                other.updateShift == updateShift));
+                other.updateShift == updateShift) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_list), post, updateShift);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_list),
+      post,
+      updateShift,
+      fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
@@ -20709,7 +21670,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -20729,7 +21690,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -20742,12 +21704,14 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -20760,27 +21724,30 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return initMultiDifferentDateEvent(list, post, updateShift);
+    return initMultiDifferentDateEvent(
+        list, post, updateShift, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -20799,7 +21766,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -20811,11 +21779,12 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -20827,26 +21796,29 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return initMultiDifferentDateEvent?.call(list, post, updateShift);
+    return initMultiDifferentDateEvent?.call(
+        list, post, updateShift, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -20865,7 +21837,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -20877,11 +21850,12 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -20892,13 +21866,15 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -20906,7 +21882,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
-      return initMultiDifferentDateEvent(list, post, updateShift);
+      return initMultiDifferentDateEvent(
+          list, post, updateShift, fromSaveTemplate);
     }
     return orElse();
   }
@@ -21122,13 +22099,18 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
 abstract class InitMultiDifferentDateEvent implements PostShiftEvent {
   const factory InitMultiDifferentDateEvent(final List<DateTimeDTO> list,
           {required final PostShiftDTO post,
-          required final HealthcarePostDTO? updateShift}) =
+          required final HealthcarePostDTO? updateShift,
+          required final bool? fromSaveTemplate}) =
       _$InitMultiDifferentDateEventImpl;
 
   List<DateTimeDTO> get list;
   PostShiftDTO get post;
   HealthcarePostDTO? get updateShift;
-  @JsonKey(ignore: true)
+  bool? get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -21147,6 +22129,9 @@ class __$$BackEventImplCopyWithImpl<$Res>
   __$$BackEventImplCopyWithImpl(
       _$BackEventImpl _value, $Res Function(_$BackEventImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -21172,7 +22157,7 @@ class _$BackEventImpl implements BackEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -21192,7 +22177,8 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -21205,12 +22191,14 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -21223,13 +22211,15 @@ class _$BackEventImpl implements BackEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -21243,7 +22233,7 @@ class _$BackEventImpl implements BackEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -21262,7 +22252,8 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -21274,11 +22265,12 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -21290,13 +22282,15 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -21309,7 +22303,7 @@ class _$BackEventImpl implements BackEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -21328,7 +22322,8 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -21340,11 +22335,12 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -21355,13 +22351,15 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -21593,7 +22591,7 @@ abstract class _$$SameTimeShiftSubmittedImplCopyWith<$Res> {
           $Res Function(_$SameTimeShiftSubmittedImpl) then) =
       __$$SameTimeShiftSubmittedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext context});
+  $Res call({BuildContext context, bool fromSaveTemplate});
 }
 
 /// @nodoc
@@ -21605,16 +22603,23 @@ class __$$SameTimeShiftSubmittedImplCopyWithImpl<$Res>
       $Res Function(_$SameTimeShiftSubmittedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? context = null,
+    Object? fromSaveTemplate = null,
   }) {
     return _then(_$SameTimeShiftSubmittedImpl(
       null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -21622,14 +22627,16 @@ class __$$SameTimeShiftSubmittedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
-  const _$SameTimeShiftSubmittedImpl(this.context);
+  const _$SameTimeShiftSubmittedImpl(this.context, this.fromSaveTemplate);
 
   @override
   final BuildContext context;
+  @override
+  final bool fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.sameTimeShiftSubmitted(context: $context)';
+    return 'PostShiftEvent.sameTimeShiftSubmitted(context: $context, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -21637,13 +22644,17 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SameTimeShiftSubmittedImpl &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context);
+  int get hashCode => Object.hash(runtimeType, context, fromSaveTemplate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SameTimeShiftSubmittedImplCopyWith<_$SameTimeShiftSubmittedImpl>
@@ -21654,7 +22665,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -21674,7 +22685,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -21687,12 +22699,14 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -21705,27 +22719,29 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return sameTimeShiftSubmitted(context);
+    return sameTimeShiftSubmitted(context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -21744,7 +22760,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -21756,11 +22773,12 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -21772,26 +22790,28 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return sameTimeShiftSubmitted?.call(context);
+    return sameTimeShiftSubmitted?.call(context, fromSaveTemplate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -21810,7 +22830,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -21822,11 +22843,12 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -21837,13 +22859,15 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -21851,7 +22875,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult orElse(),
   }) {
     if (sameTimeShiftSubmitted != null) {
-      return sameTimeShiftSubmitted(context);
+      return sameTimeShiftSubmitted(context, fromSaveTemplate);
     }
     return orElse();
   }
@@ -22065,11 +23089,16 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
 }
 
 abstract class SameTimeShiftSubmitted implements PostShiftEvent {
-  const factory SameTimeShiftSubmitted(final BuildContext context) =
+  const factory SameTimeShiftSubmitted(
+          final BuildContext context, final bool fromSaveTemplate) =
       _$SameTimeShiftSubmittedImpl;
 
   BuildContext get context;
-  @JsonKey(ignore: true)
+  bool get fromSaveTemplate;
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SameTimeShiftSubmittedImplCopyWith<_$SameTimeShiftSubmittedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -22091,6 +23120,8 @@ class __$$AssitantOnSiteCheckImplCopyWithImpl<$Res>
       $Res Function(_$AssitantOnSiteCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -22129,7 +23160,9 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AssitantOnSiteCheckImplCopyWith<_$AssitantOnSiteCheckImpl> get copyWith =>
@@ -22140,7 +23173,7 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -22160,7 +23193,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -22173,12 +23207,14 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -22191,13 +23227,15 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -22211,7 +23249,7 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -22230,7 +23268,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -22242,11 +23281,12 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -22258,13 +23298,15 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -22277,7 +23319,7 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -22296,7 +23338,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -22308,11 +23351,12 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -22323,13 +23367,15 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -22555,7 +23601,10 @@ abstract class AssitantOnSiteCheck implements PostShiftEvent {
       _$AssitantOnSiteCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AssitantOnSiteCheckImplCopyWith<_$AssitantOnSiteCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -22578,6 +23627,8 @@ class __$$TechnicianOnSiteCheckImplCopyWithImpl<$Res>
       $Res Function(_$TechnicianOnSiteCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -22616,7 +23667,9 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
   @override
   int get hashCode => Object.hash(runtimeType, isCheck);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TechnicianOnSiteCheckImplCopyWith<_$TechnicianOnSiteCheckImpl>
@@ -22627,7 +23680,7 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -22647,7 +23700,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -22660,12 +23714,14 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -22678,13 +23734,15 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -22698,7 +23756,7 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -22717,7 +23775,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -22729,11 +23788,12 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -22745,13 +23805,15 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -22764,7 +23826,7 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -22783,7 +23845,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -22795,11 +23858,12 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -22810,13 +23874,15 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -23042,7 +24108,10 @@ abstract class TechnicianOnSiteCheck implements PostShiftEvent {
       _$TechnicianOnSiteCheckImpl;
 
   bool get isCheck;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TechnicianOnSiteCheckImplCopyWith<_$TechnicianOnSiteCheckImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -23066,6 +24135,8 @@ class __$$PostTheShiftEventImplCopyWithImpl<$Res>
       $Res Function(_$PostTheShiftEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -23084,6 +24155,8 @@ class __$$PostTheShiftEventImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res>? get updatedPost {
@@ -23125,7 +24198,9 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, updatedPost);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
@@ -23136,7 +24211,7 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -23156,7 +24231,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -23169,12 +24245,14 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -23187,13 +24265,15 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -23207,7 +24287,7 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -23226,7 +24306,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -23238,11 +24319,12 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -23254,13 +24336,15 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -23273,7 +24357,7 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -23292,7 +24376,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -23304,11 +24389,12 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -23319,13 +24405,15 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -23553,7 +24641,10 @@ abstract class PostTheShiftEvent implements PostShiftEvent {
 
   int get postId;
   PostShiftDTO? get updatedPost;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -23575,6 +24666,8 @@ class __$$ScriptVolumeChangedImplCopyWithImpl<$Res>
       $Res Function(_$ScriptVolumeChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -23614,7 +24707,9 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
   @override
   int get hashCode => Object.hash(runtimeType, scriptVolume);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ScriptVolumeChangedImplCopyWith<_$ScriptVolumeChangedImpl> get copyWith =>
@@ -23625,7 +24720,7 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
     required TResult Function(HealthcarePostDTO? updateShift)
         getBreakAllownceListApi,
@@ -23645,7 +24740,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     required TResult Function(String note) singleShiftNotesChanged,
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        singleShiftSubmitted,
     required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
@@ -23658,12 +24754,14 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
-    required TResult Function(BuildContext context, int postShiftId)
+    required TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)
         recurringButtonEvent,
     required TResult Function(bool isIndividualPost) checkIsIndividualPost,
     required TResult Function(List<DateTime> selectedDates)
         multiDateSelectionChanged,
-    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(bool fromSaveTemplate)
+        multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
     required TResult Function(String breakTime, int index, String date)
         unpaidBreakListChanged,
@@ -23676,13 +24774,15 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
         endHourListChanged,
     required TResult Function(String minute, int index, String date)
         endMinuteListChanged,
-    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)
         differentTimeShiftSubmitted,
     required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
-    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(BuildContext context, bool fromSaveTemplate)
+        sameTimeShiftSubmitted,
     required TResult Function(bool isCheck) assitantOnSiteCheck,
     required TResult Function(bool isCheck) technicianOnSiteCheck,
     required TResult Function(int postId, PostShiftDTO? updatedPost)
@@ -23696,7 +24796,7 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -23715,7 +24815,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult? Function(String note)? singleShiftNotesChanged,
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
@@ -23727,11 +24828,12 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
-    TResult? Function(BuildContext context, int postShiftId)?
+    TResult? Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult? Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -23743,13 +24845,15 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult? Function(String hour, int index, String date)? endHourListChanged,
     TResult? Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
-    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult? Function(bool isCheck)? assitantOnSiteCheck,
     TResult? Function(bool isCheck)? technicianOnSiteCheck,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -23762,7 +24866,7 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
     TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
@@ -23781,7 +24885,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult Function(String note)? singleShiftNotesChanged,
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        singleShiftSubmitted,
     TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
@@ -23793,11 +24898,12 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
-    TResult Function(BuildContext context, int postShiftId)?
+    TResult Function(
+            BuildContext context, int postShiftId, bool fromSaveTemplate)?
         recurringButtonEvent,
     TResult Function(bool isIndividualPost)? checkIsIndividualPost,
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
-    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(bool fromSaveTemplate)? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
     TResult Function(String breakTime, int index, String date)?
         unpaidBreakListChanged,
@@ -23808,13 +24914,15 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult Function(String hour, int index, String date)? endHourListChanged,
     TResult Function(String minute, int index, String date)?
         endMinuteListChanged,
-    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context,
+            bool fromSaveTemplate)?
         differentTimeShiftSubmitted,
     TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
-            HealthcarePostDTO? updateShift)?
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
-    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(BuildContext context, bool fromSaveTemplate)?
+        sameTimeShiftSubmitted,
     TResult Function(bool isCheck)? assitantOnSiteCheck,
     TResult Function(bool isCheck)? technicianOnSiteCheck,
     TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
@@ -24040,7 +25148,10 @@ abstract class ScriptVolumeChanged implements PostShiftEvent {
       _$ScriptVolumeChangedImpl;
 
   String get scriptVolume;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostShiftEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ScriptVolumeChangedImplCopyWith<_$ScriptVolumeChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -24110,11 +25221,13 @@ mixin _$PostShiftState {
   List<String> get startMinuteList => throw _privateConstructorUsedError;
   List<String> get endHourList => throw _privateConstructorUsedError;
   List<String> get endMinuteList => throw _privateConstructorUsedError;
+  bool get fromSaveTemplate => throw _privateConstructorUsedError;
   List<DateTimeDTO> get multiDateTimeList => throw _privateConstructorUsedError;
   bool get isDifferentDateDataValid => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, MultiShiftDTO>>
       get differentDateFailureOrSuccessOption =>
           throw _privateConstructorUsedError;
+  bool get fromPreviousShift => throw _privateConstructorUsedError;
 
   /// Post the Shift
   Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption =>
@@ -24124,7 +25237,9 @@ mixin _$PostShiftState {
   bool get isAssistantOnSite => throw _privateConstructorUsedError;
   bool get isTechnicianOnSite => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PostShiftStateCopyWith<PostShiftState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -24185,10 +25300,12 @@ abstract class $PostShiftStateCopyWith<$Res> {
       List<String> startMinuteList,
       List<String> endHourList,
       List<String> endMinuteList,
+      bool fromSaveTemplate,
       List<DateTimeDTO> multiDateTimeList,
       bool isDifferentDateDataValid,
       Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
+      bool fromPreviousShift,
       Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
       InputEmptyOrNot scriptVolume,
       List<SkillDTO> scriptVolumeList,
@@ -24209,6 +25326,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -24258,9 +25377,11 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? startMinuteList = null,
     Object? endHourList = null,
     Object? endMinuteList = null,
+    Object? fromSaveTemplate = null,
     Object? multiDateTimeList = null,
     Object? isDifferentDateDataValid = null,
     Object? differentDateFailureOrSuccessOption = null,
+    Object? fromPreviousShift = null,
     Object? postShiftFailureOrSuccessOption = null,
     Object? scriptVolume = null,
     Object? scriptVolumeList = null,
@@ -24453,6 +25574,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.endMinuteList
           : endMinuteList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      fromSaveTemplate: null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
       multiDateTimeList: null == multiDateTimeList
           ? _value.multiDateTimeList
           : multiDateTimeList // ignore: cast_nullable_to_non_nullable
@@ -24466,6 +25591,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.differentDateFailureOrSuccessOption
           : differentDateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, MultiShiftDTO>>,
+      fromPreviousShift: null == fromPreviousShift
+          ? _value.fromPreviousShift
+          : fromPreviousShift // ignore: cast_nullable_to_non_nullable
+              as bool,
       postShiftFailureOrSuccessOption: null == postShiftFailureOrSuccessOption
           ? _value.postShiftFailureOrSuccessOption
           : postShiftFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -24489,6 +25618,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     ) as $Val);
   }
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HealthcarePostDTOCopyWith<$Res> get updateShift {
@@ -24497,6 +25628,8 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     });
   }
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
@@ -24564,10 +25697,12 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       List<String> startMinuteList,
       List<String> endHourList,
       List<String> endMinuteList,
+      bool fromSaveTemplate,
       List<DateTimeDTO> multiDateTimeList,
       bool isDifferentDateDataValid,
       Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
+      bool fromPreviousShift,
       Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
       InputEmptyOrNot scriptVolume,
       List<SkillDTO> scriptVolumeList,
@@ -24588,6 +25723,8 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
       _$PostShiftStateImpl _value, $Res Function(_$PostShiftStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -24637,9 +25774,11 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? startMinuteList = null,
     Object? endHourList = null,
     Object? endMinuteList = null,
+    Object? fromSaveTemplate = null,
     Object? multiDateTimeList = null,
     Object? isDifferentDateDataValid = null,
     Object? differentDateFailureOrSuccessOption = null,
+    Object? fromPreviousShift = null,
     Object? postShiftFailureOrSuccessOption = null,
     Object? scriptVolume = null,
     Object? scriptVolumeList = null,
@@ -24832,6 +25971,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value._endMinuteList
           : endMinuteList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      fromSaveTemplate: null == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool,
       multiDateTimeList: null == multiDateTimeList
           ? _value._multiDateTimeList
           : multiDateTimeList // ignore: cast_nullable_to_non_nullable
@@ -24845,6 +25988,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.differentDateFailureOrSuccessOption
           : differentDateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, MultiShiftDTO>>,
+      fromPreviousShift: null == fromPreviousShift
+          ? _value.fromPreviousShift
+          : fromPreviousShift // ignore: cast_nullable_to_non_nullable
+              as bool,
       postShiftFailureOrSuccessOption: null == postShiftFailureOrSuccessOption
           ? _value.postShiftFailureOrSuccessOption
           : postShiftFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -24919,9 +26066,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
       required final List<String> startMinuteList,
       required final List<String> endHourList,
       required final List<String> endMinuteList,
+      required this.fromSaveTemplate,
       required final List<DateTimeDTO> multiDateTimeList,
       required this.isDifferentDateDataValid,
       required this.differentDateFailureOrSuccessOption,
+      required this.fromPreviousShift,
       required this.postShiftFailureOrSuccessOption,
       required this.scriptVolume,
       required final List<SkillDTO> scriptVolumeList,
@@ -25084,6 +26233,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
     return EqualUnmodifiableListView(_endMinuteList);
   }
 
+  @override
+  final bool fromSaveTemplate;
   final List<DateTimeDTO> _multiDateTimeList;
   @override
   List<DateTimeDTO> get multiDateTimeList {
@@ -25098,6 +26249,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final Option<Either<AuthFailure, MultiShiftDTO>>
       differentDateFailureOrSuccessOption;
+  @override
+  final bool fromPreviousShift;
 
   /// Post the Shift
   @override
@@ -25120,7 +26273,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
   @override
   String toString() {
-    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, updatePostFailureOrSuccessOption: $updatePostFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption, scriptVolume: $scriptVolume, scriptVolumeList: $scriptVolumeList, isAssistantOnSite: $isAssistantOnSite, isTechnicianOnSite: $isTechnicianOnSite)';
+    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, updatePostFailureOrSuccessOption: $updatePostFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, fromSaveTemplate: $fromSaveTemplate, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, fromPreviousShift: $fromPreviousShift, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption, scriptVolume: $scriptVolume, scriptVolumeList: $scriptVolumeList, isAssistantOnSite: $isAssistantOnSite, isTechnicianOnSite: $isTechnicianOnSite)';
   }
 
   @override
@@ -25206,9 +26359,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
             const DeepCollectionEquality().equals(other._startMinuteList, _startMinuteList) &&
             const DeepCollectionEquality().equals(other._endHourList, _endHourList) &&
             const DeepCollectionEquality().equals(other._endMinuteList, _endMinuteList) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) || other.fromSaveTemplate == fromSaveTemplate) &&
             const DeepCollectionEquality().equals(other._multiDateTimeList, _multiDateTimeList) &&
             (identical(other.isDifferentDateDataValid, isDifferentDateDataValid) || other.isDifferentDateDataValid == isDifferentDateDataValid) &&
             (identical(other.differentDateFailureOrSuccessOption, differentDateFailureOrSuccessOption) || other.differentDateFailureOrSuccessOption == differentDateFailureOrSuccessOption) &&
+            (identical(other.fromPreviousShift, fromPreviousShift) || other.fromPreviousShift == fromPreviousShift) &&
             (identical(other.postShiftFailureOrSuccessOption, postShiftFailureOrSuccessOption) || other.postShiftFailureOrSuccessOption == postShiftFailureOrSuccessOption) &&
             (identical(other.scriptVolume, scriptVolume) || other.scriptVolume == scriptVolume) &&
             const DeepCollectionEquality().equals(other._scriptVolumeList, _scriptVolumeList) &&
@@ -25265,9 +26420,11 @@ class _$PostShiftStateImpl implements _PostShiftState {
         const DeepCollectionEquality().hash(_startMinuteList),
         const DeepCollectionEquality().hash(_endHourList),
         const DeepCollectionEquality().hash(_endMinuteList),
+        fromSaveTemplate,
         const DeepCollectionEquality().hash(_multiDateTimeList),
         isDifferentDateDataValid,
         differentDateFailureOrSuccessOption,
+        fromPreviousShift,
         postShiftFailureOrSuccessOption,
         scriptVolume,
         const DeepCollectionEquality().hash(_scriptVolumeList),
@@ -25275,7 +26432,9 @@ class _$PostShiftStateImpl implements _PostShiftState {
         isTechnicianOnSite
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>
@@ -25334,10 +26493,12 @@ abstract class _PostShiftState implements PostShiftState {
       required final List<String> startMinuteList,
       required final List<String> endHourList,
       required final List<String> endMinuteList,
+      required final bool fromSaveTemplate,
       required final List<DateTimeDTO> multiDateTimeList,
       required final bool isDifferentDateDataValid,
       required final Option<Either<AuthFailure, MultiShiftDTO>>
           differentDateFailureOrSuccessOption,
+      required final bool fromPreviousShift,
       required final Option<Either<MainFailure, String>>
           postShiftFailureOrSuccessOption,
       required final InputEmptyOrNot scriptVolume,
@@ -25345,9 +26506,8 @@ abstract class _PostShiftState implements PostShiftState {
       required final bool isAssistantOnSite,
       required final bool isTechnicianOnSite}) = _$PostShiftStateImpl;
 
-  @override
-
   /// Change hift Type(Single, Multi,Long-Term)
+  @override
   HealthcarePostDTO get updateShift;
   @override
   int get shiftType;
@@ -25357,9 +26517,9 @@ abstract class _PostShiftState implements PostShiftState {
   bool get isLoading;
   @override
   PostShiftDTO get post;
-  @override
 
   /// Single Shift
+  @override
   InputEmptyOrNot get signleShiftDate;
   @override
   InputEmptyOrNot get startHour;
@@ -25400,9 +26560,9 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   Option<Either<MainFailure, HealthcarePostDTO>>
       get singleShiftFailureOrSuccessOption;
-  @override
 
   /// For recurring,sahre with teams, save as template
+  @override
   List<TeamDTO> get teamList;
   @override
   bool get isToBeRecurring;
@@ -25432,9 +26592,9 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   Option<Either<MainFailure, CommonResponse>>
       get updatePostFailureOrSuccessOption;
-  @override
 
   /// Multi shift
+  @override
   bool get isIndividualPost;
   @override
   int get selectedMultiShiftType;
@@ -25449,6 +26609,8 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   List<String> get endMinuteList;
   @override
+  bool get fromSaveTemplate;
+  @override
   List<DateTimeDTO> get multiDateTimeList;
   @override
   bool get isDifferentDateDataValid;
@@ -25456,8 +26618,10 @@ abstract class _PostShiftState implements PostShiftState {
   Option<Either<AuthFailure, MultiShiftDTO>>
       get differentDateFailureOrSuccessOption;
   @override
+  bool get fromPreviousShift;
 
   /// Post the Shift
+  @override
   Option<Either<MainFailure, String>> get postShiftFailureOrSuccessOption;
   @override
   InputEmptyOrNot get scriptVolume;
@@ -25467,8 +26631,11 @@ abstract class _PostShiftState implements PostShiftState {
   bool get isAssistantOnSite;
   @override
   bool get isTechnicianOnSite;
+
+  /// Create a copy of PostShiftState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
