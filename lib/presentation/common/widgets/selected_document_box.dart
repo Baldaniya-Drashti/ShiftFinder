@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -18,21 +19,26 @@ class SelectedDocumentBox extends StatelessWidget {
   String? subTitle1;
   String? subTitle2;
   bool showDeleteButton;
+  bool showEditButton;
   String? deleteDescription;
   VoidCallback? onCancelClick;
   VoidCallback? onDeleteClick;
+  void Function()? onEditClick;
 
-  SelectedDocumentBox(
-      {this.leadingImageString,
-      this.leadingImage,
-      this.pickedFile,
-      required this.title,
-      this.subTitle1,
-      this.subTitle2,
-      this.deleteDescription,
-      this.onCancelClick,
-      this.onDeleteClick,
-      this.showDeleteButton = true});
+  SelectedDocumentBox({
+    this.leadingImageString,
+    this.leadingImage,
+    this.pickedFile,
+    required this.title,
+    this.subTitle1,
+    this.subTitle2,
+    this.deleteDescription,
+    this.onCancelClick,
+    this.onDeleteClick,
+    this.showEditButton = false,
+    this.showDeleteButton = true,
+    this.onEditClick,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -97,20 +103,32 @@ class SelectedDocumentBox extends StatelessWidget {
           subTitle2: subTitle2,
           title: title,
         ),
-        trailing: (showDeleteButton)
-            ? GestureDetector(
-                onTap: () {
-                  AppDialog.showDelete(
-                    context,
-                    title: StringConstant.delete,
-                    infoMessage: deleteDescription ?? "",
-                    onCancelClick: onCancelClick,
-                    onDeleteClick: onDeleteClick,
-                  );
-                },
-                child: SvgPicture.asset(SvgImageConstant.bin),
-              )
-            : null,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            (showEditButton)
+                ? GestureDetector(
+                    onTap: onEditClick,
+                    child: SvgPicture.asset(SvgImageConstant.editWithBg),
+                  )
+                : Container(),
+            Gap(getSize(10)),
+            (showDeleteButton)
+                ? GestureDetector(
+                    onTap: () {
+                      AppDialog.showDelete(
+                        context,
+                        title: StringConstant.delete,
+                        infoMessage: deleteDescription ?? "",
+                        onCancelClick: onCancelClick,
+                        onDeleteClick: onDeleteClick,
+                      );
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.bin),
+                  )
+                : Container(),
+          ],
+        ),
       ),
     );
   }

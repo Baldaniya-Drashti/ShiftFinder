@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -19,6 +20,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/edit_clock_time_dialog.dart';
@@ -73,17 +75,10 @@ class ApprovedHiredList extends StatelessWidget {
                               itemCount:
                                   state.hiredApproveContractorList.length,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      context.router.push(
-                                        PageRouteInfo(
-                                            ViewApplicantProfile.name),
-                                      );
-                                    },
-                                    child: contractorDetail(
-                                      context,
-                                      state.hiredApproveContractorList[index],
-                                    ));
+                                return contractorDetail(
+                                  context,
+                                  state.hiredApproveContractorList[index],
+                                );
                               }),
                         ));
         },
@@ -108,131 +103,172 @@ class ApprovedHiredList extends StatelessWidget {
           ]),
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: getSize(15),
-              horizontal: getSize(15),
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldColor,
-              borderRadius: BorderRadius.circular(getSize(10)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: getSize(22),
-                  backgroundColor: AppColors.green,
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.scaffoldColor,
-                    radius: getSize(21),
-                    backgroundImage: (contractor.profile != null &&
-                            contractor.profile!.isNotEmpty)
-                        ? NetworkImage(contractor.profile ?? "")
-                        : null,
+          GestureDetector(
+            onTap: () {
+              final userId = contractor.user_id;
+              final postId = contractor.post_id;
+
+              if (userId != null && postId != null) {
+                context.router.push(
+                  PageRouteInfo(ViewApplicantProfile.name,
+                      args: ViewApplicantProfileArgs(
+                        id: userId,
+                        postId: postId,
+                      )),
+                );
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: getSize(15),
+                horizontal: getSize(15),
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.circular(getSize(10)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: getSize(22),
+                    backgroundColor: AppColors.green,
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.scaffoldColor,
+                      radius: getSize(21),
+                      backgroundImage: (contractor.profile != null &&
+                              contractor.profile!.isNotEmpty)
+                          ? NetworkImage(contractor.profile ?? "")
+                          : null,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                  child: BaseText(
-                    text:
-                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    child: BaseText(
+                      text:
+                          '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                Spacer(),
-                CommonButton(
-                  height: 35,
-                  width: 85,
-                  borderRadius: 5,
-                  onPressed: () {
-                    showUnderDevelopment(context);
-                  },
-                  backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-                  buttonText: "",
-                  customWidget: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        SvgImageConstant.chat,
-                        color: AppColors.black,
-                        height: getSize(15),
-                        width: getSize(15),
-                      ),
-                      SizedBox(width: getSize(5)),
-                      BaseText(
-                        text: StringConstant.chat,
-                        fontWeight: FontWeight.w600,
-                        fontSize: getFontSize(12),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                  Spacer(),
+                  CommonButton(
+                    height: 35,
+                    width: 85,
+                    borderRadius: 5,
+                    onPressed: () {
+                      showUnderDevelopment(context);
+                    },
+                    backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                    buttonText: "",
+                    customWidget: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          SvgImageConstant.chat,
+                          color: AppColors.black,
+                          height: getSize(15),
+                          width: getSize(15),
+                        ),
+                        SizedBox(width: getSize(5)),
+                        BaseText(
+                          text: StringConstant.chat,
+                          fontWeight: FontWeight.w600,
+                          fontSize: getFontSize(12),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(height: getSize(10)),
           dateTime(contractor),
           SizedBox(height: getSize(10)),
-          if (contractor.clock_in_out_status == 2) ...[
+          if (contractor.clock_in_out_status == 1) ...[
+            clocInOut(context, contractor),
+            SizedBox(height: getSize(10)),
+            if (contractor.shift_complete != true)
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      height: 40,
+                      onPressed: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? () {
+                              approveDialog(context, contractor);
+                            }
+                          : () {},
+                      borderRadius: 7,
+                      buttonFontSize: 12,
+                      buttonText: StringConstant.approve,
+                      backgroundColor: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? AppColors.primaryColor
+                          : AppColors.primaryColor.withOpacity(0.3),
+                    ),
+                  ),
+                  SizedBox(width: getSize(10)),
+                  Expanded(
+                    child: CommonButton(
+                      height: 40,
+                      backgroundColor: AppColors.scaffoldColor,
+                      borderColor: AppColors.scaffoldColor,
+                      // buttonTextColor: AppColors.black,
+                      buttonTextColor: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? AppColors.black
+                          : AppColors.black.withOpacity(0.3),
+                      onPressed: (contractor.clock_in_time != null &&
+                              contractor.clock_out_time != null)
+                          ? () {
+                              EditClockTimeDialog()
+                                  .editClockTimeDialog(context, contractor);
+                              // showUnderDevelopment(context);
+                            }
+                          : () {},
+                      buttonFontSize: 12,
+                      borderRadius: 7,
+                      buttonText: StringConstant.edit,
+                    ),
+                  ),
+                ],
+              ),
+          ] else
             Container(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               padding: EdgeInsets.symmetric(
                   vertical: getSize(8), horizontal: getSize(20)),
               decoration: BoxDecoration(
                   color: AppColors.primaryColor.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(getSize(5))),
-              child: BaseText(
-                text: StringConstant.awaitingClockInOutDesc,
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: StringConstant.awaitingClockInOutDesc,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  Gap(getSize(5)),
+                  GestureDetector(
+                    onTap: () {
+                      AppDialog.showInfo(
+                        context,
+                        StringConstant.awaitingContractorApprovalDesc,
+                        maxLines: 10,
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      SvgImageConstant.infoCircle,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ] else if (contractor.clock_in_out_status == 1) ...[
-            clocInOut(context, contractor),
-            SizedBox(height: getSize(10)),
-            Row(
-              children: [
-                Expanded(
-                  child: CommonButton(
-                    height: 40,
-                    onPressed: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
-                        ? () {
-                            approveDialog(context, contractor);
-                          }
-                        : () {},
-                    borderRadius: 7,
-                    buttonFontSize: 12,
-                    buttonText: StringConstant.approve,
-                    backgroundColor: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
-                        ? AppColors.primaryColor
-                        : AppColors.primaryColor.withOpacity(0.3),
-                  ),
-                ),
-                SizedBox(width: getSize(10)),
-                Expanded(
-                  child: CommonButton(
-                    height: 40,
-                    backgroundColor: AppColors.scaffoldColor,
-                    borderColor: AppColors.scaffoldColor,
-                    buttonTextColor: AppColors.black,
-                    onPressed: () {
-                      EditClockTimeDialog()
-                          .editClockTimeDialog(context, contractor);
-                      // showUnderDevelopment(context);
-                    },
-                    buttonFontSize: 12,
-                    borderRadius: 7,
-                    buttonText: StringConstant.edit,
-                  ),
-                ),
-              ],
-            ),
-          ],
         ],
       ),
     );
@@ -374,7 +410,7 @@ class ApprovedHiredList extends StatelessWidget {
     AcceptRejectDialog(
       title: StringConstant.approve,
       description:
-          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
+          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
       onPressedAccept: () async {
         context.router.maybePop().then(
           (value) {

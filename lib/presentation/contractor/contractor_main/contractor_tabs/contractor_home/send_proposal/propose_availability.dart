@@ -19,20 +19,24 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/mark_availability.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProposeAvailability')
 class ProposeAvailability extends StatelessWidget {
   HealthcarePostDTO post;
+  String? totalPayableHours;
   List<DateTimeDTO>? updatedDates;
 
-  ProposeAvailability({required this.post, this.updatedDates});
+  ProposeAvailability(
+      {required this.post, this.updatedDates, this.totalPayableHours});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<SendProposalBloc>()
-        ..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
+        ..add(SendProposalEvent.getMultiDateEvent(
+            post, updatedDates, totalPayableHours)),
       child: BlocConsumer<SendProposalBloc, SendProposalState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -72,6 +76,7 @@ class ProposeAvailability extends StatelessWidget {
                           ? EditProposalTime(
                               shift: post.shift_detail ?? ShiftDetailDTO())
                           : MarkUnavailability(),
+                      totalPaybleHours(state),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: getSize(30)),
                         child: CommonButton(
@@ -94,10 +99,12 @@ class ProposeAvailability extends StatelessWidget {
                                             .theTotalPayableHourMustBeAtLeastTwo)
                                     .show(context);
                               } else {
-                                Navigator.pop(context, state.multiDates);
+                                Navigator.pop(context,
+                                    [state.multiDates, state.totalPaybleHours]);
                               }
                             } else {
-                              Navigator.pop(context, state.multiDates);
+                              Navigator.pop(context,
+                                  [state.multiDates, state.totalPaybleHours]);
                             }
                           },
                           buttonText: StringConstant.done,
@@ -111,6 +118,17 @@ class ProposeAvailability extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget totalPaybleHours(SendProposalState state) {
+    print("total Hours--> ${state.totalPaybleHours}");
+    return CustomTextField(
+      labelText: StringConstant.totalPayableHours,
+      hintText: state.totalPaybleHours,
+      hintAsValue: true,
+      readOnly: true,
+      fillColor: AppColors.grey04,
     );
   }
 

@@ -383,15 +383,20 @@ class SendProposal extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
-                      ),
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                  );*/
+                  ),
+                );
+              }
             },
             child: Row(
               children: [
@@ -674,12 +679,21 @@ class SendProposal extends StatelessWidget {
                     args: ProposeAvailabilityArgs(
                       post: state.shift,
                       updatedDates: state.multiDates,
+                      totalPayableHours: state.totalPaybleHours,
                     )))
                 .then((value) {
               if (value != null) {
-                context.read<SendProposalBloc>().add(
-                    SendProposalEvent.setMultiDate(
-                        updatedDates: value as List<DateTimeDTO>));
+                final newValue = value as List;
+
+                final updatedDates = newValue[0] as List<DateTimeDTO>;
+                final totalPayableHours = newValue[1] as String;
+
+                context
+                    .read<SendProposalBloc>()
+                    .add(SendProposalEvent.setMultiDate(
+                      updatedDates: updatedDates,
+                      totalPayableHours: totalPayableHours,
+                    ));
               }
             });
           },
@@ -791,7 +805,6 @@ class SendProposal extends StatelessWidget {
             }
           },
         ),
-
         /*(state.singleShiftErrorMessages &&
                 (!isEndHourValid(state) && !isEndMinValid(state)))
             ? commonErrorText(

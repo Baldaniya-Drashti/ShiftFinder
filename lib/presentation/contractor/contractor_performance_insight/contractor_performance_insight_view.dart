@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_performance_insight/contractor_performance_insight_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/auth/employer_auth/location_detail_form.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -26,7 +27,8 @@ class ContractorPerformanceInsightView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ContractorPerformanceInsightBloc>()
         ..add(ContractorPerformanceInsightEvent.onDateSelected(context,
-            dates: [])),
+            // dates: [],
+            selectedDate: null)),
       child: BlocBuilder<ContractorPerformanceInsightBloc,
           ContractorPerformanceInsightState>(
         builder: (context, state) {
@@ -37,88 +39,122 @@ class ContractorPerformanceInsightView extends StatelessWidget {
             ),
             body: Stack(
               children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(getSize(10)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /*DateRangePickerTile(
-                              onDateSelected: (value) {},
-                              label: StringConstant.period,
-                            ),*/
-                        BlocSelector<ContractorPerformanceInsightBloc,
-                            ContractorPerformanceInsightState, List<DateTime>>(
-                          selector: (state) => state.selectedDateTime,
-                          builder: (context, selectedDateTime) {
-                            return DateRangePickerTile(
-                              label: "Period",
-                              selectedDate: selectedDateTime,
-                              onDateSelected: (value) {
-                                context
-                                    .read<ContractorPerformanceInsightBloc>()
-                                    .add(ContractorPerformanceInsightEvent
-                                        .onDateSelected(context, dates: value));
-                              },
-                            );
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            titleText(StringConstant.monthIndex),
-                            BaseText(
-                                text: "July 2024",
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                textColor: AppColors.green),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            _MonthlyIndexItem(
-                                label: StringConstant.totalEarnings,
-                                value: "\$2541.25",
-                                icon: SvgImageConstant.dollorRound),
-                            Gap(getSize(8)),
-                            _MonthlyIndexItem(
-                                label: StringConstant.hourWorked,
-                                value: "120h 36min",
-                                icon: SvgImageConstant.clock),
-                            Gap(getSize(8)),
-                            _MonthlyIndexItem(
-                                label: StringConstant.completedShifts,
-                                value: "16",
-                                icon: SvgImageConstant.completedShifts),
-                          ],
-                        ),
-                        titleText(StringConstant.earningOverTime),
-                        EarningsGraph(),
-                        titleText(StringConstant.hoursWorked),
-                        HoursChart(),
-                        titleText(StringConstant.completedShift),
-                        CompletedShiftChart(),
-                        chartFormat(
-                          title: StringConstant.earningOverTime,
-                          chart: SfCartesianChart(
-                            primaryXAxis: CategoryAxis(),
-                            series: [
-                              LineSeries<ChartData, String>(
-                                dataSource: [
-                                  ChartData(x: "Week 1", y: 300),
-                                  ChartData(x: "Week 2", y: 350),
-                                  ChartData(x: "Week 3", y: 300),
-                                  ChartData(x: "Week 4", y: 500),
-                                  ChartData(x: "Week 5", y: 500),
-                                ],
-                                xValueMapper: (datum, _) => datum.x,
-                                yValueMapper: (datum, _) => datum.y,
+                Padding(
+                  padding: EdgeInsets.all(getSize(10)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /*DateRangePickerTile(
+                            onDateSelected: (value) {},
+                            label: StringConstant.period,
+                          ),*/
+                      BlocSelector<ContractorPerformanceInsightBloc,
+                          ContractorPerformanceInsightState, DateTime?>(
+                        selector: (state) => state.selectedMonth,
+                        builder: (context, selectedDateTime) {
+                          print("selected month---> $selectedDateTime");
+                          return MonthPickerTile(
+                            label: StringConstant.period,
+                            selectedMonth: selectedDateTime,
+                            onDateSelected: (value) {
+                              context
+                                  .read<ContractorPerformanceInsightBloc>()
+                                  .add(ContractorPerformanceInsightEvent
+                                      .onDateSelected(context,
+                                          selectedDate: value));
+                            },
+                          );
+                        },
+                      ),
+                      Expanded(
+                        child: (state.selectedMonth == null)
+                            ? Center(
+                                child: NoDataText(
+                                  title: "",
+                                  description: StringConstant
+                                      .pleaseSelectMonthToViewPerformanceInsights,
+                                ),
+                              )
+                            : Container(
+                                margin:
+                                    EdgeInsets.symmetric(vertical: getSize(10)),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          titleText(StringConstant.monthIndex),
+                                          BaseText(
+                                              text: (state.selectedMonth !=
+                                                      null)
+                                                  ? DateFormat('MMM yyyy')
+                                                      .format(
+                                                          state.selectedMonth!)
+                                                  : "",
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                              textColor: AppColors.green),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          _MonthlyIndexItem(
+                                              label:
+                                                  StringConstant.totalEarnings,
+                                              value: "\$2541.25",
+                                              icon:
+                                                  SvgImageConstant.dollorRound),
+                                          Gap(getSize(8)),
+                                          _MonthlyIndexItem(
+                                              label: StringConstant.hourWorked,
+                                              value: "120h 36min",
+                                              icon: SvgImageConstant.clock),
+                                          Gap(getSize(8)),
+                                          _MonthlyIndexItem(
+                                              label: StringConstant
+                                                  .completedShifts,
+                                              value: "16",
+                                              icon: SvgImageConstant
+                                                  .completedShifts),
+                                        ],
+                                      ),
+                                      titleText(StringConstant.earningOverTime),
+                                      EarningsGraph(),
+                                      titleText(StringConstant.hoursWorked),
+                                      HoursChart(),
+                                      titleText(StringConstant.completedShift),
+                                      CompletedShiftChart(),
+                                      chartFormat(
+                                        title: StringConstant.earningOverTime,
+                                        chart: SfCartesianChart(
+                                          primaryXAxis: CategoryAxis(),
+                                          series: [
+                                            LineSeries<ChartData, String>(
+                                              dataSource: [
+                                                ChartData(x: "Week 1", y: 300),
+                                                ChartData(x: "Week 2", y: 350),
+                                                ChartData(x: "Week 3", y: 300),
+                                                ChartData(x: "Week 4", y: 500),
+                                                ChartData(x: "Week 5", y: 500),
+                                              ],
+                                              xValueMapper: (datum, _) =>
+                                                  datum.x,
+                                              yValueMapper: (datum, _) =>
+                                                  datum.y,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 if (state.isLoading) CenterLoadingIndicator(),

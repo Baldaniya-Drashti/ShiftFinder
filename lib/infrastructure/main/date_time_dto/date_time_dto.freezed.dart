@@ -31,6 +31,7 @@ mixin _$DateTimeDTO {
   String? get endMinute => throw _privateConstructorUsedError;
   String? get totalPaybleHours => throw _privateConstructorUsedError;
   String? get unpaidBreak => throw _privateConstructorUsedError;
+  int? get unpaidBreakId => throw _privateConstructorUsedError;
   bool get isUnAvailable => throw _privateConstructorUsedError;
   String? get colorText => throw _privateConstructorUsedError;
 
@@ -62,6 +63,7 @@ abstract class $DateTimeDTOCopyWith<$Res> {
       String? endMinute,
       String? totalPaybleHours,
       String? unpaidBreak,
+      int? unpaidBreakId,
       bool isUnAvailable,
       String? colorText});
 }
@@ -92,6 +94,7 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
     Object? endMinute = freezed,
     Object? totalPaybleHours = freezed,
     Object? unpaidBreak = freezed,
+    Object? unpaidBreakId = freezed,
     Object? isUnAvailable = null,
     Object? colorText = freezed,
   }) {
@@ -140,6 +143,10 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
           ? _value.unpaidBreak
           : unpaidBreak // ignore: cast_nullable_to_non_nullable
               as String?,
+      unpaidBreakId: freezed == unpaidBreakId
+          ? _value.unpaidBreakId
+          : unpaidBreakId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUnAvailable: null == isUnAvailable
           ? _value.isUnAvailable
           : isUnAvailable // ignore: cast_nullable_to_non_nullable
@@ -172,6 +179,7 @@ abstract class _$$DateTimeDTOImplCopyWith<$Res>
       String? endMinute,
       String? totalPaybleHours,
       String? unpaidBreak,
+      int? unpaidBreakId,
       bool isUnAvailable,
       String? colorText});
 }
@@ -200,6 +208,7 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
     Object? endMinute = freezed,
     Object? totalPaybleHours = freezed,
     Object? unpaidBreak = freezed,
+    Object? unpaidBreakId = freezed,
     Object? isUnAvailable = null,
     Object? colorText = freezed,
   }) {
@@ -248,6 +257,10 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
           ? _value.unpaidBreak
           : unpaidBreak // ignore: cast_nullable_to_non_nullable
               as String?,
+      unpaidBreakId: freezed == unpaidBreakId
+          ? _value.unpaidBreakId
+          : unpaidBreakId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUnAvailable: null == isUnAvailable
           ? _value.isUnAvailable
           : isUnAvailable // ignore: cast_nullable_to_non_nullable
@@ -275,6 +288,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       this.endMinute,
       this.totalPaybleHours,
       this.unpaidBreak,
+      this.unpaidBreakId,
       this.isUnAvailable = false,
       this.colorText});
 
@@ -304,6 +318,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
   @override
   final String? unpaidBreak;
   @override
+  final int? unpaidBreakId;
+  @override
   @JsonKey()
   final bool isUnAvailable;
   @override
@@ -311,7 +327,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
 
   @override
   String toString() {
-    return 'DateTimeDTO(id: $id, start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak, isUnAvailable: $isUnAvailable, colorText: $colorText)';
+    return 'DateTimeDTO(id: $id, start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak, unpaidBreakId: $unpaidBreakId, isUnAvailable: $isUnAvailable, colorText: $colorText)';
   }
 
   @override
@@ -337,6 +353,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
                 other.totalPaybleHours == totalPaybleHours) &&
             (identical(other.unpaidBreak, unpaidBreak) ||
                 other.unpaidBreak == unpaidBreak) &&
+            (identical(other.unpaidBreakId, unpaidBreakId) ||
+                other.unpaidBreakId == unpaidBreakId) &&
             (identical(other.isUnAvailable, isUnAvailable) ||
                 other.isUnAvailable == isUnAvailable) &&
             (identical(other.colorText, colorText) ||
@@ -358,6 +376,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       endMinute,
       totalPaybleHours,
       unpaidBreak,
+      unpaidBreakId,
       isUnAvailable,
       colorText);
 
@@ -390,6 +409,7 @@ abstract class _DateTimeDTO implements DateTimeDTO {
       final String? endMinute,
       final String? totalPaybleHours,
       final String? unpaidBreak,
+      final int? unpaidBreakId,
       final bool isUnAvailable,
       final String? colorText}) = _$DateTimeDTOImpl;
 
@@ -418,6 +438,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
   String? get totalPaybleHours;
   @override
   String? get unpaidBreak;
+  @override
+  int? get unpaidBreakId;
   @override
   bool get isUnAvailable;
   @override

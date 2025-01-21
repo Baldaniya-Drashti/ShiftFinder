@@ -36,6 +36,8 @@ class ContactorDashboardDTO with _$ContactorDashboardDTO {
     String? accommodation_allowance,
     String? commute_allowance,
     String? total_amount,
+    String? total_wage,
+    String? total_allowance,
   }) = _ContactorDashboardDTO;
 
   factory ContactorDashboardDTO.fromJson(Map<String, dynamic> json) =>

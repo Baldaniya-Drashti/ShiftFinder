@@ -139,10 +139,10 @@ class BackgroundDocument extends StatelessWidget {
                             child: CommonButton(
                               isSubmitting: state.isSubmitting,
                               onPressed: () {
-                                /* context.read<BackgroundDocBloc>().add(
-                                    BackgroundDocEvent.bgProofSubmit(context)); */
-                                context.router.push(
-                                    PageRouteInfo(ProofOfLegalStatus.name));
+                                context.read<BackgroundDocBloc>().add(
+                                    BackgroundDocEvent.bgProofSubmit(context));
+                                /* context.router.push(
+                                    PageRouteInfo(ProofOfLegalStatus.name)); */
                               },
                               buttonText: StringConstant.txtContinue,
                             ),

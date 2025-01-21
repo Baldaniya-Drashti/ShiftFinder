@@ -32,7 +32,8 @@ class PostShiftState with _$PostShiftState {
     required bool isMoreVacancy,
     required Vacancy selectedVacancy,
     required bool singleShiftErrorMessages,
-    required Option<Either<MainFailure, HealthcarePostDTO>> singleShiftFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>>
+        singleShiftFailureOrSuccessOption,
 
     /// For recurring,sahre with teams, save as template
     required List<TeamDTO> teamList,
@@ -47,8 +48,10 @@ class PostShiftState with _$PostShiftState {
     required ListInputEmptyOrNot<TeamDTO> selectedTeamList,
     required InputEmptyOrNot recurrenceMode,
     required bool recurringErrorMessage,
-    required Option<Either<MainFailure, HealthcarePostDTO>> recurringFailureOrSuccessOption,
-    required Option<Either<MainFailure, CommonResponse>> updatePostFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>>
+        recurringFailureOrSuccessOption,
+    required Option<Either<MainFailure, CommonResponse>>
+        updatePostFailureOrSuccessOption,
 
     /// Multi shift
     required bool isIndividualPost,
@@ -65,7 +68,12 @@ class PostShiftState with _$PostShiftState {
     required bool fromPreviousShift,
 
     /// Post the Shift
-    required Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
+    required Option<Either<MainFailure, String>>
+        postShiftFailureOrSuccessOption,
+    required InputEmptyOrNot scriptVolume,
+    required List<SkillDTO> scriptVolumeList,
+    required bool isAssistantOnSite,
+    required bool isTechnicianOnSite,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -79,7 +87,7 @@ class PostShiftState with _$PostShiftState {
           fromSaveTemplate: false,
         /// Single Shift
         signleShiftDate: InputEmptyOrNot(""),
-// startTime: InputEmptyOrNot(""),
+        // startTime: InputEmptyOrNot(""),
         startHour: InputEmptyOrNot(""),
         startMinute: InputEmptyOrNot("00 Min"),
         endHour: InputEmptyOrNot(""),
@@ -130,5 +138,10 @@ class PostShiftState with _$PostShiftState {
         /// Post the shift
         postShiftFailureOrSuccessOption: none(),
         updatePostFailureOrSuccessOption: none(),
+
+        scriptVolume: InputEmptyOrNot(""),
+        scriptVolumeList: CommonList.scriptVolumeList,
+        isAssistantOnSite: false,
+        isTechnicianOnSite: false,
       );
 }

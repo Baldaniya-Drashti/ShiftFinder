@@ -26,6 +26,9 @@ class MultiShiftDTO with _$MultiShiftDTO {
     String? shift_note,
     int? vacancie_type,
     int? number_of_vacancie,
+    int? script_volume,
+    int? assistant_on_site,
+    int? technician_on_site,
   }) = _MultiShiftDTO;
 
   factory MultiShiftDTO.fromJson(Map<String, dynamic> json) =>

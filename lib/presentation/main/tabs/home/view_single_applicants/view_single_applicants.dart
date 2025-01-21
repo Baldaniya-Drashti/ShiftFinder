@@ -194,6 +194,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                                       text: StringConstant
                                                           .awaitingAcknowledgement,
                                                       fontSize: 12,
+                                                      textColor: AppColors
+                                                          .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
@@ -494,7 +496,7 @@ class ViewSingleApplicants extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Container(
@@ -653,22 +655,44 @@ class ViewSingleApplicants extends StatelessWidget {
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                colorFilter: ColorFilter.mode(
-                  AppColors.black,
-                  BlendMode.srcATop,
+          GestureDetector(
+            onTap: () {
+              final latitude = data.latitude;
+              final longitude = data.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.black,
+                    BlendMode.srcATop,
+                  ),
                 ),
-              ),
-              SizedBox(width: getSize(5)),
-              BaseText(
-                text: data.location ?? "",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-              ),
-            ],
+                SizedBox(width: getSize(5)),
+                Expanded(
+                  child: BaseText(
+                    text: "${data.location ?? ""} ${data.location}",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    maxLines: 2,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

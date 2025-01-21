@@ -26,7 +26,8 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
 
 Either<ValueFailure<String>, String> validateNumberOfVacancy(String input) {
   if (validateStringNotEmpty(input).isRight()) {
-    if (input != "0" && input != "1") {
+    final parsedNumber = int.tryParse(input) ?? 0;
+    if (parsedNumber > 1) {
       return right(input);
     } else {
       return left(ValueFailure.invalidVacancy(failedValue: input));
@@ -142,7 +143,8 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.isEmpty) {
     return left(ValueFailure.empty(failedValue: input));
   } else {
-    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$').hasMatch(input)) {
+    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
+        .hasMatch(input)) {
       return left(ValueFailure.invalidPassword(failedValue: input));
     } else if (input.length < 8) {
       return left(ValueFailure.shortPassword(failedValue: input));

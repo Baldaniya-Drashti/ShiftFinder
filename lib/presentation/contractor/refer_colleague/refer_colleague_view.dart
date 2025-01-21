@@ -55,8 +55,8 @@ class ReferColleagueView extends StatelessWidget {
                                   fontSize: 10,
                                 ),
                                 BaseText(
-                                  text: getCurrentUser().your_referral_code ??
-                                      "TEST12345ET",
+                                  text:
+                                      getCurrentUser().your_referral_code ?? "",
                                   fontWeight: FontWeight.w600,
                                   textColor: AppColors.green,
                                 ),
@@ -70,7 +70,7 @@ class ReferColleagueView extends StatelessWidget {
                                   ReferColleagueEvent.shareReferralEvent(
                                       referralCode:
                                           getCurrentUser().your_referral_code ??
-                                              "TEST12345ET"));
+                                              ""));
                             },
                             buttonText: StringConstant.share,
                             borderRadius: 10,

@@ -509,8 +509,10 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -541,11 +543,18 @@ class HealthCarePostForm extends StatelessWidget {
   TextEditingController languageController = TextEditingController();
   bool isMultiLocation = true;
 
+  String postTitle() {
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
+    return industry.title ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Post id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<HealthcarePostBloc>()..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
+      create: (context) => getIt<HealthcarePostBloc>()
+        ..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -558,7 +567,7 @@ class HealthCarePostForm extends StatelessWidget {
 
                 // Navigator.pop(context);
               },
-              title: fromSaveTemplate ? "Edit Template" : StringConstant.healthcare,
+              title: fromSaveTemplate ? "Edit Template" : postTitle(),
             ),
             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
               listener: (context, state) {
@@ -590,19 +599,22 @@ class HealthCarePostForm extends StatelessWidget {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 Image.asset(
-                                  PngImageConstants.healthcare_post_employer,
-                                ),
+                                    PngImageConstants.healthcare_post_employer),
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
-                                requiredSpecialityDropDownChipset(context, state),
+                                requiredSpecialityDropDownChipset(
+                                    context, state),
                                 paddingBetweenFields(),
-                                preferredSoftwareSkillsDropDownChipSet(context, state),
+                                preferredSoftwareSkillsDropDownChipSet(
+                                    context, state),
                                 paddingBetweenFields(),
                                 languageDropDownChipSet(context, state),
                                 paddingBetweenFields(),
@@ -610,7 +622,8 @@ class HealthCarePostForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 rateHourDropDown(context, state),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {

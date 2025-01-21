@@ -25,7 +25,8 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 class ProfessionalLiabilityProtection extends StatelessWidget {
-  const ProfessionalLiabilityProtection({super.key});
+  bool isUpdate;
+  ProfessionalLiabilityProtection({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +103,11 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                                         .deleteLiabilityObject(
                                                             index));
                                                 context.router.maybePop();
+                                              },
+                                              showEditButton: isUpdate,
+                                              onEditClick: () {
+                                                editDocument(
+                                                    context, liabilityObject);
                                               },
                                             ),
                                           );
@@ -230,8 +236,9 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           child: CommonButton(
                             onPressed: () {
                               context.read<ProfessionalLiabilityBloc>().add(
-                                      const ProfessionalLiabilityEvent
+                                      ProfessionalLiabilityEvent
                                           .liabilityDocSubmit(
+                                    context,
                                     isAddMoreBtnClick: false,
                                     isSkip: false,
                                   ));
@@ -245,8 +252,9 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           context,
                           onPressed: () {
                             context.read<ProfessionalLiabilityBloc>().add(
-                                    const ProfessionalLiabilityEvent
+                                    ProfessionalLiabilityEvent
                                         .liabilityDocSubmit(
+                                  context,
                                   isAddMoreBtnClick: false,
                                   isSkip: true,
                                 ));
@@ -259,6 +267,138 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
         },
       ),
     );
+  }
+
+  editDocument(
+    BuildContext context,
+    DocumentDTO? currentCred,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => getIt<ProfessionalLiabilityBloc>()
+              ..add(ProfessionalLiabilityEvent.getCurrentDoc(currentCred)),
+            child: BlocBuilder<ProfessionalLiabilityBloc,
+                ProfessionalLiabilityState>(
+              builder: (context, state) {
+                return (state.isLiabilityDocSubmitting)
+                    ? CenterLoadingIndicator()
+                    : AlertDialog(
+                        backgroundColor: AppColors.scaffoldColor,
+                        insetPadding: EdgeInsets.symmetric(
+                            vertical: getSize(50), horizontal: getSize(10)),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              (state.liabilityDoc.isValid())
+                                  ? selectedImage(
+                                      context,
+                                      state.liabilityDoc.getValue() ?? "",
+                                      state: state,
+                                    )
+                                  : UploadDocumentBox(
+                                      height: getSize(300),
+                                      onUploadBtnPressed: () {
+                                        clickUploadButton(context);
+                                      },
+                                    ),
+                              if (state.showLiabilityErrorMessages &&
+                                  !state.liabilityDoc.isValid())
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10),
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text: StringConstant
+                                        .pleaseSelectCredentialRegistrationDocument,
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              DocumentExpiryDatePicker()
+                                  .notApplicableExpiryCheckBox(
+                                context,
+                                value: state.isLiabilityExpiryCheck,
+                                isDisabled:
+                                    (state.liabilityExpiryDate.isNotEmpty),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    context
+                                        .read<ProfessionalLiabilityBloc>()
+                                        .add(ProfessionalLiabilityEvent
+                                            .checkNALiabilityExpiryDate(value));
+                                  }
+                                },
+                              ),
+                              DocumentExpiryDatePicker.expiryDateTextField(
+                                context,
+                                onPickedDate: (pickedDate) {
+                                  context.read<ProfessionalLiabilityBloc>().add(
+                                      ProfessionalLiabilityEvent
+                                          .liabilityExpiryDateChanged(
+                                              pickedDate.toString()));
+                                },
+                                onCancelClick: () {
+                                  context.read<ProfessionalLiabilityBloc>().add(
+                                      ProfessionalLiabilityEvent
+                                          .liabilityExpiryDateChanged(""));
+                                },
+                                selectedDate: state.liabilityExpiryDate,
+                                isDisabled: !state.isLiabilityExpiryCheck,
+                              ),
+                              paddingBetweenFields(height: 5),
+                              if ((!state.isLiabilityExpiryCheck &&
+                                      state.liabilityExpiryDate.isEmpty) &&
+                                  state.showLiabilityErrorMessages)
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(20)),
+                                  child: const BaseText(
+                                    text:
+                                        "${StringConstant.pleaseSelectExpiryDateIfApplicable}",
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              paddingBetweenFields(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: getSize(20), bottom: getSize(10)),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context
+                                          .read<ProfessionalLiabilityBloc>()
+                                          .add(ProfessionalLiabilityEvent
+                                              .liabilityDocUpdate(
+                                            context,
+                                            id: currentCred?.id,
+                                          ));
+                                    },
+                                    buttonText: StringConstant.update,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+              },
+            ),
+          );
+        }).then((value) {
+      print("On update back value ---> $value");
+      if (value == true) {
+        context
+            .read<ProfessionalLiabilityBloc>()
+            .add(ProfessionalLiabilityEvent.getLiabilityList());
+      }
+    });
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,

@@ -1,9 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 
 part 'contractor_earning_event.dart';
 part 'contractor_earning_state.dart';
@@ -23,7 +26,9 @@ class ContractorEarningBloc
           if (value.dates.isNotEmpty) {
             DateTime startDate = value.dates.first;
             DateTime endDate = value.dates.last;
-            // add(ContractorEarningEvent.getTotalEarningStatement(startDate: startDate, endDate: endDate));
+
+            add(ContractorEarningEvent.getTotalEarningStatement(
+                startDate: startDate, endDate: endDate));
           }
         },
         downloadContractorEarningEvent: (e) async {
@@ -51,18 +56,18 @@ class ContractorEarningBloc
           } */
         },
         getTotalEarningStatement: (e) async {
-          /* 
-          Either<MainFailure, MonthlyStatementDTO>? failureOrSuccess;
+          Either<MainFailure, CommonResponse>? failureOrSuccess;
 
           emit(state.copyWith(isLoading: true));
 
-          failureOrSuccess = await mainFacade.getEmployerMonthlyStatementAPI(
+          failureOrSuccess = await mainFacade.totalEarningStatementAPI(
             startDate: (e.startDate != null)
-                ? e.startDate!.toUtc().millisecondsSinceEpoch / 1000
-                : null,
+                ? (e.startDate!.toUtc().millisecondsSinceEpoch / 1000)
+                    .toString()
+                : "",
             endDate: (e.endDate != null)
-                ? e.endDate!.toUtc().millisecondsSinceEpoch / 1000
-                : null,
+                ? (e.endDate!.toUtc().millisecondsSinceEpoch / 1000).toString()
+                : "",
           );
 
           failureOrSuccess.fold(
@@ -74,10 +79,10 @@ class ContractorEarningBloc
             (r) {
               emit(state.copyWith(
                 isLoading: false,
-                statement: r,
+                // statement: r,
               ));
             },
-          ); */
+          );
         },
       );
     });

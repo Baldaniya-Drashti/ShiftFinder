@@ -381,15 +381,21 @@ class ContractorHomeView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
+                  final location =
+                      state.contractorDashboardList[index].location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    context.router.push(
+                      PageRouteInfo(
+                        ShowGoogleMap.name,
+                        args: ShowGoogleMapArgs(
+                          latitude: latitude,
+                          longitude: longitude,
+                        ),
                       ),
-                    ),
-                  );*/
+                    );
+                  }
                 },
                 child: Row(
                   children: [
@@ -901,6 +907,19 @@ class ContractorHomeView extends StatelessWidget {
       child: Column(
         children: [
           paybaleTitleRate(
+            title: StringConstant.totalNumberOfShifts,
+            value:
+                "${(post.total_shift.toString().length == 2) ? post.total_shift : "0${post.total_shift}"}",
+            isFirst: true,
+          ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalWage}:-",
+            value:
+                "\$${((post.total_wage ?? "0.0").length > 1) ? post.total_wage : "0${post.total_wage}"}",
+          ),
+          commonDivider(),
+          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value:
                 "\$${((post.accommodation_allowance ?? "0.0").length > 1) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
@@ -911,9 +930,15 @@ class ContractorHomeView extends StatelessWidget {
             value:
                 "\$${((post.commute_allowance ?? "0.0").length > 1) ? post.commute_allowance : "0${post.commute_allowance}"}",
           ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalAllowances}:-",
+            value:
+                "\$${((post.total_allowance ?? "0.0").length > 1) ? post.total_allowance : "0${post.total_allowance}"}",
+          ),
           commonDivider(),
           paybaleTitleRate(
-            title: StringConstant.estimatedEarningsForShift,
+            title: StringConstant.estimatedTotalEarnings,
             value: "\$${post.total_amount ?? 00}",
             isLast: true,
           ),

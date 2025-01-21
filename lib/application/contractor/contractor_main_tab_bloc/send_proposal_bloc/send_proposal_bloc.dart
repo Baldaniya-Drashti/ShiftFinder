@@ -204,6 +204,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             emit(
               state.copyWith(
                   multiDates: e.updatedDates,
+                  totalPaybleHours: e.totalPayableHours,
                   unAvailableDates: e.updatedDates
                       .where((item) => item.isUnAvailable == true)
                       .toList()),
@@ -228,6 +229,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 state.copyWith(
                     shift: e.post,
                     multiDates: e.updatedDates!,
+                    totalPaybleHours: e.totalPayableHours ?? "",
                     unAvailableDates: e.updatedDates!
                         .where((item) => item.isUnAvailable == true)
                         .toList()),
@@ -236,6 +238,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               emit(
                 state.copyWith(
                     shift: e.post,
+                    totalPaybleHours:
+                        e.post.shift_detail?.total_payable_hour ?? "",
                     multiDates: getDifferentMultiDate(
                         e.post.shift_detail?.detail ?? [])),
               );
@@ -258,7 +262,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -272,7 +276,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -286,7 +290,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
@@ -300,14 +304,15 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
             emit(state.copyWith(
               multiDates: list,
-              // totalPaybleHours: allTimesFilled(list),
+              totalPaybleHours: allTimesFilled(list),
               failureOrSuccessOption: none(),
             ));
           },
           setDateUnavailableEvent: (e) {
             List<DateTimeDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
-            print("updatedDateTimeDTOList----> $updatedDateTimeDTOList");
+            print(
+                "updatedDateTimeDTOList----> ${jsonEncode(updatedDateTimeDTOList)}");
 
             Set<DateTime> set2 = e.selectedDateList.toSet();
 
@@ -333,9 +338,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 .where((item) => item.isUnAvailable == true)
                 .toList();
 
+            print("Total payable hours---> ${state.totalPaybleHours}");
             emit(
               state.copyWith(
                 multiDates: updatedDateTimeDTOList,
+                totalPaybleHours: allTimesFilled(updatedDateTimeDTOList),
                 unAvailableDates: unAvailableDates,
               ),
             );
@@ -374,6 +381,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                     .show(e.context);
               } else {
+                emit(state.copyWith(
+                  isLoading: true,
+                  failureOrSuccessOption: none(),
+                ));
+
                 print("show success on submit ${state.multiDates}");
 
                 Either<MainFailure, String>? failureOrSuccess;
@@ -390,6 +402,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
                 failureOrSuccess.fold(
                   (l) {
+                    emit(state.copyWith(isLoading: false));
+
                     e.context.router.maybePop();
                     showError(
                       message: l.maybeMap(
@@ -404,15 +418,16 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                     showSuccess(message: r).show(e.context).then((value) {
                       e.context.router.maybePop(true);
                     });
+                    emit(state.copyWith(isLoading: false));
                   },
                 );
               }
               // }
             } else {
               print("Some details are invalid!");
-
               emit(
                 state.copyWith(
+                  isLoading: false,
                   showErrorMessages: true,
                   failureOrSuccessOption: none(),
                 ),
@@ -455,15 +470,20 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                     .show(e.context);
               } else {
+                emit(state.copyWith(
+                  isLoading: true,
+                  failureOrSuccessOption: none(),
+                ));
                 final post = continueWithPostDetail(state);
 
-                failureOrSuccess =
-                    await _mainFacade.contractorApplyOrSendProposal(
-                  mapData: post,
-                );
+                failureOrSuccess = await _mainFacade
+                    .contractorApplyOrSendProposal(mapData: post);
 
                 failureOrSuccess.fold(
                   (l) {
+                    emit(state.copyWith(
+                      isLoading: false,
+                    ));
                     e.context.router.maybePop();
                     showError(
                       message: l.maybeMap(
@@ -479,6 +499,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                     showSuccess(message: r).show(e.context).then((value) {
                       e.context.router.maybePop(true);
                     });
+                    emit(state.copyWith(
+                      isLoading: true,
+                      failureOrSuccessOption: none(),
+                    ));
                   },
                 );
               }
@@ -553,14 +577,86 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     );
   }
 
+  String allTimesFilled(List<DateTimeDTO> multiDateTimeList) {
+    List<DateTimeDTO> filteredList = multiDateTimeList.where((dto) {
+      return dto.start_time != null &&
+          dto.start_time!.isNotEmpty &&
+          dto.end_time != null &&
+          dto.end_time!.isNotEmpty &&
+          dto.isUnAvailable == false;
+    }).toList();
+    bool areAllTimesFilled = filteredList.every((dto) =>
+        dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+
+    print("filteredList---> ${jsonEncode(filteredList)}");
+
+    if (areAllTimesFilled) {
+      // Substract unpaid break list
+      List<DateTimeDTO> updatedList = filteredList.map((dto) {
+        if (isTimeFilled(dto)) {
+          final unpaidBreak =
+              CustomDateTimeFormat.extractUnpaidBreak(dto.unpaidBreak ?? "0");
+          var timeDiffBetweenEndStartTime = DateTime.parse(dto.end_time!)
+              .difference(DateTime.parse(dto.start_time!));
+
+          final timeDifference =
+              timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+          // print("timeDifference---> timeDifference ${timeDifference}");
+          print("timeDifference---> timeDifference $unpaidBreak");
+          return dto.copyWith(totalPaybleHours: timeDifference.toString());
+        } else {
+          return dto;
+        }
+      }).toList();
+
+      final totalHour = CustomDateTimeFormat.formatDuration(
+          sumTotalPayableHours(updatedList));
+      print("totalHour--> $totalHour");
+      return totalHour;
+    } else {
+      return "00h 00min";
+    }
+  }
+
+  Duration sumTotalPayableHours(List<DateTimeDTO> multiDateTimeList) {
+    print("payable hours: $multiDateTimeList");
+    final totalDuration = multiDateTimeList.fold(Duration.zero, (total, dto) {
+      return total + parseDuration(dto.totalPaybleHours ?? "");
+    });
+    return totalDuration;
+  }
+
+  Duration parseDuration(String duration) {
+    final parts = duration.split(':');
+    final hours = int.parse(parts[0]);
+    final minutes = int.parse(parts[1]);
+    final seconds = double.parse(parts[2]).round();
+    final duration1 =
+        Duration(hours: hours, minutes: minutes, seconds: seconds);
+    return duration1;
+  }
+
   Map<String, dynamic> singleShiftData(SendProposalState state) {
     String startTime = CustomDateTimeFormat.parseTime(
-            state.startHour.getValue() ?? "",
-            state.startMinute.getValue() ?? "")
-        .toString();
+      state.startHour.getValue() ?? "",
+      state.startMinute.getValue() ?? "",
+      dateTime: (state.shift.shift_detail?.date != null)
+          ? DateTime.fromMillisecondsSinceEpoch(
+              (state.shift.shift_detail?.date ?? -1) * 1000)
+          : null,
+    ).toString();
     String endTime = CustomDateTimeFormat.parseTime(
-            state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
-        .toString();
+      state.endHour.getValue() ?? "",
+      state.endMinute.getValue() ?? "",
+      dateTime: (state.shift.shift_detail?.date != null)
+          ? DateTime.fromMillisecondsSinceEpoch(
+              (state.shift.shift_detail?.date ?? -1) * 1000)
+          : null,
+    ).toString();
+
+    String shiftDate =
+        (DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000)
+            .toString();
 
     return {
       'post_id': state.shift.post_id,
@@ -568,7 +664,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       /// shift_type means Applied => 1 SendProposal => 2
       'shift_type': 2,
       'rate_hour': state.rateHour.getValue(),
-      'date': state.shift.shift_detail?.date,
+      'date': shiftDate,
       'start_time':
           DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000,
       'end_time': DateTime.parse(endTime).toUtc().millisecondsSinceEpoch / 1000,
@@ -585,50 +681,75 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                   ? getAccomdationHourId(
                       state, state.accomdationHour.getValue() ?? "")
                   : "",
+      'total_payable_hour': state.totalPaybleHours,
+      'unpaid_break_id': state.shift.shift_detail?.unpaid_break?.id ?? -1,
     };
   }
 
   Map<String, dynamic> continueWithPostDetail(SendProposalState state) {
     final shiftDetail = state.shift.shift_detail ?? ShiftDetailDTO();
-    String startTime = "";
+    /* String startTime = "";
     String endTime = "";
 
     if (shiftDetail.shift_type == 1 ||
         (shiftDetail.shift_type == 2 &&
             shiftDetail.same_or_different_time == 1)) {
       startTime = CustomDateTimeFormat.parseTime(
-              state.startHour.getValue() ?? "",
-              state.startMinute.getValue() ?? "")
-          .toString();
+        state.startHour.getValue() ?? "",
+        state.startMinute.getValue() ?? "",
+      ).toString();
       endTime = CustomDateTimeFormat.parseTime(
               state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
           .toString();
-    }
+    } */
 
     String mapMultiDateToApiFormat() {
       if (state.multiDates.isNotEmpty) {
         final list = state.multiDates
             .where((element) => element.isUnAvailable == false)
             .map((multiDate) {
+          final formattedStartTime = CustomDateTimeFormat.parseTime(
+            state.startHour.getValue() ?? "",
+            state.startMinute.getValue() ?? "",
+            dateTime: DateTime.parse(multiDate.date ?? ""),
+          ).toString();
+          final formattedEndTime = CustomDateTimeFormat.parseTime(
+            state.endHour.getValue() ?? "",
+            state.endMinute.getValue() ?? "",
+            dateTime: DateTime.parse(multiDate.date ?? ""),
+          ).toString();
+
+          final formattedDate = (shiftDetail.same_or_different_time == 1)
+              ? CustomDateTimeFormat.mergeDateAndTime(
+                  formattedStartTime,
+                  formattedEndTime,
+                  dateTime: DateTime.parse(multiDate.date ?? ""),
+                )
+              : CustomDateTimeFormat.mergeDateAndTime(
+                  multiDate.start_time ?? "",
+                  multiDate.end_time ?? "",
+                  dateTime: DateTime.parse(multiDate.date ?? ""),
+                );
+
           final map = {
-            'date': DateTime.parse(multiDate.date ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch ~/
-                1000,
+            'date': formattedDate.toUtc().millisecondsSinceEpoch / 1000,
             'start_time': DateTime.parse(
                         (shiftDetail.same_or_different_time == 1)
-                            ? startTime
+                            ? formattedStartTime
                             : multiDate.start_time ?? "")
                     .toUtc()
                     .millisecondsSinceEpoch ~/
                 1000,
             'end_time': DateTime.parse((shiftDetail.same_or_different_time == 1)
-                        ? endTime
+                        ? formattedEndTime
                         : multiDate.end_time ?? "")
                     .toUtc()
                     .millisecondsSinceEpoch ~/
                 1000,
             'payable_hour': multiDate.totalPaybleHours,
+            'unpaid_break_id': (shiftDetail.same_or_different_time == 1)
+                ? state.shift.shift_detail?.unpaid_break?.id ?? -1
+                : multiDate.unpaidBreakId,
           };
           return map;
         }).toList();
@@ -671,6 +792,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                   state, state.accomdationHour.getValue() ?? "")
               : "",
       'multi_date': mapMultiDateToApiFormat(),
+      'total_payable_hour': state.totalPaybleHours,
       'unavailability_date': unAvailableDateFormat(),
     };
     return mapData;
@@ -703,14 +825,25 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     );
 
     if (updatedDTO.startHour != null && updatedDTO.startMinute != null) {
+      // final startTime = CustomDateTimeFormat.parseTime(
+      //     updatedDTO.startHour!, updatedDTO.startMinute!);
+
       final startTime = CustomDateTimeFormat.parseTime(
-          updatedDTO.startHour!, updatedDTO.startMinute!);
+          updatedDTO.startHour!, updatedDTO.startMinute!,
+          dateTime: (updatedDTO.date != null && updatedDTO.date!.isNotEmpty)
+              ? DateTime.parse(updatedDTO.date!)
+              : null);
       updatedDTO = updatedDTO.copyWith(start_time: startTime.toString());
     }
 
     if (updatedDTO.endHour != null && updatedDTO.endMinute != null) {
+      // final endTime = CustomDateTimeFormat.parseTime(
+      //     updatedDTO.endHour!, updatedDTO.endMinute!);
       final endTime = CustomDateTimeFormat.parseTime(
-          updatedDTO.endHour!, updatedDTO.endMinute!);
+          updatedDTO.endHour!, updatedDTO.endMinute!,
+          dateTime: (updatedDTO.date != null && updatedDTO.date!.isNotEmpty)
+              ? DateTime.parse(updatedDTO.date!)
+              : null);
       updatedDTO = updatedDTO.copyWith(end_time: endTime.toString());
     }
 
@@ -876,6 +1009,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             : DateTime.now().toString(),
         totalPaybleHours: multiDate.payable_hour ?? "",
         unpaidBreak: multiDate.unpaid_break?.name ?? "",
+        unpaidBreakId: multiDate.unpaid_break?.id ?? -1,
       );
     }).toList();
     print("get selected date list--> $list");

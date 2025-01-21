@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
@@ -18,11 +19,85 @@ part 'add_contractor_skill_form_bloc.freezed.dart';
 class AddContractorSkillFormBloc
     extends Bloc<AddContractorSkillFormEvent, AddContractorSkillFormState> {
   final IAuthFacade _authFacade;
+  final IAccountRepository repository;
 
-  AddContractorSkillFormBloc(this._authFacade)
+  AddContractorSkillFormBloc(this._authFacade, this.repository)
       : super(AddContractorSkillFormState.initial()) {
     on<AddContractorSkillFormEvent>((event, emit) async {
       await event.map(
+        getProfileDetail: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          final failureOrSuccess = await repository.getCurrentUserApi();
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+              ),
+            ),
+            (r) {
+              print("Current user complete profile----> ${r}");
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  roleTypeChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile!.roles_list != null)
+                          ? r.complete_profile!.roles_list!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
+
+                  // roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
+                  requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile?.softwares_skill_list != null)
+                          ? r.complete_profile!.softwares_skill_list!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
+                  softwareSkillOther:
+                      r.complete_profile?.software_skill_other?.split(',') ??
+                          [],
+                  requiredSpecialityChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile!.specialties_detail != null)
+                          ? r.complete_profile!.specialties_detail!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
+                  // specialityOther: r.specialties_detail_other?.split(',') ?? [],
+                  languageChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile!.languages_list != null)
+                          ? r.complete_profile!.languages_list!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
+                  languageOther: (r.complete_profile != null &&
+                          r.complete_profile!.language_other != null)
+                      ? r.complete_profile!.language_other?.split(',') ?? []
+                      : [],
+                  // location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
+                  // locationObj: r.location ?? LocationDTO(),
+                  // unitList: (r.location != null) ? r.location?.add_units ?? [] : [],
+                  // selectedLocationUnit: r.location_unit ?? "",
+                  // rateHour: Rate((r.rate_hour != null) ? "${r.rate_hour ?? ""}" : ""),
+                ),
+              );
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isLoading: false,
+            ),
+          );
+        },
         confirmSpecialityList: (e) {
           emit(state.copyWith(
             requiredSpecialityChipList: ListInputEmptyOrNot(e.specialityList),
@@ -68,11 +143,17 @@ class AddContractorSkillFormBloc
               authFailureOrSuccessOption: none(),
             ),
           );
+
+          // add(AddContractorSkillFormEvent.getProfileDetail());
           await getRoleListApi(emit);
           await getSpecialityListApi(emit);
           await getExperienceListApi(emit);
           await getLanguageListApi(emit);
           await getSoftwareListApi(emit);
+          if (e.isUpdate == true) {
+            await getContractorSkillAPI(emit);
+          }
+
           // final roleList = await _authFacade.getRoleList();
           // print("Role List ---> ${roleList}");
           // roleList.fold(
@@ -706,6 +787,77 @@ class AddContractorSkillFormBloc
     print('Speciality IDs: $commaSeparated');
 
     return commaSeparated;
+  }
+
+  getContractorSkillAPI(Emitter<AddContractorSkillFormState> emit) async {
+    try {
+      emit(
+        state.copyWith(isLoading: true),
+      );
+      final failureOrSuccess = await repository.getCurrentUserApi();
+      failureOrSuccess.fold(
+        (l) => emit(
+          state.copyWith(
+            isLoading: false,
+          ),
+        ),
+        (r) {
+          print(
+              "Current user complete profile----> ${r.complete_profile?.specialties_detail}");
+          return emit(
+            state.copyWith(
+              isLoading: false,
+              roleTypeChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile!.roles_list != null)
+                      ? r.complete_profile!.roles_list!
+                          .map((element) => element.name ?? "")
+                          .toList()
+                      : []),
+              requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile?.softwares_skill_list != null)
+                      ? r.complete_profile!.softwares_skill_list!
+                          .map((element) => element.name ?? "")
+                          .toList()
+                      : []),
+              softwareSkillOther:
+                  r.complete_profile?.software_skill_other?.split(',') ?? [],
+              requiredSpecialityChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile!.specialties_detail != null)
+                      ? r.complete_profile!.specialties_detail!
+                          .where((element) => element.role != null)
+                          .map((element) => element.role?.name ?? "")
+                          .toList()
+                      : []),
+              specialityOther: (r.complete_profile != null &&
+                      r.complete_profile!.specialties_detail != null)
+                  ? r.complete_profile!.specialties_detail!
+                      .where(
+                          (element) => element.specialtie_lists_other != null)
+                      .map((element) => element.specialtie_lists_other ?? "")
+                      .toList()
+                  : [],
+              // r.complete_profile?.specialties_other?.split(',') ?? [],
+              languageChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile!.languages_list != null)
+                      ? r.complete_profile!.languages_list!
+                          .map((element) => element.name ?? "")
+                          .toList()
+                      : []),
+              languageOther: (r.complete_profile != null &&
+                      r.complete_profile!.language_other != null)
+                  ? r.complete_profile!.language_other?.split(',') ?? []
+                  : [],
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print("Current user ERRORRR--> ${e}");
+    }
   }
 
   getRoleListApi(Emitter<AddContractorSkillFormState> emit) async {

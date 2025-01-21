@@ -9,6 +9,7 @@ class ContractorPerformanceInsightState
     required bool showErrorMessages,
     required Option<Either<MainFailure, CommonResponse>> failureOrSuccessOption,
     required List<DateTime> selectedDateTime,
+    required DateTime? selectedMonth,
   }) = _ContractorPerformanceInsightState;
 
   factory ContractorPerformanceInsightState.initial() =>
@@ -18,5 +19,6 @@ class ContractorPerformanceInsightState
         showErrorMessages: false,
         failureOrSuccessOption: none(),
         selectedDateTime: [],
+        selectedMonth: null,
       );
 }

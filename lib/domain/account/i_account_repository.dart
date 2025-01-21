@@ -2,10 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 
 import '../../infrastructure/core/skill_list_model/skill_dto.dart';
@@ -160,6 +162,7 @@ abstract class IAccountRepository {
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
   Future<Either<AccountFailure, List<SkillDTO>>> getFacilityTypeList();
+  Future<Either<AccountFailure, List<SkillDTO>>> getLocationBrandList();
   Future<Either<AccountFailure, List<LocationDTO>>> getLocationListApi();
 
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
@@ -175,6 +178,8 @@ abstract class IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
     int? type,
   });
 
@@ -192,5 +197,29 @@ abstract class IAccountRepository {
     required String longitude,
     required bool fromRegister,
     required int id,
+    String? locationBrand,
+    String? locationBrandOther,
   });
+
+  Future<Either<AccountFailure, String>> addBankDetail({
+    required String bankName,
+    required String jobTitle,
+    required String accountNumber,
+    required String transitNumber,
+    required String institutionNumber,
+    required String accountType,
+    required String firstName,
+    required String lastName,
+    required String dateOfBirth,
+    required String bankAddress,
+    required String city,
+    required String state,
+    required String postalCode,
+    required String countryFlag,
+    required String countryCode,
+    required String phone,
+    String? lastPage,
+  });
+
+  Future<Either<AccountFailure, BankDTO>> getBankDetailAPI();
 }

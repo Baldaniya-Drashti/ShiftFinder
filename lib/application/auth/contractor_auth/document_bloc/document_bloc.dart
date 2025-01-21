@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +14,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/apparel_equipment.dart';
@@ -36,17 +37,44 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
   static final pageController = PageController();
 
-  static List documentPageList = const [
-    DocumentList(),
-    GovernmentIssueDocument(),
-    CovidVaccinationDocument(),
-    CredentialRegistration(),
-    ProfessionalLicenses(),
-    ImmunizationsVaccinations(),
-    ProfessionalLiabilityProtection(),
-    ResumeDocument(),
-    ApparelEquipment(),
-  ];
+  // static List documentPageList = [
+  //   DocumentList(),
+  //   GovernmentIssueDocument(),
+  //   CovidVaccinationDocument(),
+  //   CredentialRegistration(
+  //     isUpdate: state.isUpdate,
+  //   ),
+  //   ProfessionalLicenses(),
+  //   ImmunizationsVaccinations(),
+  //   ProfessionalLiabilityProtection(),
+  //   ResumeDocument(),
+  //   ApparelEquipment(),
+  // ];
+  static List documentPageList({bool isUpdate = false}) {
+    return [
+      DocumentList(
+        isUpdate: isUpdate,
+      ),
+      GovernmentIssueDocument(),
+      CovidVaccinationDocument(),
+      CredentialRegistration(
+        isUpdate: isUpdate,
+      ),
+      ProfessionalLicenses(
+        isUpdate: isUpdate,
+      ),
+      ImmunizationsVaccinations(
+        isUpdate: isUpdate,
+      ),
+      ProfessionalLiabilityProtection(
+        isUpdate: isUpdate,
+      ),
+      ResumeDocument(),
+      ApparelEquipment(
+        isUpdate: isUpdate,
+      ),
+    ];
+  }
 
   static List<String> appbarTitleList = [
     StringConstant.documents,
@@ -118,7 +146,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             documentType: 8,
             documentFile: "",
             documentTitle: "",
-            lastPage: "BankDetail",
+            lastPage: "AddressProofScreen",
           );
 
           failureOrSuccess.fold(
@@ -158,11 +186,13 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             state.copyWith(
               allListLoading: true,
               isSubmitting: false,
+              isUpdate: e.isUpdate ?? false,
               governmentDocAuthFailureOrSuccessOption: none(),
               authFailureOrSuccessOption: none(),
               continueFailureOrSuccessOption: none(),
             ),
           );
+
           failureOrSuccess = await _repository.getDocumentApi(
             documentType: null,
           );
@@ -537,6 +567,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     state.currentGovermentDocType.id != 4;
 
             if (isExpiryDateMandatory && state.governmentExpiryDate.isEmpty) {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isGovermentDocSubmitting: false,
@@ -613,6 +647,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               ),
             );
           } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
             emit(
               state.copyWith(
                 isGovermentDocSubmitting: false,
@@ -838,6 +876,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 ),
               );
             } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isCovidDocSubmitting: false,
@@ -860,6 +902,119 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
   CredentialBloc(this._repository) : super(CredentialState.initial()) {
     on<CredentialEvent>((event, emit) async {
       await event.map(
+        credDocUpdate: (e) async {
+          final isCredentialDocValid =
+              state.credentialRegistrationDoc.isValid();
+          final isDocumentTitleValid = state.documentTitle.isValid();
+          final isProvinceRegistrationValid =
+              state.selectedProvinceRegistration.isValid();
+          if (e.id != null &&
+              isCredentialDocValid &&
+              isDocumentTitleValid &&
+              isProvinceRegistrationValid &&
+              (state.isCredExpiryCheck ||
+                  state.credentialExpiryDate.isNotEmpty)) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
+            emit(
+              state.copyWith(
+                isLoading: true,
+                isCredintialDocSubmitting: true,
+                credintialDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: e.id ?? -1,
+              documentType: 3,
+              registrationNumber: state.registrationNumber,
+              provinceOfRegistration:
+                  state.selectedProvinceRegistration.getValue(),
+              documentTitle: state.documentTitle.getValue(),
+              documentFile: state.credentialRegistrationDoc.getValue() ?? "",
+              expiryDate: state.credentialExpiryDate,
+              expiryDateNotApplicable: state.isCredExpiryCheck,
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isLoading: false,
+                  isCredintialDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    credentialRegistrationList: r.document
+                            ?.where((doc) => doc.document_type == 3)
+                            .toList() ??
+                        [],
+                    credentialRegistrationDoc: InputEmptyOrNot(""),
+                    documentTitle: InputEmptyOrNot(""),
+                    selectedProvinceRegistration: InputEmptyOrNot(""),
+                    registrationNumber: "",
+                    credentialExpiryDate: "",
+                    isLoading: false,
+                    isCredExpiryCheck: false,
+                    isCredintialDocSubmitting: false,
+                    showCredintialErrorMessages: false,
+                    credintialDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+                Navigator.pop(e.context, true);
+              },
+            );
+            emit(
+              state.copyWith(
+                isLoading: false,
+                credintialDocAuthFailureOrSuccessOption:
+                    optionOf(failureOrSuccess),
+              ),
+            );
+          }
+
+          /// True When click on continue - add more btn and some details are empty or not valid
+
+          else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            emit(
+              state.copyWith(
+                isCredintialDocSubmitting: false,
+                showCredintialErrorMessages: true,
+                credintialDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
+        getCurrentCredDoc: (e) async {
+          DocumentDTO? doc = e.currentCred;
+          if (doc != null) {
+            emit(state.copyWith(isLoading: true));
+            await Future.delayed(Duration(seconds: 1));
+            print("Delayedd complete--->${state.isLoading}");
+            emit(state.copyWith(
+              registrationNumber: doc.registration_number ?? "",
+              selectedProvinceRegistration:
+                  InputEmptyOrNot(doc.province_of_registration ?? ""),
+              documentTitle: InputEmptyOrNot(doc.document_title ?? ""),
+              credentialRegistrationDoc: InputEmptyOrNot(doc.file ?? ""),
+              credentialExpiryDate: (doc.expiry_date != null)
+                  ? DateTime.fromMillisecondsSinceEpoch(
+                      (doc.expiry_date ?? -1) * 1000,
+                    ).toIso8601String()
+                  : "",
+              isCredExpiryCheck:
+                  (doc.expiry_date_not_applicable == 0) ? false : true,
+            ));
+
+            emit(state.copyWith(isLoading: false));
+          }
+        },
+
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
         getCredentialDocList: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
@@ -1192,6 +1347,10 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             /// True When click on continue - add more btn and some details are empty or not valid
 
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isCredintialDocSubmitting: false,
@@ -1216,6 +1375,114 @@ class ProfessionalLicensesBloc
     on<ProfessionalLicensesEvent>((event, emit) async {
       await event.map(
         /// FOR PROFESSIONAL LICENSES DOCUMENT
+        getCurrentLicenseDoc: (e) async {
+          DocumentDTO? doc = e.currentCred;
+          if (doc != null) {
+            emit(state.copyWith(isLicensesDocSubmitting: true));
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(
+              registrationNumber: doc.registration_number ?? "",
+              selectedProvinceRegistration:
+                  InputEmptyOrNot(doc.province_of_registration ?? ""),
+              documentTitle: InputEmptyOrNot(doc.document_title ?? ""),
+              professionalLicensesDoc: InputEmptyOrNot(doc.file ?? ""),
+              licensesExpiryDate: (doc.expiry_date != null)
+                  ? DateTime.fromMillisecondsSinceEpoch(
+                      (doc.expiry_date ?? -1) * 1000,
+                    ).toIso8601String()
+                  : "",
+              isLicensesExpiryCheck:
+                  (doc.expiry_date_not_applicable == 0) ? false : true,
+            ));
+
+            emit(state.copyWith(isLicensesDocSubmitting: false));
+          }
+        },
+        licenseDocUpdate: (e) async {
+          final isProfessionalLicensesDocValid =
+              state.professionalLicensesDoc.isValid();
+          final isDocumentTitleValid = state.documentTitle.isValid();
+          final isProvinceRegistrationValid =
+              state.selectedProvinceRegistration.isValid();
+
+          if (e.id != null &&
+              isProfessionalLicensesDocValid &&
+              isDocumentTitleValid &&
+              isProvinceRegistrationValid &&
+              (state.isLicensesExpiryCheck ||
+                  state.licensesExpiryDate.isNotEmpty)) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
+            emit(
+              state.copyWith(
+                isLicensesDocSubmitting: true,
+                licensesDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: e.id ?? -1,
+              documentType: 4,
+              registrationNumber: state.registrationNumber,
+              provinceOfRegistration:
+                  state.selectedProvinceRegistration.getValue(),
+              documentTitle: state.documentTitle.getValue(),
+              documentFile: state.professionalLicensesDoc.getValue() ?? "",
+              expiryDate: state.licensesExpiryDate,
+              expiryDateNotApplicable: state.isLicensesExpiryCheck,
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isLicensesDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    professionalLicensesList: r.document
+                            ?.where((doc) => doc.document_type == 4)
+                            .toList() ??
+                        [],
+                    professionalLicensesDoc: InputEmptyOrNot(""),
+                    documentTitle: InputEmptyOrNot(""),
+                    selectedProvinceRegistration: InputEmptyOrNot(""),
+                    registrationNumber: "",
+                    licensesExpiryDate: "",
+                    isLicensesExpiryCheck: false,
+                    isLicensesDocSubmitting: false,
+                    showLicensesErrorMessages: false,
+                    licensesDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+                Navigator.pop(e.context, true);
+              },
+            );
+            emit(
+              state.copyWith(
+                isLicensesDocSubmitting: false,
+                licensesDocAuthFailureOrSuccessOption:
+                    optionOf(failureOrSuccess),
+              ),
+            );
+          }
+
+          /// True When click on continue - add more btn and some details are empty or not valid
+          else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            emit(
+              state.copyWith(
+                isLicensesDocSubmitting: false,
+                showLicensesErrorMessages: true,
+                licensesDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         getProfessinalLicensesList: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
           emit(
@@ -1532,6 +1799,10 @@ class ProfessionalLicensesBloc
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isLicensesDocSubmitting: false,
@@ -1555,6 +1826,89 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
     /// FOR Immunizations-Vaccinations DOCUMENT
     on<ImmunizationEvent>((event, emit) async {
       await event.map(
+        getCurrentImmunizationDoc: (e) async {
+          DocumentDTO? doc = e.currentCred;
+          if (doc != null) {
+            emit(state.copyWith(isImmunizationDocSubmitting: true));
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(
+              immunizationName: InputEmptyOrNot(doc.name_of_vaccinations ?? ""),
+              immunizationDoc: InputEmptyOrNot(doc.file ?? ""),
+            ));
+            emit(state.copyWith(isImmunizationDocSubmitting: false));
+          }
+        },
+        immunizationDocUpdate: (e) async {
+          final isImmunizationDocValid = state.immunizationDoc.isValid();
+          final isImmunizationNameValid = state.immunizationName.isValid();
+
+          if (e.id != null &&
+              isImmunizationDocValid &&
+              isImmunizationNameValid) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
+            emit(
+              state.copyWith(
+                isImmunizationDocSubmitting: true,
+                immunizationDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: e.id ?? -1,
+              documentType: 5,
+              nameOfVaccinations: state.immunizationName.getValue(),
+              documentFile: state.immunizationDoc.getValue() ?? "",
+              // expiryDate: state.immunizationExpiryDate,
+              // expiryDateNotApplicable: state.isImmunizationExpiryCheck,
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isImmunizationDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    immunizationList: r.document
+                            ?.where((doc) => doc.document_type == 5)
+                            .toList() ??
+                        [],
+                    immunizationName: InputEmptyOrNot(""),
+                    immunizationDoc: InputEmptyOrNot(""),
+                    immunizationExpiryDate: "",
+                    isImmunizationExpiryCheck: false,
+                    isImmunizationDocSubmitting: false,
+                    showImmunizationErrorMessages: false,
+                    immunizationDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+                Navigator.pop(e.context, true);
+              },
+            );
+            emit(
+              state.copyWith(
+                isImmunizationDocSubmitting: false,
+                immunizationDocAuthFailureOrSuccessOption:
+                    optionOf(failureOrSuccess),
+              ),
+            );
+          } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            emit(
+              state.copyWith(
+                isImmunizationDocSubmitting: false,
+                showImmunizationErrorMessages: true,
+                immunizationDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         getImmunizationDataOnInit: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
           emit(
@@ -1848,6 +2202,10 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
             /// True When click on continue - add more btn and some details are empty or not valid
 
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isImmunizationDocSubmitting: false,
@@ -1874,6 +2232,97 @@ class ProfessionalLiabilityBloc
       : super(ProfessionalLiabilityState.initial()) {
     on<ProfessionalLiabilityEvent>((event, emit) async {
       await event.map(
+        getCurrentDoc: (e) async {
+          DocumentDTO? doc = e.currentCred;
+          if (doc != null) {
+            emit(state.copyWith(isLiabilityDocSubmitting: true));
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(
+              liabilityDoc: InputEmptyOrNot(doc.file ?? ""),
+              liabilityExpiryDate: (doc.expiry_date != null)
+                  ? DateTime.fromMillisecondsSinceEpoch(
+                      (doc.expiry_date ?? -1) * 1000,
+                    ).toIso8601String()
+                  : "",
+              isLiabilityExpiryCheck:
+                  (doc.expiry_date_not_applicable == 0) ? false : true,
+            ));
+
+            emit(state.copyWith(isLiabilityDocSubmitting: false));
+          }
+        },
+        liabilityDocUpdate: (e) async {
+          final isLiabilityDocValid = state.liabilityDoc.isValid();
+
+          if (e.id != null &&
+              isLiabilityDocValid &&
+              (state.isLiabilityExpiryCheck ||
+                  state.liabilityExpiryDate.isNotEmpty)) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
+            emit(
+              state.copyWith(
+                isLiabilityDocSubmitting: true,
+                liabilityDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: e.id ?? -1,
+              documentType: 6,
+              documentFile: state.liabilityDoc.getValue() ?? "",
+              expiryDate: state.liabilityExpiryDate,
+              expiryDateNotApplicable: state.isLiabilityExpiryCheck,
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isLiabilityDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    liabilityList: r.document
+                            ?.where((doc) => doc.document_type == 6)
+                            .toList() ??
+                        [],
+                    liabilityDoc: InputEmptyOrNot(""),
+                    liabilityExpiryDate: "",
+                    isLiabilityExpiryCheck: false,
+                    isLiabilityDocSubmitting: false,
+                    showLiabilityErrorMessages: false,
+                    liabilityDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+                Navigator.pop(e.context, true);
+              },
+            );
+            emit(
+              state.copyWith(
+                isLiabilityDocSubmitting: false,
+                liabilityDocAuthFailureOrSuccessOption:
+                    optionOf(failureOrSuccess),
+              ),
+            );
+          }
+
+          /// True When click on continue - add more btn and some details are empty or not valid
+          else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            emit(
+              state.copyWith(
+                isLiabilityDocSubmitting: false,
+                showLiabilityErrorMessages: true,
+                liabilityDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         getLiabilityList: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
           emit(
@@ -2128,6 +2577,10 @@ class ProfessionalLiabilityBloc
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isLiabilityDocSubmitting: false,
@@ -2367,6 +2820,10 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
                 ),
               );
             } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isResumeDocSubmitting: false,
@@ -2391,6 +2848,88 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
       await event.map(
         /// FOR Immunizations-Vaccinations DOCUMENT
 
+        getCurrentEquipmentDoc: (e) async {
+          DocumentDTO? doc = e.currentCred;
+          if (doc != null) {
+            emit(state.copyWith(isEquipmentDocSubmitting: true));
+            await Future.delayed(Duration(seconds: 1));
+
+            emit(state.copyWith(
+              equipmentName: InputEmptyOrNot(doc.document_title ?? ""),
+              equipmentDoc: InputEmptyOrNot(doc.file ?? ""),
+            ));
+
+            emit(state.copyWith(isEquipmentDocSubmitting: false));
+          }
+        },
+        equipmentDocUpdate: (e) async {
+          final isEquipmentDocValid = state.equipmentDoc.isValid();
+          final isEquipmentNameValid = state.equipmentName.isValid();
+
+          if (e.id != null && isEquipmentDocValid && isEquipmentNameValid) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
+            emit(
+              state.copyWith(
+                isEquipmentDocSubmitting: true,
+                submitDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: e.id ?? -1,
+              documentType: 8,
+              documentFile: state.equipmentDoc.getValue() ?? "",
+              documentTitle: state.equipmentName.getValue(),
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isEquipmentDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    equipmentList: r.document
+                            ?.where((doc) => doc.document_type == 8)
+                            .toList() ??
+                        [],
+                    equipmentDoc: InputEmptyOrNot(""),
+                    equipmentName: InputEmptyOrNot(""),
+                    isEquipmentDocSubmitting: false,
+                    showEquipmentErrorMessages: false,
+                    submitDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+                Navigator.pop(e.context, true);
+              },
+            );
+            emit(
+              state.copyWith(
+                isEquipmentDocSubmitting: false,
+                submitDocAuthFailureOrSuccessOption: none(),
+                // submitDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+              ),
+            );
+          }
+
+          /// True When click on continue - add more btn and some details are empty or not valid
+          else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            emit(
+              state.copyWith(
+                isEquipmentDocSubmitting: false,
+                showEquipmentErrorMessages: true,
+                submitDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         getEquipmentList: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
           emit(
@@ -2582,7 +3121,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               documentType: 8,
               documentFile: state.equipmentDoc.getValue() ?? "",
               documentTitle: state.equipmentName.getValue(),
-              lastPage: "BankDetail",
+              lastPage: "AddressProofScreen",
             );
 
             failureOrSuccess.fold(
@@ -2638,7 +3177,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
                 documentType: 8,
                 documentFile: state.equipmentDoc.getValue() ?? "",
                 documentTitle: state.equipmentName.getValue(),
-                lastPage: "BankDetail",
+                lastPage: "AddressProofScreen",
               );
 
               failureOrSuccess.fold(
@@ -2674,6 +3213,10 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
 
             /// True When click on continue - add more btn and some details are empty or not valid
             else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
               emit(
                 state.copyWith(
                   isEquipmentDocSubmitting: false,

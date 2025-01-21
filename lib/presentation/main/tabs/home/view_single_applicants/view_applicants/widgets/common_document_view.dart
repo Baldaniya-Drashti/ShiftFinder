@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -46,14 +48,14 @@ class CommonDocumentView extends StatelessWidget {
               itemCount: documentList.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return documentUI(documentList[index]);
+                return documentUI(context, documentList[0]);
               }),
         ),
       ),
     );
   }
 
-  Widget documentUI(DocumentDTO document) {
+  Widget documentUI(BuildContext context, DocumentDTO document) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,11 +86,31 @@ class CommonDocumentView extends StatelessWidget {
             )),
           ),
         ] else if (frontPage.contains("pdf")) ...[
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: getSize(20)),
-            child: SfPdfViewer.network(
-              frontPage,
-              // scrollDirection: PdfScrollDirection.horizontal,
+          GestureDetector(
+            onTap: () {
+              context.router.push(PageRouteInfo(ContractorPdfViewer.name,
+                  args: ContractorPdfViewerArgs(pdfUrl: frontPage)));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: getSize(10)),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.white,
+                    spreadRadius: 0.2,
+                    blurRadius: 0,
+                  ),
+                ],
+                border: Border.all(color: AppColors.transparent),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              height: getSize(384),
+              width: double.infinity,
+              child: Icon(
+                Icons.picture_as_pdf,
+                size: getSize(100),
+                color: Colors.red,
+              ),
             ),
           ),
         ],
@@ -112,11 +134,31 @@ class CommonDocumentView extends StatelessWidget {
               )),
             ),
           ] else if (backPage.contains("pdf")) ...[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(20)),
-              child: SfPdfViewer.network(
-                backPage,
-                // scrollDirection: PdfScrollDirection.horizontal,
+            GestureDetector(
+              onTap: () {
+                context.router.push(PageRouteInfo(ContractorPdfViewer.name,
+                    args: ContractorPdfViewerArgs(pdfUrl: backPage)));
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.white,
+                      spreadRadius: 0.2,
+                      blurRadius: 0,
+                    ),
+                  ],
+                  border: Border.all(color: AppColors.transparent),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                height: getSize(384),
+                width: double.infinity,
+                child: Icon(
+                  Icons.picture_as_pdf,
+                  size: getSize(100),
+                  color: Colors.red,
+                ),
               ),
             ),
           ],

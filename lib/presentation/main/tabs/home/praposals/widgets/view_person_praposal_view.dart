@@ -94,7 +94,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                             SizedBox(height: getSize(20)),
                             getTitleAndDescription(
                               context,
-                              title: 'Agreed Time',
+                              title: 'Proposed Time',
                               description:
                                   '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                             ),

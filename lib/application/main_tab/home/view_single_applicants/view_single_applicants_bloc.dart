@@ -1,4 +1,3 @@
-
 // ignore_for_file: unnecessary_brace_in_string_interps, invalid_use_of_visible_for_testing_member
 
 import 'dart:async';
@@ -53,9 +52,8 @@ class ViewSingleApplicantsBloc
                 postId: e.postId,
               );
             } else {
-              failureOrSuccess = await _mainFacade.getContractorShiftDetail(
-                postId: e.postId,
-              );
+              failureOrSuccess =
+                  await _mainFacade.getContractorShiftDetail(postId: e.postId);
             }
 
             failureOrSuccess.fold(

@@ -139,6 +139,7 @@ class StringConstant {
   static const String addMoreReference = "Add More Reference";
   static const String addMoreEducation = "Add More Education";
   static const String roleExperience = "Role Experience";
+  static const String roleAndExperience = "Role and Experience";
   static const String specialityExperience = "Specialties Experience";
   static const String deleteEducationDesc =
       "Are you sure you want to delete this education details?";
@@ -455,9 +456,9 @@ class StringConstant {
       "Offer Revoked by the Employer";
   static const String offerRevokedByYou = "Offer Revoked by You";
   static const String clockInConfirmationDesc =
-      "Are you sure you want to add the clock in time?";
+      "Once submitted, the Clock In time cannot be modified. Are you sure you want to proceed?";
   static const String clockOutConfirmationDesc =
-      "Are you sure you want to add the clock out time?";
+      "Once submitted, the Clock Out time cannot be modified. Are you sure you want to proceed?";
   static const String confirmationRequired = "Confirmation Required";
   static const String confirmationRecurringDesc1 = "You are about to post";
   static const String sortBy = "Sort by";
@@ -527,9 +528,9 @@ class StringConstant {
       "Approve Shifts for Contractors";
   static const String cancelledByYou = "Cancelled by You";
   static const String approveShiftDesc1 =
-      "By approving these clock in and out times, you confirm that you have reviewed the ";
+      "By approving the clock-in and clock-out times, you confirm that ";
   static const String approveShiftDesc2 =
-      "’s hours. Once approved, the times will be finalized.";
+      "’s shift hours have been reviewed. Once approved, these times will be final";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String allWithdralContractors = "All Withdrwal Contractors";
@@ -561,6 +562,8 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String youHaveCancelledThisShiftApplication =
+      "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
   static const String actionRequiredBeforeModifyingShift =
       "Action Required Before Modifying Shift";
@@ -614,9 +617,9 @@ class StringConstant {
   static const String multiShift = "Multi Shift";
   static const String shiftCancellationFee = "Shift Cancellation Fee";
   static const String occupied = "Occupied";
-  static const String paymentsDetails = "Payment’s Details";
-  static const String contractorsDetails = "Contractor’s Details";
-  static const String shiftsDetails = "Shift’s Details";
+  static const String paymentsDetails = "Payment's Details";
+  static const String contractorsDetails = "Contractor's Details";
+  static const String shiftsDetails = "Shift's Details";
   static const String earningsAndStatements = "Earnings & Statements";
   static const String earningDesc =
       "Track your earnings and download statements for a complete financial summary";
@@ -664,7 +667,7 @@ class StringConstant {
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String currentCompleteShiftDesc =
-      "Your submitted shift will appear under Profile > Previous Shifts > Completed once the payment has been processed.";
+      "Your submitted shift will move to Profile → Previous Shifts → Completed after the payment is processed.";
   static const String pleaseSelectYourAddressProofDocumentFromTheList =
       "Please select your address proof document from the list";
   static const String selectYourAddressProof = "Select Your Address Proof";
@@ -682,7 +685,41 @@ class StringConstant {
       "Please select your legal work status proof from the list.";
   static const String selectYourLegalWorkStatus =
       "Select Your Legal Work Status";
+  static const String dateOfBirth = "Date of Birth";
+  static const String city = "City";
+  static const String state = "State";
+  static const String postalCode = "Postal Code";
+  static const String jobTitle = "Job Title";
+  static const String accountType = "Account Type";
+  static const String pleaseSelectDateToViewEarningStatement =
+      "Please select date to view Earning Statement";
+  static const String pleaseSelectMonthToViewPerformanceInsights =
+      "Please select month to view Performance Insights";
+  static const String chooseMonth = "Choose Month";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String assistantOnSite = "Assistant On-Site";
+  static const String technicianOnSite = "Technician On-Site";
+  static const String locationBrand = "Location Brand";
+  static const String scriptVolume = "Script Volume";
+  static const String selectScriptVolume = "Select Script Volume";
+  static const String typeYourLocationBrand = "Type Your Location Brand";
+  static const String awaitingContractorApprovalDesc =
+      "The contractor has not yet submitted their clock-in and/or clock-out times for the shift. Once submitted, you can review and approve the shift hours.";
+  static const String updateProfileDesc =
+      "Keep your profile up-to-date to ensure accurate and complete information, boosting your hiring chances.";
+  static const String bankDetails = "Bank Details";
+  static const String noBankDetailsAdded = "No Bank Details Added";
+  static const String noBankDetailsDesc =
+      "To ensure uninterrupted service and prompt payment deposits, please add your bank account details.";
+  static const String areYouSureYouWantToDeleteThisBankccount =
+      "Are you sure you want to delete this bank account?";
+  static const String verified = "Verified";
+  static const String rejected = "Rejected";
+  static const String viewPdf = "View Pdf";
+  static const String thirdPartyProcessingFee = "Third Party Processing Fee";
+  static const String estimatedTotalEarnings = "Estimated Total Earnings";
+  static const String tax = "Tax";
+
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
   /// ERROR ///
@@ -864,7 +901,7 @@ class StringConstant {
   static const String pleaseAddClockOutTime = "Please add clock out time!";
   static const String pleaseAddClockInTime = "Please add clock in time!";
   static const String awaitingClockInOutDesc =
-      "Awaiting for contractor’s clock in & out...";
+      "Awaiting for contractor’s clock in & out";
   static const String awaitingAcknowledgement = "Awaiting Acknowledgement";
   static const String underDevelopment = "Under Development";
 
@@ -925,4 +962,22 @@ class StringConstant {
   static const String deleteProofLegalDesc =
       "Are you sure you want to delete Proof legal work status document?";
   static const String pleaseSelectIssueDate = "Please add issue date";
+  static const String pleaseAddJobTitle = "Please add job title";
+  static const String pleaseAddFirstName = "Please add first name";
+  static const String pleaseSelectDob = "Please select date of birth";
+  static const String pleaseAddLastName = "Please add last name";
+  static const String pleaseAddCityName = "Please add city name";
+  static const String pleaseAddStateName = "Please add state name";
+  static const String pleaseAddPostalCode = "Please add postal code";
+  static const String pleaseSelectAccountType = "Please select account type";
+  static const String pleaseSelectBankAddress = "Please select bank address";
+  static const String pleaseEnterCurrentPassword =
+      "Please enter current password";
+  static const String pleaseSelectLocationBrand =
+      "Please select location brand";
+  static const String pleaseSelectOtherLocationBrand =
+      "Please select other location brand";
+  static const String pleaseSelectScriptVolume = "Please select script volume";
 }
+// latitude: 21.191535534205194,
+// longitude: 72.78582206137469,

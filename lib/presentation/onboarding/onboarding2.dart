@@ -34,7 +34,8 @@ class OnBoarding2 extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -58,7 +59,9 @@ class OnBoarding2 extends StatelessWidget {
               padding: EdgeInsets.only(left: getSize(15), right: getSize(15)),
               child: Column(
                 children: [
-                  Image.asset((getCurrentRole() == 1) ? PngImageConstants.onboarding2_contractor : PngImageConstants.onboarding2_employer),
+                  Image.asset((getCurrentRole() == 1)
+                      ? PngImageConstants.onboarding2_contractor
+                      : PngImageConstants.onboarding2_employer),
                   SizedBox(
                     height: getSize(20),
                   ),
@@ -73,7 +76,9 @@ class OnBoarding2 extends StatelessWidget {
                             ),
                             child: GestureDetector(
                               onTap: () {
-                                context.read<OnboardingBloc>().add(OnboardingEvent.submitOnboarding2(
+                                context
+                                    .read<OnboardingBloc>()
+                                    .add(OnboardingEvent.submitOnboarding2(
                                       industryList[index].id ?? 1,
                                       context,
                                     ));

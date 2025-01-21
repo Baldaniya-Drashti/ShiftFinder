@@ -106,6 +106,15 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context,bool fromSaveTemplate) = SameTimeShiftSubmitted;
 
+  const factory PostShiftEvent.assitantOnSiteCheck(bool isCheck) =
+      AssitantOnSiteCheck;
+
+  const factory PostShiftEvent.technicianOnSiteCheck(bool isCheck) =
+      TechnicianOnSiteCheck;
+
   /// Post the Shift
-  const factory PostShiftEvent.postTheShiftEvent(int postId, PostShiftDTO? updatedPost) = PostTheShiftEvent;
+  const factory PostShiftEvent.postTheShiftEvent(
+      int postId, PostShiftDTO? updatedPost) = PostTheShiftEvent;
+  const factory PostShiftEvent.scriptVolumeChanged(String scriptVolume) =
+      ScriptVolumeChanged;
 }

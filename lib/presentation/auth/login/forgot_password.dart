@@ -515,9 +515,7 @@ class FilterBottomSheet extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
-            height: getSize(30),
-          ),
+          SizedBox(height: getSize(30)),
           CustomTextField(
             labelText: StringConstant.newPassword,
             hintText: StringConstant.newPassword,

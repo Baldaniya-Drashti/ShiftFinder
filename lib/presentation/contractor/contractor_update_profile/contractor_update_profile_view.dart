@@ -1,17 +1,14 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
-import '../../../domain/core/string_constant.dart';
 
 @RoutePage(name: "ContractorUpdateProfileView")
 class ContractorUpdateProfileView extends StatelessWidget {
@@ -22,30 +19,13 @@ class ContractorUpdateProfileView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "Update Profile",
+        title: StringConstant.updateProfile,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.all(getSize(20)),
         child: Column(
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(SvgImageConstant.updateProfile),
-                Gap(getSize(25)),
-                BaseText(text: "Profile", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
-                Gap(getSize(5)),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width * 0.8,
-                  child: BaseText(
-                    text: "Keep your profile up-to-date to ensure accurate and complete information, boosting your hiring chances.",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+            profileView(context),
             Gap(getSize(50)),
             Material(
               clipBehavior: Clip.antiAlias,
@@ -56,41 +36,52 @@ class ContractorUpdateProfileView extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _ListTile(
+                    fieldTypeTile(
                       icon: SvgImageConstant.editUser,
                       onPressed: () {
-                        context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
+                        /*  context.router.push(
+                            PageRouteInfo(AddExperienceDetailScreen.name)); */
+                        context.router.push(PageRouteInfo(
+                            AddContractorSkillsForm.name,
+                            args: AddContractorSkillsFormArgs(isUpdate: true)));
                       },
-                      label: "Role and Experience",
+                      label: StringConstant.roleAndExperience,
                     ),
-                    _ListTile(
+                    fieldTypeTile(
                       icon: SvgImageConstant.capOutline,
                       onPressed: () {
-                        context.router.push(PageRouteInfo(EducationListScreen.name));
+                        context.router.push(PageRouteInfo(
+                            EducationListScreen.name,
+                            args:
+                                EducationListScreenArgs(isFromProfile: true)));
                       },
-                      label: "Education",
+                      label: StringConstant.education,
                     ),
-                    _ListTile(
+                    fieldTypeTile(
+                      icon: SvgImageConstant.references,
+                      onPressed: () {
+                        context.router.push(PageRouteInfo(
+                            ReferenceListScreen.name,
+                            args:
+                                ReferenceListScreenArgs(isFromProfile: true)));
+                      },
+                      label: StringConstant.reference,
+                    ),
+                    fieldTypeTile(
                       icon: SvgImageConstant.document,
                       onPressed: () {
-                        context.router.push(PageRouteInfo(DocumentPageScreen.name));
+                        context.router.push(PageRouteInfo(
+                            DocumentPageScreen.name,
+                            args: DocumentPageScreenArgs(isUpdate: true)));
                       },
-                      label: "Documents",
+                      label: StringConstant.documents,
                     ),
-                    _ListTile(
+                    fieldTypeTile(
                       icon: SvgImageConstant.bank,
                       onPressed: () {
                         context.router.push(PageRouteInfo(BankListView.name));
                       },
-                      label: "Bank Details",
-                    ),
-                    _ListTile(
-                      icon: SvgImageConstant.references,
-                      onPressed: () {
-                        context.router.push(PageRouteInfo(ReferenceListView.name));
-
-                      },
-                      label: "References",
+                      label: StringConstant.bankDetails,
                     ),
                   ],
                 ),
@@ -101,30 +92,51 @@ class ContractorUpdateProfileView extends StatelessWidget {
       ),
     );
   }
-}
 
-class _ListTile extends StatelessWidget {
-  const _ListTile({
-    required this.icon,
-    required this.onPressed,
-    required this.label,
-  });
+  Widget profileView(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SvgPicture.asset(SvgImageConstant.updateProfile),
+        Gap(getSize(25)),
+        BaseText(
+            text: StringConstant.profile,
+            fontFamily: "Aclonica",
+            fontSize: 22,
+            fontWeight: FontWeight.w400),
+        Gap(getSize(5)),
+        SizedBox(
+          width: MediaQuery.sizeOf(context).width * 0.8,
+          child: BaseText(
+            text: StringConstant.updateProfileDesc,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
 
-  final String icon;
-  final VoidCallback onPressed;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget fieldTypeTile(
+      {required String icon,
+      required VoidCallback onPressed,
+      required String label}) {
     return ListTile(
       visualDensity: VisualDensity.compact,
       onTap: onPressed,
       title: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500),
       leading: SvgPicture.asset(
         icon,
+        height: getSize(25),
+        width: getSize(25),
         colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
       ),
-      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18, width: 18),
+      trailing: SvgPicture.asset(
+        SvgImageConstant.rightArrow2,
+        height: getSize(20),
+        width: getSize(20),
+      ),
     );
   }
 }

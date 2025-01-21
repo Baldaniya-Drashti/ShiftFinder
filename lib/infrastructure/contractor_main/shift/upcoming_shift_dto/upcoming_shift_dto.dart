@@ -16,6 +16,8 @@ class UpComingShiftDTO with _$UpComingShiftDTO {
     int? industry_id,
     String? listing_id,
     String? distance,
+    double? longitude,
+    double? latitude,
     String? location,
     int? request,
     int? urgent_action,

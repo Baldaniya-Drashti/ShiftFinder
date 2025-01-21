@@ -17,6 +17,7 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -45,10 +46,16 @@ class PostShiftRecurring extends StatelessWidget {
     this.fromSaveTemplate = false,
   });
 
+  String postTitle() {
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
+    return industry.title ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("updatedShift--->  ${jsonEncode(updateShift?.shift_detail?.teams)}");
     Log.success("===rrr ${fromSaveTemplate}");
+    print("updatedShift--->  ${jsonEncode(post)}");
     return PopScope(
       canPop: false,
       child: GestureDetector(
@@ -56,7 +63,9 @@ class PostShiftRecurring extends StatelessWidget {
           AppFocus.unfocus(context);
         },
         child: BlocProvider(
-          create: (context) => getIt<PostShiftBloc>()..add(PostShiftEvent.getTeamsListEvent(post: post, updateShift: updateShift)),
+          create: (context) => getIt<PostShiftBloc>()
+            ..add(PostShiftEvent.getTeamsListEvent(
+                post: post, updateShift: updateShift)),
           child: BlocConsumer<PostShiftBloc, PostShiftState>(
             listener: (context, state) {
               state.recurringFailureOrSuccessOption.fold(
@@ -66,7 +75,8 @@ class PostShiftRecurring extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) => 'Please check your internet connectivity',
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -86,7 +96,7 @@ class PostShiftRecurring extends StatelessWidget {
             builder: (context, state) {
               return Scaffold(
                 appBar: CommonAppBar(
-                  title: fromSaveTemplate ? "Edit Template" : StringConstant.healthcare,
+                  title: fromSaveTemplate ? "Edit Template" : postTitle(),
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
@@ -96,17 +106,23 @@ class PostShiftRecurring extends StatelessWidget {
                     : LayoutBuilder(builder: (context, constraint) {
                         return SingleChildScrollView(
                           child: ConstrainedBox(
-                            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                            constraints:
+                                BoxConstraints(minHeight: constraint.maxHeight),
                             child: Form(
-                              autovalidateMode: (state.recurringErrorMessage) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                              autovalidateMode: (state.recurringErrorMessage)
+                                  ? AutovalidateMode.always
+                                  : AutovalidateMode.disabled,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(20)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         if (shiftType == 1) ...[
@@ -115,29 +131,49 @@ class PostShiftRecurring extends StatelessWidget {
                                           Visibility(
                                               visible: state.isToBeRecurring,
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  recurringStartDateField(context, state),
+                                                  recurringStartDateField(
+                                                      context, state),
                                                   paddingBetweenFields(),
-                                                  recurringEndDateField(context, state),
+                                                  recurringEndDateField(
+                                                      context, state),
                                                   paddingBetweenFields(),
-                                                  recurrenceModeDropDown(context, state),
-                                                  if (state.recurringErrorMessage && !state.recurrenceMode.isValid())
-                                                    commonErrorText(StringConstant.pleaseSelectRecurrenceMode),
+                                                  recurrenceModeDropDown(
+                                                      context, state),
+                                                  if (state
+                                                          .recurringErrorMessage &&
+                                                      !state.recurrenceMode
+                                                          .isValid())
+                                                    commonErrorText(StringConstant
+                                                        .pleaseSelectRecurrenceMode),
                                                   paddingBetweenFields(),
-                                                  if (state.recurrenceMode.getValue() == "Weekly") ...[
+                                                  if (state.recurrenceMode
+                                                          .getValue() ==
+                                                      "Weekly") ...[
                                                     Padding(
-                                                      padding: EdgeInsets.only(left: getSize(18), bottom: getSize(5)),
+                                                      padding: EdgeInsets.only(
+                                                          left: getSize(18),
+                                                          bottom: getSize(5)),
                                                       child: BaseText(
-                                                        text: StringConstant.selectTheDaysForRecurring,
+                                                        text: StringConstant
+                                                            .selectTheDaysForRecurring,
                                                         fontSize: 14,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
                                                     ),
-                                                    weeklyRecurringCheckBox(context, state),
-                                                    if (state.recurringErrorMessage && !state.recurrenceWeekList.isValid())
-                                                      commonErrorText(StringConstant.pleaseSelectRecurrenceMode),
+                                                    weeklyRecurringCheckBox(
+                                                        context, state),
+                                                    if (state
+                                                            .recurringErrorMessage &&
+                                                        !state
+                                                            .recurrenceWeekList
+                                                            .isValid())
+                                                      commonErrorText(StringConstant
+                                                          .pleaseSelectRecurrenceMode),
                                                     paddingBetweenFields(),
                                                   ],
                                                 ],
@@ -150,12 +186,17 @@ class PostShiftRecurring extends StatelessWidget {
                                         Visibility(
                                             visible: state.isShareWithTeams,
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 selectTeamsList(context, state),
-                                                if (state.recurringErrorMessage && !state.selectedTeamList.isValid())
-                                                  commonErrorText(StringConstant.pleaseSelectAtLeastOneTeam),
+                                                if (state
+                                                        .recurringErrorMessage &&
+                                                    !state.selectedTeamList
+                                                        .isValid())
+                                                  commonErrorText(StringConstant
+                                                      .pleaseSelectAtLeastOneTeam),
                                                 paddingBetweenFields(),
                                               ],
                                             )),
@@ -163,23 +204,59 @@ class PostShiftRecurring extends StatelessWidget {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: getSize(20)),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(20)),
                                       child: CommonButton(
                                         onPressed: () {
                                           int? difference;
-                                          DateTime? startDate = state.recurringStartDate.isValid()
-                                              ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-                                              : null;
+                                          DateTime? startDate =
+                                              state.recurringStartDate.isValid()
+                                                  ? DateTime.parse(state
+                                                          .recurringStartDate
+                                                          .getValue() ??
+                                                      "")
+                                                  : null;
 
-                                          DateTime? endDate = state.recurringEndDate.isValid()
-                                              ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
-                                              : null;
+                                          DateTime? endDate =
+                                              state.recurringEndDate.isValid()
+                                                  ? DateTime.parse(state
+                                                          .recurringEndDate
+                                                          .getValue() ??
+                                                      "")
+                                                  : null;
+                                          final selectedDayIndices = state
+                                              .recurrenceWeekList
+                                              .getValue()
+                                              .map((day) => day.id)
+                                              .toList();
+                                          print(
+                                              "Selected dayeeee--> ${state.recurrenceWeekList}");
+                                          int selectedDayCount = 0;
 
-                                          if (startDate != null && endDate != null) {
-                                            difference = endDate.difference(startDate).inDays;
+                                          if (startDate != null &&
+                                              endDate != null) {
+                                            for (DateTime date = startDate;
+                                                date.isBefore(endDate) ||
+                                                    date.isAtSameMomentAs(
+                                                        endDate);
+                                                date = date
+                                                    .add(Duration(days: 1))) {
+                                              if (selectedDayIndices
+                                                  .contains(date.weekday % 7)) {
+                                                selectedDayCount++;
+                                              }
+                                            }
                                           }
-                                          if (difference != null && difference > 20) {
-                                            confirmationDialog(context, state, noOfShift: difference);
+
+                                          /* if (startDate != null &&
+                                              endDate != null) {
+                                            difference = endDate
+                                                .difference(startDate)
+                                                .inDays;
+                                          } */
+                                          if (selectedDayCount > 20) {
+                                            confirmationDialog(context, state,
+                                                noOfShift: selectedDayCount);
                                           } else {
                                             context
                                                 .read<PostShiftBloc>()
@@ -464,30 +541,38 @@ class PostShiftRecurring extends StatelessWidget {
         ),
       ),
       onTap: () {
-        print("START FIRST DATE---> ${DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000)}");
+        print(
+            "START FIRST DATE---> ${DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000)}");
         DocumentExpiryDatePicker.customDatePicker(
           context,
           firstDate: (post.date != null && post.date!.isNotEmpty)
-              ? DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000).add(Duration(days: 1))
+              ? DateTime.fromMillisecondsSinceEpoch(
+                      (double.parse(post.date!).toInt()) * 1000)
+                  .add(Duration(days: 1))
               : DateTime.now(),
           onPickedDate: (pickedDate) {
-            context.read<PostShiftBloc>().add(PostShiftEvent.recurringStartDateChanged(
+            context
+                .read<PostShiftBloc>()
+                .add(PostShiftEvent.recurringStartDateChanged(
                   pickedDate.toString(),
                 ));
           },
           onCancelClick: () {},
           selectedDate: (state.recurringStartDate.isValid())
               ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-              : DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000).add(Duration(days: 1)),
+              : DateTime.fromMillisecondsSinceEpoch(
+                      (double.parse(post.date!).toInt()) * 1000)
+                  .add(Duration(days: 1)),
         );
       },
-      validator: (_, context) => context.read<PostShiftBloc>().state.recurringStartDate.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseSelectStartDate,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (_, context) =>
+          context.read<PostShiftBloc>().state.recurringStartDate.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectStartDate,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -515,7 +600,9 @@ class PostShiftRecurring extends StatelessWidget {
       hintText: StringConstant.recurrenceMode,
       showTextfield: false,
       isLabelPadding: true,
-      value: (state.recurrenceMode.isValid()) ? state.recurrenceMode.getValue() : null,
+      value: (state.recurrenceMode.isValid())
+          ? state.recurrenceMode.getValue()
+          : null,
       items: (state.isRangeMoreThanWeek)
           ? CommonList.recurrenceModeList.map((val) {
               return DropdownMenuItem<String>(
@@ -539,7 +626,9 @@ class PostShiftRecurring extends StatelessWidget {
             }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context.read<PostShiftBloc>().add(PostShiftEvent.recurrenceModeChanged(value, context));
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.recurrenceModeChanged(value, context));
         }
       },
     );
@@ -547,21 +636,28 @@ class PostShiftRecurring extends StatelessWidget {
 
   Widget recurringEndDateField(BuildContext context, PostShiftState state) {
     final firstDate = (state.recurringStartDate.isValid())
-        ? DateTime.parse(state.recurringStartDate.getValue() ?? "").add(Duration(days: 1))
+        ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+            .add(Duration(days: 1))
         : (post.date != null && post.date!.isNotEmpty)
-            ? DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000).add(Duration(days: 1))
+            ? DateTime.fromMillisecondsSinceEpoch(
+                    (double.parse(post.date!).toInt()) * 1000)
+                .add(Duration(days: 1))
             : DateTime.now();
 
     final initialDate = (state.recurringEndDate.isValid())
         ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
         : (state.recurringStartDate.isValid())
-            ? DateTime.parse(state.recurringStartDate.getValue() ?? "").add(Duration(days: 1))
-            : DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000).add(Duration(days: 1));
+            ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+                .add(Duration(days: 1))
+            : DateTime.fromMillisecondsSinceEpoch(
+                    (double.parse(post.date!).toInt()) * 1000)
+                .add(Duration(days: 1));
 
     return CustomTextField(
       labelText: StringConstant.endDateForRecurrence,
       hintText: (state.recurringEndDate.isValid())
-          ? DateFormat('d MMM, yyyy').format(DateTime.parse(state.recurringEndDate.getValue() ?? ""))
+          ? DateFormat('d MMM, yyyy')
+              .format(DateTime.parse(state.recurringEndDate.getValue() ?? ""))
           : StringConstant.endDateForRecurrence,
       hintAsValue: (state.recurringEndDate.isValid()) ? true : false,
       readOnly: true,
@@ -586,7 +682,9 @@ class PostShiftRecurring extends StatelessWidget {
           // firstDate: DateTime.now(),
           firstDate: firstDate,
           onPickedDate: (pickedDate) {
-            context.read<PostShiftBloc>().add(PostShiftEvent.recurringEndDateChanged(
+            context
+                .read<PostShiftBloc>()
+                .add(PostShiftEvent.recurringEndDateChanged(
                   pickedDate.toString(),
                 ));
           },
@@ -594,13 +692,14 @@ class PostShiftRecurring extends StatelessWidget {
           selectedDate: initialDate,
         );
       },
-      validator: (_, context) => context.read<PostShiftBloc>().state.recurringEndDate.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseSelectEndDate,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (_, context) =>
+          context.read<PostShiftBloc>().state.recurringEndDate.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectEndDate,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -613,18 +712,22 @@ class PostShiftRecurring extends StatelessWidget {
           horizontal: getSize(20),
           vertical: getSize(10),
         ),
-        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: CommonList.weekList.length,
             itemBuilder: (context, index) {
               final weekList = CommonList.weekList;
-              bool isDayCheck = state.recurrenceWeekList.getValue().any((item) => item.id == index);
+              bool isDayCheck = state.recurrenceWeekList
+                  .getValue()
+                  .any((item) => item.id == index);
 
               return GestureDetector(
                 onTap: () {
-                  context.read<PostShiftBloc>().add(PostShiftEvent.recurrenceWeeksChanged(weekList[index]));
+                  context.read<PostShiftBloc>().add(
+                      PostShiftEvent.recurrenceWeeksChanged(weekList[index]));
                 },
                 child: Container(
                   color: AppColors.transparent,
@@ -649,7 +752,9 @@ class PostShiftRecurring extends StatelessWidget {
                           ),
                           onChanged: (value) {
                             if (value != null) {
-                              context.read<PostShiftBloc>().add(PostShiftEvent.recurrenceWeeksChanged(weekList[index]));
+                              context.read<PostShiftBloc>().add(
+                                  PostShiftEvent.recurrenceWeeksChanged(
+                                      weekList[index]));
                             }
                           },
                         ),
@@ -692,7 +797,8 @@ class PostShiftRecurring extends StatelessWidget {
             horizontal: getSize(20),
             // vertical: getSize(10),
           ),
-          decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(
+              color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxHeight: getSize(250)),
             child: ListView.builder(
@@ -702,7 +808,8 @@ class PostShiftRecurring extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final teamList = state.teamList;
-                  bool isTeamCheck = state.selectedTeamList.getValue().any((item) {
+                  bool isTeamCheck =
+                      state.selectedTeamList.getValue().any((item) {
                     print("is team check---> ${item.id == teamList[index].id}");
 
                     return item.id == teamList[index].id;
@@ -713,7 +820,8 @@ class PostShiftRecurring extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         print("Teams selected index--> ${teamList[index].id}");
-                        context.read<PostShiftBloc>().add(PostShiftEvent.selectTeamEvent(teamList[index]));
+                        context.read<PostShiftBloc>().add(
+                            PostShiftEvent.selectTeamEvent(teamList[index]));
                       },
                       child: ListTile(
                         titleAlignment: ListTileTitleAlignment.center,
@@ -749,7 +857,9 @@ class PostShiftRecurring extends StatelessWidget {
                             ),
                             onChanged: (value) {
                               if (value != null) {
-                                context.read<PostShiftBloc>().add(PostShiftEvent.selectTeamEvent(teamList[index]));
+                                context.read<PostShiftBloc>().add(
+                                    PostShiftEvent.selectTeamEvent(
+                                        teamList[index]));
                               }
                             },
                           ),

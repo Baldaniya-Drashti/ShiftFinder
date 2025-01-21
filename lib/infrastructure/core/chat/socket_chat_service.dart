@@ -82,4 +82,11 @@ class SocketChatService extends ChatService {
       'roomId': roomId,
     });
   }
+
+  /*   Future<dynamic> receiveMessage() async {
+    socket.on('newMessage', (data) {
+      print('Check data => $data');
+      return data;
+    });
+  } */
 }

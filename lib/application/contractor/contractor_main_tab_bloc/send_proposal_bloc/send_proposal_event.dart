@@ -46,10 +46,12 @@ class SendProposalEvent with _$SendProposalEvent {
   const factory SendProposalEvent.endMinuteListChanged(
       String minute, int index, String date) = EndMinuteListChanged;
   const factory SendProposalEvent.getMultiDateEvent(
-          HealthcarePostDTO post, List<DateTimeDTO>? updatedDates) =
-      GetMultiDateEvent;
+      HealthcarePostDTO post,
+      List<DateTimeDTO>? updatedDates,
+      String? totalPayableHours) = GetMultiDateEvent;
   const factory SendProposalEvent.setMultiDate({
     required List<DateTimeDTO> updatedDates,
+    required String totalPayableHours,
   }) = SetMultiDate;
   const factory SendProposalEvent.submitDifferentMultiShiftProposalEvent(
       BuildContext context) = SubmitDifferentMultiShiftProposalEvent;

@@ -5,6 +5,7 @@ part of 'document_bloc.dart';
 @freezed
 class DocumentState with _$DocumentState {
   const factory DocumentState({
+    required bool isUpdate,
     required int currentPage,
     required List<DocumentDTO> allDocumentList,
     required bool allListLoading,
@@ -43,6 +44,7 @@ class DocumentState with _$DocumentState {
         authFailureOrSuccessOption,
   }) = _DocumentState;
   factory DocumentState.initial() => DocumentState(
+        isUpdate: false,
         currentPage: 0,
         isLoading: false,
         allDocumentList: [],

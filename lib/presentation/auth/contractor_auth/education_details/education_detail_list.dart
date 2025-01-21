@@ -23,8 +23,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'educationListScreen')
 class EducationListScreen extends StatelessWidget {
   bool isFromSplash = false;
+  final bool isFromProfile;
 
-  EducationListScreen({super.key, this.isFromSplash = false});
+  EducationListScreen(
+      {super.key, this.isFromSplash = false, this.isFromProfile = false});
   // bool isNext = false;
 
   @override
@@ -80,7 +82,9 @@ class EducationListScreen extends StatelessWidget {
                 context.router.maybePop();
               },
               title: StringConstant.education,
-              showSkipBtn: (state.educationList.isEmpty) ? true : false,
+              showSkipBtn: (state.educationList.isEmpty && !isFromProfile)
+                  ? true
+                  : false,
               onSkipped: (state.educationList.isEmpty)
                   ? () {
                       context
@@ -118,13 +122,7 @@ class EducationListScreen extends StatelessWidget {
                               ),
                               child: CommonButton(
                                 onPressed: () {
-                                  if (state.educationList.isNotEmpty) {
-                                    print("This Next is called!!!");
-
-                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
-                                    context.router.push(const PageRouteInfo(
-                                        ReferenceListScreen.name));
-                                  } else {
+                                  if (state.educationList.isEmpty) {
                                     context.router
                                         .push(PageRouteInfo(
                                             AddEducationDetailScreen.name))
@@ -138,6 +136,13 @@ class EducationListScreen extends StatelessWidget {
                                         /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                                       }
                                     });
+                                  } else if (isFromProfile) {
+                                    Navigator.pop(context);
+                                  } else if (state.educationList.isNotEmpty) {
+                                    print("This Next is called!!!");
+                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
+                                    context.router.push(const PageRouteInfo(
+                                        ReferenceListScreen.name));
                                   }
                                 },
                                 buttonText: (state.educationList.isNotEmpty)

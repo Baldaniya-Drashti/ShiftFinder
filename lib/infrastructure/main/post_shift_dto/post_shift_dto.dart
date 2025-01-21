@@ -51,6 +51,9 @@ class PostShiftDTO with _$PostShiftDTO {
     String? vacancie_type,
     int? number_of_vacancie,
     String? multi_date,
+    int? script_volume,
+    int? assistant_on_site,
+    int? technician_on_site,
   }) = _PostShiftDTO;
 
   factory PostShiftDTO.fromJson(Map<String, dynamic> json) =>

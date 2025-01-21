@@ -11,6 +11,7 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/infrastructure/account/current_user_dto.dart';
+import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
@@ -641,10 +642,10 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "sub_type": subType,
-        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
-                .toString()
-            : "",
+        if (expiryDate != null && expiryDate.isNotEmpty)
+          "expiry_date":
+              (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString(),
         // "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "last_page": lastPage ?? "AddressProofScreen",
       });
@@ -690,7 +691,74 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, String>> addBankDetail({
+    required String bankName,
+    required String jobTitle,
+    required String accountNumber,
+    required String transitNumber,
+    required String institutionNumber,
+    required String accountType,
+    required String firstName,
+    required String lastName,
+    required String dateOfBirth,
+    required String bankAddress,
+    required String city,
+    required String state,
+    required String postalCode,
+    required String countryFlag,
+    required String countryCode,
+    required String phone,
+    String? lastPage,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'bank_name': bankName,
+        'job_title': jobTitle,
+        'account_number': accountNumber,
+        'transit_number': transitNumber,
+        'institution_number': institutionNumber,
+        'account_type': accountType,
+        'first_name': firstName,
+        'last_name': lastName,
+        'dob': dateOfBirth,
+        'bank_address': bankAddress,
+        'city': city,
+        'state': state,
+        'postal_code': postalCode,
+        'country_name_code': countryFlag,
+        'country_code': countryCode,
+        'phone': phone,
+        if (lastPage != null) 'last_page': lastPage,
+      };
+
+      print('Sending Data: ${jsonEncode(mapData)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.contractorConnectAccount,
+        mapData,
+      );
+
+      print("Response of Add Bank Detail---> ${jsonEncode(response.data)}");
+
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
       return left(const AccountFailure.serverError());
     }
   }
@@ -1175,6 +1243,38 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, List<SkillDTO>>> getLocationBrandList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.locationBrandsList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        print("LOCATION BRAND LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
     required String locationAddress,
     required String facilityType,
@@ -1188,10 +1288,12 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
     int? type,
   }) async {
     try {
-      var mapData = {
+      Map<String, dynamic> mapData = {
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
         "facility_type_other": facilityTypeOther,
@@ -1215,6 +1317,13 @@ class AccountRepository extends IAccountRepository {
       if (units.isNotEmpty) {
         mapData.addAll({
           "units": jsonEncode(units),
+        });
+      }
+
+      if (getCurrentIndustry() == 2) {
+        mapData.addAll({
+          "location_brand_lists_id": locationBrand,
+          "location_brand_other": locationBrandOther,
         });
       }
 
@@ -1297,9 +1406,11 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    String? locationBrand,
+    String? locationBrandOther,
   }) async {
     try {
-      var mapData = {
+      Map<String, dynamic> mapData = {
         "id": id,
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
@@ -1320,6 +1431,13 @@ class AccountRepository extends IAccountRepository {
       if (units.isNotEmpty) {
         mapData.addAll({
           "units": jsonEncode(units),
+        });
+      }
+
+      if (getCurrentIndustry() == 2) {
+        mapData.addAll({
+          "location_brand_lists_id": locationBrand,
+          "location_brand_other": locationBrandOther,
         });
       }
       print('Sending Data: ${jsonEncode(mapData)}');
@@ -1352,6 +1470,39 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     } catch (e) {
       print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, BankDTO>> getBankDetailAPI() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.contractorRetrieveAccountDetail,
+      );
+
+      if (response != null) {
+        // print("Response of Get Bank Detail---> ${jsonEncode(response.data)}");
+        final data = BankDTO.fromJson(response.data);
+
+        return right(data);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }

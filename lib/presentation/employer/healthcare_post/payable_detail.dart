@@ -313,6 +313,11 @@ class PayableDetail extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
+          title1: StringConstant.numberOfShifts,
+          value1:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift : "0${shift.number_of_shift}"}",
+        ),
+        payableBox(
           title1: StringConstant.payableHours,
           title2: StringConstant.hourlyRate,
           value1: shift.total_payable_hour ?? "",
@@ -325,17 +330,19 @@ class PayableDetail extends StatelessWidget {
           title2: StringConstant.accommodationAllowance,
           value1: "\$${shift.commute_allowance}",
           value2: "\$${shift.accommodation_allowance}",
-          totalPayableTitle: StringConstant.allowanceForOneShift,
-          totalPayable: "\$${shift.total_one_allowance}",
+          // totalPayableTitle: StringConstant.allowanceForOneShift,
+          // totalPayable: "\$${shift.total_one_allowance}",
+          totalPayableTitle: StringConstant.totalAllowances,
+          totalPayable: "\$${shift.total_allowance}",
         ),
-        payableBox(
+        /* payableBox(
           title1: StringConstant.numberOfShifts,
           title2: StringConstant.totalAllowances,
           value1:
               "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           value2: "\$${shift.total_allowance}",
-        ),
-        payableBox(
+        ), */
+        /* payableBox(
           title1: StringConstant.shiftFinderServiceFee,
           value1: "\$${shift.service_one_fee}",
           title2: StringConstant.numberOfShifts,
@@ -343,6 +350,14 @@ class PayableDetail extends StatelessWidget {
               "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           totalPayableTitle: StringConstant.totalShiftFinderServiceFee,
           totalPayable: "\$${shift.service_one_fee}",
+        ), */
+        payableBox(
+          title1: StringConstant.shiftFinderServiceFee,
+          value1: "\$${shift.service_fee}",
+          title2: StringConstant.thirdPartyProcessingFee,
+          value2: "\$${shift.third_party_fee}",
+          title3: StringConstant.tax,
+          value3: "\$${shift.third_party_tax_fee}",
         ),
         payableBox(
           title1: StringConstant.numberOfVacancies,
@@ -399,6 +414,11 @@ class PayableDetail extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
+          title1: StringConstant.numberOfShifts,
+          value1:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift : "0${shift.number_of_shift}"}",
+        ),
+        payableBox(
           title1: StringConstant.payableHours,
           title2: StringConstant.hourlyRate,
           value1: shift.total_payable_hour ?? "",
@@ -417,14 +437,23 @@ class PayableDetail extends StatelessWidget {
         payableBox(
           title1: StringConstant.shiftFinderServiceFee,
           value1: "\$${shift.service_one_fee}",
+          title2: StringConstant.thirdPartyProcessingFee,
+          value2: "\$${shift.third_party_fee}",
+          title3: StringConstant.tax,
+          value3: "\$${shift.third_party_tax_fee}",
         ),
         payableBox(
-          title1: StringConstant.totalPayableForOneShift,
+          /*    title1: StringConstant.totalPayableForOneShift,
           value1: "\$${shift.total_one_shift}",
           title2: StringConstant.numberOfShifts,
-          value2: "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          value2:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           title3: StringConstant.numberOfVacancies,
-          value3: "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+          value3:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}", */
+          title1: StringConstant.numberOfVacancies,
+          value1:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.estimatedTotalAmount,
@@ -440,6 +469,11 @@ class PayableDetail extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
+          title1: StringConstant.numberOfShifts,
+          value1:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift : "0${shift.number_of_shift}"}",
+        ),
+        payableBox(
           title1: StringConstant.payableHours,
           value1: shift.total_payable_hour ?? "",
           title2: StringConstant.hourlyRate,
@@ -458,12 +492,17 @@ class PayableDetail extends StatelessWidget {
         payableBox(
           title1: StringConstant.shiftFinderServiceFee,
           value1: "\$${shift.service_one_fee}",
+          title2: StringConstant.thirdPartyProcessingFee,
+          value2: "\$${shift.third_party_fee}",
+          title3: StringConstant.tax,
+          value3: "\$${shift.third_party_tax_fee}",
         ),
         payableBox(
-          title1: StringConstant.totalPayableForOneShift,
-          value1: "\$${shift.total_one_shift}",
-          title2: StringConstant.numberOfVacancies,
-          value2: "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+          // title1: StringConstant.totalPayableForOneShift,
+          // value1: "\$${shift.total_one_shift}",
+          title1: StringConstant.numberOfVacancies,
+          value1:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.estimatedTotalPayable,

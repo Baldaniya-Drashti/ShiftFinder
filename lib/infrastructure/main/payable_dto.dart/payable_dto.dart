@@ -20,6 +20,8 @@ class PayableDTO with _$PayableDTO {
     String? total_one_allowance,
     int? number_of_shift,
     String? service_one_fee,
+    String? third_party_fee,
+    String? third_party_tax_fee,
   }) = _PayableDTO;
 
   factory PayableDTO.fromJson(Map<String, dynamic> json) =>

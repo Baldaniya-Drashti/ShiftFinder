@@ -25,6 +25,8 @@ _$ApplicantDtoImpl _$$ApplicantDtoImplFromJson(Map<String, dynamic> json) =>
       association_you_belong_to: json['association_you_belong_to'] as String?,
       company_description: json['company_description'] as String?,
       location: json['location'] as String?,
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      latitude: (json['latitude'] as num?)?.toDouble(),
       referral_code: json['referral_code'] as String?,
       last_page: json['last_page'] as String?,
       complete_profile: json['complete_profile'] == null
@@ -64,6 +66,8 @@ Map<String, dynamic> _$$ApplicantDtoImplToJson(_$ApplicantDtoImpl instance) =>
       'association_you_belong_to': instance.association_you_belong_to,
       'company_description': instance.company_description,
       'location': instance.location,
+      'longitude': instance.longitude,
+      'latitude': instance.latitude,
       'referral_code': instance.referral_code,
       'last_page': instance.last_page,
       'complete_profile': instance.complete_profile,
@@ -126,20 +130,20 @@ _$SpecialtiesDetailDtoImpl _$$SpecialtiesDetailDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$SpecialtiesDetailDtoImpl(
       id: (json['id'] as num?)?.toInt(),
-      specialtie_lists: json['specialtie_lists'] == null
+      role: json['role'] == null
           ? null
           : CompleteProfileDataDto.fromJson(
-              json['specialtie_lists'] as Map<String, dynamic>),
+              json['role'] as Map<String, dynamic>),
       specialtie_lists_other: json['specialtie_lists_other'] as String?,
-      experience_year: (json['experience_year'] as num?)?.toInt(),
-      experience_month: (json['experience_month'] as num?)?.toInt(),
+      experience_year: json['experience_year'] as String?,
+      experience_month: json['experience_month'] as String?,
     );
 
 Map<String, dynamic> _$$SpecialtiesDetailDtoImplToJson(
         _$SpecialtiesDetailDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'specialtie_lists': instance.specialtie_lists,
+      'role': instance.role,
       'specialtie_lists_other': instance.specialtie_lists_other,
       'experience_year': instance.experience_year,
       'experience_month': instance.experience_month,

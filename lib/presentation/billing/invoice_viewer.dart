@@ -299,6 +299,9 @@ class InvoiceGenerator {
                   title: "${StringConstant.totalWage} :",
                   value: "\$${invoice.total_wage ?? 00}"),
               detailWidget(
+                  title: "${StringConstant.shiftFinderServiceFee} :",
+                  value: "\$${invoice.shiftfinder_service_fee ?? 00}"),
+              detailWidget(
                   title: "${StringConstant.totalAllowance} :",
                   value: "\$${invoice.total_allowance ?? 00}"),
               pw.Container(
@@ -635,19 +638,19 @@ class InvoiceGenerator {
         children: [
           detailWidget(
             title: StringConstant.totalWage,
-            value: "\${statement.total_wage ?? " "}",
+            value: "\$${item.total_wage ?? " "}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalShiftFinderServiceFee,
-            value: "\${statement.total_service_fee ?? " "}",
+            value: "\$${item.total_service_fee ?? " "}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalShiftCancellationFee,
-            value: "\${statement.total_cancellation_fee ?? " "}",
+            value: "\$${item.total_cancellation_fee ?? " "}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
@@ -658,7 +661,7 @@ class InvoiceGenerator {
           ),
           detailWidget(
             title: StringConstant.netAmount,
-            value: "\${statement.net_amount ?? " "}",
+            value: "\$${item.net_amount ?? " "}",
             valueColor: PdfColors.green,
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),

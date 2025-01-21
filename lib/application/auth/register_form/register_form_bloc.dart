@@ -82,7 +82,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         selectEditedCountryCode: (e) {
           emit(
             state.copyWith(
-              editedCountrycode: e.phoneCode,
+              editedCountrycode: '+${e.phoneCode}',
               editedCountryFlag: e.flag,
               editFailureorSuccessOption: none(),
             ),

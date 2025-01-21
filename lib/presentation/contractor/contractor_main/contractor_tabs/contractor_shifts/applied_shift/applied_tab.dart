@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -100,7 +101,21 @@ class AppliedTab extends StatelessWidget {
                                             isYear: true),
                                       ),
                                 paddingBetweenFields(),
-                                if (shift.deleteAt == true) ...[
+                                if (shift.deleteAt == true &&
+                                    shift.request == 0) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .youHaveCancelledThisShiftApplication,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
+                                    ),
+                                  ),
+                                ] else if (shift.deleteAt == true &&
+                                    shift.request == 1) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),
@@ -109,6 +124,7 @@ class AppliedTab extends StatelessWidget {
                                           .youHaveDeclinedThisShift,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
                                     ),
                                   ),
                                 ] else if (shift.revoke_status == 3) ...[
@@ -120,6 +136,7 @@ class AppliedTab extends StatelessWidget {
                                           .offerRevokedByTheEmployer,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
                                     ),
                                   ),
                                 ] else ...[
@@ -149,12 +166,14 @@ class AppliedTab extends StatelessWidget {
                                         bgColor: AppColors.primaryColor
                                             .withOpacity(0.10),
                                       ),
+                                      // if (shift.isVacancies == false) ...[
                                       SizedBox(width: getSize(10)),
                                       (shift.request == 1 &&
                                               shift.urgent_action == 0)
                                           ? urgentActionRequiredBtn(
                                               context, shift.id ?? -1)
                                           : cancelBtn(context, shift.id ?? -1)
+                                      // ],
                                     ],
                                   ),
                                 ],
@@ -355,14 +374,14 @@ class AppliedTab extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Container(
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
           decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.1),
+              color: AppColors.redAccent.withOpacity(0.10),
               borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -371,12 +390,13 @@ class AppliedTab extends StatelessWidget {
                 SvgImageConstant.clock,
                 height: getSize(15),
                 width: getSize(15),
+                color: AppColors.black,
               ),
               BaseText(
                 text: "$hours h $minutes min",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.primaryColor,
+                textColor: AppColors.black,
               ),
             ],
           ),
@@ -448,15 +468,19 @@ class AppliedTab extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
-                      ),
+              final latitude = shift.latitude;
+              final longitude = shift.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                  );*/
+                  ),
+                );
+              }
             },
             child: Row(
               children: [
@@ -642,6 +666,7 @@ class AppliedTab extends StatelessWidget {
           infoMessage: StringConstant.urgentActionRequiredDesc,
           cancelText: StringConstant.declineShift,
           deleteBtnText: StringConstant.confirmAcceptance,
+          deleteBTnBgColor: AppColors.primaryColor.withOpacity(0.1),
           onCancelClick: () {
             AppDialog.showDelete(
               context,

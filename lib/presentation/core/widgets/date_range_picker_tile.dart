@@ -71,6 +71,69 @@ class DateRangePickerTile extends StatelessWidget {
   }
 }
 
+class MonthPickerTile extends StatelessWidget {
+  const MonthPickerTile({
+    super.key,
+    required this.selectedMonth,
+    required this.onDateSelected,
+    required this.label,
+  });
+
+  final DateTime? selectedMonth;
+  final void Function(DateTime value) onDateSelected;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = selectedMonth != null
+        ? DateFormat('MMM yyyy').format(selectedMonth!)
+        : StringConstant.chooseMonth;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(18)),
+          child: BaseText(text: this.label, fontSize: 10),
+        ),
+        Gap(getSize(8)),
+        Material(
+          color: AppColors.white,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: AppColors.black, width: 0.5),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: InkWell(
+            onTap: () => pickMonthDialog(
+              context,
+              selectedMonth: selectedMonth,
+              onDateSelected: onDateSelected,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(20), vertical: getSize(12)),
+              child: Row(
+                children: [
+                  SvgPicture.asset(SvgImageConstant.calendar,
+                      height: getSize(20), width: getSize(20)),
+                  Gap(getSize(8)),
+                  Expanded(
+                      child: BaseText(
+                          text: label,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600)),
+                  SvgPicture.asset(SvgImageConstant.rightArrow,
+                      height: getSize(15), width: getSize(15)),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 String getFormattedString(List<DateTime> dates) {
   if (dates.isEmpty) return "";
   final firstDate = dates.first;

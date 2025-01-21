@@ -20,6 +20,8 @@ import 'package:shift/application/auth/contractor_auth/address_proof/address_pro
     as _i596;
 import 'package:shift/application/auth/contractor_auth/background_doc_bloc/background_doc_bloc.dart'
     as _i900;
+import 'package:shift/application/auth/contractor_auth/bank_details_bloc/bank_details_bloc.dart'
+    as _i881;
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
     as _i1025;
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
@@ -234,6 +236,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i471.AddContractorSkillFormBloc>(
+        () => _i471.AddContractorSkillFormBloc(
+              gh<_i277.IAuthFacade>(),
+              gh<_i253.IAccountRepository>(),
+            ));
     gh.factory<_i73.MainTabBloc>(() => _i73.MainTabBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i111.IMainFacade>(),
@@ -279,8 +286,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
         () => _i1033.AuthStatusBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i471.AddContractorSkillFormBloc>(
-        () => _i471.AddContractorSkillFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1026.TermsAndConditionBloc>(
         () => _i1026.TermsAndConditionBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i134.RegisterFormBloc>(
@@ -327,6 +332,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(
         () => _i911.AccountCubit(gh<_i253.IAccountRepository>()));
+    gh.factory<_i881.BankDetailsBloc>(
+        () => _i881.BankDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i193.ShiftsBloc>(() => _i193.ShiftsBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),

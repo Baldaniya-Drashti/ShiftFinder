@@ -43,20 +43,31 @@ class ImagePickerUtils {
           }
         }
       } else if (imageSource == ImageSource.camera) {
-        var permission = await checkAndRequestCameraPermissions();
-        print(permission);
-        if (permission) {
-          pickedImage = await picker.pickImage(
-            source: imageSource,
-            // maxWidth: imageMaxWidth,
-            // maxHeight: imageMaxHeight,
-            imageQuality: imageQuality,
-          );
-        } else {
-          if (cameraPermissionPermanentlyDenied) {
-            _showPermissionAlertDialog(
-                imageSource: imageSource, context: context);
+        try {
+          var permission = await checkAndRequestCameraPermissions();
+          print("permission---> $permission");
+          if (permission) {
+            /*    pickedImage = await picker.pickImage(
+              source: imageSource,
+              // maxWidth: imageMaxWidth,
+              // maxHeight: imageMaxHeight,
+              // imageQuality: 10,
+            ); */
+            pickedImage = await picker.pickImage(
+              source: imageSource,
+              maxWidth: 1080,
+              maxHeight: 1920,
+              imageQuality: 50,
+            );
+          } else {
+            if (cameraPermissionPermanentlyDenied) {
+              _showPermissionAlertDialog(
+                  imageSource: imageSource, context: context);
+            }
           }
+        } catch (e, stackTrace) {
+          print("Error crash imagepicker ---> $e");
+          print("Stack trace: $stackTrace");
         }
       }
 
@@ -69,6 +80,8 @@ class ImagePickerUtils {
         print('File path = ${pickedImage.path}');
         print(
             'File size = ${(imageFile.lengthSync() / 1024).toStringAsFixed(2)} KB');
+      } else {
+        print('picked image is $pickedImage');
       }
 
       return pickedImage?.path;

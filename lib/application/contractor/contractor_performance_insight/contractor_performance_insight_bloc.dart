@@ -23,42 +23,48 @@ class ContractorPerformanceInsightBloc extends Bloc<
     on<ContractorPerformanceInsightEvent>((event, emit) async {
       await event.map(
         onDateSelected: (e) async {
-          Either<MainFailure, CommonResponse>? failureOrSuccess;
+          if (e.selectedDate != null && e.selectedDate != state.selectedMonth) {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
 
-          emit(state.copyWith(
-            isLoading: true,
-            failureOrSuccessOption: none(),
-          ));
+            emit(state.copyWith(
+              isLoading: true,
+              failureOrSuccessOption: none(),
+            ));
 
-          failureOrSuccess =
-              await _mainFacade.getPerformanceInsightListAPI(date: -1);
-          failureOrSuccess.fold(
-            (l) {
-              showError(
-                message: l.maybeMap(
-                  showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
-                  orElse: () => "Server Error. Try again later.",
-                ),
-              ).show(e.context);
-              emit(state.copyWith(
-                isLoading: false,
-                showErrorMessages: true,
-                failureOrSuccessOption: none(),
-              ));
-            },
-            (r) {
-              print("Performance insight data --> $r");
-              emit(state.copyWith(
-                isLoading: false,
-                showErrorMessages: false,
-                failureOrSuccessOption: optionOf(failureOrSuccess),
-              ));
-            },
-          );
+            failureOrSuccess = await _mainFacade.getPerformanceInsightListAPI(
+              date: (e.selectedDate!.toUtc().millisecondsSinceEpoch / 1000),
+            );
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+                emit(state.copyWith(
+                  isLoading: false,
+                  showErrorMessages: true,
+                  failureOrSuccessOption: none(),
+                ));
+              },
+              (r) {
+                print("Performance insight data --> $r");
+                emit(state.copyWith(
+                  isLoading: false,
+                  showErrorMessages: false,
+                  failureOrSuccessOption: optionOf(failureOrSuccess),
+                ));
+              },
+            );
 
-          emit(state.copyWith(selectedDateTime: e.dates));
+            emit(state.copyWith(
+              // selectedDateTime: e.dates,
+              selectedMonth: e.selectedDate,
+            ));
+          }
         },
       );
     });

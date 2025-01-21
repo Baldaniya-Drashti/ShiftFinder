@@ -46,4 +46,13 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
       String unitNumber) = UpdateUnitNumberChanged;
   const factory LocationDetailsEvent.updateUnitNotesChanged(String notes) =
       UpdateUnitNotesChanged;
+
+  const factory LocationDetailsEvent.getLocationBrandList() =
+      GetLocationBrandList;
+
+  const factory LocationDetailsEvent.locationBrandChanged(
+      String locationBrand) = LocationBrandChanged;
+
+  const factory LocationDetailsEvent.addOtherLocationBrand(
+      String locationBrand) = AddOtherLocationBrand;
 }

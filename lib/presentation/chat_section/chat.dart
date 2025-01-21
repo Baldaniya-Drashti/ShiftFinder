@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/chat_section/chat/chat_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -24,7 +25,7 @@ class Chat extends StatelessWidget {
         onBackPressed: () {
           context.router.maybePop();
         },
-        title: 'Chat',
+        title: StringConstant.chat,
       ),
       body: BlocProvider(
         create: (context) => getIt<ChatBloc>()

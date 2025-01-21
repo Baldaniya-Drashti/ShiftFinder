@@ -43,7 +43,6 @@ class CustomDropdownTextfield extends StatelessWidget {
       // dropdownColor: ColorConstants.white,
       listPadding: ListPadding(top: getSize(8), bottom: getSize(8)),
       enableSearch: enableSearch,
-
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: valueController,
       searchDecoration: InputDecoration(
@@ -63,6 +62,7 @@ class CustomDropdownTextfield extends StatelessWidget {
         ),
         hintText: hintText,
         fillColor: AppColors.white,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             getSize(10),
@@ -132,7 +132,6 @@ class CustomDropdownTextfield extends StatelessWidget {
       ),
       dropDownItemCount: 5,
       clearOption: false,
-
       dropdownRadius: getSize(10),
       listTextStyle: TextStyle(
         fontSize: getFontSize(14),
@@ -151,7 +150,6 @@ class CustomDropdownTextfield extends StatelessWidget {
       validator: validator,
       textFieldFocusNode: textFieldFocusNode,
       textFieldDecoration: InputDecoration(
-
         alignLabelWithHint: true,
         isDense: true,
         prefixIcon: prefixIcon,
@@ -214,7 +212,7 @@ class CustomDropdownTextfield extends StatelessWidget {
         labelStyle: TextStyle(
           fontSize: getFontSize(14),
           fontWeight: FontWeight.w400,
-          letterSpacing: 0.5,
+          // letterSpacing: 0.5,
           fontFamily: 'Roboto Flex',
           color: AppColors.black.withOpacity(0.6),
         ),

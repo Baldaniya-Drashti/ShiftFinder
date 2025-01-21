@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -459,6 +460,7 @@ class AppDialog {
     EdgeInsets? insetPadding,
     String? cancelText,
     String? deleteBtnText,
+    Color? deleteBTnBgColor,
     Widget? otherContent,
     bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
@@ -524,7 +526,7 @@ class AppDialog {
                   AppFocus.unfocus(context);
                 },
                 buttonText: cancelText ?? StringConstant.cancle,
-                backgroundColor: AppColors.white,
+                backgroundColor: deleteBTnBgColor ?? AppColors.white,
                 buttonTextColor: AppColors.primaryColor,
                 borderColor: AppColors.primaryColor,
               ),
@@ -678,4 +680,88 @@ Future<void> pickMultiDateDialog(
       ),
     ),
   );
+}
+
+/* Future<void> pickMonthDialog(
+  BuildContext context, {
+  required ValueSetter<List<DateTime>> onDateSelected,
+  List<DateTime> selectedDates = const [],
+}) async {
+  return showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      backgroundColor: AppColors.white,
+      insetPadding: EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CalendarDatePicker2(
+            config: CalendarDatePicker2Config(
+              daySplashColor: AppColors.transparent,
+              selectedDayHighlightColor: AppColors.primaryColor,
+              disableMonthPicker: true,
+              disableModePicker: true,
+              weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+              weekdayLabelTextStyle: TextStyle(
+                  color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+              lastDate: DateTime.now(),
+              calendarViewMode: CalendarDatePicker2Mode.month,
+              disabledDayTextStyle:
+                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
+              dayTextStyle:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              selectedDayTextStyle: TextStyle(color: AppColors.white),
+            ),
+            value: selectedDates,
+            selectedDateColors: {},
+            onValueChanged: (value) {
+              if (value.length == 2) {
+                onDateSelected(value);
+                context.maybePop();
+              }
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+  */
+
+Future<void> pickMonthDialog(
+  BuildContext context, {
+  required ValueSetter<DateTime> onDateSelected,
+  required DateTime? selectedMonth,
+}) {
+  return showMonthPicker(
+      context: context,
+      initialDate: selectedMonth,
+      cancelWidget: BaseText(
+        text: StringConstant.cancle,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      confirmWidget: BaseText(
+        text: StringConstant.ok,
+        fontSize: 14,
+        textColor: AppColors.primaryColor,
+        fontWeight: FontWeight.w500,
+      ),
+      monthPickerDialogSettings: MonthPickerDialogSettings(
+          dialogSettings: PickerDialogSettings(
+            dialogRoundedCornersRadius: getSize(10),
+          ),
+          buttonsSettings: PickerButtonsSettings(
+            selectedMonthBackgroundColor: AppColors.primaryColor,
+            monthTextStyle: TextStyle(fontSize: getFontSize(14)),
+            unselectedMonthsTextColor: AppColors.black,
+            selectedDateRadius: getSize(5),
+          ),
+          headerSettings: PickerHeaderSettings(
+            headerBackgroundColor: AppColors.primaryColor,
+          ))).then((date) {
+    if (date != null) {
+      onDateSelected(date);
+    }
+  });
 }

@@ -41,6 +41,7 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
           : Duration(
               microseconds: (json['remainingRevokeTime'] as num).toInt()),
       deleteAt: json['deleteAt'] as bool?,
+      isVacancies: json['isVacancies'] as bool?,
       shift_type: (json['shift_type'] as num?)?.toInt(),
       total_shift: (json['total_shift'] as num?)?.toInt(),
       date: (json['date'] as num?)?.toInt(),
@@ -76,6 +77,7 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'proposal_received': instance.proposal_received,
       'remainingRevokeTime': instance.remainingRevokeTime?.inMicroseconds,
       'deleteAt': instance.deleteAt,
+      'isVacancies': instance.isVacancies,
       'shift_type': instance.shift_type,
       'total_shift': instance.total_shift,
       'date': instance.date,

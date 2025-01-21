@@ -11,6 +11,7 @@ import 'package:shift/infrastructure/core/employer_previous_shift/employer_previ
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
@@ -81,111 +82,120 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              padding: EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: AppColors.scaffoldColor,
-                borderRadius: BorderRadius.circular(getSize(16)),
-              ),
-              child: Row(
-                children: [
-                  UserAvatar(url: data.profile ?? ""),
-                  Gap(12),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                BaseText(
-                                  text:
-                                      "${data.first_name ?? ""} ${data.last_name ?? ""}",
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                ),
-                                SizedBox(
-                                  width: getSize(10),
-                                ),
-                                SvgPicture.asset(
-                                  SvgImageConstant.rightArrow,
-                                  height: 10,
-                                  width: 10,
-                                  color: AppColors.black.withOpacity(0.5),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Gap(1),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              SvgImageConstant.emailFilled,
-                              height: 16,
-                              width: 16,
-                            ),
-                            SizedBox(
-                              width: getSize(4),
-                            ),
-                            Expanded(
-                              child: BaseText(
-                                text: data.email ?? "",
-                                fontWeight: FontWeight.w600,
-                                fontSize: 10,
-                                textColor: AppColors.black.withOpacity(0.6),
+            GestureDetector(
+              onTap: () {
+                context.router.push(
+                  PageRouteInfo(ViewApplicantProfile.name,
+                      args: ViewApplicantProfileArgs(
+                          id: data.user_id ?? -1, postId: data.post_id ?? -1)),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: AppColors.scaffoldColor,
+                  borderRadius: BorderRadius.circular(getSize(16)),
+                ),
+                child: Row(
+                  children: [
+                    UserAvatar(url: data.profile ?? ""),
+                    Gap(12),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  BaseText(
+                                    text:
+                                        "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
+                                  SizedBox(
+                                    width: getSize(10),
+                                  ),
+                                  SvgPicture.asset(
+                                    SvgImageConstant.rightArrow,
+                                    height: 10,
+                                    width: 10,
+                                    color: AppColors.black.withOpacity(0.5),
+                                  )
+                                ],
                               ),
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Material(
-                    color: AppColors.red.withOpacity(0.2),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(getSize(7))),
-                    child: InkWell(
-                      onTap: () {
-                        AppDialog.showDelete(
-                          title: "Remove",
-                          context,
-                          infoMessage:
-                              "Are you sure you want to remove this contractor from remarked list?",
-                          onCancelClick: () {
-                            Navigator.pop(context);
-                          },
-                          onDeleteClick: () async {
-                            await context.router.maybePop().then(
-                              (_) {
-                                if (data.id == null) return;
-                                context.read<PreviousShiftBloc>().add(
-                                    PreviousShiftEvent.deleteRemark(
-                                        id: data.id ?? -1, context: context));
-                              },
-                            );
-                          },
-                          deleteBtnText: "Remove",
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(getSize(9)),
-                        child: SvgPicture.asset(
-                          SvgImageConstant.delete,
-                          color: AppColors.red,
-                          height: 13,
-                          width: 13,
-                        ),
+                          ),
+                          Gap(1),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                SvgImageConstant.emailFilled,
+                                height: 16,
+                                width: 16,
+                              ),
+                              SizedBox(
+                                width: getSize(4),
+                              ),
+                              Expanded(
+                                child: BaseText(
+                                  text: data.email ?? "",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 10,
+                                  textColor: AppColors.black.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                  )
-                ],
+                    Material(
+                      color: AppColors.red.withOpacity(0.2),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(getSize(7))),
+                      child: InkWell(
+                        onTap: () {
+                          AppDialog.showDelete(
+                            title: "Remove",
+                            context,
+                            infoMessage:
+                                "Are you sure you want to remove this contractor from remarked list?",
+                            onCancelClick: () {
+                              Navigator.pop(context);
+                            },
+                            onDeleteClick: () async {
+                              await context.router.maybePop().then(
+                                (_) {
+                                  if (data.id == null) return;
+                                  context.read<PreviousShiftBloc>().add(
+                                      PreviousShiftEvent.deleteRemark(
+                                          id: data.id ?? -1, context: context));
+                                },
+                              );
+                            },
+                            deleteBtnText: "Remove",
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.all(getSize(9)),
+                          child: SvgPicture.asset(
+                            SvgImageConstant.delete,
+                            color: AppColors.red,
+                            height: 13,
+                            width: 13,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(

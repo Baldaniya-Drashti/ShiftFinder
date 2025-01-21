@@ -182,6 +182,19 @@ class ViewContractorShift extends StatelessWidget {
       child: Column(
         children: [
           paybaleTitleRate(
+            title: StringConstant.totalNumberOfShifts,
+            value:
+                "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
+            isFirst: true,
+          ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalWage}:-",
+            value:
+                "\$${((payable.total_wage ?? "0.0").length > 1) ? payable.total_wage : "0${payable.total_wage}"}",
+          ),
+          commonDivider(),
+          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),
@@ -189,6 +202,12 @@ class ViewContractorShift extends StatelessWidget {
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value: "\$${payable.commute_allowance ?? 00}",
+          ),
+          SizedBox(height: getSize(5)),
+          paybaleTitleRate(
+            title: "${StringConstant.totalAllowances}:-",
+            value:
+                "\$${((payable.total_allowance ?? "0.0").length > 1) ? payable.total_allowance : "0${payable.total_allowance}"}",
           ),
           commonDivider(),
           paybaleTitleRate(
@@ -517,39 +536,57 @@ class ViewContractorShift extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           commonDivider(),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                color: AppColors.black,
-                height: getSize(25),
-                width: getSize(25),
-              ),
-              SizedBox(
-                width: getSize(10),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BaseText(
-                      text: post.location?.location ?? "",
-                      fontSize: 12,
-                      maxLines: 1,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.black,
+          GestureDetector(
+            onTap: () {
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                    BaseText(
-                      text: post.distance ?? "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      textColor: AppColors.primaryColor,
-                    ),
-                  ],
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  color: AppColors.black,
+                  height: getSize(25),
+                  width: getSize(25),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text: post.location?.location ?? "",
+                        fontSize: 12,
+                        maxLines: 1,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
+                      ),
+                      BaseText(
+                        text: post.distance ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        textColor: AppColors.primaryColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

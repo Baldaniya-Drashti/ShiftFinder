@@ -24,6 +24,7 @@ _$HiredContractorListDTOImpl _$$HiredContractorListDTOImplFromJson(
       clock_in_out_status: (json['clock_in_out_status'] as num?)?.toInt(),
       reason: json['reason'] as String?,
       post_id: (json['post_id'] as num?)?.toInt(),
+      shift_complete: json['shift_complete'] as bool?,
     );
 
 Map<String, dynamic> _$$HiredContractorListDTOImplToJson(
@@ -44,4 +45,5 @@ Map<String, dynamic> _$$HiredContractorListDTOImplToJson(
       'clock_in_out_status': instance.clock_in_out_status,
       'reason': instance.reason,
       'post_id': instance.post_id,
+      'shift_complete': instance.shift_complete,
     };

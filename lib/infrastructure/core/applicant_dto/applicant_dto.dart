@@ -28,6 +28,8 @@ class ApplicantDto with _$ApplicantDto {
     String? association_you_belong_to,
     String? company_description,
     String? location,
+    double? longitude,
+    double? latitude,
     String? referral_code,
     String? last_page,
     CompleteProfileDto? complete_profile,
@@ -37,7 +39,8 @@ class ApplicantDto with _$ApplicantDto {
     List<DocumentDTO>? document,
   }) = _ApplicantDto;
 
-  factory ApplicantDto.fromJson(Map<String, dynamic> json) => _$ApplicantDtoFromJson(json);
+  factory ApplicantDto.fromJson(Map<String, dynamic> json) =>
+      _$ApplicantDtoFromJson(json);
 }
 
 @freezed
@@ -50,10 +53,10 @@ class CompleteProfileDto with _$CompleteProfileDto {
     List<CompleteProfileDataDto>? languages_list,
     String? language_other,
     String? software_skill_other,
-
   }) = _CompleteProfileDto;
 
-  factory CompleteProfileDto.fromJson(Map<String, dynamic> json) => _$CompleteProfileDtoFromJson(json);
+  factory CompleteProfileDto.fromJson(Map<String, dynamic> json) =>
+      _$CompleteProfileDtoFromJson(json);
 }
 
 @freezed
@@ -63,21 +66,21 @@ class CompleteProfileDataDto with _$CompleteProfileDataDto {
     String? name,
   }) = _CompleteProfileDataDto;
 
-  factory CompleteProfileDataDto.fromJson(Map<String, dynamic> json) => _$CompleteProfileDataDtoFromJson(json);
+  factory CompleteProfileDataDto.fromJson(Map<String, dynamic> json) =>
+      _$CompleteProfileDataDtoFromJson(json);
 }
-
 
 @freezed
 class SpecialtiesDetailDto with _$SpecialtiesDetailDto {
   const factory SpecialtiesDetailDto({
     int? id,
-    CompleteProfileDataDto? specialtie_lists,
+    // CompleteProfileDataDto? specialtie_lists,
+    CompleteProfileDataDto? role,
     String? specialtie_lists_other,
-    int? experience_year,
-    int? experience_month,
+    String? experience_year,
+    String? experience_month,
   }) = _SpecialtiesDetailDto;
 
-  factory SpecialtiesDetailDto.fromJson(Map<String, dynamic> json) => _$SpecialtiesDetailDtoFromJson(json);
+  factory SpecialtiesDetailDto.fromJson(Map<String, dynamic> json) =>
+      _$SpecialtiesDetailDtoFromJson(json);
 }
-
-

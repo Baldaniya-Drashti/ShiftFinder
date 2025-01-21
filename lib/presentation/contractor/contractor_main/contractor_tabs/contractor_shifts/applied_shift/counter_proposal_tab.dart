@@ -107,18 +107,20 @@ class CounterProposalTab extends StatelessWidget {
                                                   .youHaveDeclinedThisShift,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
+                                              textColor: AppColors.redAccent,
                                             ),
                                           )
                                         : (shift.revoke_status == 3)
                                             ? Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical: getSize(10),
-                                                ),
+                                                    vertical: getSize(10)),
                                                 child: BaseText(
                                                   text: StringConstant
                                                       .offerRevokedByTheEmployer,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
+                                                  textColor:
+                                                      AppColors.redAccent,
                                                 ),
                                               )
                                             : GestureDetector(
@@ -234,7 +236,7 @@ class CounterProposalTab extends StatelessWidget {
             text: StringConstant.revoking,
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.redAccent,
           ),
         ),
         trailing: Row(
@@ -244,7 +246,7 @@ class CounterProposalTab extends StatelessWidget {
               width: getSize(108),
               padding: EdgeInsets.symmetric(vertical: getSize(5)),
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
+                  color: AppColors.redAccent.withOpacity(0.10),
                   borderRadius: BorderRadius.circular(6)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -253,12 +255,13 @@ class CounterProposalTab extends StatelessWidget {
                     SvgImageConstant.clock,
                     height: getSize(15),
                     width: getSize(15),
+                    color: AppColors.black,
                   ),
                   BaseText(
                     text: "$hours h $minutes min",
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.primaryColor,
+                    textColor: AppColors.black,
                   ),
                 ],
               ),
@@ -338,15 +341,19 @@ class CounterProposalTab extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
-                      ),
+              final latitude = shift.latitude;
+              final longitude = shift.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                  );*/
+                  ),
+                );
+              }
             },
             child: Row(
               children: [

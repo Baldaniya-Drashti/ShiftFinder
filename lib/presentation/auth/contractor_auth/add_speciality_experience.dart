@@ -25,14 +25,16 @@ import '../../common/widgets/center_loading_indicator.dart';
 @RoutePage(name: 'addSpecialityExperience')
 class AddSpecialityExperience extends StatelessWidget {
   bool isFromSplash = false;
-  AddSpecialityExperience({super.key, this.isFromSplash = false});
+  bool isUpdate;
+  AddSpecialityExperience(
+      {super.key, this.isFromSplash = false, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<SpecialityExperienceBloc>()
-        ..add(
-            const SpecialityExperienceEvent.getSpecialityExperinceDataEvent()),
+        ..add(SpecialityExperienceEvent.getSpecialityExperinceDataEvent(
+            isUpdate)),
       child: Scaffold(
         appBar: CommonAppBar(
           isShowBackBtn: !isFromSplash,
@@ -47,7 +49,6 @@ class AddSpecialityExperience extends StatelessWidget {
               () {},
               (either) => either.fold(
                 (failure) {
-                  print("fjgdg");
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
@@ -59,8 +60,20 @@ class AddSpecialityExperience extends StatelessWidget {
                 },
                 (r) {
                   // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
-                  context.router
-                      .push(const PageRouteInfo(EducationListScreen.name));
+
+                  if (isUpdate) {
+                    /*  context.router.pushAndPopUntil(
+                      PageRouteInfo(AddContractorSkillsForm.name,
+                          args:
+                              AddContractorSkillsFormArgs(isFromSplash: true)),
+                      predicate:
+                          ModalRoute.withName(ContractorUpdateProfileView.name),
+                    ); */
+                    Navigator.pop(context, true);
+                  } else {
+                    context.router
+                        .push(const PageRouteInfo(EducationListScreen.name));
+                  }
                 },
               ),
             );
@@ -93,10 +106,12 @@ class AddSpecialityExperience extends StatelessWidget {
                         isSubmitting: state.isSubmitting,
                         onPressed: () {
                           context.read<SpecialityExperienceBloc>().add(
-                              const SpecialityExperienceEvent
-                                  .continueBtnPressedEvent());
+                              SpecialityExperienceEvent.continueBtnPressedEvent(
+                                  isUpdate));
                         },
-                        buttonText: StringConstant.txtContinue,
+                        buttonText: (isUpdate)
+                            ? StringConstant.update
+                            : StringConstant.txtContinue,
                       ),
                     ),
                   ],
@@ -135,7 +150,8 @@ class AddSpecialityExperience extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BaseText(
-                text: "${index + 1}. ${currentObj.name}",
+                text:
+                    "${index + 1}. ${(isUpdate) ? (currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? "" : currentObj.name}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -148,6 +164,11 @@ class AddSpecialityExperience extends StatelessWidget {
                 Flexible(
                   child: customeDropDown(
                     hintText: StringConstant.year,
+
+                    value: (currentObj.experience_year != null &&
+                            currentObj.experience_year!.isNotEmpty)
+                        ? currentObj.experience_year
+                        : null,
                     items: CommonList.yearList.map((val) {
                       return DropdownMenuItem<String>(
                         value: val,
@@ -180,6 +201,10 @@ class AddSpecialityExperience extends StatelessWidget {
                 Flexible(
                   child: customeDropDown(
                     hintText: StringConstant.month,
+                    value: (currentObj.experience_month != null &&
+                            currentObj.experience_month!.isNotEmpty)
+                        ? currentObj.experience_month
+                        : null,
                     items: CommonList.monthList.map((val) {
                       return DropdownMenuItem<String>(
                         value: val,

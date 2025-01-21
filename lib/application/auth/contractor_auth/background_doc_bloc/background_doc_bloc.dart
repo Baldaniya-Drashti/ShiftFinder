@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 part 'background_doc_event.dart';
@@ -134,12 +136,11 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
           final isGovernmentFrontDocValid = state.bgDocFrontDoc.isValid();
           final isGovernmentBackDocValid = state.bgDocBackDoc.isValid();
 
-          print("DOC IS VALID--> ${state.bgDocBackDoc}");
-          print("DOC ID--> ${state.bgDocId}");
-
           if (isGovernmentFrontDocValid &&
               isGovernmentBackDocValid &&
               state.bgDocIssueDate.isNotEmpty) {
+            print("All details are valid!!");
+
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -148,7 +149,7 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
             );
 
             if (state.bgDocId != -1) {
-              failureOrSuccess = await _repository.updateDocumentApi(
+              /* failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.bgDocId,
                 documentType: 1,
                 subType: state.currentBgDocType.id,
@@ -156,18 +157,19 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                 documentFile: state.bgDocFrontDoc.getValue() ?? "",
                 documentBackFile: state.bgDocBackDoc.getValue() ?? "",
                 expiryDate: state.bgDocIssueDate,
-              );
+              ); */
             } else {
               failureOrSuccess = await _repository.addAddressProofApi(
-                documentType: 2,
-                subType: state.currentBgDocType.id,
+                documentType: 3,
+                // subType: state.currentBgDocType.id,
                 documentFile: state.bgDocFrontDoc.getValue() ?? "",
                 documentBackFile: state.bgDocBackDoc.getValue() ?? "",
                 expiryDate: state.bgDocIssueDate,
+                lastPage: "ProofOfLegalStatus",
               );
             }
 
-            failureOrSuccess.fold(
+            failureOrSuccess?.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -183,12 +185,15 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                   ),
                 );
               },
-              (success) {},
+              (success) {
+                e.context.router.push(PageRouteInfo(ProofOfLegalStatus.name));
+              },
             );
 
             emit(
               state.copyWith(
                 isLoading: false,
+                isSubmitting: false,
                 bgDocFailureOrSuccessOption: optionOf(failureOrSuccess),
               ),
             );

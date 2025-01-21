@@ -173,6 +173,17 @@ class CommonList {
     SkillDTO(id: 6, name: "Sunday"),
   ];
 
+  static List<SkillDTO> accountTypeList = [
+    SkillDTO(id: 1, name: "Checking"),
+    SkillDTO(id: 2, name: "Savings")
+  ];
+
+  static List<SkillDTO> scriptVolumeList = [
+    SkillDTO(id: 1, name: "Low"),
+    SkillDTO(id: 2, name: "Medium"),
+    SkillDTO(id: 3, name: "High")
+  ];
+
   static List<SkillDTO> govermentIdList = [
     SkillDTO(id: 1, name: "Driver’s License"),
     SkillDTO(id: 2, name: "Health Card"),
@@ -186,8 +197,8 @@ class CommonList {
     SkillDTO(
       id: 1,
       name: "Driver’s License",
-      short_name: "",
-      yearLimit: "",
+      short_name: null,
+      yearLimit: null,
     ),
     SkillDTO(
       id: 2,
@@ -230,7 +241,7 @@ class CommonList {
   static List<SkillDTO> proofLegalWorkList = [
     SkillDTO(id: 1, name: "PR Card", isMandatory: true, yearLimit: '5'),
     SkillDTO(id: 2, name: "Work Permit", isMandatory: true, yearLimit: '1,2'),
-    SkillDTO(id: 3, name: "Passport", isMandatory: true, yearLimit: '5'),
+    SkillDTO(id: 3, name: "Passport", isMandatory: true),
     SkillDTO(id: 4, name: "Citizenship Card"),
     SkillDTO(id: 5, name: "Citizenship Certificate", isMandatory: true),
     SkillDTO(id: 6, name: "SIN Card or SIN Letter", isMandatory: true),

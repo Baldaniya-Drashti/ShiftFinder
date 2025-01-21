@@ -25,6 +25,11 @@ class EmployerLocationFormState with _$EmployerLocationFormState {
     required String updatedUnitNumber,
     required String updatedUnitNotes,
     required LocationDTO locationData,
+    required InputEmptyOrNot locationBrand,
+    required InputEmptyOrNot otherLocationBrand,
+    required String locationBrandDDValue,
+    required String otherLocationBrandValue,
+    required List<SkillDTO> locationBrandList,
     int? id,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _EmployerLocationFormState;
@@ -34,6 +39,7 @@ class EmployerLocationFormState with _$EmployerLocationFormState {
         address: InputEmptyOrNot(""),
         searchLocationList: [],
         facilityTypeList: [],
+        locationBrandList: [],
         faciltyType: InputEmptyOrNot(""),
         otherFaciltyType: InputEmptyOrNot(""),
         locationId: "",
@@ -53,6 +59,10 @@ class EmployerLocationFormState with _$EmployerLocationFormState {
         authFailureOrSuccessOption: none(),
         selectedAddress: PlaceDetailDTO(),
         selectedLocationPrediction: Predictions(),
+        locationBrand: InputEmptyOrNot(""),
+        otherLocationBrand: InputEmptyOrNot(""),
+        locationBrandDDValue: "",
+        otherLocationBrandValue: "",
       );
 }
 

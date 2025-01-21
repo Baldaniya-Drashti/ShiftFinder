@@ -52,12 +52,18 @@ _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
     _$LocationImpl(
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+      postalCode: json['postalCode'] as String?,
     );
 
 Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
     <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
+      'city': instance.city,
+      'state': instance.state,
+      'postalCode': instance.postalCode,
     };
 
 _$ViewportImpl _$$ViewportImplFromJson(Map<String, dynamic> json) =>

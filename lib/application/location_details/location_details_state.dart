@@ -24,6 +24,11 @@ class LocationDetailsState with _$LocationDetailsState {
     required bool showErrorMessages,
     required String updatedUnitNumber,
     required String updatedUnitNotes,
+    required InputEmptyOrNot locationBrand,
+    required InputEmptyOrNot otherLocationBrand,
+    required String locationBrandDDValue,
+    required String otherLocationBrandValue,
+    required List<SkillDTO> locationBrandList,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _LocationDetailsState;
   factory LocationDetailsState.initial() => LocationDetailsState(
@@ -49,5 +54,10 @@ class LocationDetailsState with _$LocationDetailsState {
         authFailureOrSuccessOption: none(),
         selectedAddress: PlaceDetailDTO(),
         selectedLocationPrediction: Predictions(),
+        locationBrandList: [],
+        locationBrand: InputEmptyOrNot(""),
+        otherLocationBrand: InputEmptyOrNot(""),
+        locationBrandDDValue: "",
+        otherLocationBrandValue: "",
       );
 }

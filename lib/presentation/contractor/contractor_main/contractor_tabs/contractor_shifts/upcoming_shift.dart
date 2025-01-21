@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -217,15 +218,19 @@ class UpcomingShift extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
-                      ),
+              final latitude = shift.latitude;
+              final longitude = shift.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                  );*/
+                  ),
+                );
+              }
             },
             child: Row(
               children: [
@@ -283,7 +288,9 @@ class UpcomingShift extends StatelessWidget {
       infoMsgTextStyle: TextStyle(fontSize: getFontSize(14)),
       deleteBtnText: StringConstant.withdraw,
       otherContent: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
-        bloc: bloc..emit(bloc.state.copyWith(showErrorMessages: false)),
+        bloc: bloc
+          ..emit(bloc.state.copyWith(
+              showErrorMessages: false, deletePostReason: InputEmptyOrNot(""))),
         builder: (_, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

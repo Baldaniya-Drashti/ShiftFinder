@@ -16,7 +16,6 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -81,30 +80,34 @@ class AddressProofScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         pickImageView(state, context),
-                                        DocumentExpiryDatePicker
-                                            .expiryDateTextField(
-                                          context,
-                                          labelStyle: TextStyle(
-                                            fontSize: getFontSize(12),
+                                        if (state.currentAddressProofType
+                                                .yearLimit !=
+                                            null)
+                                          DocumentExpiryDatePicker
+                                              .expiryDateTextField(
+                                            context,
+                                            labelStyle: TextStyle(
+                                              fontSize: getFontSize(12),
+                                            ),
+                                            lastDate: DateTime.now()
+                                                .add(Duration(days: 25 * 365)),
+                                            onPickedDate: (pickedDate) {
+                                              context
+                                                  .read<AddressProofBloc>()
+                                                  .add(AddressProofEvent
+                                                      .expiryDateChanged(
+                                                          pickedDate
+                                                              .toString()));
+                                            },
+                                            onCancelClick: () {
+                                              context
+                                                  .read<AddressProofBloc>()
+                                                  .add(AddressProofEvent
+                                                      .expiryDateChanged(""));
+                                            },
+                                            selectedDate: state.docExpiryDate,
+                                            isDisabled: true,
                                           ),
-                                          lastDate: DateTime.now()
-                                              .add(Duration(days: 25 * 365)),
-                                          onPickedDate: (pickedDate) {
-                                            context
-                                                .read<AddressProofBloc>()
-                                                .add(AddressProofEvent
-                                                    .expiryDateChanged(
-                                                        pickedDate.toString()));
-                                          },
-                                          onCancelClick: () {
-                                            context
-                                                .read<AddressProofBloc>()
-                                                .add(AddressProofEvent
-                                                    .expiryDateChanged(""));
-                                          },
-                                          selectedDate: state.docExpiryDate,
-                                          isDisabled: true,
-                                        ),
                                         if (((state.docExpiryDate.isEmpty) &&
                                                 state.showErrorMesages) ||
                                             (state.docExpiryDate.isEmpty) &&
@@ -114,7 +117,6 @@ class AddressProofScreen extends StatelessWidget {
                                                 vertical: getSize(5)),
                                             child: BaseText(
                                               text:
-                                                  // "* ${((state.isExpiryInValid)) ? "Expiry date must be before ${(double.parse(state.currentAddressProofType.yearLimit ?? "0.0") * 10).toInt()}" : StringConstant.pleaseSelectExpiryDate}",
                                                   "* ${((state.isExpiryInValid)) ? "Expiry date ${state.currentAddressProofType.short_name?.toLowerCase()}" : StringConstant.pleaseSelectExpiryDate}",
                                               fontSize: 12,
                                               textColor: AppColors.red,
@@ -136,11 +138,11 @@ class AddressProofScreen extends StatelessWidget {
                               child: CommonButton(
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
-                                  /* context.read<AddressProofBloc>().add(
+                                  context.read<AddressProofBloc>().add(
                                       AddressProofEvent.addressProofSubmit(
-                                          context)); */
-                                  context.router.push(
-                                      PageRouteInfo(BackgroundDocument.name));
+                                          context));
+                                  /* context.router.push(
+                                      PageRouteInfo(BackgroundDocument.name)); */
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
@@ -206,6 +208,18 @@ class AddressProofScreen extends StatelessWidget {
       value: (state.currentAddressProofType.id != null)
           ? state.currentAddressProofType
           : null,
+      /* selectedItemBuilder: (context) {
+        final selectedItem = state.currentAddressProofType;
+        return [
+          Text(
+            selectedItem.name ?? "",
+            style: TextStyle(
+              fontSize: getFontSize(14),
+              color: AppColors.black,
+            ),
+          ),
+        ];
+      }, */
       items: state.addressProofDropDownList.map((val) {
         return DropdownMenuItem<SkillDTO>(
           value: val,
@@ -354,6 +368,7 @@ class AddressProofScreen extends StatelessWidget {
               ),
             ),
         ], */
+
         SizedBox(height: getSize(30)),
       ],
     );

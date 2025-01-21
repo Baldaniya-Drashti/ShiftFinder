@@ -317,25 +317,43 @@ class FilledShiftsView extends StatelessWidget {
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                colorFilter: ColorFilter.mode(
-                  AppColors.black,
-                  BlendMode.srcATop,
+          GestureDetector(
+            onTap: () {
+              final location = shift.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.black,
+                    BlendMode.srcATop,
+                  ),
                 ),
-              ),
-              SizedBox(width: getSize(5)),
-              Expanded(
-                child: BaseText(
-                  text: shift.location?.location ?? "",
-                  fontSize: 10,
-                  maxLines: 1,
-                  fontWeight: FontWeight.w500,
+                SizedBox(width: getSize(5)),
+                Expanded(
+                  child: BaseText(
+                    text: shift.location?.location ?? "",
+                    fontSize: 10,
+                    maxLines: 1,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

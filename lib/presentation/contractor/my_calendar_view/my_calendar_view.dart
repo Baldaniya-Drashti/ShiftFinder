@@ -177,6 +177,12 @@ class MyCalendarView extends StatelessWidget {
         final dateExist = isDateExist(selectedDates, date);
         return dateExist;
       },
+      onDisplayedMonthChanged: (value) {
+        print("Month changed---> $value");
+        context
+            .read<MyCalendarViewBloc>()
+            .add(MyCalendarViewEvent.selectDateEvent(context, []));
+      },
       onValueChanged: (value) {
         context
             .read<MyCalendarViewBloc>()
@@ -238,9 +244,9 @@ class MyCalendarView extends StatelessWidget {
                 PageRouteInfo(
                   ViewContractorShift.name,
                   args: ViewContractorShiftArgs(
-                    postId: detail.list![index].id ?? -1,
+                    postId: detail.list![index].application_id ?? -1,
                     isTotalApplicants: true,
-                    fromDashboard: true,
+                    fromDashboard: false,
                   ),
                 ),
               );
@@ -317,15 +323,20 @@ class MyCalendarView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              /*context.router.push(
-                    PageRouteInfo(
-                      ShowGoogleMap.name,
-                      args: ShowGoogleMapArgs(
-                        latitude: 21.191535534205194,
-                        longitude: 72.78582206137469,
-                      ),
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
                     ),
-                  );*/
+                  ),
+                );
+              }
             },
             child: Row(
               children: [
@@ -335,9 +346,7 @@ class MyCalendarView extends StatelessWidget {
                   width: getSize(25),
                   color: AppColors.black,
                 ),
-                SizedBox(
-                  width: getSize(10),
-                ),
+                SizedBox(width: getSize(10)),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -25,8 +25,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'addContractorSkillsForm')
 class AddContractorSkillsForm extends StatelessWidget {
   bool isFromSplash = false;
+  bool isUpdate;
 
-  AddContractorSkillsForm({super.key, this.isFromSplash = false});
+  AddContractorSkillsForm(
+      {super.key, this.isFromSplash = false, this.isUpdate = false});
 
   // final List<String> requiredSpecialtiesList = [
   //   'Anesthesiology',
@@ -57,7 +59,8 @@ class AddContractorSkillsForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AddContractorSkillFormBloc>()
-        ..add(const AddContractorSkillFormEvent.getAllDropDownList()),
+        ..add(
+            AddContractorSkillFormEvent.getAllDropDownList(isUpdate: isUpdate)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -87,9 +90,21 @@ class AddContractorSkillsForm extends StatelessWidget {
                       ).show(context);
                     },
                     (r) {
-                      // context.router.push(const PageRouteInfo(EducationListScreen.name));
                       context.router
-                          .push(PageRouteInfo(AddExperienceDetailScreen.name));
+                          .push(PageRouteInfo(AddExperienceDetailScreen.name,
+                              args: AddExperienceDetailScreenArgs(
+                                  isUpdate: isUpdate)))
+                          .then((value) {
+                        if (value == true) {
+                          Navigator.pop(context, true);
+                        }
+                      });
+                      /*  context.router.push(PageRouteInfo(
+                        AddSpecialityExperience.name,
+                        args: AddSpecialityExperienceArgs(
+                          isUpdate: isUpdate,
+                        ),
+                      )); */
                     },
                   ),
                 );
@@ -131,7 +146,9 @@ class AddContractorSkillsForm extends StatelessWidget {
                                           .add(const AddContractorSkillFormEvent
                                               .continueBtnPressed());
                                     },
-                                    buttonText: StringConstant.txtContinue,
+                                    buttonText: (isUpdate)
+                                        ? StringConstant.update
+                                        : StringConstant.txtContinue,
                                   ),
                                 ),
                               ],
@@ -288,6 +305,7 @@ class AddContractorSkillsForm extends StatelessWidget {
               .map((item) =>
                   MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
               .toList(),
+          initialValue: state.roleTypeChipList.getValue(),
           title: StringConstant.role,
           labelText: StringConstant.role,
           selectedColor: AppColors.black,
@@ -339,6 +357,8 @@ class AddContractorSkillsForm extends StatelessWidget {
               .toList(),
           title: StringConstant.specialties,
           labelText: StringConstant.specialties,
+          initialValue: state.requiredSpecialityChipList.getValue(),
+          otherInitialValue: state.specialityOther,
           selectedColor: AppColors.black,
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -468,6 +488,8 @@ class AddContractorSkillsForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MultiSelectDialogField(
+          initialValue: state.requiredSoftwareSkillChipList.getValue(),
+          otherInitialValue: state.softwareSkillOther,
           items: state.softwareList
               .map((item) =>
                   MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
