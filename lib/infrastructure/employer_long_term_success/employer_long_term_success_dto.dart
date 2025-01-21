@@ -55,6 +55,7 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     @Default(0) int? save_template_status,
     @Default(0) int? vacancie_type,
     int? job_type,
+    int? industry,
   }) = _EmployerLongTermSuccessDto;
 
   factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermSuccessDtoFromJson(json);

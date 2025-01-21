@@ -33,6 +33,7 @@ _$EmployerLongTermAddDetailDtoImpl _$$EmployerLongTermAddDetailDtoImplFromJson(
       save_template_status:
           (json['save_template_status'] as num?)?.toInt() ?? 0,
       vacancie_type: (json['vacancie_type'] as num?)?.toInt() ?? 0,
+      number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
       job_type: (json['job_type'] as num?)?.toInt(),
     );
 
@@ -59,5 +60,6 @@ Map<String, dynamic> _$$EmployerLongTermAddDetailDtoImplToJson(
       'employer_payment_confirmation': instance.employer_payment_confirmation,
       'save_template_status': instance.save_template_status,
       'vacancie_type': instance.vacancie_type,
+      'number_of_vacancie': instance.number_of_vacancie,
       'job_type': instance.job_type,
     };

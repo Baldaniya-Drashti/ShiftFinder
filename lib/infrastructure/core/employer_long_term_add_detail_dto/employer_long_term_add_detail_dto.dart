@@ -27,6 +27,7 @@ class EmployerLongTermAddDetailDto with _$EmployerLongTermAddDetailDto {
     @Default(0) int? employer_payment_confirmation,
     @Default(0) int? save_template_status,
     @Default(0)int? vacancie_type,
+    int? number_of_vacancie,
     int? job_type,
   }) = _EmployerLongTermAddDetailDto;
 

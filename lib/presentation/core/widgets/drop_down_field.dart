@@ -173,9 +173,7 @@ class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField>
   @override
   void didUpdateWidget(covariant ShiftScheduleDropdownField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.selectedShiftSchedule != oldWidget.selectedShiftSchedule) {
-      setState(() {});
-    }
+    if (widget.selectedShiftSchedule != oldWidget.selectedShiftSchedule) {}
   }
 
   @override

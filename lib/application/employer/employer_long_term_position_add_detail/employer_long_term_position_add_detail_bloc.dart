@@ -17,100 +17,110 @@ part 'employer_long_term_position_add_detail_state.dart';
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
+class EmployerLongTermPositionAddDetailBloc
+    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
   EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
-        event.map(
-          selectStartDate: (value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(start_date: value.startDate),
+        event.map(selectStartDate: (value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(start_date: value.startDate),
+            ),
+          );
+        }, selectEndDate: (value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(end_date: value.endaDate),
+            ),
+          );
+        }, selectApplicationDeadline: (value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                application_deadline: value.deadLine,
               ),
-            );
-          },
-          selectEndDate: (value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(end_date: value.endaDate),
+            ),
+          );
+        }, selectEstimatedHour: (value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                estimated_weekly_hours: value.estimatedHour,
               ),
-            );
-          },
-          selectApplicationDeadline: (value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  application_deadline: value.deadLine,
-                ),
+            ),
+          );
+        }, onShiftScheduleChanged: (OnShiftScheduleChanged value) {
+          emit(state.copyWith(selectedShiftSchedule: value.value));
+        }, selectDocument: (SelectDocument value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                terms_document: value.path,
               ),
-            );
-          },
-          selectEstimatedHour: (value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  estimated_weekly_hours: value.estimatedHour,
-                ),
+            ),
+          );
+        }, addMoreVacancy: (AddMoreVacancy value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                vacancie_type: value.value,
               ),
-            );
-          },
-          onShiftScheduleChanged: (OnShiftScheduleChanged value) {
-            emit(state.copyWith(selectedShiftSchedule: value.value));
-          },
-          selectDocument: (SelectDocument value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  terms_document: value.path,
-                ),
+            ),
+          );
+        }, onCreate: (OnCreate value) {
+          emit(state.copyWith(postShiftDto: value.postShitDto));
+        }, removeDocument: (RemoveDocument value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                terms_document: null,
               ),
-            );
-          },
-          addMoreVacancy: (AddMoreVacancy value) {
-            emit(state.copyWith(hasMoreVacancy: value.value));
-          },
-          onCreate: (OnCreate value) {
-            emit(state.copyWith(postShiftDto: value.postShitDto));
-          },
-          removeDocument: (RemoveDocument value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  terms_document: null,
-                ),
-              ),
-            );
-          },
-          onContinue: (OnContinue value) {
-            final postShift = state.postShiftDto;
-            final employer = state.employerLongTermAddDetailDto.copyWith(
-              job_description: value.jobDescription,
-              requirements: value.requirements,
-              responsibilities: value.responsibilities,
-              qualifications: value.qualification,
-              licenses_certifications: value.licences,
-              onboarding_process: value.onboarding,
-              shift_schedule_type: state.selectedShiftSchedule?.id,
-            );
-            print("employer => ${employer.toJson()}");
+            ),
+          );
+        }, onContinue: (OnContinue value) {
+          final postShift = state.postShiftDto;
+          final employer = state.employerLongTermAddDetailDto.copyWith(
+            job_description: value.jobDescription,
+            requirements: value.requirements,
+            responsibilities: value.responsibilities,
+            qualifications: value.qualification,
+            licenses_certifications: value.licences,
+            onboarding_process: value.onboarding,
+            shift_schedule_type: state.selectedShiftSchedule?.id,
+            number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
+          );
+          print("employer => ${employer.toJson()}");
 
-            value.context.router.push(
-              PageRouteInfo(
-                EmployerLongTermPostConfirmationView.name,
-                args: EmployerLongTermPostConfirmationViewArgs(postShiftDTO: postShift, employerAddDetailDto: employer),
+          value.context.router.push(
+            PageRouteInfo(
+              EmployerLongTermPostConfirmationView.name,
+              args: EmployerLongTermPostConfirmationViewArgs(postShiftDTO: postShift, employerAddDetailDto: employer),
+            ),
+          );
+        }, onChangeContractIncludeCall: (OnChangeContractIncludeCall value) {
+          emit(
+            state.copyWith(
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+                on_call_included: value.value,
               ),
-            );
-          },
-          onChangeContractIncludeCall: (OnChangeContractIncludeCall value) {
-            emit(
-              state.copyWith(
-                employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
-                  on_call_included: value.value,
+            ),
+          );
+        }, removeShiftSchedule: (value) {
+          emit(
+            state.copyWith(
+              requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.requiredSoftwareSkillChipList.getValue())..remove(value.selectedValue),
                 ),
               ),
-            );
-          },
-        );
+            ),
+          );
+        }, confirmShiftSchedule: (value) {
+          emit(state.copyWith(
+            requiredSoftwareSkillChipList: ListInputEmptyOrNot(value.skillList),
+          ));
+        });
       },
     );
   }

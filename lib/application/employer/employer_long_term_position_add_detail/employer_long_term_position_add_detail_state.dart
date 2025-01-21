@@ -12,7 +12,10 @@ class EmployerLongTermPositionAddDetailState with _$EmployerLongTermPositionAddD
     @Default(false) final bool hasMoreVacancy,
     @Default(EmployerLongTermAddDetailDto()) EmployerLongTermAddDetailDto employerLongTermAddDetailDto,
     @Default(PostShiftDTO()) PostShiftDTO postShiftDto,
+    required ListInputEmptyOrNot requiredSoftwareSkillChipList,
   }) = _EmployerLongTermPositionAddDetailState;
 
-  factory EmployerLongTermPositionAddDetailState.initial() => EmployerLongTermPositionAddDetailState();
+  factory EmployerLongTermPositionAddDetailState.initial() => EmployerLongTermPositionAddDetailState(
+        requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),
+      );
 }

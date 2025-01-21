@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -25,9 +28,14 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/datetime_extensions.dart';
 import 'package:shift/presentation/core/helper/time_extension.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
+import 'package:shift/presentation/core/widgets/time_picker_input_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 import '../../common/utils/file_picker_utils.dart';
@@ -89,7 +97,6 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
 
   @override
   Widget build(BuildContext context) {
-    final hasMoreVacancy = context.select<EmployerLongTermPositionAddDetailBloc, bool>((value) => value.state.hasMoreVacancy);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -192,17 +199,13 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, CommonDropdownModel?>(
-              selector: (state) => state.selectedShiftSchedule,
-              builder: (context, selectedShiftSchedule) {
-                return ShiftScheduleDropdownField(
-                  selectedShiftSchedule: selectedShiftSchedule,
-                  onChanged: (value) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged(value: value),
-                        );
-                  },
-                );
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                ListInputEmptyOrNot>(
+              selector: (state) {
+                return state.requiredSoftwareSkillChipList;
+              },
+              builder: (context, state) {
+                return _ShiftSchedule(initialValue: state.getValue());
               },
             ),
             Gap(getSize(12)),
@@ -306,7 +309,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       maxLines: 3,
                     ),
                     Gap(getSize(16)),
-                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
+                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                        String?>(
                       selector: (state) => state.employerLongTermAddDetailDto.terms_document,
                       builder: (context, documentPath) {
                         if (documentPath != null) return selectedImage(context, documentPath);
@@ -349,46 +353,58 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(16)),
-            _buildCheckListTile(
-              context,
-              value: hasMoreVacancy,
-              onChanged: (value) {
-                context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                      EmployerLongTermPositionAddDetailEvent.addMoreVacancy(value),
-                    );
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+              selector: (state) {
+                return state.employerLongTermAddDetailDto.vacancie_type == 1;
               },
-              label: "We are looking to fill more than one vacancies with the same  requirements.",
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              builder: (context, vacancyEnable) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildCheckListTile(
+                      context,
+                      value: vacancyEnable,
+                      onChanged: (value) {
+                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                              EmployerLongTermPositionAddDetailEvent.addMoreVacancy(vacancyEnable ? 0 : 1),
+                            );
+                      },
+                      label: "We are looking to fill more than one vacancies with the same  requirements.",
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    ),
+                    if (vacancyEnable) ...[
+                      Gap(getSize(12)),
+                      CustomTextField(
+                        controller: _vacancyController,
+                        labelText: StringConstant.numberOfVacancies,
+                        hintText: StringConstant.numberOfVacancies,
+                        keyboardType: TextInputType.number,
+                        errorInputBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: AppColors.transparent),
+                          borderRadius: BorderRadius.circular(getSize(10)),
+                        ),
+                        maxLength: 3,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: (value, _) {
+                          if (!vacancyEnable) return null;
+                          value = value?.trim() ?? "";
+                          if (value.isEmpty) {
+                            return StringConstant.pleaseAddNumberOfVacancies;
+                          }
+                          if (value == "1" || value == "0") {
+                            return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
+                          } else {
+                            return null;
+                          }
+                        },
+                      )
+                    ],
+                  ],
+                );
+              },
             ),
-            if (hasMoreVacancy) ...[
-              Gap(getSize(12)),
-              CustomTextField(
-                controller: _vacancyController,
-                labelText: StringConstant.numberOfVacancies,
-                hintText: StringConstant.numberOfVacancies,
-                keyboardType: TextInputType.number,
-                errorInputBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: AppColors.transparent),
-                  borderRadius: BorderRadius.circular(getSize(10)),
-                ),
-                maxLength: 3,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validator: (value, _) {
-                  if (!hasMoreVacancy) return null;
-                  value = value?.trim() ?? "";
-                  if (value.isEmpty) {
-                    return StringConstant.pleaseAddNumberOfVacancies;
-                  }
-                  if (value == "1" || value == "0") {
-                    return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
-                  } else {
-                    return null;
-                  }
-                },
-              )
-            ],
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
@@ -396,7 +412,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
                   return;
                 }
-                final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                final employer =
+                    context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;
                 if (startDate == null || endDate == null) return;
@@ -429,6 +446,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                         licences: _licensesController.text.trim(),
                         onboarding: _onBoardingController.text.trim(),
                         terms: _termsController.text.trim(),
+                        numberOfVacancy: _vacancyController.text.trim(),
                       ),
                     );
               },
@@ -498,198 +516,13 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
-            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+            context
+                .read<EmployerLongTermPositionAddDetailBloc>()
+                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
           },
         );
       },
     );
-  }
-}
-
-class DatePickerInputField extends StatefulWidget {
-  const DatePickerInputField({
-    super.key,
-    required this.label,
-    required this.hint,
-    this.initialDate,
-    required this.onPickedDate,
-    this.firstDate,
-    this.lastDate,
-    this.validator,
-  });
-
-  final String label;
-  final String hint;
-  final DateTime? initialDate;
-  final DateTime? firstDate;
-  final DateTime? lastDate;
-  final void Function(DateTime date) onPickedDate;
-  final String? Function(String? value, BuildContext context)? validator;
-
-  @override
-  State<DatePickerInputField> createState() => _DatePickerInputFieldState();
-}
-
-class _DatePickerInputFieldState extends State<DatePickerInputField> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(
-      text: widget.initialDate != null ? widget.initialDate!.formattedString : "",
-    );
-  }
-
-  @override
-  void didUpdateWidget(covariant DatePickerInputField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.initialDate != oldWidget.initialDate) {
-      _controller.text = widget.initialDate != null ? widget.initialDate!.formattedString : "";
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextField(
-      autoValidateMode: AutovalidateMode.onUserInteraction,
-      controller: _controller,
-      validator: widget.validator,
-      labelText: widget.label,
-      hintText: widget.hint,
-      hintAsValue: widget.initialDate != null,
-      readOnly: true,
-      errorInputBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.red),
-        borderRadius: BorderRadius.circular(getSize(10)),
-      ),
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
-        ),
-        child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
-      ),
-      onTap: () async {
-        await DocumentExpiryDatePicker.customDatePicker(
-          context,
-          firstDate: widget.firstDate ?? DateTime.now(),
-          onPickedDate: widget.onPickedDate,
-          onCancelClick: () {},
-          selectedDate: widget.initialDate ?? DateTime.now(),
-        );
-      },
-    );
-  }
-}
-
-class TimePickerInputField extends StatefulWidget {
-  const TimePickerInputField({
-    super.key,
-    required this.label,
-    required this.hint,
-    this.initialTime,
-    required this.onPickedTime,
-    this.validator,
-  });
-
-  final String label;
-  final String hint;
-  final TimeOfDay? initialTime;
-  final void Function(TimeOfDay time) onPickedTime;
-  final String? Function(String? value, BuildContext context)? validator;
-
-  @override
-  State<TimePickerInputField> createState() => _TimePickerInputFieldState();
-}
-
-class _TimePickerInputFieldState extends State<TimePickerInputField> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(
-      text: widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "",
-    );
-  }
-
-  @override
-  void didUpdateWidget(covariant TimePickerInputField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.initialTime != oldWidget.initialTime) {
-      _controller.text = widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "";
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextField(
-      autoValidateMode: AutovalidateMode.onUserInteraction,
-      controller: _controller,
-      validator: widget.validator,
-      labelText: widget.label,
-      hintText: widget.hint,
-      hintAsValue: widget.initialTime != null,
-      readOnly: true,
-      errorInputBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.red),
-        borderRadius: BorderRadius.circular(getSize(10)),
-      ),
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
-        ),
-        child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
-      ),
-      onTap: () async {
-        final time = await _showTimePicker(context);
-        if (time != null) {
-          widget.onPickedTime(time);
-        }
-      },
-    );
-  }
-
-  Future<TimeOfDay?> _showTimePicker(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showDialog(
-        context: context,
-        builder: (context) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              timePickerTheme: TimePickerThemeData(
-                dayPeriodColor: AppColors.primaryColor,
-                dayPeriodTextColor: AppColors.black,
-              ),
-              colorScheme: ColorScheme.light(
-                primary: AppColors.primaryColor,
-                onSurface: AppColors.black,
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(),
-              ),
-            ),
-            child: TimePickerDialog(
-              initialTime: TimeOfDay.fromDateTime(DateTime.now()),
-            ),
-          );
-        });
-
-    print("Selected Time:  ${pickedTime?.format(context)}");
-    return pickedTime;
   }
 }
 
@@ -775,24 +608,82 @@ class _UploadDocument extends StatelessWidget {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,
+    );
+  }
+}
+
+class _ShiftSchedule extends StatelessWidget {
+  const _ShiftSchedule({super.key, required this.initialValue});
+
+  final List<dynamic> initialValue;
+
+  @override
+  Widget build(BuildContext context) {
+    final list = [
+      CommonDropdownModel(id: 1, label: "Morning"),
+      CommonDropdownModel(id: 2, label: "Evening"),
+      CommonDropdownModel(id: 3, label: "Night"),
+      CommonDropdownModel(id: 4, label: "Weekends"),
+      CommonDropdownModel(id: 5, label: "Weekdays"),
+    ];
+
+    return MultiSelectDialogField(
+      isOptional: false,
+      isShowOtherValue: false,
+      initialValue: initialValue,
+      items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
+      title: StringConstant.softwareSkillSet,
+      labelText: StringConstant.softwareSkillSet,
+      selectedColor: AppColors.black,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      chipDisplay: MultiSelectChipDisplay(
+        chipColor: AppColors.transparent,
+        onDelete: (value) {
+          print("On delete called!");
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(value.toString()));
+        },
+      ),
+      buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+      buttonText: Text(
+        StringConstant.softwareSkillSet,
+        style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+      ),
+      onConfirm: (selectedList, otherValues) {
+        context
+            .read<EmployerLongTermPositionAddDetailBloc>()
+            .add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+              List<String>.from(selectedList),
+            ));
+      },
     );
   }
 }

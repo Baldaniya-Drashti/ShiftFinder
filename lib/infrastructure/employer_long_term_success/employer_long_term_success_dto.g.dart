@@ -70,6 +70,7 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
           (json['save_template_status'] as num?)?.toInt() ?? 0,
       vacancie_type: (json['vacancie_type'] as num?)?.toInt() ?? 0,
       job_type: (json['job_type'] as num?)?.toInt(),
+      industry: (json['industry'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
@@ -121,4 +122,5 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'save_template_status': instance.save_template_status,
       'vacancie_type': instance.vacancie_type,
       'job_type': instance.job_type,
+      'industry': instance.industry,
     };

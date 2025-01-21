@@ -142,7 +142,7 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (state.postDataLoading) CenterLoadingIndicator(),
+                    if (state.postDataLoading) CenterLoadingIndicator(isOnlyLoader: true,),
                   ],
                 );
               },

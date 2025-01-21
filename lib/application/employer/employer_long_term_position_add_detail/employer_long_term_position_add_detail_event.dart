@@ -15,12 +15,14 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
 
   const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) = SelectDocument;
 
-  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(bool value) = AddMoreVacancy;
+  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(int value) = AddMoreVacancy;
 
   const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto) = OnCreate;
 
   const factory EmployerLongTermPositionAddDetailEvent.removeDocument() = RemoveDocument;
   const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(int value) = OnChangeContractIncludeCall;
+  const factory EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
+  const factory EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(List<String> skillList) = ConfirmSoftwareSkill;
 
   const factory EmployerLongTermPositionAddDetailEvent.onContinue({
     required BuildContext context,
@@ -31,5 +33,6 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
     required String licences,
     required String onboarding,
     String? terms,
+    String? numberOfVacancy,
   }) = OnContinue;
 }
