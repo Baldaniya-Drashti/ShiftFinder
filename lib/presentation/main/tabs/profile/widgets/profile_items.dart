@@ -208,7 +208,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(
@@ -246,7 +246,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorEarningView.name));
+          // context.router.push(PageRouteInfo(ContractorEarningView.name));
         },
       ),
       ProfileItemModel(

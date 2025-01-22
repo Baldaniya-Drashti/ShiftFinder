@@ -263,10 +263,10 @@ class CommonList {
   ];
 
   static List<WalletDropdownModel> walletList = [
-    WalletDropdownModel(id: 1, label: "All Transactions"),
-    WalletDropdownModel(id: 2, label: "Earnings"),
-    WalletDropdownModel(id: 3, label: "Compensations"),
-    WalletDropdownModel(id: 4, label: "Referrals"),
-    WalletDropdownModel(id: 5, label: "Deposits"),
+    WalletDropdownModel(id: 0, label: "All Transactions"),
+    WalletDropdownModel(id: 1, label: "Earnings"),
+    WalletDropdownModel(id: 2, label: "Compensations"),
+    WalletDropdownModel(id: 3, label: "Referrals"),
+    WalletDropdownModel(id: 4, label: "Deposits"),
   ];
 }

@@ -225,9 +225,7 @@ class RegisterForm extends StatelessWidget {
               fontFamily: "Roboto Flex",
             ),
           ),
-          SizedBox(
-            height: getSize(30),
-          ),
+          SizedBox(height: getSize(30)),
           CustomTextField(
             hintText: StringConstant.firstName,
             labelText: StringConstant.firstName,

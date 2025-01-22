@@ -33,28 +33,6 @@ class ContractorEditProfileBloc
 
   get http => null;
 
-  /// TO GET GOOGLE PLACES
-  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
-    Uri uri = Uri.https(
-      "maps.googleapis.com",
-      'maps/api/place/autocomplete/json',
-      {
-        "input": query,
-        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        "components": "country:ca",
-      },
-    );
-    try {
-      final response = await http.get(uri, headers: headers);
-      if (response.statusCode == 200) {
-        return response.body;
-      }
-    } catch (e) {
-      print("LOCATION CATCH ERROR: $e");
-    }
-    return null;
-  }
-
   ContractorEditProfileBloc(this.respository)
       : super(ContractorEditProfileState.initial()) {
     on<ContractorEditProfileEvent>((event, emit) async {

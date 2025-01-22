@@ -78,6 +78,8 @@ class ApiConstants {
   static String employerPaymentHistory = 'employer_payment_history';
   static String employerInvoices = 'employer_invoices';
   static String employerMonthlyStatements = 'employer_monthly_statements';
+  static String contractorGetBalance = 'contractor_get_balance';
+  static String contractorWallet = 'contractor_wallet';
 
   /// Stripe doc
   static String stripeDocument = 'stripe_document';

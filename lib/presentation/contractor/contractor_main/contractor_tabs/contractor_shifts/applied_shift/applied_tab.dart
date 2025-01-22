@@ -127,6 +127,18 @@ class AppliedTab extends StatelessWidget {
                                       textColor: AppColors.redAccent,
                                     ),
                                   ),
+                                ] else if (shift.deleteAt == true) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .employerHaveDeclinedThisShift,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
+                                    ),
+                                  ),
                                 ] else if (shift.revoke_status == 3) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(

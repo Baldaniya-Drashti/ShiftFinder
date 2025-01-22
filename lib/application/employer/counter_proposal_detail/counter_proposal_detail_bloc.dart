@@ -200,17 +200,13 @@ class CounterProposalDetailBloc
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: getSize(30),
-                        ),
+                        SizedBox(height: getSize(30)),
                         BaseText(
                           text: "Counter Propose",
                           fontSize: 22,
                           fontFamily: 'Aclonica',
                         ),
-                        SizedBox(
-                          height: getSize(10),
-                        ),
+                        SizedBox(height: getSize(10)),
                         BaseText(
                           text: StringConstant.counterProposalExistingValueDesc,
                           fontSize: 14,
@@ -269,26 +265,40 @@ class CounterProposalDetailBloc
                 failureOrSuccess =
                     await _mainFacade.sendEmployerApplicantsCounterPropose(
                   id: state.data.id ?? -1,
-                  counterRateHour: (state.data.proposed_hourly_rate ?? 0.0),
+                  // id: state.data.id ?? -1,
+                  counterRateHour: (state.rateHour.isValid())
+                      ? num.parse(state.rateHour.getValue())
+                      : (state.data.proposed_hourly_rate ?? 0.0),
                   commuteAllowanceType: state.data.commute_allowance_type ?? -1,
                   accommodationAllowanceType:
                       state.data.accommodation_allowance_type ?? -1,
                   counterCommuteAllowance: (state.data.commute_allowance_type ==
                           1)
-                      ? (state.data.proposed_commute_allowance_rate ?? 0.0)
+                      ? (state.commuteRate.isValid())
+                          ? num.parse(state.commuteRate.getValue())
+                          : (state.data.proposed_commute_allowance_rate ?? 0.0)
                       : (state.data.commute_allowance_type == 2)
-                          ? (state.data.proposed_commute_allowance_hour_id ??
-                              -1)
+                          ? (state.commuteHour.isValid())
+                              ? getAccomdationHourId(
+                                  state, state.commuteHour.getValue() ?? "")
+                              : (state.data
+                                      .proposed_commute_allowance_hour_id ??
+                                  -1)
                           : 0,
                   counterAccommodationAllowance: (state
                               .data.accommodation_allowance_type ==
                           1)
-                      ? (state.data.proposed_accommodation_allowance_rate ??
-                          0.0)
+                      ? (state.accomdationRate.isValid())
+                          ? num.parse(state.accomdationRate.getValue())
+                          : (state.data.proposed_accommodation_allowance_rate ??
+                              0.0)
                       : (state.data.accommodation_allowance_type == 2)
-                          ? (state.data
-                                  .proposed_accommodation_allowance_hour_id ??
-                              -1)
+                          ? (state.accomdationHour.isValid())
+                              ? getAccomdationHourId(
+                                  state, state.accomdationHour.getValue() ?? "")
+                              : (state.data
+                                      .proposed_accommodation_allowance_hour_id ??
+                                  -1)
                           : 0,
                 );
                 emit(state.copyWith(postDataLoading: false));

@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -198,6 +199,10 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
               ),
             );
           } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
             emit(
               state.copyWith(
                 isSubmitting: false,

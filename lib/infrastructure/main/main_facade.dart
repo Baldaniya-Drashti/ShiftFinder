@@ -12,6 +12,8 @@ import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/account/account_repository.dart';
+import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/chat/chat_response.dart';
@@ -2746,6 +2748,78 @@ class MainFacade implements IMainFacade {
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, GetBalanceDTO>> getAvailableBalanceApi() async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.contractorGetBalance,
+      );
+      if (res != null) {
+        final data = GetBalanceDTO.fromJson(res.data);
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getWalletListAPI({
+    int? filterType,
+    String? startDate,
+    String? endDate,
+    int? page,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'filter_type': filterType,
+        'start_date': startDate,
+        'end_date': endDate,
+        'page': page,
+        'perPage': _perPage,
+      };
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.getMethod(ApiConstants.contractorWallet,
+          queryParameters: mapData);
+      if (res != null) {
+        // var account = res.data as List<dynamic>;
+        // var data = account.map((e) => ContractorWalletDTO.fromJson(e)).toList();
+        // print("Get Wallet List Response->  $data");
+
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
         if (commonRespose.dioMessage != null) {
           return left(
               MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor_earning/contractor_wallet_view.dart';
@@ -19,7 +20,7 @@ class ContractorWithdrawPaymentView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "Withdraw Payment",
+        title: StringConstant.withdrawPayment,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -33,7 +34,10 @@ class ContractorWithdrawPaymentView extends StatelessWidget {
               width: 80,
             ),
             Gap(16),
-            BaseText(text: "Enter Amount to Withdraw", fontWeight: FontWeight.w500, fontSize: 12),
+            BaseText(
+                text: "Enter Amount to Withdraw",
+                fontWeight: FontWeight.w500,
+                fontSize: 12),
             IntrinsicWidth(
               child: Row(
                 children: [
@@ -49,17 +53,25 @@ class ContractorWithdrawPaymentView extends StatelessWidget {
                         AppDialog.showSuccess(
                           context,
                           title: "Withdraw Successful!",
-                          image: Image.asset(PngImageConstants.withdrawDialogImage),
-                          infoMessage: "Payment successfully deposited to your bank account. Thank you for using ShiftFinder!",
+                          image: Image.asset(
+                              PngImageConstants.withdrawDialogImage),
+                          infoMessage:
+                              "Payment successfully deposited to your bank account. Thank you for using ShiftFinder!",
                         );
                       },
                       autofocus: true,
                       cursorColor: AppColors.green,
                       cursorHeight: 35,
-                      style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.green, fontSize: 35),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.green,
+                          fontSize: 35),
                       controller: TextEditingController(),
                       decoration: InputDecoration(
-                        hintStyle: TextStyle(fontWeight: FontWeight.w600, color: AppColors.green.withOpacity(0.4), fontSize: 35),
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.green.withOpacity(0.4),
+                            fontSize: 35),
                         hintText: "0.00",
                         focusedBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,

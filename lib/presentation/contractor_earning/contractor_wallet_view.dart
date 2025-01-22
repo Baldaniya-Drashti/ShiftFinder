@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_wallet/contractor_wallet_bloc.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
@@ -24,7 +30,9 @@ class ContractorWalletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ContractorWalletBloc>(),
+      create: (context) => getIt<ContractorWalletBloc>()
+        ..add(ContractorWalletEvent.getAvailableBalance())
+        ..add(ContractorWalletEvent.getWalletList(true, context)),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: CommonAppBar(
@@ -33,85 +41,136 @@ class ContractorWalletView extends StatelessWidget {
           ),
           body: BlocBuilder<ContractorWalletBloc, ContractorWalletState>(
             builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.all(getSize(16)),
-                child: CustomScrollView(
-                  slivers: [
-                    if (state.initialWalletFilter.id != 1) ...[
-                      SliverToBoxAdapter(
-                        child: WalletInfoWithDifferentLayout(),
-                      ),
-                      SliverGap(12)
-                    ],
-                    SliverToBoxAdapter(
-                      child: BlocSelector<ContractorWalletBloc,
-                          ContractorWalletState, WalletDropdownModel>(
-                        selector: (state) => state.initialWalletFilter,
-                        builder: (context, initialWalletFilter) {
-                          return WalletDropdownField(
-                            value: initialWalletFilter,
-                            onChanged: (value) {
-                              context.read<ContractorWalletBloc>().add(
-                                  ContractorWalletEvent.onFilterChanged(
-                                      value: value));
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    SliverGap(20),
-                    if (state.initialWalletFilter.id == 1) ...[
-                      SliverToBoxAdapter(
-                        child: WalletInfoSection(),
-                      ),
-                      SliverGap(20),
-                    ] else ...[
-                      SliverToBoxAdapter(
-                        child: Material(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: _WalletInfoItem(
-                              icon: SvgImageConstant.availableBalance,
-                              label: StringConstant.availableBalance,
-                              balance: "\$632",
-                            ),
-                          ),
-                        ),
-                      ),
-                      SliverGap(18),
-                    ],
-                    SliverToBoxAdapter(
-                      child: DateRangePickerTile(
-                        selectedDate: state.selectedDateTime,
-                        label: StringConstant.period,
-                        onDateSelected: (value) {
-                          context.read<ContractorWalletBloc>().add(
-                              ContractorWalletEvent.onDateSelected(
-                                  dates: value));
-                        },
-                      ),
-                    ),
-                    SliverGap(16),
-                    _TransactionListView(),
-                    if (state.initialWalletFilter.id == 1)
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 22),
-                          child: CommonButton(
-                            onPressed: () {
-                              context.router.push(PageRouteInfo(
-                                  ContractorWithdrawPaymentView.name));
-                            },
-                            buttonText: "Withdraw Payment",
-                          ),
-                        ),
-                      )
-                  ],
-                ),
-              );
+              return (state.isLoading)
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : PaginatedListView(
+                      onRefresh: () {
+                        context.read<ContractorWalletBloc>().add(
+                            ContractorWalletEvent.getWalletList(true, context));
+                      },
+                      refreshController: context
+                          .read<ContractorWalletBloc>()
+                          .refreshController,
+                      onLoading: () {
+                        context.read<ContractorWalletBloc>().add(
+                            ContractorWalletEvent.getWalletList(
+                                false, context));
+                      },
+                      isNoDataFound: false,
+                      child: state.isLoading
+                          ? CenterLoadingIndicator(isOnlyLoader: true)
+                          : state.isErrorInApi
+                              ? Center(
+                                  child: BaseText(
+                                      text: StringConstant.somethindWentWrong),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.all(getSize(16)),
+                                  child: CustomScrollView(
+                                    slivers: [
+                                      if (state.initialWalletFilter.id !=
+                                          0) ...[
+                                        SliverToBoxAdapter(
+                                          child: WalletInfoWithDifferentLayout(
+                                            balance: state.currentBalance,
+                                          ),
+                                        ),
+                                        SliverGap(getSize(12))
+                                      ],
+                                      SliverToBoxAdapter(
+                                        child: BlocSelector<
+                                            ContractorWalletBloc,
+                                            ContractorWalletState,
+                                            WalletDropdownModel>(
+                                          selector: (state) =>
+                                              state.initialWalletFilter,
+                                          builder:
+                                              (context, initialWalletFilter) {
+                                            return WalletDropdownField(
+                                              value: initialWalletFilter,
+                                              onChanged: (value) {
+                                                context
+                                                    .read<
+                                                        ContractorWalletBloc>()
+                                                    .add(ContractorWalletEvent
+                                                        .onFilterChanged(
+                                                            context,
+                                                            value: value));
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      SliverGap(20),
+                                      if (state.initialWalletFilter.id ==
+                                          0) ...[
+                                        SliverToBoxAdapter(
+                                          child: WalletInfoSection(
+                                            balance: state.currentBalance,
+                                          ),
+                                        ),
+                                        SliverGap(getSize(20)),
+                                      ] else ...[
+                                        SliverToBoxAdapter(
+                                          child: Material(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: AppColors.white,
+                                            child: Padding(
+                                              padding:
+                                                  EdgeInsets.all(getSize(20)),
+                                              child: _WalletInfoItem(
+                                                icon: SvgImageConstant
+                                                    .availableBalance,
+                                                label: StringConstant
+                                                    .availableBalance,
+                                                balance:
+                                                    "\$${state.currentBalance?.available_balance ?? 0.0}",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SliverGap(18),
+                                      ],
+                                      SliverToBoxAdapter(
+                                        child: DateRangePickerTile(
+                                          selectedDate: state.selectedDateTime,
+                                          label: StringConstant.period,
+                                          onDateSelected: (value) {
+                                            context
+                                                .read<ContractorWalletBloc>()
+                                                .add(ContractorWalletEvent
+                                                    .onDateSelected(context,
+                                                        dates: value));
+                                          },
+                                        ),
+                                      ),
+                                      if (!state.noDataFound) ...[
+                                        SliverGap(getSize(16)),
+                                        TransactionListView(
+                                            walletList: state.walletList),
+                                      ],
+                                      if (state.initialWalletFilter.id == 0)
+                                        SliverToBoxAdapter(
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: getSize(10),
+                                                vertical: getSize(22)),
+                                            child: CommonButton(
+                                              onPressed: () {
+                                                context.router.push(PageRouteInfo(
+                                                    ContractorWithdrawPaymentView
+                                                        .name));
+                                              },
+                                              buttonText: StringConstant
+                                                  .withdrawPayment,
+                                            ),
+                                          ),
+                                        )
+                                    ],
+                                  ),
+                                ),
+                    );
             },
           ),
         );
@@ -121,7 +180,8 @@ class ContractorWalletView extends StatelessWidget {
 }
 
 class WalletInfoWithDifferentLayout extends StatelessWidget {
-  const WalletInfoWithDifferentLayout({super.key});
+  GetBalanceDTO? balance;
+  WalletInfoWithDifferentLayout({super.key, this.balance});
 
   @override
   Widget build(BuildContext context) {
@@ -134,30 +194,29 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _WalletInfoItem(
-              label: "Available Balance",
-              balance: "\$632",
+              label: StringConstant.availableBalance,
+              balance: "\$${balance?.available_balance ?? 0.0}",
             ),
-            Gap(16),
+            Gap(getSize(16)),
             _WalletInfoItem(
-              label: "Available Withdrawable Balance",
-              balance: "\$200",
+              label: StringConstant.availableWithdrawableBalance,
+              balance: "\$${balance?.available_withdrawable_balance ?? 0.0}",
               color: AppColors.green,
             ),
-            Gap(16),
+            Gap(getSize(16)),
             _WalletInfoItem(
-              label: "Last Deposit",
-              balance: "\$200",
+              label: StringConstant.lastDeposit,
+              balance: "\$${balance?.pending_balance ?? 0.0}",
               color: AppColors.redAccent,
             ),
-            Gap(24),
+            Gap(getSize(24)),
             CommonButton(
-              height: 45,
-              borderRadius: 5,
+              borderRadius: 7,
               onPressed: () {
                 context.router
                     .push(PageRouteInfo(ContractorWithdrawPaymentView.name));
               },
-              buttonText: "Withdraw Payment",
+              buttonText: StringConstant.withdrawPayment,
               buttonFontWeight: FontWeight.w400,
               buttonFontSize: 14,
             )
@@ -169,7 +228,8 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
 }
 
 class WalletInfoSection extends StatelessWidget {
-  const WalletInfoSection({super.key});
+  GetBalanceDTO? balance;
+  WalletInfoSection({super.key, this.balance});
 
   @override
   Widget build(BuildContext context) {
@@ -177,20 +237,20 @@ class WalletInfoSection extends StatelessWidget {
       color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             _WalletInfoItem(
               icon: SvgImageConstant.availableBalance,
-              label: "Available Balance",
-              balance: "\$632",
+              label: StringConstant.availableBalance,
+              balance: "\$${balance?.available_balance ?? 0.0}",
             ),
             Gap(16),
             _WalletInfoItem(
               icon: SvgImageConstant.availableWithdrawBalance,
-              label: "Available Withdrawable Balance",
-              balance: "\$200",
+              label: StringConstant.availableWithdrawableBalance,
+              balance: "\$${balance?.available_withdrawable_balance ?? 0.0}",
               color: AppColors.green,
             ),
           ],
@@ -257,18 +317,18 @@ class WalletDropdownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = <WalletDropdownModel>[
+    /*  final list = <WalletDropdownModel>[
       WalletDropdownModel(id: 1, label: "All Transactions"),
       WalletDropdownModel(id: 2, label: "Earnings"),
       WalletDropdownModel(id: 3, label: "Compensations"),
       WalletDropdownModel(id: 4, label: "Referrals"),
       WalletDropdownModel(id: 5, label: "Deposits"),
-    ];
+    ]; */
 
     return CustomDropdownField<WalletDropdownModel>(
-      label: "Filter",
+      label: StringConstant.filter,
       value: value,
-      items: list.map(
+      items: CommonList.walletList.map(
         (e) {
           return DropdownMenuItem<WalletDropdownModel>(
             value: e,
@@ -285,26 +345,38 @@ class WalletDropdownField extends StatelessWidget {
   }
 }
 
-class _TransactionListView extends StatelessWidget {
-  const _TransactionListView({super.key});
+class TransactionListView extends StatelessWidget {
+  List<ContractorWalletDTO> walletList;
+  TransactionListView({super.key, required this.walletList});
 
   @override
   Widget build(BuildContext context) {
     return SliverList.separated(
-      itemCount: 25,
+      itemCount: walletList.length,
       itemBuilder: (context, index) {
+        final wallet = walletList[index];
         return ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: SvgPicture.asset(SvgImageConstant.withdraw, height: 25),
+          leading: SvgPicture.asset(
+            (wallet.type == 4)
+                ? SvgImageConstant.withdraw
+                : SvgImageConstant.deposited,
+            height: 25,
+          ),
           title: Transform.translate(
             offset: Offset(-8, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                BaseText(text: "12 May, 2024", fontSize: 10),
                 BaseText(
-                  text: "Deposited to Bank",
+                    text: DateFormat("dd MMM, yyyy").format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (wallet.created ?? -1) * 1000)),
+                    fontSize: 10),
+                BaseText(
+                  text:
+                      "${(wallet.type == 1 || wallet.type == 2) ? wallet.company_name : wallet.filter_name}",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
@@ -312,14 +384,18 @@ class _TransactionListView extends StatelessWidget {
             ),
           ),
           trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                  text: "+\$560.35",
-                  textColor: AppColors.green,
+                  text: "\$${(wallet.type == 4) ? "-" : ""}${wallet.amount}",
+                  textColor: (wallet.type == 4)
+                      ? AppColors.redAccent
+                      : AppColors.green,
                   fontSize: 14,
                   fontWeight: FontWeight.w600),
-              BaseText(text: "Shift Earnings", fontSize: 10),
+              if (wallet.type == 1 || wallet.type == 2)
+                BaseText(text: wallet.filter_name ?? "", fontSize: 10),
             ],
           ),
         );

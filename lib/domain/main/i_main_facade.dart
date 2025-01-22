@@ -3,6 +3,8 @@ import 'package:shift/application/faq/faq_bloc.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
@@ -358,4 +360,13 @@ abstract class IMainFacade {
   });
 
   Future<Either<MainFailure, List<SkillDTO>>> getScriptVolumeListApi();
+
+  Future<Either<MainFailure, GetBalanceDTO>> getAvailableBalanceApi();
+
+  Future<Either<MainFailure, CommonResponse>> getWalletListAPI({
+    int? filterType,
+    String? startDate,
+    String? endDate,
+    int? page,
+  });
 }

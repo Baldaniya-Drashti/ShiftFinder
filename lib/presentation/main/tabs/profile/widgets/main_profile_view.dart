@@ -87,15 +87,15 @@ class MainProfileView extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       CommonButton(
                         onPressed: () {
-                          // showUnderDevelopment(context);
+                          showUnderDevelopment(context);
 
-                          context.router
+                          /* context.router
                               .push(PageRouteInfo(EditProfileView.name))
                               .then((value) {
                             if (value != null) {
                               context.read<AccountCubit>().getAccount();
                             }
-                          });
+                          }); */
                         },
                         buttonText: StringConstant.editProfile,
                         buttonFontSize: 10,

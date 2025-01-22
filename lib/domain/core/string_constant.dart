@@ -562,6 +562,8 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String employerHaveDeclinedThisShift =
+      "Employer have declined this shift";
   static const String youHaveCancelledThisShiftApplication =
       "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
@@ -721,6 +723,12 @@ class StringConstant {
   static const String estimatedTotalEarnings = "Estimated Total Earnings";
   static const String tax = "Tax";
   static const String availableBalance = "Available Balance";
+  static const String availableWithdrawableBalance =
+      "Available Withdrawable Balance";
+  static const String lastDeposit = "Last Deposit";
+  static const String withdrawPayment = "Withdraw Payment";
+  static const String depositedToBank = "Deposited to Bank";
+  static const String shiftEarnings = "Shift Earnings";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
@@ -770,6 +778,8 @@ class StringConstant {
   static const String pleaseEnterOtp = "Please enter otp";
   static const String otpShouldBe4Digit = "Otp should be 4 digit";
   static const String pleaseEnterNewPassword = "Please enter new password";
+  static const String pleaseTryDifferentPasswordThenCurrent =
+      "Please choose a password different from the current one.";
   static const String pleaseEnterPassword = "Please enter password";
   static const String pleaseEnterCorrectPassword =
       "Please enter correct password";
@@ -778,7 +788,7 @@ class StringConstant {
   static const String passwordShouldBeMinimum8Digit =
       "Password should be minimum 8 digit";
   static const String invalidPasswordErrorText =
-      "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special symbol";
+      "Password must contain at least one uppercase letter, one lowercase letter, one digit and one special symbol";
   static const String pleaseEnterConfirmPassword =
       "Please enter confirm password";
   static const String bothPasswordsAreDoesNotMatch =
