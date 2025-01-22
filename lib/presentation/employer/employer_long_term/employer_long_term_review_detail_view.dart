@@ -13,9 +13,13 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -55,13 +59,106 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   _buildShiftSchedule(context),
                   _buildLanguageRequirement(context),
                   _buildLocationDetail(context),
-                  _buildBargainingUnit(context),
-                  _buildOnCall(context),
-                  _buildNumberOfVacancy(context),
+                  if (employerLongTermSuccessDto.on_call_included == 1)
+                    _buildCommonDividerTile(
+                      context,
+                      title: 'On-Call',
+                      value: "This contract may include on-call",
+                    ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Job Description',
+                    value: employerLongTermSuccessDto.job_description ?? "",
+                  ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Responsibilities',
+                    value: employerLongTermSuccessDto.responsibilities ?? "",
+                  ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Qualifications',
+                    value: employerLongTermSuccessDto.qualifications ?? "",
+                  ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Licenses/Certifications',
+                    value: employerLongTermSuccessDto.licenses_certifications ?? "",
+                  ),
+                  if (employerLongTermSuccessDto.terms_document != null || employerLongTermSuccessDto.terms != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: BaseText(
+                            text: "Contract Terms",
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            textColor: AppColors.black.withOpacity(0.7),
+                          ),
+                        ),
+                        Gap(6),
+                        Material(
+                          color: AppColors.grey04,
+                          borderRadius: BorderRadius.circular(getSize(20)),
+                          child: Padding(
+                            padding: EdgeInsets.all(getSize(16)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (employerLongTermSuccessDto.terms != null) ...[
+                                  BaseText(text: "Terms", fontSize: 13),
+                                  Gap(getSize(12)),
+                                  CustomTextField(
+                                    hintText: "Type Here...",
+                                    controller: TextEditingController(text: employerLongTermSuccessDto.terms ?? ""),
+                                    maxLines: 3,
+                                    readOnly: true,
+                                  ),
+                                  Gap(getSize(16)),
+                                ],
+                                if (employerLongTermSuccessDto.terms_document != null) ...[
+                                  BaseText(text: "Upload Document", fontSize: 13),
+                                  Gap(8),
+                                  selectedImage(context, employerLongTermSuccessDto.terms_document!),
+                                ]
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Onboarding Process',
+                    value: employerLongTermSuccessDto.onboarding_process ?? "",
+                  ),
+                  _buildCommonDividerTile(
+                    context,
+                    title: 'Disclaimer',
+                    value:
+                        "By proceeding, I confirm that we, the employer, are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
+                  ),
+                  if ((employerLongTermSuccessDto.teams ?? []).isNotEmpty) _buildSelectedTeams(context),
+                  _buildCheckListTile(
+                    context,
+                    value: employerLongTermSuccessDto.on_call_included == 1,
+                    onChanged: (value) {},
+                    label: "This contract may include on call.",
+                  ),
+                  _buildCheckListTile(
+                    context,
+                    value: employerLongTermSuccessDto.save_template_status == 1,
+                    onChanged: (value) {},
+                    label: "Save this as a template for future posting.",
+                  ),
                 ],
               ),
             ),
-            Gap(22),
+            Gap(28),
             _buildSubmitButton(context)
           ],
         ),
@@ -69,10 +166,91 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
     );
   }
 
+  Widget _buildCheckListTile(
+    BuildContext context, {
+    required bool value,
+    required void Function(bool value) onChanged,
+    required String label,
+    EdgeInsets? padding,
+    Widget? trailing,
+  }) {
+    return Container(
+      padding: padding ??
+          EdgeInsets.symmetric(
+            horizontal: getSize(20),
+            vertical: getSize(10),
+          ),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: GestureDetector(
+        onTap: () {
+          onChanged(!value);
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: value,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  onChanged(value!);
+                },
+              ),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Expanded(
+              child: BaseText(
+                text: label,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                maxLines: 15,
+              ),
+            ),
+            if (trailing != null) trailing
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget selectedImage(
+    BuildContext context,
+    String selectedFile,
+  ) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: ShowPickedFile(
+        showBadge: false,
+        selectedFile: selectedFile,
+        mainBoxHeight: getSize(300),
+        childBoxHeight: getSize(300),
+        childBoxWidth: double.maxFinite,
+      ),
+    );
+  }
+
   Widget _buildSubmitButton(BuildContext context) {
     return CommonButton(
-      onPressed: () {},
-      buttonText: "Submit",
+      onPressed: () {
+        context.router.push(
+          PageRouteInfo(
+            EmployerLongTermPayableView.name,
+            args: EmployerLongTermPayableViewArgs(employerLongTermSuccessDto: employerLongTermSuccessDto),
+          ),
+        );
+      },
+      buttonText: "Continue",
     );
   }
 
@@ -98,11 +276,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: getSize(10)),
             child: SvgPicture.asset(SvgImageConstant.verticalLine),
           ),
-          rateWithBGIcon(
-              svgIcon: SvgImageConstant.clockWithOuterLine,
-              title: "Total Months",
-              value: "${employerLongTermSuccessDto.total_months ?? ""}",
-              hasMonthLabel: true),
+          Flexible(
+            child: rateWithBGIcon(
+                svgIcon: SvgImageConstant.clockWithOuterLine,
+                title: "Total Months",
+                value: "${employerLongTermSuccessDto.total_months ?? ""}",
+                hasMonthLabel: true),
+          ),
         ],
       ),
     );
@@ -137,17 +317,19 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               children: [
                 BaseText(
                   text: value,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black,
                 ),
                 if (hasMonthLabel) ...[
                   Gap(getSize(4)),
-                  BaseText(
-                    text: "Months",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    textColor: AppColors.black,
+                  Flexible(
+                    child: BaseText(
+                      text: "Months",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      textColor: AppColors.black,
+                    ),
                   ),
                 ],
               ],
@@ -211,8 +393,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text:
-                      "(${getIndustryText(employerLongTermSuccessDto.industry ?? 0)} - ${employerLongTermSuccessDto.listing_id})",
+                  text: "(${getIndustryText(employerLongTermSuccessDto.industry ?? 0)} - ${employerLongTermSuccessDto.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -248,30 +429,6 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildPositionDescription(BuildContext context) {
-    return Material(
-      color: AppColors.scaffoldColor,
-      borderRadius: BorderRadius.circular(10),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
-            Divider(),
-            BaseText(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              text:
-                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildApplicationInformation(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
@@ -300,17 +457,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         children: [
                           BaseText(text: "Start Date", fontSize: 10),
                           Text.rich(
-                            TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: employerLongTermSuccessDto.start_date?.year.toString(),
-                                    style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                                  )
-                                ],
-                                text:
-                                    "${DateFormat("dd MMM").format(employerLongTermSuccessDto.start_date ?? DateTime.now())}, "),
-                            style:
-                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(children: [
+                              TextSpan(
+                                text: employerLongTermSuccessDto.start_date?.year.toString(),
+                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                              )
+                            ], text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.start_date ?? DateTime.now())}, "),
+                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -339,11 +492,9 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                   style: TextStyle(color: AppColors.green.withOpacity(0.5)),
                                 )
                               ],
-                              text:
-                                  "${DateFormat("dd MMM").format(employerLongTermSuccessDto.end_date ?? DateTime.now())}, ",
+                              text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.end_date ?? DateTime.now())}, ",
                             ),
-                            style:
-                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -365,17 +516,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         children: [
                           BaseText(text: "Application Deadline", fontSize: 10),
                           Text.rich(
-                            TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: employerLongTermSuccessDto.application_deadline?.year.toString(),
-                                    style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                                  )
-                                ],
-                                text:
-                                    "${DateFormat("dd MMM").format(employerLongTermSuccessDto.application_deadline ?? DateTime.now())}, "),
-                            style:
-                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(children: [
+                              TextSpan(
+                                text: employerLongTermSuccessDto.application_deadline?.year.toString(),
+                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                              )
+                            ], text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.application_deadline ?? DateTime.now())}, "),
+                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -409,14 +556,14 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Estimated Weekly Hours", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(text: "Estimated Weekly Hours", fontSize: 13, fontWeight: FontWeight.w500),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: BaseText(
                       text: formatTimeOfDay(employerLongTermSuccessDto.estimated_weekly_hours ?? TimeOfDay.now()),
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600),
                 ),
                 SvgPicture.asset(
@@ -433,6 +580,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
   }
 
   Widget _buildShiftSchedule(BuildContext context) {
+    final list = getShiftScheduleFromId(employerLongTermSuccessDto.shift_schedule_type ?? "");
+
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -450,14 +599,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 12,
                 children: List.generate(
-                  4,
+                  list.length,
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
-                        text: "Morning",
+                        text: list[index],
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -473,18 +621,20 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
   }
 
   Widget _buildLanguageRequirement(BuildContext context) {
+    final list = employerLongTermSuccessDto.languages_list ?? [];
+    final language = list.map((e) => e.name).join(", ");
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(text: "Language Requirements", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
             Gap(3),
-            BaseText(text: "English, Hindi", fontSize: 14, textColor: AppColors.green)
+            BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
         ),
       ),
@@ -492,6 +642,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
   }
 
   Widget _buildLocationDetail(BuildContext context) {
+    final location = employerLongTermSuccessDto.location;
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -506,7 +657,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             Gap(4),
             BaseText(text: "Location", fontSize: 12, textColor: AppColors.primaryColor),
             Gap(4),
-            BaseText(text: "2464 Royal Ln. Mesa, New Jersey 45463", fontSize: 14),
+            BaseText(text: location?.location ?? "", fontSize: 14),
             Gap(10),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -516,57 +667,14 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               ],
             ),
             Gap(4),
-            BaseText(text: "X-ray", fontSize: 14),
+            BaseText(text: employerLongTermSuccessDto.location_unit ?? "", fontSize: 14),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBargainingUnit(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(10),
-      color: AppColors.scaffoldColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            BaseText(text: "Union/Bargaining Unit", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
-            Divider(),
-            Gap(4),
-            BaseText(text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOnCall(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(10),
-      color: AppColors.scaffoldColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            BaseText(text: "On-Call", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
-            Divider(),
-            Gap(4),
-            BaseText(text: "This position may include on-call", fontSize: 14, fontWeight: FontWeight.w500),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBulletPointsList(
-    BuildContext context, {
-    required String title,
-  }) {
+  Widget _buildCommonDividerTile(BuildContext context, {required String title, required String value}) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -579,90 +687,59 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             BaseText(text: title, fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            ...List.generate(
-              max(0, (4 * 2) - 1),
-              (initialIndex) {
-                final int index = initialIndex ~/ 2;
-                if (initialIndex.isEven) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircleAvatar(radius: 3, backgroundColor: AppColors.black),
-                      Gap(8),
-                      Expanded(
-                        child: BaseText(
-                          maxLines: 1,
-                          text: "Lorem ipsum dolor sit amet,gurte to him",
-                          fontSize: 13,
-                        ),
-                      )
-                    ],
-                  );
-                } else {
-                  return Gap(4);
-                }
-              },
-            )
+            BaseText(
+              text: value,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              maxLines: 10,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNumberOfVacancy(BuildContext context) {
+  Widget _buildSelectedTeams(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-        child: Row(
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w600),
+            BaseText(text: "Selected Teams", fontSize: 14, fontWeight: FontWeight.w500),
+            Gap(getSize(10)),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.all(getSize(14)),
+                child: BaseText(text: "${employerLongTermSuccessDto.total_teams ?? 0}", fontSize: 14, fontWeight: FontWeight.w500),
+              ),
             ),
-            BaseText(text: "05", fontSize: 14, textColor: AppColors.primaryColor),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCheckListTile(
-    BuildContext context, {
-    required bool value,
-    required void Function(bool value) onChanged,
-    required String label,
-  }) {
-    return Material(
-      color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(10),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0).copyWith(bottom: 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Transform.translate(
-              offset: Offset(0, -6),
-              child: Transform.scale(
-                scale: 0.9,
-                child: Checkbox(
-                  activeColor: AppColors.primaryColor,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
-                  side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                  value: value,
-                  onChanged: (value) {
-                    if (value == null) return;
-                    onChanged(value);
+            Gap(getSize(20)),
+            SizedBox(
+              width: double.maxFinite,
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: List.generate(
+                  (employerLongTermSuccessDto.teams ?? []).length,
+                  (index) {
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      child: BaseText(
+                        text: employerLongTermSuccessDto.teams?[index].name ?? "",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
                   },
                 ),
               ),
-            ),
-            Gap(8),
-            Expanded(
-              child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
             )
           ],
         ),

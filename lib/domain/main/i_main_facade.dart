@@ -396,4 +396,18 @@ abstract class IMainFacade {
     required int positionsType,
     required int page,
   });
+
+  Future<Either<MainFailure, CommonResponse>> updateLongTermStatus({
+    required int id,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPositionApplicants({
+    required int id,
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> deleteLongTermPost({
+    required int id,
+  });
+
 }

@@ -107,8 +107,12 @@ import 'package:shift/application/employer/employer_long_term_add/employer_long_
     as _i165;
 import 'package:shift/application/employer/employer_long_term_confirmation/employer_long_term_confirmation_bloc.dart'
     as _i1042;
+import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart'
+    as _i918;
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
     as _i218;
+import 'package:shift/application/employer/employer_long_term_view_applicant/employer_long_term_view_applicant_bloc.dart'
+    as _i1069;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
@@ -203,8 +207,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
+    gh.factory<_i1069.EmployerLongTermViewApplicantBloc>(() =>
+        _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i89.EmployerLongTermBloc>(
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i918.EmployerLongTermPayableBloc>(
+        () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),

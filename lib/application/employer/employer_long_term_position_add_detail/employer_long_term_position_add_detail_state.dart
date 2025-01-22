@@ -16,6 +16,6 @@ class EmployerLongTermPositionAddDetailState with _$EmployerLongTermPositionAddD
   }) = _EmployerLongTermPositionAddDetailState;
 
   factory EmployerLongTermPositionAddDetailState.initial() => EmployerLongTermPositionAddDetailState(
-        requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),
+        requiredSoftwareSkillChipList: ListInputEmptyOrNot(["Morning"]),
       );
 }

@@ -17,6 +17,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 
 import '../../../../domain/core/string_constant.dart';
@@ -88,7 +89,14 @@ class OpenPositionTabView extends StatelessWidget {
                                 _buildTotalApplication(
                                   context,
                                   employer: data,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    context.router.push(
+                                      PageRouteInfo(
+                                        EmployerLongTermApplicantView.name,
+                                        args: EmployerLongTermApplicantViewArgs(id: data.id ?? -1),
+                                      ),
+                                    );
+                                  },
                                 )
                               ],
                             ),
@@ -159,7 +167,12 @@ class OpenPositionTabView extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              AppDialog.showCommonDialog(context: context,title: "");
+              context.read<EmployerLongTermBloc>().add(
+                    EmployerLongTermEvent.deletePost(context: context, id: employer.id ?? -1),
+                  );
+            },
             child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
           ),
           Gap(getSize(16)),

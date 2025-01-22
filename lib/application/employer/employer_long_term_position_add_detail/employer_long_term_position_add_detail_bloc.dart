@@ -9,6 +9,7 @@ import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/empl
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/helper_function.dart';
 
 part 'employer_long_term_position_add_detail_event.dart';
 
@@ -17,8 +18,7 @@ part 'employer_long_term_position_add_detail_state.dart';
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc
-    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
+class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
   EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
@@ -79,6 +79,7 @@ class EmployerLongTermPositionAddDetailBloc
             ),
           );
         }, onContinue: (OnContinue value) {
+          print("=> ${state.requiredSoftwareSkillChipList.getValue()}");
           final postShift = state.postShiftDto;
           final employer = state.employerLongTermAddDetailDto.copyWith(
             job_description: value.jobDescription,
@@ -87,8 +88,9 @@ class EmployerLongTermPositionAddDetailBloc
             qualifications: value.qualification,
             licenses_certifications: value.licences,
             onboarding_process: value.onboarding,
-            shift_schedule_type: state.selectedShiftSchedule?.id,
+            shift_schedule_type: getShiftScheduleId(state.requiredSoftwareSkillChipList.getValue()),
             number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
+            terms: value.terms,
           );
           print("employer => ${employer.toJson()}");
 

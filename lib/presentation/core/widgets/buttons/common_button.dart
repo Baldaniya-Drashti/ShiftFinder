@@ -80,18 +80,15 @@ class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:
-          widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
+      onPressed: widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
       style: ButtonStyle(
-        side: WidgetStatePropertyAll(
-            BorderSide(color: widget.borderColor ?? Colors.transparent)),
+        side: WidgetStatePropertyAll(BorderSide(color: widget.borderColor ?? Colors.transparent)),
         elevation: WidgetStatePropertyAll(0),
         // shadowColor: WidgetStatePropertyAll(Colors.transparent),
         // splashFactory: NoSplash.splashFactory,
         overlayColor: WidgetStatePropertyAll(AppColors.grey04),
 
-        backgroundColor: WidgetStatePropertyAll(
-            widget.backgroundColor ?? AppColors.primaryColor),
+        backgroundColor: WidgetStatePropertyAll(widget.backgroundColor ?? AppColors.primaryColor),
         // disabledBackgroundColor:widget.backgroundColor ?? AppColors.primaryColor,
         padding: WidgetStatePropertyAll(EdgeInsets.zero),
         fixedSize: WidgetStatePropertyAll(Size(
@@ -133,8 +130,7 @@ class _CommonButtonState extends State<CommonButton> {
   }
 }
 
-Widget documentSkipButton(BuildContext context,
-    {required VoidCallback onPressed}) {
+Widget documentSkipButton(BuildContext context, {required VoidCallback onPressed}) {
   return Align(
     alignment: Alignment.center,
     child: CommonButton(
@@ -163,6 +159,7 @@ class CommonMaterialButton extends StatelessWidget {
     this.textStyle,
     this.radius,
     this.padding,
+    this.borderColor,
   }) : _icon = null;
 
   const CommonMaterialButton.icon({
@@ -170,6 +167,7 @@ class CommonMaterialButton extends StatelessWidget {
     required this.onPressed,
     required this.label,
     required final Widget icon,
+    this.borderColor,
     this.height,
     this.width,
     this.backgroundColor,
@@ -185,16 +183,15 @@ class CommonMaterialButton extends StatelessWidget {
   final Color? backgroundColor;
   final TextStyle? textStyle;
   final double? radius;
+  final Color? borderColor;
   final EdgeInsets? padding;
   final Widget? _icon;
 
   @override
   Widget build(BuildContext context) {
     Widget child;
-    final baseTextStyle =
-        TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
-    final Widget title =
-        BaseText(text: label, style: textStyle ?? baseTextStyle);
+    final baseTextStyle = TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
+    final Widget title = BaseText(text: label, style: textStyle ?? baseTextStyle);
 
     if (_icon != null) {
       child = Row(
@@ -209,9 +206,12 @@ class CommonMaterialButton extends StatelessWidget {
       height: height ?? 38,
       width: width ?? double.maxFinite,
       child: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius ?? 0.0),
+          side: BorderSide(color: borderColor ?? Colors.transparent),
+        ),
         color: backgroundColor ?? AppColors.primaryColor,
         elevation: 0.0,
-        borderRadius: BorderRadius.circular(radius ?? 0.0),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: InkWell(
           onTap: onPressed,

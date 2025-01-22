@@ -158,4 +158,6 @@ class ApiConstants {
   static String createLongFullTermPost  = 'create_long_full_term_post';
   static String contractorDashboardLongFullTermPost  = 'contractor_dashboard_long_full_term_post';
   static String employerLongFullTermApplicants  = 'employer_long_full_term_applicants';
+  static String employerUpdateLongFullPostTermStatus  = 'update_long_full_post_term_status';
+  static String deleteLongTermPost  = 'delete_long_full_term_post';
 }

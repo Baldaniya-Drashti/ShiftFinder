@@ -7,7 +7,7 @@ class EmployerLongTermViewApplicantState with _$EmployerLongTermViewApplicantSta
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
-    required List<dynamic> applicantsList,
+    required List<EmployerLongTermApplicantDto> applicantsList,
   }) = _EmployerLongTermViewApplicantState;
 
   factory EmployerLongTermViewApplicantState.initial() => EmployerLongTermViewApplicantState(

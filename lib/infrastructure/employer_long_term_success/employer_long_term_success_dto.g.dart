@@ -61,6 +61,7 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
       on_call_included: (json['on_call_included'] as num?)?.toInt() ?? 0,
       licenses_certifications: json['licenses_certifications'] as String?,
       terms_document: json['terms_document'] as String?,
+      terms: json['terms'] as String?,
       estimated_weekly_hours: const TimeConverter()
           .fromJson(json['estimated_weekly_hours'] as String?),
       share_team_status: (json['share_team_status'] as num?)?.toInt() ?? 0,
@@ -71,6 +72,10 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
       vacancie_type: (json['vacancie_type'] as num?)?.toInt() ?? 0,
       job_type: (json['job_type'] as num?)?.toInt(),
       industry: (json['industry'] as num?)?.toInt(),
+      total_teams: (json['total_teams'] as num?)?.toInt(),
+      teams: (json['teams'] as List<dynamic>?)
+          ?.map((e) => TeamDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
@@ -115,6 +120,7 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'on_call_included': instance.on_call_included,
       'licenses_certifications': instance.licenses_certifications,
       'terms_document': instance.terms_document,
+      'terms': instance.terms,
       'estimated_weekly_hours':
           const TimeConverter().toJson(instance.estimated_weekly_hours),
       'share_team_status': instance.share_team_status,
@@ -123,4 +129,6 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'vacancie_type': instance.vacancie_type,
       'job_type': instance.job_type,
       'industry': instance.industry,
+      'total_teams': instance.total_teams,
+      'teams': instance.teams,
     };

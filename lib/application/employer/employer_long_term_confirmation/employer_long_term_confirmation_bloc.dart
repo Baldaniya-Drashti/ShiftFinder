@@ -75,6 +75,8 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
           print(state.postShiftDTO.toJson());
           final employer = state.employerAddDetailDto;
           final postShift = state.postShiftDTO;
+
+          print("¢${state.selectedTeamList.join(",")}");
           final Map<String, dynamic> data = {
             "post_type": "1",
             "roles_list_id": postShift.roles_list_id,
@@ -87,10 +89,9 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             if (postShift.specialties_detail_other != null) "specialties_detail_other": postShift.specialties_detail_other,
             if (postShift.software_skill_other != null) "software_skill_other": postShift.software_skill_other,
             if (postShift.language_other != null) "language_other": postShift.language_other,
-            if (state.selectedTeamList.isNotEmpty) "team_id": state.selectedTeamList.join(","),
+            if (state.selectedTeamList.isNotEmpty) "team_id": state.selectedTeamList.map((e) => e.id).toList().join(","),
             ...employer.toJson(),
           };
-          print("=> ${data}");
           emit(state.copyWith(postDataLoading: true));
           final result = await _mainFacade.createLongFullTermPost(data: data);
           emit(state.copyWith(postDataLoading: false));

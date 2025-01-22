@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_open_position/employer_long_term_open_position_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'employer_long_term_event.dart';
 
@@ -23,7 +24,7 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
   final RefreshController filledPositionController = RefreshController();
 
   EmployerLongTermBloc(this._iMainFacade) : super(EmployerLongTermState.initial()) {
-    on<EmployerLongTermEvent>((event, emit)async {
+    on<EmployerLongTermEvent>((event, emit) async {
       await event.map(
         getEmployerFilledPosition: (value) async {
           if (value.refresh) {
@@ -76,6 +77,28 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
           final response = await _iMainFacade.employerLongTermDashboard(
             positionsType: 2,
             page: 2,
+          );
+        },
+        deletePost: (value) async {
+          final response = await _iMainFacade.deleteLongTermPost(
+            id: value.id,
+          );
+
+          response.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(value.context);
+            },
+            (r) {
+              List<EmployerLongTermOpenPositionDto> tempList = List.from(state.openPositionList);
+              tempList.removeWhere((element) => element.id == value.id);
+              emit(state.copyWith(openPositionList: tempList));
+            },
           );
         },
       );

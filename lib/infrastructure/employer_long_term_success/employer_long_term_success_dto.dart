@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 
 part 'employer_long_term_success_dto.freezed.dart';
 
@@ -49,6 +50,7 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     @Default(0) int? on_call_included,
     String? licenses_certifications,
     String? terms_document,
+    String? terms,
     @TimeConverter() TimeOfDay? estimated_weekly_hours,
     @Default(0) int? share_team_status,
     @Default(0) int? employer_payment_confirmation,
@@ -56,6 +58,8 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     @Default(0) int? vacancie_type,
     int? job_type,
     int? industry,
+    int? total_teams,
+    List<TeamDTO>? teams,
   }) = _EmployerLongTermSuccessDto;
 
   factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermSuccessDtoFromJson(json);

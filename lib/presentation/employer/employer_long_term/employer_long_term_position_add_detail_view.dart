@@ -35,6 +35,7 @@ import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/core/widgets/time_picker_input_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -199,8 +200,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                ListInputEmptyOrNot>(
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, ListInputEmptyOrNot>(
               selector: (state) {
                 return state.requiredSoftwareSkillChipList;
               },
@@ -305,12 +305,12 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                     BaseText(text: "Terms", fontSize: 14),
                     Gap(getSize(12)),
                     CustomTextField(
+                      controller: _termsController,
                       hintText: "Type Here...",
                       maxLines: 3,
                     ),
                     Gap(getSize(16)),
-                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                        String?>(
+                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
                       selector: (state) => state.employerLongTermAddDetailDto.terms_document,
                       builder: (context, documentPath) {
                         if (documentPath != null) return selectedImage(context, documentPath);
@@ -408,12 +408,12 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
-                if (_formKey.currentState?.validate() != true) {
+                final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredSoftwareSkillChipList.getValue();
+                if (_formKey.currentState?.validate() != true || list.isEmpty) {
                   showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
                   return;
                 }
-                final employer =
-                    context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;
                 if (startDate == null || endDate == null) return;
@@ -516,9 +516,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
-            context
-                .read<EmployerLongTermPositionAddDetailBloc>()
-                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
           },
         );
       },
@@ -608,27 +606,21 @@ class _UploadDocument extends StatelessWidget {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,
@@ -651,39 +643,48 @@ class _ShiftSchedule extends StatelessWidget {
       CommonDropdownModel(id: 5, label: "Weekdays"),
     ];
 
-    return MultiSelectDialogField(
-      isOptional: false,
-      isShowOtherValue: false,
-      initialValue: initialValue,
-      items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
-      title: StringConstant.softwareSkillSet,
-      labelText: StringConstant.softwareSkillSet,
-      selectedColor: AppColors.black,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      chipDisplay: MultiSelectChipDisplay(
-        chipColor: AppColors.transparent,
-        onDelete: (value) {
-          print("On delete called!");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(value.toString()));
-        },
-      ),
-      buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
-      buttonText: Text(
-        StringConstant.softwareSkillSet,
-        style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
-      ),
-      onConfirm: (selectedList, otherValues) {
-        context
-            .read<EmployerLongTermPositionAddDetailBloc>()
-            .add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
-              List<String>.from(selectedList),
-            ));
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        MultiSelectDialogField(
+          isOptional: false,
+          isShowOtherValue: false,
+          initialValue: initialValue,
+          items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
+          title: "Shift Schedule",
+          labelText: "Shift Schedule",
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context
+                  .read<EmployerLongTermPositionAddDetailBloc>()
+                  .add(EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            "Shift Schedule",
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+                  List<String>.from(selectedList),
+                ));
+          },
+        ),
+        if (initialValue.isEmpty)
+          commonErrorText(
+            StringConstant.pleaseSelectAtLeastOneLanguage,
+            padding: EdgeInsets.only(left: getSize(20), top: getSize(4)),
+          )
+      ],
     );
   }
 }

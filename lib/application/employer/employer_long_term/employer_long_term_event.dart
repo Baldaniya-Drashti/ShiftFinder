@@ -11,4 +11,11 @@ class EmployerLongTermEvent with _$EmployerLongTermEvent {
     required BuildContext context,
     required bool refresh,
   }) = _getEmployerFilledPosition;
+
+
+  const factory EmployerLongTermEvent.deletePost({
+    required BuildContext context,
+    required int id,
+  }) = _DeletePost;
+
 }
