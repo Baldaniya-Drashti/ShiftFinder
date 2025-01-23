@@ -1539,11 +1539,11 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getApplicantProfile({required int id, required int postId}) async {
+  Future<Either<MainFailure, CommonResponse>> getApplicantProfile({required int id, required int postId, int? isLongOrFull}) async {
     try {
       final res = await apiService.getMethod(
         ApiConstants.contractorUser,
-        queryParameters: {"user_id": id, "post_id": postId},
+        queryParameters: {"user_id": id, "post_id": postId, if (isLongOrFull != null) "isLongOrFull": isLongOrFull},
       );
       if (res != null) {
         return right(res);
@@ -2688,7 +2688,12 @@ class MainFacade implements IMainFacade {
     try {
       final response = await apiService.getMethod(
         ApiConstants.employerDashboardLongFullTermPost,
-        queryParameters: {"post_type": 1, "positions_type": positionsType, "page": page},
+        queryParameters: {
+          "post_type": 1,
+          "positions_type": positionsType,
+          "page": page,
+          "perPage": 10,
+        },
       );
 
       if (response != null) {
@@ -2770,9 +2775,89 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> deleteLongTermPost({required int id}) async {
     try {
+      final response = await apiService.deleteMethod(
+        "${ApiConstants.deleteLongTermPost}/$id",
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerPositionDetail({required int id}) async {
+    try {
       final response = await apiService.getMethod(
-        ApiConstants.deleteLongTermPost,
+        ApiConstants.getEmployerLongFullTermPost,
         queryParameters: {"id": id},
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerApplicantsAccept({required int id}) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerLongTermApplicantsAcceptReject,
+        queryParameters: {"id": id, "request": 1},
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerApplicantsReject({required int id}) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerLongTermApplicantsAcceptReject,
+        queryParameters: {"id": id, "request": 2},
       );
 
       if (response != null) {

@@ -9,5 +9,6 @@ class AddFullPositionEvent with _$AddFullPositionEvent {
   const factory AddFullPositionEvent.onLocationChanged({required LocationDTO selectedLocation}) = OnLocationChanged;
   const factory AddFullPositionEvent.onCompensationTypeChanged({required int type}) = OnCompensationTypeChanged;
   const factory AddFullPositionEvent.onEstimatedDateChanged({required TimeOfDay value}) = OnEstimatedDateChanged;
-
+  const factory AddFullPositionEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
+  const factory AddFullPositionEvent.confirmShiftSchedule(List<String> shiftSchedule) = ConfirmSoftwareSkill;
 }

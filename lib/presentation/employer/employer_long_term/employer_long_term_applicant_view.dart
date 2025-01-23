@@ -39,26 +39,31 @@ class EmployerLongTermApplicantView extends StatelessWidget {
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Applicants"),
         body: BlocBuilder<EmployerLongTermViewApplicantBloc, EmployerLongTermViewApplicantState>(
           builder: (context, state) {
-            return PaginatedListView(
-              onRefresh: () {
-                context.read<EmployerLongTermViewApplicantBloc>().add(
+            return Stack(
+              children: [
+                PaginatedListView(
+                  onRefresh: () {
+                    context.read<EmployerLongTermViewApplicantBloc>().add(
                       EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
                     );
-              },
-              onLoading: () {
-                context.read<EmployerLongTermViewApplicantBloc>().add(
+                  },
+                  onLoading: () {
+                    context.read<EmployerLongTermViewApplicantBloc>().add(
                       EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: false),
                     );
-              },
-              refreshController: context.read<EmployerLongTermViewApplicantBloc>().refreshController,
-              isNoDataFound: state.isNoDataFound,
-              child: state.isLoading
-                  ? CenterLoadingIndicator()
-                  : state.isErrorInAPI
+                  },
+                  refreshController: context.read<EmployerLongTermViewApplicantBloc>().refreshController,
+                  isNoDataFound: state.isNoDataFound,
+                  child: state.isLoading
+                      ? CenterLoadingIndicator()
+                      : state.isErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
-                        )
+                    child: BaseText(text: StringConstant.somethindWentWrong),
+                  )
                       : _LongTermApplicantsListView(applicantList: state.applicantsList),
+                ),
+                if(state.postDataLoading)CenterLoadingIndicator(),
+              ],
             );
           },
         ),
@@ -149,7 +154,19 @@ class _ApplicantsListTile extends StatelessWidget {
                     _buildButton(
                       context,
                       label: "Reject",
-                      onPressed: () {},
+                      onPressed: () async {
+                        final result = await AppDialog.showCommonDialog(
+                          context: context,
+                          title: "Reject",
+                          content: "Are you sure you want to reject this application?",
+                          successLabel: "Reject",
+                        );
+                        if (result ?? false) {
+                          context.read<EmployerLongTermViewApplicantBloc>().add(
+                                EmployerLongTermViewApplicantEvent.onRejectApplicant(context: context, id: data.id ?? -1),
+                              );
+                        }
+                      },
                       backgroundColor: AppColors.white,
                       textColor: AppColors.primaryColor,
                       outline: AppColors.primaryColor,
@@ -162,7 +179,7 @@ class _ApplicantsListTile extends StatelessWidget {
                         context.router.push(
                           PageRouteInfo(
                             ViewApplicantProfile.name,
-                            args: ViewApplicantProfileArgs(id: data.user_id ?? -1, postId: data.id ?? -1),
+                            args: ViewApplicantProfileArgs(id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
                           ),
                         );
                       },
@@ -196,7 +213,7 @@ class _ApplicantsListTile extends StatelessWidget {
         padding: EdgeInsets.all(4),
         backgroundColor: backgroundColor,
         borderColor: outline,
-        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: textColor),
+        textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: textColor),
       ),
     );
   }

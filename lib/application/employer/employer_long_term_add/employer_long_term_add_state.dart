@@ -3,7 +3,7 @@ part of 'employer_long_term_add_bloc.dart';
 @freezed
 class EmployerLongTermAddState with _$EmployerLongTermAddState{
   const factory  EmployerLongTermAddState({
-    required HealthcarePostDTO updatePost,
+    required EmployerLongTermSuccessDto updatePost,
 
     /// SPECIALITY
     // required ListInputEmptyOrNot requiredSpecialityChipList,
@@ -58,7 +58,7 @@ class EmployerLongTermAddState with _$EmployerLongTermAddState{
   }) =  _EmployerLongTermAddState;
 
   factory EmployerLongTermAddState.initial() =>  EmployerLongTermAddState(
-    updatePost: HealthcarePostDTO(),
+    updatePost: EmployerLongTermSuccessDto(),
     rateHour: Rate(""),
     location: InputEmptyOrNot(""),
     locationObj: LocationDTO(),

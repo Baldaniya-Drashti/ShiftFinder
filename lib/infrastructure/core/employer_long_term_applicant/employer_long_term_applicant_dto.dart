@@ -9,6 +9,7 @@ class EmployerLongTermApplicantDto with _$EmployerLongTermApplicantDto {
   const factory EmployerLongTermApplicantDto({
     int? id,
     int? user_id,
+    int? post_id,
     String? profile,
     String? first_name,
     String? last_name,

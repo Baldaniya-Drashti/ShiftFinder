@@ -11,6 +11,7 @@ _$EmployerLongTermApplicantDtoImpl _$$EmployerLongTermApplicantDtoImplFromJson(
     _$EmployerLongTermApplicantDtoImpl(
       id: (json['id'] as num?)?.toInt(),
       user_id: (json['user_id'] as num?)?.toInt(),
+      post_id: (json['post_id'] as num?)?.toInt(),
       profile: json['profile'] as String?,
       first_name: json['first_name'] as String?,
       last_name: json['last_name'] as String?,
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$EmployerLongTermApplicantDtoImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.user_id,
+      'post_id': instance.post_id,
       'profile': instance.profile,
       'first_name': instance.first_name,
       'last_name': instance.last_name,

@@ -8,6 +8,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/injection.dart';
@@ -24,7 +25,7 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
   const EmployerLongTermPostConfirmationView({super.key, required this.postShiftDTO, required this.employerAddDetailDto});
 
   final PostShiftDTO postShiftDTO;
-  final EmployerLongTermAddDetailDto employerAddDetailDto;
+  final EmployerLongTermSuccessDto employerAddDetailDto;
 
   @override
   Widget build(BuildContext context) {

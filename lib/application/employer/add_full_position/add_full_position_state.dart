@@ -11,7 +11,14 @@ class AddFullPositionState with _$AddFullPositionState {
     @Default(false) final bool postDataLoading,
     @Default(1) final int selectedRadioOption,
     final LocationDTO? selectedLocation,
+    @Default(EmployerLongTermAddDetailDto()) EmployerLongTermAddDetailDto employerLongTermAddDetailDto,
+    required ListInputEmptyOrNot requiredShiftScheduleChipList,
+
   }) = _AddFullPositionState;
+
+  factory AddFullPositionState.initial() => AddFullPositionState(
+    requiredShiftScheduleChipList: ListInputEmptyOrNot(["Morning"]),
+  );
 }
 
 class CommonDropdownModel extends Equatable {

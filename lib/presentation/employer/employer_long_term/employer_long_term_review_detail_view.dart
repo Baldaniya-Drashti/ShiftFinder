@@ -85,7 +85,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                     title: 'Licenses/Certifications',
                     value: employerLongTermSuccessDto.licenses_certifications ?? "",
                   ),
-                  if (employerLongTermSuccessDto.terms_document != null || employerLongTermSuccessDto.terms != null)
+                  if (employerLongTermSuccessDto.terms_document != null) ...[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -131,6 +131,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ] else if (employerLongTermSuccessDto.terms_document == null && employerLongTermSuccessDto.terms != null) ...[
+                    _buildCommonDividerTile(
+                      context,
+                      title: 'Contract Terms',
+                      value: employerLongTermSuccessDto.terms ?? "",
+                    ),
+                  ],
                   _buildCommonDividerTile(
                     context,
                     title: 'Onboarding Process',

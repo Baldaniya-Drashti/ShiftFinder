@@ -105,8 +105,12 @@ import 'package:shift/application/employer/employer_long_term/employer_long_term
     as _i89;
 import 'package:shift/application/employer/employer_long_term_add/employer_long_term_add_bloc.dart'
     as _i165;
+import 'package:shift/application/employer/employer_long_term_authorize_payment/employer_long_term_authorize_payment_bloc.dart'
+    as _i545;
 import 'package:shift/application/employer/employer_long_term_confirmation/employer_long_term_confirmation_bloc.dart'
     as _i1042;
+import 'package:shift/application/employer/employer_long_term_detail/employer_long_term_detail_bloc.dart'
+    as _i120;
 import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart'
     as _i918;
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
@@ -200,6 +204,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
     gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
+    gh.factory<_i545.EmployerLongTermAuthorizePaymentBloc>(
+        () => _i545.EmployerLongTermAuthorizePaymentBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -213,6 +219,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i918.EmployerLongTermPayableBloc>(
         () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i120.EmployerLongTermDetailBloc>(
+        () => _i120.EmployerLongTermDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),

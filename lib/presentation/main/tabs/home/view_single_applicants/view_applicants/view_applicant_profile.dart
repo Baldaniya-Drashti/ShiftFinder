@@ -19,9 +19,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class ViewApplicantProfile extends StatelessWidget {
   final int id;
   final int postId;
+  final int? isLongOrFull;
 
   const ViewApplicantProfile(
-      {super.key, required this.id, required this.postId});
+      {super.key, required this.id, required this.postId, this.isLongOrFull});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class ViewApplicantProfile extends StatelessWidget {
       create: (context) => getIt<ApplicantProfileBloc>()
         ..add(
           ApplicantProfileEvent.fetchApplicantProfile(
-              id: id, context: context, postId: postId),
+              id: id, context: context, postId: postId,isLongOrFull: isLongOrFull),
         ),
       child: Scaffold(
         appBar: CommonAppBar(

@@ -10,7 +10,7 @@ part 'employer_long_term_success_dto.freezed.dart';
 part 'employer_long_term_success_dto.g.dart';
 
 @freezed
-class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
+class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
   const factory EmployerLongTermSuccessDto({
     int? id,
     int? post_id,

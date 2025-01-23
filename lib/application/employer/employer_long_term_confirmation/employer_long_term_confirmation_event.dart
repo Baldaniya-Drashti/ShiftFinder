@@ -8,5 +8,5 @@ class EmployerLongTermConfirmationEvent with _$EmployerLongTermConfirmationEvent
   const factory EmployerLongTermConfirmationEvent.selectFuturePosting(int value) = _SelectFuturePosting;
   const factory EmployerLongTermConfirmationEvent.selectTermsAndCondition(int value) = _SelectTermsAndCondition;
   const factory EmployerLongTermConfirmationEvent.onContinue(BuildContext context) = _OnContinue;
-  const factory EmployerLongTermConfirmationEvent.onCreate(PostShiftDTO postDetail,EmployerLongTermAddDetailDto employer) = _OnCreate;
+  const factory EmployerLongTermConfirmationEvent.onCreate(PostShiftDTO postDetail,EmployerLongTermSuccessDto employer) = _OnCreate;
 }

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
@@ -19,7 +21,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
 
-  AddFullPositionBloc(this._repository, this._mainFacade) : super(const AddFullPositionState()) {
+  AddFullPositionBloc(this._repository, this._mainFacade) : super(AddFullPositionState.initial()) {
     on<AddFullPositionEvent>((event, emit) async {
       await event.map(
         onCreate: (value) {
@@ -58,6 +60,22 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
         },
         onEstimatedDateChanged: (OnEstimatedDateChanged value) {
           emit(state.copyWith(selectedEstimatedHours: value.value));
+        },
+        removeShiftSchedule: (RemoveShiftSchedule value) {
+          emit(
+            state.copyWith(
+              requiredShiftScheduleChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.requiredShiftScheduleChipList.getValue())..remove(value.selectedValue),
+                ),
+              ),
+            ),
+          );
+        },
+        confirmShiftSchedule: (ConfirmSoftwareSkill value) {
+          emit(state.copyWith(
+            requiredShiftScheduleChipList: ListInputEmptyOrNot(value.shiftSchedule),
+          ));
         },
       );
     });

@@ -16,6 +16,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -27,6 +28,7 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/datetime_extensions.dart';
 import 'package:shift/presentation/core/helper/time_extension.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -44,18 +46,20 @@ import '../../core/widgets/buttons/common_button.dart';
 
 @RoutePage(name: "EmployerLongTermPositionAddDetailView")
 class EmployerLongTermPositionAddDetailView extends StatelessWidget {
-  const EmployerLongTermPositionAddDetailView({super.key, required this.postShiftDTO});
+  const EmployerLongTermPositionAddDetailView({super.key, required this.postShiftDTO, this.employer});
 
   final PostShiftDTO postShiftDTO;
+  final EmployerLongTermSuccessDto? employer;
 
   @override
   Widget build(BuildContext context) {
+    print("employerrrr=> ${employer?.job_description}");
     return Scaffold(
       appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
       body: BlocProvider(
         create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>()
           ..add(
-            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO),
+            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer),
           ),
         child: _EmployerLongTermPositionDetailContent(),
       ),
@@ -64,40 +68,32 @@ class EmployerLongTermPositionAddDetailView extends StatelessWidget {
 }
 
 class _EmployerLongTermPositionDetailContent extends StatefulWidget {
-  const _EmployerLongTermPositionDetailContent({super.key});
+  const _EmployerLongTermPositionDetailContent();
 
   @override
   State<_EmployerLongTermPositionDetailContent> createState() => _EmployerLongTermPositionDetailContentState();
 }
 
 class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTermPositionDetailContent> {
-  late final TextEditingController _jobDescriptionController;
-  late final TextEditingController _requirementsController;
-  late final TextEditingController _responsibilityController;
-  late final TextEditingController _qualificationController;
-  late final TextEditingController _licensesController;
-  late final TextEditingController _termsController;
-  late final TextEditingController _onBoardingController;
-  late final TextEditingController _vacancyController;
+  final TextEditingController _jobDescriptionController = TextEditingController();
+  final TextEditingController _requirementsController = TextEditingController();
+  final TextEditingController _responsibilityController = TextEditingController();
+  final TextEditingController _qualificationController = TextEditingController();
+  final TextEditingController _licensesController = TextEditingController();
+  final TextEditingController _termsController = TextEditingController();
+  final TextEditingController _onBoardingController = TextEditingController();
+  final TextEditingController _vacancyController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
-
-    _jobDescriptionController = TextEditingController();
-    _requirementsController = TextEditingController();
-    _responsibilityController = TextEditingController();
-    _onBoardingController = TextEditingController();
-    _qualificationController = TextEditingController();
-    _termsController = TextEditingController();
-    _licensesController = TextEditingController();
-    _vacancyController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
+    _updateFields(context);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -202,7 +198,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(12)),
             BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, ListInputEmptyOrNot>(
               selector: (state) {
-                return state.requiredSoftwareSkillChipList;
+                return state.requiredShiftScheduleChipList;
               },
               builder: (context, state) {
                 return _ShiftSchedule(initialValue: state.getValue());
@@ -408,7 +404,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
-                final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredSoftwareSkillChipList.getValue();
+                final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
                 if (_formKey.currentState?.validate() != true || list.isEmpty) {
                   showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
                   return;
@@ -521,6 +517,20 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
         );
       },
     );
+  }
+
+  void _updateFields(BuildContext context) {
+    final employer = context.select<EmployerLongTermPositionAddDetailBloc, EmployerLongTermSuccessDto?>(
+      (value) => value.state.employerLongTermAddDetailDto,
+    );
+    if (employer == null) return;
+    _jobDescriptionController.text = employer.job_description ?? "";
+    _requirementsController.text = employer.requirements ?? "";
+    _responsibilityController.text = employer.responsibilities ?? "";
+    _qualificationController.text = employer.qualifications ?? "";
+    _licensesController.text = employer.licenses_certifications ?? "";
+    _termsController.text = employer.terms ?? "";
+    _onBoardingController.text = employer.onboarding_process ?? "";
   }
 }
 

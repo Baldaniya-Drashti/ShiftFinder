@@ -31,7 +31,10 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerLongTermAddBloc>()..add(EmployerLongTermAddEvent.getAllDropDownList(-1)),
+      create: (context) => getIt<EmployerLongTermAddBloc>()
+        ..add(
+          EmployerLongTermAddEvent.getAllDropDownList(postId??-1),
+        ),
       child: Scaffold(
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
         body: BlocConsumer<EmployerLongTermAddBloc, EmployerLongTermAddState>(
@@ -88,9 +91,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                               child: CommonButton(
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
-                                  context
-                                      .read<EmployerLongTermAddBloc>()
-                                      .add(EmployerLongTermAddEvent.continueBtnPressed(context, false));
+                                  context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.continueBtnPressed(context, false));
                                 },
                                 buttonText: "Continue",
                               ),
@@ -252,9 +253,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
@@ -380,9 +379,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removeRequiredSpecialitichips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.removeRequiredSpecialitichips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
@@ -514,9 +511,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removeLanguageChips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.removeLanguageChips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
@@ -660,10 +655,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             }
           },
         ),
-        if (state.location.isValid() &&
-            state.unitList.isNotEmpty &&
-            state.showLocationError &&
-            state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );

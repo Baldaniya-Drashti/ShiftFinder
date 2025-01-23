@@ -17,7 +17,7 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
 
   const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(int value) = AddMoreVacancy;
 
-  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto) = OnCreate;
+  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto,EmployerLongTermSuccessDto? employer) = OnCreate;
 
   const factory EmployerLongTermPositionAddDetailEvent.removeDocument() = RemoveDocument;
   const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(int value) = OnChangeContractIncludeCall;

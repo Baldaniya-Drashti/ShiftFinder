@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'employer_long_term_view_applicant_event.dart';
 
@@ -57,6 +58,27 @@ class EmployerLongTermViewApplicantBloc extends Bloc<EmployerLongTermViewApplica
                     ),
                 ),
               );
+            },
+          );
+        },
+        onRejectApplicant: (value) async {
+          emit(state.copyWith(postDataLoading: true));
+          final response = await _iMainFacade.employerApplicantsReject(id: value.id);
+          emit(state.copyWith(postDataLoading: false));
+          response.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Something went wrong!",
+                ),
+              ).show(value.context);
+            },
+            (r) {
+              List<EmployerLongTermApplicantDto> tempList = List.from(state.applicantsList);
+              tempList.removeWhere((element) => element.id == value.id);
+              emit(state.copyWith(applicantsList: tempList, isNoDataFound: tempList.isEmpty));
             },
           );
         },

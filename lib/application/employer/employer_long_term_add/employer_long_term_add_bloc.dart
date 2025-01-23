@@ -10,9 +10,12 @@ import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
@@ -31,8 +34,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
 
-  EmployerLongTermAddBloc(this._authFacade, this._repository, this._mainFacade)
-      : super(EmployerLongTermAddState.initial()) {
+  EmployerLongTermAddBloc(this._authFacade, this._repository, this._mainFacade) : super(EmployerLongTermAddState.initial()) {
     on<EmployerLongTermAddEvent>((event, emit) async {
       await event.map(
         confirmSoftwareSkill: (e) {
@@ -96,8 +98,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
                 requiredSpecialityChipList:
                     ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
                 requiredSpecialityChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                specialityOther:
-                    (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
+                specialityOther: (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
                 showSpecialityError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -105,9 +106,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           }
 
           /// when click on add button
-          else if ((state.requiredSpecialityChip.toLowerCase() == "other" &&
-              e.isOtherValue == true &&
-              e.selectedValue.isEmpty)) {
+          else if ((state.requiredSpecialityChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSpecialityError: true,
@@ -164,11 +163,10 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
                   !state.requiredSoftwareSkillChipList.getValue().contains(e.selectedValue))) {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList: ListInputEmptyOrNot(
-                    List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
+                requiredSoftwareSkillChipList:
+                    ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
                 requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                softwareSkillOther:
-                    (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
+                softwareSkillOther: (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
                 showSoftwareSkillError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -176,9 +174,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           }
 
           /// when click on add button
-          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
-              e.isOtherValue == true &&
-              e.selectedValue.isEmpty)) {
+          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSoftwareSkillError: true,
@@ -191,8 +187,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
           else {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList:
-                    ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue())),
+                requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue())),
                 requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
                 showSoftwareSkillError: true,
                 authFailureOrSuccessOption: none(),
@@ -233,22 +228,17 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
         addLanguageChips: (e) {
           if (e.selectedLanguage.isNotEmpty &&
               !e.selectedLanguage.toLowerCase().contains("other") &&
-              (state.languageChipList.getValue().isEmpty ||
-                  !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+              (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
             emit(
               state.copyWith(
-                languageChipList:
-                    ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
                 showLanguageError: false,
                 languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
-                languageOther:
-                    (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
                 authFailureOrSuccessOption: none(),
               ),
             );
-          } else if ((state.languageChip.toLowerCase() == "other" &&
-              e.isOtherValue == true &&
-              e.selectedLanguage.isEmpty)) {
+          } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
             emit(
               state.copyWith(
                 showLanguageError: true,
@@ -309,10 +299,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
               location: InputEmptyOrNot(selectedLocationObject.location ?? ""),
               unitList: selectedLocationObject.add_units ?? [],
               selectedLocationUnit: "",
-              showLocationError:
-                  (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
-                      ? true
-                      : false,
+              showLocationError: (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -390,11 +377,10 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             //     .then((value) {
             //   AppFocus.unfocus(e.context);
             // });
-
             e.context.router.push(
               PageRouteInfo(
                 EmployerLongTermPositionAddDetailView.name,
-                args: EmployerLongTermPositionAddDetailViewArgs(postShiftDTO: post),
+                args: EmployerLongTermPositionAddDetailViewArgs(postShiftDTO: post, employer: state.updatePost),
               ),
             );
 
@@ -462,8 +448,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   }
 
   String getSelectedRoleIds() {
-    final roleIds =
-        state.roleList.firstWhere((role) => role.name == state.roleType.getValue(), orElse: () => SkillDTO());
+    final roleIds = state.roleList.firstWhere((role) => role.name == state.roleType.getValue(), orElse: () => SkillDTO());
     print("Role ID --> $roleIds");
     return "${roleIds.id ?? -1}";
   }
@@ -501,15 +486,15 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   }
 
   String getSelectedLocationIds() {
-    final locationIds = state.locationList
-        .firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
+    final locationIds =
+        state.locationList.firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
     print("Location ID --> $locationIds");
     return "${locationIds.id ?? -1}";
   }
 
   getShiftDetailApi(Emitter<EmployerLongTermAddState> emit, int postId) async {
-    Either<MainFailure, HealthcarePostDTO> failureOrSuccess = await _mainFacade.getPostApi(
-      postId: postId,
+    Either<MainFailure, CommonResponse> failureOrSuccess = await _mainFacade.getEmployerPositionDetail(
+      id: postId,
     );
     failureOrSuccess.fold(
       (l) => emit(
@@ -518,29 +503,29 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
         ),
       ),
       (r) {
-        print("r.location--> ${r.specialties_detail_list}");
-        return emit(
+        final data = EmployerLongTermSuccessDto.fromJson(r.data);
+        print("kkkkkk${data.job_description}");
+         emit(
           state.copyWith(
-            updatePost: r,
-            roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
-            requiredSoftwareSkillChipList: ListInputEmptyOrNot((r.softwares_skill_list != null)
-                ? r.softwares_skill_list!.map((element) => element.name ?? "").toList()
-                : []),
-            softwareSkillOther: r.software_skill_other?.split(',') ?? [],
-            requiredSpecialityChipList: ListInputEmptyOrNot((r.specialties_detail_list != null)
-                ? r.specialties_detail_list!.map((element) => element.name ?? "").toList()
-                : []),
-            specialityOther: r.specialties_detail_other?.split(',') ?? [],
+            updatePost: data,
+            roleType: InputEmptyOrNot(data.roles_list_name ?? ""),
+            requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                (data.softwares_skill_list != null) ? data.softwares_skill_list!.map((element) => element.name ?? "").toList() : []),
+            softwareSkillOther: data.software_skill_other?.split(',') ?? [],
+            requiredSpecialityChipList: ListInputEmptyOrNot(
+                (data.specialties_detail_list != null) ? data.specialties_detail_list!.map((element) => element.name ?? "").toList() : []),
+            specialityOther: data.specialties_detail_other?.split(',') ?? [],
             languageChipList: ListInputEmptyOrNot(
-                (r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
-            languageOther: r.language_other?.split(',') ?? [],
-            location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
-            locationObj: r.location ?? LocationDTO(),
-            unitList: (r.location != null) ? r.location?.add_units ?? [] : [],
-            selectedLocationUnit: r.location_unit ?? "",
-            rateHour: Rate((r.rate_hour != null) ? "${r.rate_hour ?? ""}" : ""),
+                (data.languages_list != null) ? data.languages_list!.map((element) => element.name ?? "").toList() : []),
+            languageOther: data.language_other?.split(',') ?? [],
+            location: InputEmptyOrNot((data.location != null) ? data.location!.location ?? "" : ""),
+            locationObj: data.location ?? LocationDTO(),
+            unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
+            selectedLocationUnit: data.location_unit ?? "",
+            rateHour: Rate((data.rate_hour != null) ? "${data.rate_hour ?? ""}" : ""),
           ),
         );
+        print("=>updatePostCreate ${state.updatePost.job_description}");
       },
     );
   }

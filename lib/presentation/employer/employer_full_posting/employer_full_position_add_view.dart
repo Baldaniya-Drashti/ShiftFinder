@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -21,6 +22,10 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -65,16 +70,46 @@ class _PositionForm extends StatefulWidget {
 class _PositionFormState extends State<_PositionForm> {
   late TextEditingController _positionController;
   late TextEditingController _unionUnitController;
+  late BulletTextEditingController _benefitController;
+  late BulletTextEditingController _compensationController;
+  late BulletTextEditingController _jobSummaryController;
+  late BulletTextEditingController _keyResponsibilityController;
+  late BulletTextEditingController _externalInternalRelationshipController;
+  late BulletTextEditingController _qualificationController;
+  late BulletTextEditingController _experienceController;
+  late BulletTextEditingController _licenseController;
+  late BulletTextEditingController _skillController;
+  late BulletTextEditingController _otherController;
 
   @override
   void initState() {
     super.initState();
     _positionController = TextEditingController();
     _unionUnitController = TextEditingController();
+    _benefitController = BulletTextEditingController();
+    _compensationController = BulletTextEditingController();
+    _jobSummaryController = BulletTextEditingController();
+    _keyResponsibilityController = BulletTextEditingController();
+    _externalInternalRelationshipController = BulletTextEditingController();
+    _qualificationController = BulletTextEditingController();
+    _experienceController = BulletTextEditingController();
+    _licenseController = BulletTextEditingController();
+    _skillController = BulletTextEditingController();
+    _otherController = BulletTextEditingController();
   }
 
   @override
   void dispose() {
+    _benefitController.dispose();
+    _compensationController.dispose();
+    _jobSummaryController.dispose();
+    _keyResponsibilityController.dispose();
+    _externalInternalRelationshipController.dispose();
+    _qualificationController.dispose();
+    _experienceController.dispose();
+    _licenseController.dispose();
+    _skillController.dispose();
+    _otherController.dispose();
     _positionController.dispose();
     _unionUnitController.dispose();
     super.dispose();
@@ -113,18 +148,13 @@ class _PositionFormState extends State<_PositionForm> {
             },
           ),
           Gap(getSize(18)),
-            BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
-              selector: (state) => state.selectedShiftSchedule,
-              builder: (context, selectedShiftSchedule) {
-                return ShiftScheduleDropdownField(
-                  selectedShiftSchedule: selectedShiftSchedule,
-                  onChanged: (value) {
-                    context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onShiftScheduleChanged(value));
-                  },
-                );
-              },
-            ),
-          Gap(getSize(18)),
+          BlocSelector<AddFullPositionBloc, AddFullPositionState, ListInputEmptyOrNot>(
+            selector: (state) => state.requiredShiftScheduleChipList,
+            builder: (context, shiftSchedule) {
+              return _ShiftSchedule(initialValue: shiftSchedule.getValue());
+            },
+          ),
+          Gap(getSize(12)),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, LocationDTO?>(
             selector: (state) => state.selectedLocation,
             builder: (context, selectedLocation) {
@@ -146,6 +176,7 @@ class _PositionFormState extends State<_PositionForm> {
             hintText: "Union/Bargaining Unit",
             textInputAction: TextInputAction.next,
             autoValidateMode: AutovalidateMode.onUserInteraction,
+            keyboardType: TextInputType.number,
             validator: (value, context) {
               value = value?.trim() ?? "";
               if (value.isEmpty) return "Please Enter Union/Bargaining Unit";
@@ -191,7 +222,127 @@ class _PositionFormState extends State<_PositionForm> {
           Gap(getSize(18)),
           _CompensationType(),
           Gap(getSize(18)),
-          _BulletListView()
+          _BulletTextField(
+            controller: _benefitController,
+            label: "Benefits Provided",
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _compensationController,
+            label: "Compensation Package",
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _jobSummaryController,
+            label: "Job Summary",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter job summary";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _keyResponsibilityController,
+            label: "Key Responsibilities",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter key responsibilities";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _externalInternalRelationshipController,
+            label: "External and Internal Relationships",
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _qualificationController,
+            label: "Required Qualifications",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter required qualifications";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _experienceController,
+            label: "Required Experience",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter required experience";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _licenseController,
+            label: "Required Licenses/Certifications",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter required licenses/certifications";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _skillController,
+            label: "Required Skills",
+            optional: false,
+            validator: (value) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) {
+                return "Please enter required skills";
+              }
+              return null;
+            },
+          ),
+          Gap(getSize(16)),
+          _BulletTextField(
+            controller: _otherController,
+            label: "Other",
+          ),
+          Gap(getSize(28)),
+          CommonButton(
+            onPressed: () {
+              // if (state.selectedShiftSchedule == null) {
+              //   showError(message: "Please select shift schedule").show(context);
+              //   return;
+              // }
+              //
+              // if (state.selectedJobType == null) {
+              //   showError(message: "Please select job type").show(context);
+              //   return;
+              // }
+              //
+              // if (state.selectedLocation == null) {
+              //   showError(message: "Please select location").show(context);
+              //   return;
+              // }
+              //
+              // if (_formKey.currentState?.validate() != true) return;
+
+              context.router.navigate(PageRouteInfo(EmployerFullPostingConfirmView.name));
+            },
+            buttonText: "Continue",
+          )
         ],
       ),
     );
@@ -236,8 +387,6 @@ class _JobTypeDropdownField extends StatelessWidget {
     );
   }
 }
-
-
 
 class _LocationDropdown extends StatelessWidget {
   const _LocationDropdown({
@@ -672,7 +821,7 @@ class _BulletTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding:  EdgeInsets.only(left: getSize(20)),
+          padding: EdgeInsets.only(left: getSize(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -786,5 +935,64 @@ class BulletTextEditingController extends TextEditingController {
   void dispose() {
     removeListener(_handleTextChange);
     super.dispose();
+  }
+}
+
+class _ShiftSchedule extends StatelessWidget {
+  const _ShiftSchedule({super.key, required this.initialValue});
+
+  final List<dynamic> initialValue;
+
+  @override
+  Widget build(BuildContext context) {
+    final list = [
+      CommonDropdownModel(id: 1, label: "Morning"),
+      CommonDropdownModel(id: 2, label: "Evening"),
+      CommonDropdownModel(id: 3, label: "Night"),
+      CommonDropdownModel(id: 4, label: "Weekends"),
+      CommonDropdownModel(id: 5, label: "Weekdays"),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        MultiSelectDialogField(
+          isOptional: false,
+          isShowOtherValue: false,
+          initialValue: initialValue,
+          items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
+          title: "Shift Schedule",
+          labelText: "Shift Schedule",
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context.read<AddFullPositionBloc>().add(AddFullPositionEvent.removeShiftSchedule(value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            "Shift Schedule",
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmShiftSchedule(
+                  List<String>.from(selectedList),
+                ));
+          },
+        ),
+        if (initialValue.isEmpty)
+          commonErrorText(
+            StringConstant.pleaseSelectAtLeastOneLanguage,
+            padding: EdgeInsets.only(left: getSize(20), top: getSize(4)),
+          )
+      ],
+    );
   }
 }

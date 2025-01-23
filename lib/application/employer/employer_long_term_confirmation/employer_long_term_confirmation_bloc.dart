@@ -73,9 +73,9 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
         onContinue: (value) async {
           print(state.employerAddDetailDto.toJson());
           print(state.postShiftDTO.toJson());
-          final employer = state.employerAddDetailDto;
-          final postShift = state.postShiftDTO;
 
+          final postShift = state.postShiftDTO;
+          final employer = state.employerAddDetailDto.copyWith(rate_hour: postShift.rate_hour);
           print("¢${state.selectedTeamList.join(",")}");
           final Map<String, dynamic> data = {
             "post_type": "1",
@@ -85,7 +85,6 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             "languages_list_id": postShift.languages_list_id,
             "location_id": postShift.location_id,
             "location_unit": postShift.location_unit,
-            "rate_hour": postShift.rate_hour,
             if (postShift.specialties_detail_other != null) "specialties_detail_other": postShift.specialties_detail_other,
             if (postShift.software_skill_other != null) "software_skill_other": postShift.software_skill_other,
             if (postShift.language_other != null) "language_other": postShift.language_other,

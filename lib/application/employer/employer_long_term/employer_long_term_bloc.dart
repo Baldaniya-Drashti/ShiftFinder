@@ -37,6 +37,22 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
               return;
             }
           }
+          final response = await _iMainFacade.employerLongTermDashboard(
+            positionsType: 2,
+            page: 2,
+          );
+        },
+        getEmployerLongTermOpenPosition: (value) async {
+          if (value.refresh) {
+            currentPage = 1;
+            emit(state.copyWith(openPositionList: [], isLoading: value.refresh));
+            openPositionController.resetNoData();
+          } else {
+            if (currentPage > lastPage) {
+              openPositionController.loadNoData();
+              return;
+            }
+          }
           final response = await _iMainFacade.employerLongTermDashboard(positionsType: 1, page: currentPage);
           currentPage++;
 
@@ -63,26 +79,12 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
             },
           );
         },
-        getEmployerLongTermOpenPosition: (value) async {
-          if (value.refresh) {
-            currentPage = 1;
-            emit(state.copyWith(openPositionList: [], isLoading: value.refresh));
-            openPositionController.resetNoData();
-          } else {
-            if (currentPage > lastPage) {
-              openPositionController.loadNoData();
-              return;
-            }
-          }
-          final response = await _iMainFacade.employerLongTermDashboard(
-            positionsType: 2,
-            page: 2,
-          );
-        },
         deletePost: (value) async {
+          emit(state.copyWith(postDataLoading: true));
           final response = await _iMainFacade.deleteLongTermPost(
             id: value.id,
           );
+          emit(state.copyWith(postDataLoading: false));
 
           response.fold(
             (l) {
@@ -95,9 +97,8 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
               ).show(value.context);
             },
             (r) {
-              List<EmployerLongTermOpenPositionDto> tempList = List.from(state.openPositionList);
-              tempList.removeWhere((element) => element.id == value.id);
-              emit(state.copyWith(openPositionList: tempList));
+              showSuccess(message: r.dioMessage ?? "").show(value.context);
+              add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(context: value.context, refresh: true));
             },
           );
         },

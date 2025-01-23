@@ -80,7 +80,10 @@ class OpenPositionTabView extends StatelessWidget {
                                 _positionDetailButton(
                                   context,
                                   onPressed: () {
-                                    context.router.push(PageRouteInfo(EmployerLongTermPositionDetailView.name));
+                                    context.router.push(
+                                      PageRouteInfo(EmployerLongTermPositionDetailView.name,
+                                          args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
+                                    );
                                   },
                                 ),
                                 Gap(getSize(12)),
@@ -90,6 +93,7 @@ class OpenPositionTabView extends StatelessWidget {
                                   context,
                                   employer: data,
                                   onPressed: () {
+                                    if (state.openPositionList[index].total_application_counts == 0) return;
                                     context.router.push(
                                       PageRouteInfo(
                                         EmployerLongTermApplicantView.name,
@@ -167,17 +171,30 @@ class OpenPositionTabView extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              AppDialog.showCommonDialog(context: context,title: "");
-              context.read<EmployerLongTermBloc>().add(
-                    EmployerLongTermEvent.deletePost(context: context, id: employer.id ?? -1),
-                  );
+            onTap: () async {
+              final result = await AppDialog.showCommonDialog(
+                  context: context,
+                  title: "Delete The Position",
+                  content: "Are you sure you want to delete this long term position?",
+                  successLabel: "Delete");
+              if (result ?? false) {
+                context.read<EmployerLongTermBloc>().add(
+                      EmployerLongTermEvent.deletePost(context: context, id: employer.id ?? -1),
+                    );
+              }
             },
             child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
           ),
           Gap(getSize(16)),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(
+                  EmployerLongTermPositionAddView.name,
+                  args: EmployerLongTermPositionAddViewArgs(postId: employer.id ?? -1),
+                ),
+              );
+            },
             child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
           ),
         ],

@@ -7,6 +7,7 @@ import 'package:shift/application/employer/add_full_position/add_full_position_b
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
@@ -69,7 +70,11 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
             ),
           );
         }, onCreate: (OnCreate value) {
-          emit(state.copyWith(postShiftDto: value.postShitDto));
+          print("==============> ${value.employer?.job_description}");
+          emit(
+            state.copyWith(postShiftDto: value.postShitDto, employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto()),
+          );
+          print("==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
         }, removeDocument: (RemoveDocument value) {
           emit(
             state.copyWith(
@@ -79,7 +84,6 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
             ),
           );
         }, onContinue: (OnContinue value) {
-          print("=> ${state.requiredSoftwareSkillChipList.getValue()}");
           final postShift = state.postShiftDto;
           final employer = state.employerLongTermAddDetailDto.copyWith(
             job_description: value.jobDescription,
@@ -88,7 +92,7 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
             qualifications: value.qualification,
             licenses_certifications: value.licences,
             onboarding_process: value.onboarding,
-            shift_schedule_type: getShiftScheduleId(state.requiredSoftwareSkillChipList.getValue()),
+            shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
             number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
             terms: value.terms,
           );
@@ -111,16 +115,16 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
         }, removeShiftSchedule: (value) {
           emit(
             state.copyWith(
-              requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+              requiredShiftScheduleChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.requiredSoftwareSkillChipList.getValue())..remove(value.selectedValue),
+                  List.of(state.requiredShiftScheduleChipList.getValue())..remove(value.selectedValue),
                 ),
               ),
             ),
           );
         }, confirmShiftSchedule: (value) {
           emit(state.copyWith(
-            requiredSoftwareSkillChipList: ListInputEmptyOrNot(value.skillList),
+            requiredShiftScheduleChipList: ListInputEmptyOrNot(value.skillList),
           ));
         });
       },

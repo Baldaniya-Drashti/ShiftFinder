@@ -10,12 +10,12 @@ class EmployerLongTermPositionAddDetailState with _$EmployerLongTermPositionAddD
     String? documentPath,
     final CommonDropdownModel? selectedShiftSchedule,
     @Default(false) final bool hasMoreVacancy,
-    @Default(EmployerLongTermAddDetailDto()) EmployerLongTermAddDetailDto employerLongTermAddDetailDto,
+    @Default(EmployerLongTermSuccessDto()) EmployerLongTermSuccessDto employerLongTermAddDetailDto,
     @Default(PostShiftDTO()) PostShiftDTO postShiftDto,
-    required ListInputEmptyOrNot requiredSoftwareSkillChipList,
+    required ListInputEmptyOrNot requiredShiftScheduleChipList,
   }) = _EmployerLongTermPositionAddDetailState;
 
   factory EmployerLongTermPositionAddDetailState.initial() => EmployerLongTermPositionAddDetailState(
-        requiredSoftwareSkillChipList: ListInputEmptyOrNot(["Morning"]),
+        requiredShiftScheduleChipList: ListInputEmptyOrNot(["Morning"]),
       );
 }

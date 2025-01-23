@@ -26,7 +26,7 @@ class ApplicantProfileBloc
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(isLoading: true));
           failureOrSuccess = await _mainFacade.getApplicantProfile(
-              id: value.id, postId: value.postId);
+              id: value.id, postId: value.postId,isLongOrFull: value.isLongOrFull);
           emit(state.copyWith(isLoading: false));
 
           failureOrSuccess.fold(

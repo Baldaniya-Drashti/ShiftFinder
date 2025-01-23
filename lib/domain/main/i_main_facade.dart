@@ -225,6 +225,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getApplicantProfile({
     required int id,
     required int postId,
+     int? isLongOrFull,
   });
 
   Future<Either<MainFailure, CommonResponse>> getProposalDetail({
@@ -410,4 +411,15 @@ abstract class IMainFacade {
     required int id,
   });
 
+  Future<Either<MainFailure, CommonResponse>> getEmployerPositionDetail({
+    required int id,
+  });
+
+
+  Future<Either<MainFailure, CommonResponse>> employerApplicantsReject({
+    required int id,
+  });
+  Future<Either<MainFailure, CommonResponse>> employerApplicantsAccept({
+    required int id,
+  });
 }
