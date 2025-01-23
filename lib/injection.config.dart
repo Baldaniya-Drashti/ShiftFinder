@@ -91,18 +91,30 @@ import 'package:shift/application/employer/billing/payment_method_bloc/payment_m
     as _i699;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
-import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart'
-    as _i429;
-import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart'
-    as _i152;
+import 'package:shift/application/employer/employer_full_posting/employer_full_posting_bloc.dart'
+    as _i24;
+import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart'
+    as _i454;
+import 'package:shift/application/employer/employer_full_posting_review/employer_full_posting_review_bloc.dart'
+    as _i79;
 import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart'
     as _i1020;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
     as _i990;
-import 'package:shift/application/employer/full_position_review/full_position_review_bloc.dart'
-    as _i515;
+import 'package:shift/application/employer/employer_long_term/employer_long_term_bloc.dart'
+    as _i89;
+import 'package:shift/application/employer/employer_long_term_add/employer_long_term_add_bloc.dart'
+    as _i165;
+import 'package:shift/application/employer/employer_long_term_confirmation/employer_long_term_confirmation_bloc.dart'
+    as _i1042;
+import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart'
+    as _i918;
+import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
+    as _i218;
+import 'package:shift/application/employer/employer_long_term_view_applicant/employer_long_term_view_applicant_bloc.dart'
+    as _i1069;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
@@ -117,6 +129,8 @@ import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
     as _i819;
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart'
     as _i156;
+import 'package:shift/application/employer/save_template/save_template_bloc.dart'
+    as _i426;
 import 'package:shift/application/faq/faq_bloc.dart' as _i505;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
@@ -175,11 +189,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
-    gh.factory<_i515.FullPositionReviewBloc>(
-        () => _i515.FullPositionReviewBloc());
-    gh.factory<_i152.EmployerFullPositionConfirmBloc>(
-        () => _i152.EmployerFullPositionConfirmBloc());
+    gh.factory<_i79.EmployerFullPostingReviewBloc>(
+        () => _i79.EmployerFullPostingReviewBloc());
+    gh.factory<_i218.EmployerLongTermPositionAddDetailBloc>(
+        () => _i218.EmployerLongTermPositionAddDetailBloc());
+    gh.factory<_i24.EmployerFullPostingBloc>(
+        () => _i24.EmployerFullPostingBloc());
+    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
+        () => _i454.EmployerFullPostingConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
@@ -191,6 +208,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
+    gh.factory<_i1069.EmployerLongTermViewApplicantBloc>(() =>
+        _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i918.EmployerLongTermPayableBloc>(
+        () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i89.EmployerLongTermBloc>(
+        () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),
@@ -199,6 +222,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i111.IMainFacade>(),
           gh<_i253.IAccountRepository>(),
         ));
+    gh.factory<_i165.EmployerLongTermAddBloc>(
+        () => _i165.EmployerLongTermAddBloc(
+              gh<_i277.IAuthFacade>(),
+              gh<_i253.IAccountRepository>(),
+              gh<_i111.IMainFacade>(),
+            ));
     gh.factory<_i383.HealthcarePostBloc>(() => _i383.HealthcarePostBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),
@@ -243,12 +272,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i119.HiredContractorBloc>(
         () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1042.EmployerLongTermConfirmationBloc>(
+        () => _i1042.EmployerLongTermConfirmationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i93.CounterProposalDetailBloc>(
         () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i819.TotalProposalBloc>(
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i426.SaveTemplateBloc>(
+        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i158.EmployerLocationBloc>(
         () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i699.PaymentMethodBloc>(

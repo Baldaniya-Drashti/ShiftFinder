@@ -167,52 +167,52 @@ class HomeView extends StatelessWidget {
                 buttonFontSize: 12,
                 buttonText: StringConstant.viewShiftDetails,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.grey04,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                child: IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      verticalLabelValue(
-                        label: "${StringConstant.shiftDate}:-",
-                        value: (state.employerDashboardList[index].start_date !=
-                                null)
-                            ? DateFormat('MMM dd,yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch((state
-                                            .employerDashboardList[index]
-                                            .start_date ??
-                                        -1) *
-                                    1000),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.grey04,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                  margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        verticalLabelValue(
+                          label: "${StringConstant.shiftDate}:-",
+                          value: (state.employerDashboardList[index].start_date !=
+                                  null)
+                              ? DateFormat('MMM dd,yyyy').format(
+                                  DateTime.fromMillisecondsSinceEpoch((state
+                                              .employerDashboardList[index]
+                                              .start_date ??
+                                          -1) *
+                                      1000),
+                                )
+                              : "",
+                        ),
+                        verticalDivider(),
+                        (state.employerDashboardList[index].shift_type == 1)
+                            ? verticalLabelValue(
+                                label: "${StringConstant.startAndEndTime}:-",
+                                value: (state.employerDashboardList[index]
+                                                .start_time !=
+                                            null &&
+                                        state.employerDashboardList[index]
+                                                .end_time !=
+                                            null)
+                                    ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
+                                    : "",
                               )
-                            : "",
-                      ),
-                      verticalDivider(),
-                      (state.employerDashboardList[index].shift_type == 1)
-                          ? verticalLabelValue(
-                              label: "${StringConstant.startAndEndTime}:-",
-                              value: (state.employerDashboardList[index]
-                                              .start_time !=
-                                          null &&
-                                      state.employerDashboardList[index]
-                                              .end_time !=
-                                          null)
-                                  ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
-                                  : "",
-                            )
-                          : verticalLabelValue(
-                              label: "${StringConstant.totalShifts}:-",
-                              value:
-                                  "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
-                            )
-                    ],
+                            : verticalLabelValue(
+                                label: "${StringConstant.totalShifts}:-",
+                                value:
+                                    "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
+                              )
+                      ],
+                    ),
                   ),
                 ),
-              ),
               Container(
                 padding: EdgeInsets.all(getSize(10)),
                 decoration: BoxDecoration(

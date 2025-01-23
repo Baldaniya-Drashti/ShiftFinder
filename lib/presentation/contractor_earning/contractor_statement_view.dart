@@ -33,8 +33,7 @@ class ContractorStatementView extends StatelessWidget {
           children: [
             Builder(
               builder: (context) {
-                final currentFilter = context
-                    .select<ContractorStatementBloc, StatementFilterModel>(
+                final currentFilter = context.select<ContractorStatementBloc, StatementFilterModel>(
                   (value) => value.state.currentStatementFilter,
                 );
                 return CustomDropdownField<StatementFilterModel>(
@@ -58,23 +57,19 @@ class ContractorStatementView extends StatelessWidget {
                       )
                       .toList(),
                   onChanged: (value) {
-                    context.read<ContractorStatementBloc>().add(
-                        ContractorStatementEvent.onFilterChanged(value: value));
+                    context.read<ContractorStatementBloc>().add(ContractorStatementEvent.onFilterChanged(value: value));
                   },
                 );
               },
             ),
             Gap(16),
-            BlocSelector<ContractorStatementBloc, ContractorStatementState,
-                List<DateTime>>(
+            BlocSelector<ContractorStatementBloc, ContractorStatementState, List<DateTime>>(
               selector: (state) => state.selectedDates,
               builder: (context, selectedDates) {
                 return DateRangePickerTile(
                   selectedDate: selectedDates,
                   onDateSelected: (value) {
-                    context.read<ContractorStatementBloc>().add(
-                        ContractorStatementEvent.onSelectDateRange(
-                            value: value));
+                    context.read<ContractorStatementBloc>().add(ContractorStatementEvent.onSelectDateRange(value: value));
                   },
                   label: StringConstant.period,
                 );
@@ -90,24 +85,19 @@ class ContractorStatementView extends StatelessWidget {
 }
 
 class _BaseStatementTile extends StatelessWidget {
-  const _BaseStatementTile({super.key});
+  const _BaseStatementTile();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Expanded(
-                  child: BaseText(
-                      text: "ShiftFinder",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400)),
+              Expanded(child: BaseText(text: "ShiftFinder", fontSize: 12, fontWeight: FontWeight.w400)),
               Material(
                 borderRadius: BorderRadius.circular(5),
                 color: AppColors.green.withOpacity(0.15),
@@ -119,8 +109,7 @@ class _BaseStatementTile extends StatelessWidget {
                         SvgImageConstant.download,
                         height: 16,
                         width: 16,
-                        colorFilter:
-                            ColorFilter.mode(AppColors.green, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
                       ),
                       Gap(8),
                       BaseText(
@@ -136,10 +125,7 @@ class _BaseStatementTile extends StatelessWidget {
               )
             ],
           ),
-          BaseText(
-              text: "Total Earning Statement",
-              fontWeight: FontWeight.w400,
-              fontSize: 10),
+          BaseText(text: "Total Earning Statement", fontWeight: FontWeight.w400, fontSize: 10),
           Gap(12),
           BaseText(text: "Contractor Name", fontSize: 12),
           Gap(6),
@@ -193,19 +179,13 @@ class _Earning extends StatelessWidget {
             return Column(
               children: [
                 TransactionInfo(label: "Date", value: "12 May 2024"),
-                TransactionInfo(
-                    label: "Company Name", value: "Louis Vuitton Pvt. Ltd."),
-                TransactionInfo(
-                    label: "Location",
-                    value: "6391 Elgin St. Celina, Delaware"),
+                TransactionInfo(label: "Company Name", value: "Louis Vuitton Pvt. Ltd."),
+                TransactionInfo(label: "Location", value: "6391 Elgin St. Celina, Delaware"),
                 TransactionInfo(label: "Hours Worked", value: "9 h 30 min"),
                 TransactionInfo(label: "Hourly Rate", value: "\$30.00"),
                 TransactionInfo(label: "Wages", value: "\$30.00"),
                 TransactionInfo(label: "Allowances", value: "\$30.00"),
-                TransactionInfo(
-                    label: "Earnings",
-                    value: "\$335.00",
-                    valueColor: AppColors.green),
+                TransactionInfo(label: "Earnings", value: "\$335.00", valueColor: AppColors.green),
               ],
             );
           },
@@ -242,7 +222,7 @@ class _Earning extends StatelessWidget {
 }
 
 class _Compensation extends StatelessWidget {
-  const _Compensation({super.key});
+  const _Compensation();
 
   @override
   Widget build(BuildContext context) {
@@ -260,15 +240,9 @@ class _Compensation extends StatelessWidget {
             return Column(
               children: [
                 TransactionInfo(label: "Date", value: "12 May 2024"),
-                TransactionInfo(
-                    label: "Company Name", value: "Louis Vuitton Pvt. Ltd."),
-                TransactionInfo(
-                    label: "Location",
-                    value: "6391 Elgin St. Celina, Delaware"),
-                TransactionInfo(
-                    label: "Compensation Fee:",
-                    value: "\$120.00",
-                    valueColor: AppColors.green),
+                TransactionInfo(label: "Company Name", value: "Louis Vuitton Pvt. Ltd."),
+                TransactionInfo(label: "Location", value: "6391 Elgin St. Celina, Delaware"),
+                TransactionInfo(label: "Compensation Fee:", value: "\$120.00", valueColor: AppColors.green),
               ],
             );
           },
@@ -323,8 +297,7 @@ class _ReferralBonus extends StatelessWidget {
             return Column(
               children: [
                 TransactionInfo(label: "Date", value: "12 May 2024"),
-                TransactionInfo(
-                    label: "Referred Contractor Name", value: "David Malpas"),
+                TransactionInfo(label: "Referred Contractor Name", value: "David Malpas"),
                 TransactionInfo(
                   label: "Bonus Amount",
                   value: "\$50.00",
@@ -366,7 +339,7 @@ class _ReferralBonus extends StatelessWidget {
 }
 
 class _Bank extends StatelessWidget {
-  const _Bank({super.key});
+  const _Bank();
 
   @override
   Widget build(BuildContext context) {
@@ -426,11 +399,7 @@ class StatementFilterModel {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is StatementFilterModel &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          label == other.label;
+      identical(this, other) || other is StatementFilterModel && runtimeType == other.runtimeType && id == other.id && label == other.label;
 
   @override
   int get hashCode => id.hashCode ^ label.hashCode;

@@ -26,6 +26,7 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 
 part 'post_shift_event.dart';
 
@@ -216,6 +217,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               ),
             );
           }
+
+          emit(state.copyWith(fromSaveTemplate: e.fromSaveTemplate ?? false));
         },
 
         /// Single Shift
@@ -230,7 +233,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           await getUnpaidBreakListApi(emit);
           await getaAccomdationHoursListApi(emit);
-
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
             // await Future.delayed(Duration(seconds: 2));
@@ -481,17 +483,20 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   .show(e.context);
               print("Hours is minimum 2 hour");
             } else {
+              print("All details are valid!");
               /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
-              final post = continueWithPostDetail(state, passShiftData(state));
+              final post = continueWithPostDetail(
+                  state, passShiftData(state), e.fromSaveTemplate);
+
               print("All details are valid!---> ${post}");
               e.context.router.push(PageRouteInfo(
                 PostShiftRecurring.name,
                 args: PostShiftRecurringArgs(
-                  shiftType: state.shiftType,
-                  updateShift: state.updateShift,
-                  post: post,
-                ),
+                    shiftType: state.shiftType,
+                    updateShift: state.updateShift,
+                    post: post,
+                    fromSaveTemplate: e.fromSaveTemplate),
               ));
             }
           } else {
@@ -752,7 +757,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                               .millisecondsSinceEpoch /
                           1000)
                       .toString()
-                  : "", 
+                  : "",
                recurring_end_date: (state.isToBeRecurring &&
                       state.recurringEndDate.getValue() != null &&
                       state.recurringEndDate.getValue()!.isNotEmpty)
@@ -777,7 +782,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   : "",
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
-            if (state.updateShift.id != null && state.updateShift.id != -1) {
+            if ((state.updateShift.id != null && state.updateShift.id != -1) &&
+                e.fromSaveTemplate == false) {
               final res = await _mainFacade.updatePostApi(
                 postShiftDetail: postObj,
               );
@@ -825,14 +831,33 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               isLoading: true,
+              fromSaveTemplate: e.fromSaveTemplate ?? false,
               multiDateTimeList: updatedList,
               updateShift: e.updateShift ?? HealthcarePostDTO(),
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
           await getUnpaidBreakListApi(emit);
+
           if (e.updateShift != null) {
-            setShiftDataToUpdate(emit, e.updateShift!);
+            Log.success("updatedList => ${updatedList}");
+
+            List<DateTimeDTO>? uniqueDetails;
+            if (e.fromSaveTemplate ?? false) {
+              final detailList = e.updateShift?.shift_detail?.detail;
+              final parsedDetailList = getDifferentMultiDate(detailList ?? []);
+
+              final updatedDates = parsedDetailList
+                  .map((e) => DateTime.parse(e.date ?? ""))
+                  .toList();
+
+              uniqueDetails = updatedList.where((o) {
+                final parsedDate = DateTime.tryParse(o.date ?? "");
+                return parsedDate != null && !updatedDates.contains(parsedDate);
+              }).toList();
+            }
+
+            setShiftDataToUpdate(emit, e.updateShift!, uniqueDetails);
             // await Future.delayed(Duration(seconds: 2));
           }
           // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
@@ -1035,7 +1060,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   .show(e.context);
             } else {
               final post = continueWithPostDetail(
-                  state, passShiftData(state, shiftDetail: e.shiftDetail));
+                  state,
+                  passShiftData(state, shiftDetail: e.shiftDetail),
+                  e.fromSaveTemplate);
               /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state, shiftDetail: e.shiftDetail),
             );*/
@@ -1047,6 +1074,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   shiftType: state.shiftType,
                   updateShift: state.updateShift,
                   post: post,
+                  fromSaveTemplate: e.fromSaveTemplate,
                 ),
               ));
             }
@@ -1108,7 +1136,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
 
-              final post = continueWithPostDetail(state, passShiftData(state));
+              final post = continueWithPostDetail(
+                  state, passShiftData(state), e.fromSaveTemplate);
 
               /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state),
@@ -1120,6 +1149,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   shiftType: state.shiftType,
                   updateShift: state.updateShift,
                   post: post,
+                  fromSaveTemplate: e.fromSaveTemplate,
                 ),
               ));
             }
@@ -1188,8 +1218,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   }
 
   setShiftDataToUpdate(
-      Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift) async {
+      Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift,
+      [List<DateTimeDTO>? dateTime]) async {
     final r = updatedShift.shift_detail;
+
     if (r != null) {
       print("Update r---> ${jsonEncode(r.recurrence_mode)}");
       emit(
@@ -1248,7 +1280,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           selectedMultiShiftType: r.same_or_different_time ?? -1,
           multiDateTimeList:
               (r.shift_type == 2 && r.same_or_different_time == 2)
-                  ? getDifferentMultiDate(r.detail ?? [])
+                  ? [
+                      ...getDifferentMultiDate(r.detail ?? []),
+                      if (dateTime != null) ...dateTime,
+                    ]
                   : [],
 
           /// Set for recurring Screening data
@@ -1336,11 +1371,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   }
 
   PostShiftDTO continueWithPostDetail(
-      PostShiftState state, MultiShiftDTO shift) {
+      PostShiftState state, MultiShiftDTO shift, bool fromSaveTemplate) {
     String mapMultiDateToApiFormat() {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         final list = shift.multi_date!.map((multiDate) {
-          print("multi datee payable hours----> ${multiDate.totalPaybleHours}");
           final formattedDate = (shift.same_or_different_time == 1)
               ? CustomDateTimeFormat.mergeDateAndTime(
                   shift.start_time ?? "",
@@ -1355,7 +1389,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           print("Formatttedddtdt datetetete--> ${formattedDate}");
           final map = {
-            if (state.updateShift.id == null) ...{
+            if (state.updateShift.id == null || fromSaveTemplate == true) ...{
               'date': formattedDate.toUtc().millisecondsSinceEpoch / 1000,
               'start_time': DateTime.parse((shift.same_or_different_time == 1)
                           ? shift.start_time ?? ""

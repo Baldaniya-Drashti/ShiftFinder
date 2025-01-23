@@ -5,6 +5,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 
 class GenerateTotalEarningStatement extends StatelessWidget {
@@ -17,7 +18,8 @@ class GenerateTotalEarningStatement extends StatelessWidget {
   }
 
   Future<Uint8List> totalEarningStatement(
-      {required List<DateTime> selectedDates}) async {
+      {required List<DateTime> selectedDates,
+      required EarningStatementDTO statement}) async {
     final pdf = pw.Document();
 
     final regularFont = pw.Font.ttf(
@@ -97,10 +99,10 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                       ],
                     ),
                     commonDivider(),
-                    earning(),
-                    compensation(),
-                    refereBonus(),
-                    statementTotal(),
+                    earning(statement),
+                    compensation(statement),
+                    refereBonus(statement),
+                    statementTotal(statement),
                     titleWidget(
                       StringConstant.netEarnings,
                       otherValue: "\$1070.00",
@@ -152,7 +154,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
         : pw.SizedBox(height: getSize(height ?? 10));
   }
 
-  pw.Widget earning() {
+  pw.Widget earning(EarningStatementDTO statement) {
     List<MonthlyStatementDetailDTO> data = [];
 
     List<List<MonthlyStatementDetailDTO>> earningList = [];
@@ -230,7 +232,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Widget compensation() {
+  pw.Widget compensation(EarningStatementDTO statement) {
     List<MonthlyStatementDetailDTO> data = [];
 
     List<List<MonthlyStatementDetailDTO>> compensationList = [];
@@ -289,7 +291,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Widget refereBonus() {
+  pw.Widget refereBonus(EarningStatementDTO statement) {
     List<MonthlyStatementDetailDTO> data = [];
 
     List<List<MonthlyStatementDetailDTO>> bonusList = [];
@@ -434,7 +436,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Container statementTotal() {
+  pw.Container statementTotal(EarningStatementDTO statement) {
     return pw.Container(
       margin: pw.EdgeInsets.symmetric(vertical: getSize(10)),
       padding: pw.EdgeInsets.symmetric(

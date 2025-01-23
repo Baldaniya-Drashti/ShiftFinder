@@ -97,9 +97,9 @@ class HealthcarePostState with _$HealthcarePostState {
     required bool showRoleTypeError,
     required bool showSpeExperienceError,
     required bool showLocationError,
-    required Option<Either<MainFailure, HealthcarePostDTO>>
-        authFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>> authFailureOrSuccessOption,
   }) = _HealthcarePostState;
+
   factory HealthcarePostState.initial() => HealthcarePostState(
         updatePost: HealthcarePostDTO(),
         rateHour: Rate(""),

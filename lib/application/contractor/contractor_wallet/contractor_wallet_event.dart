@@ -13,4 +13,10 @@ class ContractorWalletEvent with _$ContractorWalletEvent {
 
   const factory ContractorWalletEvent.getWalletList(
       bool isRefresh, BuildContext context) = GetWalletList;
+
+  const factory ContractorWalletEvent.withdrawPaymentChanged(String amount) =
+      WithdrawPaymentChanged;
+
+  const factory ContractorWalletEvent.submitWithdrawPayment(
+      BuildContext context) = SubmitWithdrawPayment;
 }

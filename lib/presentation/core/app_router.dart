@@ -5,6 +5,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
+
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashPage.page, initial: true),
@@ -112,13 +113,31 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ContractorUpdateProfileView.page),
         AutoRoute(page: BankListView.page),
         AutoRoute(page: ReferenceListView.page),
-        AutoRoute(page: FullTimePositionView.page),
-        AutoRoute(page: FullPositionDetailView.page),
-        AutoRoute(page: EmployerFullPositionView.page),
-        AutoRoute(page: AddFullPositionView.page),
-        AutoRoute(page: EmployerFullPositionConfirmView.page),
-        AutoRoute(page: FullPositionReviewView.page),
+        // AutoRoute(page: FullTimePositionView.page),
+        // AutoRoute(page: FullPositionDetailView.page),
+
+        AutoRoute(page: EmployerFullPostingView.page),
+        AutoRoute(page: EmployerFullPostingConfirmView.page),
+        AutoRoute(page: EmployerFullPostingReviewView.page),
+        AutoRoute(page: EmployerFullPositionAddView.page),
+
+        AutoRoute(page: EmployerLongTermView.page),
+        AutoRoute(page: EmployerLongTermPositionDetailView.page),
+        AutoRoute(page: EmployerLongTermPositionAddView.page),
+        AutoRoute(page: EmployerLongTermPositionAddDetailView.page),
+        AutoRoute(page: EmployerLongTermApplicantView.page),
+        AutoRoute(page: EmployerLongTermPostConfirmationView.page),
+        AutoRoute(page: EmployerLongTermReviewDetailView.page),
+        AutoRoute(page: EmployerLongTermPayableView.page),
+
+        AutoRoute(page: ContractorFullTimePositionView.page),
+        AutoRoute(page: ContractorFullTimePositionDetailView.page),
+        AutoRoute(page: ContractorLongTermView.page),
+
+
+
         AutoRoute(page: EmployerCompletedShiftView.page),
+        AutoRoute(page: SaveTemplateView.page),
         AutoRoute(page: ViewCollegueProfile.page),
         AutoRoute(page: AddressProofScreen.page),
         AutoRoute(page: BackgroundDocument.page),

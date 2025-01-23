@@ -530,11 +530,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             e.context.router
                 .push(PageRouteInfo(
               HealthcarePostShift.name,
-              args: HealthcarePostShiftArgs(
-                postId: -1,
-                post: post,
-                updateShift: state.updatePost,
-              ),
+              args: HealthcarePostShiftArgs(postId: -1, post: post, updateShift: state.updatePost, fromSaveTemplate: e.fromSaveTemplate),
             ))
                 .then((value) {
               AppFocus.unfocus(e.context);

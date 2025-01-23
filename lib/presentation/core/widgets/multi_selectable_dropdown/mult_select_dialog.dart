@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -430,28 +431,38 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
       actionsPadding: EdgeInsets.fromLTRB(
           getSize(20), getSize(10), getSize(20), getSize(20)),
       actions: <Widget>[
-        CommonButton(
-          width: getSize(120),
-          onPressed: () {
-            widget.onCancelTap(context, widget.initialValue);
-          },
-          buttonText: StringConstant.cancle,
-          backgroundColor: AppColors.scaffoldColor,
-          borderColor: AppColors.primaryColor,
-          buttonTextColor: AppColors.primaryColor,
-        ),
-        CommonButton(
-          width: getSize(120),
-          onPressed: () {
-            // if (selectedOtherList.isNotEmpty) {
-            //   _selectedValues
-            //       .addAll(selectedOtherList.map((item) => item.label as T));
-            // }
-            print("Selected Other list ---> $_selectedOtherList");
-            widget.onConfirmTap(
-                context, _selectedValues, _selectedOtherList, widget.onConfirm);
-          },
-          buttonText: StringConstant.ok,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: CommonButton(
+                width: getSize(120),
+                onPressed: () {
+                  widget.onCancelTap(context, widget.initialValue);
+                },
+                buttonText: StringConstant.cancle,
+                backgroundColor: AppColors.scaffoldColor,
+                borderColor: AppColors.primaryColor,
+                buttonTextColor: AppColors.primaryColor,
+              ),
+            ),
+            Gap(getSize(4)),
+            Flexible(
+              child: CommonButton(
+                width: getSize(120),
+                onPressed: () {
+                  // if (selectedOtherList.isNotEmpty) {
+                  //   _selectedValues
+                  //       .addAll(selectedOtherList.map((item) => item.label as T));
+                  // }
+                  print("Selected Other list ---> $_selectedOtherList");
+                  widget.onConfirmTap(
+                      context, _selectedValues, _selectedOtherList, widget.onConfirm);
+                },
+                buttonText: StringConstant.ok,
+              ),
+            ),
+          ],
         ),
       ],
     );

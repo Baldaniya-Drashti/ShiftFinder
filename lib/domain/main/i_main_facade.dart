@@ -4,6 +4,7 @@ import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
@@ -64,8 +65,11 @@ abstract class IMainFacade {
     required int page,
     String? id,
   });
+
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
+
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
+
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
       {required MultiShiftDTO shift});
 
@@ -354,7 +358,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, EmployerInvoiceDTO>> getInvoiceDetailAPI({
     required int id,
   });
-  Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
+  Future<Either<MainFailure, EarningStatementDTO>> totalEarningStatementAPI({
     required String startDate,
     required String endDate,
   });
@@ -368,5 +372,33 @@ abstract class IMainFacade {
     String? startDate,
     String? endDate,
     int? page,
+  });
+  Future<Either<MainFailure, CommonResponse>> employerSavedTemplate({
+    required int page,
+    String? search,
+    required int shiftType,
+    int? sameOrDifferentTime,
+  });
+  Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate(
+      {required int id});
+  Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
+    required int positionsType,
+    required int page,
+  });
+  Future<Either<MainFailure, CommonResponse>> deleteLongTermPost(
+      {required int id});
+
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost(
+      {required Map<String, dynamic> data});
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPosition(
+      {required int positionType, required int page});
+  Future<Either<MainFailure, CommonResponse>> updateLongTermStatus(
+      {required int id});
+  Future<Either<MainFailure, CommonResponse>>
+      getEmployerLongTermPositionApplicants(
+          {required int id, required int page});
+  Future<Either<MainFailure, CommonResponse>> contractorWithdrawAmount({
+    double? amount,
   });
 }

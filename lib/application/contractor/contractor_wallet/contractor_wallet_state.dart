@@ -17,6 +17,7 @@ class ContractorWalletState with _$ContractorWalletState {
     required bool noDataFound,
     required bool isErrorInApi,
     required List<ContractorWalletDTO> walletList,
+    required Rate withdrawAmount,
   }) = _ContractorWalletState;
   factory ContractorWalletState.initial() => ContractorWalletState(
         initialWalletFilter: CommonList.walletList[0],
@@ -26,5 +27,6 @@ class ContractorWalletState with _$ContractorWalletState {
         noDataFound: false,
         currentBalance: null,
         walletList: [],
+        withdrawAmount: Rate(""),
       );
 }

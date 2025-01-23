@@ -528,13 +528,18 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class HealthCarePostForm extends StatelessWidget {
   int? postId;
   bool isFromSplash = false;
+  final bool fromSaveTemplate;
 
-  HealthCarePostForm({super.key, this.postId, this.isFromSplash = false});
+  HealthCarePostForm({
+    super.key,
+    this.postId,
+    this.isFromSplash = false,
+    this.fromSaveTemplate = false,
+  });
 
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherRoleController = TextEditingController();
-  TextEditingController otherPreferredSkillsController =
-      TextEditingController();
+  TextEditingController otherPreferredSkillsController = TextEditingController();
   TextEditingController languageController = TextEditingController();
   bool isMultiLocation = true;
 
@@ -559,10 +564,10 @@ class HealthCarePostForm extends StatelessWidget {
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
+
                 // Navigator.pop(context);
               },
-              // StringConstant.healthcare
-              title: postTitle(),
+              title: fromSaveTemplate ? "Edit Template" : postTitle(),
             ),
             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
               listener: (context, state) {
@@ -622,11 +627,9 @@ class HealthCarePostForm extends StatelessWidget {
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      context.read<HealthcarePostBloc>().add(
-                                          HealthcarePostEvent
-                                              .continueBtnPressed(context));
+                                      context.read<HealthcarePostBloc>().add(HealthcarePostEvent.continueBtnPressed(context,fromSaveTemplate));
                                     },
-                                    buttonText: StringConstant.txtContinue,
+                                    buttonText: fromSaveTemplate ? "Save and Next" : StringConstant.txtContinue,
                                   ),
                                 ),
                               ],
@@ -640,605 +643,556 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
-  }
+    Widget paddingBetweenFields({double? height}) {
+      return SizedBox(
+        height: getSize(height ?? 15),
+      );
+    }
 
-  Widget roleDropDown(BuildContext context, HealthcarePostState state) {
-    return CustomDropdwonWithTextField(
-      labelText: StringConstant.role,
-      hintText: StringConstant.selectRole,
-      isLabelPadding: true,
-      showTextfield: false,
-      value: (state.roleType.getValue()!.isNotEmpty)
-          ? state.roleType.getValue()
-          : null,
-      items: state.roleList.map((val) {
-        return DropdownMenuItem<String>(
-          value: val.name,
-          child: BaseText(
-            text: val.name ?? "",
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
-      validator: (p0) =>
-          context.read<HealthcarePostBloc>().state.roleType.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectRoleType,
-                  orElse: () => null,
-                ),
-                (_) => null,
+    Widget roleDropDown(BuildContext context, HealthcarePostState state) {
+      return CustomDropdwonWithTextField(
+        labelText: StringConstant.role,
+        hintText: StringConstant.selectRole,
+        isLabelPadding: true,
+        showTextfield: false,
+        value: (state.roleType.getValue()!.isNotEmpty) ? state.roleType.getValue() : null,
+        items: state.roleList.map((val) {
+          return DropdownMenuItem<String>(
+            value: val.name,
+            child: BaseText(
+              text: val.name ?? "",
+              fontSize: 14,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
+        validator: (p0) => context.read<HealthcarePostBloc>().state.roleType.value.fold(
+              (f) => f.maybeMap(
+                empty: (value) => StringConstant.pleaseSelectRoleType,
+                orElse: () => null,
               ),
-      onChanged: (value) {
-        if (value != null) {
-          context.read<HealthcarePostBloc>().add(
-                HealthcarePostEvent.roleTypeChanged(value),
-              );
-        }
-      },
-    );
-  }
-
-  Widget preferredSoftwareSkillsDropDownChipSet(
-      BuildContext context, HealthcarePostState state) {
-    print(
-        "state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          isOptional: true,
-          fieldController: otherPreferredSkillsController,
-          labelText: StringConstant.softwareSkillSet,
-          hintText: StringConstant.softwareSkillSet,
-          showTextfield:
-              state.requiredSoftwareSkillChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSoftwareSkills,
-          items: state.softwareList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSoftwareSkillChip.isEmpty)
-              ? null
-              : state.requiredSoftwareSkillChip,
-          // validator: (val) {
-          //   if (val != null && val.toLowerCase() == "other") {
-          //     return null;
-          //   } else {
-          //     return context
-          //         .read<HealthcarePostBloc>()
-          //         .state
-          //         .requiredSoftwareSkillChipList
-          //         .value
-          //         .fold(
-          //           (f) => f.maybeMap(
-          //             empty: (value) =>
-          //                 StringConstant.pleaseSelectAtLeastOneSkillSet,
-          //             orElse: () => null,
-          //           ),
-          //           (_) => null,
-          //         );
-          //   }
-          // },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.addPreferedSoftwareSkillchips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              print("Other skill--> ${otherPreferredSkillsController.text}");
-              context
-                  .read<HealthcarePostBloc>()
-                  .add(HealthcarePostEvent.addPreferedSoftwareSkillchips(
-                    otherPreferredSkillsController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherPreferredSkillsController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
-            state.showSoftwareSkillError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSoftwareSkill),
-        CustomChipSet(
-          chipList:
-              (state.requiredSoftwareSkillChipList.getValue()).cast<String>(),
-          onDelete: (value) {
+              (_) => null,
+            ),
+        onChanged: (value) {
+          if (value != null) {
             context.read<HealthcarePostBloc>().add(
-                HealthcarePostEvent.removePreferedSoftwareSkillchips(value));
-          },
-        ),
-      ],
-    );*/
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MultiSelectDialogField(
-          isOptional: true,
-          initialValue: state.requiredSoftwareSkillChipList.getValue(),
-          otherInitialValue: state.softwareSkillOther,
-          items: state.softwareList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
-          title: StringConstant.softwareSkillSet,
-          labelText: StringConstant.softwareSkillSet,
-          selectedColor: AppColors.black,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          chipDisplay: MultiSelectChipDisplay(
-            chipColor: AppColors.transparent,
-            onDelete: (value) {
-              print("On delete called!");
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removePreferedSoftwareSkillchips(
-                      value.toString()));
-            },
-          ),
-          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
-          buttonText: Text(
-            StringConstant.softwareSkillSet,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
-          ),
-          onConfirm: (selectedList, otherValues) {
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmSoftwareSkill(
-                  List<String>.from(selectedList),
-                  List<String>.from(otherValues),
-                ));
-          },
-        ),
-        /*if (state.showErrorMessages &&
-            state.requiredSoftwareSkillChipList.getValue().isEmpty &&
-            state.softwareSkillOther.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectAtLeastOneSkillSet)*/
-      ],
-    );
-  }
+                  HealthcarePostEvent.roleTypeChanged(value),
+                );
+          }
+        },
+      );
+    }
 
-  Widget requiredSpecialityDropDownChipset(
-      BuildContext context, HealthcarePostState state) {
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          isOptional: true,
-          fieldController: otherSpecialitiesController,
-          labelText: StringConstant.specialties,
-          hintText: StringConstant.specialties,
-          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSpecializations,
-          items: state.specialityList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSpecialityChip.isEmpty)
-              ? null
-              : state.requiredSpecialityChip,
-          // validator: (val) {
-          //   if (val != null && val.toLowerCase() == "other") {
-          //     return null;
-          //   } else {
-          //     return context
-          //         .read<HealthcarePostBloc>()
-          //         .state
-          //         .requiredSpecialityChipList
-          //         .value
-          //         .fold(
-          //           (f) => f.maybeMap(
-          //             empty: (value) =>
-          //                 StringConstant.pleaseSelectAtLeastOneSpeciality,
-          //             orElse: () => null,
-          //           ),
-          //           (_) => null,
-          //         );
-          //   }
-          // },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.addRequiredSpecialitichips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<HealthcarePostBloc>()
-                  .add(HealthcarePostEvent.addRequiredSpecialitichips(
-                    otherSpecialitiesController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherSpecialitiesController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSpecialityChip.toLowerCase() == "other" &&
-            state.showSpecialityError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
-        CustomChipSet(
-          chipList:
-              (state.requiredSpecialityChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.removeRequiredSpecialitichips(value));
-          },
-        ),
-      ],
-    );*/
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MultiSelectDialogField(
-          isOptional: true,
-          initialValue: state.requiredSpecialityChipList.getValue(),
-          otherInitialValue: state.specialityOther,
-          items: state.specialityList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
-          title: StringConstant.specialties,
-          labelText: StringConstant.specialties,
-          selectedColor: AppColors.black,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          chipDisplay: MultiSelectChipDisplay(
-            chipColor: AppColors.transparent,
-            onDelete: (value) {
-              print("On delete called!");
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removeRequiredSpecialitichips(
-                      value.toString()));
-            },
-          ),
-          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
-          buttonText: Text(
-            StringConstant.specialties,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
-          ),
-          onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmSpecialityList(
-                  List<String>.from(selectedList),
-                  List<String>.from(otherValues),
-                ));
-          },
-        ),
-        /* if (state.showErrorMessages &&
-            state.requiredSpecialityChipList.getValue().isEmpty &&
-            state.specialityOther.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectAtLeastOneSpeciality)*/
-      ],
-    );
-  }
-
-  Widget languageDropDownChipSet(
-      BuildContext context, HealthcarePostState state) {
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          fieldController: languageController,
-          labelText: StringConstant.languagesKnown,
-          hintText: StringConstant.languagesKnown,
-          showTextfield: state.languageChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourLanguage,
-          items: state.languageList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          // items: const [
-          //   "English",
-          //   "Hindi",
-          //   "Gujarati",
-          //   "Bengali",
-          //   "Marathi",
-          //   "Punjabi",
-          //   "Tamil",
-          //   "Kannad",
-          //   "Other",
-          // ],
-          value: (state.languageChip.isEmpty) ? null : state.languageChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<HealthcarePostBloc>()
-                  .state
-                  .languageChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneLanguage,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            print("valllll-> $newValue");
-            if (newValue != null) {
-              context
-                  .read<HealthcarePostBloc>()
-                  .add(HealthcarePostEvent.addLanguageChips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<HealthcarePostBloc>()
-                  .add(HealthcarePostEvent.addLanguageChips(
-                    languageController.text,
-                    isOtherValue: true,
-                  ));
-              languageController.clear();
-            },
-          ),
-        ),
-        if (state.languageChip.toLowerCase() == "other" &&
-            state.showLanguageError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfLanguage),
-        CustomChipSet(
-          chipList: (state.languageChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.removeLanguageChips(value));
-          },
-        ),
-      ],
-    );*/
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MultiSelectDialogField(
-          items: state.languageList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
-          title: StringConstant.languagesKnown,
-          labelText: StringConstant.languagesKnown,
-          selectedColor: AppColors.black,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          chipDisplay: MultiSelectChipDisplay(
-            chipColor: AppColors.transparent,
-            onDelete: (value) {
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removeLanguageChips(value.toString()));
-            },
-          ),
-          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
-          buttonText: Text(
-            StringConstant.languagesKnown,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
-          ),
-          initialValue: state.languageChipList.getValue(),
-          otherInitialValue: state.languageOther,
-          onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmLanguageList(
-                  List<String>.from(selectedList),
-                  List<String>.from(otherValues),
-                ));
-          },
-        ),
-        if (state.showErrorMessages &&
-            state.languageChipList.getValue().isEmpty &&
-            state.languageOther.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
-      ],
-    );
-  }
-
-  Widget rateHourDropDown(BuildContext context, HealthcarePostState state) {
-    return CustomTextField(
-      labelText: StringConstant.rateHour,
-      isLabelPadding: true,
-      isPrefixValueShow: true,
-      errorMaxLines: 2,
-      maxLength: 5,
-      initialValue:
-          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
-      hintText: StringConstant.rateHour,
-      keyboardType:
-          TextInputType.numberWithOptions(decimal: true, signed: true),
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-      ],
-      prefixIcon: Padding(
-          padding: EdgeInsets.only(
-            left: getSize(20),
-            top: getSize(14),
-            bottom: getSize(14),
-          ),
-          child: BaseText(
-            text: '\$ ',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            textColor: (state.rateHour.isValid())
-                ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
-          )),
-      prefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {
-        context
-            .read<HealthcarePostBloc>()
-            .add(HealthcarePostEvent.rateHourChanged(value));
-      },
-      validator: (p0, p1) => context
-          .read<HealthcarePostBloc>()
-          .state
-          .rateHour
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterRateHour,
-              invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
-    );
-  }
-
-  Widget locationDropDown(BuildContext context, HealthcarePostState state) {
-    print("state.location.getValue()--> ${state.selectedLocationUnit}");
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomLocationDropdDown(
-          labelText: StringConstant.location,
-          isLabelPadding: true,
-          showTextfield: false,
-          isOptional: true,
-          value: (state.location.isValid()) ? state.location.getValue() : null,
-          optionalWidget: GestureDetector(
-            onTap: () {
-              AppDialog.showInfo(
-                context,
-                StringConstant.missingLocationInfoDesc,
-                maxLines: 5,
-                insetPadding: EdgeInsets.symmetric(
-                  horizontal: getSize(30),
+    Widget preferredSoftwareSkillsDropDownChipSet(BuildContext context, HealthcarePostState state) {
+      print("state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
+      /*return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CustomDropdwonWithTextField(
+            isLabelPadding: true,
+            isOptional: true,
+            fieldController: otherPreferredSkillsController,
+            labelText: StringConstant.softwareSkillSet,
+            hintText: StringConstant.softwareSkillSet,
+            showTextfield:
+                state.requiredSoftwareSkillChip.toLowerCase() == "other",
+            fieldHintText: StringConstant.addYourSoftwareSkills,
+            items: state.softwareList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.name,
+                child: BaseText(
+                  text: val.name ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
                 ),
               );
+            }).toList(),
+            value: (state.requiredSoftwareSkillChip.isEmpty)
+                ? null
+                : state.requiredSoftwareSkillChip,
+            // validator: (val) {
+            //   if (val != null && val.toLowerCase() == "other") {
+            //     return null;
+            //   } else {
+            //     return context
+            //         .read<HealthcarePostBloc>()
+            //         .state
+            //         .requiredSoftwareSkillChipList
+            //         .value
+            //         .fold(
+            //           (f) => f.maybeMap(
+            //             empty: (value) =>
+            //                 StringConstant.pleaseSelectAtLeastOneSkillSet,
+            //             orElse: () => null,
+            //           ),
+            //           (_) => null,
+            //         );
+            //   }
+            // },
+            onChanged: (newValue) {
+              if (newValue != null) {
+                context.read<HealthcarePostBloc>().add(
+                    HealthcarePostEvent.addPreferedSoftwareSkillchips(newValue));
+              }
             },
-            child: SvgPicture.asset(
-              SvgImageConstant.infoCircle,
+            suffixIcon: CommonButton(
+              height: getSize(27),
+              width: getSize(59),
+              borderRadius: getSize(10),
+              buttonText: StringConstant.add,
+              buttonFontSize: 10,
+              onPressed: () {
+                print("Other skill--> ${otherPreferredSkillsController.text}");
+                context
+                    .read<HealthcarePostBloc>()
+                    .add(HealthcarePostEvent.addPreferedSoftwareSkillchips(
+                      otherPreferredSkillsController.text,
+                      isOtherValue: true,
+                    ));
+
+                otherPreferredSkillsController.clear();
+              },
             ),
           ),
-          items: state.locationList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.location,
-              child: BaseText(
-                text: val.location ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
+          if (state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
+              state.showSoftwareSkillError)
+            commonErrorText(StringConstant.pleaseAddOtherTypeOfSoftwareSkill),
+          CustomChipSet(
+            chipList:
+                (state.requiredSoftwareSkillChipList.getValue()).cast<String>(),
+            onDelete: (value) {
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removePreferedSoftwareSkillchips(value));
+            },
+          ),
+        ],
+      );*/
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MultiSelectDialogField(
+            isOptional: true,
+            initialValue: state.requiredSoftwareSkillChipList.getValue(),
+            otherInitialValue: state.softwareSkillOther,
+            items: state.softwareList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+            title: StringConstant.softwareSkillSet,
+            labelText: StringConstant.softwareSkillSet,
+            selectedColor: AppColors.black,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            chipDisplay: MultiSelectChipDisplay(
+              chipColor: AppColors.transparent,
+              onDelete: (value) {
+                print("On delete called!");
+                context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removePreferedSoftwareSkillchips(value.toString()));
+              },
+            ),
+            buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+            buttonText: Text(
+              StringConstant.softwareSkillSet,
+              style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            ),
+            onConfirm: (selectedList, otherValues) {
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSoftwareSkill(
+                    List<String>.from(selectedList),
+                    List<String>.from(otherValues),
+                  ));
+            },
+          ),
+          /*if (state.showErrorMessages &&
+              state.requiredSoftwareSkillChipList.getValue().isEmpty &&
+              state.softwareSkillOther.isEmpty)
+            commonErrorText(StringConstant.pleaseSelectAtLeastOneSkillSet)*/
+        ],
+      );
+    }
+
+    Widget requiredSpecialityDropDownChipset(BuildContext context, HealthcarePostState state) {
+      /*return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CustomDropdwonWithTextField(
+            isLabelPadding: true,
+            isOptional: true,
+            fieldController: otherSpecialitiesController,
+            labelText: StringConstant.specialties,
+            hintText: StringConstant.specialties,
+            showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
+            fieldHintText: StringConstant.addYourSpecializations,
+            items: state.specialityList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.name,
+                child: BaseText(
+                  text: val.name ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
+            value: (state.requiredSpecialityChip.isEmpty)
+                ? null
+                : state.requiredSpecialityChip,
+            // validator: (val) {
+            //   if (val != null && val.toLowerCase() == "other") {
+            //     return null;
+            //   } else {
+            //     return context
+            //         .read<HealthcarePostBloc>()
+            //         .state
+            //         .requiredSpecialityChipList
+            //         .value
+            //         .fold(
+            //           (f) => f.maybeMap(
+            //             empty: (value) =>
+            //                 StringConstant.pleaseSelectAtLeastOneSpeciality,
+            //             orElse: () => null,
+            //           ),
+            //           (_) => null,
+            //         );
+            //   }
+            // },
+            onChanged: (newValue) {
+              if (newValue != null) {
+                context.read<HealthcarePostBloc>().add(
+                    HealthcarePostEvent.addRequiredSpecialitichips(newValue));
+              }
+            },
+            suffixIcon: CommonButton(
+              height: getSize(27),
+              width: getSize(59),
+              borderRadius: getSize(10),
+              buttonText: StringConstant.add,
+              buttonFontSize: 10,
+              onPressed: () {
+                context
+                    .read<HealthcarePostBloc>()
+                    .add(HealthcarePostEvent.addRequiredSpecialitichips(
+                      otherSpecialitiesController.text,
+                      isOtherValue: true,
+                    ));
+
+                otherSpecialitiesController.clear();
+              },
+            ),
+          ),
+          if (state.requiredSpecialityChip.toLowerCase() == "other" &&
+              state.showSpecialityError)
+            commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
+          CustomChipSet(
+            chipList:
+                (state.requiredSpecialityChipList.getValue()).cast<String>(),
+            onDelete: (value) {
+              context
+                  .read<HealthcarePostBloc>()
+                  .add(HealthcarePostEvent.removeRequiredSpecialitichips(value));
+            },
+          ),
+        ],
+      );*/
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MultiSelectDialogField(
+            isOptional: true,
+            initialValue: state.requiredSpecialityChipList.getValue(),
+            otherInitialValue: state.specialityOther,
+            items: state.specialityList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+            title: StringConstant.specialties,
+            labelText: StringConstant.specialties,
+            selectedColor: AppColors.black,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            chipDisplay: MultiSelectChipDisplay(
+              chipColor: AppColors.transparent,
+              onDelete: (value) {
+                print("On delete called!");
+                context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeRequiredSpecialitichips(value.toString()));
+              },
+            ),
+            buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+            buttonText: Text(
+              StringConstant.specialties,
+              style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            ),
+            onConfirm: (selectedList, otherValues) {
+              print("----> $selectedList");
+              print("----> $otherValues");
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSpecialityList(
+                    List<String>.from(selectedList),
+                    List<String>.from(otherValues),
+                  ));
+            },
+          ),
+          /* if (state.showErrorMessages &&
+              state.requiredSpecialityChipList.getValue().isEmpty &&
+              state.specialityOther.isEmpty)
+            commonErrorText(StringConstant.pleaseSelectAtLeastOneSpeciality)*/
+        ],
+      );
+    }
+
+    Widget languageDropDownChipSet(BuildContext context, HealthcarePostState state) {
+      /*return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CustomDropdwonWithTextField(
+            isLabelPadding: true,
+            fieldController: languageController,
+            labelText: StringConstant.languagesKnown,
+            hintText: StringConstant.languagesKnown,
+            showTextfield: state.languageChip.toLowerCase() == "other",
+            fieldHintText: StringConstant.addYourLanguage,
+            items: state.languageList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.name,
+                child: BaseText(
+                  text: val.name ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
+            // items: const [
+            //   "English",
+            //   "Hindi",
+            //   "Gujarati",
+            //   "Bengali",
+            //   "Marathi",
+            //   "Punjabi",
+            //   "Tamil",
+            //   "Kannad",
+            //   "Other",
+            // ],
+            value: (state.languageChip.isEmpty) ? null : state.languageChip,
+            validator: (val) {
+              if (val != null && val.toLowerCase() == "other") {
+                return null;
+              } else {
+                return context
+                    .read<HealthcarePostBloc>()
+                    .state
+                    .languageChipList
+                    .value
+                    .fold(
+                      (f) => f.maybeMap(
+                        empty: (value) =>
+                            StringConstant.pleaseSelectAtLeastOneLanguage,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    );
+              }
+            },
+            onChanged: (newValue) {
+              print("valllll-> $newValue");
+              if (newValue != null) {
+                context
+                    .read<HealthcarePostBloc>()
+                    .add(HealthcarePostEvent.addLanguageChips(newValue));
+              }
+            },
+            suffixIcon: CommonButton(
+              height: getSize(27),
+              width: getSize(59),
+              borderRadius: getSize(10),
+              buttonText: StringConstant.add,
+              buttonFontSize: 10,
+              onPressed: () {
+                context
+                    .read<HealthcarePostBloc>()
+                    .add(HealthcarePostEvent.addLanguageChips(
+                      languageController.text,
+                      isOtherValue: true,
+                    ));
+                languageController.clear();
+              },
+            ),
+          ),
+          if (state.languageChip.toLowerCase() == "other" &&
+              state.showLanguageError)
+            commonErrorText(StringConstant.pleaseAddOtherTypeOfLanguage),
+          CustomChipSet(
+            chipList: (state.languageChipList.getValue()).cast<String>(),
+            onDelete: (value) {
+              context
+                  .read<HealthcarePostBloc>()
+                  .add(HealthcarePostEvent.removeLanguageChips(value));
+            },
+          ),
+        ],
+      );*/
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MultiSelectDialogField(
+            items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+            title: StringConstant.languagesKnown,
+            labelText: StringConstant.languagesKnown,
+            selectedColor: AppColors.black,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            chipDisplay: MultiSelectChipDisplay(
+              chipColor: AppColors.transparent,
+              onDelete: (value) {
+                context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeLanguageChips(value.toString()));
+              },
+            ),
+            buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+            buttonText: Text(
+              StringConstant.languagesKnown,
+              style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            ),
+            initialValue: state.languageChipList.getValue(),
+            otherInitialValue: state.languageOther,
+            onConfirm: (selectedList, otherValues) {
+              print("----> $selectedList");
+              print("----> $otherValues");
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmLanguageList(
+                    List<String>.from(selectedList),
+                    List<String>.from(otherValues),
+                  ));
+            },
+          ),
+          if (state.showErrorMessages && state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+            commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
+        ],
+      );
+    }
+
+    Widget rateHourDropDown(BuildContext context, HealthcarePostState state) {
+      return CustomTextField(
+        labelText: StringConstant.rateHour,
+        isLabelPadding: true,
+        isPrefixValueShow: true,
+        errorMaxLines: 2,
+        maxLength: 5,
+        initialValue: (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
+        hintText: StringConstant.rateHour,
+        keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        prefixIcon: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(20),
+              top: getSize(14),
+              bottom: getSize(14),
+            ),
+            child: BaseText(
+              text: '\$ ',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              textColor: (state.rateHour.isValid()) ? AppColors.black : AppColors.black.withOpacity(0.5),
+            )),
+        prefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        onChanged: (value) {
+          context.read<HealthcarePostBloc>().add(HealthcarePostEvent.rateHourChanged(value));
+        },
+        validator: (p0, p1) => context.read<HealthcarePostBloc>().state.rateHour.value.fold(
+              (f) => f.maybeMap(
+                empty: (value) => StringConstant.pleaseEnterRateHour,
+                invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
+                orElse: () => null,
               ),
-            );
-          }).toList(),
-          validator: (
-            p0,
-          ) =>
-              context.read<HealthcarePostBloc>().state.location.value.fold(
-                    (f) => f.maybeMap(
-                      empty: (value) => StringConstant.pleaseEnterLocation,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
+              (_) => null,
+            ),
+      );
+    }
+
+    Widget locationDropDown(BuildContext context, HealthcarePostState state) {
+      print("state.location.getValue()--> ${state.selectedLocationUnit}");
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomLocationDropdDown(
+            labelText: StringConstant.location,
+            isLabelPadding: true,
+            showTextfield: false,
+            isOptional: true,
+            value: (state.location.isValid()) ? state.location.getValue() : null,
+            optionalWidget: GestureDetector(
+              onTap: () {
+                AppDialog.showInfo(
+                  context,
+                  StringConstant.missingLocationInfoDesc,
+                  maxLines: 5,
+                  insetPadding: EdgeInsets.symmetric(
+                    horizontal: getSize(30),
                   ),
-          onChanged: (value) {
-            // print("SELECTED LOCATION----> ${value}");
-            // LocationDTO selectedValue = value;
-            if (value != null) {
-              context.read<HealthcarePostBloc>().add(
-                    HealthcarePostEvent.locationChanged(value.toString()),
-                  );
-            }
-          },
-          hintText: StringConstant.location,
-          childDroDwonHintText: StringConstant.selectUnitIfAny,
-          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
-              ? state.selectedLocationUnit
-              : null,
-          // showDropDown:   state.location.isValid(),
-          showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
-          childDropDownItems: state.unitList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.number_or_name,
-              child: BaseText(
-                text: val.number_or_name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
+                );
+              },
+              child: SvgPicture.asset(
+                SvgImageConstant.infoCircle,
               ),
-            );
-          }).toList(),
-          childDropDownOnChanged: (value) {
-            if (value != null) {
-              context.read<HealthcarePostBloc>().add(
-                    HealthcarePostEvent.locationUnitSelectionChanged(value),
-                  );
-            }
-          },
-        ),
-        if (state.location.isValid() &&
-            state.unitList.isNotEmpty &&
-            state.showLocationError &&
-            state.selectedLocationUnit.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectLocationUnit),
-      ],
-    );
-  }
+            ),
+            items: state.locationList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.location,
+                child: BaseText(
+                  text: val.location ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
+            validator: (
+              p0,
+            ) =>
+                context.read<HealthcarePostBloc>().state.location.value.fold(
+                      (f) => f.maybeMap(
+                        empty: (value) => StringConstant.pleaseEnterLocation,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    ),
+            onChanged: (value) {
+              // print("SELECTED LOCATION----> ${value}");
+              // LocationDTO selectedValue = value;
+              if (value != null) {
+                context.read<HealthcarePostBloc>().add(
+                      HealthcarePostEvent.locationChanged(value.toString()),
+                    );
+              }
+            },
+            hintText: StringConstant.location,
+            childDroDwonHintText: StringConstant.selectUnitIfAny,
+            childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
+            // showDropDown:   state.location.isValid(),
+            showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
+            childDropDownItems: state.unitList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.number_or_name,
+                child: BaseText(
+                  text: val.number_or_name ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
+            childDropDownOnChanged: (value) {
+              if (value != null) {
+                context.read<HealthcarePostBloc>().add(
+                      HealthcarePostEvent.locationUnitSelectionChanged(value),
+                    );
+              }
+            },
+          ),
+          if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
+            commonErrorText(StringConstant.pleaseSelectLocationUnit),
+        ],
+      );
+    }
 }

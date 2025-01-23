@@ -729,6 +729,10 @@ class StringConstant {
   static const String withdrawPayment = "Withdraw Payment";
   static const String depositedToBank = "Deposited to Bank";
   static const String shiftEarnings = "Shift Earnings";
+  static const String enterAmountToWithdraw = "Enter Amount to Withdraw";
+  static const String withdrawSuccessful = "Withdraw Successful!";
+  static const String statementPeriod = "Statement Period";
+  static const String totalEarningStatement = "Total Earning Statement";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
@@ -991,6 +995,9 @@ class StringConstant {
   static const String pleaseSelectOtherLocationBrand =
       "Please select other location brand";
   static const String pleaseSelectScriptVolume = "Please select script volume";
+  static const String amountMustBeAtLeastOne = "Amount must be atleast \$1";
+  static const String pleaseEnterWithdrawAmount =
+      "Please enter withdraw amount";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

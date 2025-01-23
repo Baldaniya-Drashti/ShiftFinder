@@ -75,7 +75,7 @@ class ContractorWalletView extends StatelessWidget {
                                             balance: state.currentBalance,
                                           ),
                                         ),
-                                        SliverGap(getSize(12))
+                                        SliverGap(getSize(12)),
                                       ],
                                       SliverToBoxAdapter(
                                         child: BlocSelector<
@@ -158,9 +158,22 @@ class ContractorWalletView extends StatelessWidget {
                                                 vertical: getSize(22)),
                                             child: CommonButton(
                                               onPressed: () {
-                                                context.router.push(PageRouteInfo(
-                                                    ContractorWithdrawPaymentView
-                                                        .name));
+                                                context.router
+                                                    .push(PageRouteInfo(
+                                                        ContractorWithdrawPaymentView
+                                                            .name))
+                                                    .then((value) {
+                                                  if (value == true) {
+                                                    context
+                                                        .read<
+                                                            ContractorWalletBloc>()
+                                                        .add(
+                                                            ContractorWalletEvent
+                                                                .getWalletList(
+                                                                    true,
+                                                                    context));
+                                                  }
+                                                });
                                               },
                                               buttonText: StringConstant
                                                   .withdrawPayment,
@@ -214,12 +227,18 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
               borderRadius: 7,
               onPressed: () {
                 context.router
-                    .push(PageRouteInfo(ContractorWithdrawPaymentView.name));
+                    .push(PageRouteInfo(ContractorWithdrawPaymentView.name))
+                    .then((value) {
+                  if (value == true) {
+                    context.read<ContractorWalletBloc>().add(
+                        ContractorWalletEvent.getWalletList(true, context));
+                  }
+                });
               },
               buttonText: StringConstant.withdrawPayment,
               buttonFontWeight: FontWeight.w400,
               buttonFontSize: 14,
-            )
+            ),
           ],
         ),
       ),

@@ -80,6 +80,7 @@ class ApiConstants {
   static String employerMonthlyStatements = 'employer_monthly_statements';
   static String contractorGetBalance = 'contractor_get_balance';
   static String contractorWallet = 'contractor_wallet';
+  static String contractorWithdrawAmount = 'contractor_withdraw_amount';
 
   /// Stripe doc
   static String stripeDocument = 'stripe_document';
@@ -154,4 +155,17 @@ class ApiConstants {
   static String contractorPreviousShift = 'contractor_previous_shift';
   static String contractorReferColleague = 'contractor_refer_a_colleague';
   static String faqsList = 'faqs';
+  static String employerSavedTemplates = 'employer_saved_templates';
+  static String destroyEmployerSavedTemplates =
+      'destroy_employer_saved_templates';
+  static String employerDashboardLongFullTermPost =
+      'employer_dashboard_long_full_term_post';
+  static String createLongFullTermPost = 'create_long_full_term_post';
+  static String contractorDashboardLongFullTermPost =
+      'contractor_dashboard_long_full_term_post';
+  static String employerLongFullTermApplicants =
+      'employer_long_full_term_applicants';
+  static String employerUpdateLongFullPostTermStatus =
+      'update_long_full_post_term_status';
+  static String deleteLongTermPost = 'delete_long_full_term_post';
 }

@@ -19,7 +19,9 @@ import 'package:shift/presentation/core/widgets/attachment.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/customer_support/support_ticket_layout.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -327,13 +329,44 @@ class LocationDropdown extends StatelessWidget {
             ),
             Gap(8),
             Material(
-              color: AppColors.white,
+              color: (state.selectedLocation != null)
+                  ? AppColors.white
+                  : AppColors.transparent,
               borderRadius: BorderRadius.circular(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CustomDropdownField<LocationDTO>(
+                  CustomLocationDropdDown(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    items: state.locationList.map(
+                      (e) {
+                        return DropdownMenuItem<LocationDTO>(
+                          value: e,
+                          child: BaseText(
+                            text: e.location ?? "",
+                            fontSize: 14,
+                            maxLines: 1,
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    hintText: StringConstant.locationAddress,
+                    onChanged: (value) {
+                      final location = value as LocationDTO?;
+                      if (location != null) onLocationChanged(location);
+                    },
+                    showDropDown: false,
+                    showTextfield: false,
+                    validator: (value) {
+                      print("fvjvjdnj---> ${state.selectedLocation}");
+                      if (state.selectedLocation == null) {
+                        return StringConstant.pleaseSelectLocation;
+                      }
+                      return null;
+                    },
+                  ),
+                  /*  CustomDropdownField<LocationDTO>(
                     hintText: StringConstant.locationAddress,
                     value: initialLocation,
                     radius: 10,
@@ -358,7 +391,16 @@ class LocationDropdown extends StatelessWidget {
                       final location = value as LocationDTO?;
                       if (location != null) onLocationChanged(location);
                     },
+                    // validator: (value) {
+                    //   value = value?.trim() ?? "";
+                    //   if (value.isEmpty) {
+                    //     return StringConstant.pleaseSelectLocation;
+                    //   }
+                    //   return null;
+                    // },
                   ),
+                  if (!isValidate && state.selectedLocation == null)
+                    commonErrorText(StringConstant.pleaseSelectLocation), */
                   if (state.selectedLocation != null) ...[
                     Divider(height: 0),
                     Padding(
@@ -368,8 +410,8 @@ class LocationDropdown extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
-                    )
-                  ]
+                    ),
+                  ],
                 ],
               ),
             ),

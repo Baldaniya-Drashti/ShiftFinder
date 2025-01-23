@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/invoice_detail_view.dart';
@@ -16,8 +17,10 @@ import 'package:shift/presentation/billing/invoice_viewer.dart';
 import 'package:shift/presentation/billing/total_earning_statement_viewer.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -61,86 +64,98 @@ class ContractorTotalEarningView extends StatelessWidget {
                 ),
                 Gap(getSize(12)),
                 Expanded(
-                  child: (state.statement == null)
-                      ? Center(
-                          child: NoDataText(
-                            title: "",
-                            description: StringConstant
-                                .pleaseSelectDateToViewEarningStatement,
-                          ),
-                        )
-                      : Container(
-                          padding: EdgeInsets.all(getSize(16)),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                companyDetail(context,
-                                    statementPeriod: state.selectedDateTime,
-                                    statement: state.statement ??
-                                        MonthlyStatementDTO()),
-                                commonDivider(),
-                                _Earning(),
-                                Gap(getSize(15)),
-                                _Compensation(),
-                                Gap(getSize(15)),
-                                _ReferralBonus(),
-                                Gap(getSize(15)),
-                                Material(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: AppColors.scaffoldColor,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        MonthlyStatementInfo(
-                                          label: StringConstant
-                                              .totalCompletedShiftEarnings,
-                                          value: "\$1350.00",
-                                          showSign: false,
+                  child: (state.isLoading)
+                      ? CenterLoadingIndicator()
+                      : (state.statement == null)
+                          ? Center(
+                              child: NoDataText(
+                                title: "",
+                                description: StringConstant
+                                    .pleaseSelectDateToViewEarningStatement,
+                              ),
+                            )
+                          : Container(
+                              padding: EdgeInsets.all(getSize(16)),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    companyDetail(context,
+                                        statementPeriod: state.selectedDateTime,
+                                        statement: state.statement ??
+                                            EarningStatementDTO()),
+                                    commonDivider(),
+                                    _Earning(
+                                        statement: state.statement ??
+                                            EarningStatementDTO()),
+                                    Gap(getSize(15)),
+                                    _Compensation(
+                                        statement: state.statement ??
+                                            EarningStatementDTO()),
+                                    Gap(getSize(15)),
+                                    _ReferralBonus(
+                                        statement: state.statement ??
+                                            EarningStatementDTO()),
+                                    Gap(getSize(15)),
+                                    Material(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColors.scaffoldColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            MonthlyStatementInfo(
+                                              label: StringConstant
+                                                  .totalCompletedShiftEarnings,
+                                              value:
+                                                  "\$${state.statement?.completed_total_earnings ?? 0.0}",
+                                              showSign: false,
+                                            ),
+                                            MonthlyStatementInfo(
+                                              label: StringConstant
+                                                  .totalCompensationReceived,
+                                              value:
+                                                  "\$${state.statement?.total_cancellation_fee ?? 0.0}",
+                                              showSign: false,
+                                            ),
+                                            MonthlyStatementInfo(
+                                              label: StringConstant
+                                                  .totalReferralBonusReceived,
+                                              value:
+                                                  "\$${state.statement?.total_bonus ?? 0.0}",
+                                              showSign: false,
+                                            ),
+                                          ],
                                         ),
-                                        MonthlyStatementInfo(
-                                          label: StringConstant
-                                              .totalCompensationReceived,
-                                          value: "\$1350.00",
-                                          showSign: false,
-                                        ),
-                                        MonthlyStatementInfo(
-                                          label: StringConstant
-                                              .totalReferralBonusReceived,
-                                          value: "\$1350.00",
-                                          showSign: false,
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    Gap(22),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.green.withOpacity(0.2),
+                                      ),
+                                      padding: EdgeInsets.all(getSize(16)),
+                                      child: MonthlyStatementInfo(
+                                        label: StringConstant.netEarnings,
+                                        value:
+                                            "\$${state.statement?.net_earnings ?? 0.0}",
+                                        showSign: false,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(22)),
+                                      child: _Footer(),
+                                    ),
+                                  ],
                                 ),
-                                Gap(22),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColors.green.withOpacity(0.2),
-                                  ),
-                                  padding: EdgeInsets.all(getSize(16)),
-                                  child: MonthlyStatementInfo(
-                                    label: StringConstant.netEarnings,
-                                    value: "\$1070.00",
-                                    showSign: false,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(22)),
-                                  child: _Footer(),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
                 ),
               ],
             ),
@@ -159,7 +174,7 @@ class ContractorTotalEarningView extends StatelessWidget {
 
   Widget companyDetail(BuildContext context,
       {required List<DateTime> statementPeriod,
-      required MonthlyStatementDTO statement}) {
+      required EarningStatementDTO statement}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +198,9 @@ class ContractorTotalEarningView extends StatelessWidget {
                           fontWeight: FontWeight.w400)),
                   downLoadInvoiceBtn(onTap: () async {
                     final pdfData = await GenerateTotalEarningStatement()
-                        .totalEarningStatement(selectedDates: statementPeriod);
+                        .totalEarningStatement(
+                            selectedDates: statementPeriod,
+                            statement: statement);
 
                     String? pdfPath =
                         await SaveFileToStorage.savePdfToShiftFinderDirectory(
@@ -209,13 +226,18 @@ class ContractorTotalEarningView extends StatelessWidget {
                   }),
                 ],
               ),
-              BaseText(text: "Total Earning Statement", fontSize: 10),
+              BaseText(
+                  text: StringConstant.totalEarningStatement, fontSize: 10),
               Gap(getSize(10)),
-              BaseText(text: "Contractor Name", fontSize: 10),
+              BaseText(
+                text: statement.contractor_name ?? "",
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
               Gap(getSize(5)),
               Row(
                 children: [
-                  BaseText(text: "Statement Period", fontSize: 10),
+                  BaseText(text: StringConstant.statementPeriod, fontSize: 10),
                   Gap(getSize(5)),
                   BaseText(
                     text: getFormattedString(statementPeriod),
@@ -288,10 +310,12 @@ class _Footer extends StatelessWidget {
         ),
         Gap(getSize(8)),
         _buildSeparateText(context,
-            label: StringConstant.email, value: "debra.holt@example.com"),
+            label: StringConstant.email, value: getCurrentUser().email ?? ""),
         Gap(getSize(6)),
         _buildSeparateText(context,
-            label: StringConstant.phoneNumber, value: "6325148452"),
+            label: StringConstant.phoneNumber,
+            value:
+                "${(getCurrentUser().phone != null) ? getCurrentUser().phone : ""}"),
         Gap(getSize(6)),
         _buildSeparateText(
           context,
@@ -339,10 +363,12 @@ class _Footer extends StatelessWidget {
 }
 
 class _Earning extends StatelessWidget {
-  const _Earning();
+  EarningStatementDTO statement;
+  _Earning({required this.statement});
 
   @override
   Widget build(BuildContext context) {
+    final completedShift = statement.completed_shifts_earning ?? [];
     return Column(
       children: [
         StatementHeadingTitle(
@@ -354,28 +380,37 @@ class _Earning extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => Divider(),
-          itemCount: 1,
+          itemCount: completedShift.length,
           itemBuilder: (context, index) {
+            final earning = completedShift[index];
             return Column(
               children: [
                 TransactionInfo(
-                    label: StringConstant.date, value: "12 May 2024"),
+                    label: StringConstant.date,
+                    value: DateFormat('dd MMM yyyy').format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            earning.date! * 1000))),
                 TransactionInfo(
                     label: StringConstant.companyName,
-                    value: "Louis Vuitton Pvt. Ltd."),
+                    value: earning.company_name ?? ""),
                 TransactionInfo(
                     label: StringConstant.location,
-                    value: "6391 Elgin St. Celina, Delaware"),
+                    value: earning.location?.location ?? ""),
                 TransactionInfo(
-                    label: StringConstant.hoursWorked, value: "9 h 30 min"),
+                    label: StringConstant.hoursWorked,
+                    value: earning.hours_worked ?? ""),
                 TransactionInfo(
-                    label: StringConstant.hourlyRate, value: "\$30.00"),
-                TransactionInfo(label: StringConstant.wages, value: "\$30.00"),
+                    label: StringConstant.hourlyRate,
+                    value: "\$${earning.hourly_rate ?? 0.0}"),
                 TransactionInfo(
-                    label: StringConstant.allowances, value: "\$30.00"),
+                    label: StringConstant.wages,
+                    value: "\$${earning.total_wage ?? 0.0}"),
+                TransactionInfo(
+                    label: StringConstant.allowances,
+                    value: "\$${earning.total_allowance ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.earnings,
-                    value: "\$335.00",
+                    value: "\$${earning.total_earnings ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -392,18 +427,18 @@ class _Earning extends StatelessWidget {
               children: [
                 MonthlyStatementInfo(
                   label: StringConstant.totalWage,
-                  value: "\$1350.00",
+                  value: "\$${statement.completed_total_wage ?? 0.0}",
                   showSign: false,
                 ),
                 MonthlyStatementInfo(
                   label: StringConstant.totalAllowance,
-                  value: "\$1350.00",
+                  value: "\$${statement.completed_total_allowance ?? 0.0}",
                   showSign: false,
                 ),
                 Divider(),
                 MonthlyStatementInfo(
                     label: StringConstant.totalEarnings,
-                    value: "\$1350.00",
+                    value: "\$${statement.completed_total_earnings ?? 0.0}",
                     showSign: false,
                     valueColor: AppColors.green),
               ],
@@ -416,10 +451,12 @@ class _Earning extends StatelessWidget {
 }
 
 class _Compensation extends StatelessWidget {
-  const _Compensation({super.key});
+  EarningStatementDTO statement;
+  _Compensation({required this.statement});
 
   @override
   Widget build(BuildContext context) {
+    final cancelList = statement.cancellations_shifts_earning ?? [];
     return Column(
       children: [
         StatementHeadingTitle(
@@ -431,21 +468,25 @@ class _Compensation extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => Divider(),
-          itemCount: 3,
+          itemCount: cancelList.length,
           itemBuilder: (context, index) {
+            final earning = cancelList[index];
             return Column(
               children: [
                 TransactionInfo(
-                    label: StringConstant.date, value: "12 May 2024"),
+                    label: StringConstant.date,
+                    value: DateFormat('dd MMM yyyy').format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            earning.date! * 1000))),
                 TransactionInfo(
                     label: StringConstant.companyName,
-                    value: "Louis Vuitton Pvt. Ltd."),
+                    value: earning.company_name ?? ""),
                 TransactionInfo(
                     label: StringConstant.location,
-                    value: "6391 Elgin St. Celina, Delaware"),
+                    value: earning.location?.location ?? ""),
                 TransactionInfo(
                     label: StringConstant.cancellationFee,
-                    value: "\$120.00",
+                    value: "\$${earning.amount ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -460,7 +501,7 @@ class _Compensation extends StatelessWidget {
           padding: EdgeInsets.all(getSize(12)),
           child: MonthlyStatementInfo(
               label: StringConstant.totalCancellationFee,
-              value: "\$200.00",
+              value: "\$${statement.total_cancellation_fee ?? 0.0}",
               showSign: false,
               valueColor: AppColors.green),
         ),
@@ -470,10 +511,12 @@ class _Compensation extends StatelessWidget {
 }
 
 class _ReferralBonus extends StatelessWidget {
-  const _ReferralBonus();
+  EarningStatementDTO statement;
+  _ReferralBonus({required this.statement});
 
   @override
   Widget build(BuildContext context) {
+    final referralList = statement.referrals_data ?? [];
     return Column(
       children: [
         StatementHeadingTitle(
@@ -485,18 +528,22 @@ class _ReferralBonus extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => Divider(),
-          itemCount: 3,
+          itemCount: referralList.length,
           itemBuilder: (context, index) {
+            final earning = referralList[index];
             return Column(
               children: [
                 TransactionInfo(
-                    label: StringConstant.date, value: "12 May 2024"),
+                    label: StringConstant.date,
+                    value: DateFormat('dd MMM yyyy').format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            earning.date! * 1000))),
                 TransactionInfo(
                     label: StringConstant.referredContractorName,
-                    value: "David Malpas"),
+                    value: earning.referred_contractor_name ?? ""),
                 TransactionInfo(
                     label: StringConstant.bonusAmount,
-                    value: "\$50.00",
+                    value: "\$${earning.amount ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -511,7 +558,7 @@ class _ReferralBonus extends StatelessWidget {
           padding: EdgeInsets.all(getSize(12)),
           child: MonthlyStatementInfo(
             label: StringConstant.totalBonus,
-            value: "\$170.00",
+            value: "\$${statement.total_bonus ?? 0.0}",
             showSign: false,
             valueColor: AppColors.green,
           ),

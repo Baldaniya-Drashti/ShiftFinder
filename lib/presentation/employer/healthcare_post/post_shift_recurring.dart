@@ -22,6 +22,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -35,12 +36,15 @@ class PostShiftRecurring extends StatelessWidget {
   int shiftType;
   HealthcarePostDTO? updateShift;
   PostShiftDTO post;
+  final bool fromSaveTemplate;
 
-  PostShiftRecurring(
-      {super.key,
-      required this.shiftType,
-      required this.updateShift,
-      required this.post});
+  PostShiftRecurring({
+    super.key,
+    required this.shiftType,
+    required this.updateShift,
+    required this.post,
+    this.fromSaveTemplate = false,
+  });
 
   String postTitle() {
     final industry = CommonList.industryList
@@ -50,6 +54,7 @@ class PostShiftRecurring extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Log.success("===rrr ${fromSaveTemplate}");
     print("updatedShift--->  ${jsonEncode(post)}");
     return PopScope(
       canPop: false,
@@ -77,19 +82,13 @@ class PostShiftRecurring extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    context.router
-                        .push(PageRouteInfo(ReviewPostShiftDetail.name,
-                            args: ReviewPostShiftDetailArgs(
-                              post: r,
-                              updatedPost: (state.updateShift.id != null &&
-                                      state.updateShift.id != -1)
-                                  ? state.post
-                                  : null,
-                              isUpdate: (state.updateShift.id != null &&
-                                      state.updateShift.id != -1)
-                                  ? true
-                                  : false,
-                            )));
+                    context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
+                        args: ReviewPostShiftDetailArgs(
+                          post: r,
+                          updatedPost: (state.updateShift.id != null && state.updateShift.id != -1) ? state.post : null,
+                          isUpdate: (state.updateShift.id != null && state.updateShift.id != -1) ? true : false,
+                          fromSaveTemplate: fromSaveTemplate
+                        )));
                   },
                 ),
               );
@@ -97,7 +96,7 @@ class PostShiftRecurring extends StatelessWidget {
             builder: (context, state) {
               return Scaffold(
                 appBar: CommonAppBar(
-                  title: postTitle(),
+                  title: fromSaveTemplate ? "Edit Template" : postTitle(),
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
@@ -259,17 +258,12 @@ class PostShiftRecurring extends StatelessWidget {
                                             confirmationDialog(context, state,
                                                 noOfShift: selectedDayCount);
                                           } else {
-                                            context.read<PostShiftBloc>().add(
-                                                PostShiftEvent
-                                                    .recurringButtonEvent(
-                                                        context,
-                                                        updateShift
-                                                                ?.shift_detail
-                                                                ?.id ??
-                                                            -1));
+                                            context
+                                                .read<PostShiftBloc>()
+                                                .add(PostShiftEvent.recurringButtonEvent(context, updateShift?.shift_detail?.id ?? -1,fromSaveTemplate));
                                           }
                                         },
-                                        buttonText: StringConstant.txtContinue,
+                                        buttonText: fromSaveTemplate?"Post The Shift":StringConstant.txtContinue,
                                       ),
                                     ),
                                   ],
@@ -293,13 +287,11 @@ class PostShiftRecurring extends StatelessWidget {
     );
   }
 
-  confirmationDialog(BuildContext context, PostShiftState state,
-      {required int noOfShift}) {
+  confirmationDialog(BuildContext context, PostShiftState state, {required int noOfShift}) {
     AppDialog.showDelete(
       context,
       title: StringConstant.confirmationRequired,
-      infoMessage:
-          "${StringConstant.confirmationRecurringDesc1} $noOfShift ${StringConstant.confirmationRecurringDesc2}",
+      infoMessage: "${StringConstant.confirmationRecurringDesc1} $noOfShift ${StringConstant.confirmationRecurringDesc2}",
       deleteBtnText: StringConstant.confirm,
       cancelText: StringConstant.cancle,
       onCancelClick: () {
@@ -307,8 +299,7 @@ class PostShiftRecurring extends StatelessWidget {
       },
       onDeleteClick: () {
         context.router.maybePop();
-        context.read<PostShiftBloc>().add(PostShiftEvent.recurringButtonEvent(
-            context, updateShift?.shift_detail?.id ?? -1));
+        context.read<PostShiftBloc>().add(PostShiftEvent.recurringButtonEvent(context, updateShift?.shift_detail?.id ?? -1,fromSaveTemplate));
       },
     );
   }
@@ -322,15 +313,12 @@ class PostShiftRecurring extends StatelessWidget {
         horizontal: getSize(20),
         vertical: getSize(10),
       ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
         onTap: () {
           bool value = state.isToBeRecurring;
           value = !value;
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.recurringCheck(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.recurringCheck(value));
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -350,9 +338,7 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.recurringCheck(value));
+                    context.read<PostShiftBloc>().add(PostShiftEvent.recurringCheck(value));
                   }
                 },
               ),
@@ -382,9 +368,7 @@ class PostShiftRecurring extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       initialValue: state.disclaimerNote,
       onChanged: (value) {
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.disclaimerChanged(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.disclaimerChanged(value));
       },
       validator: null,
     );
@@ -399,20 +383,16 @@ class PostShiftRecurring extends StatelessWidget {
         horizontal: getSize(20),
         vertical: getSize(10),
       ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
         onTap: () {
           bool value = state.isShareWithTeams;
           value = !value;
 
           if (value == true && state.teamList.isEmpty) {
-            showError(message: StringConstant.toShareThisPostDesc)
-                .show(context);
+            showError(message: StringConstant.toShareThisPostDesc).show(context);
           } else {
-            context
-                .read<PostShiftBloc>()
-                .add(PostShiftEvent.shareWithTeamsCheck(value));
+            context.read<PostShiftBloc>().add(PostShiftEvent.shareWithTeamsCheck(value));
           }
         },
         child: Row(
@@ -434,12 +414,9 @@ class PostShiftRecurring extends StatelessWidget {
                 onChanged: (value) {
                   if (value != null) {
                     if (value == true && state.teamList.isEmpty) {
-                      showError(message: StringConstant.toShareThisPostDesc)
-                          .show(context);
+                      showError(message: StringConstant.toShareThisPostDesc).show(context);
                     } else {
-                      context
-                          .read<PostShiftBloc>()
-                          .add(PostShiftEvent.shareWithTeamsCheck(value));
+                      context.read<PostShiftBloc>().add(PostShiftEvent.shareWithTeamsCheck(value));
                     }
                   }
                 },
@@ -482,15 +459,12 @@ class PostShiftRecurring extends StatelessWidget {
         horizontal: getSize(20),
         vertical: getSize(10),
       ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
         onTap: () {
           bool value = state.isSaveAsTemplate;
           value = !value;
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.saveAsTemplateCheck(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.saveAsTemplateCheck(value));
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -510,9 +484,7 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.saveAsTemplateCheck(value));
+                    context.read<PostShiftBloc>().add(PostShiftEvent.saveAsTemplateCheck(value));
                   }
                 },
               ),
@@ -549,8 +521,7 @@ class PostShiftRecurring extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.startDateForRecurrence,
       hintText: (state.recurringStartDate.isValid())
-          ? DateFormat('d MMM, yyyy')
-              .format(DateTime.parse(state.recurringStartDate.getValue() ?? ""))
+          ? DateFormat('d MMM, yyyy').format(DateTime.parse(state.recurringStartDate.getValue() ?? ""))
           : StringConstant.startDateForRecurrence,
       hintAsValue: (state.recurringStartDate.isValid()) ? true : false,
       readOnly: true,

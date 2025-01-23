@@ -43,14 +43,16 @@ class ProfileItems extends StatelessWidget {
       ),
       ProfileItemModel(
         title: StringConstant.longTermPositions,
-        image: SvgImageConstant.calendarWithClock,
-        onTap: () {},
+        image: SvgImageConstant.previousShifts,
+        onTap: () {
+          // context.router.push(PageRouteInfo(EmployerLongTermView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          // context.router.push(PageRouteInfo(EmployerFullPositionView.name));
+          // context.router.push(PageRouteInfo(EmployerFullPostingView.name));
         },
       ),
       ProfileItemModel(
@@ -78,7 +80,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Saved Templates',
         image: SvgImageConstant.savedTemplates,
-        onTap: () {},
+        onTap: () {
+          // context.router.push(PageRouteInfo(SaveTemplateView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Billing',
@@ -208,7 +212,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
         },
       ),
       ProfileItemModel(
@@ -221,13 +225,15 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.calendarWithClock,
-        onTap: () {},
+        onTap: () {
+          // context.router.push(PageRouteInfo(ContractorLongTermView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          // context.router.push(PageRouteInfo(FullTimePositionView.name));
+          // context.router.push(PageRouteInfo(ContractorFullTimePositionView.name));
         },
       ),
       ProfileItemModel(
@@ -246,7 +252,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorEarningView.name));
+          context.router.push(PageRouteInfo(ContractorEarningView.name));
         },
       ),
       ProfileItemModel(

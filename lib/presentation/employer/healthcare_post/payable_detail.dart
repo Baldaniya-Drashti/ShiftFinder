@@ -14,6 +14,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -24,11 +25,13 @@ class PayableDetail extends StatelessWidget {
   HealthcarePostDTO post;
   PostShiftDTO? updatedPost;
   bool isUpdate;
-  PayableDetail(
-      {super.key, required this.post, this.isUpdate = false, this.updatedPost});
+  final bool fromSaveTemplate;
+
+  PayableDetail({super.key, required this.post, this.isUpdate = false, this.updatedPost, this.fromSaveTemplate = false});
 
   @override
   Widget build(BuildContext context) {
+    Log.success("fromSaveTemplate ${fromSaveTemplate}");
     return PopScope(
       canPop: false,
       child: BlocProvider(
@@ -42,8 +45,7 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
+                      networkError: (value) => 'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -70,8 +72,7 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
+                      networkError: (value) => 'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);

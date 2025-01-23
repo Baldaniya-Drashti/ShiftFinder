@@ -15,6 +15,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
@@ -27,8 +28,9 @@ class HealthcarePostShift extends StatelessWidget {
   int postId;
   HealthcarePostDTO? updateShift;
   PostShiftDTO post;
-  HealthcarePostShift(
-      {super.key, required this.postId, this.updateShift, required this.post});
+  final bool fromSaveTemplate;
+
+  HealthcarePostShift({super.key, required this.postId, this.updateShift, required this.post, this.fromSaveTemplate = false});
 
   String postTitle() {
     final industry = CommonList.industryList
@@ -38,6 +40,7 @@ class HealthcarePostShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Log.debug("fromSaveTemplate ${fromSaveTemplate}");
     print("Post getting from previous---> ${jsonEncode(updateShift)}");
     return PopScope(
       canPop: false,
@@ -48,25 +51,23 @@ class HealthcarePostShift extends StatelessWidget {
         child: BlocProvider(
           create: (context) => getIt<PostShiftBloc>()
             ..add(PostShiftEvent.changeShiftType("Single",
-                postId: postId, post: post, updateShift: updateShift)),
-          child: BlocConsumer<PostShiftBloc, PostShiftState>(
-            listener: (context, state) {},
+                postId: postId, post: post, updateShift: updateShift, fromSaveTemplate: fromSaveTemplate)),
+          child: BlocBuilder<PostShiftBloc, PostShiftState>(
             builder: (context, state) {
               return Scaffold(
                 appBar: CommonAppBar(
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
-                  title: (state.updateShift.id != null &&
-                          state.updateShift.shift_detail != null)
-                      ? (state.updateShift.shift_detail!.shift_type == 1)
-                          ? StringConstant.singleShift
-                          : (state.updateShift.shift_detail!
-                                      .same_or_different_time ==
-                                  1)
-                              ? StringConstant.sameTimeForAllDates
-                              : StringConstant.differentTimeForEachDate
-                      : postTitle(),
+                  title: state.fromSaveTemplate
+                      ? "Edit Template"
+                      : (state.updateShift.id != null && state.updateShift.shift_detail != null)
+                          ? (state.updateShift.shift_detail!.shift_type == 1)
+                              ? StringConstant.singleShift
+                              : (state.updateShift.shift_detail!.same_or_different_time == 1)
+                                  ? StringConstant.sameTimeForAllDates
+                                  : StringConstant.differentTimeForEachDate
+                          : postTitle(),
                 ),
                 body: LayoutBuilder(builder: (context, constraint) {
                   return SingleChildScrollView(
@@ -87,8 +88,7 @@ class HealthcarePostShift extends StatelessWidget {
                               value: PostShiftBloc.shiftTypeList
                                   .firstWhere(
                                     (shift) => shift.id == state.shiftType,
-                                    orElse: () =>
-                                        SkillDTO(id: 1, name: "Single"),
+                                    orElse: () => SkillDTO(id: 1, name: "Single"),
                                   )
                                   .name,
                               items: PostShiftBloc.shiftTypeList.map((val) {
@@ -103,18 +103,15 @@ class HealthcarePostShift extends StatelessWidget {
                               }).toList(),
                               onChanged: (value) {
                                 if (value != null) {
-                                  context.read<PostShiftBloc>().add(
-                                      PostShiftEvent.changeShiftType(value,
-                                          postId: postId,
-                                          post: null,
-                                          updateShift: null));
+                                  context
+                                      .read<PostShiftBloc>()
+                                      .add(PostShiftEvent.changeShiftType(value, postId: postId, post: null, updateShift: null));
                                 }
                               },
                             ),
                           ),
                           ConstrainedBox(
-                            constraints:
-                                BoxConstraints(minHeight: constraint.maxHeight),
+                            constraints: BoxConstraints(minHeight: constraint.maxHeight),
                             child:
                                 /*(state.shiftType == 3)
                                 ? Center(
@@ -129,12 +126,15 @@ class HealthcarePostShift extends StatelessWidget {
                                         postId: postId,
                                         post: post,
                                         updateShift: updateShift,
+                                        fromSaveTemplate: fromSaveTemplate,
+
                                       )
                                     : SinglePostShift(
                                         shiftType: state.shiftType,
                                         postId: postId,
                                         post: post,
                                         updateShift: updateShift,
+                                        fromSaveTemplate: fromSaveTemplate,
                                       ),
                           ),
                         ],

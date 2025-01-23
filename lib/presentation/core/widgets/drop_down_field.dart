@@ -5,6 +5,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -60,7 +62,7 @@ class CustomDropdownField<T> extends StatefulWidget {
   final void Function(dynamic) onChanged;
   final T? value;
   final List<DropdownMenuItem<T?>> items;
-  final FormFieldValidator<T?>? validator;
+  final FormFieldValidator<dynamic>? validator;
   final Widget? prefixIcon;
   final String? hintText;
   final TextStyle? hintTextStyle;
@@ -135,11 +137,17 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           decoration: InputDecoration(
             fillColor: AppColors.white,
             filled: true,
-            contentPadding: EdgeInsets.only(right: 16, top: 10, bottom: 10),
+            contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10),
             isDense: true,
+            alignLabelWithHint: true,
+            errorStyle: TextStyle(),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(widget.radius ?? 6),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.red),
+              borderRadius: BorderRadius.circular(getSize(10)),
             ),
           ),
           value: widget.value,
@@ -148,6 +156,75 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           items: widget.items,
         ),
       ],
+    );
+  }
+}
+
+class ShiftScheduleDropdownField extends StatefulWidget {
+  const ShiftScheduleDropdownField({
+    super.key,
+    required this.onChanged,
+    required this.selectedShiftSchedule,
+  });
+
+  final Function(CommonDropdownModel value) onChanged;
+  final CommonDropdownModel? selectedShiftSchedule;
+
+  @override
+  State<ShiftScheduleDropdownField> createState() =>
+      _ShiftScheduleDropdownFieldState();
+}
+
+class _ShiftScheduleDropdownFieldState
+    extends State<ShiftScheduleDropdownField> {
+  @override
+  void didUpdateWidget(covariant ShiftScheduleDropdownField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedShiftSchedule != oldWidget.selectedShiftSchedule) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<CommonDropdownModel> list = [
+      CommonDropdownModel(id: 1, label: "Morning"),
+      CommonDropdownModel(id: 2, label: "Evening"),
+      CommonDropdownModel(id: 3, label: "Night"),
+      CommonDropdownModel(id: 4, label: "Weekends"),
+      CommonDropdownModel(id: 5, label: "Weekdays"),
+    ];
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        boxShadow: [
+          BoxShadow(color: AppColors.lightGrey.withOpacity(0.2), blurRadius: 30)
+        ],
+      ),
+      child: CustomDropdownField<CommonDropdownModel>(
+        validator: (value) {
+          if (value == null) return "Please select shift schedule";
+          return null;
+        },
+        hintText: "Shift Schedule",
+        fontSize: 13,
+        label: "Shift Schedule",
+        hintTextStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.black.withOpacity(0.5),
+        ),
+        onChanged: (value) => widget.onChanged(value as CommonDropdownModel),
+        value: widget.selectedShiftSchedule,
+        items: list.map(
+          (e) {
+            return DropdownMenuItem<CommonDropdownModel>(
+              value: e,
+              child: BaseText(
+                  text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }

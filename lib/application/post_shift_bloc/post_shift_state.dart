@@ -61,10 +61,11 @@ class PostShiftState with _$PostShiftState {
     required List<String> startMinuteList,
     required List<String> endHourList,
     required List<String> endMinuteList,
+    required bool fromSaveTemplate,
     required List<DateTimeDTO> multiDateTimeList,
     required bool isDifferentDateDataValid,
-    required Option<Either<AuthFailure, MultiShiftDTO>>
-        differentDateFailureOrSuccessOption,
+    required Option<Either<AuthFailure, MultiShiftDTO>> differentDateFailureOrSuccessOption,
+    required bool fromPreviousShift,
 
     /// Post the Shift
     required Option<Either<MainFailure, String>>
@@ -78,11 +79,12 @@ class PostShiftState with _$PostShiftState {
   factory PostShiftState.initial() => PostShiftState(
         /// Change shift Type(Single, Multi,Long-Term)
         updateShift: HealthcarePostDTO(),
+        fromPreviousShift: false,
         post: PostShiftDTO(),
         shiftType: -1,
         postId: -1,
         isLoading: false,
-
+          fromSaveTemplate: false,
         /// Single Shift
         signleShiftDate: InputEmptyOrNot(""),
         // startTime: InputEmptyOrNot(""),

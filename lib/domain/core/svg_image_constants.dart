@@ -41,16 +41,13 @@ class SvgImageConstant {
   static const bin = "assets/svg/bin.svg";
   static const clock = "assets/svg/clock.svg";
   static const capWithVerticalLine = "assets/svg/cap_with_vertical_line.svg";
-  static const personWithVerticalLine =
-      "assets/svg/person_with_vertical_line.svg";
+  static const personWithVerticalLine = "assets/svg/person_with_vertical_line.svg";
   static const referencePerson = "assets/svg/reference_person.svg";
   static const bag = "assets/svg/bag.svg";
   static const personPlus = "assets/svg/person_plus.svg";
   static const departmentSetting = "assets/svg/department_setting.svg";
-  static const clockWithVerticalLine =
-      "assets/svg/clock_with_vertical_line.svg";
-  static const documentWithVerticalLine =
-      "assets/svg/document_with_vertical_line.svg";
+  static const clockWithVerticalLine = "assets/svg/clock_with_vertical_line.svg";
+  static const documentWithVerticalLine = "assets/svg/document_with_vertical_line.svg";
   static const checkedArrow = "assets/svg/checked_arrow.svg";
   static const upload = "assets/svg/upload.svg";
   static const minusCircle = "assets/svg/minus_circle.svg";
@@ -70,8 +67,7 @@ class SvgImageConstant {
   static const profileTab = "assets/svg/profile_tab.svg";
   static const inActiveHomeTabActive = "assets/svg/inactive_home_tab.svg";
   static const inActiveShiftTab = "assets/svg/inactive_shift_tab.svg";
-  static const inActiveNotificationTab =
-      "assets/svg/inactive_notification_tab.svg";
+  static const inActiveNotificationTab = "assets/svg/inactive_notification_tab.svg";
   static const inActiveProfileTab = "assets/svg/inactive_profile_tab.svg";
   static const femaleGrey = "assets/svg/female_grey.svg";
   static const mouse = "assets/svg/mouse.svg";
@@ -165,6 +161,8 @@ class SvgImageConstant {
       "assets/svg/available_withdraw_balance.svg";
   static const next = 'assets/svg/next.svg';
   static const questionMark = 'assets/svg/question_mark.svg';
+  static const saveTemplate2 = 'assets/svg/save_template_2.svg';
+  static const search = 'assets/svg/search.svg';
   static const rejected = 'assets/svg/rejected.svg';
   static const pending = 'assets/svg/pending.svg';
   static const injection = 'assets/svg/injection.svg';

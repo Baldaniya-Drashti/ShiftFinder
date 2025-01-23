@@ -706,6 +706,7 @@ class LocationDetailForm extends StatelessWidget {
   ) {
     updateUnitNameCtrl.text = state.listOfUnit[index].number_or_name ?? "";
     updateUnitNoteCtrl.text = state.listOfUnit[index].note ?? "";
+
     showDialog(
         context: context,
         builder: (BuildContext context) {

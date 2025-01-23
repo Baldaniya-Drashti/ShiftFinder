@@ -197,8 +197,8 @@ class LoginForm extends StatelessWidget {
             height: getSize(28),
           ),
           CustomTextField(
-            hintText: StringConstant.email,
-            labelText: StringConstant.email,
+              hintText: StringConstant.email,
+              labelText: StringConstant.email,
             keyboardType: TextInputType.emailAddress,
             maxLength: 340,
             errorMaxLines: 2,

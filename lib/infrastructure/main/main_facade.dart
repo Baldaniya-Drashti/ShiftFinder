@@ -5,14 +5,12 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/faq/faq_bloc.dart';
-import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/account/account_repository.dart';
-import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
@@ -2368,6 +2366,73 @@ class MainFacade implements IMainFacade {
   }
 
   @override
+  Future<Either<MainFailure, CommonResponse>> employerSavedTemplate({
+    required int page,
+    String? search,
+    required int shiftType,
+    int? sameOrDifferentTime,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "page": page,
+        "perPage": 10,
+        if (search != null) "search": search,
+        "shift_type": shiftType,
+        if (sameOrDifferentTime != null)
+          "same_or_different_time": sameOrDifferentTime
+      };
+      final response = await apiService.getMethod(
+        ApiConstants.employerSavedTemplates,
+        queryParameters: mapData,
+      );
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate(
+      {required int id}) async {
+    try {
+      final response = await apiService.deleteMethod(
+        "${ApiConstants.destroyEmployerSavedTemplates}/$id",
+      );
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI() async {
     try {
       final res = await apiService.getMethod(
@@ -2727,7 +2792,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
+  Future<Either<MainFailure, EarningStatementDTO>> totalEarningStatementAPI({
     required String startDate,
     required String endDate,
   }) async {
@@ -2738,6 +2803,199 @@ class MainFacade implements IMainFacade {
           "start_date": startDate,
           "end_date": endDate,
         },
+      );
+
+      if (response != null) {
+        final data = EarningStatementDTO.fromJson(response.data);
+        print("Monthly Statement Response->  ${data}");
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPosition(
+      {required int positionType, required int page}) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerDashboardLongFullTermPost,
+        queryParameters: {
+          "post_type": 1,
+          "positions_type": positionType,
+        },
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost(
+      {required Map<String, dynamic> data}) async {
+    try {
+      final formData = FormData.fromMap(data);
+      if (data["terms_document"] != null) {
+        var multipartFile =
+            await MultipartFile.fromFile(data['terms_document']);
+        formData.files.add(MapEntry('terms_document', multipartFile));
+      }
+      final res = await apiService.postMethod(
+        ApiConstants.createLongFullTermPost,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
+    required int positionsType,
+    required int page,
+  }) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerDashboardLongFullTermPost,
+        queryParameters: {
+          "post_type": 1,
+          "positions_type": positionsType,
+          "page": page
+        },
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> updateLongTermStatus(
+      {required int id}) async {
+    try {
+      final response = await apiService.getMethod(
+        "${ApiConstants.employerUpdateLongFullPostTermStatus}/$id",
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>>
+      getEmployerLongTermPositionApplicants(
+          {required int id, required int page}) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerLongFullTermApplicants,
+        queryParameters: {
+          "post_id": id,
+          "page": page,
+          "perPage": 10,
+        },
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> deleteLongTermPost(
+      {required int id}) async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.deleteLongTermPost,
+        queryParameters: {"id": id},
       );
 
       if (response != null) {
@@ -2816,6 +3074,40 @@ class MainFacade implements IMainFacade {
       } else {
         return left(const MainFailure.serverError());
       }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> contractorWithdrawAmount({
+    double? amount,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'amount': amount,
+      };
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.postMethod(
+          ApiConstants.contractorWithdrawAmount, mapData);
+
+      // var account = res.data as List<dynamic>;
+      // var data = account.map((e) => ContractorWalletDTO.fromJson(e)).toList();
+      // print("Get Wallet List Response->  $data");
+
+      return right(res);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
