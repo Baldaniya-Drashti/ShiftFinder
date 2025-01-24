@@ -198,8 +198,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i218.EmployerLongTermPositionAddDetailBloc());
     gh.factory<_i24.EmployerFullPostingBloc>(
         () => _i24.EmployerFullPostingBloc());
-    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
-        () => _i454.EmployerFullPostingConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
@@ -215,6 +213,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
     gh.factory<_i1069.EmployerLongTermViewApplicantBloc>(() =>
         _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
+        () => _i454.EmployerFullPostingConfirmBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i89.EmployerLongTermBloc>(
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i918.EmployerLongTermPayableBloc>(

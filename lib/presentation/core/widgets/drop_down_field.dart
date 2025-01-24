@@ -78,6 +78,7 @@ class CustomDropdownField<T> extends StatefulWidget {
 class _CustomDropdownFieldState extends State<CustomDropdownField> {
   final ValueNotifier<bool> _isMenuOpened = ValueNotifier<bool>(false);
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -92,6 +93,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           Gap(8),
         ],
         DropdownButtonFormField2(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           hint: Text(
             widget.hintText ?? "",
             style: widget.hintTextStyle,
@@ -102,7 +104,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           isExpanded: true,
           menuItemStyleData: const MenuItemStyleData(
             height: 45,
-            padding: EdgeInsets.only(left: 14, right: 14),
+            padding: EdgeInsets.only(left: 0, right: 14),
           ),
           selectedItemBuilder: widget.selectedItemBuilder,
           dropdownStyleData: DropdownStyleData(
@@ -133,7 +135,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           decoration: InputDecoration(
             fillColor: AppColors.white,
             filled: true,
-            contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10),
+            contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10,left: 16),
             isDense: true,
             errorStyle: TextStyle(),
             border: OutlineInputBorder(

@@ -12,6 +12,7 @@ part 'employer_long_term_success_dto.g.dart';
 @freezed
 class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
   const factory EmployerLongTermSuccessDto({
+
     int? id,
     int? post_id,
     int? user_id,
@@ -60,6 +61,15 @@ class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     int? industry,
     int? total_teams,
     List<TeamDTO>? teams,
+    String? position,
+    String? compensation_type,
+    String? job_summary,
+    String? external_internal_relationships,
+    String? experience,
+    String? skills,
+    String? other,
+    String? union_bargaining_unit,
+    String? compensation_package,
   }) = _EmployerLongTermSuccessDto;
 
   factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermSuccessDtoFromJson(json);

@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
-import 'package:shift/application/contractor/full_time_position_detail/full_time_position_detail_bloc.dart';
 import 'package:shift/application/employer/employer_full_posting_review/employer_full_posting_review_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -21,7 +20,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerFullPostingReviewView")
 class EmployerFullPostingReviewView extends StatelessWidget {
-  const EmployerFullPostingReviewView({super.key});
+  const EmployerFullPostingReviewView({super.key, required this.employerFullPosting});
+  final EmployerLongTermSuccessDto employerFullPosting;
 
   @override
   Widget build(BuildContext context) {
@@ -354,7 +354,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -373,7 +373,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -405,7 +405,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -425,7 +425,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -448,7 +448,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -492,7 +492,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
         child: Row(
           children: [
             Expanded(
@@ -515,7 +515,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       color: AppColors.surfaceColor,
       borderRadius: BorderRadius.circular(getSize(10)),
       child: Padding(
-        padding:  EdgeInsets.all(getSize(12)).copyWith(bottom: 0),
+        padding: EdgeInsets.all(getSize(12)).copyWith(bottom: 0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

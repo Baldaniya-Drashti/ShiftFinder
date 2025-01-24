@@ -443,6 +443,7 @@ class CustomLocationDropdDown extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DropdownButtonFormField<dynamic>(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: validator,
                 dropdownColor: AppColors.white,
                 menuMaxHeight: getSize(300),

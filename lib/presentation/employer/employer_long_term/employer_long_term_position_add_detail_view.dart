@@ -404,11 +404,11 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
-                final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
-                if (_formKey.currentState?.validate() != true || list.isEmpty) {
-                  showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
-                  return;
-                }
+                  final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
+                  if (_formKey.currentState?.validate() != true || list.isEmpty) {
+                    showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                    return;
+                  }
                 final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;

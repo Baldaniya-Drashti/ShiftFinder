@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/contractor/full_time_position/full_time_position_bloc.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
+import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -20,12 +22,15 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
+import 'package:shift/presentation/core/widgets/time_picker_input_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -38,24 +43,26 @@ class EmployerFullPositionAddView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AddFullPositionBloc>()..add(AddFullPositionEvent.fetchLocationList(context: context)),
-      child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "HealthCare"),
-        body: BlocBuilder<AddFullPositionBloc, AddFullPositionState>(
-          builder: (context, state) {
-            if (state.loading) return CenterLoadingIndicator();
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(getSize(16)),
-              child: Column(
-                children: [
-                  Image.asset(PngImageConstants.fullPosition),
-                  Gap(getSize(24)),
-                  _PositionForm(),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "HealthCare"),
+          body: BlocBuilder<AddFullPositionBloc, AddFullPositionState>(
+            builder: (context, state) {
+              if (state.loading) return CenterLoadingIndicator();
+              return SingleChildScrollView(
+                padding: EdgeInsets.all(getSize(16)),
+                child: Column(
+                  children: [
+                    Image.asset(PngImageConstants.fullPosition),
+                    Gap(getSize(24)),
+                    _PositionForm(),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      }),
     );
   }
 }
@@ -70,6 +77,7 @@ class _PositionForm extends StatefulWidget {
 class _PositionFormState extends State<_PositionForm> {
   late TextEditingController _positionController;
   late TextEditingController _unionUnitController;
+  final TextEditingController _rateAndSalaryController = TextEditingController();
   late BulletTextEditingController _benefitController;
   late BulletTextEditingController _compensationController;
   late BulletTextEditingController _jobSummaryController;
@@ -119,443 +127,310 @@ class _PositionFormState extends State<_PositionForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomTextField(
-            controller: _positionController,
-            labelText: "Position",
-            hintText: "Type Here...",
-            maxLines: 4,
-            textInputAction: TextInputAction.next,
-            autoValidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value, context) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) return "Please Enter Position";
-              return null;
-            },
-          ),
-          Gap(getSize(18)),
-          BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
-            selector: (state) => state.selectedJobType,
-            builder: (context, selectedJobType) {
-              return _JobTypeDropdownField(
-                selectedJobType: selectedJobType,
-                onChanged: (value) {
-                  context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onJobTypeChanged(value));
+      child: BlocBuilder<AddFullPositionBloc, AddFullPositionState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomTextField(
+                controller: _positionController,
+                labelText: "Position",
+                hintText: "Type Here... ",
+                maxLines: 4,
+                textInputAction: TextInputAction.next,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value, context) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) return "Please Enter Position";
+                  return null;
                 },
-              );
-            },
-          ),
-          Gap(getSize(18)),
-          BlocSelector<AddFullPositionBloc, AddFullPositionState, ListInputEmptyOrNot>(
-            selector: (state) => state.requiredShiftScheduleChipList,
-            builder: (context, shiftSchedule) {
-              return _ShiftSchedule(initialValue: shiftSchedule.getValue());
-            },
-          ),
-          Gap(getSize(12)),
-          BlocSelector<AddFullPositionBloc, AddFullPositionState, LocationDTO?>(
-            selector: (state) => state.selectedLocation,
-            builder: (context, selectedLocation) {
-              return _LocationDropdown(
-                initialLocation: selectedLocation,
-                list: context.read<AddFullPositionBloc>().state.locationList,
-                onLocationChanged: (location) {
+              ),
+              Gap(getSize(18)),
+              BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
+                selector: (state) => state.selectedJobType,
+                builder: (context, selectedJobType) {
+                  return _JobTypeDropdownField(
+                    selectedJobType: selectedJobType,
+                    onChanged: (value) {
+                      context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onJobTypeChanged(value));
+                    },
+                  );
+                },
+              ),
+              Gap(getSize(18)),
+              BlocSelector<AddFullPositionBloc, AddFullPositionState, ListInputEmptyOrNot>(
+                selector: (state) => state.requiredShiftScheduleChipList,
+                builder: (context, shiftSchedule) {
+                  return _ShiftSchedule(initialValue: shiftSchedule.getValue());
+                },
+              ),
+              Gap(getSize(12)),
+              locationDropDown(context, state),
+              Gap(getSize(18)),
+              CustomTextField(
+                controller: _unionUnitController,
+                labelText: "Union/Bargaining Unit",
+                hintText: "Union/Bargaining Unit",
+                textInputAction: TextInputAction.next,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+                validator: (value, context) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) return "Please Enter Union/Bargaining Unit";
+                  return null;
+                },
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+              Gap(getSize(18)),
+              BlocSelector<AddFullPositionBloc, AddFullPositionState, TimeOfDay?>(
+                selector: (state) => state.employerLongTermDto.estimated_weekly_hours,
+                builder: (context, selectedEstimatedHours) {
+                  return TimePickerInputField(
+                    initialTime: selectedEstimatedHours,
+                    label: "Estimated Weekly Hours",
+                    hint: "00h 00min",
+                    onPickedTime: (time) {
+                      context.read<AddFullPositionBloc>().add(
+                            AddFullPositionEvent.selectEstimatedHour(estimatedHour: time),
+                          );
+                    },
+                  );
+                },
+              ),
+              Gap(getSize(18)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: getSize(16)),
+                    child: BaseText(text: "Compensation Type", fontWeight: FontWeight.w500, fontSize: 14),
+                  ),
+                  Gap(12),
+                  Material(
+                    color: AppColors.surfaceColor,
+                    borderRadius: BorderRadius.circular(getSize(20)),
+                    child: Padding(
+                      padding: EdgeInsets.all(getSize(18)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BaseText(
+                            text: "Select Type",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          Gap(getSize(8)),
+                          BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
+                            selector: (state) => state.selectedRadioOption,
+                            builder: (context, selectedRadioOption) {
+                              final label = selectedRadioOption == 1 ? "Rate/Hour" : "Salary/Year";
+
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Material(
+                                    borderRadius: BorderRadius.circular(getSize(10)),
+                                    color: AppColors.white,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: getSize(16), horizontal: getSize(22)),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          _buildRadioOptions(
+                                            context,
+                                            onChanged: (value) {
+                                              context.read<AddFullPositionBloc>().add(
+                                                    AddFullPositionEvent.onCompensationTypeChanged(type: value),
+                                                  );
+                                            },
+                                            label: "Rate/Hour",
+                                            groupValue: selectedRadioOption,
+                                            value: 1,
+                                          ),
+                                          Divider(),
+                                          _buildRadioOptions(
+                                            context,
+                                            onChanged: (value) {
+                                              context.read<AddFullPositionBloc>().add(
+                                                    AddFullPositionEvent.onCompensationTypeChanged(type: value),
+                                                  );
+                                            },
+                                            label: "Salary/Year",
+                                            groupValue: selectedRadioOption,
+                                            value: 2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(getSize(8)),
+                                  CustomTextField(
+                                    keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                                    inputFormatters: [
+                                      if (selectedRadioOption == 1) FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                    ],
+                                    controller: _rateAndSalaryController,
+                                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                                    hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
+                                    validator: (value, context) {
+                                      value = value?.trim() ?? "";
+                                      if (value.isEmpty) {
+                                        return "Please enter $label";
+                                      }
+                                      final parsedValue = double.tryParse(value);
+                                      if (parsedValue == null) {
+                                        return "Please enter a valid number";
+                                      }
+                                      if (parsedValue <= 0) {
+                                        return "The $label should not be 0 or negative";
+                                      }
+
+                                      return null;
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Gap(getSize(18)),
+              _BulletTextField(
+                controller: _benefitController,
+                label: "Benefits Provided",
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _compensationController,
+                label: "Compensation Package",
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _jobSummaryController,
+                label: "Job Summary",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter job summary";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _keyResponsibilityController,
+                label: "Key Responsibilities",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter key responsibilities";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _externalInternalRelationshipController,
+                label: "External and Internal Relationships",
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _qualificationController,
+                label: "Required Qualifications",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter required qualifications";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _experienceController,
+                label: "Required Experience",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter required experience";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _licenseController,
+                label: "Required Licenses/Certifications",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter required licenses/certifications";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _skillController,
+                label: "Required Skills",
+                optional: false,
+                validator: (value) {
+                  value = value?.trim() ?? "";
+                  if (value.isEmpty) {
+                    return "Please enter required skills";
+                  }
+                  return null;
+                },
+              ),
+              Gap(getSize(16)),
+              _BulletTextField(
+                controller: _otherController,
+                label: "Other",
+              ),
+              Gap(getSize(28)),
+              CommonButton(
+                onPressed: () {
+                  final list = context.read<AddFullPositionBloc>().state.requiredShiftScheduleChipList.getValue();
+                  if (_formKey.currentState?.validate() != true || list.isEmpty) {
+                    showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                    return;
+                  }
                   context.read<AddFullPositionBloc>().add(
-                        AddFullPositionEvent.onLocationChanged(selectedLocation: location),
+                        AddFullPositionEvent.onContinue(
+                          context: context,
+                          unionBargainUnit: _unionUnitController.text.trim(),
+                          salaryOrRateHour: _rateAndSalaryController.text.trim(),
+                          benefits: _benefitController.toCommaSeparatedString,
+                          compensationPackage: _compensationController.toCommaSeparatedString,
+                          jobSummary: _jobSummaryController.toCommaSeparatedString,
+                          keyResponsibility: _keyResponsibilityController.toCommaSeparatedString,
+                          externalInternalRelationship: _externalInternalRelationshipController.toCommaSeparatedString,
+                          requiredQualification: _qualificationController.toCommaSeparatedString,
+                          requiredExperience: _experienceController.toCommaSeparatedString,
+                          licenseCertification: _licenseController.toCommaSeparatedString,
+                          requiredSkill: _skillController.toCommaSeparatedString,
+                          others: _otherController.toCommaSeparatedString,
+                          position: _positionController.text.trim(),
+                        ),
                       );
                 },
-              );
-            },
-          ),
-          Gap(getSize(18)),
-          CustomTextField(
-            controller: _unionUnitController,
-            labelText: "Union/Bargaining Unit",
-            hintText: "Union/Bargaining Unit",
-            textInputAction: TextInputAction.next,
-            autoValidateMode: AutovalidateMode.onUserInteraction,
-            keyboardType: TextInputType.number,
-            validator: (value, context) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) return "Please Enter Union/Bargaining Unit";
-              return null;
-            },
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ),
-          Gap(getSize(18)),
-          BlocSelector<AddFullPositionBloc, AddFullPositionState, TimeOfDay?>(
-            selector: (state) => state.selectedEstimatedHours,
-            builder: (context, selectedEstimatedHours) {
-              return CustomTextField(
-                controller: TextEditingController(text: selectedEstimatedHours?.format(context)),
-                labelText: "Estimated Weekly Hours",
-                hintText: "00h 00min",
-                readOnly: true,
-                onTap: () async {
-                  final result = await showTimePicker(
-                    context: context,
-                    initialTime: selectedEstimatedHours ?? TimeOfDay.now(),
-                  );
-                  if (result != null) {
-                    context.read<AddFullPositionBloc>().add(
-                          AddFullPositionEvent.onEstimatedDateChanged(value: result),
-                        );
-                  }
-                },
-                prefixIcon: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getSize(14),
-                    vertical: getSize(14),
-                  ),
-                  child: SvgPicture.asset(
-                    SvgImageConstant.clock,
-                    height: getSize(24),
-                    width: getSize(24),
-                    color: AppColors.primaryColor,
-                  ),
-                ),
-              );
-            },
-          ),
-          Gap(getSize(18)),
-          _CompensationType(),
-          Gap(getSize(18)),
-          _BulletTextField(
-            controller: _benefitController,
-            label: "Benefits Provided",
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _compensationController,
-            label: "Compensation Package",
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _jobSummaryController,
-            label: "Job Summary",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter job summary";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _keyResponsibilityController,
-            label: "Key Responsibilities",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter key responsibilities";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _externalInternalRelationshipController,
-            label: "External and Internal Relationships",
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _qualificationController,
-            label: "Required Qualifications",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter required qualifications";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _experienceController,
-            label: "Required Experience",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter required experience";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _licenseController,
-            label: "Required Licenses/Certifications",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter required licenses/certifications";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _skillController,
-            label: "Required Skills",
-            optional: false,
-            validator: (value) {
-              value = value?.trim() ?? "";
-              if (value.isEmpty) {
-                return "Please enter required skills";
-              }
-              return null;
-            },
-          ),
-          Gap(getSize(16)),
-          _BulletTextField(
-            controller: _otherController,
-            label: "Other",
-          ),
-          Gap(getSize(28)),
-          CommonButton(
-            onPressed: () {
-              // if (state.selectedShiftSchedule == null) {
-              //   showError(message: "Please select shift schedule").show(context);
-              //   return;
-              // }
-              //
-              // if (state.selectedJobType == null) {
-              //   showError(message: "Please select job type").show(context);
-              //   return;
-              // }
-              //
-              // if (state.selectedLocation == null) {
-              //   showError(message: "Please select location").show(context);
-              //   return;
-              // }
-              //
-              // if (_formKey.currentState?.validate() != true) return;
+                buttonText: "Continue",
+              ),
 
-              context.router.navigate(PageRouteInfo(EmployerFullPostingConfirmView.name));
-            },
-            buttonText: "Continue",
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _JobTypeDropdownField extends StatelessWidget {
-  const _JobTypeDropdownField({
-    required this.onChanged,
-    required this.selectedJobType,
-  });
-
-  final Function(CommonDropdownModel value) onChanged;
-  final CommonDropdownModel? selectedJobType;
-
-  @override
-  Widget build(BuildContext context) {
-    final List<CommonDropdownModel> list = [
-      CommonDropdownModel(id: 1, label: "Full time"),
-      CommonDropdownModel(id: 2, label: "Part time"),
-    ];
-
-    return CustomDropdownField<CommonDropdownModel>(
-      fontSize: 14,
-      label: "Job Type",
-      hintText: "Job Type",
-      onChanged: (value) => onChanged(value as CommonDropdownModel),
-      hintTextStyle: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: AppColors.black.withOpacity(0.5),
-      ),
-      value: selectedJobType,
-      items: list.map(
-        (e) {
-          return DropdownMenuItem<CommonDropdownModel>(
-            value: e,
-            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+            ],
           );
         },
-      ).toList(),
-    );
-  }
-}
-
-class _LocationDropdown extends StatelessWidget {
-  const _LocationDropdown({
-    this.initialLocation,
-    required this.onLocationChanged,
-    required this.list,
-  });
-
-  final LocationDTO? initialLocation;
-  final void Function(LocationDTO locationId) onLocationChanged;
-  final List<LocationDTO> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: getSize(16)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: "Location",
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              // SvgPicture.asset(SvgImageConstant.i)
-            ],
-          ),
-        ),
-        Gap(getSize(8)),
-        Material(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(getSize(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomDropdownField<LocationDTO>(
-                hintText: StringConstant.locationAddress,
-                value: initialLocation,
-                radius: 10,
-                hintTextStyle: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black.withOpacity(0.5),
-                ),
-                items: list.map(
-                  (e) {
-                    return DropdownMenuItem<LocationDTO>(
-                      value: e,
-                      child: BaseText(text: e.location ?? "", fontSize: 14, maxLines: 1),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {
-                  final location = value as LocationDTO?;
-                  if (location != null) onLocationChanged(location);
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CompensationType extends StatefulWidget {
-  const _CompensationType();
-
-  @override
-  State<_CompensationType> createState() => _CompensationTypeState();
-}
-
-class _CompensationTypeState extends State<_CompensationType> {
-  final TextEditingController _rateAndSalaryController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: getSize(16)),
-          child: BaseText(text: "Compensation Type", fontWeight: FontWeight.w500, fontSize: 14),
-        ),
-        Gap(12),
-        Material(
-          color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(getSize(20)),
-          child: Padding(
-            padding: EdgeInsets.all(getSize(18)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BaseText(
-                  text: "Select Type",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                Gap(getSize(8)),
-                BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
-                  selector: (state) => state.selectedRadioOption,
-                  builder: (context, selectedRadioOption) {
-                    final label = selectedRadioOption == 1 ? "Rate/Hour" : "Salary/Year";
-
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Material(
-                          borderRadius: BorderRadius.circular(getSize(10)),
-                          color: AppColors.white,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: getSize(16), horizontal: getSize(22)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                _buildRadioOptions(
-                                  context,
-                                  onChanged: (value) {
-                                    context.read<AddFullPositionBloc>().add(
-                                          AddFullPositionEvent.onCompensationTypeChanged(type: value),
-                                        );
-                                  },
-                                  label: "Rate/Hour",
-                                  groupValue: selectedRadioOption,
-                                  value: 1,
-                                ),
-                                Divider(),
-                                _buildRadioOptions(
-                                  context,
-                                  onChanged: (value) {
-                                    context.read<AddFullPositionBloc>().add(
-                                          AddFullPositionEvent.onCompensationTypeChanged(type: value),
-                                        );
-                                  },
-                                  label: "Salary/Year",
-                                  groupValue: selectedRadioOption,
-                                  value: 2,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Gap(getSize(8)),
-                        CustomTextField(
-                          controller: _rateAndSalaryController,
-                          hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
-                          validator: (value, context) {
-                            value = value?.trim() ?? "";
-                            if (value.isEmpty) {
-                              return "Please enter $label";
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -590,213 +465,132 @@ class _CompensationTypeState extends State<_CompensationType> {
     );
   }
 
-  Widget _buildYearPicker(BuildContext context) {
-    return CustomTextField(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Center(child: BaseText(text: "Select Year")),
-              backgroundColor: AppColors.white,
-              content: SizedBox(
-                height: 300,
-                width: 300,
-                child: YearPicker(
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2050),
-                  selectedDate: DateTime(2001),
-                  onChanged: (value) {},
+  Widget locationDropDown(BuildContext context, AddFullPositionState state) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomLocationDropdDown(
+          labelText: StringConstant.location,
+          isLabelPadding: true,
+          showTextfield: false,
+          isOptional: true,
+          value: (state.location.isValid()) ? state.location.getValue() : null,
+          optionalWidget: GestureDetector(
+            onTap: () {
+              AppDialog.showInfo(
+                context,
+                StringConstant.missingLocationInfoDesc,
+                maxLines: 5,
+                insetPadding: EdgeInsets.symmetric(
+                  horizontal: getSize(30),
                 ),
+              );
+            },
+            child: SvgPicture.asset(
+              SvgImageConstant.infoCircle,
+            ),
+          ),
+          items: state.locationList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.location,
+              child: BaseText(
+                text: val.location ?? "",
+                fontSize: 14,
+                textColor: AppColors.black,
               ),
             );
+          }).toList(),
+          validator: (
+            p0,
+          ) =>
+              state.location.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseEnterLocation,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
+          onChanged: (value) {
+            // print("SELECTED LOCATION----> ${value}");
+            // LocationDTO selectedValue = value;
+            if (value != null) {
+              context.read<AddFullPositionBloc>().add(
+                    AddFullPositionEvent.locationChanged(value.toString()),
+                  );
+            }
           },
-        );
-      },
-      readOnly: true,
-      controller: _rateAndSalaryController,
-      hintText: "Salary/Year",
+          hintText: StringConstant.location,
+          childDroDwonHintText: StringConstant.selectUnitIfAny,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
+          // showDropDown:   state.location.isValid(),
+          showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
+          childDropDownItems: state.unitList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.number_or_name,
+              child: BaseText(
+                text: val.number_or_name ?? "",
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
+          childDropDownOnChanged: (value) {
+            if (value != null) {
+              context.read<AddFullPositionBloc>().add(
+                    AddFullPositionEvent.locationUnitSelectionChanged(value),
+                  );
+            }
+          },
+        ),
+        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectLocationUnit),
+      ],
     );
   }
 }
 
-class _BulletListView extends StatefulWidget {
-  const _BulletListView();
+class _JobTypeDropdownField extends StatelessWidget {
+  const _JobTypeDropdownField({
+    required this.onChanged,
+    required this.selectedJobType,
+  });
 
-  @override
-  State<_BulletListView> createState() => _BulletListViewState();
-}
-
-class _BulletListViewState extends State<_BulletListView> {
-  late BulletTextEditingController _benefitController;
-  late BulletTextEditingController _compensationController;
-  late BulletTextEditingController _jobSummaryController;
-  late BulletTextEditingController _keyResponsibilityController;
-  late BulletTextEditingController _externalInternalRelationshipController;
-  late BulletTextEditingController _qualificationController;
-  late BulletTextEditingController _experienceController;
-  late BulletTextEditingController _licenseController;
-  late BulletTextEditingController _skillController;
-  late BulletTextEditingController _otherController;
-
-  @override
-  void initState() {
-    super.initState();
-    _benefitController = BulletTextEditingController();
-    _compensationController = BulletTextEditingController();
-    _jobSummaryController = BulletTextEditingController();
-    _keyResponsibilityController = BulletTextEditingController();
-    _externalInternalRelationshipController = BulletTextEditingController();
-    _qualificationController = BulletTextEditingController();
-    _experienceController = BulletTextEditingController();
-    _licenseController = BulletTextEditingController();
-    _skillController = BulletTextEditingController();
-    _otherController = BulletTextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _benefitController.dispose();
-    _compensationController.dispose();
-    _jobSummaryController.dispose();
-    _keyResponsibilityController.dispose();
-    _externalInternalRelationshipController.dispose();
-    _qualificationController.dispose();
-    _experienceController.dispose();
-    _licenseController.dispose();
-    _skillController.dispose();
-    _otherController.dispose();
-    super.dispose();
-  }
+  final Function(CommonDropdownModel value) onChanged;
+  final CommonDropdownModel? selectedJobType;
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<AddFullPositionBloc>().state;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _BulletTextField(
-          controller: _benefitController,
-          label: "Benefits Provided",
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _compensationController,
-          label: "Compensation Package",
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _jobSummaryController,
-          label: "Job Summary",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter job summary";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _keyResponsibilityController,
-          label: "Key Responsibilities",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter key responsibilities";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _externalInternalRelationshipController,
-          label: "External and Internal Relationships",
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _qualificationController,
-          label: "Required Qualifications",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter required qualifications";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _experienceController,
-          label: "Required Experience",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter required experience";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _licenseController,
-          label: "Required Licenses/Certifications",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter required licenses/certifications";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _skillController,
-          label: "Required Skills",
-          optional: false,
-          validator: (value) {
-            value = value?.trim() ?? "";
-            if (value.isEmpty) {
-              return "Please enter required skills";
-            }
-            return null;
-          },
-        ),
-        Gap(getSize(16)),
-        _BulletTextField(
-          controller: _otherController,
-          label: "Other",
-        ),
-        Gap(getSize(28)),
-        CommonButton(
-          onPressed: () {
-            // if (state.selectedShiftSchedule == null) {
-            //   showError(message: "Please select shift schedule").show(context);
-            //   return;
-            // }
-            //
-            // if (state.selectedJobType == null) {
-            //   showError(message: "Please select job type").show(context);
-            //   return;
-            // }
-            //
-            // if (state.selectedLocation == null) {
-            //   showError(message: "Please select location").show(context);
-            //   return;
-            // }
-            //
-            // if (_formKey.currentState?.validate() != true) return;
+    final List<CommonDropdownModel> list = [
+      CommonDropdownModel(id: 1, label: "Full time"),
+      CommonDropdownModel(id: 2, label: "Part time"),
+    ];
 
-            context.router.navigate(PageRouteInfo(EmployerFullPostingConfirmView.name));
-          },
-          buttonText: "Continue",
-        )
-      ],
+    return CustomDropdownField<CommonDropdownModel>(
+      fontSize: 14,
+      label: "Job Type",
+      hintText: "Job Type",
+      validator: (value) {
+        if (value == null) {
+          return "Please enter required skills";
+        }
+        return null;
+      },
+      onChanged: (value) => onChanged(value as CommonDropdownModel),
+      hintTextStyle: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.black.withOpacity(0.5),
+      ),
+      value: selectedJobType,
+      items: list.map(
+        (e) {
+          return DropdownMenuItem<CommonDropdownModel>(
+            value: e,
+            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+          );
+        },
+      ).toList(),
     );
   }
 }
@@ -929,6 +723,10 @@ class BulletTextEditingController extends TextEditingController {
 
   List<String> getBulletContent() {
     return text.split('\n').map((line) => line.startsWith(bullet) ? line.substring(bullet.length) : line).toList();
+  }
+
+  String get toCommaSeparatedString {
+    return getBulletContent().join(",").trim();
   }
 
   @override

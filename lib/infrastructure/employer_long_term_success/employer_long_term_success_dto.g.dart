@@ -76,6 +76,16 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
       teams: (json['teams'] as List<dynamic>?)
           ?.map((e) => TeamDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      position: json['position'] as String?,
+      compensation_type: json['compensation_type'] as String?,
+      job_summary: json['job_summary'] as String?,
+      external_internal_relationships:
+          json['external_internal_relationships'] as String?,
+      experience: json['experience'] as String?,
+      skills: json['skills'] as String?,
+      other: json['other'] as String?,
+      union_bargaining_unit: json['union_bargaining_unit'] as String?,
+      compensation_package: json['compensation_package'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
@@ -131,4 +141,14 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'industry': instance.industry,
       'total_teams': instance.total_teams,
       'teams': instance.teams,
+      'position': instance.position,
+      'compensation_type': instance.compensation_type,
+      'job_summary': instance.job_summary,
+      'external_internal_relationships':
+          instance.external_internal_relationships,
+      'experience': instance.experience,
+      'skills': instance.skills,
+      'other': instance.other,
+      'union_bargaining_unit': instance.union_bargaining_unit,
+      'compensation_package': instance.compensation_package,
     };

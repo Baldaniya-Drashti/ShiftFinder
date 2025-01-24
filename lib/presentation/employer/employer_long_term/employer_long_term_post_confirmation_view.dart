@@ -143,7 +143,10 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (state.postDataLoading) CenterLoadingIndicator(isOnlyLoader: true,),
+                    if (state.postDataLoading)
+                      CenterLoadingIndicator(
+                        isOnlyLoader: true,
+                      ),
                   ],
                 );
               },
@@ -273,3 +276,7 @@ class _TeamsListView extends StatelessWidget {
     );
   }
 }
+
+interface class New {}
+
+class New2 extends New {}

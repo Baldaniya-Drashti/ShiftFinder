@@ -8,23 +8,32 @@ import 'package:shift/application/employer/employer_full_posting_confirm/employe
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerFullPostingConfirmView")
 class EmployerFullPostingConfirmView extends StatelessWidget {
-  const EmployerFullPostingConfirmView({super.key});
+  const EmployerFullPostingConfirmView({
+    super.key,
+    required this.employerFullPosting,
+  });
 
+  final EmployerLongTermSuccessDto employerFullPosting;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerFullPostingConfirmBloc>(),
+      create: (context) => getIt<EmployerFullPostingConfirmBloc>()
+        ..add(
+          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting),
+        ),
       child: Scaffold(
         bottomNavigationBar: SafeArea(
           minimum: EdgeInsets.all(getSize(16)),
@@ -41,46 +50,31 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding:  EdgeInsets.only(left: getSize(16)),
-                child: BaseText(text: "Application Deadline", fontWeight: FontWeight.w500, fontSize: 14),
-              ),
-              Gap(6),
-              Material(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(10))),
-                color: AppColors.white,
-                child: InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(15)),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(SvgImageConstant.calendar),
-                        Gap(getSize(18)),
-                        Expanded(
-                          child: BaseText(
-                            text: "Application Deadline",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            textColor: AppColors.black.withOpacity(0.5),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+              BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, DateTime?>(
+                selector: (state) => state.applicationDeadline,
+                builder: (context, applicationDeadline) {
+                  return DatePickerInputField(
+                    initialDate: applicationDeadline,
+                    label: "Application Deadline",
+                    hint: "Application Deadline",
+                    onPickedDate: (date) {
+                      context.read<EmployerFullPostingConfirmBloc>().add(
+                            EmployerFullPostingConfirmEvent.onApplicationDeadlineChanged(selectedDateTime: date),
+                          );
+                    },
+                  );
+                },
               ),
               Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-                selector: (state) => state.includeOnCall,
+                selector: (state) => state.employerFullPosting.on_call_included == 1,
                 builder: (context, includeOnCall) {
                   return _buildCheckListTile(
                     context,
                     value: includeOnCall,
                     onChanged: (value) {
                       context.read<EmployerFullPostingConfirmBloc>().add(
-                        EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(value: value),
+                            EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(value: value),
                           );
                     },
                     label: "This position may include on call.",
@@ -89,7 +83,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
               ),
               Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-                selector: (state) => state.saveFuturePosting,
+                selector: (state) => state.employerFullPosting.save_template_status == 1,
                 builder: (context, saveFuturePosting) {
                   return _buildCheckListTile(
                     context,
@@ -105,7 +99,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
               ),
               Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-                selector: (state) => state.moreVacancy,
+                selector: (state) => state.employerFullPosting.vacancie_type == 1,
                 builder: (context, moreVacancy) {
                   return _buildCheckListTile(
                     context,
@@ -121,9 +115,10 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
               ),
               Gap(getSize(16)),
               BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-                selector: (state) => state.termsAndCondition,
+                selector: (state) => state.employerFullPosting.employer_payment_confirmation == 1,
                 builder: (context, termsAndCondition) {
                   return _buildCheckListTile(
+                    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                     context,
                     value: termsAndCondition,
                     onChanged: (value) {
@@ -148,37 +143,53 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
     required bool value,
     required void Function(bool value) onChanged,
     required String label,
+    EdgeInsets? padding,
+    Widget? trailing,
   }) {
-    return Material(
-      color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(getSize(10)),
-      child: Padding(
-        padding:  EdgeInsets.all(getSize(16)),
+    return Container(
+      padding: padding ??
+          EdgeInsets.symmetric(
+            horizontal: getSize(20),
+            vertical: getSize(10),
+          ),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: GestureDetector(
+        onTap: () {
+          onChanged(!value);
+        },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Transform.translate(
-              offset: Offset(0, -6),
-              child: Transform.scale(
-                scale: 0.9,
-                child: Checkbox(
-                  activeColor: AppColors.primaryColor,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
-                  side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                  value: value,
-                  onChanged: (value) {
-                    if (value == null) return;
-                    onChanged(value);
-                  },
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: value,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  onChanged(value!);
+                },
               ),
             ),
-            Gap(8),
+            SizedBox(
+              width: getSize(15),
+            ),
             Expanded(
-              child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
-            )
+              child: BaseText(
+                text: label,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                maxLines: 15,
+              ),
+            ),
+            if (trailing != null) trailing
           ],
         ),
       ),

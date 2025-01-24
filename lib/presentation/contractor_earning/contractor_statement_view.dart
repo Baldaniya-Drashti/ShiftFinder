@@ -57,7 +57,7 @@ class ContractorStatementView extends StatelessWidget {
                       )
                       .toList(),
                   onChanged: (value) {
-                    context.read<ContractorStatementBloc>().add(ContractorStatementEvent.onFilterChanged(value: value));
+                    context.read<ContractorStatementBloc>().add(ContractorStatementEvent.onFilterChanged(value: value!));
                   },
                 );
               },

@@ -25,13 +25,13 @@ import 'package:shift/infrastructure/core/document_dto/document_dto.dart'
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i140;
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart'
-    as _i150;
+    as _i151;
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
     as _i148;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i145;
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart'
-    as _i151;
+    as _i150;
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart'
     as _i153;
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
@@ -2079,10 +2079,18 @@ class EmployerFullPositionAddView extends _i137.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i53.EmployerFullPostingConfirmView]
-class EmployerFullPostingConfirmView extends _i137.PageRouteInfo<void> {
-  const EmployerFullPostingConfirmView({List<_i137.PageRouteInfo>? children})
-      : super(
+class EmployerFullPostingConfirmView
+    extends _i137.PageRouteInfo<EmployerFullPostingConfirmViewArgs> {
+  EmployerFullPostingConfirmView({
+    _i138.Key? key,
+    required _i150.EmployerLongTermSuccessDto employerFullPosting,
+    List<_i137.PageRouteInfo>? children,
+  }) : super(
           EmployerFullPostingConfirmView.name,
+          args: EmployerFullPostingConfirmViewArgs(
+            key: key,
+            employerFullPosting: employerFullPosting,
+          ),
           initialChildren: children,
         );
 
@@ -2091,17 +2099,45 @@ class EmployerFullPostingConfirmView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i53.EmployerFullPostingConfirmView();
+      final args = data.argsAs<EmployerFullPostingConfirmViewArgs>();
+      return _i53.EmployerFullPostingConfirmView(
+        key: args.key,
+        employerFullPosting: args.employerFullPosting,
+      );
     },
   );
 }
 
+class EmployerFullPostingConfirmViewArgs {
+  const EmployerFullPostingConfirmViewArgs({
+    this.key,
+    required this.employerFullPosting,
+  });
+
+  final _i138.Key? key;
+
+  final _i150.EmployerLongTermSuccessDto employerFullPosting;
+
+  @override
+  String toString() {
+    return 'EmployerFullPostingConfirmViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
+  }
+}
+
 /// generated route for
 /// [_i54.EmployerFullPostingReviewView]
-class EmployerFullPostingReviewView extends _i137.PageRouteInfo<void> {
-  const EmployerFullPostingReviewView({List<_i137.PageRouteInfo>? children})
-      : super(
+class EmployerFullPostingReviewView
+    extends _i137.PageRouteInfo<EmployerFullPostingReviewViewArgs> {
+  EmployerFullPostingReviewView({
+    _i138.Key? key,
+    required _i150.EmployerLongTermSuccessDto employerFullPosting,
+    List<_i137.PageRouteInfo>? children,
+  }) : super(
           EmployerFullPostingReviewView.name,
+          args: EmployerFullPostingReviewViewArgs(
+            key: key,
+            employerFullPosting: employerFullPosting,
+          ),
           initialChildren: children,
         );
 
@@ -2110,9 +2146,29 @@ class EmployerFullPostingReviewView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i54.EmployerFullPostingReviewView();
+      final args = data.argsAs<EmployerFullPostingReviewViewArgs>();
+      return _i54.EmployerFullPostingReviewView(
+        key: args.key,
+        employerFullPosting: args.employerFullPosting,
+      );
     },
   );
+}
+
+class EmployerFullPostingReviewViewArgs {
+  const EmployerFullPostingReviewViewArgs({
+    this.key,
+    required this.employerFullPosting,
+  });
+
+  final _i138.Key? key;
+
+  final _i150.EmployerLongTermSuccessDto employerFullPosting;
+
+  @override
+  String toString() {
+    return 'EmployerFullPostingReviewViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
+  }
 }
 
 /// generated route for
@@ -2254,7 +2310,7 @@ class EmployerLongTermAuthorizePaymentView
     extends _i137.PageRouteInfo<EmployerLongTermAuthorizePaymentViewArgs> {
   EmployerLongTermAuthorizePaymentView({
     _i138.Key? key,
-    required _i150.EmployerApplicantsDto employerApplicantsDto,
+    required _i151.EmployerApplicantsDto employerApplicantsDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermAuthorizePaymentView.name,
@@ -2287,7 +2343,7 @@ class EmployerLongTermAuthorizePaymentViewArgs {
 
   final _i138.Key? key;
 
-  final _i150.EmployerApplicantsDto employerApplicantsDto;
+  final _i151.EmployerApplicantsDto employerApplicantsDto;
 
   @override
   String toString() {
@@ -2301,7 +2357,7 @@ class EmployerLongTermPayableView
     extends _i137.PageRouteInfo<EmployerLongTermPayableViewArgs> {
   EmployerLongTermPayableView({
     _i138.Key? key,
-    required _i151.EmployerLongTermSuccessDto employerLongTermSuccessDto,
+    required _i150.EmployerLongTermSuccessDto employerLongTermSuccessDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPayableView.name,
@@ -2334,7 +2390,7 @@ class EmployerLongTermPayableViewArgs {
 
   final _i138.Key? key;
 
-  final _i151.EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final _i150.EmployerLongTermSuccessDto employerLongTermSuccessDto;
 
   @override
   String toString() {
@@ -2349,7 +2405,7 @@ class EmployerLongTermPositionAddDetailView
   EmployerLongTermPositionAddDetailView({
     _i138.Key? key,
     required _i143.PostShiftDTO postShiftDTO,
-    _i151.EmployerLongTermSuccessDto? employer,
+    _i150.EmployerLongTermSuccessDto? employer,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPositionAddDetailView.name,
@@ -2387,7 +2443,7 @@ class EmployerLongTermPositionAddDetailViewArgs {
 
   final _i143.PostShiftDTO postShiftDTO;
 
-  final _i151.EmployerLongTermSuccessDto? employer;
+  final _i150.EmployerLongTermSuccessDto? employer;
 
   @override
   String toString() {
@@ -2497,7 +2553,7 @@ class EmployerLongTermPostConfirmationView
   EmployerLongTermPostConfirmationView({
     _i138.Key? key,
     required _i143.PostShiftDTO postShiftDTO,
-    required _i151.EmployerLongTermSuccessDto employerAddDetailDto,
+    required _i150.EmployerLongTermSuccessDto employerAddDetailDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPostConfirmationView.name,
@@ -2535,7 +2591,7 @@ class EmployerLongTermPostConfirmationViewArgs {
 
   final _i143.PostShiftDTO postShiftDTO;
 
-  final _i151.EmployerLongTermSuccessDto employerAddDetailDto;
+  final _i150.EmployerLongTermSuccessDto employerAddDetailDto;
 
   @override
   String toString() {
@@ -2549,7 +2605,7 @@ class EmployerLongTermReviewDetailView
     extends _i137.PageRouteInfo<EmployerLongTermReviewDetailViewArgs> {
   EmployerLongTermReviewDetailView({
     _i138.Key? key,
-    required _i151.EmployerLongTermSuccessDto employerLongTermSuccessDto,
+    required _i150.EmployerLongTermSuccessDto employerLongTermSuccessDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermReviewDetailView.name,
@@ -2582,7 +2638,7 @@ class EmployerLongTermReviewDetailViewArgs {
 
   final _i138.Key? key;
 
-  final _i151.EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final _i150.EmployerLongTermSuccessDto employerLongTermSuccessDto;
 
   @override
   String toString() {

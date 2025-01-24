@@ -21,4 +21,7 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
   const factory EmployerFullPostingConfirmEvent.onTermsAndConditionChanged({
     required bool value,
   }) = OnTermsAndConditionChanged;
+  const factory EmployerFullPostingConfirmEvent.onCreate({
+    required EmployerLongTermSuccessDto employerLongTermSuccessDto
+  }) = OnCreate;
 }

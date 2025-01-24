@@ -76,7 +76,7 @@ class _TimePickerInputFieldState extends State<TimePickerInputField> {
           horizontal: getSize(14),
           vertical: getSize(14),
         ),
-        child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
+        child: SvgPicture.asset(SvgImageConstant.clock, height: getSize(24), width: getSize(24)),
       ),
       onTap: () async {
         final time = await _showTimePicker(context);
