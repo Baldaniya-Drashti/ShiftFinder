@@ -19,6 +19,11 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
       listing_id: json['listing_id'] as String?,
       distance: json['distance'] as String?,
       location: json['location'] as String?,
+      facility_type: json['facility_type'] == null
+          ? null
+          : FacilityTypeDto.fromJson(
+              json['facility_type'] as Map<String, dynamic>),
+      facility_type_other: json['facility_type_other'] as String?,
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       request: (json['request'] as num?)?.toInt(),
@@ -62,6 +67,8 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'listing_id': instance.listing_id,
       'distance': instance.distance,
       'location': instance.location,
+      'facility_type': instance.facility_type,
+      'facility_type_other': instance.facility_type_other,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'request': instance.request,

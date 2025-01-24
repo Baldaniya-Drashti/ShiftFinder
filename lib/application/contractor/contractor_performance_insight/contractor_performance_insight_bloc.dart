@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
@@ -24,7 +25,7 @@ class ContractorPerformanceInsightBloc extends Bloc<
       await event.map(
         onDateSelected: (e) async {
           if (e.selectedDate != null && e.selectedDate != state.selectedMonth) {
-            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            Either<MainFailure, PerformanceInsightDTO>? failureOrSuccess;
 
             emit(state.copyWith(
               isLoading: true,
@@ -52,10 +53,12 @@ class ContractorPerformanceInsightBloc extends Bloc<
               },
               (r) {
                 print("Performance insight data --> $r");
+
                 emit(state.copyWith(
                   isLoading: false,
                   showErrorMessages: false,
                   failureOrSuccessOption: optionOf(failureOrSuccess),
+                  insightDetail: r,
                 ));
               },
             );

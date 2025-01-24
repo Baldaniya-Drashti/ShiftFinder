@@ -7,9 +7,11 @@ class ContractorPerformanceInsightState
     required bool isLoading,
     required bool isDeleting,
     required bool showErrorMessages,
-    required Option<Either<MainFailure, CommonResponse>> failureOrSuccessOption,
+    required Option<Either<MainFailure, PerformanceInsightDTO>>
+        failureOrSuccessOption,
     required List<DateTime> selectedDateTime,
     required DateTime? selectedMonth,
+    required PerformanceInsightDTO? insightDetail,
   }) = _ContractorPerformanceInsightState;
 
   factory ContractorPerformanceInsightState.initial() =>
@@ -20,5 +22,6 @@ class ContractorPerformanceInsightState
         failureOrSuccessOption: none(),
         selectedDateTime: [],
         selectedMonth: null,
+        insightDetail: null,
       );
 }

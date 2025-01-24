@@ -65,7 +65,7 @@ class ContractorTotalEarningView extends StatelessWidget {
                 Gap(getSize(12)),
                 Expanded(
                   child: (state.isLoading)
-                      ? CenterLoadingIndicator()
+                      ? CenterLoadingIndicator(isOnlyLoader: true)
                       : (state.statement == null)
                           ? Center(
                               child: NoDataText(
@@ -212,13 +212,13 @@ class ContractorTotalEarningView extends StatelessWidget {
                       showSuccess(
                               message: "Total Earning Statement Downloaded..!")
                           .show(context);
-                      Navigator.push(
+                      /* Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               PdfViewerScreen(pdfPath: pdfPath),
                         ),
-                      );
+                      ); */
                     } else {
                       showError(message: "Failed to download PDF!")
                           .show(context);

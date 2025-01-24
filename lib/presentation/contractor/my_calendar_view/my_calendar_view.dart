@@ -303,6 +303,11 @@ class MyCalendarView extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                ),
               ],
             ),
             trailing: GestureDetector(

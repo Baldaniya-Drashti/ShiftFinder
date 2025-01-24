@@ -6,7 +6,9 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/statement_dto/statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
+import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
@@ -329,8 +331,8 @@ abstract class IMainFacade {
     required int page,
   });
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
-  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
-      {required double date});
+  Future<Either<MainFailure, PerformanceInsightDTO>>
+      getPerformanceInsightListAPI({required double date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
@@ -359,6 +361,13 @@ abstract class IMainFacade {
     required int id,
   });
   Future<Either<MainFailure, EarningStatementDTO>> totalEarningStatementAPI({
+    int? statementFilter,
+    required String startDate,
+    required String endDate,
+  });
+
+  Future<Either<MainFailure, StatementDTO>> statementAPI({
+    required int? statementFilter,
     required String startDate,
     required String endDate,
   });

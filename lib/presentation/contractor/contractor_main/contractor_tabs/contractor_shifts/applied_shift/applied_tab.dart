@@ -464,10 +464,15 @@ class AppliedTab extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: shift.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                ),
               ],
             ),
             trailing: BaseText(
-              text: shift.last_ago ?? " ",
+              text: shift.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),

@@ -167,52 +167,52 @@ class HomeView extends StatelessWidget {
                 buttonFontSize: 12,
                 buttonText: StringConstant.viewShiftDetails,
               ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.grey04,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                  margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        verticalLabelValue(
-                          label: "${StringConstant.shiftDate}:-",
-                          value: (state.employerDashboardList[index].start_date !=
-                                  null)
-                              ? DateFormat('MMM dd,yyyy').format(
-                                  DateTime.fromMillisecondsSinceEpoch((state
-                                              .employerDashboardList[index]
-                                              .start_date ??
-                                          -1) *
-                                      1000),
-                                )
-                              : "",
-                        ),
-                        verticalDivider(),
-                        (state.employerDashboardList[index].shift_type == 1)
-                            ? verticalLabelValue(
-                                label: "${StringConstant.startAndEndTime}:-",
-                                value: (state.employerDashboardList[index]
-                                                .start_time !=
-                                            null &&
-                                        state.employerDashboardList[index]
-                                                .end_time !=
-                                            null)
-                                    ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
-                                    : "",
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.grey04,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      verticalLabelValue(
+                        label: "${StringConstant.shiftDate}:-",
+                        value: (state.employerDashboardList[index].start_date !=
+                                null)
+                            ? DateFormat('MMM dd,yyyy').format(
+                                DateTime.fromMillisecondsSinceEpoch((state
+                                            .employerDashboardList[index]
+                                            .start_date ??
+                                        -1) *
+                                    1000),
                               )
-                            : verticalLabelValue(
-                                label: "${StringConstant.totalShifts}:-",
-                                value:
-                                    "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
-                              )
-                      ],
-                    ),
+                            : "",
+                      ),
+                      verticalDivider(),
+                      (state.employerDashboardList[index].shift_type == 1)
+                          ? verticalLabelValue(
+                              label: "${StringConstant.startAndEndTime}:-",
+                              value: (state.employerDashboardList[index]
+                                              .start_time !=
+                                          null &&
+                                      state.employerDashboardList[index]
+                                              .end_time !=
+                                          null)
+                                  ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
+                                  : "",
+                            )
+                          : verticalLabelValue(
+                              label: "${StringConstant.totalShifts}:-",
+                              value:
+                                  "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
+                            )
+                    ],
                   ),
                 ),
+              ),
               Container(
                 padding: EdgeInsets.all(getSize(10)),
                 decoration: BoxDecoration(
@@ -306,13 +306,28 @@ class HomeView extends StatelessWidget {
                   textColor: AppColors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
+                  maxLines: 1,
                 ),
-                subtitle: BaseText(
-                  text:
-                      "(${getIndustryText(state.employerDashboardList[index].industry ?? 0)} - ${state.employerDashboardList[index].listing_id ?? ""})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.white.withOpacity(0.80),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BaseText(
+                      text:
+                          "(${getIndustryText(state.employerDashboardList[index].industry ?? 0)} - ${state.employerDashboardList[index].listing_id ?? ""})",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      textColor: AppColors.white.withOpacity(0.80),
+                    ),
+                    BaseText(
+                      text: state.employerDashboardList[index].location
+                              ?.facility_type?.name ??
+                          "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.white.withOpacity(0.80),
+                    ),
+                  ],
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -5,6 +5,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/presentation/contractor_earning/contractor_statement_view.dart';
 import 'package:shift/presentation/contractor_earning/contractor_wallet_view.dart';
 
 class CommonList {
@@ -268,5 +269,12 @@ class CommonList {
     WalletDropdownModel(id: 2, label: "Compensations"),
     WalletDropdownModel(id: 3, label: "Referrals"),
     WalletDropdownModel(id: 4, label: "Deposits"),
+  ];
+
+  static List<StatementFilterModel> statementList = [
+    StatementFilterModel(id: 1, label: "Shifts Earnings"),
+    StatementFilterModel(id: 2, label: "Compensations"),
+    StatementFilterModel(id: 3, label: "Referrals Bonus"),
+    StatementFilterModel(id: 4, label: "Bank"),
   ];
 }

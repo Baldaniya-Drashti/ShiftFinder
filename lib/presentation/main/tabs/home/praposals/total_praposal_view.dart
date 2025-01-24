@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/employer/proposal/total_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
@@ -32,7 +33,7 @@ class TotalPraposalView extends StatelessWidget {
           onBackPressed: () {
             context.router.maybePop();
           },
-          title: 'View Proposals',
+          title: StringConstant.viewProposal,
         ),
         body: BlocBuilder<TotalProposalBloc, TotalProposalState>(
           builder: (context, state) {

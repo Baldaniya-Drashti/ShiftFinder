@@ -328,6 +328,11 @@ class CounterProposalTab extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: shift.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                ),
               ],
             ),
             trailing: BaseText(

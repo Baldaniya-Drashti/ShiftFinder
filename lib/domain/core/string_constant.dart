@@ -528,9 +528,9 @@ class StringConstant {
       "Approve Shifts for Contractors";
   static const String cancelledByYou = "Cancelled by You";
   static const String approveShiftDesc1 =
-      "By approving the clock-in and clock-out times, you confirm that ";
+      "By approving these clock in and out times, you confirm that you have reviewed the ";
   static const String approveShiftDesc2 =
-      "’s shift hours have been reviewed. Once approved, these times will be final";
+      "’s hours. Once approved, the times will be finalized.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String allWithdralContractors = "All Withdrwal Contractors";
@@ -937,7 +937,7 @@ class StringConstant {
   static const String changePassword = "Change Password";
   static const String deleteAccount = "Delete Account";
   static const String deleteAccountDes =
-      "Are you sure you want to delete your account? This action is permanent and cannot be undone";
+      "Are you sure you want to delete your account? This action is permanent and cannot be undone.";
   static const String aboutShiftFinder = "About ShiftFinder";
   static const String ourPolicies = "Our Policies";
   static const String ourPoliciesDes =
