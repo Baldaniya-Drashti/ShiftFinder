@@ -24,7 +24,7 @@ import 'package:shift/infrastructure/core/document_dto/document_dto.dart'
     as _i147;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i140;
-import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart'
+import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart'
     as _i151;
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
     as _i148;
@@ -2310,7 +2310,7 @@ class EmployerLongTermAuthorizePaymentView
     extends _i137.PageRouteInfo<EmployerLongTermAuthorizePaymentViewArgs> {
   EmployerLongTermAuthorizePaymentView({
     _i138.Key? key,
-    required _i151.EmployerApplicantsDto employerApplicantsDto,
+    required _i151.EmployerLongTermApplicantDto employerApplicantsDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermAuthorizePaymentView.name,
@@ -2343,7 +2343,7 @@ class EmployerLongTermAuthorizePaymentViewArgs {
 
   final _i138.Key? key;
 
-  final _i151.EmployerApplicantsDto employerApplicantsDto;
+  final _i151.EmployerLongTermApplicantDto employerApplicantsDto;
 
   @override
   String toString() {

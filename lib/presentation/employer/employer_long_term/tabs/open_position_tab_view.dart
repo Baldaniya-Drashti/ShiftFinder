@@ -185,18 +185,21 @@ class OpenPositionTabView extends StatelessWidget {
             },
             child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
           ),
-          Gap(getSize(16)),
-          GestureDetector(
-            onTap: () {
-              context.router.push(
-                PageRouteInfo(
-                  EmployerLongTermPositionAddView.name,
-                  args: EmployerLongTermPositionAddViewArgs(postId: employer.id ?? -1),
-                ),
-              );
-            },
-            child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
-          ),
+          if(employer.isEditable??false)...[
+            Gap(getSize(16)),
+            GestureDetector(
+              onTap: () {
+                context.router.push(
+                  PageRouteInfo(
+                    EmployerLongTermPositionAddView.name,
+                    args: EmployerLongTermPositionAddViewArgs(postId: employer.id ?? -1),
+                  ),
+                );
+              },
+              child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
+            ),
+          ]
+
         ],
       ),
     );

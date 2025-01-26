@@ -39,31 +39,26 @@ class EmployerLongTermApplicantView extends StatelessWidget {
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Applicants"),
         body: BlocBuilder<EmployerLongTermViewApplicantBloc, EmployerLongTermViewApplicantState>(
           builder: (context, state) {
-            return Stack(
-              children: [
-                PaginatedListView(
-                  onRefresh: () {
-                    context.read<EmployerLongTermViewApplicantBloc>().add(
+            return PaginatedListView(
+              onRefresh: () {
+                context.read<EmployerLongTermViewApplicantBloc>().add(
                       EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
                     );
-                  },
-                  onLoading: () {
-                    context.read<EmployerLongTermViewApplicantBloc>().add(
+              },
+              onLoading: () {
+                context.read<EmployerLongTermViewApplicantBloc>().add(
                       EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: false),
                     );
-                  },
-                  refreshController: context.read<EmployerLongTermViewApplicantBloc>().refreshController,
-                  isNoDataFound: state.isNoDataFound,
-                  child: state.isLoading
-                      ? CenterLoadingIndicator()
-                      : state.isErrorInAPI
+              },
+              refreshController: context.read<EmployerLongTermViewApplicantBloc>().refreshController,
+              isNoDataFound: state.isNoDataFound,
+              child: state.isLoading
+                  ? CenterLoadingIndicator()
+                  : state.isErrorInAPI
                       ? Center(
-                    child: BaseText(text: StringConstant.somethindWentWrong),
-                  )
-                      : _LongTermApplicantsListView(applicantList: state.applicantsList),
-                ),
-                if(state.postDataLoading)CenterLoadingIndicator(),
-              ],
+                          child: BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : _LongTermApplicantsListView(applicantList: state.applicantsList, id: id),
             );
           },
         ),
@@ -73,9 +68,10 @@ class EmployerLongTermApplicantView extends StatelessWidget {
 }
 
 class _LongTermApplicantsListView extends StatelessWidget {
-  const _LongTermApplicantsListView({required this.applicantList});
+  const _LongTermApplicantsListView({required this.applicantList, required this.id});
 
   final List<EmployerLongTermApplicantDto> applicantList;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -83,18 +79,22 @@ class _LongTermApplicantsListView extends StatelessWidget {
       padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
       itemCount: applicantList.length,
       separatorBuilder: (context, index) => Gap(getSize(16)),
-      itemBuilder: (context, index) => _ApplicantsListTile(data: applicantList[index]),
+      itemBuilder: (context, index) => _ApplicantsListTile(data: applicantList[index], id: id),
     );
   }
 }
 
 class _ApplicantsListTile extends StatelessWidget {
-  const _ApplicantsListTile({required this.data});
+  const _ApplicantsListTile({required this.data, required this.id});
 
   final EmployerLongTermApplicantDto data;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
+    final cardAdded = context.select<EmployerLongTermViewApplicantBloc, bool>(
+      (value) => value.state.isCardAdded,
+    );
     return Material(
       color: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(20))),
@@ -115,62 +115,112 @@ class _ApplicantsListTile extends StatelessWidget {
                 Gap(getSize(12)),
                 Row(
                   children: [
-                    _buildButton(
-                      context,
-                      label: "Accept",
-                      onPressed: () async {
-                        final result = await AppDialog.showCommonDialog(
-                          context: context,
-                          title: "Accept",
-                          content:
-                              "Once the contractor is accepted for the position, they will have 72 hours to confirm. If not confirmed, the offer will expire.",
-                          extraContent: "Are you sure you want to accept this contractor for the position?",
-                          successLabel: "Accept",
-                        );
+                    if (data.revoke_status == null) ...[
+                      _buildButton(
+                        context,
+                        label: "Accept",
+                        onPressed: () async {
+                          final result = await AppDialog.showCommonDialog(
+                            context: context,
+                            title: "Accept",
+                            content:
+                                "Once the contractor is accepted for the position, they will have 72 hours to confirm. If not confirmed, the offer will expire.",
+                            extraContent: "Are you sure you want to accept this contractor for the position?",
+                            successLabel: "Accept",
+                          );
 
-                        if (result ?? false) {
-                          CommonCardDialog(
-                            title: StringConstant.cardDetails,
-                            description: StringConstant.pleaseAddYourCardDetailsToProceed,
-                            buttonText: StringConstant.addCard,
-                            onPressed: () {
-                              // context.router.maybePop();
-                              // context.router
-                              //     .push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false)))
-                              //     .then((value) {
-                              //   if (value != null && value == true) {
-                              //     acceptDialog(context);
-                              //   }
-                              // });
-                            },
-                            image: SvgImageConstant.cardImage,
-                          ).addCardDialog(context);
-                        }
-                      },
-                      backgroundColor: AppColors.primaryColor,
-                      textColor: AppColors.white,
-                    ),
-                    Gap(getSize(10)),
-                    _buildButton(
-                      context,
-                      label: "Reject",
-                      onPressed: () async {
-                        final result = await AppDialog.showCommonDialog(
-                          context: context,
-                          title: "Reject",
-                          content: "Are you sure you want to reject this application?",
-                          successLabel: "Reject",
-                        );
-                        if (result ?? false) {
-                          context.read<EmployerLongTermViewApplicantBloc>().add(
-                                EmployerLongTermViewApplicantEvent.onRejectApplicant(context: context, id: data.id ?? -1),
-                              );
-                        }
-                      },
-                      backgroundColor: AppColors.white,
-                      textColor: AppColors.primaryColor,
-                      outline: AppColors.primaryColor,
-                    ),
+                          if (result ?? false) {
+                            if (!cardAdded) {
+                              CommonCardDialog(
+                                title: StringConstant.cardDetails,
+                                description: StringConstant.pleaseAddYourCardDetailsToProceed,
+                                buttonText: StringConstant.addCard,
+                                onPressed: () {
+                                  context.router.maybePop();
+                                  context.router
+                                      .push(PageRouteInfo(AddCardDetailPage.name,
+                                          args: AddCardDetailPageArgs(fromRegister: false)))
+                                      .then((value) {
+                                    if (value != null && value == true) {
+                                      _navigateToAuthorizePayment(context);
+                                    }
+                                  });
+                                },
+                                image: SvgImageConstant.cardImage,
+                              ).addCardDialog(context);
+                            } else {
+                              _navigateToAuthorizePayment(context);
+                            }
+                          }
+                        },
+                        backgroundColor: AppColors.primaryColor,
+                        textColor: AppColors.white,
+                      ),
+                      Gap(getSize(10)),
+                      _buildButton(
+                        context,
+                        label: "Reject",
+                        onPressed: () async {
+                          final result = await AppDialog.showCommonDialog(
+                            context: context,
+                            title: "Reject",
+                            content: "Are you sure you want to reject this application?",
+                            successLabel: "Reject",
+                          );
+                          if (result ?? false) {
+                            context.read<EmployerLongTermViewApplicantBloc>().add(
+                                  EmployerLongTermViewApplicantEvent.onRejectApplicant(
+                                      context: context, id: data.id ?? -1),
+                                );
+                          }
+                        },
+                        backgroundColor: AppColors.white,
+                        textColor: AppColors.primaryColor,
+                        outline: AppColors.primaryColor,
+                      ),
+                    ] else if (data.revoke_status == 1) ...[
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(SvgImageConstant.clock, height: 18),
+                            Gap(4),
+                            Flexible(
+                              child: BaseText(
+                                text: "Awaiting Confirmation...",
+                                fontSize: 11,
+                                textColor: AppColors.primaryColor,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ] else if (data.revoke_status == 2) ...[
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              SvgImageConstant.clock,
+                              height: 18,
+                              color: AppColors.red,
+                            ),
+                            Gap(4),
+                            Flexible(
+                              child: BaseText(
+                                text: "Offer Expired",
+                                fontSize: 11,
+                                textColor: AppColors.red,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                     Gap(getSize(10)),
                     _buildButton(
                       context,
@@ -179,7 +229,8 @@ class _ApplicantsListTile extends StatelessWidget {
                         context.router.push(
                           PageRouteInfo(
                             ViewApplicantProfile.name,
-                            args: ViewApplicantProfileArgs(id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
+                            args: ViewApplicantProfileArgs(
+                                id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
                           ),
                         );
                       },
@@ -194,6 +245,22 @@ class _ApplicantsListTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _navigateToAuthorizePayment(BuildContext context) async {
+    final result = await context.router.push(
+      PageRouteInfo(
+        EmployerLongTermAuthorizePaymentView.name,
+        args: EmployerLongTermAuthorizePaymentViewArgs(
+          employerApplicantsDto: data,
+        ),
+      ),
+    ) as bool?;
+    if (result ?? false) {
+      context.read<EmployerLongTermViewApplicantBloc>().add(
+            EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+          );
+    }
   }
 
   Widget _buildButton(
@@ -213,7 +280,7 @@ class _ApplicantsListTile extends StatelessWidget {
         padding: EdgeInsets.all(4),
         backgroundColor: backgroundColor,
         borderColor: outline,
-        textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: textColor),
+        textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
       ),
     );
   }

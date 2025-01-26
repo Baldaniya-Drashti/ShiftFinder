@@ -2628,6 +2628,8 @@ class MainFacade implements IMainFacade {
         queryParameters: {
           "post_type": 1,
           "positions_type": positionType,
+          "page":page,
+          "perPage": 10
         },
       );
 
@@ -2858,6 +2860,37 @@ class MainFacade implements IMainFacade {
       final response = await apiService.getMethod(
         ApiConstants.employerLongTermApplicantsAcceptReject,
         queryParameters: {"id": id, "request": 2},
+      );
+
+      if (response != null) {
+        return right(response);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerFullPosition({required int page}) async{
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.employerDashboardLongFullTermPost,
+        queryParameters: {
+          "post_type": 2,
+          "page": page,
+          "perPage": 10,
+        },
       );
 
       if (response != null) {

@@ -78,81 +78,116 @@ class CustomDropdownField<T> extends StatefulWidget {
 class _CustomDropdownFieldState extends State<CustomDropdownField> {
   final ValueNotifier<bool> _isMenuOpened = ValueNotifier<bool>(false);
 
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (widget.label != null) ...[
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
-          ),
-          Gap(8),
-        ],
-        DropdownButtonFormField2(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          hint: Text(
-            widget.hintText ?? "",
-            style: widget.hintTextStyle,
-          ),
-          isDense: true,
-          validator: widget.validator,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-          isExpanded: true,
-          menuItemStyleData: const MenuItemStyleData(
-            height: 45,
-            padding: EdgeInsets.only(left: 0, right: 14),
-          ),
-          selectedItemBuilder: widget.selectedItemBuilder,
-          dropdownStyleData: DropdownStyleData(
-            maxHeight: 200,
-            padding: EdgeInsets.zero,
-            offset: const Offset(0, -8),
-            elevation: 1,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.all(Radius.circular(7)),
-            ),
-          ),
-          iconStyleData: IconStyleData(
-            icon: ValueListenableBuilder(
-              valueListenable: _isMenuOpened,
-              builder: (context, value, child) => AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                transform: Matrix4.rotationZ(_isMenuOpened.value ? pi / 1 : 0),
-                transformAlignment: Alignment.center,
-                child: SvgPicture.asset(
-                  height: 8,
-                  SvgImageConstant.downArrow,
-                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+    return FormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: widget.validator,
+      builder: (field) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (widget.label != null) ...[
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
+              ),
+              Gap(8),
+            ],
+            DropdownButtonFormField2(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              hint: Text(
+                widget.hintText ?? "",
+                style: widget.hintTextStyle,
+              ),
+              isDense: true,
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+              isExpanded: true,
+              menuItemStyleData: const MenuItemStyleData(
+                height: 45,
+                padding: EdgeInsets.only(left: 0, right: 14),
+              ),
+              selectedItemBuilder: widget.selectedItemBuilder,
+              dropdownStyleData: DropdownStyleData(
+                maxHeight: 200,
+                padding: EdgeInsets.only(left: 12),
+                offset: const Offset(0, -8),
+                elevation: 1,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(7)),
                 ),
               ),
+              iconStyleData: IconStyleData(
+                icon: ValueListenableBuilder(
+                  valueListenable: _isMenuOpened,
+                  builder: (context, value, child) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 100),
+                    transform: Matrix4.rotationZ(_isMenuOpened.value ? pi / 1 : 0),
+                    transformAlignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      height: 8,
+                      SvgImageConstant.downArrow,
+                      colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                    ),
+                  ),
+                ),
+              ),
+              decoration: InputDecoration(
+                fillColor: AppColors.white,
+                filled: true,
+                contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10),
+                isDense: true,
+                errorStyle: TextStyle(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: field.hasError ? BorderSide(color: AppColors.red) : BorderSide.none,
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: AppColors.red),
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: field.hasError ? BorderSide(color: AppColors.red) : BorderSide.none,
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: AppColors.red),
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: AppColors.red),
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: AppColors.red),
+                  borderRadius: BorderRadius.circular(getSize(10)),
+                ),
+              ),
+              value: widget.value,
+              onMenuStateChange: (isOpen) => _isMenuOpened.value = isOpen,
+              onChanged: (value) {
+                widget.onChanged(value);
+                field.didChange(value);
+              },
+              items: widget.items,
             ),
-          ),
-          decoration: InputDecoration(
-            fillColor: AppColors.white,
-            filled: true,
-            contentPadding: EdgeInsets.only(right: 16, top: 12, bottom: 10,left: 16),
-            isDense: true,
-            errorStyle: TextStyle(),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(widget.radius ?? 6),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.red),
-              borderRadius: BorderRadius.circular(getSize(10)),
-            ),
-          ),
-          value: widget.value,
-          onMenuStateChange: (isOpen) => _isMenuOpened.value = isOpen,
-          onChanged: widget.onChanged,
-          items: widget.items,
-        ),
-      ],
+            if (field.hasError) ...[
+              Gap(4),
+              Padding(
+                padding: const EdgeInsets.only(left: 14),
+                child: BaseText(
+                  text: field.errorText.toString(),
+                  textColor: AppColors.red,
+                  fontSize: getFontSize(11),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ]
+          ],
+        );
+      },
     );
   }
 }
@@ -216,6 +251,74 @@ class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField>
             );
           },
         ).toList(),
+      ),
+    );
+  }
+}
+
+class CustomFormFieldExample extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('FormField Example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Custom FormField for Checkbox
+              FormField<bool>(
+                initialValue: false,
+                validator: (value) {
+                  if (value != true) {
+                    return 'You must accept the terms.';
+                  }
+                  return null;
+                },
+                builder: (FormFieldState<bool> state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: state.value,
+                            onChanged: (bool? newValue) {
+                              state.didChange(newValue);
+                            },
+                          ),
+                          const Text('Accept terms and conditions'),
+                        ],
+                      ),
+                      if (state.hasError)
+                        Text(
+                          state.errorText ?? '',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Form submitted successfully!')),
+                    );
+                  }
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

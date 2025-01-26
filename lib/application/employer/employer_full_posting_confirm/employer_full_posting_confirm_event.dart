@@ -24,4 +24,7 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
   const factory EmployerFullPostingConfirmEvent.onCreate({
     required EmployerLongTermSuccessDto employerLongTermSuccessDto
   }) = OnCreate;
+  const factory EmployerFullPostingConfirmEvent.onContinue({
+    required BuildContext context
+  }) = OnContinue;
 }

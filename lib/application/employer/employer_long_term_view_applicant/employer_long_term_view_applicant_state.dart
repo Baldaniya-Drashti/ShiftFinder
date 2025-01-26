@@ -7,14 +7,16 @@ class EmployerLongTermViewApplicantState with _$EmployerLongTermViewApplicantSta
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
+    required bool isCardAdded,
     required List<EmployerLongTermApplicantDto> applicantsList,
   }) = _EmployerLongTermViewApplicantState;
 
   factory EmployerLongTermViewApplicantState.initial() => EmployerLongTermViewApplicantState(
-    applicantsList: [],
+        applicantsList: [],
         isNoDataFound: false,
         isErrorInAPI: false,
         isLoading: false,
         postDataLoading: false,
+        isCardAdded: false,
       );
 }

@@ -24,11 +24,6 @@ import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
-import 'package:shift/presentation/common/widgets/upload_document_box.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/helper/datetime_extensions.dart';
-import 'package:shift/presentation/core/helper/time_extension.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -61,39 +56,35 @@ class EmployerLongTermPositionAddDetailView extends StatelessWidget {
           ..add(
             EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer),
           ),
-        child: _EmployerLongTermPositionDetailContent(),
+        child: _EmployerLongTermPositionDetailContent(employer),
       ),
     );
   }
 }
 
 class _EmployerLongTermPositionDetailContent extends StatefulWidget {
-  const _EmployerLongTermPositionDetailContent();
+  const _EmployerLongTermPositionDetailContent(this.data);
+
+  final EmployerLongTermSuccessDto? data;
 
   @override
   State<_EmployerLongTermPositionDetailContent> createState() => _EmployerLongTermPositionDetailContentState();
 }
 
 class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTermPositionDetailContent> {
-  final TextEditingController _jobDescriptionController = TextEditingController();
-  final TextEditingController _requirementsController = TextEditingController();
-  final TextEditingController _responsibilityController = TextEditingController();
-  final TextEditingController _qualificationController = TextEditingController();
-  final TextEditingController _licensesController = TextEditingController();
-  final TextEditingController _termsController = TextEditingController();
-  final TextEditingController _onBoardingController = TextEditingController();
-  final TextEditingController _vacancyController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late final UpdateLongTermDetailController controller;
+  late final GlobalKey<FormState> _formKey;
 
   @override
   void initState() {
     super.initState();
-    final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+    print("data => ${widget.data?.job_description}");
+    controller = UpdateLongTermDetailController(widget.data);
+    _formKey = GlobalKey<FormState>();
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateFields(context);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -196,7 +187,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               },
             ),
             Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, ListInputEmptyOrNot>(
+            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                ListInputEmptyOrNot>(
               selector: (state) {
                 return state.requiredShiftScheduleChipList;
               },
@@ -208,7 +200,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             CustomTextField(
               autoValidateMode: AutovalidateMode.onUserInteraction,
               labelText: "Job Description",
-              controller: _jobDescriptionController,
+              controller: controller._jobDescriptionController,
               hintText: "Type Here...",
               maxLines: 3,
               validator: (value, context) {
@@ -221,7 +213,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             CustomTextField(
               autoValidateMode: AutovalidateMode.onUserInteraction,
               labelText: "Requirements",
-              controller: _requirementsController,
+              controller: controller._requirementsController,
               hintText: "Type Here...",
               maxLines: 3,
               validator: (value, context) {
@@ -234,7 +226,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             CustomTextField(
               labelText: "Responsibilities",
               autoValidateMode: AutovalidateMode.onUserInteraction,
-              controller: _responsibilityController,
+              controller: controller._responsibilityController,
               hintText: "Type Here...",
               maxLines: 3,
               validator: (value, _) {
@@ -247,7 +239,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             CustomTextField(
               labelText: "Qualifications",
               autoValidateMode: AutovalidateMode.onUserInteraction,
-              controller: _qualificationController,
+              controller: controller._qualificationController,
               hintText: "Type Here...",
               maxLines: 3,
               validator: (value, _) {
@@ -259,7 +251,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(12)),
             CustomTextField(
               labelText: "Licenses/Certifications",
-              controller: _licensesController,
+              controller: controller._licensesController,
               autoValidateMode: AutovalidateMode.onUserInteraction,
               hintText: "Type Here...",
               maxLines: 3,
@@ -301,12 +293,13 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                     BaseText(text: "Terms", fontSize: 14),
                     Gap(getSize(12)),
                     CustomTextField(
-                      controller: _termsController,
+                      controller: controller._termsController,
                       hintText: "Type Here...",
                       maxLines: 3,
                     ),
                     Gap(getSize(16)),
-                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
+                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                        String?>(
                       selector: (state) => state.employerLongTermAddDetailDto.terms_document,
                       builder: (context, documentPath) {
                         if (documentPath != null) return selectedImage(context, documentPath);
@@ -320,7 +313,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CustomTextField(
               labelText: "Onboarding Process",
-              controller: _onBoardingController,
+              controller: controller._onBoardingController,
               hintText: "Type Here...",
               autoValidateMode: AutovalidateMode.onUserInteraction,
               maxLines: 3,
@@ -371,7 +364,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                     if (vacancyEnable) ...[
                       Gap(getSize(12)),
                       CustomTextField(
-                        controller: _vacancyController,
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                        controller: controller._vacancyController,
                         labelText: StringConstant.numberOfVacancies,
                         hintText: StringConstant.numberOfVacancies,
                         keyboardType: TextInputType.number,
@@ -386,10 +380,10 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                         validator: (value, _) {
                           if (!vacancyEnable) return null;
                           value = value?.trim() ?? "";
-                          if (value.isEmpty) {
-                            return StringConstant.pleaseAddNumberOfVacancies;
-                          }
-                          if (value == "1" || value == "0") {
+                          if (value.isEmpty) return StringConstant.pleaseAddNumberOfVacancies;
+                          final newValue = int.tryParse(value);
+                          if (newValue == null) return "Please enter valid value";
+                          if (newValue < 1) {
                             return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
                           } else {
                             return null;
@@ -404,12 +398,17 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
             Gap(getSize(16)),
             CommonButton(
               onPressed: () {
-                  final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
-                  if (_formKey.currentState?.validate() != true || list.isEmpty) {
-                    showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
-                    return;
-                  }
-                final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                final list = context
+                    .read<EmployerLongTermPositionAddDetailBloc>()
+                    .state
+                    .requiredShiftScheduleChipList
+                    .getValue();
+                if (_formKey.currentState?.validate() != true || list.isEmpty) {
+                  showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                  return;
+                }
+                final employer =
+                    context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                 final startDate = employer.start_date;
                 final endDate = employer.end_date;
                 if (startDate == null || endDate == null) return;
@@ -435,14 +434,14 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                 context.read<EmployerLongTermPositionAddDetailBloc>().add(
                       EmployerLongTermPositionAddDetailEvent.onContinue(
                         context: context,
-                        jobDescription: _jobDescriptionController.text.trim(),
-                        requirements: _responsibilityController.text.trim(),
-                        responsibilities: _responsibilityController.text.trim(),
-                        qualification: _qualificationController.text.trim(),
-                        licences: _licensesController.text.trim(),
-                        onboarding: _onBoardingController.text.trim(),
-                        terms: _termsController.text.trim(),
-                        numberOfVacancy: _vacancyController.text.trim(),
+                        jobDescription: controller.jobDescription,
+                        requirements: controller.requirements,
+                        responsibilities: controller.responsibility,
+                        qualification: controller.qualification,
+                        licences: controller.licenses,
+                        onboarding: controller.onBoarding,
+                        terms: controller.terms,
+                        numberOfVacancy: controller.vacancy,
                       ),
                     );
               },
@@ -512,25 +511,13 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
-            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+            context
+                .read<EmployerLongTermPositionAddDetailBloc>()
+                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
           },
         );
       },
     );
-  }
-
-  void _updateFields(BuildContext context) {
-    final employer = context.select<EmployerLongTermPositionAddDetailBloc, EmployerLongTermSuccessDto?>(
-      (value) => value.state.employerLongTermAddDetailDto,
-    );
-    if (employer == null) return;
-    _jobDescriptionController.text = employer.job_description ?? "";
-    _requirementsController.text = employer.requirements ?? "";
-    _responsibilityController.text = employer.responsibilities ?? "";
-    _qualificationController.text = employer.qualifications ?? "";
-    _licensesController.text = employer.licenses_certifications ?? "";
-    _termsController.text = employer.terms ?? "";
-    _onBoardingController.text = employer.onboarding_process ?? "";
   }
 }
 
@@ -616,21 +603,27 @@ class _UploadDocument extends StatelessWidget {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context
+              .read<EmployerLongTermPositionAddDetailBloc>()
+              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,
@@ -684,7 +677,9 @@ class _ShiftSchedule extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+            context
+                .read<EmployerLongTermPositionAddDetailBloc>()
+                .add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
                   List<String>.from(selectedList),
                 ));
           },
@@ -696,5 +691,56 @@ class _ShiftSchedule extends StatelessWidget {
           )
       ],
     );
+  }
+}
+
+class UpdateLongTermDetailController extends ChangeNotifier {
+  UpdateLongTermDetailController(EmployerLongTermSuccessDto? data) {
+    _jobDescriptionController = TextEditingController(text: data?.job_description);
+    _requirementsController = TextEditingController(text: data?.requirements);
+    _responsibilityController = TextEditingController(text: data?.responsibilities);
+    _qualificationController = TextEditingController(text: data?.qualifications);
+    _licensesController = TextEditingController(text: data?.licenses_certifications);
+    _termsController = TextEditingController(text: data?.terms);
+    _onBoardingController = TextEditingController(text: data?.onboarding_process);
+    _vacancyController = TextEditingController(text: "${data?.number_of_vacancie ?? ""}");
+  }
+
+  late final TextEditingController _jobDescriptionController;
+  late final TextEditingController _requirementsController;
+  late final TextEditingController _responsibilityController;
+  late final TextEditingController _qualificationController;
+  late final TextEditingController _licensesController;
+  late final TextEditingController _termsController;
+  late final TextEditingController _onBoardingController;
+  late final TextEditingController _vacancyController;
+
+  String get jobDescription => _jobDescriptionController.text.trim();
+
+  String get requirements => _requirementsController.text.trim();
+
+  String get responsibility => _responsibilityController.text.trim();
+
+  String get qualification => _qualificationController.text.trim();
+
+  String get licenses => _licensesController.text.trim();
+
+  String get terms => _termsController.text.trim();
+
+  String get onBoarding => _onBoardingController.text.trim();
+
+  String get vacancy => _vacancyController.text.trim();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _jobDescriptionController.dispose();
+    _requirementsController.dispose();
+    _responsibilityController.dispose();
+    _qualificationController.dispose();
+    _licensesController.dispose();
+    _termsController.dispose();
+    _onBoardingController.dispose();
+    _vacancyController.dispose();
   }
 }

@@ -152,6 +152,6 @@ class ApiConstants {
   static String employerUpdateLongFullPostTermStatus = 'update_long_full_post_term_status';
   static String deleteLongTermPost = 'delete_long_full_term_post';
   static String getEmployerLongFullTermPost = 'get_long_full_term_post';
-  static String employerLongTermApplicantsAcceptReject = 'employer_applicants_accept_reject';
+  static String employerLongTermApplicantsAcceptReject = 'employer_long_full_term_applicants_accept_reject';
   static String updateLongFullPostTermStatus = 'update_long_full_post_term_status';
 }

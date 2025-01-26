@@ -422,4 +422,8 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> employerApplicantsAccept({
     required int id,
   });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerFullPosition({
+    required int page,
+  });
 }

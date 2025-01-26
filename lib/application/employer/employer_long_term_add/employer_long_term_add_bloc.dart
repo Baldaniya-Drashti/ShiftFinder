@@ -523,6 +523,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
             selectedLocationUnit: data.location_unit ?? "",
             rateHour: Rate((data.rate_hour != null) ? "${data.rate_hour ?? ""}" : ""),
+
           ),
         );
         print("=>updatePostCreate ${state.updatePost.job_description}");

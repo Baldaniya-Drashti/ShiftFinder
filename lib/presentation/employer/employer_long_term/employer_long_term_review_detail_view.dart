@@ -235,15 +235,12 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
     BuildContext context,
     String selectedFile,
   ) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: ShowPickedFile(
-        showBadge: false,
-        selectedFile: selectedFile,
-        mainBoxHeight: getSize(300),
-        childBoxHeight: getSize(300),
-        childBoxWidth: double.maxFinite,
-      ),
+    return ShowPickedFile(
+      showBadge: false,
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(300),
+      childBoxHeight: getSize(300),
+      childBoxWidth: double.maxFinite,
     );
   }
 

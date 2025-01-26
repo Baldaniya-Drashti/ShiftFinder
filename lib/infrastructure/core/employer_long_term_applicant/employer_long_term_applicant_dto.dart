@@ -24,6 +24,9 @@ class EmployerLongTermApplicantDto with _$EmployerLongTermApplicantDto {
     int? revoke_start,
     bool? occupied,
     bool? accept_btn_toggle,
+    String? total_months,
+    String? monthly_service_fee,
+    String? total_amount_payable,
     int? deleteAt,
   }) = _EmployerLongTermApplicantDto;
 

@@ -26,6 +26,9 @@ _$EmployerLongTermApplicantDtoImpl _$$EmployerLongTermApplicantDtoImplFromJson(
       revoke_start: (json['revoke_start'] as num?)?.toInt(),
       occupied: json['occupied'] as bool?,
       accept_btn_toggle: json['accept_btn_toggle'] as bool?,
+      total_months: json['total_months'] as String?,
+      monthly_service_fee: json['monthly_service_fee'] as String?,
+      total_amount_payable: json['total_amount_payable'] as String?,
       deleteAt: (json['deleteAt'] as num?)?.toInt(),
     );
 
@@ -49,5 +52,8 @@ Map<String, dynamic> _$$EmployerLongTermApplicantDtoImplToJson(
       'revoke_start': instance.revoke_start,
       'occupied': instance.occupied,
       'accept_btn_toggle': instance.accept_btn_toggle,
+      'total_months': instance.total_months,
+      'monthly_service_fee': instance.monthly_service_fee,
+      'total_amount_payable': instance.total_amount_payable,
       'deleteAt': instance.deleteAt,
     };

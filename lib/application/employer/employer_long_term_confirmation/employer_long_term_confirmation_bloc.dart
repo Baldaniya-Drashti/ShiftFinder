@@ -20,25 +20,14 @@ part 'employer_long_term_confirmation_state.dart';
 part 'employer_long_term_confirmation_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmationEvent, EmployerLongTermConfirmationState> {
+class EmployerLongTermConfirmationBloc
+    extends Bloc<EmployerLongTermConfirmationEvent, EmployerLongTermConfirmationState> {
   final IMainFacade _mainFacade;
 
   EmployerLongTermConfirmationBloc(this._mainFacade) : super(EmployerLongTermConfirmationState.initial()) {
     on<EmployerLongTermConfirmationEvent>((event, emit) async {
       await event.map(
-        getTeamList: (value) async {
-          final teamList = await _mainFacade.getTeamsList();
-          teamList.fold(
-            (l) => emit(
-              state.copyWith(teamList: []),
-            ),
-            (r) {
-              return emit(
-                state.copyWith(teamList: r),
-              );
-            },
-          );
-        },
+        getTeamList: (value) async {},
         selectTeam: (value) {
           List<TeamDTO> tempList = List.from(state.selectedTeamList);
           if (tempList.contains(value.team)) {
@@ -77,6 +66,7 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
           final postShift = state.postShiftDTO;
           final employer = state.employerAddDetailDto.copyWith(rate_hour: postShift.rate_hour);
           print("¢${state.selectedTeamList.join(",")}");
+          print("00000>${postShift.location_unit}");
           final Map<String, dynamic> data = {
             "post_type": "1",
             "roles_list_id": postShift.roles_list_id,
@@ -85,12 +75,16 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             "languages_list_id": postShift.languages_list_id,
             "location_id": postShift.location_id,
             "location_unit": postShift.location_unit,
-            if (postShift.specialties_detail_other != null) "specialties_detail_other": postShift.specialties_detail_other,
+            if (postShift.specialties_detail_other != null)
+              "specialties_detail_other": postShift.specialties_detail_other,
             if (postShift.software_skill_other != null) "software_skill_other": postShift.software_skill_other,
             if (postShift.language_other != null) "language_other": postShift.language_other,
-            if (state.selectedTeamList.isNotEmpty) "team_id": state.selectedTeamList.map((e) => e.id).toList().join(","),
+            if (state.selectedTeamList.isNotEmpty)
+              "team_id": state.selectedTeamList.map((e) => e.id).toList().join(","),
             ...employer.toJson(),
           };
+
+          print("========>${data}");
           emit(state.copyWith(postDataLoading: true));
           final result = await _mainFacade.createLongFullTermPost(data: data);
           emit(state.copyWith(postDataLoading: false));
@@ -113,9 +107,19 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             },
           );
         },
-        onCreate: (value) {
+        onCreate: (value) async {
           emit(state.copyWith(postShiftDTO: value.postDetail, employerAddDetailDto: value.employer));
-          add(EmployerLongTermConfirmationEvent.getTeamList());
+          final teamList = await _mainFacade.getTeamsList();
+          teamList.fold(
+            (l) => emit(
+              state.copyWith(teamList: []),
+            ),
+            (r) {
+              emit(state.copyWith(teamList: r,selectedTeamList: value.employer.teams??[]));
+              print("==>> ${value.employer.teams}");
+              print("==> ${state.selectedTeamList}");
+            },
+          );
         },
       );
     });

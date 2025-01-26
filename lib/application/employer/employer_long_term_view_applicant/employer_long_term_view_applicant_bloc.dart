@@ -14,7 +14,8 @@ part 'employer_long_term_view_applicant_state.dart';
 part 'employer_long_term_view_applicant_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermViewApplicantBloc extends Bloc<EmployerLongTermViewApplicantEvent, EmployerLongTermViewApplicantState> {
+class EmployerLongTermViewApplicantBloc
+    extends Bloc<EmployerLongTermViewApplicantEvent, EmployerLongTermViewApplicantState> {
   final IMainFacade _iMainFacade;
   int currentPage = 1;
   int lastPage = 1;
@@ -51,11 +52,13 @@ class EmployerLongTermViewApplicantBloc extends Bloc<EmployerLongTermViewApplica
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound:
+                      (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList().isEmpty,
                   applicantsList: List.from(state.applicantsList)
                     ..addAll(
                       (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList(),
                     ),
+                  isCardAdded: r.additional_data?.is_card_added ?? false,
                 ),
               );
             },

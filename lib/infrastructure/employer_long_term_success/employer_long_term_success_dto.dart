@@ -62,7 +62,7 @@ class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     int? total_teams,
     List<TeamDTO>? teams,
     String? position,
-    String? compensation_type,
+    int? compensation_type,
     String? job_summary,
     String? external_internal_relationships,
     String? experience,

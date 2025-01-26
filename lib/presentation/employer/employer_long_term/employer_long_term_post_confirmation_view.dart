@@ -22,7 +22,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermPostConfirmationView")
 class EmployerLongTermPostConfirmationView extends StatelessWidget {
-  const EmployerLongTermPostConfirmationView({super.key, required this.postShiftDTO, required this.employerAddDetailDto});
+  const EmployerLongTermPostConfirmationView(
+      {super.key, required this.postShiftDTO, required this.employerAddDetailDto});
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto employerAddDetailDto;
@@ -74,7 +75,8 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                                         return;
                                       }
                                       context.read<EmployerLongTermConfirmationBloc>().add(
-                                            EmployerLongTermConfirmationEvent.selectSharePostWithTeam(shareTeamStatus ? 0 : 1),
+                                            EmployerLongTermConfirmationEvent.selectSharePostWithTeam(
+                                                shareTeamStatus ? 0 : 1),
                                           );
                                     },
                                     label: "Share this posting with the Team",
@@ -100,9 +102,9 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                                 context,
                                 value: saveTemplateStatus,
                                 onChanged: (value) {
-                                  context
-                                      .read<EmployerLongTermConfirmationBloc>()
-                                      .add(EmployerLongTermConfirmationEvent.selectFuturePosting(saveTemplateStatus ? 0 : 1));
+                                  context.read<EmployerLongTermConfirmationBloc>().add(
+                                      EmployerLongTermConfirmationEvent.selectFuturePosting(
+                                          saveTemplateStatus ? 0 : 1));
                                 },
                                 label: "Save this as a template for future posting",
                                 trailing: GestureDetector(
@@ -131,7 +133,8 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                                 value: employerConfirmation,
                                 onChanged: (value) {
                                   context.read<EmployerLongTermConfirmationBloc>().add(
-                                        EmployerLongTermConfirmationEvent.selectTermsAndCondition(employerConfirmation ? 0 : 1),
+                                        EmployerLongTermConfirmationEvent.selectTermsAndCondition(
+                                            employerConfirmation ? 0 : 1),
                                       );
                                 },
                                 padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -250,7 +253,7 @@ class _TeamsListView extends StatelessWidget {
                 width: getSize(24),
               ),
               trailing: Checkbox(
-                value: selectedTeamList.contains(teamList[index]),
+                value: selectedTeamList.any((selectedTeam) => selectedTeam.id == teamList[index].id),
                 activeColor: AppColors.primaryColor,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 visualDensity: VisualDensity.compact,
@@ -276,7 +279,3 @@ class _TeamsListView extends StatelessWidget {
     );
   }
 }
-
-interface class New {}
-
-class New2 extends New {}
