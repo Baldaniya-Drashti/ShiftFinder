@@ -8,6 +8,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 part 'contractor_performance_insight_event.dart';
 
@@ -23,6 +24,13 @@ class ContractorPerformanceInsightBloc extends Bloc<
       : super(ContractorPerformanceInsightState.initial()) {
     on<ContractorPerformanceInsightEvent>((event, emit) async {
       await event.map(
+        onPointSelect: (e) {
+          emit(
+            state.copyWith(
+              selectedEarningPoint: e.selectedPoint,
+            ),
+          );
+        },
         onDateSelected: (e) async {
           if (e.selectedDate != null && e.selectedDate != state.selectedMonth) {
             Either<MainFailure, PerformanceInsightDTO>? failureOrSuccess;

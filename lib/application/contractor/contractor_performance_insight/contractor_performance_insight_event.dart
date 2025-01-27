@@ -7,4 +7,8 @@ class ContractorPerformanceInsightEvent
     BuildContext context, {
     required DateTime? selectedDate,
   }) = _OnDateSelected;
+  const factory ContractorPerformanceInsightEvent.onPointSelect(
+    BuildContext context, {
+    required ChartPointDetails? selectedPoint,
+  }) = OnPointSelect;
 }

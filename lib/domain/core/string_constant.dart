@@ -562,8 +562,8 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
-  static const String employerHaveDeclinedThisShift =
-      "Employer have declined this shift";
+  static const String employerHaveRejectedThisShift =
+      "Employer have rejected this shift";
   static const String youHaveCancelledThisShiftApplication =
       "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
@@ -972,6 +972,11 @@ class StringConstant {
       "Please select back page of Address proof";
   static const String pleaseSelectFrontPageOfAddressProof =
       "Please select front page of Address proof";
+
+  static const String pleaseSelectBackPageOfBackgroundCheckDocument =
+      "Please select back page of Background check document";
+  static const String pleaseSelectFrontPageOfBackgroundCheckDocument =
+      "Please select front page of Background check document";
   static const String deleteAddressProofDesc =
       "Are you sure you want to delete Address Proof document?";
   static const String deleteBackgroundCheckDesc =

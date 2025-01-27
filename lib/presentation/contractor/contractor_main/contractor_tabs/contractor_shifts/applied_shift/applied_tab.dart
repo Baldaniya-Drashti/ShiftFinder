@@ -133,7 +133,7 @@ class AppliedTab extends StatelessWidget {
                                         vertical: getSize(10)),
                                     child: BaseText(
                                       text: StringConstant
-                                          .employerHaveDeclinedThisShift,
+                                          .employerHaveRejectedThisShift,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       textColor: AppColors.redAccent,

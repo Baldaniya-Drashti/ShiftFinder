@@ -350,7 +350,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                       AcceptRejectDialog(
                                         title: 'Reject',
                                         description:
-                                            'Are you sure you want to reject this application?',
+                                            'Are you sure you want to reject this proposal?',
                                         onPressedAccept: () {
                                           context.router.maybePop().then(
                                             (value) {

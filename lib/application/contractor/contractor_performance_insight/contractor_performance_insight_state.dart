@@ -12,6 +12,7 @@ class ContractorPerformanceInsightState
     required List<DateTime> selectedDateTime,
     required DateTime? selectedMonth,
     required PerformanceInsightDTO? insightDetail,
+    required ChartPointDetails? selectedEarningPoint,
   }) = _ContractorPerformanceInsightState;
 
   factory ContractorPerformanceInsightState.initial() =>
@@ -23,5 +24,6 @@ class ContractorPerformanceInsightState
         selectedDateTime: [],
         selectedMonth: null,
         insightDetail: null,
+        selectedEarningPoint: null,
       );
 }
