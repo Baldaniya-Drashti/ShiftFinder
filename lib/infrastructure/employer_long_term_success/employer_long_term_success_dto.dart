@@ -30,7 +30,7 @@ class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     String? language_other,
     LocationDTO? location,
     String? location_unit,
-    double? rate_hour,
+    num? rate_hour,
     String? software_skill,
     String? specialties_detail,
     String? reason,

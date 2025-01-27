@@ -2060,10 +2060,18 @@ class EmployerCompletedShiftView extends _i137.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i52.EmployerFullPositionAddView]
-class EmployerFullPositionAddView extends _i137.PageRouteInfo<void> {
-  const EmployerFullPositionAddView({List<_i137.PageRouteInfo>? children})
-      : super(
+class EmployerFullPositionAddView
+    extends _i137.PageRouteInfo<EmployerFullPositionAddViewArgs> {
+  EmployerFullPositionAddView({
+    _i138.Key? key,
+    int? postId,
+    List<_i137.PageRouteInfo>? children,
+  }) : super(
           EmployerFullPositionAddView.name,
+          args: EmployerFullPositionAddViewArgs(
+            key: key,
+            postId: postId,
+          ),
           initialChildren: children,
         );
 
@@ -2072,9 +2080,30 @@ class EmployerFullPositionAddView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i52.EmployerFullPositionAddView();
+      final args = data.argsAs<EmployerFullPositionAddViewArgs>(
+          orElse: () => const EmployerFullPositionAddViewArgs());
+      return _i52.EmployerFullPositionAddView(
+        key: args.key,
+        postId: args.postId,
+      );
     },
   );
+}
+
+class EmployerFullPositionAddViewArgs {
+  const EmployerFullPositionAddViewArgs({
+    this.key,
+    this.postId,
+  });
+
+  final _i138.Key? key;
+
+  final int? postId;
+
+  @override
+  String toString() {
+    return 'EmployerFullPositionAddViewArgs{key: $key, postId: $postId}';
+  }
 }
 
 /// generated route for

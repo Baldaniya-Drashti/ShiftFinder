@@ -19,7 +19,8 @@ part 'employer_long_term_position_add_detail_state.dart';
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
+class EmployerLongTermPositionAddDetailBloc
+    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
   EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
@@ -72,7 +73,13 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
         }, onCreate: (OnCreate value) {
           print("==============> ${value.employer?.job_description}");
           emit(
-            state.copyWith(postShiftDto: value.postShitDto, employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto()),
+            state.copyWith(
+              postShiftDto: value.postShitDto,
+              employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto(),
+              requiredShiftScheduleChipList: ListInputEmptyOrNot(
+                getShiftSchedule(value.employer?.shift_schedule_type ?? ""),
+              ),
+            ),
           );
           print("==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
         }, removeDocument: (RemoveDocument value) {
@@ -129,5 +136,17 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
         });
       },
     );
+  }
+
+  List<String> getShiftSchedule(String scheduleShift) {
+    final list = <String>[];
+    final shiftList = scheduleShift.split(",");
+    if (shiftList.contains("1")) list.add("Morning");
+    if (shiftList.contains("2")) list.add("Evening");
+    if (shiftList.contains("3")) list.add("Night");
+    if (shiftList.contains("4")) list.add("Weekends");
+    if (shiftList.contains("5")) list.add("Weekdays");
+
+    return list;
   }
 }

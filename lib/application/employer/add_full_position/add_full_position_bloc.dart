@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/helper_function.dart';
 
 part 'add_full_position_event.dart';
 
@@ -31,6 +32,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
         await event.map(
           onCreate: (value) {
             add(AddFullPositionEvent.fetchLocationList(context: value.context));
+
           },
           fetchLocationList: (value) async {
             emit(state.copyWith(loading: true));
@@ -65,10 +67,18 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
             emit(state.copyWith(selectedLocation: value.selectedLocation));
           },
           onCompensationTypeChanged: (OnCompensationTypeChanged value) {
-            emit(state.copyWith(selectedRadioOption: value.type));
+            emit(
+              state.copyWith(
+                employerLongTermDto: state.employerLongTermDto.copyWith(compensation_type: value.type),
+              ),
+            );
           },
           onEstimatedDateChanged: (OnEstimatedDateChanged value) {
-            emit(state.copyWith(selectedEstimatedHours: value.value));
+            emit(
+              state.copyWith(
+                employerLongTermDto: state.employerLongTermDto.copyWith(estimated_weekly_hours: value.value),
+              ),
+            );
           },
           removeShiftSchedule: (RemoveShiftSchedule value) {
             emit(
@@ -100,7 +110,14 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
               licenses_certifications: value.licenseCertification,
               skills: value.requiredSkill,
               other: value.others,
+              location: state.selectedLocation,
+              location_unit: state.selectedLocationUnit,
+              rate_hour: num.tryParse(value.salaryOrRateHour),
+              compensation_type: state.selectedRadioOption,
+              shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
             );
+
+            print("==>yyy ${longTermPosition.toJson()}");
 
             value.context.router.push(
               PageRouteInfo(
@@ -123,7 +140,10 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 unitList: selectedLocationObject.add_units ?? [],
                 selectedLocationUnit: "",
                 showLocationError:
-                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
+                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
+                        ? true
+                        : false,
+                selectedLocation: selectedLocationObject,
               ),
             );
           },
@@ -142,6 +162,26 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                   estimated_weekly_hours: value.estimatedHour,
                 ),
               ),
+            );
+          },
+          getEmployerFullPostingData: (GetEmployerFullPostingData value) async {
+            emit(state.copyWith(loading: true));
+            final result = await _mainFacade.getEmployerPositionDetail(id: value.id);
+            emit(state.copyWith(loading: false));
+            result.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                final data = EmployerLongTermSuccessDto.fromJson(r.data);
+                emit(state.copyWith(employerLongTermDto: data));
+              },
             );
           },
         );

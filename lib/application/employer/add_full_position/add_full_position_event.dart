@@ -2,7 +2,7 @@ part of 'add_full_position_bloc.dart';
 
 @freezed
 class AddFullPositionEvent with _$AddFullPositionEvent {
-  const factory AddFullPositionEvent.onCreate(BuildContext context) = onCreate;
+  const factory AddFullPositionEvent.onCreate(BuildContext context,int? postId) = onCreate;
 
   const factory AddFullPositionEvent.fetchLocationList({required BuildContext context}) = FetchLocationList;
 
@@ -19,6 +19,8 @@ class AddFullPositionEvent with _$AddFullPositionEvent {
   const factory AddFullPositionEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
 
   const factory AddFullPositionEvent.confirmShiftSchedule(List<String> shiftSchedule) = ConfirmSoftwareSkill;
+  const factory AddFullPositionEvent.getEmployerFullPostingData(BuildContext context,int id) = GetEmployerFullPostingData;
+
 
   const factory AddFullPositionEvent.onContinue({
     required BuildContext context,

@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
@@ -62,6 +65,7 @@ class EmployerLongTermConfirmationBloc
         onContinue: (value) async {
           print(state.employerAddDetailDto.toJson());
           print(state.postShiftDTO.toJson());
+          print("id=> ${state.employerAddDetailDto.id}");
 
           final postShift = state.postShiftDTO;
           final employer = state.employerAddDetailDto.copyWith(rate_hour: postShift.rate_hour);
@@ -86,7 +90,13 @@ class EmployerLongTermConfirmationBloc
 
           print("========>${data}");
           emit(state.copyWith(postDataLoading: true));
-          final result = await _mainFacade.createLongFullTermPost(data: data);
+          Either<MainFailure, CommonResponse<dynamic>> result;
+          if (employer.id == null) {
+             result = await _mainFacade.createLongFullTermPost(data: data);
+          }else{
+            result = await _mainFacade.updateLongFullTermPost(data: data);
+          }
+
           emit(state.copyWith(postDataLoading: false));
           result.fold(
             (l) {
@@ -115,7 +125,7 @@ class EmployerLongTermConfirmationBloc
               state.copyWith(teamList: []),
             ),
             (r) {
-              emit(state.copyWith(teamList: r,selectedTeamList: value.employer.teams??[]));
+              emit(state.copyWith(teamList: r, selectedTeamList: value.employer.teams ?? []));
               print("==>> ${value.employer.teams}");
               print("==> ${state.selectedTeamList}");
             },

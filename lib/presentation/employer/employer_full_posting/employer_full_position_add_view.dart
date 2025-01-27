@@ -14,6 +14,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -37,12 +38,14 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 @RoutePage(name: "EmployerFullPositionAddView")
 class EmployerFullPositionAddView extends StatelessWidget {
-  const EmployerFullPositionAddView({super.key});
+  const EmployerFullPositionAddView({super.key, this.postId});
+
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddFullPositionBloc>()..add(AddFullPositionEvent.fetchLocationList(context: context)),
+      create: (context) => getIt<AddFullPositionBloc>()..add(AddFullPositionEvent.onCreate(context, postId)),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "HealthCare"),
@@ -55,7 +58,7 @@ class EmployerFullPositionAddView extends StatelessWidget {
                   children: [
                     Image.asset(PngImageConstants.fullPosition),
                     Gap(getSize(24)),
-                    _PositionForm(),
+                    _PositionForm(state.employerLongTermDto),
                   ],
                 ),
               );
@@ -68,58 +71,26 @@ class EmployerFullPositionAddView extends StatelessWidget {
 }
 
 class _PositionForm extends StatefulWidget {
-  const _PositionForm();
+  const _PositionForm(this.data);
+
+  final EmployerLongTermSuccessDto data;
 
   @override
   State<_PositionForm> createState() => _PositionFormState();
 }
 
 class _PositionFormState extends State<_PositionForm> {
-  late TextEditingController _positionController;
-  late TextEditingController _unionUnitController;
-  final TextEditingController _rateAndSalaryController = TextEditingController();
-  late BulletTextEditingController _benefitController;
-  late BulletTextEditingController _compensationController;
-  late BulletTextEditingController _jobSummaryController;
-  late BulletTextEditingController _keyResponsibilityController;
-  late BulletTextEditingController _externalInternalRelationshipController;
-  late BulletTextEditingController _qualificationController;
-  late BulletTextEditingController _experienceController;
-  late BulletTextEditingController _licenseController;
-  late BulletTextEditingController _skillController;
-  late BulletTextEditingController _otherController;
+  late final UpdateFullTimeJobPositionController controller;
 
   @override
   void initState() {
     super.initState();
-    _positionController = TextEditingController();
-    _unionUnitController = TextEditingController();
-    _benefitController = BulletTextEditingController();
-    _compensationController = BulletTextEditingController();
-    _jobSummaryController = BulletTextEditingController();
-    _keyResponsibilityController = BulletTextEditingController();
-    _externalInternalRelationshipController = BulletTextEditingController();
-    _qualificationController = BulletTextEditingController();
-    _experienceController = BulletTextEditingController();
-    _licenseController = BulletTextEditingController();
-    _skillController = BulletTextEditingController();
-    _otherController = BulletTextEditingController();
+    controller = UpdateFullTimeJobPositionController(widget.data);
   }
 
   @override
   void dispose() {
-    _benefitController.dispose();
-    _compensationController.dispose();
-    _jobSummaryController.dispose();
-    _keyResponsibilityController.dispose();
-    _externalInternalRelationshipController.dispose();
-    _qualificationController.dispose();
-    _experienceController.dispose();
-    _licenseController.dispose();
-    _skillController.dispose();
-    _otherController.dispose();
-    _positionController.dispose();
-    _unionUnitController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -133,7 +104,7 @@ class _PositionFormState extends State<_PositionForm> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomTextField(
-                controller: _positionController,
+                controller: controller._positionController,
                 labelText: "Position",
                 hintText: "Type Here... ",
                 maxLines: 4,
@@ -168,7 +139,7 @@ class _PositionFormState extends State<_PositionForm> {
               locationDropDown(context, state),
               Gap(getSize(18)),
               CustomTextField(
-                controller: _unionUnitController,
+                controller: controller._unionUnitController,
                 labelText: "Union/Bargaining Unit",
                 hintText: "Union/Bargaining Unit",
                 textInputAction: TextInputAction.next,
@@ -268,9 +239,10 @@ class _PositionFormState extends State<_PositionForm> {
                                   CustomTextField(
                                     keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
                                     inputFormatters: [
-                                      if (selectedRadioOption == 1) FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                      if (selectedRadioOption == 1)
+                                        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                                     ],
-                                    controller: _rateAndSalaryController,
+                                    controller: controller._rateAndSalaryController,
                                     autoValidateMode: AutovalidateMode.onUserInteraction,
                                     hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
                                     validator: (value, context) {
@@ -301,17 +273,17 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(18)),
               _BulletTextField(
-                controller: _benefitController,
+                controller: controller._benefitController,
                 label: "Benefits Provided",
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _compensationController,
+                controller: controller._compensationController,
                 label: "Compensation Package",
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _jobSummaryController,
+                controller: controller._jobSummaryController,
                 label: "Job Summary",
                 optional: false,
                 validator: (value) {
@@ -324,7 +296,7 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _keyResponsibilityController,
+                controller: controller._keyResponsibilityController,
                 label: "Key Responsibilities",
                 optional: false,
                 validator: (value) {
@@ -337,12 +309,12 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _externalInternalRelationshipController,
+                controller: controller._externalInternalRelationshipController,
                 label: "External and Internal Relationships",
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _qualificationController,
+                controller: controller._qualificationController,
                 label: "Required Qualifications",
                 optional: false,
                 validator: (value) {
@@ -355,7 +327,7 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _experienceController,
+                controller: controller._experienceController,
                 label: "Required Experience",
                 optional: false,
                 validator: (value) {
@@ -368,7 +340,7 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _licenseController,
+                controller: controller._licenseController,
                 label: "Required Licenses/Certifications",
                 optional: false,
                 validator: (value) {
@@ -381,7 +353,7 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _skillController,
+                controller: controller._skillController,
                 label: "Required Skills",
                 optional: false,
                 validator: (value) {
@@ -394,7 +366,7 @@ class _PositionFormState extends State<_PositionForm> {
               ),
               Gap(getSize(16)),
               _BulletTextField(
-                controller: _otherController,
+                controller: controller._otherController,
                 label: "Other",
               ),
               Gap(getSize(28)),
@@ -408,25 +380,24 @@ class _PositionFormState extends State<_PositionForm> {
                   context.read<AddFullPositionBloc>().add(
                         AddFullPositionEvent.onContinue(
                           context: context,
-                          unionBargainUnit: _unionUnitController.text.trim(),
-                          salaryOrRateHour: _rateAndSalaryController.text.trim(),
-                          benefits: _benefitController.toCommaSeparatedString,
-                          compensationPackage: _compensationController.toCommaSeparatedString,
-                          jobSummary: _jobSummaryController.toCommaSeparatedString,
-                          keyResponsibility: _keyResponsibilityController.toCommaSeparatedString,
-                          externalInternalRelationship: _externalInternalRelationshipController.toCommaSeparatedString,
-                          requiredQualification: _qualificationController.toCommaSeparatedString,
-                          requiredExperience: _experienceController.toCommaSeparatedString,
-                          licenseCertification: _licenseController.toCommaSeparatedString,
-                          requiredSkill: _skillController.toCommaSeparatedString,
-                          others: _otherController.toCommaSeparatedString,
-                          position: _positionController.text.trim(),
+                          unionBargainUnit: controller.unionUnit,
+                          salaryOrRateHour: controller.rateAndSalary,
+                          benefits: controller.benefit,
+                          compensationPackage: controller.compensation,
+                          jobSummary: controller.jobSummary,
+                          keyResponsibility: controller.keyResponsibility,
+                          externalInternalRelationship: controller.externalInternalRelationship,
+                          requiredQualification: controller.qualification,
+                          requiredExperience: controller.qualification,
+                          licenseCertification: controller.license,
+                          requiredSkill: controller.skill,
+                          others: controller.other,
+                          position: controller.position,
                         ),
                       );
                 },
                 buttonText: "Continue",
               ),
-
             ],
           );
         },
@@ -543,7 +514,10 @@ class _PositionFormState extends State<_PositionForm> {
             }
           },
         ),
-        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() &&
+            state.unitList.isNotEmpty &&
+            state.showLocationError &&
+            state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );
@@ -658,9 +632,11 @@ class _BulletTextField extends StatelessWidget {
 }
 
 class BulletTextEditingController extends TextEditingController {
-  BulletTextEditingController({List<String>? initialItems}) {
+  BulletTextEditingController({String? initialItems}) {
     if (initialItems != null) {
-      text = initialItems.map((item) => '$bullet$item').join('\n');
+      List<String> items = initialItems.split(",");
+
+      text = items.map((item) => '$bullet$item').join('\n');
     }
     addListener(_handleTextChange);
   }
@@ -793,4 +769,64 @@ class _ShiftSchedule extends StatelessWidget {
       ],
     );
   }
+}
+
+class UpdateFullTimeJobPositionController extends ChangeNotifier {
+  UpdateFullTimeJobPositionController(EmployerLongTermSuccessDto? data) {
+    _positionController = TextEditingController(text: data?.position);
+    _unionUnitController = TextEditingController(text: data?.union_bargaining_unit);
+    _rateAndSalaryController = TextEditingController(text: "${data?.rate_hour ?? ""}");
+    _benefitController = BulletTextEditingController(initialItems: data?.benefits);
+    _compensationController = BulletTextEditingController(initialItems: data?.compensation_package);
+    _jobSummaryController = BulletTextEditingController(initialItems: data?.job_summary);
+    _keyResponsibilityController = BulletTextEditingController(initialItems: data?.responsibilities);
+    _externalInternalRelationshipController =
+        BulletTextEditingController(initialItems: data?.external_internal_relationships);
+    _qualificationController = BulletTextEditingController(initialItems: data?.qualifications);
+    _experienceController = BulletTextEditingController(initialItems: data?.experience);
+    _licenseController = BulletTextEditingController(initialItems: data?.licenses_certifications);
+    _skillController = BulletTextEditingController(initialItems: data?.skills);
+    _otherController = BulletTextEditingController(initialItems: data?.other);
+  }
+
+  late final TextEditingController _positionController;
+  late final TextEditingController _unionUnitController;
+  late final TextEditingController _rateAndSalaryController;
+
+  late final BulletTextEditingController _benefitController;
+  late final BulletTextEditingController _compensationController;
+  late final BulletTextEditingController _jobSummaryController;
+  late final BulletTextEditingController _keyResponsibilityController;
+  late final BulletTextEditingController _externalInternalRelationshipController;
+  late final BulletTextEditingController _qualificationController;
+  late final BulletTextEditingController _experienceController;
+  late final BulletTextEditingController _licenseController;
+  late final BulletTextEditingController _skillController;
+  late final BulletTextEditingController _otherController;
+
+  String get position => _positionController.text.trim();
+
+  String get unionUnit => _unionUnitController.text.trim();
+
+  String get rateAndSalary => _rateAndSalaryController.text.trim();
+
+  String get benefit => _benefitController.toCommaSeparatedString;
+
+  String get compensation => _compensationController.toCommaSeparatedString;
+
+  String get jobSummary => _jobSummaryController.toCommaSeparatedString;
+
+  String get keyResponsibility => _keyResponsibilityController.toCommaSeparatedString;
+
+  String get externalInternalRelationship => _externalInternalRelationshipController.toCommaSeparatedString;
+
+  String get qualification => _qualificationController.toCommaSeparatedString;
+
+  String get experience => _experienceController.toCommaSeparatedString;
+
+  String get license => _licenseController.toCommaSeparatedString;
+
+  String get skill => _skillController.toCommaSeparatedString;
+
+  String get other => _otherController.toCommaSeparatedString;
 }

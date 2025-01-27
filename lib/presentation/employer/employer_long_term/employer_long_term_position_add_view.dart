@@ -26,7 +26,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class EmployerLongTermPositionAddView extends StatelessWidget {
   const EmployerLongTermPositionAddView({super.key, this.postId});
 
-  final int? postId;
+    final int? postId;
 
   @override
   Widget build(BuildContext context) {

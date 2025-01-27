@@ -19,8 +19,8 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
   final IMainFacade _iMainFacade;
 
   EmployerFullPostingConfirmBloc(this._iMainFacade) : super(const EmployerFullPostingConfirmState()) {
-    on<EmployerFullPostingConfirmEvent>((event, emit) {
-      event.map(
+    on<EmployerFullPostingConfirmEvent>((event, emit) async {
+      await event.map(
         onApplicationDeadlineChanged: (value) {
           emit(
             state.copyWith(
@@ -66,11 +66,12 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
-
+          final employer= state.employerFullPosting;
+          //employer.copyWith(lo);
           final Map<String, dynamic> data = {
             "post_type": "2",
-            // "location_id": postShift.location_id,
-            // "location_unit": postShift.location_unit,
+             "location_id": employer.location?.id,
+
             ...state.employerFullPosting.toJson(),
           };
 
@@ -96,4 +97,6 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
       );
     });
   }
+
+
 }

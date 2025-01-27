@@ -37,7 +37,7 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
           ? null
           : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
       location_unit: json['location_unit'] as String?,
-      rate_hour: (json['rate_hour'] as num?)?.toDouble(),
+      rate_hour: json['rate_hour'] as num?,
       software_skill: json['software_skill'] as String?,
       specialties_detail: json['specialties_detail'] as String?,
       reason: json['reason'] as String?,

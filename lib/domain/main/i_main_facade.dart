@@ -392,6 +392,9 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({
     required Map<String,dynamic> data
   });
+  Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost({
+    required Map<String,dynamic> data
+  });
 
   Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
     required int positionsType,
@@ -414,6 +417,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getEmployerPositionDetail({
     required int id,
   });
+
 
 
   Future<Either<MainFailure, CommonResponse>> employerApplicantsReject({
