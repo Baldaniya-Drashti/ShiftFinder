@@ -18,6 +18,10 @@ class AddFullPositionState with _$AddFullPositionState {
     required LocationDTO locationObj,
     required String selectedLocationUnit,
     required bool showLocationError,
+    required String languageChip,
+    required List<String> languageOther,
+    required ListInputEmptyOrNot languageChipList,
+    required List<SkillDTO> languageList,
   }) = _AddFullPositionState;
 
   factory AddFullPositionState.initial() => AddFullPositionState(
@@ -27,7 +31,11 @@ class AddFullPositionState with _$AddFullPositionState {
         unitList: [],
         locationObj: LocationDTO(),
         selectedLocationUnit: "",
-      );
+        languageChip: "",
+        languageChipList: ListInputEmptyOrNot(["English"]),
+        languageList: [],
+        languageOther: [],
+        );
 }
 
 class CommonDropdownModel extends Equatable {

@@ -47,6 +47,7 @@ class AddMultiDateTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("Selected Obj--> ${jsonEncode(selectedObj.multi_date)}");
+    print("fromSaveTemplate--> ${fromSaveTemplate}");
     Log.debug(selectedObj.multi_date);
     return BlocProvider(
       create: (context) =>
@@ -119,6 +120,8 @@ class AddMultiDateTime extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (_, index) {
+
+                                  print("Get updatedd list----> ${state.multiDateTimeList.length}");
                                   return startEndTime(context, state,
                                       state.multiDateTimeList[index],
                                       index: index);
@@ -140,7 +143,7 @@ class AddMultiDateTime extends StatelessWidget {
                                 context.read<PostShiftBloc>().add(
                                     PostShiftEvent
                                         .differentTimeShiftSubmitted(
-                                        selectedObj, context, true));
+                                        selectedObj, context, fromSaveTemplate));
                               },
                               buttonText: StringConstant.txtContinue,
                             ),

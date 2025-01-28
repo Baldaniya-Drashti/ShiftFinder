@@ -132,13 +132,13 @@ class PayableDetail extends StatelessWidget {
                                     onPressed: () {
                                       AppDialog.showDelete(
                                         context,
-                                        title: (isUpdate)
+                                        title: (isUpdate && !fromSaveTemplate)
                                             ? StringConstant.updateTheShift
                                             : StringConstant.postTheShift,
-                                        infoMessage: (isUpdate)
+                                        infoMessage: (isUpdate && !fromSaveTemplate)
                                             ? StringConstant.updateShiftDesc
                                             : StringConstant.postShiftDesc,
-                                        deleteBtnText: isUpdate
+                                        deleteBtnText: isUpdate && !fromSaveTemplate
                                             ? StringConstant.update
                                             : StringConstant.post,
                                         onCancelClick: () {
@@ -150,12 +150,12 @@ class PayableDetail extends StatelessWidget {
                                                   PostShiftEvent
                                                       .postTheShiftEvent(
                                                 post.id ?? -1,
-                                                (isUpdate) ? updatedPost : null,
+                                                (isUpdate && !fromSaveTemplate) ? updatedPost : null,fromSaveTemplate,
                                               ));
                                         },
                                       );
                                     },
-                                    buttonText: isUpdate
+                                    buttonText: (isUpdate && !fromSaveTemplate)
                                         ? StringConstant.updateTheShift
                                         : StringConstant.postTheShift,
                                   ),

@@ -136,6 +136,8 @@ class _PositionFormState extends State<_PositionForm> {
                 },
               ),
               Gap(getSize(12)),
+              languageDropDownChipSet(context, state),
+              Gap(getSize(18)),
               locationDropDown(context, state),
               Gap(getSize(18)),
               CustomTextField(
@@ -403,8 +405,50 @@ class _PositionFormState extends State<_PositionForm> {
         },
       ),
     );
+    
+    
   }
-
+  Widget languageDropDownChipSet(BuildContext context, AddFullPositionState state) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          title: StringConstant.languagesKnown,
+          labelText: StringConstant.languagesKnown,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              context.read<AddFullPositionBloc>().add(AddFullPositionEvent.removeLanguageChips(value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.languagesKnown,
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          initialValue: state.languageChipList.getValue(),
+          otherInitialValue: state.languageOther,
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmLanguageList(
+              List<String>.from(selectedList),
+              List<String>.from(otherValues),
+            ));
+          },
+        ),
+        if ( state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
+      ],
+    );
+  }
   Widget _buildRadioOptions(
     BuildContext context, {
     required void Function(int value) onChanged,

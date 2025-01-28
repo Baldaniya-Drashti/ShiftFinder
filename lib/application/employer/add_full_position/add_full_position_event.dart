@@ -44,4 +44,11 @@ class AddFullPositionEvent with _$AddFullPositionEvent {
   const factory AddFullPositionEvent.locationUnitSelectionChanged(String selectedUnit) = LocationUnitSelectionChanged;
   const factory AddFullPositionEvent.selectEstimatedHour({required TimeOfDay estimatedHour}) = SelectEstimatedHour;
 
+  const factory AddFullPositionEvent.confirmLanguageList(List<String> languageList, List<String> otherLanguageList) = ConfirmLanguageList;
+  const factory AddFullPositionEvent.removeLanguageChips(String selectedLanguage) = RemoveLanguageChips;
+  const factory AddFullPositionEvent.addLanguageChips(String selectedLanguage, {bool? isOtherValue}) = AddLanguageChips;
+
+
+
+
 }

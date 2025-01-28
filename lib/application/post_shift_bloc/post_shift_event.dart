@@ -91,6 +91,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.endHourListChanged(String hour, int index, String date) = EndHourListChanged;
 
+
   const factory PostShiftEvent.endMinuteListChanged(String minute, int index, String date) = EndMinuteListChanged;
 
   const factory PostShiftEvent.differentTimeShiftSubmitted(MultiShiftDTO shiftDetail, BuildContext context,bool fromSaveTemplate) = DifferentTimeShiftSubmitted;
@@ -114,7 +115,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   /// Post the Shift
   const factory PostShiftEvent.postTheShiftEvent(
-      int postId, PostShiftDTO? updatedPost) = PostTheShiftEvent;
+      int postId, PostShiftDTO? updatedPost, bool fromSaveTemp) = PostTheShiftEvent;
   const factory PostShiftEvent.scriptVolumeChanged(String scriptVolume) =
       ScriptVolumeChanged;
 }

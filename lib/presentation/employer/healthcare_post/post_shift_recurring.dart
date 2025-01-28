@@ -258,6 +258,7 @@ class PostShiftRecurring extends StatelessWidget {
                                             confirmationDialog(context, state,
                                                 noOfShift: selectedDayCount);
                                           } else {
+                                            print("----------ll>${fromSaveTemplate}");
                                             context
                                                 .read<PostShiftBloc>()
                                                 .add(PostShiftEvent.recurringButtonEvent(context, updateShift?.shift_detail?.id ?? -1,fromSaveTemplate));

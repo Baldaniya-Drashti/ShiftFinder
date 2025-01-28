@@ -10,6 +10,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -32,7 +33,6 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
         await event.map(
           onCreate: (value) {
             add(AddFullPositionEvent.fetchLocationList(context: value.context));
-
           },
           fetchLocationList: (value) async {
             emit(state.copyWith(loading: true));
@@ -140,9 +140,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 unitList: selectedLocationObject.add_units ?? [],
                 selectedLocationUnit: "",
                 showLocationError:
-                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
-                        ? true
-                        : false,
+                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
                 selectedLocation: selectedLocationObject,
               ),
             );
@@ -183,6 +181,46 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 emit(state.copyWith(employerLongTermDto: data));
               },
             );
+          },
+          confirmLanguageList: (ConfirmLanguageList value) {
+            emit(state.copyWith(
+              languageChipList: ListInputEmptyOrNot(value.languageList),
+              languageOther: value.otherLanguageList,
+            ));
+          },
+          removeLanguageChips: (RemoveLanguageChips value) {
+            emit(
+              state.copyWith(
+                languageChipList: ListInputEmptyOrNot(
+                  List.from(
+                    List.of(state.languageChipList.getValue())..remove(value.selectedLanguage),
+                  ),
+                ),
+                languageOther: List.of(state.languageOther)..remove(value.selectedLanguage),
+              ),
+            );
+          },
+          addLanguageChips: (AddLanguageChips e) {
+            if (e.selectedLanguage.isNotEmpty &&
+                !e.selectedLanguage.toLowerCase().contains("other") &&
+                (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+              emit(
+                state.copyWith(
+                  languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                  languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
+                  languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                ),
+              );
+            } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
+              emit(state.copyWith());
+            } else {
+              emit(
+                state.copyWith(
+                  languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue())),
+                  languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
+                ),
+              );
+            }
           },
         );
       },

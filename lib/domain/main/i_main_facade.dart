@@ -3,7 +3,11 @@ import 'package:shift/application/faq/faq_bloc.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
+import 'package:shift/infrastructure/contractor_main/earning/statement_dto/statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
+import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
@@ -160,8 +164,7 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
-      {required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
@@ -225,7 +228,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getApplicantProfile({
     required int id,
     required int postId,
-     int? isLongOrFull,
+    int? isLongOrFull,
   });
 
   Future<Either<MainFailure, CommonResponse>> getProposalDetail({
@@ -331,8 +334,8 @@ abstract class IMainFacade {
   });
 
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
-  Future<Either<MainFailure, CommonResponse>> getPerformanceInsightListAPI(
-      {required double date});
+
+  Future<Either<MainFailure, PerformanceInsightDTO>> getPerformanceInsightListAPI({required double date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
@@ -375,7 +378,8 @@ abstract class IMainFacade {
     required int id,
   });
 
-  Future<Either<MainFailure, CommonResponse>> totalEarningStatementAPI({
+  Future<Either<MainFailure, EarningStatementDTO>> totalEarningStatementAPI({
+    int? statementFilter,
     required String startDate,
     required String endDate,
   });
@@ -387,14 +391,9 @@ abstract class IMainFacade {
     required int page,
   });
 
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({required Map<String, dynamic> data});
 
-
-  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({
-    required Map<String,dynamic> data
-  });
-  Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost({
-    required Map<String,dynamic> data
-  });
+  Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost({required Map<String, dynamic> data});
 
   Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
     required int positionsType,
@@ -418,11 +417,10 @@ abstract class IMainFacade {
     required int id,
   });
 
-
-
   Future<Either<MainFailure, CommonResponse>> employerApplicantsReject({
     required int id,
   });
+
   Future<Either<MainFailure, CommonResponse>> employerApplicantsAccept({
     required int id,
   });
@@ -430,4 +428,24 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getEmployerFullPosition({
     required int page,
   });
+
+  Future<Either<MainFailure, StatementDTO>> statementAPI({
+    required int? statementFilter,
+    required String startDate,
+    required String endDate,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> contractorWithdrawAmount({
+    double? amount,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getWalletListAPI({
+    int? filterType,
+    String? startDate,
+    String? endDate,
+    int? page,
+  });
+  Future<Either<MainFailure, GetBalanceDTO>> getAvailableBalanceApi();
+
+
 }

@@ -34,12 +34,15 @@ class MultiPostShift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Log.debug("===>MultiPostShiftCalled");
+    Log.debug("===>MultiPostShiftCalled");
     return BlocProvider(
       create: (context) =>
           getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Multi", postId: postId, post: post, updateShift: updateShift)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
+          Log.debug("===>MultiPostShiftCalled==> ${state.updateShift.id}");
+
           return (state.isLoading)
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : Form(

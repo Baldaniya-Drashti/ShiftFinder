@@ -45,14 +45,14 @@ class ProfileItems extends StatelessWidget {
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.previousShifts,
         onTap: () {
-          // context.router.push(PageRouteInfo(EmployerLongTermView.name));
+          context.router.push(PageRouteInfo(EmployerLongTermView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          // context.router.push(PageRouteInfo(EmployerFullPostingView.name));
+           context.router.push(PageRouteInfo(EmployerFullPostingView.name));
         },
       ),
       ProfileItemModel(
@@ -81,7 +81,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Saved Templates',
         image: SvgImageConstant.savedTemplates,
         onTap: () {
-          // context.router.push(PageRouteInfo(SaveTemplateView.name));
+          context.router.push(PageRouteInfo(SaveTemplateView.name));
         },
       ),
       ProfileItemModel(

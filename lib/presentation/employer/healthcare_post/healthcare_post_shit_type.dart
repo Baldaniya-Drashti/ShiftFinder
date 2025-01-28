@@ -33,8 +33,7 @@ class HealthcarePostShift extends StatelessWidget {
   HealthcarePostShift({super.key, required this.postId, this.updateShift, required this.post, this.fromSaveTemplate = false});
 
   String postTitle() {
-    final industry = CommonList.industryList
-        .firstWhere((item) => item.id == getCurrentIndustry());
+    final industry = CommonList.industryList.firstWhere((item) => item.id == getCurrentIndustry());
     return industry.title ?? "";
   }
 
@@ -54,6 +53,7 @@ class HealthcarePostShift extends StatelessWidget {
                 postId: postId, post: post, updateShift: updateShift, fromSaveTemplate: fromSaveTemplate)),
           child: BlocBuilder<PostShiftBloc, PostShiftState>(
             builder: (context, state) {
+              print("==> ${state.updateShift.id}");
               return Scaffold(
                 appBar: CommonAppBar(
                   onBackPressed: () {
@@ -78,38 +78,38 @@ class HealthcarePostShift extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Visibility(
-                            visible: state.updateShift.id == null,
-                            child: CustomDropdwonWithTextField(
-                              hintText: "",
-                              isLabelPadding: true,
-                              showTextfield: false,
-                              labelText: StringConstant.shiftType,
-                              value: PostShiftBloc.shiftTypeList
-                                  .firstWhere(
-                                    (shift) => shift.id == state.shiftType,
-                                    orElse: () => SkillDTO(id: 1, name: "Single"),
-                                  )
-                                  .name,
-                              items: PostShiftBloc.shiftTypeList.map((val) {
-                                return DropdownMenuItem<String>(
-                                  value: val.name,
-                                  child: BaseText(
-                                    text: val.name ?? "",
-                                    fontSize: 14,
-                                    textColor: AppColors.black,
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                if (value != null) {
-                                  context
-                                      .read<PostShiftBloc>()
-                                      .add(PostShiftEvent.changeShiftType(value, postId: postId, post: null, updateShift: null));
-                                }
-                              },
+                            Visibility(
+                              visible: state.updateShift.id == null,
+                              child: CustomDropdwonWithTextField(
+                                hintText: "",
+                                isLabelPadding: true,
+                                showTextfield: false,
+                                labelText: StringConstant.shiftType,
+                                value: PostShiftBloc.shiftTypeList
+                                    .firstWhere(
+                                      (shift) => shift.id == state.shiftType,
+                                      orElse: () => SkillDTO(id: 1, name: "Single"),
+                                    )
+                                    .name,
+                                items: PostShiftBloc.shiftTypeList.map((val) {
+                                  return DropdownMenuItem<String>(
+                                    value: val.name,
+                                    child: BaseText(
+                                      text: val.name ?? "",
+                                      fontSize: 14,
+                                      textColor: AppColors.black,
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    context
+                                        .read<PostShiftBloc>()
+                                        .add(PostShiftEvent.changeShiftType(value, postId: postId, post: null, updateShift: null));
+                                  }
+                                },
+                              ),
                             ),
-                          ),
                           ConstrainedBox(
                             constraints: BoxConstraints(minHeight: constraint.maxHeight),
                             child:
@@ -127,7 +127,6 @@ class HealthcarePostShift extends StatelessWidget {
                                         post: post,
                                         updateShift: updateShift,
                                         fromSaveTemplate: fromSaveTemplate,
-
                                       )
                                     : SinglePostShift(
                                         shiftType: state.shiftType,
