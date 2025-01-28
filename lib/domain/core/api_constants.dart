@@ -90,6 +90,7 @@ class ApiConstants {
   //chat
   static String getChatList = 'chat-list';
   static String getMessageList = 'chat';
+  static String chatUploadMedia = 'chat-upload-media';
 
   //employer dashboard
   static String employerDashboard = 'employer_dashboard';

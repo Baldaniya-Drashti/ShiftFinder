@@ -30,22 +30,31 @@ class SocketChatService extends ChatService {
     socket.onDisconnect((data) => log('Socket Disconnected'));
     try {
       socket.on('newMessage', (data) {
+        //please runtime every filed
+        log('ID => ${data['message_id'].runtimeType}');
+        log('senderId => ${data['senderId'].runtimeType}');
+        log('receiverId => ${data['receiverId'].runtimeType}');
+        // log('message_id => ${data['message_id'].runtimeType}');
+        log('message => ${data['message'].runtimeType}');
+        log('type => ${data['type'].runtimeType}');
+        log('created_at => ${data['created_at'].runtimeType}');
+        log('thumbnail => ${data['thumbnail'].runtimeType}');
+        log('media_name => ${data['media_name'].runtimeType}');
+
         if (data != null) {
-          // log('Message ID ${data['message_id'].runtimeType}');
-          // log('Sendeer ID ${data['senderId'].runtimeType}');
-          // log('Received id ${data['receiverId'].runtimeType}');
-          // log('Message ${data['message'].runtimeType}');
-          // log('Type ${data['type'].runtimeType}');
-          // log('Created at ${data['created_at'].runtimeType}');
-          var messageObject = MessageData(
-            id: data['message_id'],
-            senderId: int.parse(data['senderId']),
-            receiverId: int.parse(data['receiverId']),
-            message: data['message'],
-            type: data['type'],
-            createdAt: data['created_at'] * 1000,
-          );
-          _newMessageController.add(messageObject);
+          if (data != null) {
+            var messageObject = MessageData(
+              id: data['message_id'],
+              senderId: data['senderId'],
+              receiverId: data['receiverId'],
+              message: data['message'],
+              type: data['type'],
+              createdAt: data['created_at'] * 1000,
+              thumbnail: data['thumbnail'],
+              mediaName: data['media_name'],
+            );
+            _newMessageController.add(messageObject);
+          }
         }
       });
     } catch (e) {
@@ -74,12 +83,15 @@ class SocketChatService extends ChatService {
 
   @override
   Future<void> sendMessage(MessageData message) async {
+    log('Message Data: ${message.toJson()}');
     socket.emit('sendMessage', {
       'message': message.message,
       'type': message.type,
       'senderId': message.senderId,
       'receiverId': message.receiverId,
       'roomId': roomId,
+      'thumbnail': message.thumbnail,
+      'media_name': message.mediaName,
     });
   }
 

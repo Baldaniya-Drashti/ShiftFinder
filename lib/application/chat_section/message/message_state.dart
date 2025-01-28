@@ -9,6 +9,7 @@ class MessageState with _$MessageState {
     required List<MessageData> messageList,
     required TextEditingController messageController,
     required String message,
+    required AdditionalDataDto additional_data,
   }) = _MessageState;
 
   factory MessageState.initial() => MessageState(
@@ -18,5 +19,6 @@ class MessageState with _$MessageState {
         messageList: <MessageData>[],
         messageController: TextEditingController(),
         message: '',
+        additional_data: AdditionalDataDto(),
       );
 }

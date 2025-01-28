@@ -53,6 +53,8 @@ import 'package:shift/application/change_password/change_password_bloc.dart'
 import 'package:shift/application/chat_section/chat/chat_bloc.dart' as _i790;
 import 'package:shift/application/chat_section/message/message_bloc.dart'
     as _i544;
+import 'package:shift/application/chat_section/view_media/view_media_bloc.dart'
+    as _i164;
 import 'package:shift/application/consumer_support/support_ticket/support_ticket_bloc.dart'
     as _i942;
 import 'package:shift/application/contractor/contractor_earning_bloc/contractor_earning_bloc.dart'
@@ -184,6 +186,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
     gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
+    gh.factory<_i164.ViewMediaBloc>(() => _i164.ViewMediaBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:shift/application/faq/faq_bloc.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
@@ -7,6 +8,7 @@ import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_d
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
+import 'package:shift/infrastructure/core/chat/upload_media_response.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
@@ -132,7 +134,7 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, Map<String, dynamic>>> getMessage({
+  Future<Either<MainFailure, CommonResponse<dynamic>>> getMessage({
     required int page,
     required int id,
   });
@@ -368,5 +370,8 @@ abstract class IMainFacade {
     String? startDate,
     String? endDate,
     int? page,
+  });
+  Future<Either<MainFailure, UploadMediaResponse>> getDocumentLink({
+    required FormData formData,
   });
 }

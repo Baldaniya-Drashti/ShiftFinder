@@ -50,6 +50,7 @@ class PngImageConstants {
   static const fullPosition = "assets/png/full_position.png";
   static const send = "assets/png/send.png";
   static const shiftFinderWhiteLogo = "assets/png/shift_finder_white_logo.png";
+  static const document = "assets/png/chat_document.png";
 
   static const List<String> allImages = [
     fullPosition,

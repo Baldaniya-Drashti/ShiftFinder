@@ -184,21 +184,22 @@ class _PlayPauseButton extends StatelessWidget {
 
   Widget playButton() {
     return Container(
-        height: getSize(60),
-        width: getSize(60),
-        padding: EdgeInsets.all(getSize(18)),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.primaryColor,
-          borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(colors: [
-            AppColors.primaryColor,
-            AppColors.emeraldGreenColor,
-          ]),
-        ),
-        child: SvgPicture.asset(
-          SvgImageConstant.play,
-        ));
+      height: getSize(60),
+      width: getSize(60),
+      padding: EdgeInsets.all(getSize(18)),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor,
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(colors: [
+          AppColors.primaryColor,
+          AppColors.emeraldGreenColor,
+        ]),
+      ),
+      child: SvgPicture.asset(
+        SvgImageConstant.play,
+      ),
+    );
   }
 
   Widget pauseButton() {
