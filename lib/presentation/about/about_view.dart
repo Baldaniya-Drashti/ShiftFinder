@@ -72,8 +72,8 @@ class AboutView extends StatelessWidget {
                                 isFromRegister: true)),
                       ), */
                       onPressed: () async {
-                        final Uri url =
-                            Uri.parse(StringConstant.shiftFinderWebsite);
+                        final Uri url = Uri.parse(
+                            '${StringConstant.shiftFinderWebsite}/about-5/');
                         try {
                           bool launched = await launchUrl(url,
                               mode: LaunchMode.externalApplication);
@@ -91,8 +91,8 @@ class AboutView extends StatelessWidget {
                       /*  onPressed: () => context.router
                           .push(PageRouteInfo(CancellationPolicyView.name)), */
                       onPressed: () async {
-                        final Uri url =
-                            Uri.parse(StringConstant.shiftFinderWebsite);
+                        final Uri url = Uri.parse(
+                            '${StringConstant.shiftFinderWebsite}/about-5/');
                         try {
                           bool launched = await launchUrl(url,
                               mode: LaunchMode.externalApplication);
@@ -110,8 +110,8 @@ class AboutView extends StatelessWidget {
                       /* onPressed: () => context.router
                           .push(PageRouteInfo(PrivacyPolicyScreen.name)), */
                       onPressed: () async {
-                        final Uri url =
-                            Uri.parse(StringConstant.shiftFinderWebsite);
+                        final Uri url = Uri.parse(
+                            '${StringConstant.shiftFinderWebsite}/about-5/');
                         try {
                           bool launched = await launchUrl(url,
                               mode: LaunchMode.externalApplication);
@@ -130,8 +130,8 @@ class AboutView extends StatelessWidget {
                         /*  onPressed: () =>
                             context.router.push(PageRouteInfo(FaqView.name)), */
                         onPressed: () async {
-                          final Uri url =
-                              Uri.parse(StringConstant.shiftFinderWebsite);
+                          final Uri url = Uri.parse(
+                              '${StringConstant.shiftFinderWebsite}/faq-3/');
                           try {
                             bool launched = await launchUrl(url,
                                 mode: LaunchMode.externalApplication);

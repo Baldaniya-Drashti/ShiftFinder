@@ -125,6 +125,7 @@ class ApiConstants {
   static String deleteTeam = 'delete_team';
 
   static String employerPreviousShift = 'employer_previous_shift';
+  static String employerCompleteShift = 'employer_complete_shift';
   static String employerApplicants = 'employer_applicants';
   static String employerApplicantsAcceptReject =
       'employer_applicants_accept_reject';

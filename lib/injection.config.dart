@@ -123,6 +123,8 @@ import 'package:shift/application/employer/payment_history/payment_history_bloc.
     as _i398;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
+import 'package:shift/application/employer/profile/employer_completed_shift_bloc/employer_completed_shift_bloc.dart'
+    as _i809;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
     as _i827;
 import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
@@ -212,6 +214,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i89.EmployerLongTermBloc>(
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i809.EmployerCompletedShiftBloc>(
+        () => _i809.EmployerCompletedShiftBloc(
+              gh<_i111.IMainFacade>(),
+              gh<_i253.IAccountRepository>(),
+            ));
     gh.factory<_i117.SplashBloc>(() => _i117.SplashBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i253.IAccountRepository>(),

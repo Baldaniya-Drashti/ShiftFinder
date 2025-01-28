@@ -159,6 +159,12 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
+  Future<Either<MainFailure, CommonResponse>> getEmployerCompletedPost({
+    required int type,
+    required int page,
+    required int sortBy,
+  });
+
   Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
       {required int shiftId, required int clockTime});
 

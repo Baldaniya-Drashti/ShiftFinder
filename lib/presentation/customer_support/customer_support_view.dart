@@ -11,6 +11,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage(name: "CustomerSupportView")
 class CustomerSupportView extends StatelessWidget {
@@ -99,8 +100,19 @@ class CustomerSupportView extends StatelessWidget {
             SizedBox(height: getSize(10)),
             _ListTile(
               icon: SvgImageConstant.questionMark,
-              onPressed: () {
-                context.router.push(PageRouteInfo(FaqView.name));
+              onPressed: () async {
+                // context.router.push(PageRouteInfo(FaqView.name));
+                final Uri url =
+                    Uri.parse('${StringConstant.shiftFinderWebsite}/faq-3/');
+                try {
+                  bool launched = await launchUrl(url,
+                      mode: LaunchMode.externalApplication);
+                  if (!launched) {
+                    print("Could not launch the URL");
+                  }
+                } catch (e) {
+                  print("Catch error: $e");
+                }
               },
               label: StringConstant.faq,
             ),
