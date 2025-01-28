@@ -59,7 +59,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Chat',
         image: SvgImageConstant.chat,
         onTap: () {
-          // context.router.push(PageRouteInfo(Chat.name));
+          context.router.push(PageRouteInfo(Chat.name));
         },
       ),
       ProfileItemModel(
@@ -246,7 +246,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.chat,
         image: SvgImageConstant.chat,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(Chat.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.myEarnings,

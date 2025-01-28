@@ -92,7 +92,14 @@ class CustomerSupportView extends StatelessWidget {
             icon: SvgImageConstant.message,
             onPressed: () {
               showUnderDevelopment(context);
-              // context.router.push(PageRouteInfo(PaymentHistoryView.name))
+              /* context.router.push(
+                        PageRouteInfo(
+                          Message.name,
+                          args: MessageArgs(
+                            receiverId: post.user?.user_id ?? 0,
+                          ),
+                        ),
+                      ); */
             },
             label: StringConstant.chatWithSupport,
           ),

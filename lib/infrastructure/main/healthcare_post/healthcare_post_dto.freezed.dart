@@ -45,8 +45,12 @@ mixin _$HealthcarePostDTO {
   ProposalReceivedDTO? get proposal_received =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this HealthcarePostDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HealthcarePostDTOCopyWith<HealthcarePostDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -95,6 +99,8 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -208,6 +214,8 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     ) as $Val);
   }
 
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocationDTOCopyWith<$Res>? get location {
@@ -220,6 +228,8 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     });
   }
 
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ShiftDetailDTOCopyWith<$Res>? get shift_detail {
@@ -232,6 +242,8 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     });
   }
 
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProposalReceivedDTOCopyWith<$Res>? get proposal_received {
@@ -293,6 +305,8 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
       $Res Function(_$HealthcarePostDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -570,7 +584,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
                 other.proposal_received == proposal_received));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -597,7 +611,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
         proposal_received
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>
@@ -681,8 +697,11 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   String? get specialties_detail;
   @override
   ProposalReceivedDTO? get proposal_received;
+
+  /// Create a copy of HealthcarePostDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -700,8 +719,12 @@ mixin _$ProposalReceivedDTO {
   double? get proposed_accommodation_allowance =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this ProposalReceivedDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProposalReceivedDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProposalReceivedDTOCopyWith<ProposalReceivedDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -730,6 +753,8 @@ class _$ProposalReceivedDTOCopyWithImpl<$Res, $Val extends ProposalReceivedDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProposalReceivedDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -789,6 +814,8 @@ class __$$ProposalReceivedDTOImplCopyWithImpl<$Res>
       $Res Function(_$ProposalReceivedDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProposalReceivedDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -876,7 +903,7 @@ class _$ProposalReceivedDTOImpl implements _ProposalReceivedDTO {
                     proposed_accommodation_allowance));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -886,7 +913,9 @@ class _$ProposalReceivedDTOImpl implements _ProposalReceivedDTO {
       accommodation_allowance_type,
       proposed_accommodation_allowance);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProposalReceivedDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProposalReceivedDTOImplCopyWith<_$ProposalReceivedDTOImpl> get copyWith =>
@@ -923,8 +952,11 @@ abstract class _ProposalReceivedDTO implements ProposalReceivedDTO {
   int? get accommodation_allowance_type;
   @override
   double? get proposed_accommodation_allowance;
+
+  /// Create a copy of ProposalReceivedDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProposalReceivedDTOImplCopyWith<_$ProposalReceivedDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

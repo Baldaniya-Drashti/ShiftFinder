@@ -122,7 +122,7 @@ class ApprovedHiredList extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 vertical: getSize(15),
                 horizontal: getSize(15),
-              ),
+              ).copyWith(left: getSize(5)),
               decoration: BoxDecoration(
                 color: AppColors.scaffoldColor,
                 borderRadius: BorderRadius.circular(getSize(10)),
@@ -153,11 +153,19 @@ class ApprovedHiredList extends StatelessWidget {
                   ),
                   Spacer(),
                   CommonButton(
-                    height: 35,
-                    width: 85,
+                    height: getSize(35),
+                    width: getSize(80),
                     borderRadius: 5,
                     onPressed: () {
-                      showUnderDevelopment(context);
+                      // showUnderDevelopment(context);
+                      context.router.push(
+                        PageRouteInfo(
+                          Message.name,
+                          args: MessageArgs(
+                            receiverId: contractor.user_id ?? 0,
+                          ),
+                        ),
+                      );
                     },
                     backgroundColor: AppColors.primaryColor.withOpacity(0.15),
                     buttonText: "",

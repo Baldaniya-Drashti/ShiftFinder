@@ -19,11 +19,8 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-
 part 'home_state.dart';
-
 part 'home_event.dart';
-
 part 'home_bloc.freezed.dart';
 
 @injectable

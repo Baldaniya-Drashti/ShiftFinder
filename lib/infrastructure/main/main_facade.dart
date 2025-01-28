@@ -18,6 +18,7 @@ import 'package:shift/infrastructure/contractor_main/profile/performance_insight
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/chat/chat_response.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
+import 'package:shift/infrastructure/core/chat/upload_media_response.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
@@ -1119,7 +1120,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, Map<String, dynamic>>> getMessage(
+  Future<Either<MainFailure, CommonResponse<dynamic>>> getMessage(
       {required int page, required int id}) async {
     try {
       Map<String, dynamic> mapData = {
@@ -1132,20 +1133,22 @@ class MainFacade implements IMainFacade {
         ApiConstants.getMessageList,
         queryParameters: mapData,
       );
-
-      log('data : ${res?.data}');
       if (res != null) {
-        final list = res.data as List<dynamic>;
-        res.data == null;
-        res.listData = list
-            .map((e) => MessageData.fromJson(e as Map<String, dynamic>))
-            .toList();
-        return right(
-          {
-            'listData': res,
-            'additionalInfo': '',
-          },
-        );
+        return right(res);
+        // final list = res.data as List<dynamic>;
+        // res.data == null;
+        // res.listData = list
+        //     .map((e) => MessageData.fromJson(e as Map<String, dynamic>))
+        //     .toList();
+
+        // res.listData?.insert(
+
+        // // return right(
+        // //   {
+        // //     'listData': res,
+        // //     'additionalInfo': 'Test',
+        // //   },
+        // );
       } else {
         return left(const MainFailure.serverError());
       }
@@ -3203,6 +3206,27 @@ class MainFacade implements IMainFacade {
         return left(const MainFailure.networkError());
       }
 
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, UploadMediaResponse>> getDocumentLink({
+    required FormData formData,
+  }) async {
+    try {
+      final res = await apiService.postMethod(
+        ApiConstants.chatUploadMedia,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+      if (res.data != null) {
+        return right(UploadMediaResponse.fromJson(res.data));
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } catch (e) {
       return left(const MainFailure.serverError());
     }
   }

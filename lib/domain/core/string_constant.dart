@@ -66,6 +66,7 @@ class StringConstant {
   static const String typeHere = "Type here...";
   static const String takePhoto = "Take Photo";
   static const String galleryPhoto = "Gallery Photo";
+  static const String galleryVideo = "Gallery Video";
   static const String chooseFile = "Choose File";
   static const String cancle = "Cancel";
   static const String locationDetails = "Location Details";
@@ -1003,6 +1004,8 @@ class StringConstant {
   static const String amountMustBeAtLeastOne = "Amount must be atleast \$1";
   static const String pleaseEnterWithdrawAmount =
       "Please enter withdraw amount";
+  static const String youCanT =
+      "You can’t send any message after the shift has completed.";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

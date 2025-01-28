@@ -9,6 +9,7 @@ class ImageChooserDialog {
   showImageChooserDialog({
     required VoidCallback takePhotoCallback,
     required VoidCallback selectPhotoCallback,
+    VoidCallback? selectVideoCallback,
     VoidCallback? selectPdfCallback,
     required BuildContext context,
   }) {
@@ -36,6 +37,17 @@ class ImageChooserDialog {
               text: StringConstant.galleryPhoto,
             ),
           ),
+          if (selectVideoCallback != null)
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                AppFocus.unfocus(context);
+                selectVideoCallback.call();
+              },
+              child: BaseText(
+                text: StringConstant.galleryVideo,
+              ),
+            ),
           if (selectPdfCallback != null)
             CupertinoActionSheetAction(
               onPressed: () {
