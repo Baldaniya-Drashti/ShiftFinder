@@ -528,9 +528,9 @@ class StringConstant {
       "Approve Shifts for Contractors";
   static const String cancelledByYou = "Cancelled by You";
   static const String approveShiftDesc1 =
-      "By approving the clock-in and clock-out times, you confirm that ";
+      "By approving these clock in and out times, you confirm that you have reviewed the ";
   static const String approveShiftDesc2 =
-      "’s shift hours have been reviewed. Once approved, these times will be final";
+      "’s hours. Once approved, the times will be finalized.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String allWithdralContractors = "All Withdrwal Contractors";
@@ -562,6 +562,8 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String employerHaveRejectedThisShift =
+      "Employer have rejected this shift";
   static const String youHaveCancelledThisShiftApplication =
       "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
@@ -696,7 +698,7 @@ class StringConstant {
   static const String pleaseSelectMonthToViewPerformanceInsights =
       "Please select month to view Performance Insights";
   static const String chooseMonth = "Choose Month";
-  static const String iRoidSolutions = "iRoid Solutions";
+  static const String editProfile = "Edit Profile";
   static const String assistantOnSite = "Assistant On-Site";
   static const String technicianOnSite = "Technician On-Site";
   static const String locationBrand = "Location Brand";
@@ -715,10 +717,23 @@ class StringConstant {
       "Are you sure you want to delete this bank account?";
   static const String verified = "Verified";
   static const String rejected = "Rejected";
+  static const String pending = "Pending..";
   static const String viewPdf = "View Pdf";
   static const String thirdPartyProcessingFee = "Third Party Processing Fee";
   static const String estimatedTotalEarnings = "Estimated Total Earnings";
   static const String tax = "Tax";
+  static const String availableBalance = "Available Balance";
+  static const String availableWithdrawableBalance =
+      "Available Withdrawable Balance";
+  static const String lastDeposit = "Last Deposit";
+  static const String withdrawPayment = "Withdraw Payment";
+  static const String depositedToBank = "Deposited to Bank";
+  static const String shiftEarnings = "Shift Earnings";
+  static const String enterAmountToWithdraw = "Enter Amount to Withdraw";
+  static const String withdrawSuccessful = "Withdraw Successful!";
+  static const String statementPeriod = "Statement Period";
+  static const String totalEarningStatement = "Total Earning Statement";
+  static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
 
@@ -767,6 +782,8 @@ class StringConstant {
   static const String pleaseEnterOtp = "Please enter otp";
   static const String otpShouldBe4Digit = "Otp should be 4 digit";
   static const String pleaseEnterNewPassword = "Please enter new password";
+  static const String pleaseTryDifferentPasswordThenCurrent =
+      "Please choose a password different from the current one.";
   static const String pleaseEnterPassword = "Please enter password";
   static const String pleaseEnterCorrectPassword =
       "Please enter correct password";
@@ -775,7 +792,7 @@ class StringConstant {
   static const String passwordShouldBeMinimum8Digit =
       "Password should be minimum 8 digit";
   static const String invalidPasswordErrorText =
-      "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special symbol";
+      "Password must contain at least one uppercase letter, one lowercase letter, one digit and one special symbol";
   static const String pleaseEnterConfirmPassword =
       "Please enter confirm password";
   static const String bothPasswordsAreDoesNotMatch =
@@ -920,7 +937,7 @@ class StringConstant {
   static const String changePassword = "Change Password";
   static const String deleteAccount = "Delete Account";
   static const String deleteAccountDes =
-      "Are you sure you want to delete your account? This action is permanent and cannot be undone";
+      "Are you sure you want to delete your account? This action is permanent and cannot be undone.";
   static const String aboutShiftFinder = "About ShiftFinder";
   static const String ourPolicies = "Our Policies";
   static const String ourPoliciesDes =
@@ -955,6 +972,11 @@ class StringConstant {
       "Please select back page of Address proof";
   static const String pleaseSelectFrontPageOfAddressProof =
       "Please select front page of Address proof";
+
+  static const String pleaseSelectBackPageOfBackgroundCheckDocument =
+      "Please select back page of Background check document";
+  static const String pleaseSelectFrontPageOfBackgroundCheckDocument =
+      "Please select front page of Background check document";
   static const String deleteAddressProofDesc =
       "Are you sure you want to delete Address Proof document?";
   static const String deleteBackgroundCheckDesc =
@@ -978,6 +1000,9 @@ class StringConstant {
   static const String pleaseSelectOtherLocationBrand =
       "Please select other location brand";
   static const String pleaseSelectScriptVolume = "Please select script volume";
+  static const String amountMustBeAtLeastOne = "Amount must be atleast \$1";
+  static const String pleaseEnterWithdrawAmount =
+      "Please enter withdraw amount";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

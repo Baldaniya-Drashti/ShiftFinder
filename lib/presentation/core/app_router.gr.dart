@@ -24,7 +24,7 @@ import 'package:shift/infrastructure/core/document_dto/document_dto.dart'
     as _i147;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i140;
-import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart'
+import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart'
     as _i151;
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
     as _i148;
@@ -66,11 +66,11 @@ import 'package:shift/presentation/auth/contractor_auth/address_proof.dart'
 import 'package:shift/presentation/auth/contractor_auth/background_check_doc.dart'
     as _i18;
 import 'package:shift/presentation/auth/contractor_auth/documents/document_page.dart'
-    as _i46;
+    as _i47;
 import 'package:shift/presentation/auth/contractor_auth/education_details/add_education_detail.dart'
     as _i7;
 import 'package:shift/presentation/auth/contractor_auth/education_details/education_detail_list.dart'
-    as _i48;
+    as _i49;
 import 'package:shift/presentation/auth/contractor_auth/intro_quiz.dart'
     as _i75;
 import 'package:shift/presentation/auth/contractor_auth/intro_video.dart'
@@ -106,15 +106,15 @@ import 'package:shift/presentation/chat_section/message.dart' as _i84;
 import 'package:shift/presentation/contractor/bank_detail/bank_detail_view.dart'
     as _i19;
 import 'package:shift/presentation/contractor/contractor_full_time_position/contractor_full_time_position_detail_view.dart'
-    as _i27;
-import 'package:shift/presentation/contractor/contractor_full_time_position/contractor_full_time_position_view.dart'
     as _i28;
-import 'package:shift/presentation/contractor/contractor_long_term/contractor_long_term_view.dart'
-    as _i30;
-import 'package:shift/presentation/contractor/contractor_main/contractor_main_tab.dart'
-    as _i31;
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart'
+import 'package:shift/presentation/contractor/contractor_full_time_position/contractor_full_time_position_view.dart'
     as _i29;
+import 'package:shift/presentation/contractor/contractor_long_term/contractor_long_term_view.dart'
+    as _i31;
+import 'package:shift/presentation/contractor/contractor_main/contractor_main_tab.dart'
+    as _i32;
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart'
+    as _i30;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/propose_availability.dart'
     as _i106;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/send_proposal.dart'
@@ -123,24 +123,26 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
     as _i128;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/view_contractor_shift_dates.dart'
     as _i129;
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_edit_profile.dart'
+    as _i27;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart'
-    as _i35;
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/contractor_proposed_date_availability.dart'
     as _i36;
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/contractor_proposed_date_availability.dart'
+    as _i37;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/proposal_received.dart'
     as _i105;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart'
-    as _i38;
+    as _i39;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/view_upcoming_shit.dart'
     as _i136;
 import 'package:shift/presentation/contractor/contractor_performance_insight/contractor_performance_insight_view.dart'
-    as _i33;
-import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_previous_shift_view.dart'
     as _i34;
+import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_previous_shift_view.dart'
+    as _i35;
 import 'package:shift/presentation/contractor/contractor_rating/contractor_rating_view.dart'
-    as _i37;
+    as _i38;
 import 'package:shift/presentation/contractor/contractor_update_profile/contractor_update_profile_view.dart'
-    as _i41;
+    as _i42;
 import 'package:shift/presentation/contractor/my_calendar_view/my_calendar_view.dart'
     as _i87;
 import 'package:shift/presentation/contractor/refer_colleague/refer_colleague_view.dart'
@@ -152,37 +154,35 @@ import 'package:shift/presentation/contractor/reference_list/reference_list_view
 import 'package:shift/presentation/contractor_earning/contractor_earning_view.dart'
     as _i26;
 import 'package:shift/presentation/contractor_earning/contractor_statement_view.dart'
-    as _i39;
-import 'package:shift/presentation/contractor_earning/contractor_total_earning_view.dart'
     as _i40;
+import 'package:shift/presentation/contractor_earning/contractor_total_earning_view.dart'
+    as _i41;
 import 'package:shift/presentation/contractor_earning/contractor_wallet_view.dart'
-    as _i42;
-import 'package:shift/presentation/contractor_earning/contractor_withdraw_payment_view.dart'
     as _i43;
+import 'package:shift/presentation/contractor_earning/contractor_withdraw_payment_view.dart'
+    as _i44;
 import 'package:shift/presentation/core/enum.dart' as _i156;
 import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
     as _i117;
 import 'package:shift/presentation/customer_support/customer_support_view.dart'
-    as _i45;
+    as _i46;
 import 'package:shift/presentation/customer_support/support_ticket_view.dart'
     as _i120;
 import 'package:shift/presentation/employer/employer_availability/employer_availability_view.dart'
-    as _i50;
+    as _i51;
 import 'package:shift/presentation/employer/employer_full_posting/employer_full_position_add_view.dart'
-    as _i52;
-import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_confirm_view.dart'
     as _i53;
-import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_review_view.dart'
+import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_confirm_view.dart'
     as _i54;
-import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_view.dart'
+import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_review_view.dart'
     as _i55;
-import 'package:shift/presentation/employer/employer_location/employer_location_form_view.dart'
+import 'package:shift/presentation/employer/employer_full_posting/employer_full_posting_view.dart'
     as _i56;
-import 'package:shift/presentation/employer/employer_location/employer_location_view.dart'
+import 'package:shift/presentation/employer/employer_location/employer_location_form_view.dart'
     as _i57;
-import 'package:shift/presentation/employer/employer_long_term/employer_long_term_applicant_view.dart'
+import 'package:shift/presentation/employer/employer_location/employer_location_view.dart'
     as _i58;
-import 'package:shift/presentation/employer/employer_long_term/employer_long_term_authorize_payment_view.dart'
+import 'package:shift/presentation/employer/employer_long_term/employer_long_term_applicant_view.dart'
     as _i59;
 import 'package:shift/presentation/employer/employer_long_term/employer_long_term_payable_view.dart'
     as _i60;
@@ -216,9 +216,9 @@ import 'package:shift/presentation/employer/home_view/view_dates.dart' as _i130;
 import 'package:shift/presentation/employer/home_view/view_shift_details.dart'
     as _i133;
 import 'package:shift/presentation/employer/profile/completed_shift/employer_completed_shift.dart'
-    as _i51;
+    as _i52;
 import 'package:shift/presentation/employer/profile/edit_profile/edit_profile_view.dart'
-    as _i47;
+    as _i48;
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart'
     as _i98;
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_view.dart'
@@ -231,13 +231,13 @@ import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i74;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/awaiting_confirmation_view.dart'
     as _i17;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/counter_purpose_view.dart'
-    as _i44;
+    as _i45;
 import 'package:shift/presentation/main/tabs/home/praposals/total_praposal_view.dart'
     as _i124;
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/view_person_praposal_view.dart'
     as _i134;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/education_profile_view.dart'
-    as _i49;
+    as _i50;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/personal_profile_view.dart'
     as _i95;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/professional_profile_view.dart'
@@ -247,7 +247,7 @@ import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_ap
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/common_document_view.dart'
     as _i25;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/pdf_viewer.dart'
-    as _i32;
+    as _i33;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/personal_reference_detail.dart'
     as _i96;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/professional_reference_detail.dart'
@@ -341,6 +341,7 @@ class AddBankDetailsScreen
     _i138.Key? key,
     bool isFromSplash = false,
     _i139.BankDTO? bankDetail,
+    bool isUpdate = false,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           AddBankDetailsScreen.name,
@@ -348,6 +349,7 @@ class AddBankDetailsScreen
             key: key,
             isFromSplash: isFromSplash,
             bankDetail: bankDetail,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -363,6 +365,7 @@ class AddBankDetailsScreen
         key: args.key,
         isFromSplash: args.isFromSplash,
         bankDetail: args.bankDetail,
+        isUpdate: args.isUpdate,
       );
     },
   );
@@ -373,6 +376,7 @@ class AddBankDetailsScreenArgs {
     this.key,
     this.isFromSplash = false,
     this.bankDetail,
+    this.isUpdate = false,
   });
 
   final _i138.Key? key;
@@ -381,9 +385,11 @@ class AddBankDetailsScreenArgs {
 
   final _i139.BankDTO? bankDetail;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'AddBankDetailsScreenArgs{key: $key, isFromSplash: $isFromSplash, bankDetail: $bankDetail}';
+    return 'AddBankDetailsScreenArgs{key: $key, isFromSplash: $isFromSplash, bankDetail: $bankDetail, isUpdate: $isUpdate}';
   }
 }
 
@@ -1365,7 +1371,43 @@ class ContractorEarningView extends _i137.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.ContractorFullTimePositionDetailView]
+/// [_i27.ContractorEditProfile]
+class ContractorEditProfile
+    extends _i137.PageRouteInfo<ContractorEditProfileArgs> {
+  ContractorEditProfile({
+    _i138.Key? key,
+    List<_i137.PageRouteInfo>? children,
+  }) : super(
+          ContractorEditProfile.name,
+          args: ContractorEditProfileArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'ContractorEditProfile';
+
+  static _i137.PageInfo page = _i137.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ContractorEditProfileArgs>(
+          orElse: () => const ContractorEditProfileArgs());
+      return _i27.ContractorEditProfile(key: args.key);
+    },
+  );
+}
+
+class ContractorEditProfileArgs {
+  const ContractorEditProfileArgs({this.key});
+
+  final _i138.Key? key;
+
+  @override
+  String toString() {
+    return 'ContractorEditProfileArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i28.ContractorFullTimePositionDetailView]
 class ContractorFullTimePositionDetailView extends _i137.PageRouteInfo<void> {
   const ContractorFullTimePositionDetailView(
       {List<_i137.PageRouteInfo>? children})
@@ -1379,13 +1421,13 @@ class ContractorFullTimePositionDetailView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i27.ContractorFullTimePositionDetailView();
+      return const _i28.ContractorFullTimePositionDetailView();
     },
   );
 }
 
 /// generated route for
-/// [_i28.ContractorFullTimePositionView]
+/// [_i29.ContractorFullTimePositionView]
 class ContractorFullTimePositionView extends _i137.PageRouteInfo<void> {
   const ContractorFullTimePositionView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1398,13 +1440,13 @@ class ContractorFullTimePositionView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i28.ContractorFullTimePositionView();
+      return const _i29.ContractorFullTimePositionView();
     },
   );
 }
 
 /// generated route for
-/// [_i29.ContractorHomeView]
+/// [_i30.ContractorHomeView]
 class ContractorHomeView extends _i137.PageRouteInfo<void> {
   const ContractorHomeView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1417,13 +1459,13 @@ class ContractorHomeView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i29.ContractorHomeView();
+      return const _i30.ContractorHomeView();
     },
   );
 }
 
 /// generated route for
-/// [_i30.ContractorLongTermView]
+/// [_i31.ContractorLongTermView]
 class ContractorLongTermView extends _i137.PageRouteInfo<void> {
   const ContractorLongTermView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1436,13 +1478,13 @@ class ContractorLongTermView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i30.ContractorLongTermView();
+      return const _i31.ContractorLongTermView();
     },
   );
 }
 
 /// generated route for
-/// [_i31.ContractorMainTabView]
+/// [_i32.ContractorMainTabView]
 class ContractorMainTabView extends _i137.PageRouteInfo<void> {
   const ContractorMainTabView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1455,13 +1497,13 @@ class ContractorMainTabView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i31.ContractorMainTabView();
+      return const _i32.ContractorMainTabView();
     },
   );
 }
 
 /// generated route for
-/// [_i32.ContractorPdfViewer]
+/// [_i33.ContractorPdfViewer]
 class ContractorPdfViewer extends _i137.PageRouteInfo<ContractorPdfViewerArgs> {
   ContractorPdfViewer({
     required String pdfUrl,
@@ -1482,7 +1524,7 @@ class ContractorPdfViewer extends _i137.PageRouteInfo<ContractorPdfViewerArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ContractorPdfViewerArgs>();
-      return _i32.ContractorPdfViewer(
+      return _i33.ContractorPdfViewer(
         pdfUrl: args.pdfUrl,
         key: args.key,
       );
@@ -1507,7 +1549,7 @@ class ContractorPdfViewerArgs {
 }
 
 /// generated route for
-/// [_i33.ContractorPerformanceInsightView]
+/// [_i34.ContractorPerformanceInsightView]
 class ContractorPerformanceInsightView extends _i137.PageRouteInfo<void> {
   const ContractorPerformanceInsightView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1520,13 +1562,13 @@ class ContractorPerformanceInsightView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i33.ContractorPerformanceInsightView();
+      return const _i34.ContractorPerformanceInsightView();
     },
   );
 }
 
 /// generated route for
-/// [_i34.ContractorPreviousShiftView]
+/// [_i35.ContractorPreviousShiftView]
 class ContractorPreviousShiftView extends _i137.PageRouteInfo<void> {
   const ContractorPreviousShiftView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1539,13 +1581,13 @@ class ContractorPreviousShiftView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i34.ContractorPreviousShiftView();
+      return const _i35.ContractorPreviousShiftView();
     },
   );
 }
 
 /// generated route for
-/// [_i35.ContractorProfileView]
+/// [_i36.ContractorProfileView]
 class ContractorProfileView extends _i137.PageRouteInfo<void> {
   const ContractorProfileView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1558,13 +1600,13 @@ class ContractorProfileView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i35.ContractorProfileView();
+      return const _i36.ContractorProfileView();
     },
   );
 }
 
 /// generated route for
-/// [_i36.ContractorProposedAvailability]
+/// [_i37.ContractorProposedAvailability]
 class ContractorProposedAvailability
     extends _i137.PageRouteInfo<ContractorProposedAvailabilityArgs> {
   ContractorProposedAvailability({
@@ -1588,7 +1630,7 @@ class ContractorProposedAvailability
     name,
     builder: (data) {
       final args = data.argsAs<ContractorProposedAvailabilityArgs>();
-      return _i36.ContractorProposedAvailability(
+      return _i37.ContractorProposedAvailability(
         key: args.key,
         list: args.list,
         confirmDialog: args.confirmDialog,
@@ -1617,7 +1659,7 @@ class ContractorProposedAvailabilityArgs {
 }
 
 /// generated route for
-/// [_i37.ContractorRatingView]
+/// [_i38.ContractorRatingView]
 class ContractorRatingView extends _i137.PageRouteInfo<void> {
   const ContractorRatingView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1630,13 +1672,13 @@ class ContractorRatingView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i37.ContractorRatingView();
+      return const _i38.ContractorRatingView();
     },
   );
 }
 
 /// generated route for
-/// [_i38.ContractorShiftView]
+/// [_i39.ContractorShiftView]
 class ContractorShiftView extends _i137.PageRouteInfo<void> {
   const ContractorShiftView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1649,13 +1691,13 @@ class ContractorShiftView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i38.ContractorShiftView();
+      return const _i39.ContractorShiftView();
     },
   );
 }
 
 /// generated route for
-/// [_i39.ContractorStatementView]
+/// [_i40.ContractorStatementView]
 class ContractorStatementView extends _i137.PageRouteInfo<void> {
   const ContractorStatementView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1668,13 +1710,13 @@ class ContractorStatementView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i39.ContractorStatementView();
+      return const _i40.ContractorStatementView();
     },
   );
 }
 
 /// generated route for
-/// [_i40.ContractorTotalEarningView]
+/// [_i41.ContractorTotalEarningView]
 class ContractorTotalEarningView extends _i137.PageRouteInfo<void> {
   const ContractorTotalEarningView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1687,13 +1729,13 @@ class ContractorTotalEarningView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i40.ContractorTotalEarningView();
+      return const _i41.ContractorTotalEarningView();
     },
   );
 }
 
 /// generated route for
-/// [_i41.ContractorUpdateProfileView]
+/// [_i42.ContractorUpdateProfileView]
 class ContractorUpdateProfileView extends _i137.PageRouteInfo<void> {
   const ContractorUpdateProfileView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1706,13 +1748,13 @@ class ContractorUpdateProfileView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i41.ContractorUpdateProfileView();
+      return const _i42.ContractorUpdateProfileView();
     },
   );
 }
 
 /// generated route for
-/// [_i42.ContractorWalletView]
+/// [_i43.ContractorWalletView]
 class ContractorWalletView extends _i137.PageRouteInfo<void> {
   const ContractorWalletView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1725,13 +1767,13 @@ class ContractorWalletView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i42.ContractorWalletView();
+      return const _i43.ContractorWalletView();
     },
   );
 }
 
 /// generated route for
-/// [_i43.ContractorWithdrawPaymentView]
+/// [_i44.ContractorWithdrawPaymentView]
 class ContractorWithdrawPaymentView extends _i137.PageRouteInfo<void> {
   const ContractorWithdrawPaymentView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1744,13 +1786,13 @@ class ContractorWithdrawPaymentView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i43.ContractorWithdrawPaymentView();
+      return const _i44.ContractorWithdrawPaymentView();
     },
   );
 }
 
 /// generated route for
-/// [_i44.CounterPurposeView]
+/// [_i45.CounterPurposeView]
 class CounterPurposeView extends _i137.PageRouteInfo<CounterPurposeViewArgs> {
   CounterPurposeView({
     _i138.Key? key,
@@ -1771,7 +1813,7 @@ class CounterPurposeView extends _i137.PageRouteInfo<CounterPurposeViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<CounterPurposeViewArgs>();
-      return _i44.CounterPurposeView(
+      return _i45.CounterPurposeView(
         key: args.key,
         data: args.data,
       );
@@ -1796,7 +1838,7 @@ class CounterPurposeViewArgs {
 }
 
 /// generated route for
-/// [_i45.CustomerSupportView]
+/// [_i46.CustomerSupportView]
 class CustomerSupportView extends _i137.PageRouteInfo<void> {
   const CustomerSupportView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -1809,13 +1851,13 @@ class CustomerSupportView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i45.CustomerSupportView();
+      return const _i46.CustomerSupportView();
     },
   );
 }
 
 /// generated route for
-/// [_i46.DocumentPage]
+/// [_i47.DocumentPage]
 class DocumentPageScreen extends _i137.PageRouteInfo<DocumentPageScreenArgs> {
   DocumentPageScreen({
     _i138.Key? key,
@@ -1839,7 +1881,7 @@ class DocumentPageScreen extends _i137.PageRouteInfo<DocumentPageScreenArgs> {
     builder: (data) {
       final args = data.argsAs<DocumentPageScreenArgs>(
           orElse: () => const DocumentPageScreenArgs());
-      return _i46.DocumentPage(
+      return _i47.DocumentPage(
         key: args.key,
         isFromSplash: args.isFromSplash,
         isUpdate: args.isUpdate,
@@ -1868,11 +1910,14 @@ class DocumentPageScreenArgs {
 }
 
 /// generated route for
-/// [_i47.EditProfileView]
-class EditProfileView extends _i137.PageRouteInfo<void> {
-  const EditProfileView({List<_i137.PageRouteInfo>? children})
-      : super(
+/// [_i48.EditProfileView]
+class EditProfileView extends _i137.PageRouteInfo<EditProfileViewArgs> {
+  EditProfileView({
+    _i138.Key? key,
+    List<_i137.PageRouteInfo>? children,
+  }) : super(
           EditProfileView.name,
+          args: EditProfileViewArgs(key: key),
           initialChildren: children,
         );
 
@@ -1881,13 +1926,26 @@ class EditProfileView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i47.EditProfileView();
+      final args = data.argsAs<EditProfileViewArgs>(
+          orElse: () => const EditProfileViewArgs());
+      return _i48.EditProfileView(key: args.key);
     },
   );
 }
 
+class EditProfileViewArgs {
+  const EditProfileViewArgs({this.key});
+
+  final _i138.Key? key;
+
+  @override
+  String toString() {
+    return 'EditProfileViewArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i48.EducationListScreen]
+/// [_i49.EducationListScreen]
 class EducationListScreen extends _i137.PageRouteInfo<EducationListScreenArgs> {
   EducationListScreen({
     _i138.Key? key,
@@ -1911,7 +1969,7 @@ class EducationListScreen extends _i137.PageRouteInfo<EducationListScreenArgs> {
     builder: (data) {
       final args = data.argsAs<EducationListScreenArgs>(
           orElse: () => const EducationListScreenArgs());
-      return _i48.EducationListScreen(
+      return _i49.EducationListScreen(
         key: args.key,
         isFromSplash: args.isFromSplash,
         isFromProfile: args.isFromProfile,
@@ -1940,7 +1998,7 @@ class EducationListScreenArgs {
 }
 
 /// generated route for
-/// [_i49.EducationProfileListView]
+/// [_i50.EducationProfileListView]
 class EducationProfileListView
     extends _i137.PageRouteInfo<EducationProfileListViewArgs> {
   EducationProfileListView({
@@ -1962,7 +2020,7 @@ class EducationProfileListView
     name,
     builder: (data) {
       final args = data.argsAs<EducationProfileListViewArgs>();
-      return _i49.EducationProfileListView(
+      return _i50.EducationProfileListView(
         key: args.key,
         applicantDto: args.applicantDto,
       );
@@ -1987,7 +2045,7 @@ class EducationProfileListViewArgs {
 }
 
 /// generated route for
-/// [_i50.EmployerAvailabilityView]
+/// [_i51.EmployerAvailabilityView]
 class EmployerAvailabilityView
     extends _i137.PageRouteInfo<EmployerAvailabilityViewArgs> {
   EmployerAvailabilityView({
@@ -2011,7 +2069,7 @@ class EmployerAvailabilityView
     name,
     builder: (data) {
       final args = data.argsAs<EmployerAvailabilityViewArgs>();
-      return _i50.EmployerAvailabilityView(
+      return _i51.EmployerAvailabilityView(
         key: args.key,
         list: args.list,
         confirmDialog: args.confirmDialog,
@@ -2040,7 +2098,7 @@ class EmployerAvailabilityViewArgs {
 }
 
 /// generated route for
-/// [_i51.EmployerCompletedShiftView]
+/// [_i52.EmployerCompletedShiftView]
 class EmployerCompletedShiftView extends _i137.PageRouteInfo<void> {
   const EmployerCompletedShiftView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -2053,25 +2111,17 @@ class EmployerCompletedShiftView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i51.EmployerCompletedShiftView();
+      return const _i52.EmployerCompletedShiftView();
     },
   );
 }
 
 /// generated route for
-/// [_i52.EmployerFullPositionAddView]
-class EmployerFullPositionAddView
-    extends _i137.PageRouteInfo<EmployerFullPositionAddViewArgs> {
-  EmployerFullPositionAddView({
-    _i138.Key? key,
-    int? postId,
-    List<_i137.PageRouteInfo>? children,
-  }) : super(
+/// [_i53.EmployerFullPositionAddView]
+class EmployerFullPositionAddView extends _i137.PageRouteInfo<void> {
+  const EmployerFullPositionAddView({List<_i137.PageRouteInfo>? children})
+      : super(
           EmployerFullPositionAddView.name,
-          args: EmployerFullPositionAddViewArgs(
-            key: key,
-            postId: postId,
-          ),
           initialChildren: children,
         );
 
@@ -2080,46 +2130,17 @@ class EmployerFullPositionAddView
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<EmployerFullPositionAddViewArgs>(
-          orElse: () => const EmployerFullPositionAddViewArgs());
-      return _i52.EmployerFullPositionAddView(
-        key: args.key,
-        postId: args.postId,
-      );
+      return const _i53.EmployerFullPositionAddView();
     },
   );
 }
 
-class EmployerFullPositionAddViewArgs {
-  const EmployerFullPositionAddViewArgs({
-    this.key,
-    this.postId,
-  });
-
-  final _i138.Key? key;
-
-  final int? postId;
-
-  @override
-  String toString() {
-    return 'EmployerFullPositionAddViewArgs{key: $key, postId: $postId}';
-  }
-}
-
 /// generated route for
-/// [_i53.EmployerFullPostingConfirmView]
-class EmployerFullPostingConfirmView
-    extends _i137.PageRouteInfo<EmployerFullPostingConfirmViewArgs> {
-  EmployerFullPostingConfirmView({
-    _i138.Key? key,
-    required _i150.EmployerLongTermSuccessDto employerFullPosting,
-    List<_i137.PageRouteInfo>? children,
-  }) : super(
+/// [_i54.EmployerFullPostingConfirmView]
+class EmployerFullPostingConfirmView extends _i137.PageRouteInfo<void> {
+  const EmployerFullPostingConfirmView({List<_i137.PageRouteInfo>? children})
+      : super(
           EmployerFullPostingConfirmView.name,
-          args: EmployerFullPostingConfirmViewArgs(
-            key: key,
-            employerFullPosting: employerFullPosting,
-          ),
           initialChildren: children,
         );
 
@@ -2128,45 +2149,17 @@ class EmployerFullPostingConfirmView
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<EmployerFullPostingConfirmViewArgs>();
-      return _i53.EmployerFullPostingConfirmView(
-        key: args.key,
-        employerFullPosting: args.employerFullPosting,
-      );
+      return const _i54.EmployerFullPostingConfirmView();
     },
   );
 }
 
-class EmployerFullPostingConfirmViewArgs {
-  const EmployerFullPostingConfirmViewArgs({
-    this.key,
-    required this.employerFullPosting,
-  });
-
-  final _i138.Key? key;
-
-  final _i150.EmployerLongTermSuccessDto employerFullPosting;
-
-  @override
-  String toString() {
-    return 'EmployerFullPostingConfirmViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
-  }
-}
-
 /// generated route for
-/// [_i54.EmployerFullPostingReviewView]
-class EmployerFullPostingReviewView
-    extends _i137.PageRouteInfo<EmployerFullPostingReviewViewArgs> {
-  EmployerFullPostingReviewView({
-    _i138.Key? key,
-    required _i150.EmployerLongTermSuccessDto employerFullPosting,
-    List<_i137.PageRouteInfo>? children,
-  }) : super(
+/// [_i55.EmployerFullPostingReviewView]
+class EmployerFullPostingReviewView extends _i137.PageRouteInfo<void> {
+  const EmployerFullPostingReviewView({List<_i137.PageRouteInfo>? children})
+      : super(
           EmployerFullPostingReviewView.name,
-          args: EmployerFullPostingReviewViewArgs(
-            key: key,
-            employerFullPosting: employerFullPosting,
-          ),
           initialChildren: children,
         );
 
@@ -2175,33 +2168,13 @@ class EmployerFullPostingReviewView
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<EmployerFullPostingReviewViewArgs>();
-      return _i54.EmployerFullPostingReviewView(
-        key: args.key,
-        employerFullPosting: args.employerFullPosting,
-      );
+      return const _i55.EmployerFullPostingReviewView();
     },
   );
 }
 
-class EmployerFullPostingReviewViewArgs {
-  const EmployerFullPostingReviewViewArgs({
-    this.key,
-    required this.employerFullPosting,
-  });
-
-  final _i138.Key? key;
-
-  final _i150.EmployerLongTermSuccessDto employerFullPosting;
-
-  @override
-  String toString() {
-    return 'EmployerFullPostingReviewViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
-  }
-}
-
 /// generated route for
-/// [_i55.EmployerFullPostingView]
+/// [_i56.EmployerFullPostingView]
 class EmployerFullPostingView extends _i137.PageRouteInfo<void> {
   const EmployerFullPostingView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -2214,13 +2187,13 @@ class EmployerFullPostingView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i55.EmployerFullPostingView();
+      return const _i56.EmployerFullPostingView();
     },
   );
 }
 
 /// generated route for
-/// [_i56.EmployerLocationFormView]
+/// [_i57.EmployerLocationFormView]
 class EmployerLocationFormView
     extends _i137.PageRouteInfo<EmployerLocationFormViewArgs> {
   EmployerLocationFormView({
@@ -2243,7 +2216,7 @@ class EmployerLocationFormView
     builder: (data) {
       final args = data.argsAs<EmployerLocationFormViewArgs>(
           orElse: () => const EmployerLocationFormViewArgs());
-      return _i56.EmployerLocationFormView(
+      return _i57.EmployerLocationFormView(
         key: args.key,
         id: args.id,
       );
@@ -2268,7 +2241,7 @@ class EmployerLocationFormViewArgs {
 }
 
 /// generated route for
-/// [_i57.EmployerLocationView]
+/// [_i58.EmployerLocationView]
 class EmployerLocationView extends _i137.PageRouteInfo<void> {
   const EmployerLocationView({List<_i137.PageRouteInfo>? children})
       : super(
@@ -2281,13 +2254,13 @@ class EmployerLocationView extends _i137.PageRouteInfo<void> {
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      return const _i57.EmployerLocationView();
+      return const _i58.EmployerLocationView();
     },
   );
 }
 
 /// generated route for
-/// [_i58.EmployerLongTermApplicantView]
+/// [_i59.EmployerLongTermApplicantView]
 class EmployerLongTermApplicantView
     extends _i137.PageRouteInfo<EmployerLongTermApplicantViewArgs> {
   EmployerLongTermApplicantView({
@@ -2309,7 +2282,7 @@ class EmployerLongTermApplicantView
     name,
     builder: (data) {
       final args = data.argsAs<EmployerLongTermApplicantViewArgs>();
-      return _i58.EmployerLongTermApplicantView(
+      return _i59.EmployerLongTermApplicantView(
         key: args.key,
         id: args.id,
       );
@@ -2330,53 +2303,6 @@ class EmployerLongTermApplicantViewArgs {
   @override
   String toString() {
     return 'EmployerLongTermApplicantViewArgs{key: $key, id: $id}';
-  }
-}
-
-/// generated route for
-/// [_i59.EmployerLongTermAuthorizePaymentView]
-class EmployerLongTermAuthorizePaymentView
-    extends _i137.PageRouteInfo<EmployerLongTermAuthorizePaymentViewArgs> {
-  EmployerLongTermAuthorizePaymentView({
-    _i138.Key? key,
-    required _i151.EmployerLongTermApplicantDto employerApplicantsDto,
-    List<_i137.PageRouteInfo>? children,
-  }) : super(
-          EmployerLongTermAuthorizePaymentView.name,
-          args: EmployerLongTermAuthorizePaymentViewArgs(
-            key: key,
-            employerApplicantsDto: employerApplicantsDto,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'EmployerLongTermAuthorizePaymentView';
-
-  static _i137.PageInfo page = _i137.PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<EmployerLongTermAuthorizePaymentViewArgs>();
-      return _i59.EmployerLongTermAuthorizePaymentView(
-        key: args.key,
-        employerApplicantsDto: args.employerApplicantsDto,
-      );
-    },
-  );
-}
-
-class EmployerLongTermAuthorizePaymentViewArgs {
-  const EmployerLongTermAuthorizePaymentViewArgs({
-    this.key,
-    required this.employerApplicantsDto,
-  });
-
-  final _i138.Key? key;
-
-  final _i151.EmployerLongTermApplicantDto employerApplicantsDto;
-
-  @override
-  String toString() {
-    return 'EmployerLongTermAuthorizePaymentViewArgs{key: $key, employerApplicantsDto: $employerApplicantsDto}';
   }
 }
 
@@ -2434,14 +2360,12 @@ class EmployerLongTermPositionAddDetailView
   EmployerLongTermPositionAddDetailView({
     _i138.Key? key,
     required _i143.PostShiftDTO postShiftDTO,
-    _i150.EmployerLongTermSuccessDto? employer,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPositionAddDetailView.name,
           args: EmployerLongTermPositionAddDetailViewArgs(
             key: key,
             postShiftDTO: postShiftDTO,
-            employer: employer,
           ),
           initialChildren: children,
         );
@@ -2455,7 +2379,6 @@ class EmployerLongTermPositionAddDetailView
       return _i61.EmployerLongTermPositionAddDetailView(
         key: args.key,
         postShiftDTO: args.postShiftDTO,
-        employer: args.employer,
       );
     },
   );
@@ -2465,18 +2388,15 @@ class EmployerLongTermPositionAddDetailViewArgs {
   const EmployerLongTermPositionAddDetailViewArgs({
     this.key,
     required this.postShiftDTO,
-    this.employer,
   });
 
   final _i138.Key? key;
 
   final _i143.PostShiftDTO postShiftDTO;
 
-  final _i150.EmployerLongTermSuccessDto? employer;
-
   @override
   String toString() {
-    return 'EmployerLongTermPositionAddDetailViewArgs{key: $key, postShiftDTO: $postShiftDTO, employer: $employer}';
+    return 'EmployerLongTermPositionAddDetailViewArgs{key: $key, postShiftDTO: $postShiftDTO}';
   }
 }
 
@@ -2530,18 +2450,11 @@ class EmployerLongTermPositionAddViewArgs {
 
 /// generated route for
 /// [_i63.EmployerLongTermPositionDetailView]
-class EmployerLongTermPositionDetailView
-    extends _i137.PageRouteInfo<EmployerLongTermPositionDetailViewArgs> {
-  EmployerLongTermPositionDetailView({
-    _i138.Key? key,
-    required int id,
-    List<_i137.PageRouteInfo>? children,
-  }) : super(
+class EmployerLongTermPositionDetailView extends _i137.PageRouteInfo<void> {
+  const EmployerLongTermPositionDetailView(
+      {List<_i137.PageRouteInfo>? children})
+      : super(
           EmployerLongTermPositionDetailView.name,
-          args: EmployerLongTermPositionDetailViewArgs(
-            key: key,
-            id: id,
-          ),
           initialChildren: children,
         );
 
@@ -2550,29 +2463,9 @@ class EmployerLongTermPositionDetailView
   static _i137.PageInfo page = _i137.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<EmployerLongTermPositionDetailViewArgs>();
-      return _i63.EmployerLongTermPositionDetailView(
-        key: args.key,
-        id: args.id,
-      );
+      return const _i63.EmployerLongTermPositionDetailView();
     },
   );
-}
-
-class EmployerLongTermPositionDetailViewArgs {
-  const EmployerLongTermPositionDetailViewArgs({
-    this.key,
-    required this.id,
-  });
-
-  final _i138.Key? key;
-
-  final int id;
-
-  @override
-  String toString() {
-    return 'EmployerLongTermPositionDetailViewArgs{key: $key, id: $id}';
-  }
 }
 
 /// generated route for
@@ -2582,7 +2475,7 @@ class EmployerLongTermPostConfirmationView
   EmployerLongTermPostConfirmationView({
     _i138.Key? key,
     required _i143.PostShiftDTO postShiftDTO,
-    required _i150.EmployerLongTermSuccessDto employerAddDetailDto,
+    required _i151.EmployerLongTermAddDetailDto employerAddDetailDto,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPostConfirmationView.name,
@@ -2620,7 +2513,7 @@ class EmployerLongTermPostConfirmationViewArgs {
 
   final _i143.PostShiftDTO postShiftDTO;
 
-  final _i150.EmployerLongTermSuccessDto employerAddDetailDto;
+  final _i151.EmployerLongTermAddDetailDto employerAddDetailDto;
 
   @override
   String toString() {
@@ -4799,7 +4692,6 @@ class ViewApplicantProfile
     _i138.Key? key,
     required int id,
     required int postId,
-    int? isLongOrFull,
     List<_i137.PageRouteInfo>? children,
   }) : super(
           ViewApplicantProfile.name,
@@ -4807,7 +4699,6 @@ class ViewApplicantProfile
             key: key,
             id: id,
             postId: postId,
-            isLongOrFull: isLongOrFull,
           ),
           initialChildren: children,
         );
@@ -4822,7 +4713,6 @@ class ViewApplicantProfile
         key: args.key,
         id: args.id,
         postId: args.postId,
-        isLongOrFull: args.isLongOrFull,
       );
     },
   );
@@ -4833,7 +4723,6 @@ class ViewApplicantProfileArgs {
     this.key,
     required this.id,
     required this.postId,
-    this.isLongOrFull,
   });
 
   final _i138.Key? key;
@@ -4842,11 +4731,9 @@ class ViewApplicantProfileArgs {
 
   final int postId;
 
-  final int? isLongOrFull;
-
   @override
   String toString() {
-    return 'ViewApplicantProfileArgs{key: $key, id: $id, postId: $postId, isLongOrFull: $isLongOrFull}';
+    return 'ViewApplicantProfileArgs{key: $key, id: $id, postId: $postId}';
   }
 }
 

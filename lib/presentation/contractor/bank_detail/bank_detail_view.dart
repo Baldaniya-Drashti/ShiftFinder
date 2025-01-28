@@ -38,7 +38,8 @@ class BankListView extends StatelessWidget {
                     child: CommonButton(
                       onPressed: () {
                         context.router
-                            .push(PageRouteInfo(AddBankDetailsScreen.name))
+                            .push(PageRouteInfo(AddBankDetailsScreen.name,
+                                args: AddBankDetailsScreenArgs(isUpdate: true)))
                             .then((value) {
                           if (value == true) {
                             context
@@ -101,87 +102,99 @@ class BankListView extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(
-                      child: BaseText(
-                        text:
-                            "${bank.first_name ?? ""} ${bank.last_name ?? ""}",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    BaseText(
+                      text: "${bank.first_name ?? ""} ${bank.last_name ?? ""}",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Gap(getSize(5)),
-                    verificationTag(
-                      color: AppColors.primaryColor,
-                      label: StringConstant.verified,
-                      icon: SvgImageConstant.verify,
-                    ),
-                    /* verificationTag(
-                      color: AppColors.red,
-                      label: StringConstant.rejected,
-                      icon: SvgImageConstant.rejected,
-                    ), */
-                    /* verificationTag(
-                      color: AppColors.yellowColor,
-                      label: StringConstant.verified,
-                      icon: SvgImageConstant.pending,
-                    ), */
+                    (bank.status == 1)
+                        ? verificationTag(
+                            color: AppColors.primaryColor,
+                            label: StringConstant.verified,
+                            icon: SvgImageConstant.verify,
+                          )
+                        : (bank.status == 2)
+                            ? verificationTag(
+                                color: AppColors.red,
+                                label: StringConstant.rejected,
+                                icon: SvgImageConstant.rejected,
+                              )
+                            : verificationTag(
+                                color: AppColors.yellowColor,
+                                label: StringConstant.pending,
+                                icon: SvgImageConstant.pending,
+                              ),
                   ],
                 ),
-                SizedBox(height: getSize(5)),
-                BaseText(
-                    text: bank.transit_number ?? "",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-                SizedBox(height: getSize(10)),
-                BaseText(
-                  text: "********${bank.account_number}",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: getSize(5)),
+                          BaseText(
+                              text: bank.transit_number ?? "",
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500),
+                          SizedBox(height: getSize(5)),
+                          BaseText(
+                            text: "********${bank.account_number}",
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: getSize(15)),
+                    InkWell(
+                      onTap: () {
+                        context.router
+                            .push(PageRouteInfo(AddBankDetailsScreen.name,
+                                args: AddBankDetailsScreenArgs(
+                                    bankDetail: bank, isUpdate: true)))
+                            .then((value) {
+                          if (value == true) {
+                            context
+                                .read<BankDetailsBloc>()
+                                .add(BankDetailsEvent.getBankDetails());
+                          }
+                        });
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: getSize(5), vertical: getSize(10)),
+                        child: SvgPicture.asset(SvgImageConstant.editWithBg),
+                      ),
+                    ),
+                    /*  InkWell(
+                      onTap: () {
+                        AppDialog.showDelete(
+                          context,
+                          title: StringConstant.deleteAccount,
+                          infoMessage: StringConstant
+                              .areYouSureYouWantToDeleteThisBankccount,
+                          onCancelClick: () {
+                            context.router.maybePop();
+                          },
+                          onDeleteClick: () {},
+                        );
+                      },
+                      child: Container(
+                          color: Colors.transparent,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getSize(5), vertical: getSize(10)),
+                          child: SvgPicture.asset(SvgImageConstant.bin)),
+                    ),
+                   */
+                  ],
+                )
               ],
             ),
-          ),
-          SizedBox(width: getSize(15)),
-          InkWell(
-            onTap: () {
-              context.router
-                  .push(PageRouteInfo(AddBankDetailsScreen.name,
-                      args: AddBankDetailsScreenArgs(bankDetail: bank)))
-                  .then((value) {
-                if (value == true) {
-                  context
-                      .read<BankDetailsBloc>()
-                      .add(BankDetailsEvent.getBankDetails());
-                }
-              });
-            },
-            child: Container(
-              color: Colors.transparent,
-              padding: EdgeInsets.symmetric(
-                  horizontal: getSize(5), vertical: getSize(10)),
-              child: SvgPicture.asset(SvgImageConstant.editWithBg),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.deleteAccount,
-                infoMessage:
-                    StringConstant.areYouSureYouWantToDeleteThisBankccount,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {},
-              );
-            },
-            child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.symmetric(
-                    horizontal: getSize(5), vertical: getSize(10)),
-                child: SvgPicture.asset(SvgImageConstant.bin)),
           ),
         ],
       ),

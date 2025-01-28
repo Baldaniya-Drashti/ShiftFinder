@@ -68,12 +68,8 @@ mixin _$PostShiftDTO {
   int? get assistant_on_site => throw _privateConstructorUsedError;
   int? get technician_on_site => throw _privateConstructorUsedError;
 
-  /// Serializes this PostShiftDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of PostShiftDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $PostShiftDTOCopyWith<PostShiftDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -140,8 +136,6 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of PostShiftDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -428,8 +422,6 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
       _$PostShiftDTOImpl _value, $Res Function(_$PostShiftDTOImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PostShiftDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -877,7 +869,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
             (identical(other.technician_on_site, technician_on_site) || other.technician_on_site == technician_on_site));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -926,9 +918,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         technician_on_site
       ]);
 
-  /// Create a copy of PostShiftDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostShiftDTOImplCopyWith<_$PostShiftDTOImpl> get copyWith =>
@@ -1014,9 +1004,9 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   @override
   String? get location_unit;
   @override
-  double? get rate_hour; // MultiShiftDTO? shiftDetail,
+  double? get rate_hour;
+  @override // MultiShiftDTO? shiftDetail,
 // int? post_shift_id,
-  @override
   String? get recurring_status;
   @override
   String? get start_date;
@@ -1040,9 +1030,9 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   String? get team_id;
   @override
   String? get save_template_status;
+  @override
 
   /// New Params
-  @override
   int? get shift_type;
   @override
   String? get date;
@@ -1080,11 +1070,8 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   int? get assistant_on_site;
   @override
   int? get technician_on_site;
-
-  /// Create a copy of PostShiftDTO
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostShiftDTOImplCopyWith<_$PostShiftDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

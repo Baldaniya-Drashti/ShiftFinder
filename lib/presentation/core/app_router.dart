@@ -144,6 +144,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: BackgroundDocument.page),
         AutoRoute(page: ProofOfLegalStatus.page),
         AutoRoute(page: ContractorPdfViewer.page),
+        AutoRoute(page: ContractorEditProfile.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

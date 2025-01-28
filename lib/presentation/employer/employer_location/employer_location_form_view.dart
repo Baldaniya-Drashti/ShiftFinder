@@ -799,6 +799,7 @@ class EmployerLocationFormView extends StatelessWidget {
                     children: [
                       paddingBetweenFields(height: getSize(10)),
                       CustomTextField(
+                        enableInteractiveSelection: false,
                         controller: updateUnitNameCtrl,
                         labelText: StringConstant.unitNumberName,
                         hintText: StringConstant.unitNumberName,
@@ -833,7 +834,11 @@ class EmployerLocationFormView extends StatelessWidget {
                         child: CommonButton(
                           onPressed: (updateUnitNameCtrl.text.isNotEmpty)
                               ? () {
-                                  bloc.add(EmployerLocationFormEvent
+                                  print(
+                                      "unit controller ---> ${updateUnitNameCtrl.text}");
+                                  print(
+                                      "unit controller ---> ${updateUnitNameCtrl.text.isNotEmpty}");
+                                  /*  bloc.add(EmployerLocationFormEvent
                                       .editUnitNumberChip(
                                           context,
                                           index,
@@ -842,11 +847,12 @@ class EmployerLocationFormView extends StatelessWidget {
                                                 updateUnitNameCtrl.text.trim(),
                                             note:
                                                 updateUnitNoteCtrl.text.trim(),
-                                          )));
+                                          ))); */
                                 }
                               : () {},
                           buttonText: StringConstant.update,
                           // width: 5,
+
                           buttonFontSize: 12,
                           buttonFontWeight: FontWeight.w600,
                           height: 35,

@@ -103,8 +103,11 @@ class CounterProposalTab extends StatelessWidget {
                                             padding: EdgeInsets.symmetric(
                                                 vertical: getSize(10)),
                                             child: BaseText(
-                                              text: StringConstant
-                                                  .youHaveDeclinedThisShift,
+                                              text: (shift.last_request == 1)
+                                                  ? StringConstant
+                                                      .employerHaveRejectedThisShift
+                                                  : StringConstant
+                                                      .youHaveDeclinedThisShift,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
                                               textColor: AppColors.redAccent,
@@ -324,6 +327,11 @@ class CounterProposalTab extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text: shift.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

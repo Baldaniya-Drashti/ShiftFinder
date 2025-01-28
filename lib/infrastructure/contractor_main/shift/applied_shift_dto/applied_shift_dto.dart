@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 part 'applied_shift_dto.freezed.dart';
 part 'applied_shift_dto.g.dart';
 
@@ -17,6 +18,8 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     String? listing_id,
     String? distance,
     String? location,
+    FacilityTypeDto? facility_type,
+    String? facility_type_other,
     double? latitude,
     double? longitude,
     int? request,

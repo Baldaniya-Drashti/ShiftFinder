@@ -17,6 +17,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   /// Fetches the user's account information from the network
   Future<void> getAccount() async {
+    print("Called this event--> ");
     emit(const AccountState.loadInProgress());
     final failureOrAccount = await _repository.getCurrentUserApi();
     emit(
@@ -25,5 +26,10 @@ class AccountCubit extends Cubit<AccountState> {
         (account) => AccountState.loadSuccess(account),
       ),
     );
+  }
+
+  /// Emits the changes to the in the cubit stored account
+  Future<void> updateAccount(Account updatedAccount) async {
+    emit(AccountState.loadSuccess(updatedAccount));
   }
 }

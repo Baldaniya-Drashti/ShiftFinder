@@ -347,6 +347,7 @@ class SendProposal extends StatelessWidget {
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
+              maxLines: 1,
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,6 +365,11 @@ class SendProposal extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
                 ),
               ],
             ),

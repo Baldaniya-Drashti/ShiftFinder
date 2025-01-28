@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -76,83 +75,98 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                       .pleaseSelectMonthToViewPerformanceInsights,
                                 ),
                               )
-                            : Container(
-                                margin:
-                                    EdgeInsets.symmetric(vertical: getSize(10)),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                            : (state.insightDetail == null)
+                                ? Center(
+                                    child: NoDataText(
+                                      title: "",
+                                      description: StringConstant.noResultFound,
+                                    ),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          titleText(StringConstant.monthIndex),
-                                          BaseText(
-                                              text: (state.selectedMonth !=
-                                                      null)
-                                                  ? DateFormat('MMM yyyy')
-                                                      .format(
-                                                          state.selectedMonth!)
-                                                  : "",
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w600,
-                                              textColor: AppColors.green),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              titleText(
+                                                  StringConstant.monthIndex),
+                                              BaseText(
+                                                  text: (state.insightDetail
+                                                              ?.date !=
+                                                          null)
+                                                      ? DateFormat('MMM yyyy')
+                                                          .format(DateTime
+                                                              .fromMillisecondsSinceEpoch(
+                                                                  (state.insightDetail
+                                                                              ?.date ??
+                                                                          -1) *
+                                                                      1000))
+                                                      : (state.selectedMonth !=
+                                                              null)
+                                                          ? DateFormat(
+                                                                  'MMM yyyy')
+                                                              .format(state
+                                                                  .selectedMonth!)
+                                                          : "",
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w600,
+                                                  textColor: AppColors.green),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              _MonthlyIndexItem(
+                                                  label: StringConstant
+                                                      .totalEarnings,
+                                                  value:
+                                                      "\$${state.insightDetail?.total_earnings ?? 0.0}",
+                                                  icon: SvgImageConstant
+                                                      .dollorRound),
+                                              Gap(getSize(8)),
+                                              _MonthlyIndexItem(
+                                                  label:
+                                                      StringConstant.hourWorked,
+                                                  value: state.insightDetail
+                                                          ?.total_hours ??
+                                                      "00h 00min",
+                                                  icon: SvgImageConstant.clock),
+                                              Gap(getSize(8)),
+                                              _MonthlyIndexItem(
+                                                  label: StringConstant
+                                                      .completedShifts,
+                                                  value:
+                                                      "${state.insightDetail?.completed_shifts ?? 0}",
+                                                  icon: SvgImageConstant
+                                                      .completedShifts),
+                                            ],
+                                          ),
+                                          titleText(
+                                              StringConstant.earningOverTime),
+                                          /*  EarningsGraph(
+                                            earning: state.insightDetail
+                                                    ?.earning_over_time ??
+                                                EarningOverTimeDTO(),
+                                          ),
+                                          titleText(StringConstant.hoursWorked),
+                                          HoursChart(),
+                                          titleText(
+                                              StringConstant.completedShift),
+                                          CompletedShiftChart(), */
+
+                                          EarningChart(context, state),
+                                          HoursChart(context, state),
+                                          CompletedShiftChart(context, state),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          _MonthlyIndexItem(
-                                              label:
-                                                  StringConstant.totalEarnings,
-                                              value: "\$2541.25",
-                                              icon:
-                                                  SvgImageConstant.dollorRound),
-                                          Gap(getSize(8)),
-                                          _MonthlyIndexItem(
-                                              label: StringConstant.hourWorked,
-                                              value: "120h 36min",
-                                              icon: SvgImageConstant.clock),
-                                          Gap(getSize(8)),
-                                          _MonthlyIndexItem(
-                                              label: StringConstant
-                                                  .completedShifts,
-                                              value: "16",
-                                              icon: SvgImageConstant
-                                                  .completedShifts),
-                                        ],
-                                      ),
-                                      titleText(StringConstant.earningOverTime),
-                                      EarningsGraph(),
-                                      titleText(StringConstant.hoursWorked),
-                                      HoursChart(),
-                                      titleText(StringConstant.completedShift),
-                                      CompletedShiftChart(),
-                                      chartFormat(
-                                        title: StringConstant.earningOverTime,
-                                        chart: SfCartesianChart(
-                                          primaryXAxis: CategoryAxis(),
-                                          series: [
-                                            LineSeries<ChartData, String>(
-                                              dataSource: [
-                                                ChartData(x: "Week 1", y: 300),
-                                                ChartData(x: "Week 2", y: 350),
-                                                ChartData(x: "Week 3", y: 300),
-                                                ChartData(x: "Week 4", y: 500),
-                                                ChartData(x: "Week 5", y: 500),
-                                              ],
-                                              xValueMapper: (datum, _) =>
-                                                  datum.x,
-                                              yValueMapper: (datum, _) =>
-                                                  datum.y,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
                       ),
                     ],
                   ),
@@ -162,6 +176,262 @@ class ContractorPerformanceInsightView extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget EarningChart(
+      BuildContext context, ContractorPerformanceInsightState state) {
+    return chartFormat(
+      title: StringConstant.earningOverTime,
+      chart: SfCartesianChart(
+        primaryXAxis: CategoryAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        primaryYAxis: NumericAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        series: [
+          AreaSeries<ChartData, String>(
+            color: AppColors.primaryColor,
+            // width: 2,
+            borderWidth: 2,
+            borderColor: AppColors.primaryColor,
+
+            markerSettings: MarkerSettings(
+              isVisible: true,
+              shape: DataMarkerType.circle,
+              height: getSize(10),
+              width: getSize(10),
+              borderWidth: 2,
+              color: AppColors.white,
+              borderColor: AppColors.primaryColor,
+            ),
+            dataLabelSettings: DataLabelSettings(
+              isVisible: (state.selectedEarningPoint != null) ? true : false,
+              builder: (data, point, series, pointIndex, _) {
+                if (pointIndex == state.selectedEarningPoint?.pointIndex) {
+                  return Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getSize(8),
+                      vertical: getSize(2),
+                    ),
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text(
+                      '\$${point.y}',
+                      style: TextStyle(color: AppColors.primaryColor),
+                    ),
+                  );
+                }
+                return Container();
+              },
+              labelAlignment: ChartDataLabelAlignment.top,
+            ),
+            onPointTap: (point) {
+              context
+                  .read<ContractorPerformanceInsightBloc>()
+                  .add(ContractorPerformanceInsightEvent.onPointSelect(
+                    context,
+                    selectedPoint: point,
+                  ));
+            },
+            dataSource: [
+              ChartData(x: "Week 1", y: 300),
+              ChartData(x: "Week 2", y: 350),
+              ChartData(x: "Week 3", y: 300),
+              ChartData(x: "Week 4", y: 500),
+              ChartData(x: "Week 5", y: 500),
+            ],
+            xValueMapper: (datum, _) => datum.x,
+            yValueMapper: (datum, _) => datum.y,
+            // markerSettings: MarkerSettings(
+            //   borderColor: AppColors.primaryColor,
+            //   isVisible: true,
+            //   height: getSize(7),
+            //   width: getSize(7),
+            //   shape: DataMarkerType.circle,
+            // ),
+            // borderColor: AppColors.primaryColor,
+            // dataSource: [
+            //   ChartData(x: "Week 1", y: 300),
+            //   ChartData(x: "Week 2", y: 350),
+            //   ChartData(x: "Week 3", y: 300),
+            //   ChartData(x: "Week 4", y: 500),
+            //   ChartData(x: "Week 5", y: 500),
+            // ],
+            // xValueMapper: (ChartData data, _) => data.x,
+            // yValueMapper: (ChartData data, _) => data.y,
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.primaryColor.withOpacity(0.25),
+                AppColors.primaryColor.withOpacity(0.01),
+              ],
+            ),
+          ),
+          /* LineSeries<ChartData, String>(
+            color: AppColors.primaryColor,
+            /* pointColorMapper:
+                                                      (ChartData data,
+                                                          int index) {
+                                                    return state.selectedEarningPoint
+                                                                ?.pointIndex ==
+                                                            index
+                                                        ? AppColors.primaryColor
+                                                        : AppColors.red;
+                                                  }, */
+            width: 2,
+            markerSettings: MarkerSettings(
+              isVisible: true,
+              shape: DataMarkerType.circle,
+              height: getSize(10),
+              width: getSize(10),
+              borderWidth: 2,
+              color: AppColors.white,
+              borderColor: AppColors.primaryColor,
+            ),
+            dataLabelSettings: DataLabelSettings(
+              isVisible: (state.selectedEarningPoint != null) ? true : false,
+              builder: (data, point, series, pointIndex, _) {
+                if (pointIndex == state.selectedEarningPoint?.pointIndex) {
+                  return Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getSize(8),
+                      vertical: getSize(2),
+                    ),
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text(
+                      '\$${point.y}',
+                      style: TextStyle(color: AppColors.primaryColor),
+                    ),
+                  );
+                }
+                return Container();
+              },
+              labelAlignment: ChartDataLabelAlignment.top,
+            ),
+            onPointTap: (point) {
+              context
+                  .read<ContractorPerformanceInsightBloc>()
+                  .add(ContractorPerformanceInsightEvent.onPointSelect(
+                    context,
+                    selectedPoint: point,
+                  ));
+            },
+            dataSource: [
+              ChartData(x: "Week 1", y: 300),
+              ChartData(x: "Week 2", y: 350),
+              ChartData(x: "Week 3", y: 300),
+              ChartData(x: "Week 4", y: 500),
+              ChartData(x: "Week 5", y: 500),
+            ],
+            xValueMapper: (datum, _) => datum.x,
+            yValueMapper: (datum, _) => datum.y,
+          ), */
+        ],
+      ),
+    );
+  }
+
+  Widget HoursChart(
+      BuildContext context, ContractorPerformanceInsightState state) {
+    return chartFormat(
+      title: StringConstant.hoursWorked,
+      chart: SfCartesianChart(
+        primaryXAxis: CategoryAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        primaryYAxis: NumericAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        series: [
+          ColumnSeries<ChartData, String>(
+            isTrackVisible: false,
+            dataSource: [
+              ChartData(x: "Week 1", y: 18),
+              ChartData(x: "Week 2", y: 26),
+              ChartData(x: "Week 3", y: 14),
+              ChartData(x: "Week 4", y: 32),
+              ChartData(x: "Week 5", y: 39),
+            ],
+            color: AppColors.primaryColor,
+            width: 0.4,
+            borderRadius: BorderRadius.circular(10),
+            trackBorderWidth: 0,
+            trackPadding: getSize(5),
+            dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+              builder: (data, point, series, pointIndex, _) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(10),
+                    vertical: getSize(2),
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColors.primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text(
+                    '${point.y} h',
+                    style: TextStyle(color: AppColors.primaryColor),
+                  ),
+                );
+              },
+            ),
+            xValueMapper: (datum, _) => datum.x,
+            yValueMapper: (datum, _) => datum.y,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget CompletedShiftChart(
+      BuildContext context, ContractorPerformanceInsightState state) {
+    return chartFormat(
+      title: StringConstant.hoursWorked,
+      chart: SfCartesianChart(
+        primaryXAxis: CategoryAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        primaryYAxis: NumericAxis(
+          majorGridLines: MajorGridLines(width: 0),
+          minorGridLines: MinorGridLines(width: 0),
+        ),
+        series: [
+          ColumnSeries<ChartData, String>(
+            isTrackVisible: true,
+            dataSource: [
+              ChartData(x: "Week 1", y: 300),
+              ChartData(x: "Week 2", y: 350),
+              ChartData(x: "Week 3", y: 300),
+              ChartData(x: "Week 4", y: 500),
+              ChartData(x: "Week 5", y: 500),
+            ],
+            color: AppColors.primaryColor,
+            width: 0.4,
+            borderRadius: BorderRadius.circular(10),
+            trackColor: AppColors.primaryColor.withOpacity(0.1),
+            trackPadding: getSize(4),
+            // selectionBehavior:
+            //     SelectionBehavior(
+            //     selectedColor: yello),
+            dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+            ),
+            xValueMapper: (datum, _) => datum.x,
+            yValueMapper: (datum, _) => datum.y,
+          ),
+        ],
       ),
     );
   }
@@ -201,8 +471,9 @@ class ContractorPerformanceInsightView extends StatelessWidget {
   }
 }
 
-class EarningsGraph extends StatelessWidget {
-  const EarningsGraph({super.key});
+/* class EarningsGraph extends StatelessWidget {
+  final EarningOverTimeDTO earning;
+  const EarningsGraph({super.key, required this.earning});
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +524,7 @@ class EarningsGraph extends StatelessWidget {
                             return Padding(
                               padding: EdgeInsets.only(top: getSize(5)),
                               child: BaseText(
-                                text: "Week ${value.toInt()}",
+                                text: "${value.toInt()}",
                                 fontSize: 8,
                               ),
                             );
@@ -276,8 +547,8 @@ class EarningsGraph extends StatelessWidget {
                     show: false,
                     border: Border.all(color: Colors.grey.shade300, width: 1),
                   ),
-                  minX: 1,
-                  maxX: 5,
+                  // minX: 0,
+                  maxX: earning.week_lists!.length.toDouble() + 1,
                   minY: 0,
                   maxY: 700,
                   lineBarsData: [
@@ -669,7 +940,7 @@ class CompletedShiftChart extends StatelessWidget {
     );
   }
 }
-
+ */
 class ChartData {
   ChartData({required this.x, required this.y});
 

@@ -38,7 +38,7 @@ dependencies:
   get_it: ^7.7.0
   injectable: ^2.4.2
   flutter_bloc: ^8.1.6
-  auto_route: ^9.2.2
+  auto_route:
   flutter_dotenv: ^5.1.0
   flutter_screenutil: ^5.9.3
   dio: ^5.4.3+1
@@ -84,7 +84,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   url_launcher: ^6.3.1
   syncfusion_flutter_charts:
-  fl_chart: ^0.69.2
+  # fl_chart: ^0.69.2
   flutter_stripe: ^11.3.0
   expansion_tile_list: ^1.0.0
   firebase_messaging: ^15.1.5

@@ -353,15 +353,22 @@ class AppDialog {
             ],
           ),
           actions: [
-            CommonButton(
-              onPressed: () => context.router.maybePop(),
-              width: 150,
-              buttonText: "Cancel",
-            ),
-            CommonButton(
-              onPressed: () => context.router.maybePop(true),
-              width: 150,
-              buttonText: "Submit",
+            Row(
+              children: [
+                Expanded(
+                  child: CommonButton(
+                    onPressed: () => context.router.maybePop(),
+                    buttonText: "Cancel",
+                  ),
+                ),
+                Gap(16),
+                Expanded(
+                  child: CommonButton(
+                    onPressed: () => context.router.maybePop(true),
+                    buttonText: "Submit",
+                  ),
+                ),
+              ],
             ),
           ],
         );

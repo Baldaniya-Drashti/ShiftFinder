@@ -46,12 +46,12 @@ class MonthlyStatementBloc
             print('PDF saved to: $pdfPath');
             showSuccess(message: "Monthly_Statement Downloaded..!")
                 .show(e.context);
-            Navigator.push(
+            /* Navigator.push(
               e.context,
               MaterialPageRoute(
                 builder: (context) => PdfViewerScreen(pdfPath: pdfPath),
               ),
-            );
+            ); */
           } else {
             showError(message: "Failed to download PDF!").show(e.context);
           }

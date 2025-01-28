@@ -20,6 +20,7 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import '../core/skill_list_model/skill_dto.dart';
 
 @LazySingleton(as: IAccountRepository)
@@ -711,6 +712,7 @@ class AccountRepository extends IAccountRepository {
     required String state,
     required String postalCode,
     required String countryFlag,
+    required String countryNameCode,
     required String countryCode,
     required String phone,
     String? lastPage,
@@ -730,8 +732,9 @@ class AccountRepository extends IAccountRepository {
         'city': city,
         'state': state,
         'postal_code': postalCode,
-        'country_name_code': countryFlag,
+        'country_name_code': countryNameCode,
         'country_code': countryCode,
+        'country_flag': countryFlag,
         'phone': phone,
         if (lastPage != null) 'last_page': lastPage,
       };
@@ -1503,6 +1506,147 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     } catch (e) {
       print("ERRORRRRRR----->  $e");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> editContractorProfile({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String latitude,
+    required String longitude,
+    required String address,
+    required String profileImage,
+    required String lastPage,
+  }) async {
+    try {
+      final user = getCurrentUser();
+      final formData = FormData.fromMap({
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "latitude": latitude,
+        "longitude": longitude,
+        "location": address,
+        "phone": user.phone,
+        "country_code": user.countryCode,
+        "last_page": lastPage,
+      });
+
+      print("profileImage => $profileImage");
+
+      if (profileImage.isNotEmpty && !profileImage.contains('https')) {
+        var multipartFile = await MultipartFile.fromFile(
+          profileImage,
+          filename: 'profile.png',
+          headers: {
+            'contentType': ['image/png'],
+          },
+        );
+        formData.files.add(MapEntry('profile', multipartFile));
+      }
+      Log.success(formData.fields);
+
+      final response = await apiService.postMethod(
+        ApiConstants.editProfile,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+      if (response.data != null) {
+        final account = CurrentUserDto.fromJson(response.data).toDomain();
+        return right(account);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonResponse = CommonResponse.fromJson(err.response?.data);
+
+        if (commonResponse.dioMessage != null) {
+          return left(AccountFailure.showAPIResponseMessage(
+              commonResponse.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> editEmployerProfile({
+    required String companyName,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String countryCode,
+    required String countryFlag,
+    required String profileImage,
+    required String association,
+    required String companyDesc,
+    required String lastPage,
+  }) async {
+    try {
+      final user = getCurrentUser();
+      final formData = FormData.fromMap({
+        "first_name": firstName,
+        "last_name": lastName,
+        "company_name": companyName,
+        "association_you_belong_to": association,
+        "company_description": companyDesc,
+        "phone": phone,
+        "country_code": countryCode,
+        "country_name_code": countryFlag,
+        "email": user.email,
+        "last_page": lastPage,
+      });
+
+      print("profileImage => $profileImage");
+
+      if (profileImage.isNotEmpty && !profileImage.contains('https')) {
+        var multipartFile = await MultipartFile.fromFile(
+          profileImage,
+          filename: 'profile.png',
+          headers: {
+            'contentType': ['image/png'],
+          },
+        );
+        formData.files.add(MapEntry('profile', multipartFile));
+      }
+      Log.success(formData.fields);
+
+      final response = await apiService.postMethod(
+        ApiConstants.editProfile,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+      if (response.data != null) {
+        final account = CurrentUserDto.fromJson(response.data).toDomain();
+        return right(account);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonResponse = CommonResponse.fromJson(err.response?.data);
+
+        if (commonResponse.dioMessage != null) {
+          return left(AccountFailure.showAPIResponseMessage(
+              commonResponse.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }

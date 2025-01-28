@@ -127,6 +127,18 @@ class AppliedTab extends StatelessWidget {
                                       textColor: AppColors.redAccent,
                                     ),
                                   ),
+                                ] else if (shift.deleteAt == true) ...[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .employerHaveRejectedThisShift,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      textColor: AppColors.redAccent,
+                                    ),
+                                  ),
                                 ] else if (shift.revoke_status == 3) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(
@@ -452,10 +464,15 @@ class AppliedTab extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: shift.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                ),
               ],
             ),
             trailing: BaseText(
-              text: shift.last_ago ?? " ",
+              text: shift.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),

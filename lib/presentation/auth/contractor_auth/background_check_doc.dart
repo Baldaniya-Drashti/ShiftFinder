@@ -191,50 +191,6 @@ class BackgroundDocument extends StatelessWidget {
     );
   }
 
-  Widget selectIdTypeDropdown(
-    BuildContext context,
-    BackgroundDocState state,
-  ) {
-    return CustomDropdownField(
-      label: StringConstant.selectAnAddressProof,
-      fontSize: 14,
-      onChanged: (value) {
-        if (value != null) {
-          context
-              .read<BackgroundDocBloc>()
-              .add(BackgroundDocEvent.selectBGProofType(value ?? SkillDTO()));
-        }
-      },
-      hintText: StringConstant.selectYourAddressProof,
-      value:
-          (state.currentBgDocType.id != null) ? state.currentBgDocType : null,
-      items: state.bgDocDropDownList.map((val) {
-        return DropdownMenuItem<SkillDTO>(
-          value: val,
-          child: RichText(
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            text: TextSpan(
-              text: val.name ?? "",
-              style: TextStyle(
-                fontSize: getFontSize(14),
-                color: AppColors.black,
-              ),
-              children: [
-                TextSpan(
-                  text: (val.short_name != null && val.short_name!.isNotEmpty)
-                      ? "  (${val.short_name ?? ""})"
-                      : "",
-                  style: TextStyle(fontSize: getFontSize(10)),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
   Widget docLimitNote({required String limit}) {
     return (limit.isNotEmpty)
         ? Container(
@@ -273,7 +229,8 @@ class BackgroundDocument extends StatelessWidget {
           doc: state.bgDocFrontDoc.getValue(),
           showDocError:
               (state.showErrorMesages && !state.bgDocFrontDoc.isValid()),
-          errorMsg: StringConstant.pleaseSelectFrontPageOfAddressProof,
+          errorMsg:
+              StringConstant.pleaseSelectFrontPageOfBackgroundCheckDocument,
           takePhotoCallback: (path) {
             context.read<BackgroundDocBloc>().add(
                   BackgroundDocEvent.selectBGFrontDoc(path),
@@ -306,7 +263,8 @@ class BackgroundDocument extends StatelessWidget {
           doc: state.bgDocBackDoc.getValue(),
           showDocError:
               (state.showErrorMesages && !state.bgDocBackDoc.isValid()),
-          errorMsg: StringConstant.pleaseSelectBackPageOfAddressProof,
+          errorMsg:
+              StringConstant.pleaseSelectBackPageOfBackgroundCheckDocument,
           takePhotoCallback: (path) {
             context.read<BackgroundDocBloc>().add(
                   BackgroundDocEvent.selectBGBackDoc(path),

@@ -46,6 +46,8 @@ class CustomTextField extends StatelessWidget {
     this.labelTextWidth,
     this.hintTextColor,
     this.autoValidateMode,
+    this.hintStyle,
+    this.enableInteractiveSelection,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -84,10 +86,11 @@ class CustomTextField extends StatelessWidget {
   final double? labelTextWidth;
   final Color? hintTextColor;
   final AutovalidateMode? autoValidateMode;
+  final TextStyle? hintStyle;
+  final bool? enableInteractiveSelection;
 
   @override
   Widget build(BuildContext context) {
-
     final border = OutlineInputBorder(
       borderSide: BorderSide(
           color: (fillColor != null)
@@ -180,6 +183,7 @@ class CustomTextField extends StatelessWidget {
           ),
           // elevation: 0.3,
           child: TextFormField(
+            enableInteractiveSelection: enableInteractiveSelection,
             autovalidateMode: autoValidateMode,
             autocorrect: false,
             validator: (inputString) {
@@ -215,14 +219,15 @@ class CustomTextField extends StatelessWidget {
                   focusedBorder: focusedBorder,
                   focusedErrorBorder: errorBorder,
                   errorBorder: errorBorder,
-                  hintStyle: TextStyle(
-                      color: hintAsValue
-                          ? AppColors.black
-                          : AppColors.black.withOpacity(0.50),
-                      fontSize: getSize(
-                        14,
-                      ),
-                      fontWeight: FontWeight.w500),
+                  hintStyle: hintStyle ??
+                      TextStyle(
+                          color: hintAsValue
+                              ? AppColors.black
+                              : AppColors.black.withOpacity(0.50),
+                          fontSize: getSize(
+                            14,
+                          ),
+                          fontWeight: FontWeight.w500),
                 ) ??
                 InputDecoration(
                   counterText: '',
@@ -255,17 +260,21 @@ class CustomTextField extends StatelessWidget {
                   ),
                   prefixIconConstraints: prefixIconConstraints,
                   //     BoxConstraints(maxWidth: getSize(79), minHeight: 0),
-                  hintStyle: TextStyle(
-                    color: (hintTextColor != null)
-                        ? hintTextColor
-                        : hintAsValue
-                            ? AppColors.black
-                            : hintTextColor ?? AppColors.black.withOpacity(0.5),
-                    fontSize: getFontSize(hintAsValue ? 13 : 14),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  hintStyle: hintStyle ??
+                      TextStyle(
+                        color: (hintTextColor != null)
+                            ? hintTextColor
+                            : hintAsValue
+                                ? AppColors.black
+                                : hintTextColor ??
+                                    AppColors.black.withOpacity(0.5),
+                        fontSize: getFontSize(hintAsValue ? 13 : 14),
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
-            style: readOnly ? readOnlyTextStyle ?? Theme.of(context)
+            style: readOnly
+                ? readOnlyTextStyle ??
+                    Theme.of(context)
                         .textTheme
                         .bodyMedium!
                         .copyWith(color: AppColors.black)

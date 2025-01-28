@@ -5,7 +5,7 @@ class ContractorEarningState with _$ContractorEarningState {
   factory ContractorEarningState({
     required List<DateTime> selectedDateTime,
     required bool isLoading,
-    required MonthlyStatementDTO? statement,
+    required EarningStatementDTO? statement,
   }) = _ContractorEarningState;
   factory ContractorEarningState.initial() => ContractorEarningState(
         selectedDateTime: [],

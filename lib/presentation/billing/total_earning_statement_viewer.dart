@@ -5,7 +5,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 
 class GenerateTotalEarningStatement extends StatelessWidget {
   const GenerateTotalEarningStatement({super.key});
@@ -17,7 +20,8 @@ class GenerateTotalEarningStatement extends StatelessWidget {
   }
 
   Future<Uint8List> totalEarningStatement(
-      {required List<DateTime> selectedDates}) async {
+      {required List<DateTime> selectedDates,
+      required EarningStatementDTO statement}) async {
     final pdf = pw.Document();
 
     final regularFont = pw.Font.ttf(
@@ -52,7 +56,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                             crossAxisAlignment: pw.CrossAxisAlignment.start,
                             children: [
                               pw.Text(
-                                "ShiftFinder",
+                                StringConstant.shiftFinder,
                                 style: pw.TextStyle(
                                   fontBold: regularFont,
                                   fontSize: getFontSize(12),
@@ -60,7 +64,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                               ),
                               pw.SizedBox(height: getSize(5)),
                               pw.Text(
-                                "Total Earning Statement",
+                                StringConstant.totalEarningStatement,
                                 style: pw.TextStyle(
                                   fontNormal: regularFont,
                                   fontSize: getFontSize(10),
@@ -68,7 +72,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                               ),
                               pw.SizedBox(height: getSize(10)),
                               pw.Text(
-                                "Contractor Name",
+                                statement.contractor_name ?? "",
                                 style: pw.TextStyle(
                                   fontBold: regularFont,
                                   fontSize: getFontSize(10),
@@ -77,7 +81,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                               pw.SizedBox(height: getSize(5)),
                               pw.Row(children: [
                                 pw.Text(
-                                  "Statement Period ",
+                                  StringConstant.statementPeriod,
                                   style: pw.TextStyle(
                                     fontBold: regularFont,
                                     fontSize: getFontSize(10),
@@ -85,7 +89,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                                 ),
                                 paddingBetweenFilled(width: getSize(5)),
                                 pw.Text(
-                                  "2 Apr to 2 May 2024",
+                                  getFormattedString(selectedDates),
                                   style: pw.TextStyle(
                                     fontBold: regularFont,
                                     fontSize: getFontSize(10),
@@ -97,13 +101,13 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                       ],
                     ),
                     commonDivider(),
-                    earning(),
-                    compensation(),
-                    refereBonus(),
-                    statementTotal(),
+                    earning(statement),
+                    compensation(statement),
+                    refereBonus(statement),
+                    statementTotal(statement),
                     titleWidget(
                       StringConstant.netEarnings,
-                      otherValue: "\$1070.00",
+                      otherValue: "\$${statement.net_earnings ?? 0.0}",
                       bgColor: PdfColors.green100,
                     ),
                     detailWidget(
@@ -125,18 +129,20 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                     paddingBetweenFilled(),
                     detailWidget(
                       title: "${StringConstant.email} : ",
-                      value: "debra.holt@example.com",
+                      value: getCurrentUser().email ?? "",
                       isFooter: true,
                     ),
                     detailWidget(
                       title: "${StringConstant.phoneNumber} : ",
-                      value: "6325148452",
+                      value:
+                          "${(getCurrentUser().phone != null) ? getCurrentUser().phone : ""}",
                       isFooter: true,
                     ),
                     detailWidget(
                       title: "${StringConstant.website} : ",
                       value: StringConstant.shiftFinderWebsite,
                       isFooter: true,
+                      valueColor: PdfColors.blue300,
                     ),
                   ],
                 ),
@@ -152,10 +158,11 @@ class GenerateTotalEarningStatement extends StatelessWidget {
         : pw.SizedBox(height: getSize(height ?? 10));
   }
 
-  pw.Widget earning() {
-    List<MonthlyStatementDetailDTO> data = [];
+  pw.Widget earning(EarningStatementDTO statement) {
+    List<CompletedShiftsEarningDTO> data =
+        statement.completed_shifts_earning ?? [];
 
-    List<List<MonthlyStatementDetailDTO>> earningList = [];
+    List<List<CompletedShiftsEarningDTO>> earningList = [];
 
     for (int i = 0; i < data.length; i += maxRecordLength) {
       earningList.add(data.sublist(
@@ -181,7 +188,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                 return pw.Column(
                   mainAxisSize: pw.MainAxisSize.min,
                   children: [
-                    earningBox(),
+                    earningBox(item),
                     commonDivider(),
                   ],
                 );
@@ -205,20 +212,20 @@ class GenerateTotalEarningStatement extends StatelessWidget {
             children: [
               detailWidget(
                 title: StringConstant.totalWage,
-                value: "\$650.00",
+                value: "\$${statement.completed_total_wage ?? 0.0}",
                 alignment: pw.Alignment.centerRight,
                 fontSize: getFontSize(12),
               ),
               detailWidget(
                 title: StringConstant.totalAllowance,
-                value: "\$100.00",
+                value: "\$${statement.completed_total_allowance ?? 0.0}",
                 alignment: pw.Alignment.centerRight,
                 fontSize: getFontSize(12),
               ),
               commonDivider(),
               detailWidget(
                 title: StringConstant.totalEarnings,
-                value: "\$750.00",
+                value: "\$${statement.completed_total_earnings ?? 0.0}",
                 valueColor: PdfColors.green,
                 alignment: pw.Alignment.centerRight,
                 fontSize: getFontSize(12),
@@ -230,10 +237,11 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Widget compensation() {
-    List<MonthlyStatementDetailDTO> data = [];
+  pw.Widget compensation(EarningStatementDTO statement) {
+    List<CompletedShiftsEarningDTO> data =
+        statement.cancellations_shifts_earning ?? [];
 
-    List<List<MonthlyStatementDetailDTO>> compensationList = [];
+    List<List<CompletedShiftsEarningDTO>> compensationList = [];
 
     for (int i = 0; i < data.length; i += maxRecordLength) {
       compensationList.add(data.sublist(
@@ -259,7 +267,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                 return pw.Column(
                   mainAxisSize: pw.MainAxisSize.min,
                   children: [
-                    compensationBox(),
+                    compensationBox(item),
                     commonDivider(),
                   ],
                 );
@@ -280,19 +288,20 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           alignment: pw.Alignment.centerLeft,
           child: detailWidget(
             title: StringConstant.totalCancellationFee,
-            value: "\$220.00",
+            value: "\$${statement.total_cancellation_fee ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
+            valueColor: PdfColors.green,
           ),
         )
       ],
     );
   }
 
-  pw.Widget refereBonus() {
-    List<MonthlyStatementDetailDTO> data = [];
+  pw.Widget refereBonus(EarningStatementDTO statement) {
+    List<CompletedShiftsEarningDTO> data = statement.referrals_data ?? [];
 
-    List<List<MonthlyStatementDetailDTO>> bonusList = [];
+    List<List<CompletedShiftsEarningDTO>> bonusList = [];
 
     for (int i = 0; i < data.length; i += maxRecordLength) {
       bonusList.add(data.sublist(
@@ -318,7 +327,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                 return pw.Column(
                   mainAxisSize: pw.MainAxisSize.min,
                   children: [
-                    bonusBox(),
+                    bonusBox(item),
                     commonDivider(),
                   ],
                 );
@@ -339,9 +348,10 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           alignment: pw.Alignment.centerLeft,
           child: detailWidget(
             title: StringConstant.totalBonus,
-            value: "\$100.00",
+            value: "\$${statement.total_bonus ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
+            valueColor: PdfColors.green,
           ),
         )
       ],
@@ -355,61 +365,36 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Container earningBox() {
+  pw.Container earningBox(CompletedShiftsEarningDTO earning) {
     return pw.Container(
       child: pw.Column(
         mainAxisSize: pw.MainAxisSize.min,
         children: [
           detailWidget(
-              title: "${StringConstant.date} :", value: "12 May, 2024"),
+              title: "${StringConstant.date} :",
+              value: DateFormat('dd MMM yyyy').format(
+                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
           detailWidget(
               title: "${StringConstant.companyName} :",
-              value: "Louis Vuitton Pvt. Ltd."),
-          detailWidget(
-            title: "${StringConstant.location} :",
-            value: "6391 Elgin St. Celina, Delaware",
-          ),
-          detailWidget(
-            title: "${StringConstant.hourWorked} :",
-            value: "9 h 30 min",
-          ),
-          detailWidget(
-            title: "${StringConstant.hourlyRate} :",
-            value: "\$30",
-          ),
-          detailWidget(
-            title: "${StringConstant.wages} :",
-            value: "\$285.00",
-          ),
-          detailWidget(
-            title: "${StringConstant.allowances} :",
-            value: "\$50",
-          ),
-          detailWidget(
-            title: "${StringConstant.earnings} :",
-            value: "\$335.00",
-          ),
-        ],
-      ),
-    );
-  }
-
-  pw.Container compensationBox() {
-    return pw.Container(
-      child: pw.Column(
-        mainAxisSize: pw.MainAxisSize.min,
-        children: [
-          detailWidget(
-              title: "${StringConstant.date} :", value: "12 May, 2024"),
-          detailWidget(
-              title: "${StringConstant.companyName} :",
-              value: "Louis Vuitton Pvt. Ltd."),
+              value: earning.company_name ?? ""),
           detailWidget(
               title: "${StringConstant.location} :",
-              value: "6391 Elgin St. Celina, Delaware"),
+              value: earning.location?.location ?? ""),
           detailWidget(
-            title: "${StringConstant.cancellationFee} :",
-            value: "\$120.00",
+              title: "${StringConstant.hourWorked} :",
+              value: earning.hours_worked ?? ""),
+          detailWidget(
+              title: "${StringConstant.hourlyRate} :",
+              value: "\$${earning.hourly_rate ?? 0.0}"),
+          detailWidget(
+              title: "${StringConstant.wages} :",
+              value: "\$${earning.total_wage ?? 0.0}"),
+          detailWidget(
+              title: "${StringConstant.allowances} :",
+              value: "\$${earning.total_allowance ?? 0.0}"),
+          detailWidget(
+            title: "${StringConstant.earnings} :",
+            value: "\$${earning.total_earnings ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -417,24 +402,53 @@ class GenerateTotalEarningStatement extends StatelessWidget {
     );
   }
 
-  pw.Container bonusBox() {
+  pw.Container compensationBox(CompletedShiftsEarningDTO earning) {
     return pw.Container(
       child: pw.Column(
         mainAxisSize: pw.MainAxisSize.min,
         children: [
           detailWidget(
-              title: "${StringConstant.date} :", value: "12 May, 2024"),
+              title: "${StringConstant.date} :",
+              value: DateFormat('dd MMM yyyy').format(
+                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
           detailWidget(
-              title: "${StringConstant.referredContractorName} :",
-              value: "David Malpas"),
+              title: "${StringConstant.companyName} :",
+              value: earning.company_name ?? ""),
           detailWidget(
-              title: "${StringConstant.bonusAmount} :", value: "\$50.00"),
+              title: "${StringConstant.location} :",
+              value: earning.location?.location ?? ""),
+          detailWidget(
+            title: "${StringConstant.cancellationFee} :",
+            value: "\$${earning.amount ?? 0.0}",
+            valueColor: PdfColors.green,
+          ),
         ],
       ),
     );
   }
 
-  pw.Container statementTotal() {
+  pw.Container bonusBox(CompletedShiftsEarningDTO earning) {
+    return pw.Container(
+      child: pw.Column(
+        mainAxisSize: pw.MainAxisSize.min,
+        children: [
+          detailWidget(
+              title: "${StringConstant.date} :",
+              value: DateFormat('dd MMM yyyy').format(
+                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
+          detailWidget(
+              title: "${StringConstant.referredContractorName} :",
+              value: earning.referred_contractor_name ?? ""),
+          detailWidget(
+            title: "${StringConstant.bonusAmount} :",
+            value: "\$${earning.amount ?? 0.0}",
+          ),
+        ],
+      ),
+    );
+  }
+
+  pw.Container statementTotal(EarningStatementDTO statement) {
     return pw.Container(
       margin: pw.EdgeInsets.symmetric(vertical: getSize(10)),
       padding: pw.EdgeInsets.symmetric(
@@ -450,19 +464,19 @@ class GenerateTotalEarningStatement extends StatelessWidget {
         children: [
           detailWidget(
             title: StringConstant.totalCompletedShiftEarnings,
-            value: "\$750.00",
+            value: "\$${statement.completed_total_earnings ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalCompensationReceived,
-            value: "\$220.00",
+            value: "\$${statement.total_cancellation_fee ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalReferralBonusReceived,
-            value: "\$100.00",
+            value: "\$${statement.total_bonus ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),

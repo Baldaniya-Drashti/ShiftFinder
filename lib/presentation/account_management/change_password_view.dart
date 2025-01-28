@@ -28,7 +28,7 @@ class ChangePasswordView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: 'Change Password',
+          title: StringConstant.changePassword,
         ),
         body: BlocSelector<ChangePasswordBloc, ChangePasswordState, bool>(
           selector: (state) => state.postDataLoading,
@@ -159,6 +159,8 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
   String? validateCurrentPass(String input) {
     if (input.isEmpty) {
       return StringConstant.pleaseEnterNewPassword;
+    } else if (input.trim() == _currentPasswordController.text.trim()) {
+      return StringConstant.pleaseTryDifferentPasswordThenCurrent;
     } else {
       if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
           .hasMatch(input)) {

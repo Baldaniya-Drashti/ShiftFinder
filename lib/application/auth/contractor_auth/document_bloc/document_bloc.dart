@@ -673,7 +673,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               emit(state.copyWith(
                 isLoading: false,
                 currentGovermentDocType: e.selectedType,
-
                 govermentDocId: state.existingGovermentDoc.id ?? -1,
                 govermentDoc:
                     InputEmptyOrNot(state.existingGovermentDoc.file ?? ""),

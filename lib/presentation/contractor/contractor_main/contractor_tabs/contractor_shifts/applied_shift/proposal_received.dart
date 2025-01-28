@@ -299,6 +299,7 @@ class ProposalReceived extends StatelessWidget {
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
+              maxLines: 1,
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,6 +317,11 @@ class ProposalReceived extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text: post.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

@@ -2,33 +2,42 @@ part of 'edit_profile_bloc.dart';
 
 @freezed
 class EditProfileState with _$EditProfileState {
-  factory EditProfileState({
-    required String selectedImage,
+  const factory EditProfileState({
+    required Account? currentUser,
+    required bool isSubmitting,
+    required bool isLoading,
+    required bool showErrorMessages,
+    // required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+
+    required String selectImage,
     required Username firstName,
     required Lastname lastName,
     required InputEmptyOrNot companyName,
-    required String selectedCountryFlag,
-    required String selectedCountrycode,
-    required String companyDescription,
     required MobileNumber phoneNumber,
-    required bool showErrorMessages,
+    required String enteredPhoneNo,
+    required EmailAddress email,
     required String association,
-    required bool isSubmitting,
-    required Option<Either<AuthFailure, Account>> editProfileFailureOrSuccessOption,
+    required String companyDescription,
+    required String selectedCountrycode,
+    required String selectedCountryFlag,
   }) = _EditProfileState;
 
   factory EditProfileState.initial() => EditProfileState(
-        isSubmitting: false,
-        editProfileFailureOrSuccessOption: none(),
-        selectedImage: '',
+        selectedCountrycode: "1",
+        selectedCountryFlag: "🇨🇦",
+        currentUser: null,
+        isLoading: false,
         firstName: Username(""),
         lastName: Lastname(""),
-        association: "",
+        isSubmitting: false,
+        showErrorMessages: false,
+        // authFailureOrSuccessOption: none(),
+        selectImage: "",
         companyName: InputEmptyOrNot(""),
         phoneNumber: MobileNumber(""),
-        selectedCountryFlag: '',
-        selectedCountrycode: '',
-        companyDescription: '',
-        showErrorMessages: false,
+        email: EmailAddress(""),
+        association: "",
+        companyDescription: "",
+        enteredPhoneNo: "",
       );
 }

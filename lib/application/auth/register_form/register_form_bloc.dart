@@ -35,28 +35,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
 
   static TextEditingController locationCtrl = TextEditingController(text: "");
 
-  /// TO GET GOOGLE PLACES
-  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
-    Uri uri = Uri.https(
-      "maps.googleapis.com",
-      'maps/api/place/autocomplete/json',
-      {
-        "input": query,
-        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        "components": "country:ca",
-      },
-    );
-    try {
-      final response = await http.get(uri, headers: headers);
-      if (response.statusCode == 200) {
-        return response.body;
-      }
-    } catch (e) {
-      print("LOCATION CATCH ERROR: $e");
-    }
-    return null;
-  }
-
   RegisterFormBloc(this._authFacade) : super(RegisterFormState.initial()) {
     on<RegisterFormEvent>((event, emit) async {
       await event.map(

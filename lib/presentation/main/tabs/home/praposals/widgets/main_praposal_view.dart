@@ -76,7 +76,7 @@ class MainPraposalView extends StatelessWidget {
                                   text: additionalData.roles_list_name ?? "",
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  maxLines: 2,
+                                  maxLines: 1,
                                 ),
                               ),
                               Spacer(),
@@ -94,7 +94,14 @@ class MainPraposalView extends StatelessWidget {
                             fontSize: 12,
                             textColor: const Color.fromARGB(255, 55, 46, 46)
                                 .withOpacity(0.8),
-                          )
+                          ),
+                          BaseText(
+                            text:
+                                additionalData.location?.facility_type?.name ??
+                                    "",
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ],
                       ),
                     ),

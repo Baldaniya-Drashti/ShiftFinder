@@ -365,6 +365,11 @@ class ContractorCancelledShiftView extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: user.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
               ],
             ),
             contentPadding: EdgeInsets.zero,

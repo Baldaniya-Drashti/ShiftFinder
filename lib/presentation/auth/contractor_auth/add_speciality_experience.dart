@@ -216,7 +216,7 @@ class AddSpecialityExperience extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      print("SELECTE MONTH $value");
+                      print("SELECT MONTH $value");
                       context
                           .read<SpecialityExperienceBloc>()
                           .add(SpecialityExperienceEvent.updateRecordEvent(

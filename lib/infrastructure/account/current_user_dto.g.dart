@@ -25,6 +25,8 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       association: json['association_you_belong_to'] as String?,
       companyDescription: json['company_description'] as String?,
       location: json['location'] as String?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
       referralCode: json['referral_code'] as String?,
       lastPage: json['last_page'] as String?,
       complete_profile: json['complete_profile'] == null
@@ -69,6 +71,8 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'association_you_belong_to': instance.association,
       'company_description': instance.companyDescription,
       'location': instance.location,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'referral_code': instance.referralCode,
       'last_page': instance.lastPage,
       'complete_profile': instance.complete_profile,

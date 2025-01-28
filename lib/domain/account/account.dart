@@ -29,6 +29,8 @@ class Account with _$Account {
       String? association,
       String? companyDescription,
       String? location,
+      double? latitude,
+      double? longitude,
       String? referralCode,
       String? lastPage,
       ContractorCompleteProfileDTO? complete_profile,

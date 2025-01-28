@@ -310,24 +310,38 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isEndMinuteValid = state.endMinute.isValid();
           final isUnpaidBreakValid = state.unpaidBreak.isValid();
 
-          if (isStartHourValid && isStartMinuteValid && isEndHourValid && isEndMinuteValid && isUnpaidBreakValid) {
-            final startTime = CustomDateTimeFormat.parseTime(state.startHour.getValue()!, state.startMinute.getValue()!);
-            DateTime endTime = CustomDateTimeFormat.parseTime(state.endHour.getValue()!, state.endMinute.getValue()!);
+          if (isStartHourValid &&
+              isStartMinuteValid &&
+              isEndHourValid &&
+              isEndMinuteValid &&
+              isUnpaidBreakValid) {
+            final startTime = CustomDateTimeFormat.parseTime(
+                state.startHour.getValue()!, state.startMinute.getValue()!);
+            DateTime endTime = CustomDateTimeFormat.parseTime(
+                state.endHour.getValue()!, state.endMinute.getValue()!);
 
             if (!endTime.isAfter(startTime)) {
               endTime = endTime.add(Duration(days: 1));
             }
 
-            final unpaidBreak = CustomDateTimeFormat.extractUnpaidBreak(state.unpaidBreak.getValue()!);
+            final unpaidBreak = CustomDateTimeFormat.extractUnpaidBreak(
+                state.unpaidBreak.getValue()!);
             var timeDiffBetweenEndStartTime = endTime.difference(startTime);
-            final timeDifference = timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+            final timeDifference =
+                timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
 
             emit(state.copyWith(
-              totalPaybleHours: CustomDateTimeFormat.formatDuration(timeDifference),
+              totalPaybleHours:
+                  CustomDateTimeFormat.formatDuration(timeDifference),
             ));
-          } else if (isStartHourValid && isStartMinuteValid && isEndHourValid && isEndMinuteValid) {
-            DateTime startTime = CustomDateTimeFormat.parseTime(state.startHour.getValue()!, state.startMinute.getValue()!);
-            DateTime endTime = CustomDateTimeFormat.parseTime(state.endHour.getValue()!, state.endMinute.getValue()!);
+          } else if (isStartHourValid &&
+              isStartMinuteValid &&
+              isEndHourValid &&
+              isEndMinuteValid) {
+            DateTime startTime = CustomDateTimeFormat.parseTime(
+                state.startHour.getValue()!, state.startMinute.getValue()!);
+            DateTime endTime = CustomDateTimeFormat.parseTime(
+                state.endHour.getValue()!, state.endMinute.getValue()!);
 
             if (!endTime.isAfter(startTime)) {
               endTime = endTime.add(Duration(days: 1));
@@ -335,7 +349,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             var timeDifference = endTime.difference(startTime);
 
             emit(state.copyWith(
-              totalPaybleHours: CustomDateTimeFormat.formatDuration(timeDifference),
+              totalPaybleHours:
+                  CustomDateTimeFormat.formatDuration(timeDifference),
             ));
           } else {
             print("start time data is not valid!");
@@ -414,17 +429,22 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         singleShiftSubmitted: (e) async {
           Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
 
-          final isCommuteAllownceValid =
-              isAllownceValid(selectedValue: state.selectedCommuteAllownce, hourValue: state.commuteHour, rateValue: state.commuteRate);
+          final isCommuteAllownceValid = isAllownceValid(
+              selectedValue: state.selectedCommuteAllownce,
+              hourValue: state.commuteHour,
+              rateValue: state.commuteRate);
           final isAccomdationAllownceValid = isAllownceValid(
-              selectedValue: state.selectedAccomdationAllownce, hourValue: state.accomdationHour, rateValue: state.accomdationRate);
+              selectedValue: state.selectedAccomdationAllownce,
+              hourValue: state.accomdationHour,
+              rateValue: state.accomdationRate);
           final isSingleDateValid = state.signleShiftDate.isValid();
           final isUnpaidBreakValid = state.unpaidBreak.isValid();
           final isStartHourValid = state.startHour.isValid();
           final isStartMinuteValid = state.startMinute.isValid();
           final isEndHourValid = state.endHour.isValid();
           final isEndMinuteValid = state.endMinute.isValid();
-          final isBeforeStartTime = timeIsPast(state, state.startHour, state.startMinute);
+          final isBeforeStartTime =
+              timeIsPast(state, state.startHour, state.startMinute);
 
           final isMoreThanTwoHours =
               CustomDateTimeFormat.parseTotalPayableHours(
@@ -466,13 +486,17 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               print("All details are valid!");
               /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
-              final post = continueWithPostDetail(state, passShiftData(state), e.fromSaveTemplate);
-             
+              final post = continueWithPostDetail(
+                  state, passShiftData(state), e.fromSaveTemplate);
+
               print("All details are valid!---> ${post}");
               e.context.router.push(PageRouteInfo(
                 PostShiftRecurring.name,
                 args: PostShiftRecurringArgs(
-                    shiftType: state.shiftType, updateShift: state.updateShift, post: post, fromSaveTemplate: e.fromSaveTemplate),
+                    shiftType: state.shiftType,
+                    updateShift: state.updateShift,
+                    post: post,
+                    fromSaveTemplate: e.fromSaveTemplate),
               ));
             }
           } else {
@@ -758,7 +782,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   : "",
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
-            if ((state.updateShift.id != null && state.updateShift.id != -1) && e.fromSaveTemplate == false) {
+            if ((state.updateShift.id != null && state.updateShift.id != -1) &&
+                e.fromSaveTemplate == false) {
               final res = await _mainFacade.updatePostApi(
                 postShiftDetail: postObj,
               );
@@ -822,7 +847,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               final detailList = e.updateShift?.shift_detail?.detail;
               final parsedDetailList = getDifferentMultiDate(detailList ?? []);
 
-              final updatedDates = parsedDetailList.map((e) => DateTime.parse(e.date ?? "")).toList();
+              final updatedDates = parsedDetailList
+                  .map((e) => DateTime.parse(e.date ?? ""))
+                  .toList();
 
               uniqueDetails = updatedList.where((o) {
                 final parsedDate = DateTime.tryParse(o.date ?? "");
@@ -1032,7 +1059,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                           StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                   .show(e.context);
             } else {
-              final post = continueWithPostDetail(state, passShiftData(state, shiftDetail: e.shiftDetail), e.fromSaveTemplate);
+              final post = continueWithPostDetail(
+                  state,
+                  passShiftData(state, shiftDetail: e.shiftDetail),
+                  e.fromSaveTemplate);
               /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state, shiftDetail: e.shiftDetail),
             );*/
@@ -1106,7 +1136,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
 
-              final post = continueWithPostDetail(state, passShiftData(state),e.fromSaveTemplate);
+              final post = continueWithPostDetail(
+                  state, passShiftData(state), e.fromSaveTemplate);
 
               /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state),
@@ -1186,7 +1217,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     });
   }
 
-  setShiftDataToUpdate(Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift, [List<DateTimeDTO>? dateTime]) async {
+  setShiftDataToUpdate(
+      Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift,
+      [List<DateTimeDTO>? dateTime]) async {
     final r = updatedShift.shift_detail;
 
     if (r != null) {
@@ -1228,21 +1261,30 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           /// Set for Same time for all date data
           isIndividualPost: (r.individual_shift == 1) ? true : false,
-          selectedMultiDates: (r.shift_type == 1) ? ListInputEmptyOrNot([]) : convertMultiDate(r.detail ?? []),
-          startHour: InputEmptyOrNot(CustomDateTimeFormat.getHour(timestamp: r.start_time ?? 0)),
-          startMinute: InputEmptyOrNot(CustomDateTimeFormat.getMinute(timestamp: r.start_time ?? 0)),
-          endHour: InputEmptyOrNot(CustomDateTimeFormat.getHour(timestamp: r.end_time ?? 0)),
-          endMinute: InputEmptyOrNot(CustomDateTimeFormat.getMinute(timestamp: r.end_time ?? 0)),
-          signleShiftDate: InputEmptyOrNot((r.date != null) ? DateTime.fromMillisecondsSinceEpoch(r.date! * 1000).toString() : ""),
+          selectedMultiDates: (r.shift_type == 1)
+              ? ListInputEmptyOrNot([])
+              : convertMultiDate(r.detail ?? []),
+          startHour: InputEmptyOrNot(
+              CustomDateTimeFormat.getHour(timestamp: r.start_time ?? 0)),
+          startMinute: InputEmptyOrNot(
+              CustomDateTimeFormat.getMinute(timestamp: r.start_time ?? 0)),
+          endHour: InputEmptyOrNot(
+              CustomDateTimeFormat.getHour(timestamp: r.end_time ?? 0)),
+          endMinute: InputEmptyOrNot(
+              CustomDateTimeFormat.getMinute(timestamp: r.end_time ?? 0)),
+          signleShiftDate: InputEmptyOrNot((r.date != null)
+              ? DateTime.fromMillisecondsSinceEpoch(r.date! * 1000).toString()
+              : ""),
 
           /// Different time for each date
           selectedMultiShiftType: r.same_or_different_time ?? -1,
-          multiDateTimeList: (r.shift_type == 2 && r.same_or_different_time == 2)
-              ? [
-                  ...getDifferentMultiDate(r.detail ?? []),
-                  if (dateTime != null) ...dateTime,
-                ]
-              : [],
+          multiDateTimeList:
+              (r.shift_type == 2 && r.same_or_different_time == 2)
+                  ? [
+                      ...getDifferentMultiDate(r.detail ?? []),
+                      if (dateTime != null) ...dateTime,
+                    ]
+                  : [],
 
           /// Set for recurring Screening data
           isToBeRecurring: (r.recurring_status == 1) ? true : false,
@@ -1250,12 +1292,20 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           isSaveAsTemplate: (r.save_template_status == 1) ? true : false,
           disclaimerNote: r.disclaimer ?? "",
           selectedTeamList: setTeamList(r.teams ?? []),
-          recurringStartDate: InputEmptyOrNot(
-              (r.recurring_start_date != null) ? DateTime.fromMillisecondsSinceEpoch(r.recurring_start_date! * 1000).toString() : ""),
-          recurringEndDate: InputEmptyOrNot(
-              (r.recurring_end_date != null) ? DateTime.fromMillisecondsSinceEpoch(r.recurring_end_date! * 1000).toString() : ""),
-          recurrenceMode: InputEmptyOrNot((r.recurrence_mode == '2') ? 'Weekly' : 'Daily'),
-          isRangeMoreThanWeek: setRecurringRange(endDate: r.recurring_end_date, startDate: r.recurring_start_date),
+          recurringStartDate: InputEmptyOrNot((r.recurring_start_date != null)
+              ? DateTime.fromMillisecondsSinceEpoch(
+                      r.recurring_start_date! * 1000)
+                  .toString()
+              : ""),
+          recurringEndDate: InputEmptyOrNot((r.recurring_end_date != null)
+              ? DateTime.fromMillisecondsSinceEpoch(
+                      r.recurring_end_date! * 1000)
+                  .toString()
+              : ""),
+          recurrenceMode:
+              InputEmptyOrNot((r.recurrence_mode == '2') ? 'Weekly' : 'Daily'),
+          isRangeMoreThanWeek: setRecurringRange(
+              endDate: r.recurring_end_date, startDate: r.recurring_start_date),
           recurrenceWeekList: setWeekList(r.days ?? ""),
           scriptVolume: InputEmptyOrNot(getScriptVolume(r.script_volume) ?? ""),
           isAssistantOnSite: (r.assistant_on_site == 1) ? true : false,
@@ -1320,7 +1370,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     }
   }
 
-  PostShiftDTO continueWithPostDetail(PostShiftState state, MultiShiftDTO shift, bool fromSaveTemplate) {
+  PostShiftDTO continueWithPostDetail(
+      PostShiftState state, MultiShiftDTO shift, bool fromSaveTemplate) {
     String mapMultiDateToApiFormat() {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         final list = shift.multi_date!.map((multiDate) {
@@ -1338,7 +1389,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           print("Formatttedddtdt datetetete--> ${formattedDate}");
           final map = {
-            if (state.updateShift.id == null|| fromSaveTemplate == true) ...{
+            if (state.updateShift.id == null || fromSaveTemplate == true) ...{
               'date': formattedDate.toUtc().millisecondsSinceEpoch / 1000,
               'start_time': DateTime.parse((shift.same_or_different_time == 1)
                           ? shift.start_time ?? ""

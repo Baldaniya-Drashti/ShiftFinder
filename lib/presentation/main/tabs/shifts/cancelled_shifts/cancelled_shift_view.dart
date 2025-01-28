@@ -421,6 +421,11 @@ class CancelledShiftView extends StatelessWidget {
                       fontSize: 12,
                       textColor: AppColors.black.withOpacity(0.8),
                     ),
+                    BaseText(
+                      text: shift.location?.facility_type?.name ?? "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ],
                 ),
               ),

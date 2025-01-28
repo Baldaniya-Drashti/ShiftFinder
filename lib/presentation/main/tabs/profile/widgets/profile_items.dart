@@ -45,14 +45,14 @@ class ProfileItems extends StatelessWidget {
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.previousShifts,
         onTap: () {
-          context.router.push(PageRouteInfo(EmployerLongTermView.name));
+          // context.router.push(PageRouteInfo(EmployerLongTermView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          context.router.push(PageRouteInfo(EmployerFullPostingView.name));
+          // context.router.push(PageRouteInfo(EmployerFullPostingView.name));
         },
       ),
       ProfileItemModel(
@@ -81,7 +81,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Saved Templates',
         image: SvgImageConstant.savedTemplates,
         onTap: () {
-          context.router.push(PageRouteInfo(SaveTemplateView.name));
+          // context.router.push(PageRouteInfo(SaveTemplateView.name));
         },
       ),
       ProfileItemModel(
@@ -226,15 +226,14 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.calendarWithClock,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorLongTermView.name));
-
+          // context.router.push(PageRouteInfo(ContractorLongTermView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-           context.router.push(PageRouteInfo(ContractorFullTimePositionView.name));
+          // context.router.push(PageRouteInfo(ContractorFullTimePositionView.name));
         },
       ),
       ProfileItemModel(
@@ -253,7 +252,7 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorEarningView.name));
+          context.router.push(PageRouteInfo(ContractorEarningView.name));
         },
       ),
       ProfileItemModel(

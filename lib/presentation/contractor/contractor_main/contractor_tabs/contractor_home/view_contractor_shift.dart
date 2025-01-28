@@ -525,6 +525,11 @@ class ViewContractorShift extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
               ],
             ),
             trailing: BaseText(

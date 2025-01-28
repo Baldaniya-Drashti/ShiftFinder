@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 
@@ -26,7 +27,6 @@ class ContractorEarningBloc
           if (value.dates.isNotEmpty) {
             DateTime startDate = value.dates.first;
             DateTime endDate = value.dates.last;
-
             add(ContractorEarningEvent.getTotalEarningStatement(
                 startDate: startDate, endDate: endDate));
           }
@@ -56,7 +56,7 @@ class ContractorEarningBloc
           } */
         },
         getTotalEarningStatement: (e) async {
-          Either<MainFailure, CommonResponse>? failureOrSuccess;
+          Either<MainFailure, EarningStatementDTO>? failureOrSuccess;
 
           emit(state.copyWith(isLoading: true));
 
@@ -79,7 +79,7 @@ class ContractorEarningBloc
             (r) {
               emit(state.copyWith(
                 isLoading: false,
-                // statement: r,
+                statement: r,
               ));
             },
           );

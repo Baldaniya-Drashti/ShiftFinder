@@ -21,6 +21,11 @@ _$UpComingShiftDTOImpl _$$UpComingShiftDTOImplFromJson(
       longitude: (json['longitude'] as num?)?.toDouble(),
       latitude: (json['latitude'] as num?)?.toDouble(),
       location: json['location'] as String?,
+      facility_type: json['facility_type'] == null
+          ? null
+          : FacilityTypeDto.fromJson(
+              json['facility_type'] as Map<String, dynamic>),
+      facility_type_other: json['facility_type_other'] as String?,
       request: (json['request'] as num?)?.toInt(),
       urgent_action: (json['urgent_action'] as num?)?.toInt(),
       revoke_status: (json['revoke_status'] as num?)?.toInt(),
@@ -50,6 +55,8 @@ Map<String, dynamic> _$$UpComingShiftDTOImplToJson(
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'location': instance.location,
+      'facility_type': instance.facility_type,
+      'facility_type_other': instance.facility_type_other,
       'request': instance.request,
       'urgent_action': instance.urgent_action,
       'revoke_status': instance.revoke_status,

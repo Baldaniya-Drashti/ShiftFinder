@@ -363,6 +363,13 @@ class ContractorHomeView extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.80),
                     ),
+                    BaseText(
+                      text: state.contractorDashboardList[index].location
+                              ?.facility_type?.name ??
+                          "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ],
                 ),
                 trailing: BaseText(

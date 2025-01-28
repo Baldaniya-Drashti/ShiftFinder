@@ -145,53 +145,60 @@ class MyCalendarView extends StatelessWidget {
           : DateTime.now();
     }).toList();
 
+    print("Selected Datess---> $selectedDates");
     return CustomMultiDatePicker(
-      value: selectedDates,
-      dayBuilder: ({
-        required date,
-        textStyle,
-        decoration,
-        isSelected,
-        isDisabled,
-        isToday,
-      }) {
-        Color? dynamicColor = getColorForDate(date, state);
-        return Container(
-          decoration: decoration?.copyWith(
-              color: dynamicColor,
-              border: Border.all(color: AppColors.primaryColor, width: 2)),
-          child: Center(
-            child: Text(
-              MaterialLocalizations.of(context).formatDecimal(date.day),
-              style: (dynamicColor != null)
-                  ? textStyle?.copyWith(
-                      color: (dynamicColor == Color(0xffE1E8ED))
-                          ? AppColors.black
-                          : AppColors.white)
-                  : textStyle,
+        value: selectedDates,
+        dayBuilder: ({
+          required date,
+          textStyle,
+          decoration,
+          isSelected,
+          isDisabled,
+          isToday,
+        }) {
+          Color? dynamicColor = getColorForDate(date, state);
+          print("dateEntry.colorText ---> $dynamicColor");
+          return Container(
+            decoration: decoration?.copyWith(
+                color: dynamicColor,
+                border: Border.all(color: AppColors.primaryColor, width: 2)),
+            child: Center(
+              child: Text(
+                MaterialLocalizations.of(context).formatDecimal(date.day),
+                style: (dynamicColor != null)
+                    ? textStyle?.copyWith(
+                        color: (dynamicColor == Color(0xffE1E8ED))
+                            ? AppColors.black
+                            : AppColors.white)
+                    : textStyle,
+              ),
             ),
-          ),
-        );
-      },
-      selectableDayPredicate: (date) {
-        final dateExist = isDateExist(selectedDates, date);
-        return dateExist;
-      },
-      onDisplayedMonthChanged: (value) {
-        print("Month changed---> $value");
-        context
-            .read<MyCalendarViewBloc>()
-            .add(MyCalendarViewEvent.selectDateEvent(context, []));
-      },
-      onValueChanged: (value) {
-        context
-            .read<MyCalendarViewBloc>()
-            .add(MyCalendarViewEvent.selectDateEvent(context, value));
-      },
-    );
+          );
+        },
+        selectableDayPredicate: (date) {
+          final dateExist = isDateExist(selectedDates, date);
+          return dateExist;
+        },
+        onDisplayedMonthChanged: (value) {
+          print("Month changed---> $value");
+          context
+              .read<MyCalendarViewBloc>()
+              .add(MyCalendarViewEvent.selectDateEvent(
+                context,
+                [],
+                selectedMonthFirstDate: value,
+              ));
+        },
+        onValueChanged: (value) {
+          print("valuevaluevalue----> $value");
+          context
+              .read<MyCalendarViewBloc>()
+              .add(MyCalendarViewEvent.selectDateEvent(context, value));
+        });
   }
 
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
+    // if (selectedDates.length == 1) return false;
     return selectedDates.any((selectedDate) {
       // print("currentDate---> $currentDate");
       // print("selectedDate---> $selectedDate");
@@ -302,6 +309,11 @@ class MyCalendarView extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

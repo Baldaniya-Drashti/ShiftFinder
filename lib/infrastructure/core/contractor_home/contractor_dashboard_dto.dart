@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 
 part 'contractor_dashboard_dto.freezed.dart';
@@ -62,6 +63,8 @@ class Location with _$Location {
     double? latitude,
     double? longitude,
     String? location,
+    FacilityTypeDto? facility_type,
+    String? facility_type_other,
   }) = _Location;
 
   factory Location.fromJson(Map<String, dynamic> json) =>

@@ -662,12 +662,24 @@ class ViewHomeShiftDetails extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
-            subtitle: BaseText(
-              text:
-                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              textColor: AppColors.black.withOpacity(0.70),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text:
+                      "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.black.withOpacity(0.70),
+                ),
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.black.withOpacity(0.70),
+                ),
+              ],
             ),
             trailing: BaseText(
               text: post.last_ago ?? "",

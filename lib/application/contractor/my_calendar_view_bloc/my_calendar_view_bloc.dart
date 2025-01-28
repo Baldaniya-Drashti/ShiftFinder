@@ -49,6 +49,7 @@ class MyCalendarViewBloc
                 isLoading: false,
                 showErrorMessages: false,
                 multiDates: sortedMultiDates,
+                calendarDates: sortedMultiDates,
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               ));
               List<DateTime> dateTimeList = state.multiDates.isNotEmpty
@@ -67,47 +68,74 @@ class MyCalendarViewBloc
             },
           );
         },
-        /*selectDateEvent: (e) {
-          List<MyCalendarDTO> updatedDateTimeDTOList =
-              List.from(state.multiDates);
-          print("updatedDateTimeDTOList----> $updatedDateTimeDTOList");
 
-          Set<DateTime> set2 = e.selectedDateList.toSet();
+        /// Formatted code
+        /* getMyCalendarList: (e) async {
+          Either<MainFailure, List<MyCalendarDTO>>? failureOrSuccess;
+          emit(state.copyWith(
+            isLoading: true,
+            failureOrSuccessOption: none(),
+          ));
 
-          List<MyCalendarDTO> result = updatedDateTimeDTOList.where((item) {
-            return !set2.contains(
-                DateTime.fromMillisecondsSinceEpoch((item.date ?? -1) * 1000));
-          }).toList();
+          failureOrSuccess = await _mainFacade.getMyCalendarListApi();
 
-          final index = updatedDateTimeDTOList
-              .indexWhere((item) => item.date == result[0].date);
+          failureOrSuccess.fold(
+            (l) => emit(state.copyWith(
+              isLoading: false,
+              showErrorMessages: true,
+              failureOrSuccessOption: optionOf(failureOrSuccess),
+            )),
+            (r) {
+              print("post--> $r");
+              List<MyCalendarDTO> sortedMultiDates = List.from(r)
+                ..sort((a, b) {
+                  if (a.date != null && b.date != null) {
+                    return a.date!.compareTo(b.date!);
+                  } else {
+                    return -1;
+                  }
+                });
 
-          updatedDateTimeDTOList[index] =
-              updatedDateTimeDTOList[index].copyWith(
-            isUnAvailable: !updatedDateTimeDTOList[index].isUnAvailable,
-            colorText: (!(updatedDateTimeDTOList[index].isUnAvailable) == true)
-                ? "0xFFE1E8ED"
-                : "0xFF0FB62A",
+              print("sorted Multidatess--> $sortedMultiDates");
+
+              emit(state.copyWith(
+                isLoading: false,
+                showErrorMessages: false,
+                multiDates: sortedMultiDates,
+                failureOrSuccessOption: optionOf(failureOrSuccess),
+              ));
+              List<DateTime> dateTimeList = state.multiDates.isNotEmpty
+                  ? (state.multiDates.length > 1)
+                      ? state.multiDates
+                          .map((item) => DateTime.fromMillisecondsSinceEpoch(
+                              (item.date ?? -1) * 1000))
+                          .skip(1)
+                          .toList()
+                      : state.multiDates
+                          .map((item) => DateTime.fromMillisecondsSinceEpoch(
+                              (item.date ?? -1) * 1000))
+                          .toList()
+                  : [];
+
+              print("DateTime Listttt--> ${dateTimeList}");
+              if (dateTimeList.isNotEmpty) {
+                add(MyCalendarViewEvent.selectDateEvent(
+                  e.context,
+                  dateTimeList,
+                ));
+              }
+            },
           );
-
-          List<MyCalendarDTO> unAvailableDates = updatedDateTimeDTOList
-              .where((item) => item.isUnAvailable == true)
-              .toList();
-
-          emit(
-            state.copyWith(
-              multiDates: updatedDateTimeDTOList,
-              unAvailableDates: unAvailableDates,
-            ),
-          );
-        },*/
+        },
+         */
 
         selectDateEvent: (e) async {
           String? currentDateId;
           int? currentDate;
 
           Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
-          if (e.selectedDateList.isNotEmpty) {
+          // if (e.selectedDateList.isNotEmpty) {
+          if (e.selectedMonthFirstDate == null) {
             List<MyCalendarDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
 
@@ -188,6 +216,286 @@ class MyCalendarViewBloc
             ));
           }
         },
+
+        /* selectDateEvent: (e) async {
+          String? currentDateId;
+          int? currentDate;
+
+          Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
+
+          DateTime? selectedMonthFirstDate =
+              e.selectedMonthFirstDate ?? DateTime.now();
+
+          // Ensure `selectedMonthFirstDate` is not null
+          // if (selectedMonthFirstDate != null) {
+          int selectedMonth = selectedMonthFirstDate.month;
+          int selectedYear = selectedMonthFirstDate.year;
+
+          // Get the updated list of dates
+          List<MyCalendarDTO> updatedDateTimeDTOList =
+              List.from(state.calendarDates);
+
+          // Filter dates that match the selected month and year
+          List<MyCalendarDTO> datesInMonth = updatedDateTimeDTOList;
+          // if (e.selectedMonthFirstDate != null) {
+          datesInMonth = updatedDateTimeDTOList.where((item) {
+            DateTime date =
+                DateTime.fromMillisecondsSinceEpoch((item.date ?? -1) * 1000);
+            return date.month == selectedMonth && date.year == selectedYear;
+          }).toList();
+          // }
+
+          print("selectedMonth----> $selectedMonth");
+          print("selectedYear----> $selectedYear");
+
+          if (datesInMonth.isNotEmpty) {
+            // Sort dates in ascending order
+            datesInMonth.sort((a, b) {
+              DateTime dateA =
+                  DateTime.fromMillisecondsSinceEpoch((a.date ?? -1) * 1000);
+              DateTime dateB =
+                  DateTime.fromMillisecondsSinceEpoch((b.date ?? -1) * 1000);
+              return dateA.compareTo(dateB);
+            });
+
+            // Select the first date
+            // currentDateId = updatedDateTimeDTOList.first.employer_post_id;
+            // currentDate = updatedDateTimeDTOList.first.date;
+
+            // Update the availability of dates in the result
+            Set<DateTime> set2 = e.selectedDateList.toSet();
+
+            List<MyCalendarDTO> result = datesInMonth.map((item) {
+              bool isSelected = set2.contains(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      (item.date ?? -1) * 1000));
+
+              if (!isSelected) {
+                if (e.selectedMonthFirstDate != null) {
+                  currentDateId = updatedDateTimeDTOList.first.employer_post_id;
+                  currentDate = updatedDateTimeDTOList.first.date;
+
+                  if (updatedDateTimeDTOList.isNotEmpty &&
+                      updatedDateTimeDTOList.indexOf(item) == 0) {
+                    MyCalendarDTO firstItem = item.copyWith(
+                      isUnAvailable: true,
+                      colorText: "0xFFE1E8ED",
+                    );
+                    return firstItem;
+                  } else {
+                    return item.copyWith(
+                      isUnAvailable: false,
+                      colorText: "0xFF0FB62A",
+                    );
+                  }
+                } else {
+                  currentDateId = item.employer_post_id;
+                  currentDate = item.date;
+                  return item.copyWith(
+                    isUnAvailable: !item.isUnAvailable,
+                    colorText:
+                        (!item.isUnAvailable) ? "0xFFE1E8ED" : "0xFF0FB62A",
+                  );
+                }
+              } else {
+                return item.copyWith(
+                  isUnAvailable: false,
+                  colorText: "0xFF0FB62A",
+                );
+              }
+            }).toList();
+
+            // Filter unavailable dates
+            List<MyCalendarDTO> unAvailableDates =
+                result.where((item) => item.isUnAvailable == true).toList();
+
+            print("Result---> $result");
+            emit(
+              state.copyWith(
+                multiDates: result,
+                unAvailableDates: unAvailableDates,
+                isGetting: true,
+              ),
+            );
+
+            print("mycalendar result ---> $result");
+
+            // Call the API
+            failureOrSuccess =
+                await _mainFacade.getContractorMyCalendarDetailApi(
+              (currentDateId != null)
+                  ? currentDateId!
+                  : (result.isNotEmpty)
+                      ? "${result[0].employer_post_id ?? -1}"
+                      : "-1",
+              currentDate,
+            );
+
+            failureOrSuccess.fold(
+              (l) {
+                emit(state.copyWith(isGetting: false));
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                print("post ---> $r");
+                emit(state.copyWith(
+                  isGetting: false,
+                  contractorDetail: r,
+                ));
+              },
+            );
+          } else {
+            // No dates exist in the selected month
+            currentDateId = null;
+            currentDate = null;
+
+            print("No dates found for the selected month.");
+
+            emit(state.copyWith(
+              isGetting: false,
+              contractorDetail: null,
+            ));
+          }
+          // } else {
+          //   // If `selectedMonthFirstDate` is null
+          //   emit(state.copyWith(
+          //     isGetting: false,
+          //     contractorDetail: null,
+          //   ));
+          // }
+        },
+ */
+        /// Formatted code
+        /* selectDateEvent: (e) async {
+          String? currentDateId;
+          int? currentDate;
+
+          Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
+          List<MyCalendarDTO> updatedDateTimeDTOList =
+              List.from(state.multiDates);
+
+          DateTime? firstDateInSelectedMonth = e.selectedMonthFirstDate;
+          // Extract the month and year of the selected month
+          int? selectedMonth = firstDateInSelectedMonth?.month;
+          int? selectedYear = firstDateInSelectedMonth?.year;
+
+          List<MyCalendarDTO> datesInMonth =
+              updatedDateTimeDTOList.where((item) {
+            DateTime date =
+                DateTime.fromMillisecondsSinceEpoch((item.date ?? -1) * 1000);
+            if (selectedMonth != null && selectedYear != null) {
+              return date.month == selectedMonth && date.year == selectedYear;
+            }
+            return true;
+          }).toList();
+          datesInMonth.sort((a, b) {
+            DateTime dateA =
+                DateTime.fromMillisecondsSinceEpoch((a.date ?? -1) * 1000);
+            DateTime dateB =
+                DateTime.fromMillisecondsSinceEpoch((b.date ?? -1) * 1000);
+            return dateA.compareTo(dateB);
+          });
+          bool hasDateInMonth = datesInMonth.isNotEmpty;
+
+          // Check if any date exists in the same month
+          /*  bool? hasDateInMonth = datesInMonth.any((item) {
+            DateTime date =
+                DateTime.fromMillisecondsSinceEpoch((item.date ?? -1) * 1000);
+            if (selectedMonth != null && selectedYear != null) {
+              return date.month == selectedMonth && date.year == selectedYear;
+            }
+            return true;
+          }); */
+          print("hasDateInMonth-----> $hasDateInMonth");
+
+          // if (e.selectedDateList.isNotEmpty) {
+          if (hasDateInMonth) {
+            Set<DateTime> set2 = e.selectedDateList.toSet();
+
+            List<MyCalendarDTO> result = updatedDateTimeDTOList.map((item) {
+              bool isSelected = set2.contains(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      (item.date ?? -1) * 1000));
+
+              print("isSelected-----> $isSelected");
+
+              if (updatedDateTimeDTOList.length == 1 || !isSelected) {
+                currentDateId = item.employer_post_id;
+                currentDate = item.date;
+                print("currentDateId---> $currentDateId");
+                print("currentDate---> $currentDate");
+
+                return item.copyWith(
+                  isUnAvailable: !item.isUnAvailable,
+                  colorText: (!item.isUnAvailable == true)
+                      ? "0xFFE1E8ED"
+                      : "0xFF0FB62A",
+                );
+              } else {
+                return item.copyWith(
+                  isUnAvailable: false,
+                  colorText: "0xFF0FB62A",
+                );
+              }
+            }).toList();
+
+            List<MyCalendarDTO> unAvailableDates =
+                result.where((item) => item.isUnAvailable == true).toList();
+
+            emit(
+              state.copyWith(
+                multiDates: result,
+                unAvailableDates: unAvailableDates,
+                isGetting: true,
+              ),
+            );
+
+            print("mycalendar result---> $currentDateId");
+
+            failureOrSuccess =
+                await _mainFacade.getContractorMyCalendarDetailApi(
+              (currentDateId != null)
+                  ? currentDateId!
+                  : (result.isNotEmpty)
+                      ? "${result[0].employer_post_id ?? -1}"
+                      : "-1",
+              currentDate,
+            );
+
+            failureOrSuccess.fold(
+              (l) {
+                emit(state.copyWith(isGetting: false));
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                print("post--> $r");
+                emit(state.copyWith(
+                  isGetting: false,
+                  contractorDetail: r,
+                ));
+              },
+            );
+          } else {
+            emit(state.copyWith(
+              isGetting: false,
+              contractorDetail: null,
+            ));
+          }
+        }, */
       );
     });
   }
