@@ -14,8 +14,13 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
       user_id: (json['user_id'] as num?)?.toInt(),
       listing_id: json['listing_id'] as String?,
       languages_list_id: json['languages_list_id'] as String?,
+      post_type: (json['post_type'] as num?)?.toInt(),
+      location_id: json['location_id'] as String?,
       last_ago: json['last_ago'] as String?,
       company_name: json['company_name'] as String?,
+      roles_list_id: json['roles_list_id'] as String?,
+      specialties_detail_id: json['specialties_detail_id'] as String?,
+      softwares_skill_list_id: json['softwares_skill_list_id'] as String?,
       distance: json['distance'] as String?,
       roles_list: (json['roles_list'] as List<dynamic>?)
           ?.map((e) => SkillDTO.fromJson(e as Map<String, dynamic>))
@@ -34,6 +39,7 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
           ?.map((e) => SkillDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       language_other: json['language_other'] as String?,
+      team_id: json['team_id'] as String?,
       location: json['location'] == null
           ? null
           : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
@@ -97,8 +103,13 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'user_id': instance.user_id,
       'listing_id': instance.listing_id,
       'languages_list_id': instance.languages_list_id,
+      'post_type': instance.post_type,
+      'location_id': instance.location_id,
       'last_ago': instance.last_ago,
       'company_name': instance.company_name,
+      'roles_list_id': instance.roles_list_id,
+      'specialties_detail_id': instance.specialties_detail_id,
+      'softwares_skill_list_id': instance.softwares_skill_list_id,
       'distance': instance.distance,
       'roles_list': instance.roles_list,
       'roles_list_name': instance.roles_list_name,
@@ -108,6 +119,7 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'specialties_detail_other': instance.specialties_detail_other,
       'languages_list': instance.languages_list,
       'language_other': instance.language_other,
+      'team_id': instance.team_id,
       'location': instance.location,
       'location_unit': instance.location_unit,
       'rate_hour': instance.rate_hour,

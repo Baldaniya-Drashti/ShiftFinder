@@ -41,20 +41,27 @@ import '../../core/widgets/buttons/common_button.dart';
 
 @RoutePage(name: "EmployerLongTermPositionAddDetailView")
 class EmployerLongTermPositionAddDetailView extends StatelessWidget {
-  const EmployerLongTermPositionAddDetailView({super.key, required this.postShiftDTO, this.employer});
+  const EmployerLongTermPositionAddDetailView({
+    super.key,
+    required this.postShiftDTO,
+    this.employer,
+    this.postId,
+  });
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto? employer;
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
     print("employerrrr=> ${employer?.job_description}");
+    print("employerrrr=> ${postId}");
     return Scaffold(
       appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
       body: BlocProvider(
         create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>()
           ..add(
-            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer),
+            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer,postId),
           ),
         child: _EmployerLongTermPositionDetailContent(employer),
       ),
@@ -189,8 +196,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   },
                 ),
                 Gap(getSize(12)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                    ListInputEmptyOrNot>(
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, ListInputEmptyOrNot>(
                   selector: (state) {
                     return state.requiredShiftScheduleChipList;
                   },
@@ -301,8 +307,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                           maxLines: 3,
                         ),
                         Gap(getSize(16)),
-                        BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                            String?>(
+                        BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
                           selector: (state) => state.employerLongTermAddDetailDto.terms_document,
                           builder: (context, documentPath) {
                             if (documentPath != null) return selectedImage(context, documentPath);
@@ -337,8 +342,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       value: onCallIncluded,
                       onChanged: (value) {
                         context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(
-                                  onCallIncluded ? 0 : 1),
+                              EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(onCallIncluded ? 0 : 1),
                             );
                       },
                       label: "This contract may include on call.",
@@ -402,17 +406,12 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                 Gap(getSize(16)),
                 CommonButton(
                   onPressed: () {
-                    final list = context
-                        .read<EmployerLongTermPositionAddDetailBloc>()
-                        .state
-                        .requiredShiftScheduleChipList
-                        .getValue();
+                    final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
                     if (_formKey.currentState?.validate() != true || list.isEmpty) {
                       showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
                       return;
                     }
-                    final employer =
-                        context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                    final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
                     final startDate = employer.start_date;
                     final endDate = employer.end_date;
                     if (startDate == null || endDate == null) return;
@@ -517,9 +516,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
-            context
-                .read<EmployerLongTermPositionAddDetailBloc>()
-                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
           },
         );
       },
@@ -609,27 +606,21 @@ class _UploadDocument extends StatelessWidget {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context
-              .read<EmployerLongTermPositionAddDetailBloc>()
-              .add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
         }
       },
       context: context,
@@ -684,9 +675,7 @@ class _ShiftSchedule extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context
-                .read<EmployerLongTermPositionAddDetailBloc>()
-                .add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
                   List<String>.from(selectedList),
                 ));
           },

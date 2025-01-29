@@ -59,6 +59,10 @@ import 'package:shift/application/contractor/contractor_earning_bloc/contractor_
     as _i608;
 import 'package:shift/application/contractor/contractor_edit_profile_bloc/contractor_edit_profile_bloc.dart'
     as _i392;
+import 'package:shift/application/contractor/contractor_full_time_position/contractor_full_time_position_bloc.dart'
+    as _i725;
+import 'package:shift/application/contractor/contractor_long_time/contractor_long_term_bloc.dart'
+    as _i106;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -271,6 +275,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i170.MyCalendarViewBloc>(
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i725.ContractorFullTimePositionBloc>(
+        () => _i725.ContractorFullTimePositionBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i456.ContractorRatingBloc>(
         () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i634.ContractorPerformanceInsightBloc>(
@@ -302,6 +308,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i464.ShiftActionBloc>(
         () => _i464.ShiftActionBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i106.ContractorLongTermBloc>(
+        () => _i106.ContractorLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(

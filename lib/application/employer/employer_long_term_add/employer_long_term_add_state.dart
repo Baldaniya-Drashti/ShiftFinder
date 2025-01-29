@@ -54,6 +54,8 @@ class EmployerLongTermAddState with _$EmployerLongTermAddState{
     required bool showRoleTypeError,
     required bool showSpeExperienceError,
     required bool showLocationError,
+
+    int? postId,
     required Option<Either<MainFailure, HealthcarePostDTO>> authFailureOrSuccessOption,
   }) =  _EmployerLongTermAddState;
 

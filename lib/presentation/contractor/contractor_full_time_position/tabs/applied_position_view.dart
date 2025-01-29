@@ -1,44 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/contractor/contractor_full_time_position/contractor_full_time_position_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 
-class AppliedPositionView extends StatelessWidget {
-  const AppliedPositionView({super.key});
+class ContractorFullTimeAppliedPositionView extends StatelessWidget {
+  const ContractorFullTimeAppliedPositionView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.all(12),
-      itemBuilder: (context, index) => BaseTileDecoration(
-        child: Column(
+    return BlocBuilder<ContractorFullTimePositionBloc, ContractorFullTimePositionState>(
+      builder: (context, state) {
+        return Stack(
           children: [
-            _buildPositionTile(context),
-            Gap(12),
-            _buildSalaryInformation(context),
-            Gap(12),
-            _buildPositionDescription(context),
-            Gap(12),
-            _buildButtons(context)
+            PaginatedListView(
+              isNoDataFound: state.isNoDataFound,
+              onRefresh: () {
+                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: true));
+              },
+              onLoading: () {
+                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: false));
+              },
+              refreshController: context.read<ContractorFullTimePositionBloc>().appliedRefreshController,
+              child: state.isLoading
+                  ? CenterLoadingIndicator()
+                  : state.isErrorInAPI
+                  ? Center(
+                child: BaseText(text: StringConstant.somethindWentWrong),
+              )
+                  : ListView.separated(
+                padding: EdgeInsets.all(12),
+                itemBuilder: (context, index) => BaseTileDecoration(
+                  child: Column(
+                    children: [
+                      _buildPositionTile(context),
+                      Gap(12),
+                      _buildSalaryInformation(context),
+                      Gap(12),
+                      _buildPositionDescription(context),
+                      Gap(12),
+                      _buildButtons(context)
+                    ],
+                  ),
+                ),
+                separatorBuilder: (context, index) => Gap(16),
+                itemCount: 5,
+              ),
+            ),
+            if (state.postDataLoading) CenterLoadingIndicator()
+
           ],
-        ),
-      ),
-      separatorBuilder: (context, index) => Gap(16),
-      itemCount: 5,
+        );
+      },
     );
   }
 
   Widget _positionDetailButton(
-      BuildContext context, {
-        required VoidCallback onPressed,
-      }) {
+    BuildContext context, {
+    required VoidCallback onPressed,
+  }) {
     return CommonButton(
       borderRadius: 7,
       height: 40,
@@ -146,7 +177,7 @@ class AppliedPositionView extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14,
               text:
-              "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
+                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
             ),
           ],
         ),
@@ -264,8 +295,7 @@ class AppliedPositionView extends StatelessWidget {
                 final result = await AppDialog.showCommonDialog(
                   context: context,
                   title: "Cancel",
-                  content:
-                  "Are you sure you want to cancel this application?",
+                  content: "Are you sure you want to cancel this application?",
                   successLabel: "Ok",
                 );
                 if (result ?? false) {

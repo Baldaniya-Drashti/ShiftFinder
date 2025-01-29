@@ -69,6 +69,19 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                   _buildApplicationInformation(context, employerLongTermSuccessDto: employerLongTermSuccessDto),
                                   rateHoursBox(employerLongTermSuccessDto: employerLongTermSuccessDto),
                                   _buildEstimatedHours(context, employerLongTermSuccessDto: employerLongTermSuccessDto),
+                                  if (employerLongTermSuccessDto?.specialties_detail != null &&
+                                      employerLongTermSuccessDto!.specialties_detail!.isNotEmpty)
+                                    requiredSkillBox(
+                                      svgPrefixIcon: SvgImageConstant.female,
+                                      title: StringConstant.specialtiesRequired,
+                                      value: employerLongTermSuccessDto.specialties_detail ?? "",
+                                    ),
+                                  if (employerLongTermSuccessDto?.software_skill != null && employerLongTermSuccessDto!.software_skill!.isNotEmpty)
+                                    requiredSkillBox(
+                                      svgPrefixIcon: SvgImageConstant.mouse,
+                                      title: StringConstant.softwareSkills,
+                                      value: employerLongTermSuccessDto.software_skill ?? "",
+                                    ),
                                   _buildShiftSchedule(context, employerLongTermSuccessDto: employerLongTermSuccessDto),
                                   _buildLanguageRequirement(context, employerLongTermSuccessDto: employerLongTermSuccessDto),
                                   _buildLocationDetail(context, employerLongTermSuccessDto: employerLongTermSuccessDto),
@@ -192,6 +205,67 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
     );
   }
 
+  Widget requiredSkillBox({
+    required String svgPrefixIcon,
+    required String title,
+    required String value,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: getSize(43),
+              width: getSize(35),
+              child: SvgPicture.asset(
+                svgPrefixIcon,
+                color: AppColors.primaryColor,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+              child: SvgPicture.asset(
+                SvgImageConstant.verticalLine,
+              ),
+            ),
+          ],
+        ),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(height: getSize(3)),
+            Flexible(
+              child: BaseText(
+                text: value,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                lineHeight: getSize(1),
+                maxLines: 10,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   Widget _buildCheckListTile(
     BuildContext context, {
     required bool value,

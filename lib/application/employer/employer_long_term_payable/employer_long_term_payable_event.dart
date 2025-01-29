@@ -6,5 +6,7 @@ class EmployerLongTermPayableEvent with _$EmployerLongTermPayableEvent {
     required int id,
     required BuildContext context,
     required int totalVacancy,
+    int? postId,
+    required EmployerLongTermSuccessDto employer,
   }) = _OnPostShift;
 }

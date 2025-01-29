@@ -30,6 +30,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("ddddd${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermAddBloc>()
         ..add(

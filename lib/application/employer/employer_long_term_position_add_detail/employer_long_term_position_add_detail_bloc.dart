@@ -19,8 +19,7 @@ part 'employer_long_term_position_add_detail_state.dart';
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc
-    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
+class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
   EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
@@ -76,11 +75,11 @@ class EmployerLongTermPositionAddDetailBloc
           emit(
             state.copyWith(
               postShiftDto: value.postShitDto,
+              postId: value.postId,
               employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto(),
               requiredShiftScheduleChipList: ListInputEmptyOrNot(
                 getShiftSchedule(value.employer?.shift_schedule_type ?? "1"),
               ),
-
             ),
           );
           print("==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
@@ -104,13 +103,14 @@ class EmployerLongTermPositionAddDetailBloc
             shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
             number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
             terms: value.terms,
+            location_unit: ""
           );
           print("employer => ${employer.toJson()}");
 
           value.context.router.push(
             PageRouteInfo(
               EmployerLongTermPostConfirmationView.name,
-              args: EmployerLongTermPostConfirmationViewArgs(postShiftDTO: postShift, employerAddDetailDto: employer),
+              args: EmployerLongTermPostConfirmationViewArgs(postShiftDTO: postShift, employerAddDetailDto: employer, postId: state.postId),
             ),
           );
         }, onChangeContractIncludeCall: (OnChangeContractIncludeCall value) {
@@ -140,7 +140,7 @@ class EmployerLongTermPositionAddDetailBloc
     );
   }
 
-  List<String>  getShiftSchedule(String scheduleShift) {
+  List<String> getShiftSchedule(String scheduleShift) {
     final list = <String>[];
     final shiftList = scheduleShift.split(",");
     if (shiftList.contains("1")) list.add("Morning");

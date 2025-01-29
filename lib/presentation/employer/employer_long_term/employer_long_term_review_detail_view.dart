@@ -25,12 +25,18 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermReviewDetailView")
 class EmployerLongTermReviewDetailView extends StatelessWidget {
-  const EmployerLongTermReviewDetailView({super.key, required this.employerLongTermSuccessDto});
+  const EmployerLongTermReviewDetailView({
+    super.key,
+    required this.employerLongTermSuccessDto,
+    this.postId,
+  });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
+    print("llllll${employerLongTermSuccessDto.toJson()}");
     return Scaffold(
       appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Review Details"),
       body: SingleChildScrollView(
@@ -245,12 +251,13 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
   }
 
   Widget _buildSubmitButton(BuildContext context) {
+
     return CommonButton(
       onPressed: () {
         context.router.push(
           PageRouteInfo(
             EmployerLongTermPayableView.name,
-            args: EmployerLongTermPayableViewArgs(employerLongTermSuccessDto: employerLongTermSuccessDto),
+            args: EmployerLongTermPayableViewArgs(employerLongTermSuccessDto: employerLongTermSuccessDto,postId: postId),
           ),
         );
       },

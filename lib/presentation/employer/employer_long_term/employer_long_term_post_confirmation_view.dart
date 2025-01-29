@@ -23,17 +23,19 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: "EmployerLongTermPostConfirmationView")
 class EmployerLongTermPostConfirmationView extends StatelessWidget {
   const EmployerLongTermPostConfirmationView(
-      {super.key, required this.postShiftDTO, required this.employerAddDetailDto});
+      {super.key, required this.postShiftDTO, required this.employerAddDetailDto, this.postId});
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto employerAddDetailDto;
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
+    print("pppps${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermConfirmationBloc>()
         ..add(
-          EmployerLongTermConfirmationEvent.onCreate(postShiftDTO, employerAddDetailDto),
+          EmployerLongTermConfirmationEvent.onCreate(postShiftDTO, employerAddDetailDto,postId),
         ),
       child: Builder(
         builder: (context) {

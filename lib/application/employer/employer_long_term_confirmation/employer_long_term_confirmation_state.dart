@@ -10,6 +10,7 @@ class EmployerLongTermConfirmationState with _$EmployerLongTermConfirmationState
     @Default(false) bool agreeTermsAndCondition,
     @Default(false) bool postDataLoading,
     @Default(PostShiftDTO()) PostShiftDTO postShiftDTO,
+    int? postId,
     @Default(EmployerLongTermSuccessDto()) EmployerLongTermSuccessDto employerAddDetailDto,
   }) = _EmployerLongTermConfirmationState;
 

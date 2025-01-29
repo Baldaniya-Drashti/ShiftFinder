@@ -9,6 +9,7 @@ class EmployerLongTermPositionAddDetailState with _$EmployerLongTermPositionAddD
     @Default(false) bool postDataLoading,
     String? documentPath,
     final CommonDropdownModel? selectedShiftSchedule,
+     int? postId,
     @Default(false) final bool hasMoreVacancy,
     @Default(EmployerLongTermSuccessDto()) EmployerLongTermSuccessDto employerLongTermAddDetailDto,
     @Default(PostShiftDTO()) PostShiftDTO postShiftDto,

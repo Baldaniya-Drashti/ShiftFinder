@@ -67,6 +67,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             state.copyWith(
               isLoading: true,
               authFailureOrSuccessOption: none(),
+              postId: e.postId,
             ),
           );
           if (e.postId != -1) {
@@ -380,7 +381,11 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             e.context.router.push(
               PageRouteInfo(
                 EmployerLongTermPositionAddDetailView.name,
-                args: EmployerLongTermPositionAddDetailViewArgs(postShiftDTO: post, employer: state.updatePost),
+                args: EmployerLongTermPositionAddDetailViewArgs(
+                  postShiftDTO: post,
+                  employer: state.updatePost,
+                  postId: state.postId,
+                ),
               ),
             );
 
@@ -421,18 +426,6 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
   }
 
   String getSelectedLanguageId() {
-    /*List<int> outputIds = [];
-    for (String title in state.languageChipList.getValue()) {
-      for (ListDTO item in CommonList.languageList) {
-        if (item.title == title) {
-          outputIds.add(item.id ?? -1);
-          break;
-        }
-      }
-    }
-    print("IDSSSSS----- ${outputIds}");
-    return outputIds;*/
-
     final languageIds = state.languageChipList
         .getValue()
         .map((chipName) => state.languageList.firstWhere(
@@ -506,7 +499,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
       (r) {
         final data = EmployerLongTermSuccessDto.fromJson(r.data);
         print("kkkkkk${data.job_description}");
-         emit(
+        emit(
           state.copyWith(
             updatePost: data,
             roleType: InputEmptyOrNot(data.roles_list_name ?? ""),
@@ -524,7 +517,6 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
             selectedLocationUnit: data.location_unit ?? "",
             rateHour: Rate((data.rate_hour != null) ? "${data.rate_hour ?? ""}" : ""),
-
           ),
         );
         print("=>updatePostCreate ${state.updatePost.job_description}");

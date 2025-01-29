@@ -16,12 +16,18 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermPayableView")
 class EmployerLongTermPayableView extends StatelessWidget {
-  const EmployerLongTermPayableView({super.key, required this.employerLongTermSuccessDto});
+  const EmployerLongTermPayableView({
+    super.key,
+    required this.employerLongTermSuccessDto,
+    this.postId,
+  });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
+    print("ppppp>?${employerLongTermSuccessDto.id}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermPayableBloc>(),
       child: Builder(builder: (context) {
@@ -49,6 +55,8 @@ class EmployerLongTermPayableView extends StatelessWidget {
                                   context: context,
                                   id: employerLongTermSuccessDto.id ?? -1,
                                   totalVacancy: employerLongTermSuccessDto.number_of_vacancie ?? -1,
+                                  postId: postId,
+                                  employer: employerLongTermSuccessDto,
                                 ),
                               );
                         }

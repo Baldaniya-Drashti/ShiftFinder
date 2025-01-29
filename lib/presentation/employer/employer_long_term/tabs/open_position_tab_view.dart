@@ -192,7 +192,7 @@ class OpenPositionTabView extends StatelessWidget {
                 context.router.push(
                   PageRouteInfo(
                     EmployerLongTermPositionAddView.name,
-                    args: EmployerLongTermPositionAddViewArgs(postId: employer.id ?? -1),
+                    args: EmployerLongTermPositionAddViewArgs(postId: employer.id),
                   ),
                 );
               },

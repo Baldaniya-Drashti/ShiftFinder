@@ -17,11 +17,18 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
 
   const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(int value) = AddMoreVacancy;
 
-  const factory EmployerLongTermPositionAddDetailEvent.onCreate(PostShiftDTO postShitDto,EmployerLongTermSuccessDto? employer) = OnCreate;
+  const factory EmployerLongTermPositionAddDetailEvent.onCreate(
+    PostShiftDTO postShitDto,
+    EmployerLongTermSuccessDto? employer,
+    int? postId,
+  ) = OnCreate;
 
   const factory EmployerLongTermPositionAddDetailEvent.removeDocument() = RemoveDocument;
+
   const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(int value) = OnChangeContractIncludeCall;
+
   const factory EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
+
   const factory EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(List<String> skillList) = ConfirmSoftwareSkill;
 
   const factory EmployerLongTermPositionAddDetailEvent.onContinue({

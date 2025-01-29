@@ -10,16 +10,20 @@ part 'employer_long_term_success_dto.freezed.dart';
 part 'employer_long_term_success_dto.g.dart';
 
 @freezed
-class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
+class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
   const factory EmployerLongTermSuccessDto({
-
     int? id,
     int? post_id,
     int? user_id,
     String? listing_id,
     String? languages_list_id,
+    int? post_type,
+    String? location_id,
     String? last_ago,
     String? company_name,
+    String? roles_list_id,
+    String? specialties_detail_id,
+    String? softwares_skill_list_id,
     String? distance,
     List<SkillDTO>? roles_list,
     String? roles_list_name,
@@ -29,6 +33,7 @@ class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     String? specialties_detail_other,
     List<SkillDTO>? languages_list,
     String? language_other,
+    String? team_id,
     LocationDTO? location,
     String? location_unit,
     num? rate_hour,

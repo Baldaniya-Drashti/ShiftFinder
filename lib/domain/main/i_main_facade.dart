@@ -164,8 +164,7 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
-      {required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
@@ -449,4 +448,17 @@ abstract class IMainFacade {
   });
 
   Future<Either<MainFailure, GetBalanceDTO>> getAvailableBalanceApi();
+
+  Future<Either<MainFailure, CommonResponse>> contractorDashboardLongPost({
+    required int page,
+    required int positionsType,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> contractorApplyLongFullPost({
+    required int id,
+  });
+  Future<Either<MainFailure, CommonResponse>> contractorDashboardFullPost({
+    required int page,
+    required int positionsType,
+  });
 }

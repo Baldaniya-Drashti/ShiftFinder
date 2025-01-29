@@ -69,7 +69,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                   _buildShiftSchedule(context, employerFullPosting: employerFullPosting),
                                   _buildLanguageRequirement(context, employerFullPosting: employerFullPosting),
                                   _buildLocationDetail(context, employerFullPosting: employerFullPosting),
-                                  _buildBargainingUnit(context),
+                                  _buildBargainingUnit(context, employerFullPosting: employerFullPosting),
                                   _buildOnCall(context),
                                   if (employerFullPosting.benefits != null)
                                     _buildBulletPointsList(context,
@@ -116,7 +116,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                       title: "Other",
                                       content: employerFullPosting.other,
                                     ),
-                                  _buildNumberOfVacancy(context),
+                                  _buildNumberOfVacancy(context, employerFullPosting: employerFullPosting),
                                 ],
                               ),
                             ),
@@ -460,7 +460,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildBargainingUnit(BuildContext context) {
+  Widget _buildBargainingUnit(BuildContext context,{
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -473,7 +475,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(text: "Union/Bargaining Unit", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(text: "${employerFullPosting.union_bargaining_unit}", fontSize: 14, fontWeight: FontWeight.w500),
           ],
         ),
       ),
@@ -553,7 +555,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberOfVacancy(BuildContext context) {
+  Widget _buildNumberOfVacancy(BuildContext context,{
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -564,7 +568,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             Expanded(
               child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w500),
             ),
-            BaseText(text: "05", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(text: "${employerFullPosting.number_of_vacancie??""}", fontSize: 14, textColor: AppColors.primaryColor),
           ],
         ),
       ),
