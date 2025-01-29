@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
@@ -26,18 +27,59 @@ part 'add_full_position_bloc.freezed.dart';
 class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionState> {
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
+  final IAuthFacade _authFacade;
 
-  AddFullPositionBloc(this._repository, this._mainFacade) : super(AddFullPositionState.initial()) {
+  AddFullPositionBloc(this._repository, this._mainFacade, this._authFacade) : super(AddFullPositionState.initial()) {
     on<AddFullPositionEvent>(
       (event, emit) async {
         await event.map(
-          onCreate: (value) {
+          onCreate: (value) async {
+            emit(state.copyWith(loading: true));
+
             add(AddFullPositionEvent.fetchLocationList(context: value.context));
+            final languageList = await _authFacade.getLanguageList();
+
+            print("Language List ---> ${languageList}");
+            languageList.fold(
+              (l) => emit(
+                state.copyWith(
+                  languageList: [],
+                ),
+              ),
+              (r) {
+                return emit(
+                  state.copyWith(
+                    languageList: List.from(state.languageList)..addAll(r),
+                  ),
+                );
+              },
+            );
+
+            if (value.postId != null) {
+              final response = await _mainFacade.getEmployerPositionDetail(id: value.postId!, postType: 2);
+              emit(state.copyWith(loading: false));
+              response.fold(
+                (l) {
+                  showError(
+                    message: l.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) => 'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(value.context);
+                },
+                (r) {
+                  final data = EmployerLongTermSuccessDto.fromJson(r.data);
+                  emit(state.copyWith(employerLongTermDto: data));
+                  print("==>employerLongTermDto${state.employerLongTermDto.position}");
+                },
+              );
+            }
+            emit(state.copyWith(loading: false));
+
           },
           fetchLocationList: (value) async {
-            emit(state.copyWith(loading: true));
             final locationList = await _repository.getLocationListApi();
-            emit(state.copyWith(loading: false));
             locationList.fold(
               (l) {
                 showError(
@@ -97,7 +139,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
             ));
           },
           onContinue: (OnContinue value) {
-            final longTermPosition = state.employerLongTermDto.copyWith(
+            final longTermPosition = state.employerLongTermDto?.copyWith(
               benefits: value.benefits,
               position: value.position,
               union_bargaining_unit: value.unionBargainUnit,
@@ -115,14 +157,16 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
               rate_hour: num.tryParse(value.salaryOrRateHour),
               compensation_type: state.selectedRadioOption,
               shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
+              language_other: state.languageOther.join(','),
+              languages_list_id: getSelectedLanguageId(),
             );
 
-            print("==>yyy ${longTermPosition.toJson()}");
+            print("==>yyy ${longTermPosition?.toJson()}");
 
             value.context.router.push(
               PageRouteInfo(
                 EmployerFullPostingConfirmView.name,
-                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: longTermPosition),
+                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: longTermPosition??EmployerLongTermSuccessDto()),
               ),
             );
           },
@@ -140,7 +184,9 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 unitList: selectedLocationObject.add_units ?? [],
                 selectedLocationUnit: "",
                 showLocationError:
-                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
+                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
+                        ? true
+                        : false,
                 selectedLocation: selectedLocationObject,
               ),
             );
@@ -164,7 +210,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
           },
           getEmployerFullPostingData: (GetEmployerFullPostingData value) async {
             emit(state.copyWith(loading: true));
-            final result = await _mainFacade.getEmployerPositionDetail(id: value.id);
+            final result = await _mainFacade.getEmployerPositionDetail(id: value.id, postType: 2);
             emit(state.copyWith(loading: false));
             result.fold(
               (l) {
@@ -203,15 +249,20 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
           addLanguageChips: (AddLanguageChips e) {
             if (e.selectedLanguage.isNotEmpty &&
                 !e.selectedLanguage.toLowerCase().contains("other") &&
-                (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+                (state.languageChipList.getValue().isEmpty ||
+                    !state.languageChipList.getValue().contains(e.selectedLanguage))) {
               emit(
                 state.copyWith(
-                  languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                  languageChipList:
+                      ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
                   languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
-                  languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                  languageOther:
+                      (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
                 ),
               );
-            } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
+            } else if ((state.languageChip.toLowerCase() == "other" &&
+                e.isOtherValue == true &&
+                e.selectedLanguage.isEmpty)) {
               emit(state.copyWith());
             } else {
               emit(
@@ -225,5 +276,32 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
         );
       },
     );
+  }
+
+  String getSelectedLanguageId() {
+    /*List<int> outputIds = [];
+    for (String title in state.languageChipList.getValue()) {
+      for (ListDTO item in CommonList.languageList) {
+        if (item.title == title) {
+          outputIds.add(item.id ?? -1);
+          break;
+        }
+      }
+    }
+    print("IDSSSSS----- ${outputIds}");
+    return outputIds;*/
+
+    final languageIds = state.languageChipList
+        .getValue()
+        .map((chipName) => state.languageList.firstWhere(
+              (language) => language.name == chipName,
+              orElse: () => const SkillDTO(), // Handle cases where no match is found
+            ))
+        .where((language) => language.id != null) // Filter out null values
+        .map((language) => language.id) // Extract IDs
+        .toList();
+    String commaSeparated = languageIds.join(',');
+    print("Language Ids--> ${commaSeparated}");
+    return commaSeparated;
   }
 }

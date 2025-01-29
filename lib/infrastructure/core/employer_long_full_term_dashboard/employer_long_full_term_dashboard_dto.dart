@@ -4,18 +4,20 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 
 import '../contractor_home/contractor_dashboard_dto.dart';
 
-part 'employer_long_term_open_position_dto.freezed.dart';
+part 'employer_long_full_term_dashboard_dto.freezed.dart';
 
-part 'employer_long_term_open_position_dto.g.dart';
+part 'employer_long_full_term_dashboard_dto.g.dart';
 
 @freezed
-class EmployerLongTermOpenPositionDto with _$EmployerLongTermOpenPositionDto {
-  const factory EmployerLongTermOpenPositionDto({
+class EmployerLongFullTermDashboardDto with _$EmployerLongFullTermDashboardDto {
+  const factory EmployerLongFullTermDashboardDto({
     int? id,
     String? listing_id,
     String? roles_list_name,
     String? last_ago,
+    String? position,
     int? industry,
+    int? job_type,
     LocationDTO? location,
     @DateTimeConverter() DateTime? start_date,
     @DateTimeConverter() DateTime? end_date,
@@ -27,7 +29,6 @@ class EmployerLongTermOpenPositionDto with _$EmployerLongTermOpenPositionDto {
     bool? isEditable,
   }) = _EmployerLongTermOpenPositionDto;
 
-  factory EmployerLongTermOpenPositionDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermOpenPositionDtoFromJson(json);
+  factory EmployerLongFullTermDashboardDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerLongFullTermDashboardDtoFromJson(json);
 }
-
-

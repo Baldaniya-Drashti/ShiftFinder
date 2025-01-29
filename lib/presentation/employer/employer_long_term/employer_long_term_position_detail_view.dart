@@ -45,7 +45,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             return state.isLoading
                 ? CenterLoadingIndicator()
                 : state.employerLongTermSuccessDto == null
-                    ? BaseText(text: "No data found")
+                    ? Center(child: BaseText(text: "No data found"))
                     : SingleChildScrollView(
                         padding: EdgeInsets.all(getSize(12)),
                         child: Column(

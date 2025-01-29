@@ -66,12 +66,11 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
-          final employer= state.employerFullPosting;
+          final employer = state.employerFullPosting;
           //employer.copyWith(lo);
           final Map<String, dynamic> data = {
             "post_type": "2",
-             "location_id": employer.location?.id,
-
+            "location_id": employer.location?.id,
             ...state.employerFullPosting.toJson(),
           };
 
@@ -90,13 +89,16 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
             },
             (r) {
               final data = EmployerLongTermSuccessDto.fromJson(r.data);
-              value.context.router.navigate(PageRouteInfo(EmployerFullPostingReviewView.name));
+              value.context.router.navigate(
+                PageRouteInfo(
+                  EmployerFullPostingReviewView.name,
+                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: data),
+                ),
+              );
             },
           );
         },
       );
     });
   }
-
-
 }

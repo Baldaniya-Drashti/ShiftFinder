@@ -87,368 +87,374 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
-        child: Column(
-          children: [
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-              selector: (state) {
-                return state.employerLongTermAddDetailDto.start_date;
-              },
-              builder: (context, startDate) {
-                return DatePickerInputField(
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) {
-                      return "Please select start date";
-                    }
-                    return null;
+      child: BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
+            child: Column(
+              children: [
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                  selector: (state) {
+                    return state.employerLongTermAddDetailDto.start_date;
                   },
-                  label: "Start Date",
-                  hint: "Start Date",
-                  initialDate: startDate,
-                  onPickedDate: (DateTime date) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.selectStartDate(startDate: date),
-                        );
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-              selector: (state) {
-                return state.employerLongTermAddDetailDto.end_date;
-              },
-              builder: (context, endDate) {
-                return DatePickerInputField(
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) {
-                      return "Please select end date";
-                    }
-                    return null;
-                  },
-                  label: "End Date",
-                  hint: "End Date",
-                  initialDate: endDate,
-                  onPickedDate: (DateTime date) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date),
-                        );
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-              selector: (state) => state.employerLongTermAddDetailDto.application_deadline,
-              builder: (context, applicationDeadline) {
-                return DatePickerInputField(
-                  label: "Application Deadline",
-                  hint: "Application Deadline",
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) {
-                      return "Please select application deadline date";
-                    }
-                    return null;
-                  },
-                  initialDate: applicationDeadline,
-                  onPickedDate: (DateTime date) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date),
-                        );
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, TimeOfDay?>(
-              selector: (state) => state.employerLongTermAddDetailDto.estimated_weekly_hours,
-              builder: (context, estimatedHours) {
-                return TimePickerInputField(
-                  label: "Estimated Weekly Hours",
-                  hint: "00h 00min",
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) {
-                      return "Please select estimation hours";
-                    }
-                    return null;
-                  },
-                  initialTime: estimatedHours,
-                  onPickedTime: (value) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.selectEstimatedHour(estimatedHour: value),
-                        );
-                  },
-                );
-              },
-            ),
-            Gap(getSize(12)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                ListInputEmptyOrNot>(
-              selector: (state) {
-                return state.requiredShiftScheduleChipList;
-              },
-              builder: (context, state) {
-                return _ShiftSchedule(initialValue: state.getValue());
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              labelText: "Job Description",
-              controller: controller._jobDescriptionController,
-              hintText: "Type Here...",
-              maxLines: 3,
-              validator: (value, context) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter job description";
-                return null;
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              labelText: "Requirements",
-              controller: controller._requirementsController,
-              hintText: "Type Here...",
-              maxLines: 3,
-              validator: (value, context) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter requirements";
-                return null;
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Responsibilities",
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              controller: controller._responsibilityController,
-              hintText: "Type Here...",
-              maxLines: 3,
-              validator: (value, _) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter responsibilities";
-                return null;
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Qualifications",
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              controller: controller._qualificationController,
-              hintText: "Type Here...",
-              maxLines: 3,
-              validator: (value, _) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter qualification";
-                return null;
-              },
-            ),
-            Gap(getSize(12)),
-            CustomTextField(
-              labelText: "Licenses/Certifications",
-              controller: controller._licensesController,
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              hintText: "Type Here...",
-              maxLines: 3,
-              validator: (value, _) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter licenses/certifications";
-                return null;
-              },
-            ),
-            Gap(getSize(16)),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Row(
-                children: [
-                  BaseText(
-                    text: "Contract Terms",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  Gap(2),
-                  BaseText(
-                    text: "(Optional)",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ],
-              ),
-            ),
-            Gap(getSize(8)),
-            Material(
-              color: AppColors.grey04,
-              borderRadius: BorderRadius.circular(getSize(20)),
-              child: Padding(
-                padding: EdgeInsets.all(getSize(16)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BaseText(text: "Terms", fontSize: 14),
-                    Gap(getSize(12)),
-                    CustomTextField(
-                      controller: controller._termsController,
-                      hintText: "Type Here...",
-                      maxLines: 3,
-                    ),
-                    Gap(getSize(16)),
-                    BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
-                        String?>(
-                      selector: (state) => state.employerLongTermAddDetailDto.terms_document,
-                      builder: (context, documentPath) {
-                        if (documentPath != null) return selectedImage(context, documentPath);
-                        return _UploadDocument();
+                  builder: (context, startDate) {
+                    return DatePickerInputField(
+                      validator: (value, _) {
+                        value = value?.trim() ?? "";
+                        if (value.isEmpty) {
+                          return "Please select start date";
+                        }
+                        return null;
                       },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Gap(getSize(16)),
-            CustomTextField(
-              labelText: "Onboarding Process",
-              controller: controller._onBoardingController,
-              hintText: "Type Here...",
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              maxLines: 3,
-              validator: (value, _) {
-                value = value?.trim() ?? "";
-                if (value.isEmpty) return "Please enter onboarding process";
-                return null;
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
-              selector: (state) {
-                return state.employerLongTermAddDetailDto.on_call_included == 1;
-              },
-              builder: (context, onCallIncluded) {
-                return _buildCheckListTile(
-                  context,
-                  value: onCallIncluded,
-                  onChanged: (value) {
-                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                          EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(onCallIncluded ? 0 : 1),
-                        );
-                  },
-                  label: "This contract may include on call.",
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
-              selector: (state) {
-                return state.employerLongTermAddDetailDto.vacancie_type == 1;
-              },
-              builder: (context, vacancyEnable) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildCheckListTile(
-                      context,
-                      value: vacancyEnable,
-                      onChanged: (value) {
+                      label: "Start Date",
+                      hint: "Start Date",
+                      initialDate: startDate,
+                      onPickedDate: (DateTime date) {
                         context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.addMoreVacancy(vacancyEnable ? 0 : 1),
+                              EmployerLongTermPositionAddDetailEvent.selectStartDate(startDate: date),
                             );
                       },
-                      label: "We are looking to fill more than one vacancies with the same  requirements.",
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                    ),
-                    if (vacancyEnable) ...[
-                      Gap(getSize(12)),
-                      CustomTextField(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        controller: controller._vacancyController,
-                        labelText: StringConstant.numberOfVacancies,
-                        hintText: StringConstant.numberOfVacancies,
-                        keyboardType: TextInputType.number,
-                        errorInputBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: AppColors.transparent),
-                          borderRadius: BorderRadius.circular(getSize(10)),
-                        ),
-                        maxLength: 3,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        validator: (value, _) {
-                          if (!vacancyEnable) return null;
-                          value = value?.trim() ?? "";
-                          if (value.isEmpty) return StringConstant.pleaseAddNumberOfVacancies;
-                          final newValue = int.tryParse(value);
-                          if (newValue == null) return "Please enter valid value";
-                          if (newValue < 1) {
-                            return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
-                          } else {
-                            return null;
-                          }
-                        },
-                      )
-                    ],
-                  ],
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            CommonButton(
-              onPressed: () {
-                final list = context
-                    .read<EmployerLongTermPositionAddDetailBloc>()
-                    .state
-                    .requiredShiftScheduleChipList
-                    .getValue();
-                if (_formKey.currentState?.validate() != true || list.isEmpty) {
-                  showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
-                  return;
-                }
-                final employer =
-                    context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
-                final startDate = employer.start_date;
-                final endDate = employer.end_date;
-                if (startDate == null || endDate == null) return;
-                final difference = endDate.difference(startDate);
-                final months = difference.inDays % 365 ~/ 30;
-                if (months < 3) {
-                  AppDialog.showCommonDialog(
-                    context: context,
-                    content:
-                        "Long-term contracts must be at least three months. If your posting doesn't meet this  requirement, consider using our multi-shift feature to schedule your shifts more flexibly.",
-                    title: "Long-Term Position",
-                    successLabel: "Ok",
-                    action: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: CommonButton(
-                        onPressed: () => context.router.maybePop(true),
-                        buttonText: "Ok",
-                      ),
-                    ),
-                  );
-                  return;
-                }
-                context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                      EmployerLongTermPositionAddDetailEvent.onContinue(
-                        context: context,
-                        jobDescription: controller.jobDescription,
-                        requirements: controller.requirements,
-                        responsibilities: controller.responsibility,
-                        qualification: controller.qualification,
-                        licences: controller.licenses,
-                        onboarding: controller.onBoarding,
-                        terms: controller.terms,
-                        numberOfVacancy: controller.vacancy,
-                      ),
                     );
-              },
-              buttonText: "Continue",
-            )
-          ],
-        ),
+                  },
+                ),
+                Gap(getSize(12)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                  selector: (state) {
+                    return state.employerLongTermAddDetailDto.end_date;
+                  },
+                  builder: (context, endDate) {
+                    return DatePickerInputField(
+                      validator: (value, _) {
+                        value = value?.trim() ?? "";
+                        if (value.isEmpty) {
+                          return "Please select end date";
+                        }
+                        return null;
+                      },
+                      label: "End Date",
+                      hint: "End Date",
+                      initialDate: endDate,
+                      onPickedDate: (DateTime date) {
+                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                              EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date),
+                            );
+                      },
+                    );
+                  },
+                ),
+                Gap(getSize(12)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                  selector: (state) => state.employerLongTermAddDetailDto.application_deadline,
+                  builder: (context, applicationDeadline) {
+                    return DatePickerInputField(
+                      label: "Application Deadline",
+                      hint: "Application Deadline",
+                      validator: (value, _) {
+                        value = value?.trim() ?? "";
+                        if (value.isEmpty) {
+                          return "Please select application deadline date";
+                        }
+                        return null;
+                      },
+                      initialDate: applicationDeadline,
+                      onPickedDate: (DateTime date) {
+                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                              EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date),
+                            );
+                      },
+                    );
+                  },
+                ),
+                Gap(getSize(12)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, TimeOfDay?>(
+                  selector: (state) => state.employerLongTermAddDetailDto.estimated_weekly_hours,
+                  builder: (context, estimatedHours) {
+                    return TimePickerInputField(
+                      label: "Estimated Weekly Hours",
+                      hint: "00h 00min",
+                      validator: (value, _) {
+                        value = value?.trim() ?? "";
+                        if (value.isEmpty) {
+                          return "Please select estimation hours";
+                        }
+                        return null;
+                      },
+                      initialTime: estimatedHours,
+                      onPickedTime: (value) {
+                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                              EmployerLongTermPositionAddDetailEvent.selectEstimatedHour(estimatedHour: value),
+                            );
+                      },
+                    );
+                  },
+                ),
+                Gap(getSize(12)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                    ListInputEmptyOrNot>(
+                  selector: (state) {
+                    return state.requiredShiftScheduleChipList;
+                  },
+                  builder: (context, state) {
+                    print("initialValue =>${state.getValue()}");
+                    return _ShiftSchedule(initialValue: state.getValue());
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  labelText: "Job Description",
+                  controller: controller._jobDescriptionController,
+                  hintText: "Type Here...",
+                  maxLines: 3,
+                  validator: (value, context) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter job description";
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  labelText: "Requirements",
+                  controller: controller._requirementsController,
+                  hintText: "Type Here...",
+                  maxLines: 3,
+                  validator: (value, context) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter requirements";
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  labelText: "Responsibilities",
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  controller: controller._responsibilityController,
+                  hintText: "Type Here...",
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter responsibilities";
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  labelText: "Qualifications",
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  controller: controller._qualificationController,
+                  hintText: "Type Here...",
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter qualification";
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  labelText: "Licenses/Certifications",
+                  controller: controller._licensesController,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  hintText: "Type Here...",
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter licenses/certifications";
+                    return null;
+                  },
+                ),
+                Gap(getSize(16)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Row(
+                    children: [
+                      BaseText(
+                        text: "Contract Terms",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      Gap(2),
+                      BaseText(
+                        text: "(Optional)",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(getSize(8)),
+                Material(
+                  color: AppColors.grey04,
+                  borderRadius: BorderRadius.circular(getSize(20)),
+                  child: Padding(
+                    padding: EdgeInsets.all(getSize(16)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BaseText(text: "Terms", fontSize: 14),
+                        Gap(getSize(12)),
+                        CustomTextField(
+                          controller: controller._termsController,
+                          hintText: "Type Here...",
+                          maxLines: 3,
+                        ),
+                        Gap(getSize(16)),
+                        BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState,
+                            String?>(
+                          selector: (state) => state.employerLongTermAddDetailDto.terms_document,
+                          builder: (context, documentPath) {
+                            if (documentPath != null) return selectedImage(context, documentPath);
+                            return _UploadDocument();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Gap(getSize(16)),
+                CustomTextField(
+                  labelText: "Onboarding Process",
+                  controller: controller._onBoardingController,
+                  hintText: "Type Here...",
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please enter onboarding process";
+                    return null;
+                  },
+                ),
+                Gap(getSize(16)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+                  selector: (state) {
+                    return state.employerLongTermAddDetailDto.on_call_included == 1;
+                  },
+                  builder: (context, onCallIncluded) {
+                    return _buildCheckListTile(
+                      context,
+                      value: onCallIncluded,
+                      onChanged: (value) {
+                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                              EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(
+                                  onCallIncluded ? 0 : 1),
+                            );
+                      },
+                      label: "This contract may include on call.",
+                    );
+                  },
+                ),
+                Gap(getSize(16)),
+                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+                  selector: (state) {
+                    return state.employerLongTermAddDetailDto.vacancie_type == 1;
+                  },
+                  builder: (context, vacancyEnable) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildCheckListTile(
+                          context,
+                          value: vacancyEnable,
+                          onChanged: (value) {
+                            context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                                  EmployerLongTermPositionAddDetailEvent.addMoreVacancy(vacancyEnable ? 0 : 1),
+                                );
+                          },
+                          label: "We are looking to fill more than one vacancies with the same  requirements.",
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                        ),
+                        if (vacancyEnable) ...[
+                          Gap(getSize(12)),
+                          CustomTextField(
+                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                            controller: controller._vacancyController,
+                            labelText: StringConstant.numberOfVacancies,
+                            hintText: StringConstant.numberOfVacancies,
+                            keyboardType: TextInputType.number,
+                            errorInputBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.transparent),
+                              borderRadius: BorderRadius.circular(getSize(10)),
+                            ),
+                            maxLength: 3,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            validator: (value, _) {
+                              if (!vacancyEnable) return null;
+                              value = value?.trim() ?? "";
+                              if (value.isEmpty) return StringConstant.pleaseAddNumberOfVacancies;
+                              final newValue = int.tryParse(value);
+                              if (newValue == null) return "Please enter valid value";
+                              if (newValue < 1) {
+                                return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
+                              } else {
+                                return null;
+                              }
+                            },
+                          )
+                        ],
+                      ],
+                    );
+                  },
+                ),
+                Gap(getSize(16)),
+                CommonButton(
+                  onPressed: () {
+                    final list = context
+                        .read<EmployerLongTermPositionAddDetailBloc>()
+                        .state
+                        .requiredShiftScheduleChipList
+                        .getValue();
+                    if (_formKey.currentState?.validate() != true || list.isEmpty) {
+                      showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                      return;
+                    }
+                    final employer =
+                        context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                    final startDate = employer.start_date;
+                    final endDate = employer.end_date;
+                    if (startDate == null || endDate == null) return;
+                    final difference = endDate.difference(startDate);
+                    final months = difference.inDays % 365 ~/ 30;
+                    if (months < 3) {
+                      AppDialog.showCommonDialog(
+                        context: context,
+                        content:
+                            "Long-term contracts must be at least three months. If your posting doesn't meet this  requirement, consider using our multi-shift feature to schedule your shifts more flexibly.",
+                        title: "Long-Term Position",
+                        successLabel: "Ok",
+                        action: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: CommonButton(
+                            onPressed: () => context.router.maybePop(true),
+                            buttonText: "Ok",
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+                    context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                          EmployerLongTermPositionAddDetailEvent.onContinue(
+                            context: context,
+                            jobDescription: controller.jobDescription,
+                            requirements: controller.requirements,
+                            responsibilities: controller.responsibility,
+                            qualification: controller.qualification,
+                            licences: controller.licenses,
+                            onboarding: controller.onBoarding,
+                            terms: controller.terms,
+                            numberOfVacancy: controller.vacancy,
+                          ),
+                        );
+                  },
+                  buttonText: "Continue",
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -638,6 +644,7 @@ class _ShiftSchedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("===> ${initialValue}");
     final list = [
       CommonDropdownModel(id: 1, label: "Morning"),
       CommonDropdownModel(id: 2, label: "Evening"),

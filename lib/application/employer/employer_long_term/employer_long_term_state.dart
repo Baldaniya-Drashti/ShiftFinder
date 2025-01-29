@@ -7,7 +7,7 @@ class EmployerLongTermState with _$EmployerLongTermState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
-    required List<EmployerLongTermOpenPositionDto> openPositionList,
+    required List<EmployerLongFullTermDashboardDto> openPositionList,
     required List<dynamic> filledPositionList,
   }) = _EmployerLongTermState;
 

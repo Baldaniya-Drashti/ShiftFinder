@@ -58,7 +58,9 @@ class EmployerFullPositionAddView extends StatelessWidget {
                   children: [
                     Image.asset(PngImageConstants.fullPosition),
                     Gap(getSize(24)),
-                    _PositionForm(state.employerLongTermDto),
+                    Visibility(
+                      child: _PositionForm(state.employerLongTermDto),
+                    ),
                   ],
                 ),
               );
@@ -85,6 +87,7 @@ class _PositionFormState extends State<_PositionForm> {
   @override
   void initState() {
     super.initState();
+    print("initData => ${widget.data.position}");
     controller = UpdateFullTimeJobPositionController(widget.data);
   }
 
@@ -117,11 +120,13 @@ class _PositionFormState extends State<_PositionForm> {
                 },
               ),
               Gap(getSize(18)),
-              BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
-                selector: (state) => state.selectedJobType,
+              BlocSelector<AddFullPositionBloc, AddFullPositionState, int?>(
+                selector: (state) => state.employerLongTermDto.job_type,
                 builder: (context, selectedJobType) {
+               final model= selectedJobType==1?   CommonDropdownModel(id: 1, label: "Full time"):
+                  CommonDropdownModel(id: 2, label: "Part time");
                   return _JobTypeDropdownField(
-                    selectedJobType: selectedJobType,
+                    selectedJobType: model,
                     onChanged: (value) {
                       context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onJobTypeChanged(value));
                     },
@@ -195,7 +200,7 @@ class _PositionFormState extends State<_PositionForm> {
                           ),
                           Gap(getSize(8)),
                           BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
-                            selector: (state) => state.selectedRadioOption,
+                            selector: (state) => state.employerLongTermDto.compensation_type ?? 1,
                             builder: (context, selectedRadioOption) {
                               final label = selectedRadioOption == 1 ? "Rate/Hour" : "Salary/Year";
 
@@ -213,6 +218,7 @@ class _PositionFormState extends State<_PositionForm> {
                                           _buildRadioOptions(
                                             context,
                                             onChanged: (value) {
+                                              print(value);
                                               context.read<AddFullPositionBloc>().add(
                                                     AddFullPositionEvent.onCompensationTypeChanged(type: value),
                                                   );
@@ -225,6 +231,8 @@ class _PositionFormState extends State<_PositionForm> {
                                           _buildRadioOptions(
                                             context,
                                             onChanged: (value) {
+                                              print(value);
+
                                               context.read<AddFullPositionBloc>().add(
                                                     AddFullPositionEvent.onCompensationTypeChanged(type: value),
                                                   );
@@ -405,9 +413,8 @@ class _PositionFormState extends State<_PositionForm> {
         },
       ),
     );
-    
-    
   }
+
   Widget languageDropDownChipSet(BuildContext context, AddFullPositionState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -439,16 +446,17 @@ class _PositionFormState extends State<_PositionForm> {
             print("----> $selectedList");
             print("----> $otherValues");
             context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmLanguageList(
-              List<String>.from(selectedList),
-              List<String>.from(otherValues),
-            ));
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
           },
         ),
-        if ( state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+        if (state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
           commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
       ],
     );
   }
+
   Widget _buildRadioOptions(
     BuildContext context, {
     required void Function(int value) onChanged,
@@ -456,27 +464,32 @@ class _PositionFormState extends State<_PositionForm> {
     required int groupValue,
     required int value,
   }) {
-    return Row(
-      children: [
-        Radio(
-          fillColor: WidgetStateProperty.resolveWith(
-            (states) {
-              if (states.contains(WidgetState.selected)) return AppColors.green;
-              return Colors.grey;
+    return GestureDetector(
+      onTap: () {
+        onChanged(value);
+      },
+      child: Row(
+        children: [
+          Radio(
+            fillColor: WidgetStateProperty.resolveWith(
+              (states) {
+                if (states.contains(WidgetState.selected)) return AppColors.green;
+                return Colors.grey;
+              },
+            ),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: VisualDensity.compact,
+            value: value,
+            groupValue: groupValue,
+            onChanged: (value) {
+              if (value == null) return;
+              onChanged(value);
             },
           ),
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          visualDensity: VisualDensity.compact,
-          value: value,
-          groupValue: groupValue,
-          onChanged: (value) {
-            if (value == null) return;
-            onChanged(value);
-          },
-        ),
-        Gap(8),
-        Expanded(child: BaseText(text: label, fontSize: 13, fontWeight: FontWeight.w500)),
-      ],
+          Gap(8),
+          Expanded(child: BaseText(text: label, fontSize: 13, fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 
@@ -817,6 +830,7 @@ class _ShiftSchedule extends StatelessWidget {
 
 class UpdateFullTimeJobPositionController extends ChangeNotifier {
   UpdateFullTimeJobPositionController(EmployerLongTermSuccessDto? data) {
+    print("===>position${data?.position}");
     _positionController = TextEditingController(text: data?.position);
     _unionUnitController = TextEditingController(text: data?.union_bargaining_unit);
     _rateAndSalaryController = TextEditingController(text: "${data?.rate_hour ?? ""}");

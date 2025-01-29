@@ -9,7 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
-import 'package:shift/infrastructure/core/employer_long_term_open_position/employer_long_term_open_position_dto.dart';
+import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -32,7 +32,7 @@ class OpenPositionTabView extends StatelessWidget {
         return PaginatedListView(
           onRefresh: () {
             context.read<EmployerLongTermBloc>().add(
-                  EmployerLongTermEvent.getEmployerFilledPosition(
+                  EmployerLongTermEvent.getEmployerLongTermOpenPosition(
                     refresh: true,
                     context: context,
                   ),
@@ -40,7 +40,7 @@ class OpenPositionTabView extends StatelessWidget {
           },
           onLoading: () {
             context.read<EmployerLongTermBloc>().add(
-                  EmployerLongTermEvent.getEmployerFilledPosition(
+                  EmployerLongTermEvent.getEmployerLongTermOpenPosition(
                     refresh: false,
                     context: context,
                   ),
@@ -115,7 +115,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildPositionTile(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -138,7 +138,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildPositionInfo(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return Material(
       color: AppColors.primaryColor,
@@ -207,7 +207,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildLocationInfo(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return CommonInfoTile(
       leading: SvgPicture.asset(
@@ -245,7 +245,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildTotalApplication(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
     required VoidCallback onPressed,
   }) {
     return Material(
@@ -286,7 +286,7 @@ class OpenPositionTabView extends StatelessWidget {
 
   Widget _buildDateInfoSection(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return Material(
       borderRadius: BorderRadius.circular(10),

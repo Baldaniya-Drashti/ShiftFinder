@@ -1,3 +1,14 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shift/application/employer/employer_full_position_detail/employer_full_position_detail_bloc.dart';
+import 'package:shift/application/employer/employer_full_posting_applicant/employer_full_posting_applicant_bloc.dart';
+import 'package:shift/application/employer/employer_long_term_detail/employer_long_term_detail_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'dart:math';
 
 import 'package:auto_route/annotations.dart';
@@ -21,120 +32,109 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "EmployerFullPostingReviewView")
-class EmployerFullPostingReviewView extends StatelessWidget {
-  const EmployerFullPostingReviewView({super.key, required this.employerFullPosting});
+@RoutePage(name: "EmployerFullPositionPositionDetailView")
+class EmployerFullPositionPositionDetailView extends StatelessWidget {
+  const EmployerFullPositionPositionDetailView({super.key, required this.id});
 
-  final EmployerLongTermSuccessDto employerFullPosting;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerFullPostingReviewBloc>(),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Review Details"),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(getSize(12)),
-              child: Column(
-                children: [
-                  BaseTileDecoration(
-                    child: OverflowBar(
-                      overflowSpacing: getSize(12),
-                      children: [
-                        _buildPositionTile(context),
-                        _buildPositionDescription(context),
-                        _buildSalaryInformation(context),
-                        _buildEstimatedHours(context),
-                        _buildShiftSchedule(context),
-                        _buildLanguageRequirement(context),
-                        _buildLocationDetail(context),
-                        _buildBargainingUnit(context),
-                        _buildOnCall(context),
-                        if (employerFullPosting.benefits != null)
-                          _buildBulletPointsList(context,
-                              title: "Benefits Provided", content: employerFullPosting.benefits),
-                        if (employerFullPosting.compensation_package != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "Compensation Package",
-                            content: employerFullPosting.compensation_package,
-                          ),
-                        if (employerFullPosting.job_summary != null)
-                          _buildBulletPointsList(context, title: "Job Summary", content: employerFullPosting.job_summary),
-                        if (employerFullPosting.external_internal_relationships != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "External and Internal Relationships",
-                            content: employerFullPosting.external_internal_relationships,
-                          ),
-                        if (employerFullPosting.employer_payment_confirmation != null)
-                          _buildBulletPointsList(context,
-                              title: "Required Qualifications", content: employerFullPosting.qualifications),
-                        if (employerFullPosting.experience != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "Required Experience",
-                            content: employerFullPosting.experience,
-                          ),
-                        if (employerFullPosting.licenses_certifications != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "Required Licenses/Certifications",
-                            content: employerFullPosting.licenses_certifications,
-                          ),
-                        if (employerFullPosting.skills != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "Required Skills",
-                            content: employerFullPosting.skills,
-                          ),
-                        if (employerFullPosting.other != null)
-                          _buildBulletPointsList(
-                            context,
-                            title: "Other",
-                            content: employerFullPosting.other,
-                          ),
-                        _buildNumberOfVacancy(context),
-                        _buildCheckListTile(
-                          context,
-                          value: employerFullPosting.on_call_included == 1,
-                          onChanged: (value) {},
-                          label: "This position may include on call.",
+      create: (context) => getIt<EmployerFullPositionDetailBloc>()
+        ..add(
+          EmployerFullPositionDetailEvent.getPositionDetail(context, id),
+        ),
+      child: Scaffold(
+        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Position Details"),
+        body: BlocBuilder<EmployerFullPositionDetailBloc, EmployerFullPositionDetailState>(
+          builder: (context, state) {
+            final employerFullPosting = state.employerLongTermSuccessDto ?? EmployerLongTermSuccessDto();
+            return state.isLoading
+                ? CenterLoadingIndicator()
+                : state.employerLongTermSuccessDto == null
+                    ? Center(child: BaseText(text: "No data found"))
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.all(getSize(12)),
+                        child: Column(
+                          children: [
+                            BaseTileDecoration(
+                              child: OverflowBar(
+                                overflowSpacing: getSize(12),
+                                children: [
+                                  _buildPositionTile(context, employerFullPosting: employerFullPosting),
+                                  _buildPositionDescription(context, employerFullPosting: employerFullPosting),
+                                  _buildSalaryInformation(context, employerFullPosting: employerFullPosting),
+                                  _buildEstimatedHours(context, employerFullPosting: employerFullPosting),
+                                  _buildShiftSchedule(context, employerFullPosting: employerFullPosting),
+                                  _buildLanguageRequirement(context, employerFullPosting: employerFullPosting),
+                                  _buildLocationDetail(context, employerFullPosting: employerFullPosting),
+                                  _buildBargainingUnit(context),
+                                  _buildOnCall(context),
+                                  if (employerFullPosting.benefits != null)
+                                    _buildBulletPointsList(context,
+                                        title: "Benefits Provided", content: employerFullPosting.benefits),
+                                  if (employerFullPosting.compensation_package != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "Compensation Package",
+                                      content: employerFullPosting.compensation_package,
+                                    ),
+                                  if (employerFullPosting.job_summary != null)
+                                    _buildBulletPointsList(context,
+                                        title: "Job Summary", content: employerFullPosting.job_summary),
+                                  if (employerFullPosting.external_internal_relationships != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "External and Internal Relationships",
+                                      content: employerFullPosting.external_internal_relationships,
+                                    ),
+                                  if (employerFullPosting.employer_payment_confirmation != null)
+                                    _buildBulletPointsList(context,
+                                        title: "Required Qualifications", content: employerFullPosting.qualifications),
+                                  if (employerFullPosting.experience != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "Required Experience",
+                                      content: employerFullPosting.experience,
+                                    ),
+                                  if (employerFullPosting.licenses_certifications != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "Required Licenses/Certifications",
+                                      content: employerFullPosting.licenses_certifications,
+                                    ),
+                                  if (employerFullPosting.skills != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "Required Skills",
+                                      content: employerFullPosting.skills,
+                                    ),
+                                  if (employerFullPosting.other != null)
+                                    _buildBulletPointsList(
+                                      context,
+                                      title: "Other",
+                                      content: employerFullPosting.other,
+                                    ),
+                                  _buildNumberOfVacancy(context),
+                                ],
+                              ),
+                            ),
+
+                          ],
                         ),
-                        _buildCheckListTile(
-                          context,
-                          value: employerFullPosting.save_template_status == 1,
-                          onChanged: (value) {},
-                          label: "Save this as a template for future posting.",
-                        )
-                      ],
-                    ),
-                  ),
-                  Gap(22),
-                  _buildSubmitButton(context)
-                ],
-              ),
-            ),
-          );
-        }
+                      );
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildSubmitButton(BuildContext context) {
-    return CommonButton(
-      onPressed: () {
-        context.read<EmployerFullPostingReviewBloc>().add(
-              EmployerFullPostingReviewEvent.onSubmit(context: context, id: employerFullPosting.id ?? -1),
-            );
-      },
-      buttonText: "Submit",
-    );
-  }
 
-  Widget _buildPositionTile(BuildContext context) {
+  Widget _buildPositionTile(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -143,18 +143,21 @@ class EmployerFullPostingReviewView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPositionInfo(context),
+            _buildPositionInfo(context, employerFullPosting: employerFullPosting),
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context),
+            _buildLocationInfo(context, employerFullPosting: employerFullPosting),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPositionInfo(BuildContext context) {
+  Widget _buildPositionInfo(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     final jobType = employerFullPosting.job_type == 1 ? "Full Time" : "Part Time";
     return Material(
       color: AppColors.scaffoldColor,
@@ -188,7 +191,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildLocationInfo(BuildContext context) {
+  Widget _buildLocationInfo(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return CommonInfoTile(
       leading: SvgPicture.asset(
         SvgImageConstant.location,
@@ -206,26 +212,32 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-    Widget _buildPositionDescription(BuildContext context) {
-      return Material(
-        color: AppColors.scaffoldColor,
-        borderRadius: BorderRadius.circular(getSize(10)),
-        child: Padding(
-          padding: EdgeInsets.all(getSize(16)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
-              Divider(),
-              BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: employerFullPosting.position ?? ""),
-            ],
-          ),
+  Widget _buildPositionDescription(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
+    return Material(
+      color: AppColors.scaffoldColor,
+      borderRadius: BorderRadius.circular(getSize(10)),
+      child: Padding(
+        padding: EdgeInsets.all(getSize(16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            Divider(),
+            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: employerFullPosting.position ?? ""),
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
-  Widget _buildSalaryInformation(BuildContext context) {
+  Widget _buildSalaryInformation(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -308,7 +320,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildEstimatedHours(BuildContext context) {
+  Widget _buildEstimatedHours(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -340,7 +355,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildShiftSchedule(BuildContext context) {
+  Widget _buildShiftSchedule(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     final list = getShiftScheduleFromId(employerFullPosting.shift_schedule_type ?? "");
 
     return Material(
@@ -382,7 +400,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildLanguageRequirement(BuildContext context) {
+  Widget _buildLanguageRequirement(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     final list = employerFullPosting.languages_list ?? [];
     final language = list.map((e) => e.name).join(", ");
     return Material(
@@ -403,7 +424,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildLocationDetail(BuildContext context) {
+  Widget _buildLocationDetail(
+    BuildContext context, {
+    required EmployerLongTermSuccessDto employerFullPosting,
+  }) {
     final location = employerFullPosting.location;
     return Material(
       borderRadius: BorderRadius.circular(10),

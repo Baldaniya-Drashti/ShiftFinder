@@ -317,7 +317,7 @@ class _ApplicantsListTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UserAvatar(url: data.profile ?? "", size: 48),
+          UserAvatar(url: data.profile ?? "", size: 45),
           Gap(getSize(16)),
           Expanded(
             child: Column(

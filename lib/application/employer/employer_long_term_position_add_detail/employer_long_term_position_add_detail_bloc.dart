@@ -72,13 +72,15 @@ class EmployerLongTermPositionAddDetailBloc
           );
         }, onCreate: (OnCreate value) {
           print("==============> ${value.employer?.job_description}");
+          print("==============> tt${getShiftSchedule(value.employer?.shift_schedule_type ?? "")}");
           emit(
             state.copyWith(
               postShiftDto: value.postShitDto,
               employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto(),
               requiredShiftScheduleChipList: ListInputEmptyOrNot(
-                getShiftSchedule(value.employer?.shift_schedule_type ?? ""),
+                getShiftSchedule(value.employer?.shift_schedule_type ?? "1"),
               ),
+
             ),
           );
           print("==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
@@ -138,7 +140,7 @@ class EmployerLongTermPositionAddDetailBloc
     );
   }
 
-  List<String> getShiftSchedule(String scheduleShift) {
+  List<String>  getShiftSchedule(String scheduleShift) {
     final list = <String>[];
     final shiftList = scheduleShift.split(",");
     if (shiftList.contains("1")) list.add("Morning");

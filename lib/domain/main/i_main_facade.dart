@@ -164,7 +164,8 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
@@ -415,6 +416,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getEmployerPositionDetail({
     required int id,
+    required int postType,
   });
 
   Future<Either<MainFailure, CommonResponse>> employerApplicantsReject({
@@ -445,7 +447,6 @@ abstract class IMainFacade {
     String? endDate,
     int? page,
   });
+
   Future<Either<MainFailure, GetBalanceDTO>> getAvailableBalanceApi();
-
-
 }

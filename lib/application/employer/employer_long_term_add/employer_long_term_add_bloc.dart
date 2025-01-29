@@ -494,6 +494,7 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
 
   getShiftDetailApi(Emitter<EmployerLongTermAddState> emit, int postId) async {
     Either<MainFailure, CommonResponse> failureOrSuccess = await _mainFacade.getEmployerPositionDetail(
+      postType: 1,
       id: postId,
     );
     failureOrSuccess.fold(

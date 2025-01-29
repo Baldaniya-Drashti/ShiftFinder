@@ -11,7 +11,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
-import 'package:shift/infrastructure/core/employer_long_term_open_position/employer_long_term_open_position_dto.dart';
+import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -111,13 +111,13 @@ class _EmployerFullPostingContent extends StatelessWidget {
                                   context,
                                   onPressed: () {
                                     context.router.push(
-                                      PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                          args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
+                                      PageRouteInfo(EmployerFullPositionPositionDetailView.name,
+                                          args: EmployerFullPositionPositionDetailViewArgs(id: data.id ?? -1)),
                                     );
                                   },
                                 ),
                                 Gap(getSize(12)),
-                                _buildDateInfoSection(context, employer: data),
+                                _buildPositionDescription(context, employer: data),
                                 Gap(getSize(12)),
                                 _buildTotalApplication(
                                   context,
@@ -126,8 +126,8 @@ class _EmployerFullPostingContent extends StatelessWidget {
                                     if (state.employerFullPosition[index].total_application_counts == 0) return;
                                     context.router.push(
                                       PageRouteInfo(
-                                        EmployerLongTermApplicantView.name,
-                                        args: EmployerLongTermApplicantViewArgs(id: data.id ?? -1),
+                                        EmployerFullPositionApplicantsView.name,
+                                        args: EmployerFullPositionApplicantsViewArgs(id: data.id ?? -1),
                                       ),
                                     );
                                   },
@@ -145,7 +145,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
 
   Widget _buildPositionTile(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -168,7 +168,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
 
   Widget _buildPositionInfo(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return Material(
       color: AppColors.primaryColor,
@@ -186,7 +186,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: employer.roles_list_name ?? "",
+                  text: employer.job_type == 1 ? "Full Time" : "Part Time",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.white,
@@ -203,14 +203,25 @@ class _EmployerFullPostingContent extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               final result = await AppDialog.showCommonDialog(
-                  context: context,
-                  title: "Delete The Position",
-                  content: "Are you sure you want to delete this long term position?",
-                  successLabel: "Delete");
+                context: context,
+                title: "Delete The Position",
+                content: "Are you sure you want to delete this long term position?",
+                successLabel: "Delete",
+              );
               if (result ?? false) {
-                context.read<EmployerFullPostingBloc>().add(
-                      EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
-                    );
+                final result2 = await AppDialog.showCommonDialog(
+                  context: context,
+                  title: "Post a Full Time Position",
+                  content:
+                      "Interviews and other hiring procedures for full time positions are not handled by the platform at this time. As the employer, it is your responsibility to schedule interviews and directly contact contractors who apply.",
+                  extraContent: "Are you sure you want to continue?",
+                  successLabel: "Continue",
+                );
+                if (result2 ?? false) {
+                  context.read<EmployerFullPostingBloc>().add(
+                        EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
+                      );
+                }
               }
             },
             child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
@@ -220,8 +231,8 @@ class _EmployerFullPostingContent extends StatelessWidget {
             onTap: () {
               context.router.push(
                 PageRouteInfo(
-                  EmployerLongTermPositionAddView.name,
-                  args: EmployerLongTermPositionAddViewArgs(postId: employer.id ?? -1),
+                  EmployerFullPositionAddView.name,
+                  args: EmployerFullPositionAddViewArgs(postId: employer.id ?? -1),
                 ),
               );
             },
@@ -234,7 +245,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
 
   Widget _buildLocationInfo(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
   }) {
     return CommonInfoTile(
       leading: SvgPicture.asset(
@@ -270,9 +281,31 @@ class _EmployerFullPostingContent extends StatelessWidget {
     );
   }
 
+  Widget _buildPositionDescription(
+    BuildContext context, {
+    required EmployerLongFullTermDashboardDto employer,
+  }) {
+    return Material(
+      color: AppColors.scaffoldColor,
+      borderRadius: BorderRadius.circular(getSize(10)),
+      child: Padding(
+        padding: EdgeInsets.all(getSize(16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            Divider(),
+            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: employer.position ?? ""),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildTotalApplication(
     BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
+    required EmployerLongFullTermDashboardDto employer,
     required VoidCallback onPressed,
   }) {
     return Material(
@@ -303,39 +336,6 @@ class _EmployerFullPostingContent extends StatelessWidget {
                       imageList: employer.total_application_profiles ?? [],
                     )
                 ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDateInfoSection(
-    BuildContext context, {
-    required EmployerLongTermOpenPositionDto employer,
-  }) {
-    return Material(
-      borderRadius: BorderRadius.circular(10),
-      color: AppColors.scaffoldColor,
-      child: IntrinsicHeight(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(16), vertical: getSize(8)),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child:
-                    _buildDateInfoTile(context, title: 'Start Date:-', dateTime: employer.start_date ?? DateTime.now()),
-              ),
-              VerticalDivider(),
-              Gap(getSize(18)),
-              Expanded(
-                child: _buildDateInfoTile(
-                  context,
-                  title: 'End Date:-',
-                  dateTime: employer.end_date ?? DateTime.now(),
-                ),
               ),
             ],
           ),

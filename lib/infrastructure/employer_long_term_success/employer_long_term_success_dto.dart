@@ -17,6 +17,7 @@ class   EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     int? post_id,
     int? user_id,
     String? listing_id,
+    String? languages_list_id,
     String? last_ago,
     String? company_name,
     String? distance,

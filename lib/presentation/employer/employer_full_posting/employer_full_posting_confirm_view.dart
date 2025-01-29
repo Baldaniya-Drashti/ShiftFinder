@@ -14,6 +14,7 @@ import 'package:shift/infrastructure/employer_long_term_success/employer_long_te
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -41,21 +42,27 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
         ),
       child: Builder(
         builder: (context) {
-          return Scaffold(
-            bottomNavigationBar: SafeArea(
-              minimum: EdgeInsets.all(getSize(16)),
-              child: CommonButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate() != true) return;
-                  context.read<EmployerFullPostingConfirmBloc>().add(
+         final loading= context.select<EmployerFullPostingConfirmBloc,bool>((value) => value.state.postDataLoading);
+          return Stack(
+            children: [
+              Scaffold(
+                bottomNavigationBar: SafeArea(
+                  minimum: EdgeInsets.all(getSize(16)),
+                  child: CommonButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate() != true) return;
+                      context.read<EmployerFullPostingConfirmBloc>().add(
                         EmployerFullPostingConfirmEvent.onContinue(context: context),
                       );
-                },
-                buttonText: "Continue",
+                    },
+                    buttonText: "Continue",
+                  ),
+                ),
+                appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
+                body: _EmployerFullPostingContent(),
               ),
-            ),
-            appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
-            body: _EmployerFullPostingContent(),
+              if(loading)CenterLoadingIndicator(),
+            ],
           );
         }
       ),
@@ -86,6 +93,11 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
               selector: (state) => state.employerFullPosting.application_deadline,
               builder: (context, applicationDeadline) {
                 return DatePickerInputField(
+                  validator: (value, context) {
+                    value=value?.trim()??"";
+                    if(value.isEmpty)return "Please select application deadline";
+                    return null;
+                  },
                   initialDate: applicationDeadline,
                   label: "Application Deadline",
                   hint: "Application Deadline",
@@ -149,6 +161,7 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
                     if (moreVacancy) ...[
                       Gap(getSize(12)),
                       CustomTextField(
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
                         controller: _vacancyController,
                         labelText: StringConstant.numberOfVacancies,
                         hintText: StringConstant.numberOfVacancies,

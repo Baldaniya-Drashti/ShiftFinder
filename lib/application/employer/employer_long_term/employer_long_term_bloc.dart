@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
-import 'package:shift/infrastructure/core/employer_long_term_open_position/employer_long_term_open_position_dto.dart';
+import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'employer_long_term_event.dart';
@@ -41,6 +41,7 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
             positionsType: 2,
             page: 2,
           );
+
         },
         getEmployerLongTermOpenPosition: (value) async {
           if (value.refresh) {
@@ -69,10 +70,10 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongTermOpenPositionDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerLongTermOpenPositionDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
                     ),
                 ),
               );

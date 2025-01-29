@@ -68,15 +68,19 @@ class EmployerLongTermConfirmationBloc
           print("id=> ${state.employerAddDetailDto.id}");
 
           final postShift = state.postShiftDTO;
-          final employer = state.employerAddDetailDto.copyWith(rate_hour: postShift.rate_hour);
+          final employer = state.employerAddDetailDto.copyWith(
+            rate_hour: postShift.rate_hour,
+            languages_list_id: postShift.languages_list_id,
+          );
           print("¢${state.selectedTeamList.join(",")}");
-          print("00000>${postShift.location_unit}");
+          print("00000>${postShift.languages_list_id}");
+          print("00000rrrr>${postShift.location_unit}");
+          print("00000rrrr>${postShift.vacancie_type}");
           final Map<String, dynamic> data = {
             "post_type": "1",
             "roles_list_id": postShift.roles_list_id,
             "specialties_detail_id": postShift.specialties_detail_id,
             "softwares_skill_list_id": postShift.softwares_skill_list_id,
-            "languages_list_id": postShift.languages_list_id,
             "location_id": postShift.location_id,
             "location_unit": postShift.location_unit,
             if (postShift.specialties_detail_other != null)
@@ -92,8 +96,8 @@ class EmployerLongTermConfirmationBloc
           emit(state.copyWith(postDataLoading: true));
           Either<MainFailure, CommonResponse<dynamic>> result;
           if (employer.id == null) {
-             result = await _mainFacade.createLongFullTermPost(data: data);
-          }else{
+            result = await _mainFacade.createLongFullTermPost(data: data);
+          } else {
             result = await _mainFacade.updateLongFullTermPost(data: data);
           }
 

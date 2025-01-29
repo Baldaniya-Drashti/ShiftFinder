@@ -45,3 +45,4 @@ List<String> getShiftScheduleFromId(String string) {
   if (list.contains("5")) newList.add("Weekdays");
   return newList;
 }
+

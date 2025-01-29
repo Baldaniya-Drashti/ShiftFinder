@@ -7,7 +7,7 @@ class EmployerFullPostingState with _$EmployerFullPostingState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
-    required List<EmployerLongTermOpenPositionDto> employerFullPosition,
+    required List<EmployerLongFullTermDashboardDto> employerFullPosition,
   }) = _EmployerFullPostingState;
 
   factory EmployerFullPostingState.initial() => EmployerFullPostingState(
