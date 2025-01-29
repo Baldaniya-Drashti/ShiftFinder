@@ -65,6 +65,8 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
     as _i400;
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_notification_bloc/contractor_notification_bloc.dart'
+    as _i278;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart'
     as _i131;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart'
@@ -391,6 +393,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i278.ContractorNotificationBloc>(
+        () => _i278.ContractorNotificationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i392.ContractorEditProfileBloc>(
         () => _i392.ContractorEditProfileBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i234.EditProfileBloc>(

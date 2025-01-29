@@ -26,7 +26,7 @@ class CustomerSupportView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(18),
+          padding: EdgeInsets.all(getSize(18)),
           child: Column(
             children: [
               Gap(getSize(50)),
@@ -90,18 +90,22 @@ class CustomerSupportView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           _ListTile(
             icon: SvgImageConstant.message,
-            onPressed: () {
-              showUnderDevelopment(context);
-              /* context.router.push(
-                        PageRouteInfo(
-                          Message.name,
-                          args: MessageArgs(
-                            receiverId: post.user?.user_id ?? 0,
-                          ),
-                        ),
-                      ); */
+            onPressed: () async {
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: StringConstant.adminEmailID,
+                queryParameters: {
+                  'subject': 'Support',
+                },
+              );
+
+              if (await canLaunchUrl(emailUri)) {
+                await launchUrl(emailUri);
+              } else {
+                print('Could not launch email app');
+              }
             },
-            label: StringConstant.chatWithSupport,
+            label: StringConstant.contactSupport,
           ),
           if (getCurrentRole() == 1) ...[
             SizedBox(height: getSize(10)),

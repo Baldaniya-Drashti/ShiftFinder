@@ -21,8 +21,9 @@ class PerformanceInsightDTO with _$PerformanceInsightDTO {
 @freezed
 class EarningOverTimeDTO with _$EarningOverTimeDTO {
   const factory EarningOverTimeDTO({
-    List<String>? week_lists,
-    List<double>? amounts,
+    // List<String>? week_lists,
+    List<InsightListDTO>? list,
+    // List<double>? amounts,
     List<String>? heights,
   }) = _EarningOverTimeDTO;
 
@@ -31,10 +32,22 @@ class EarningOverTimeDTO with _$EarningOverTimeDTO {
 }
 
 @freezed
+class InsightListDTO with _$InsightListDTO {
+  const factory InsightListDTO({
+    String? name,
+    int? value,
+  }) = _InsightListDTO;
+
+  factory InsightListDTO.fromJson(Map<String, dynamic> json) =>
+      _$InsightListDTOFromJson(json);
+}
+
+@freezed
 class HourWorkedDTO with _$HourWorkedDTO {
   const factory HourWorkedDTO({
-    List<String>? hours_list,
-    List<String>? hours,
+    // List<String>? hours_list,
+    // List<String>? hours,
+    List<InsightListDTO>? list,
     List<String>? heights,
   }) = _HourWorkedDTO;
 
@@ -45,8 +58,9 @@ class HourWorkedDTO with _$HourWorkedDTO {
 @freezed
 class CompletedShiftMapDTO with _$CompletedShiftMapDTO {
   const factory CompletedShiftMapDTO({
-    List<String>? shifts_lists,
-    List<int>? shifts,
+    // List<String>? shifts_lists,
+    // List<int>? shifts,
+    List<InsightListDTO>? list,
     List<int>? heights,
   }) = _CompletedShiftMapDTO;
 

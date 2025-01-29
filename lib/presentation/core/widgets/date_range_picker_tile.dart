@@ -94,7 +94,11 @@ class MonthPickerTile extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(left: getSize(18)),
-          child: BaseText(text: this.label, fontSize: 10),
+          child: BaseText(
+            text: this.label,
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         Gap(getSize(8)),
         Material(

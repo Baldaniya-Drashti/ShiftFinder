@@ -101,7 +101,7 @@ class PushNotificationService {
         ?.createNotificationChannel(channel);
 
     const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@drawable/ic_notification');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     const DarwinInitializationSettings iOSSettings =
         DarwinInitializationSettings(
       requestSoundPermission: false,
@@ -165,7 +165,7 @@ class PushNotificationService {
               channel.id,
               channel.name,
               channelDescription: channel.description,
-              icon: android.smallIcon,
+              icon: android.smallIcon ?? '@mipmap/ic_launcher',
             ),
           ),
           payload: jsonEncode(message.data),
@@ -185,7 +185,17 @@ class PushNotificationService {
 
 onTapNotification(RemoteMessage message) async {
   log('onTapNotification : ${message.data}');
+  // getIt<MainTabBloc>().add(MainTabEvent.tabChange(2));
   if (message.data['type'] == '2') {
+    //   await getIt<AppRouter>().push(
+    //     PageRouteInfo(
+    //       NotificationView.name,
+    //       /*        Chat.name,
+    //  args: ChatViewArgs(
+    //         recieverID: message.data['data_id'],
+    //       ), */
+    //     ),
+    //   );
 // context.read<MainTabBloc>().add(MainTabEvent.tabChange(3));
     /* await getIt<AppRouter>().push(
       PageRouteInfo(

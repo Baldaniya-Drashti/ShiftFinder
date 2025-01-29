@@ -734,9 +734,11 @@ class StringConstant {
   static const String withdrawSuccessful = "Withdraw Successful!";
   static const String statementPeriod = "Statement Period";
   static const String totalEarningStatement = "Total Earning Statement";
+  static const String distance = "Distance";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
+  static const String adminEmailID = "admin@shiftfinder.com";
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";
@@ -950,6 +952,7 @@ class StringConstant {
   static const String helpDeskDesk =
       "Reach out to the ShiftFinder Support Team via chat or by submitting a support ticket for assistance.";
   static const String chatWithSupport = "Chat with Support";
+  static const String contactSupport = "Contact Support";
   static const String submitATicket = "Submit a Ticket";
   static const String contactInformation = "Contact Information";
   static const String name = "Name";

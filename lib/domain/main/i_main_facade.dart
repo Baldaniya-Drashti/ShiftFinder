@@ -421,4 +421,8 @@ abstract class IMainFacade {
   Future<Either<MainFailure, UploadMediaResponse>> getDocumentLink({
     required FormData formData,
   });
+
+  Future<Either<MainFailure, CommonResponse>> getNotificationAPI({
+    required int page,
+  });
 }

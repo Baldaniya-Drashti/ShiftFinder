@@ -95,6 +95,7 @@ class ApiConstants {
 
   //employer dashboard
   static String employerDashboard = 'employer_dashboard';
+  static String notifications = 'notifications';
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';

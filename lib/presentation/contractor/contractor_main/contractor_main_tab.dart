@@ -1,21 +1,15 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
-import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
-import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_notification/contractor_notification_view.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
@@ -34,6 +28,7 @@ class ContractorMainTabView extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<ContractorMainTabBloc>()
+            ..add(ContractorMainTabEvent.initDynamicLink(context))
             ..add(ContractorMainTabEvent.tabChange(0)),
         ),
         BlocProvider(

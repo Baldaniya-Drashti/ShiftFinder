@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
-import 'package:shift/presentation/chat_section/widget/view_media.dart';
+
 import 'package:shift/presentation/core/app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
-
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashPage.page, initial: true),
@@ -135,8 +134,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ContractorFullTimePositionDetailView.page),
         AutoRoute(page: ContractorLongTermView.page),
 
-
-
         AutoRoute(page: EmployerCompletedShiftView.page),
         AutoRoute(page: SaveTemplateView.page),
         AutoRoute(page: ViewCollegueProfile.page),
@@ -154,5 +151,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: Chat.page),
         AutoRoute(page: Message.page),
         AutoRoute(page: Viewmedia.page),
+        AutoRoute(page: NotificationView.page),
+        // AutoRoute(page: ContractorNotificationView.page),
       ];
 }
