@@ -12,8 +12,8 @@ class ContractorFullTimePositionState with _$ContractorFullTimePositionState {
     @Default(false) bool appliedIsErrorInAPI,
 
     @Default(false) bool postDataLoading,
-    required List<EmployerLongFullTermDashboardDto> openPositionList,
-    required List<EmployerLongFullTermDashboardDto> appliedPositionList,
+    required List<ContractorLongTermDashboardDto> openPositionList,
+    required List<ContractorLongTermDashboardDto> appliedPositionList,
   }) = _EmployerLongTermPositionAddDetailState;
 
   factory ContractorFullTimePositionState.initial() => ContractorFullTimePositionState(

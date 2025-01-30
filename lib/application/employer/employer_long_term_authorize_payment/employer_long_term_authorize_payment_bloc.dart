@@ -35,11 +35,7 @@ class EmployerLongTermAuthorizePaymentBloc
               ).show(value.context);
             },
             (r) {
-              showSuccess(message: r.dioMessage ?? "").show(value.context).then(
-                (_) {
-                  value.context.router.maybePop(true);
-                },
-              );
+              value.context.router.maybePop(true);
             },
           );
         },

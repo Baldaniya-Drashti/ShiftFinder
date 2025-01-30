@@ -34,7 +34,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
       (event, emit) async {
         await event.map(
           onCreate: (value) async {
-            emit(state.copyWith(loading: true));
+            emit(state.copyWith(loading: true, postId: value.postId));
 
             add(AddFullPositionEvent.fetchLocationList(context: value.context));
             final languageList = await _authFacade.getLanguageList();
@@ -70,13 +70,23 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 },
                 (r) {
                   final data = EmployerLongTermSuccessDto.fromJson(r.data);
-                  emit(state.copyWith(employerLongTermDto: data));
+                  emit(
+                    state.copyWith(
+                      employerLongTermDto: data,
+                      languageOther: data.language_other?.split(',') ?? [],
+                      location: InputEmptyOrNot((data.location != null) ? data.location!.location ?? "" : ""),
+                      selectedLocationUnit: data.location_unit ?? "",
+                      locationObj: data.location ?? LocationDTO(),
+                      unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
+                      languageChipList: ListInputEmptyOrNot(
+                          (data.languages_list != null) ? data.languages_list!.map((element) => element.name ?? "").toList() : []),
+                    ),
+                  );
                   print("==>employerLongTermDto${state.employerLongTermDto.position}");
                 },
               );
             }
             emit(state.copyWith(loading: false));
-
           },
           fetchLocationList: (value) async {
             final locationList = await _repository.getLocationListApi();
@@ -155,20 +165,20 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
               location: state.selectedLocation,
               location_unit: state.selectedLocationUnit,
               rate_hour: num.tryParse(value.salaryOrRateHour),
-              compensation_type: state.selectedRadioOption,
               shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
               language_other: state.languageOther.join(','),
               languages_list_id: getSelectedLanguageId(),
-              post_type: 1,
-              location_id: state.selectedLocation?.location_id
+              post_type: 2,
+              location_id: state.employerLongTermDto.location?.id.toString() ?? state.selectedLocation?.id.toString(),
             );
 
             print("==>yyy ${longTermPosition.toJson()}");
-
+            print("==>yyy ${state.selectedLocation?.id}");
+            //
             value.context.router.push(
               PageRouteInfo(
                 EmployerFullPostingConfirmView.name,
-                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: longTermPosition),
+                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: longTermPosition, postId: state.postId),
               ),
             );
           },
@@ -186,9 +196,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                 unitList: selectedLocationObject.add_units ?? [],
                 selectedLocationUnit: "",
                 showLocationError:
-                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty)
-                        ? true
-                        : false,
+                    (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
                 selectedLocation: selectedLocationObject,
               ),
             );
@@ -251,20 +259,15 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
           addLanguageChips: (AddLanguageChips e) {
             if (e.selectedLanguage.isNotEmpty &&
                 !e.selectedLanguage.toLowerCase().contains("other") &&
-                (state.languageChipList.getValue().isEmpty ||
-                    !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+                (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
               emit(
                 state.copyWith(
-                  languageChipList:
-                      ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                  languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
                   languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
-                  languageOther:
-                      (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                  languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
                 ),
               );
-            } else if ((state.languageChip.toLowerCase() == "other" &&
-                e.isOtherValue == true &&
-                e.selectedLanguage.isEmpty)) {
+            } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
               emit(state.copyWith());
             } else {
               emit(

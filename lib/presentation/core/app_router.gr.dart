@@ -2271,12 +2271,14 @@ class EmployerFullPostingConfirmView
   EmployerFullPostingConfirmView({
     _i141.Key? key,
     required _i153.EmployerLongTermSuccessDto employerFullPosting,
+    int? postId,
     List<_i140.PageRouteInfo>? children,
   }) : super(
           EmployerFullPostingConfirmView.name,
           args: EmployerFullPostingConfirmViewArgs(
             key: key,
             employerFullPosting: employerFullPosting,
+            postId: postId,
           ),
           initialChildren: children,
         );
@@ -2290,6 +2292,7 @@ class EmployerFullPostingConfirmView
       return _i56.EmployerFullPostingConfirmView(
         key: args.key,
         employerFullPosting: args.employerFullPosting,
+        postId: args.postId,
       );
     },
   );
@@ -2299,15 +2302,18 @@ class EmployerFullPostingConfirmViewArgs {
   const EmployerFullPostingConfirmViewArgs({
     this.key,
     required this.employerFullPosting,
+    this.postId,
   });
 
   final _i141.Key? key;
 
   final _i153.EmployerLongTermSuccessDto employerFullPosting;
 
+  final int? postId;
+
   @override
   String toString() {
-    return 'EmployerFullPostingConfirmViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
+    return 'EmployerFullPostingConfirmViewArgs{key: $key, employerFullPosting: $employerFullPosting, postId: $postId}';
   }
 }
 
@@ -2318,12 +2324,14 @@ class EmployerFullPostingReviewView
   EmployerFullPostingReviewView({
     _i141.Key? key,
     required _i153.EmployerLongTermSuccessDto employerFullPosting,
+    int? postId,
     List<_i140.PageRouteInfo>? children,
   }) : super(
           EmployerFullPostingReviewView.name,
           args: EmployerFullPostingReviewViewArgs(
             key: key,
             employerFullPosting: employerFullPosting,
+            postId: postId,
           ),
           initialChildren: children,
         );
@@ -2337,6 +2345,7 @@ class EmployerFullPostingReviewView
       return _i57.EmployerFullPostingReviewView(
         key: args.key,
         employerFullPosting: args.employerFullPosting,
+        postId: args.postId,
       );
     },
   );
@@ -2346,15 +2355,18 @@ class EmployerFullPostingReviewViewArgs {
   const EmployerFullPostingReviewViewArgs({
     this.key,
     required this.employerFullPosting,
+    this.postId,
   });
 
   final _i141.Key? key;
 
   final _i153.EmployerLongTermSuccessDto employerFullPosting;
 
+  final int? postId;
+
   @override
   String toString() {
-    return 'EmployerFullPostingReviewViewArgs{key: $key, employerFullPosting: $employerFullPosting}';
+    return 'EmployerFullPostingReviewViewArgs{key: $key, employerFullPosting: $employerFullPosting, postId: $postId}';
   }
 }
 

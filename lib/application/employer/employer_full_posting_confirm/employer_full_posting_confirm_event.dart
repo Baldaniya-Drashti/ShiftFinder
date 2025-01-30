@@ -22,7 +22,8 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
     required bool value,
   }) = OnTermsAndConditionChanged;
   const factory EmployerFullPostingConfirmEvent.onCreate({
-    required EmployerLongTermSuccessDto employerLongTermSuccessDto
+    required EmployerLongTermSuccessDto employerLongTermSuccessDto,
+     int? post
   }) = OnCreate;
   const factory EmployerFullPostingConfirmEvent.onContinue({
     required BuildContext context

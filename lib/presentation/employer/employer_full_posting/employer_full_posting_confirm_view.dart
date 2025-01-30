@@ -28,17 +28,18 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class EmployerFullPostingConfirmView extends StatelessWidget {
   const EmployerFullPostingConfirmView({
     super.key,
-    required this.employerFullPosting,
+    required this.employerFullPosting, this.postId,
   });
 
   final EmployerLongTermSuccessDto employerFullPosting;
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<EmployerFullPostingConfirmBloc>()
         ..add(
-          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting),
+          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting,post: postId),
         ),
       child: Builder(
         builder: (context) {
@@ -99,6 +100,7 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
                     return null;
                   },
                   initialDate: applicationDeadline,
+                  firstDate: applicationDeadline?? DateTime.now().add(Duration(days: 1)),
                   label: "Application Deadline",
                   hint: "Application Deadline",
                   onPickedDate: (date) {

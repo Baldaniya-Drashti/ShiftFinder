@@ -115,6 +115,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       },
                       label: "Start Date",
                       hint: "Start Date",
+                      firstDate: DateTime.now().add(Duration(days: 1)),
                       initialDate: startDate,
                       onPickedDate: (DateTime date) {
                         context.read<EmployerLongTermPositionAddDetailBloc>().add(
@@ -141,6 +142,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       label: "End Date",
                       hint: "End Date",
                       initialDate: endDate,
+                      firstDate: DateTime.now().add(Duration(days: 1)),
                       onPickedDate: (DateTime date) {
                         context.read<EmployerLongTermPositionAddDetailBloc>().add(
                               EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date),
@@ -164,6 +166,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                         return null;
                       },
                       initialDate: applicationDeadline,
+                      firstDate: DateTime.now().add(Duration(days: 1)),
                       onPickedDate: (DateTime date) {
                         context.read<EmployerLongTermPositionAddDetailBloc>().add(
                               EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date),

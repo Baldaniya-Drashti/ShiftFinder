@@ -125,7 +125,7 @@ class BaseTileDecoration extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(20.0)),
       color: AppColors.white,
       child: Padding(
-        padding: padding ?? EdgeInsets.all(getSize(15.0)),
+        padding: padding ?? EdgeInsets.all(getSize(12.0)),
         child: child,
       ),
     );

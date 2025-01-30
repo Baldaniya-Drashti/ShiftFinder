@@ -22,6 +22,7 @@ class AddFullPositionState with _$AddFullPositionState {
     required List<String> languageOther,
     required ListInputEmptyOrNot languageChipList,
     required List<SkillDTO> languageList,
+    int? postId
   }) = _AddFullPositionState;
 
   factory AddFullPositionState.initial() => AddFullPositionState(

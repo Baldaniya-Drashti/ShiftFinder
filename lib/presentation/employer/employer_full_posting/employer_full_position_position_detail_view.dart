@@ -259,9 +259,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Salary", fontSize: 12),
+                          BaseText(text: employerFullPosting.compensation_type==1?"Rate":"Salary", fontSize: 12),
                           BaseText(
-                            text: "93,000 – 98,000",
+                            text: "${employerFullPosting.rate_hour??""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.green,

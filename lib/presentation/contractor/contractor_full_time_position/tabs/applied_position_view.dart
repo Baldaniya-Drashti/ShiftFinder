@@ -7,9 +7,12 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
+import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
@@ -25,41 +28,45 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
         return Stack(
           children: [
             PaginatedListView(
-              isNoDataFound: state.isNoDataFound,
+              isNoDataFound: state.appliedNoDataFound,
               onRefresh: () {
                 context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: true));
               },
               onLoading: () {
-                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: false));
+                context
+                    .read<ContractorFullTimePositionBloc>()
+                    .add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: false));
               },
               refreshController: context.read<ContractorFullTimePositionBloc>().appliedRefreshController,
-              child: state.isLoading
+              child: state.appliedLoading
                   ? CenterLoadingIndicator()
-                  : state.isErrorInAPI
-                  ? Center(
-                child: BaseText(text: StringConstant.somethindWentWrong),
-              )
-                  : ListView.separated(
-                padding: EdgeInsets.all(12),
-                itemBuilder: (context, index) => BaseTileDecoration(
-                  child: Column(
-                    children: [
-                      _buildPositionTile(context),
-                      Gap(12),
-                      _buildSalaryInformation(context),
-                      Gap(12),
-                      _buildPositionDescription(context),
-                      Gap(12),
-                      _buildButtons(context)
-                    ],
-                  ),
-                ),
-                separatorBuilder: (context, index) => Gap(16),
-                itemCount: 5,
-              ),
+                  : state.appliedIsErrorInAPI
+                      ? Center(
+                          child: BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : ListView.separated(
+                          padding: EdgeInsets.all(12),
+                          itemBuilder: (context, index) {
+                            final data = state.appliedPositionList[index];
+                            return BaseTileDecoration(
+                              child: Column(
+                                children: [
+                                  _buildPositionTile(context, contractorFullPosting: data),
+                                  Gap(12),
+                                  _buildSalaryInformation(context),
+                                  Gap(12),
+                                  _buildPositionDescription(context),
+                                  Gap(12),
+                                  _buildButtons(context)
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => Gap(16),
+                          itemCount: state.appliedPositionList.length,
+                        ),
             ),
             if (state.postDataLoading) CenterLoadingIndicator()
-
           ],
         );
       },
@@ -82,60 +89,77 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     );
   }
 
-  Widget _buildPositionTile(BuildContext context) {
+  Widget _buildPositionTile(
+    BuildContext context, {
+        required ContractorLongTermDashboardDto? contractorFullPosting,
+      }) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPositionInfo(context),
-            Gap(6),
+            _buildPositionInfo(context, contractorFullPosting: contractorFullPosting),
+            Gap(getSize(6)),
             Divider(),
-            Gap(6),
-            _buildLocationInfo(context),
+            Gap(getSize(6)),
+            _buildLocationInfo(context, contractorFullPosting: contractorFullPosting),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPositionInfo(BuildContext context) {
+  Widget _buildPositionInfo(
+    BuildContext context, {
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
             PngImageConstants.nurse2,
-            height: 50,
-            color: AppColors.black.withOpacity(0.8),
+            height: getSize(50),
+            color: AppColors.black.withOpacity(0.5),
           ),
-          Gap(16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: "Full Time",
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              BaseText(
-                text: "(Healthcare - 2DFG125)",
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.8),
-              ),
-            ],
+          Gap(getSize(16)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: contractorFullPosting?.roles_lists_name ?? "",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                BaseText(
+                  text: "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.black.withOpacity(0.5),
+                ),
+              ],
+            ),
+          ),
+          BaseText(
+            text: contractorFullPosting?.last_ago ?? "",
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
           )
         ],
       ),
     );
   }
 
-  Widget _buildLocationInfo(BuildContext context) {
+  Widget _buildLocationInfo(
+    BuildContext context, {
+        required ContractorLongTermDashboardDto? contractorFullPosting,
+      }) {
     return CommonInfoTile(
       leading: SvgPicture.asset(
         SvgImageConstant.location,
@@ -144,19 +168,11 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
         width: 24,
       ),
       title: BaseText(
-        text: "4517 Washington Manchester, Kentucky 39495",
+        text: contractorFullPosting?.location?.location ?? "",
         fontWeight: FontWeight.w500,
         fontSize: 11,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
-      ),
-      subtitle: BaseText(
-        text: "10.2 Km Away",
-        fontWeight: FontWeight.w600,
-        fontSize: 11,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-        textColor: AppColors.green,
       ),
     );
   }

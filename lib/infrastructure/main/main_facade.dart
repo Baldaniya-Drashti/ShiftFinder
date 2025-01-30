@@ -2930,15 +2930,15 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost({required Map<String, dynamic> data}) async {
     try {
-      print("======>ww${data["terms_document"].contains("https")}");
-
-      if (data["terms_document"] != null && data["terms_document"].contains("https")) {
-        data.remove("terms_document");
+      if (data["terms_document"] != null && data["post_type"] == 1) {
+        if (data["terms_document"].contains("https")) {
+          data.remove("terms_document");
+        }
       }
       print("newDaa${data}");
       final formData = FormData.fromMap(data);
 
-      if (data["terms_document"] != null) {
+      if (data["terms_document"]!=null) {
         var multipartFile = await MultipartFile.fromFile(data["terms_document"]);
         formData.files.add(MapEntry("terms_document", multipartFile));
       }

@@ -91,7 +91,7 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
           firstDate: widget.firstDate ?? DateTime.now(),
           onPickedDate: widget.onPickedDate,
           onCancelClick: () {},
-          selectedDate: widget.initialDate ?? DateTime.now(),
+          selectedDate: widget.initialDate ?? DateTime.now().add(Duration(days: 1)),
         );
       },
     );

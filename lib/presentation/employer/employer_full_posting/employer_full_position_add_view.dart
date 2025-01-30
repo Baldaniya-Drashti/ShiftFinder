@@ -599,7 +599,7 @@ class _JobTypeDropdownField extends StatelessWidget {
       hintText: "Job Type",
       validator: (value) {
         if (value == null) {
-          return "Please enter required skills";
+          return "Please enter job type";
         }
         return null;
       },

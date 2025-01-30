@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -56,26 +59,31 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         onTermsAndConditionChanged: (value) {
           emit(
             state.copyWith(
-              employerFullPosting:
-                  state.employerFullPosting.copyWith(employer_payment_confirmation: value.value ? 1 : 0),
+              employerFullPosting: state.employerFullPosting.copyWith(employer_payment_confirmation: value.value ? 1 : 0),
             ),
           );
         },
         onCreate: (OnCreate value) {
-          emit(state.copyWith(employerFullPosting: value.employerLongTermSuccessDto));
+          emit(state.copyWith(employerFullPosting: value.employerLongTermSuccessDto, postId: value.post));
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
           final employer = state.employerFullPosting;
           //employer.copyWith(lo);
           final Map<String, dynamic> data = {
-            "post_type": 2,
-            "location_id": employer.location?.id,
             ...state.employerFullPosting.toJson(),
           };
-
+          Either<MainFailure, CommonResponse<dynamic>> result;
           emit(state.copyWith(postDataLoading: true));
-          final result = await _iMainFacade.createLongFullTermPost(data: data);
+          if ((state.postId ?? -1) < 0) {
+            result = await _iMainFacade.createLongFullTermPost(data: data);
+          } else {
+            result = await _iMainFacade.updateLongFullTermPost(data: {
+              ...data,
+              "update_status": 0,
+            });
+          }
+
           emit(state.copyWith(postDataLoading: false));
           result.fold(
             (l) {
@@ -92,7 +100,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
               value.context.router.navigate(
                 PageRouteInfo(
                   EmployerFullPostingReviewView.name,
-                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: data),
+                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: state.employerFullPosting,postId: state.postId),
                 ),
               );
             },

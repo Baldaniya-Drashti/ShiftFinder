@@ -83,6 +83,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
     return FormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.validator,
+      initialValue: widget.value,
       builder: (field) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

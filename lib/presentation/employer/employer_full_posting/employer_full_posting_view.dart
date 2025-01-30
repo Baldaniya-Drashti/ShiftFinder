@@ -96,7 +96,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
                             borderRadius: BorderRadius.circular(getSize(20)),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.lightGrey.withOpacity(0.1),
+                                color: AppColors.lightGrey.withOpacity(0.2),
                                 blurRadius: getSize(20),
                               ),
                             ],
@@ -151,97 +151,99 @@ class _EmployerFullPostingContent extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.primaryColor,
       child: Padding(
-        padding: EdgeInsets.all(getSize(16)),
+        padding: EdgeInsets.all(getSize(8)).copyWith(right: 12, left: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPositionInfo(context, employer: employer),
-            Gap(6),
+            ListTile(
+              dense: true,
+              leading: SvgPicture.asset(
+                SvgImageConstant.female,
+                width: getSize(36.28),
+                height: getSize(43.41),
+              ),
+              title: BaseText(
+                text: employer.job_type == 1 ? "Full Time" : "Part Time",
+                textColor: AppColors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                maxLines: 1,
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.white.withOpacity(0.80),
+                  ),
+                  BaseText(
+                    text: employer.location?.facility_type?.name ?? "",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.white.withOpacity(0.80),
+                  ),
+                ],
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await AppDialog.showCommonDialog(
+                        context: context,
+                        title: "Delete The Position",
+                        content: "Are you sure you want to delete this long term position?",
+                        successLabel: "Delete",
+                      );
+                      if (result ?? false) {
+                        final result2 = await AppDialog.showCommonDialog(
+                          context: context,
+                          title: "Post a Full Time Position",
+                          content:
+                              "Interviews and other hiring procedures for full time positions are not handled by the platform at this time. As the employer, it is your responsibility to schedule interviews and directly contact contractors who apply.",
+                          extraContent: "Are you sure you want to continue?",
+                          successLabel: "Continue",
+                        );
+                        if (result2 ?? false) {
+                          context.read<EmployerFullPostingBloc>().add(
+                                EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
+                              );
+                        }
+                      }
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
+                  ),
+                  Gap(getSize(16)),
+                  GestureDetector(
+                    onTap: () {
+                      context.router.push(
+                        PageRouteInfo(
+                          EmployerFullPositionAddView.name,
+                          args: EmployerFullPositionAddViewArgs(postId: employer.id ?? -1),
+                        ),
+                      );
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
+                  ),
+                ],
+              ),
+              contentPadding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
+              minTileHeight: getSize(43.41),
+            ),
             Divider(color: AppColors.white.withOpacity(0.2)),
-            Gap(6),
+            Gap(4),
             _buildLocationInfo(context, employer: employer),
+            Gap(4),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPositionInfo(
-    BuildContext context, {
-    required EmployerLongFullTermDashboardDto employer,
-  }) {
-    return Material(
-      color: AppColors.primaryColor,
-      child: Row(
-        children: [
-          Image.asset(
-            PngImageConstants.nurse2,
-            height: getSize(50),
-            color: AppColors.white,
-          ),
-          Gap(getSize(16)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: employer.job_type == 1 ? "Full Time" : "Part Time",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.white,
-                ),
-                BaseText(
-                  text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.white,
-                ),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () async {
-              final result = await AppDialog.showCommonDialog(
-                context: context,
-                title: "Delete The Position",
-                content: "Are you sure you want to delete this long term position?",
-                successLabel: "Delete",
-              );
-              if (result ?? false) {
-                final result2 = await AppDialog.showCommonDialog(
-                  context: context,
-                  title: "Post a Full Time Position",
-                  content:
-                      "Interviews and other hiring procedures for full time positions are not handled by the platform at this time. As the employer, it is your responsibility to schedule interviews and directly contact contractors who apply.",
-                  extraContent: "Are you sure you want to continue?",
-                  successLabel: "Continue",
-                );
-                if (result2 ?? false) {
-                  context.read<EmployerFullPostingBloc>().add(
-                        EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
-                      );
-                }
-              }
-            },
-            child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
-          ),
-          Gap(getSize(16)),
-          GestureDetector(
-            onTap: () {
-              context.router.push(
-                PageRouteInfo(
-                  EmployerFullPositionAddView.name,
-                  args: EmployerFullPositionAddViewArgs(postId: employer.id ?? -1),
-                ),
-              );
-            },
-            child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildLocationInfo(
     BuildContext context, {

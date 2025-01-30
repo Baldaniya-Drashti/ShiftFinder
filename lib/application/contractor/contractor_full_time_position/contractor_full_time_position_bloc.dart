@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
 import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 
 part 'contractor_full_time_position_event.dart';
@@ -61,11 +62,11 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
                     ),
                 ),
               );
@@ -85,10 +86,10 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
             }
           }
           var res = await _mainFacade.contractorDashboardFullPost(
-            page: currentPage,
+            page: appliedCurrentPage,
             positionsType: 3,
           );
-          currentPage++;
+          appliedCurrentPage++;
           res.fold(
                 (l) => emit(
               state.copyWith(
@@ -106,11 +107,11 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
                 state.copyWith(
                   appliedLoading: false,
                   appliedIsErrorInAPI: false,
-                  appliedNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  appliedNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   appliedPositionList: List.from(state.appliedPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
                     ),
                 ),
               );
