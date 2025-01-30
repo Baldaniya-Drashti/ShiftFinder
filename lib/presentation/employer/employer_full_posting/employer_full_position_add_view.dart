@@ -13,14 +13,12 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
+
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -415,6 +413,7 @@ class _PositionFormState extends State<_PositionForm> {
   }
 
   Widget languageDropDownChipSet(BuildContext context, AddFullPositionState state) {
+    print("rrrr---->${state.languageChipList.getValue()}");
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -442,8 +441,6 @@ class _PositionFormState extends State<_PositionForm> {
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
             context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmLanguageList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),

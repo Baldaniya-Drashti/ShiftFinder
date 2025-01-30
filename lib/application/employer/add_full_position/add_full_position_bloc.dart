@@ -57,7 +57,6 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
 
             if (value.postId != null) {
               final response = await _mainFacade.getEmployerPositionDetail(id: value.postId!, postType: 2);
-              emit(state.copyWith(loading: false));
               response.fold(
                 (l) {
                   showError(
@@ -80,6 +79,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                       unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
                       languageChipList: ListInputEmptyOrNot(
                           (data.languages_list != null) ? data.languages_list!.map((element) => element.name ?? "").toList() : []),
+
                     ),
                   );
                   print("==>employerLongTermDto${state.employerLongTermDto.position}");

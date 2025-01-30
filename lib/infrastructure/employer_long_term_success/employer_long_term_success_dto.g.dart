@@ -84,7 +84,7 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
           ?.map((e) => TeamDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       position: json['position'] as String?,
-      compensation_type: (json['compensation_type'] as num?)?.toInt(),
+      compensation_type: (json['compensation_type'] as num?)?.toInt() ?? 1,
       job_summary: json['job_summary'] as String?,
       external_internal_relationships:
           json['external_internal_relationships'] as String?,

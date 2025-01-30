@@ -10,6 +10,8 @@ class AddFullPositionState with _$AddFullPositionState {
     @Default(false) final bool loading,
     @Default(false) final bool postDataLoading,
     @Default(1) final int selectedRadioOption,
+
+
     final LocationDTO? selectedLocation,
     @Default(EmployerLongTermSuccessDto()) EmployerLongTermSuccessDto employerLongTermDto,
     required ListInputEmptyOrNot requiredShiftScheduleChipList,

@@ -68,8 +68,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
-          final employer = state.employerFullPosting;
-          //employer.copyWith(lo);
+
           final Map<String, dynamic> data = {
             ...state.employerFullPosting.toJson(),
           };
@@ -100,7 +99,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
               value.context.router.navigate(
                 PageRouteInfo(
                   EmployerFullPostingReviewView.name,
-                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: state.employerFullPosting,postId: state.postId),
+                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: data,postId: state.postId),
                 ),
               );
             },

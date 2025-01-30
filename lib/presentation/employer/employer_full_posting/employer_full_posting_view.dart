@@ -106,7 +106,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
                             child: Column(
                               children: [
                                 _buildPositionTile(context, employer: data),
-                                Gap(getSize(12)),
+                                Gap(getSize(10)),
                                 _positionDetailButton(
                                   context,
                                   onPressed: () {
@@ -116,9 +116,9 @@ class _EmployerFullPostingContent extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                Gap(getSize(12)),
+                                Gap(getSize(10)),
                                 _buildPositionDescription(context, employer: data),
-                                Gap(getSize(12)),
+                                Gap(getSize(10)),
                                 _buildTotalApplication(
                                   context,
                                   employer: data,
@@ -214,7 +214,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
                         }
                       }
                     },
-                    child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
+                    child: SvgPicture.asset(SvgImageConstant.delete),
                   ),
                   Gap(getSize(16)),
                   GestureDetector(
@@ -226,7 +226,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
                         ),
                       );
                     },
-                    child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
+                    child: SvgPicture.asset(SvgImageConstant.edit),
                   ),
                 ],
               ),
