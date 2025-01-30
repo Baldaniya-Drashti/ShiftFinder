@@ -171,10 +171,12 @@ class InvoiceView extends StatelessWidget {
               text: shift.roles_list_name ?? "",
               fontWeight: FontWeight.w600,
               fontSize: 14,
+              maxLines: 1,
             ),
             subtitle: BaseText(
               text: '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
               fontSize: 12,
+              maxLines: 1,
             ),
             trailing: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,9 +235,12 @@ class InvoiceView extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 Gap(getSize(5)),
-                BaseText(
-                  text: shift.location?.location ?? "",
-                  fontSize: 10,
+                Flexible(
+                  child: BaseText(
+                    text: shift.location?.location ?? "",
+                    fontSize: 10,
+                    maxLines: 1,
+                  ),
                 )
               ],
             ),
@@ -256,6 +261,7 @@ class InvoiceView extends StatelessWidget {
               text: "${shift.first_name ?? ""} ${shift.last_name ?? ""}",
               fontWeight: FontWeight.w600,
               fontSize: 12,
+              maxLines: 1,
             ),
             subtitle: BaseText(
               text: (shift.shift_type == "1")

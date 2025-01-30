@@ -87,10 +87,8 @@ class AddExperienceDetail extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(PngImageConstants.add_experience_desc),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
+                    experinceDesc(),
+                    SizedBox(height: getSize(20)),
                     Expanded(
                       child: (state.isLoading)
                           ? CenterLoadingIndicator(isOnlyLoader: true)
@@ -120,6 +118,57 @@ class AddExperienceDetail extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+
+  experinceDesc() {
+    return Container(
+      height: getSize(90),
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.grey.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            SvgImageConstant.female,
+            height: getSize(50),
+            width: getSize(55),
+            color: AppColors.primaryColor,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+            child: SvgPicture.asset(
+              SvgImageConstant.verticalLine,
+              height: getSize(66),
+              width: getSize(65),
+            ),
+          ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: StringConstant.addExperience,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+                BaseText(
+                  text: (isUpdate)
+                      ? StringConstant.updateRoleExperienceDec
+                      : StringConstant.addRoleExperienceDec,
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w400,
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

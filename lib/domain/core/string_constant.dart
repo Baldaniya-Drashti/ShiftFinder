@@ -190,6 +190,8 @@ class StringConstant {
       "Professional Liability Protection";
   static const String deleteGovernmentIdDesc =
       "Are you sure you want to delete the government issued id?";
+  static const String deleteResumeDesc =
+      "Are you sure you want to delete the resume?";
   static const String deleteCovidDocDesc =
       "Are you sure you want to delete the covid vaccination document?";
   static const String credentialRegistrationDesc =
@@ -735,7 +737,24 @@ class StringConstant {
   static const String statementPeriod = "Statement Period";
   static const String totalEarningStatement = "Total Earning Statement";
   static const String distance = "Distance";
+  static const String blockDesc =
+      "You can unblock a contractor from your blocked list by clicking the blocked button again.";
+  static const String favoriteDesc =
+      "You can remove a contractor from your favorites list by clicking the favorite button again.";
+  static const String remarkDesc =
+      "You can remove a contractor from your remarked list by clicking the delete button again.";
+  static const String editLocationDetails = "Edit Location Details";
+  static const String addNewLocation = "Add New Location";
+  static const String addExperience = "Add Experience";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String updateRoleExperienceDec =
+      "You can update experience for the selected roles";
+  static const String addRoleExperienceDec =
+      "Please add experience for the selected roles";
+  static const String updateSpeExperienceDec =
+      "You can update experience for the selected specialties";
+  static const String addSpeExperienceDec =
+      "Please add experience for the selected specialties";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
   static const String adminEmailID = "admin@shiftfinder.com";
@@ -976,6 +995,10 @@ class StringConstant {
       "Please select back page of Address proof";
   static const String pleaseSelectFrontPageOfAddressProof =
       "Please select front page of Address proof";
+  static const String pleaseSelectFrontPageOfProofOfLegalWorkStatus =
+      "Please select front page of Proof of legal work status";
+  static const String pleaseSelectBackPageOfProofOfLegalWorkStatus =
+      "Please select back page of Proof of legal work status";
 
   static const String pleaseSelectBackPageOfBackgroundCheckDocument =
       "Please select back page of Background check document";

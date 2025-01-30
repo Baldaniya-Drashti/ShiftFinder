@@ -32,8 +32,10 @@ class UserInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget title, subtitle;
-    final titleLabel = BaseText(text: this.title, fontWeight: FontWeight.w600, fontSize: 14);
-    final subtitleLabel = BaseText(text: subTitle, fontSize: 10, fontWeight: FontWeight.w500);
+    final titleLabel =
+        BaseText(text: this.title, fontWeight: FontWeight.w600, fontSize: 14);
+    final subtitleLabel =
+        BaseText(text: subTitle, fontSize: 10, fontWeight: FontWeight.w500);
 
     if (titleIcon != null) {
       title = Row(
@@ -77,7 +79,8 @@ class CommonInfoTile extends StatelessWidget {
     this.title,
     this.subtitle,
     this.trailing,
-    this.leadingGap, this.crossAxisAlignment,
+    this.leadingGap,
+    this.crossAxisAlignment,
   });
 
   final Widget? leading, title, subtitle, trailing;
@@ -87,7 +90,7 @@ class CommonInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: crossAxisAlignment??CrossAxisAlignment.center,
+      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
       children: [
         if (leading != null) leading!,
         SizedBox(
@@ -131,5 +134,3 @@ class BaseTileDecoration extends StatelessWidget {
     );
   }
 }
-
-

@@ -46,7 +46,7 @@ class EditProfileView extends StatelessWidget {
           onBackPressed: () {
             context.router.maybePop();
           },
-          title: StringConstant.companyDetails,
+          title: StringConstant.editProfile,
         ),
       ),
       body: GestureDetector(
@@ -94,7 +94,7 @@ class EditProfileView extends StatelessWidget {
                                         EditProfileEvent.updateProfile(
                                             context));
                                   },
-                                  buttonText: StringConstant.register,
+                                  buttonText: StringConstant.update,
                                 ),
                               ),
                             ],

@@ -24,6 +24,7 @@ class PngImageConstants {
   static const profile_employer = "assets/png/profile_employer.png";
   static const contractor_employer = "assets/png/profile_contractor.png";
   static const add_experience_desc = "assets/png/add_experience_desc.png";
+  static const update_experience_desc = "assets/png/update_experience_desc.png";
   static const add_speciality_experience_desc =
       "assets/png/add_speciality_experience_desc.png";
   static const document_img = "assets/png/document_img.png";
@@ -87,5 +88,6 @@ class PngImageConstants {
     suitcase,
     passwordChanged,
     ticketSubmittedSuccess,
+    update_experience_desc
   ];
 }

@@ -46,14 +46,18 @@ class EmployerCompletedShiftView extends StatelessWidget {
                           context.read<EmployerCompletedShiftBloc>().add(
                                 EmployerCompletedShiftEvent
                                     .fetchAllCompletedPost(
-                                        refresh: true, sortBy: 1),
+                                        refresh: true,
+                                        sortBy:
+                                            state.currentFilledFilter.id ?? -1),
                               );
                         },
                         onLoading: () {
                           context.read<EmployerCompletedShiftBloc>().add(
                                 EmployerCompletedShiftEvent
                                     .fetchAllCompletedPost(
-                                        refresh: false, sortBy: 1),
+                                        refresh: false,
+                                        sortBy:
+                                            state.currentFilledFilter.id ?? -1),
                               );
                         },
                         refreshController:
@@ -101,6 +105,7 @@ class EmployerCompletedShiftView extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
       child: CustomDropdownField(
+        label: StringConstant.sortBy,
         onChanged: (value) {
           if (value != null) {
             context.read<EmployerCompletedShiftBloc>().add(

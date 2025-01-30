@@ -299,8 +299,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 currentAddressProofType: e.selectedType,
                 addressproofFrontDoc: InputEmptyOrNot(""),
                 addressProofBackDoc: InputEmptyOrNot(""),
-                /* governmentExpiryDate: "",
-                isGovernemtExpiryCheck: false, */
+                docExpiryDate: "",
+                // isGovernemtExpiryCheck: false,
                 showErrorMesages: false,
               ));
             }

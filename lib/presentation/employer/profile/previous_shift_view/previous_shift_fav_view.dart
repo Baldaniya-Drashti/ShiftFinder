@@ -24,45 +24,60 @@ class PreviousShiftFavView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
-        return Stack(
-          children: [
-            PaginatedListView(
-              onRefresh: () {
-                context
-                    .read<PreviousShiftBloc>()
-                    .add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
-                context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(
-                          refresh: true, sortBy: 1),
-                    );
-              },
-              onLoading: () {
-                context
-                    .read<PreviousShiftBloc>()
-                    .add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
-              },
-              refreshController: context.read<PreviousShiftBloc>().favorite,
-              isNoDataFound: state.favoriteListNoDataFound,
-              child: state.favoriteListLoading
-                  ? CenterLoadingIndicator()
-                  : state.favoriteListIsErrorApi
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : ListView.separated(
-                          padding: EdgeInsets.all(getSize(20)),
-                          itemBuilder: (context, index) =>
-                              _PreviousShiftFavTile(
-                            data: state.favoritesList[index],
-                          ),
-                          separatorBuilder: (context, index) =>
-                              Gap(getSize(16)),
-                          itemCount: state.favoritesList.length,
-                        ),
-            ),
-            if (state.postDataLoading) CenterLoadingIndicator()
-          ],
+        return Padding(
+          padding: EdgeInsets.all(getSize(20)),
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(left: getSize(20), bottom: getSize(20)),
+                child: BaseText(
+                  text: StringConstant.favoriteDesc,
+                  fontSize: getFontSize(12),
+                ),
+              ),
+              Expanded(
+                child: (state.postDataLoading)
+                    ? CenterLoadingIndicator()
+                    : PaginatedListView(
+                        onRefresh: () {
+                          context.read<PreviousShiftBloc>().add(
+                              PreviousShiftEvent.fetchFavoriteList(
+                                  refresh: true));
+                          context.read<PreviousShiftBloc>().add(
+                                PreviousShiftEvent.fetchAllPreviousPost(
+                                    refresh: true, sortBy: 1),
+                              );
+                        },
+                        onLoading: () {
+                          context.read<PreviousShiftBloc>().add(
+                              PreviousShiftEvent.fetchFavoriteList(
+                                  refresh: false));
+                        },
+                        refreshController:
+                            context.read<PreviousShiftBloc>().favorite,
+                        isNoDataFound: state.favoriteListNoDataFound,
+                        child: state.favoriteListLoading
+                            ? CenterLoadingIndicator(isOnlyLoader: true)
+                            : state.favoriteListIsErrorApi
+                                ? Center(
+                                    child: BaseText(
+                                        text:
+                                            StringConstant.somethindWentWrong),
+                                  )
+                                : ListView.separated(
+                                    itemBuilder: (context, index) =>
+                                        _PreviousShiftFavTile(
+                                      data: state.favoritesList[index],
+                                    ),
+                                    separatorBuilder: (context, index) =>
+                                        Gap(getSize(16)),
+                                    itemCount: state.favoritesList.length,
+                                  ),
+                      ),
+              ),
+            ],
+          ),
         );
       },
     );

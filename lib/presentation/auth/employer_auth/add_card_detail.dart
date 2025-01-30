@@ -167,16 +167,15 @@ class AddCardDetailPage extends StatelessWidget {
             width: getSize(49),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
             child: SvgPicture.asset(
               SvgImageConstant.verticalLine,
               height: getSize(50),
               width: getSize(49),
             ),
           ),
-          SizedBox(
-            width: getSize(220),
-            child: const BaseText(
+          Flexible(
+            child: BaseText(
               text: StringConstant.cardDesc,
               fontSize: 12,
               fontWeight: FontWeight.w400,
