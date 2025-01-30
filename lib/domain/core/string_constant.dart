@@ -565,6 +565,7 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String youHaveRejectedThisShift = "You have rejected this shift";
   static const String employerHaveRejectedThisShift =
       "Employer have rejected this shift";
   static const String youHaveCancelledThisShiftApplication =

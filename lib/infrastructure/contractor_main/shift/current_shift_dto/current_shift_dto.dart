@@ -12,6 +12,7 @@ class CurrentShiftDTO with _$CurrentShiftDTO {
   const factory CurrentShiftDTO({
     int? id,
     int? post_id,
+    int? employer_post_user_id,
     String? listing_id,
     String? last_ago,
     int? industry_id,

@@ -11,6 +11,7 @@ _$ContractorPreviousShiftDTOImpl _$$ContractorPreviousShiftDTOImplFromJson(
     _$ContractorPreviousShiftDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       post_id: (json['post_id'] as num?)?.toInt(),
+      applicants_id: (json['applicants_id'] as num?)?.toInt(),
       listing_id: json['listing_id'] as String?,
       last_ago: json['last_ago'] as String?,
       roles_list_name: json['roles_list_name'] as String?,
@@ -38,6 +39,7 @@ Map<String, dynamic> _$$ContractorPreviousShiftDTOImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'post_id': instance.post_id,
+      'applicants_id': instance.applicants_id,
       'listing_id': instance.listing_id,
       'last_ago': instance.last_ago,
       'roles_list_name': instance.roles_list_name,

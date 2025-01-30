@@ -319,15 +319,15 @@ class MyCalendarView extends StatelessWidget {
             ),
             trailing: GestureDetector(
               onTap: () {
-                showUnderDevelopment(context);
-                /* context.router.push(
-                        PageRouteInfo(
-                          Message.name,
-                          args: MessageArgs(
-                            receiverId: post.user?.user_id ?? 0,
-                          ),
-                        ),
-                      ); */
+                // showUnderDevelopment(context);
+                context.router.push(
+                  PageRouteInfo(
+                    Message.name,
+                    args: MessageArgs(
+                      receiverId: post.employer_user_id ?? 0,
+                    ),
+                  ),
+                );
               },
               child: SvgPicture.asset(
                 SvgImageConstant.chatWithBG,

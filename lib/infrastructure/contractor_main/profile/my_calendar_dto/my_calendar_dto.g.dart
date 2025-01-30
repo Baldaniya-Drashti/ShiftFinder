@@ -26,6 +26,7 @@ _$ContractorMyCalendarListDTOImpl _$$ContractorMyCalendarListDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$ContractorMyCalendarListDTOImpl(
       id: (json['id'] as num?)?.toInt(),
+      employer_user_id: (json['employer_user_id'] as num?)?.toInt(),
       shift_type: (json['shift_type'] as num?)?.toInt(),
       application_id: (json['application_id'] as num?)?.toInt(),
       roles_list_name: json['roles_list_name'] as String?,
@@ -46,6 +47,7 @@ Map<String, dynamic> _$$ContractorMyCalendarListDTOImplToJson(
         _$ContractorMyCalendarListDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'employer_user_id': instance.employer_user_id,
       'shift_type': instance.shift_type,
       'application_id': instance.application_id,
       'roles_list_name': instance.roles_list_name,

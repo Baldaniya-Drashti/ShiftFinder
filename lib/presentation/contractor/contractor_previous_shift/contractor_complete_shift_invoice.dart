@@ -26,10 +26,10 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "InvoiceDetailView")
-class InvoiceDetailView extends StatelessWidget {
+@RoutePage(name: "CompleteShiftInvoiceView")
+class CompleteShiftInvoiceView extends StatelessWidget {
   final int id;
-  const InvoiceDetailView({super.key, required this.id});
+  const CompleteShiftInvoiceView({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -149,33 +149,23 @@ class InvoiceDetailView extends StatelessWidget {
       buttonText: "",
       onPressed: onTap,
       borderRadius: 5,
-      width: isContractor ? 200 : 76,
-      height: isContractor ? 0 : 20,
-      backgroundColor: isContractor
-          ? AppColors.primaryColor
-          : AppColors.primaryColor.withOpacity(0.20),
+      width: 76,
+      height: 20,
+      backgroundColor: AppColors.primaryColor.withOpacity(0.20),
       buttonTextColor: AppColors.primaryColor,
       customWidget: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          isContractor
-              ? SvgPicture.asset(
-                  SvgImageConstant.download,
-                  width: getSize(15),
-                  height: getSize(15),
-                  color: AppColors.white,
-                )
-              : SvgPicture.asset(
-                  SvgImageConstant.download,
-                  width: getSize(10),
-                  height: getSize(10),
-                  color: null,
-                ),
+          SvgPicture.asset(
+            SvgImageConstant.download,
+            width: getSize(10),
+            height: getSize(10),
+          ),
           SizedBox(width: getSize(5)),
           BaseText(
             textAlign: TextAlign.center,
             text: StringConstant.download,
-            fontSize: isContractor ? 12 : 8,
+            fontSize: 8,
             fontWeight: FontWeight.w500,
             textColor: isContractor ? AppColors.white : AppColors.green,
           ),
@@ -344,6 +334,12 @@ class _PaymentDetail extends StatelessWidget {
         TransactionInfo(
             label: StringConstant.totalAllowance,
             value: "\$${invoice.total_allowance ?? 00}"),
+        Divider(),
+        TransactionInfo(
+          label: StringConstant.totalEarnings,
+          value: "\$${invoice.total_allowance ?? 00}",
+          valueColor: AppColors.primaryColor,
+        ),
       ],
     );
   }

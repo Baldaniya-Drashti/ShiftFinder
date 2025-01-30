@@ -35,7 +35,7 @@ class EarningOverTimeDTO with _$EarningOverTimeDTO {
 class InsightListDTO with _$InsightListDTO {
   const factory InsightListDTO({
     String? name,
-    int? value,
+    double? value,
   }) = _InsightListDTO;
 
   factory InsightListDTO.fromJson(Map<String, dynamic> json) =>

@@ -59,7 +59,7 @@ Map<String, dynamic> _$$EarningOverTimeDTOImplToJson(
 _$InsightListDTOImpl _$$InsightListDTOImplFromJson(Map<String, dynamic> json) =>
     _$InsightListDTOImpl(
       name: json['name'] as String?,
-      value: (json['value'] as num?)?.toInt(),
+      value: (json['value'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$InsightListDTOImplToJson(

@@ -22,6 +22,7 @@ class MyCalendarDTO with _$MyCalendarDTO {
 class ContractorMyCalendarListDTO with _$ContractorMyCalendarListDTO {
   const factory ContractorMyCalendarListDTO({
     int? id,
+    int? employer_user_id,
     int? shift_type,
     int? application_id,
     String? roles_list_name,
