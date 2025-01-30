@@ -46,7 +46,8 @@ class AddBankDetailsScreen extends StatelessWidget {
       },
       child: BlocProvider(
         create: (context) => getIt<BankDetailsBloc>()
-          ..add(BankDetailsEvent.getCurrentBank(currentBank: bankDetail)),
+          ..add(BankDetailsEvent.getCurrentBank(
+              currentBank: bankDetail, isUpdate: isUpdate)),
         child: BlocConsumer<BankDetailsBloc, BankDetailsState>(
           listener: (context, state) {
             state.authFailureOrSuccessOption.fold(
@@ -122,7 +123,7 @@ class AddBankDetailsScreen extends StatelessWidget {
                               stateField(context, state),
                               paddingBetweenFields(),
                               postalCodeField(context, state),
-                              if (!isUpdate) ...[
+                              if (state.bankDetail == null) ...[
                                 paddingBetweenFields(height: getSize(30)),
                                 termsCheckBox(state, context),
                                 paddingBetweenFields(height: getSize(10)),

@@ -29,8 +29,6 @@ class ProfileItems extends StatelessWidget {
         title: 'Completed Shifts',
         image: SvgImageConstant.completedShifts,
         onTap: () {
-          /* context.router.push(PageRouteInfo(PreviousShiftAllView.name,
-              args: PreviousShiftAllViewArgs(completedShift: true))); */
           context.router.push(PageRouteInfo(EmployerCompletedShiftView.name));
         },
       ),
@@ -59,7 +57,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Chat',
         image: SvgImageConstant.chat,
         onTap: () {
-          // context.router.push(PageRouteInfo(Chat.name));
+          context.router.push(PageRouteInfo(Chat.name));
         },
       ),
       ProfileItemModel(
@@ -246,7 +244,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.chat,
         image: SvgImageConstant.chat,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(Chat.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.myEarnings,
@@ -259,7 +259,8 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.performanceInsights,
         image: SvgImageConstant.insights,
         onTap: () {
-          // context.router.push(PageRouteInfo(ContractorPerformanceInsightView.name));
+          context.router
+              .push(PageRouteInfo(ContractorPerformanceInsightView.name));
         },
       ),
       ProfileItemModel(

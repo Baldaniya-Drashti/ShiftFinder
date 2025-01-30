@@ -66,6 +66,7 @@ class StringConstant {
   static const String typeHere = "Type here...";
   static const String takePhoto = "Take Photo";
   static const String galleryPhoto = "Gallery Photo";
+  static const String galleryVideo = "Gallery Video";
   static const String chooseFile = "Choose File";
   static const String cancle = "Cancel";
   static const String locationDetails = "Location Details";
@@ -189,6 +190,8 @@ class StringConstant {
       "Professional Liability Protection";
   static const String deleteGovernmentIdDesc =
       "Are you sure you want to delete the government issued id?";
+  static const String deleteResumeDesc =
+      "Are you sure you want to delete the resume?";
   static const String deleteCovidDocDesc =
       "Are you sure you want to delete the covid vaccination document?";
   static const String credentialRegistrationDesc =
@@ -733,9 +736,28 @@ class StringConstant {
   static const String withdrawSuccessful = "Withdraw Successful!";
   static const String statementPeriod = "Statement Period";
   static const String totalEarningStatement = "Total Earning Statement";
+  static const String distance = "Distance";
+  static const String blockDesc =
+      "You can unblock a contractor from your blocked list by clicking the blocked button again.";
+  static const String favoriteDesc =
+      "You can remove a contractor from your favorites list by clicking the favorite button again.";
+  static const String remarkDesc =
+      "You can remove a contractor from your remarked list by clicking the delete button again.";
+  static const String editLocationDetails = "Edit Location Details";
+  static const String addNewLocation = "Add New Location";
+  static const String addExperience = "Add Experience";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String updateRoleExperienceDec =
+      "You can update experience for the selected roles";
+  static const String addRoleExperienceDec =
+      "Please add experience for the selected roles";
+  static const String updateSpeExperienceDec =
+      "You can update experience for the selected specialties";
+  static const String addSpeExperienceDec =
+      "Please add experience for the selected specialties";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
+  static const String adminEmailID = "admin@shiftfinder.com";
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";
@@ -949,6 +971,7 @@ class StringConstant {
   static const String helpDeskDesk =
       "Reach out to the ShiftFinder Support Team via chat or by submitting a support ticket for assistance.";
   static const String chatWithSupport = "Chat with Support";
+  static const String contactSupport = "Contact Support";
   static const String submitATicket = "Submit a Ticket";
   static const String contactInformation = "Contact Information";
   static const String name = "Name";
@@ -972,6 +995,10 @@ class StringConstant {
       "Please select back page of Address proof";
   static const String pleaseSelectFrontPageOfAddressProof =
       "Please select front page of Address proof";
+  static const String pleaseSelectFrontPageOfProofOfLegalWorkStatus =
+      "Please select front page of Proof of legal work status";
+  static const String pleaseSelectBackPageOfProofOfLegalWorkStatus =
+      "Please select back page of Proof of legal work status";
 
   static const String pleaseSelectBackPageOfBackgroundCheckDocument =
       "Please select back page of Background check document";
@@ -1003,6 +1030,8 @@ class StringConstant {
   static const String amountMustBeAtLeastOne = "Amount must be atleast \$1";
   static const String pleaseEnterWithdrawAmount =
       "Please enter withdraw amount";
+  static const String youCanT =
+      "You can’t send any message after the shift has completed.";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

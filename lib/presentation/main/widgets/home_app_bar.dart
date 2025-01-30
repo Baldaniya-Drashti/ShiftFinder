@@ -85,7 +85,9 @@ class ContractorHomeAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return (!showAppBar)
-        ? Container()
+        ? Container(
+            color: AppColors.scaffoldColor,
+          )
         : BlocBuilder<ContractorMainTabBloc, ContractorMainTabState>(
             builder: (context, state) {
               return Container(
@@ -114,7 +116,7 @@ class ContractorHomeAppBar extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(getSize((!showAppBar) ? 0 : 70));
+  Size get preferredSize => Size.fromHeight(getSize((!showAppBar) ? 0 : 80));
 }
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -148,7 +150,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
       bottom: bottom,
       forceMaterialTransparency: forceMaterialTransparency,
       scrolledUnderElevation: 0,

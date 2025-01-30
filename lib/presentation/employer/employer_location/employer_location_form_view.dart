@@ -49,7 +49,9 @@ class EmployerLocationFormView extends StatelessWidget {
                 EmployerLocationFormBloc.locationCtrl.clear();
                 context.router.maybePop();
               },
-              title: StringConstant.locationDetails,
+              title: id != null
+                  ? StringConstant.editLocationDetails
+                  : StringConstant.addNewLocation,
             ),
             body: BlocConsumer<EmployerLocationFormBloc,
                 EmployerLocationFormState>(
@@ -147,7 +149,7 @@ class EmployerLocationFormView extends StatelessWidget {
                                       unitNotecontroller.clear();
                                     },
                                     buttonText: state.id != null
-                                        ? "Update"
+                                        ? StringConstant.update
                                         : StringConstant.txtContinue,
                                   ),
                                 ),
@@ -583,9 +585,7 @@ class EmployerLocationFormView extends StatelessWidget {
 
   Widget unitBox(BuildContext context, EmployerLocationFormState state) {
     return Container(
-      padding: EdgeInsets.all(
-        getSize(20),
-      ),
+      padding: EdgeInsets.all(getSize(20)),
       decoration: BoxDecoration(
         color: AppColors.grey04,
         borderRadius: BorderRadius.circular(
@@ -596,7 +596,6 @@ class EmployerLocationFormView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           listOfUnit(context, state),
-          paddingBetweenFields(height: getSize(10)),
           unitNumberField(context, state),
           /*paddingBetweenFields(height: getSize(10)),
           CustomChipSet(
@@ -706,6 +705,7 @@ class EmployerLocationFormView extends StatelessWidget {
   Widget listOfUnit(BuildContext context, EmployerLocationFormState state) {
     return ListView.builder(
         shrinkWrap: true,
+        padding: EdgeInsets.only(bottom: getSize(10)),
         physics: NeverScrollableScrollPhysics(),
         itemCount: state.listOfUnit.length,
         itemBuilder: (_, index) {
@@ -838,7 +838,7 @@ class EmployerLocationFormView extends StatelessWidget {
                                       "unit controller ---> ${updateUnitNameCtrl.text}");
                                   print(
                                       "unit controller ---> ${updateUnitNameCtrl.text.isNotEmpty}");
-                                  /*  bloc.add(EmployerLocationFormEvent
+                                  bloc.add(EmployerLocationFormEvent
                                       .editUnitNumberChip(
                                           context,
                                           index,
@@ -847,12 +847,11 @@ class EmployerLocationFormView extends StatelessWidget {
                                                 updateUnitNameCtrl.text.trim(),
                                             note:
                                                 updateUnitNoteCtrl.text.trim(),
-                                          ))); */
+                                          )));
                                 }
                               : () {},
                           buttonText: StringConstant.update,
                           // width: 5,
-
                           buttonFontSize: 12,
                           buttonFontWeight: FontWeight.w600,
                           height: 35,

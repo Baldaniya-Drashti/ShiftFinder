@@ -42,11 +42,8 @@ Map<String, dynamic> _$$PerformanceInsightDTOImplToJson(
 _$EarningOverTimeDTOImpl _$$EarningOverTimeDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$EarningOverTimeDTOImpl(
-      week_lists: (json['week_lists'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      amounts: (json['amounts'] as List<dynamic>?)
-          ?.map((e) => (e as num).toDouble())
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) => InsightListDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       heights:
           (json['heights'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -55,37 +52,43 @@ _$EarningOverTimeDTOImpl _$$EarningOverTimeDTOImplFromJson(
 Map<String, dynamic> _$$EarningOverTimeDTOImplToJson(
         _$EarningOverTimeDTOImpl instance) =>
     <String, dynamic>{
-      'week_lists': instance.week_lists,
-      'amounts': instance.amounts,
+      'list': instance.list,
       'heights': instance.heights,
+    };
+
+_$InsightListDTOImpl _$$InsightListDTOImplFromJson(Map<String, dynamic> json) =>
+    _$InsightListDTOImpl(
+      name: json['name'] as String?,
+      value: (json['value'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$InsightListDTOImplToJson(
+        _$InsightListDTOImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
     };
 
 _$HourWorkedDTOImpl _$$HourWorkedDTOImplFromJson(Map<String, dynamic> json) =>
     _$HourWorkedDTOImpl(
-      hours_list: (json['hours_list'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) => InsightListDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
-      hours:
-          (json['hours'] as List<dynamic>?)?.map((e) => e as String).toList(),
       heights:
           (json['heights'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$HourWorkedDTOImplToJson(_$HourWorkedDTOImpl instance) =>
     <String, dynamic>{
-      'hours_list': instance.hours_list,
-      'hours': instance.hours,
+      'list': instance.list,
       'heights': instance.heights,
     };
 
 _$CompletedShiftMapDTOImpl _$$CompletedShiftMapDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$CompletedShiftMapDTOImpl(
-      shifts_lists: (json['shifts_lists'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      shifts: (json['shifts'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) => InsightListDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       heights: (json['heights'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
@@ -95,7 +98,6 @@ _$CompletedShiftMapDTOImpl _$$CompletedShiftMapDTOImplFromJson(
 Map<String, dynamic> _$$CompletedShiftMapDTOImplToJson(
         _$CompletedShiftMapDTOImpl instance) =>
     <String, dynamic>{
-      'shifts_lists': instance.shifts_lists,
-      'shifts': instance.shifts,
+      'list': instance.list,
       'heights': instance.heights,
     };

@@ -265,7 +265,8 @@ class ProofOfLegalStatus extends StatelessWidget {
           doc: state.proofFrontDoc.getValue(),
           showDocError:
               (state.showErrorMesages && !state.proofFrontDoc.isValid()),
-          errorMsg: StringConstant.pleaseSelectFrontPageOfAddressProof,
+          errorMsg:
+              StringConstant.pleaseSelectFrontPageOfProofOfLegalWorkStatus,
           takePhotoCallback: (path) {
             context.read<ProofOfLegalStatusBloc>().add(
                   ProofOfLegalStatusEvent.selectFrontDoc(path),
@@ -298,7 +299,8 @@ class ProofOfLegalStatus extends StatelessWidget {
           doc: state.proofBackDoc.getValue(),
           showDocError:
               (state.showErrorMesages && !state.proofBackDoc.isValid()),
-          errorMsg: StringConstant.pleaseSelectBackPageOfAddressProof,
+          errorMsg:
+              StringConstant.pleaseSelectFrontPageOfProofOfLegalWorkStatus,
           takePhotoCallback: (path) {
             context.read<ProofOfLegalStatusBloc>().add(
                   ProofOfLegalStatusEvent.selectBackDoc(path),

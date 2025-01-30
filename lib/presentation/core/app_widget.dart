@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
+import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
@@ -30,6 +31,9 @@ class AppWidget extends StatelessWidget {
         bloc.BlocProvider(
           create: (context) => getIt<AccountCubit>(),
         ),
+        // bloc.BlocProvider(
+        //   create: (context) => getIt<MainTabBloc>(),
+        // ),
       ],
       child: _App(),
     );

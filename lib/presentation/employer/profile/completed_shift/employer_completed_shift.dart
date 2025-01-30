@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
+import 'package:shift/application/employer/profile/employer_completed_shift_bloc/employer_completed_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -29,76 +30,60 @@ class EmployerCompletedShiftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    final content = BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+    final content =
+        BlocBuilder<EmployerCompletedShiftBloc, EmployerCompletedShiftState>(
       builder: (context, state) {
-        return Stack(
-          fit: StackFit.expand,
-          children: [
-            PaginatedListView(
-              onRefresh: () {
-                context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(
-                          refresh: true, sortBy: 1),
-                    );
-              },
-              onLoading: () {
-                context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(
-                          refresh: false, sortBy: 1),
-                    );
-              },
-              refreshController: context.read<PreviousShiftBloc>().allPost,
-              isNoDataFound: state.allDataListNoDataFound,
-              child: state.allDataListLoading
-                  ? CenterLoadingIndicator()
-                  : state.allDataListIsErrorApi
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : Center(
-                          child: BaseText(
-                            textColor: AppColors.black.withOpacity(0.65),
-                            text: 'No result found.',
-                            textAlign: TextAlign.center,
-                            lineHeight: 1.2,
-                          ),
-                        ),
-              /* SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
-                          padding: EdgeInsets.all(getSize(16)),
-                          child: Column(
-                            children: [
-                              BlocSelector<PreviousShiftBloc,
-                                  PreviousShiftState, RatingDropdownModel>(
-                                selector: (state) => state.selectedRating,
-                                builder: (context, selectedRating) {
-                                  return _RatingsDropdown(
-                                    onChanged: (RatingDropdownModel value) {
-                                      context.read<PreviousShiftBloc>().add(
-                                          PreviousShiftEvent.ratingChangeEvent(
-                                              rating: value));
-                                    },
-                                    value: selectedRating,
-                                  );
-                                },
-                              ),
-                              SizedBox(height: getSize(16)),
-                              _CompletedShiftListView( allPostList: state.employerPreviousList)
-                            ],
-                          ),
-                        ), */
-            ),
-            if (state.postDataLoading) CenterLoadingIndicator()
-          ],
-        );
+        return (state.postDataLoading)
+            ? CenterLoadingIndicator()
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  sortingField(context, state),
+                  SizedBox(height: getSize(16)),
+                  Expanded(
+                    child: PaginatedListView(
+                        onRefresh: () {
+                          context.read<EmployerCompletedShiftBloc>().add(
+                                EmployerCompletedShiftEvent
+                                    .fetchAllCompletedPost(
+                                        refresh: true,
+                                        sortBy:
+                                            state.currentFilledFilter.id ?? -1),
+                              );
+                        },
+                        onLoading: () {
+                          context.read<EmployerCompletedShiftBloc>().add(
+                                EmployerCompletedShiftEvent
+                                    .fetchAllCompletedPost(
+                                        refresh: false,
+                                        sortBy:
+                                            state.currentFilledFilter.id ?? -1),
+                              );
+                        },
+                        refreshController:
+                            context.read<EmployerCompletedShiftBloc>().allPost,
+                        isNoDataFound: state.allDataListNoDataFound,
+                        child: state.allDataListLoading
+                            ? CenterLoadingIndicator(isOnlyLoader: true)
+                            : state.allDataListIsErrorApi
+                                ? Center(
+                                    child: BaseText(
+                                        text:
+                                            StringConstant.somethindWentWrong))
+                                : _CompletedShiftListView(
+                                    allPostList: state.employerPreviousList)),
+                  ),
+                ],
+              );
       },
     );
 
     widget = BlocProvider(
-      create: (context) => getIt<PreviousShiftBloc>()
+      create: (context) => getIt<EmployerCompletedShiftBloc>()
         ..add(
-          PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
+          EmployerCompletedShiftEvent.getLocationListAPI(),
+          /*EmployerCompletedShiftEvent.fetchAllCompletedPost(
+              refresh: true, sortBy: 1), */
         ),
       child: Scaffold(
         appBar: CommonAppBar(
@@ -110,6 +95,42 @@ class EmployerCompletedShiftView extends StatelessWidget {
     );
 
     return widget;
+  }
+
+  Widget sortingField(
+    BuildContext context,
+    EmployerCompletedShiftState state,
+  ) {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
+      child: CustomDropdownField(
+        label: StringConstant.sortBy,
+        onChanged: (value) {
+          if (value != null) {
+            context.read<EmployerCompletedShiftBloc>().add(
+                EmployerCompletedShiftEvent.onFilledSorting(
+                    value ?? LocationDTO()));
+          }
+        },
+        hintText: StringConstant.location,
+        value: (state.currentFilledFilter.location != null &&
+                state.currentFilledFilter.location!.isNotEmpty)
+            ? state.currentFilledFilter
+            : null,
+        items: state.locationList.map((val) {
+          return DropdownMenuItem<LocationDTO>(
+            value: val,
+            child: BaseText(
+              text: val.location ?? "",
+              fontSize: 14,
+              maxLines: 1,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 }
 
@@ -428,8 +449,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                                 successLabel: "Unfavorite",
                               );
                               if (result ?? false) {
-                                context.read<PreviousShiftBloc>().add(
-                                      PreviousShiftEvent.addUnFavorite(
+                                context.read<EmployerCompletedShiftBloc>().add(
+                                      EmployerCompletedShiftEvent.addUnFavorite(
                                         postId: postId,
                                         userId: userId,
                                         context: context,
@@ -437,8 +458,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                                     );
                               }
                             } else {
-                              context.read<PreviousShiftBloc>().add(
-                                    PreviousShiftEvent.addFavorite(
+                              context.read<EmployerCompletedShiftBloc>().add(
+                                    EmployerCompletedShiftEvent.addFavorite(
                                       postId: postId,
                                       userId: userId,
                                       context: context,
@@ -780,8 +801,8 @@ class _PreviousShiftListTile extends StatelessWidget {
       builder: (context) => AddRemarkModal(),
     );
     if (result != null) {
-      context.read<PreviousShiftBloc>().add(
-            PreviousShiftEvent.addRemark(
+      context.read<EmployerCompletedShiftBloc>().add(
+            EmployerCompletedShiftEvent.addRemark(
                 userId: userId,
                 postId: postId,
                 context: context,
@@ -806,8 +827,8 @@ class _PreviousShiftListTile extends StatelessWidget {
       onCancelClick: () => context.router.maybePop(),
       onDeleteClick: () {
         context.router.maybePop();
-        context.read<PreviousShiftBloc>().add(
-              PreviousShiftEvent.blockUnblockPost(
+        context.read<EmployerCompletedShiftBloc>().add(
+              EmployerCompletedShiftEvent.blockUnblockPost(
                   userId: userId, postId: postId, context: context),
             );
       },
@@ -825,8 +846,8 @@ class _PreviousShiftListTile extends StatelessWidget {
       context,
       defaultRating: defaultRating,
       onSubmit: (int value) {
-        context.read<PreviousShiftBloc>().add(
-              PreviousShiftEvent.leaveRating(
+        context.read<EmployerCompletedShiftBloc>().add(
+              EmployerCompletedShiftEvent.leaveRating(
                 userId: userId,
                 postId: postId,
                 rating: value,
@@ -853,8 +874,8 @@ class _PreviousShiftListTile extends StatelessWidget {
     );
 
     if (result ?? false) {
-      context.read<PreviousShiftBloc>().add(
-            PreviousShiftEvent.blockUnblockPost(
+      context.read<EmployerCompletedShiftBloc>().add(
+            EmployerCompletedShiftEvent.blockUnblockPost(
                 userId: userId, postId: postId, context: context),
           );
     }

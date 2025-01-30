@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const MessageAppbar({super.key});
+  final AdditionalDataDto additionalData;
+  const MessageAppbar({super.key, required this.additionalData});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,8 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   image: DecorationImage(
                     image: NetworkImage(
-                      'https://img.freepik.com/free-photo/fashionable-young-woman-standing-front-blue-backdrop_23-2148204718.jpg?semt=ais_hybrid-rr-similar',
+                      additionalData.profile ??
+                          'https://img.freepik.com/free-photo/fashionable-young-woman-standing-front-blue-backdrop_23-2148204718.jpg?semt=ais_hybrid-rr-similar',
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -81,7 +84,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BaseText(
-                    text: 'Rochel Foose',
+                    text: additionalData.name ?? 'Rochel Foose',
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
                   ),
@@ -89,7 +92,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                     height: getSize(2),
                   ),
                   BaseText(
-                    text: 'CT Technologist',
+                    text: additionalData.role_list_name ?? 'NA',
                     fontWeight: FontWeight.w600,
                     fontSize: 9,
                     textColor: AppColors.black.withOpacity(0.8),

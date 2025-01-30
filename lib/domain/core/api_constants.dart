@@ -89,9 +89,11 @@ class ApiConstants {
   //chat
   static String getChatList = 'chat-list';
   static String getMessageList = 'chat';
+  static String chatUploadMedia = 'chat-upload-media';
 
   //employer dashboard
   static String employerDashboard = 'employer_dashboard';
+  static String notifications = 'notifications';
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';
@@ -119,6 +121,7 @@ class ApiConstants {
   static String deleteTeam = 'delete_team';
 
   static String employerPreviousShift = 'employer_previous_shift';
+  static String employerCompleteShift = 'employer_complete_shift';
   static String employerApplicants = 'employer_applicants';
   static String employerApplicantsAcceptReject = 'employer_applicants_accept_reject';
   static String employerRating = 'employer_rating';

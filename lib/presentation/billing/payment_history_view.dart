@@ -92,6 +92,9 @@ class _PaymentHistoryExpandableTile extends StatelessWidget {
       backgroundColor: AppColors.scaffoldColor,
       visualDensity: VisualDensity.compact,
       childrenPadding: EdgeInsets.all(getSize(15)).copyWith(top: 0),
+      tilePadding: EdgeInsets.symmetric(horizontal: getSize(15)),
+      clipBehavior: Clip.none,
+
       // trailing: SvgPicture.asset(SvgImageConstant.downArrow),
       title: _buildPaymentDetailTitle(context,
           title: StringConstant.totalAmountPayable,
@@ -135,10 +138,11 @@ class _PaymentHistoryExpandableTile extends StatelessWidget {
     required String amount,
   }) {
     final Widget content = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SvgPicture.asset(SvgImageConstant.dollorRound, height: 18, width: 18),
-        Gap(8),
+        Gap(getSize(8)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

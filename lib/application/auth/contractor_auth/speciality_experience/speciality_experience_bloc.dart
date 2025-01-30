@@ -162,7 +162,7 @@ class SpecialityExperienceBloc
       {bool isUpdate = false}) {
     return experienceSpecialityList.map((speciality) {
       return {
-        'specialtie_id': (isUpdate) ? speciality?.role?.id : speciality?.id,
+        'specialtie_id': speciality?.id,
         'experience_year': speciality?.experience_year,
         'experience_month': speciality?.experience_month,
       };

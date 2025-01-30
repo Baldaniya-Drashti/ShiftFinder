@@ -253,7 +253,7 @@ class CancelledShiftView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     vertical: getSize(10),
                     horizontal: getSize(15),
-                  ),
+                  ).copyWith(left: getSize(5)),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppColors.scaffoldColor,
@@ -298,11 +298,19 @@ class CancelledShiftView extends StatelessWidget {
                         ),
                         Spacer(),
                         CommonButton(
-                          height: 35,
-                          width: 85,
+                          height: getSize(35),
+                          width: getSize(85),
                           borderRadius: 5,
                           onPressed: () {
-                            showUnderDevelopment(context);
+                            // showUnderDevelopment(context);
+                            context.router.push(
+                              PageRouteInfo(
+                                Message.name,
+                                args: MessageArgs(
+                                  receiverId: shift.user?.user_id ?? 0,
+                                ),
+                              ),
+                            );
                           },
                           backgroundColor:
                               AppColors.primaryColor.withOpacity(0.15),

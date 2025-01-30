@@ -214,20 +214,24 @@ class MonthlyStatementView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BaseText(
-                    text: statement.company_name ?? "",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                  BaseText(
-                      text: industry.title ?? "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BaseText(
+                      text: statement.company_name ?? "",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    BaseText(
+                        text: industry.title ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400),
+                  ],
+                ),
               ),
               if (statement.list != null && statement.list!.isNotEmpty) ...[
                 downLoadInvoiceBtn(
@@ -239,7 +243,7 @@ class MonthlyStatementView extends StatelessWidget {
                         ));
                   },
                 ),
-              ]
+              ],
             ],
           ),
         ),

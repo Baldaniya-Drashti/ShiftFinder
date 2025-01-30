@@ -30,6 +30,7 @@ class BankDetailsState with _$BankDetailsState {
     required Predictions selectedLocationPrediction,
     required bool isLoading,
     required BankDTO? bankDetail,
+    required bool? isFromUpdate,
   }) = _BankDetailsState;
 
   factory BankDetailsState.initial() => BankDetailsState(
@@ -60,5 +61,6 @@ class BankDetailsState with _$BankDetailsState {
         locationAddress: InputEmptyOrNot(""),
         searchLocationList: [],
         isLoading: false,
+        isFromUpdate: false,
       );
 }

@@ -11,4 +11,10 @@ class MessageEvent with _$MessageEvent {
   const factory MessageEvent.receiveMessage() = _ReceiveMessage;
   const factory MessageEvent.sendMessage() = _SendMessage;
   const factory MessageEvent.messageChanged(String message) = _MessageChanged;
+
+  const factory MessageEvent.getDocumentLink(
+    String path,
+    int type,
+    String mediaName,
+  ) = _GetDocumentLink;
 }

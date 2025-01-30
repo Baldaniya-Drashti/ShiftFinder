@@ -195,21 +195,26 @@ class InvoiceDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      BaseText(
-                        text: invoice.employer_company_name ?? "",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                      BaseText(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BaseText(
+                          text: invoice.employer_company_name ?? "",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          maxLines: 2,
+                        ),
+                        BaseText(
                           text:
                               '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
                           fontSize: 10,
-                          fontWeight: FontWeight.w400),
-                    ],
+                          fontWeight: FontWeight.w400,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
                   ),
                   if (!showDownloadBtn) ...[
                     downLoadInvoiceBtn(

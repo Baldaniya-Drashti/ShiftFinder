@@ -168,42 +168,56 @@ class CommonDocumentView extends StatelessWidget {
   }
 
   Widget expiryDate(DocumentDTO document) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: getSize(10)),
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(20),
-        vertical: getSize(10),
-      ),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: (document.expiry_date_not_applicable == 1)
-          ? BaseText(
+    return (document.expiry_date_not_applicable == 1)
+        ? Container(
+            margin: EdgeInsets.symmetric(vertical: getSize(10)),
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(20),
+              vertical: getSize(10),
+            ),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: BaseText(
               text: StringConstant.expiryDateIsNotApplicable,
               fontWeight: FontWeight.w500,
               fontSize: 12,
-            )
-          : Row(
-              children: [
-                SvgPicture.asset(
-                  SvgImageConstant.calendar,
-                  height: getSize(20),
-                  width: getSize(20),
-                ),
-                SizedBox(width: getSize(10)),
-                BaseText(
-                  text:
-                      "Expiry date - ${DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(
-                    (document.expiry_date ?? -1) * 1000,
-                  ))}",
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                ),
-              ],
             ),
-    );
+          )
+        : (document.expiry_date != null)
+            ? Container(
+                margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: getSize(20),
+                  vertical: getSize(10),
+                ),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      SvgImageConstant.calendar,
+                      height: getSize(20),
+                      width: getSize(20),
+                    ),
+                    SizedBox(width: getSize(10)),
+                    BaseText(
+                      text:
+                          "Expiry date - ${DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(
+                        (document.expiry_date ?? -1) * 1000,
+                      ))}",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ],
+                ),
+              )
+            : Container();
   }
 
   Widget docDetail(DocumentDTO document) {

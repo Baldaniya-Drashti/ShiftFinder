@@ -520,9 +520,7 @@ class LocationDetailForm extends StatelessWidget {
 
   Widget unitBox(BuildContext context, LocationDetailsState state) {
     return Container(
-      padding: EdgeInsets.all(
-        getSize(20),
-      ),
+      padding: EdgeInsets.all(getSize(20)),
       decoration: BoxDecoration(
         color: AppColors.grey04,
         borderRadius: BorderRadius.circular(
@@ -533,7 +531,6 @@ class LocationDetailForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           listOfUnit(context, state),
-          paddingBetweenFields(height: getSize(10)),
           unitNumberField(context, state),
           /*paddingBetweenFields(height: getSize(10)),
           CustomChipSet(
@@ -643,6 +640,7 @@ class LocationDetailForm extends StatelessWidget {
   Widget listOfUnit(BuildContext context, LocationDetailsState state) {
     return ListView.builder(
         shrinkWrap: true,
+        padding: EdgeInsets.only(bottom: getSize(10)),
         physics: NeverScrollableScrollPhysics(),
         itemCount: state.listOfUnit.length,
         itemBuilder: (_, index) {

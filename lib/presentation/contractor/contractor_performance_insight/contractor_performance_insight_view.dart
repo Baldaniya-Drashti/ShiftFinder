@@ -8,6 +8,7 @@ import 'package:shift/application/contractor/contractor_performance_insight/cont
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -96,7 +97,10 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               titleText(
-                                                  StringConstant.monthIndex),
+                                                  StringConstant.monthIndex,
+                                                  textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600)),
                                               BaseText(
                                                   text: (state.insightDetail
                                                               ?.date !=
@@ -147,8 +151,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                                       .completedShifts),
                                             ],
                                           ),
-                                          titleText(
-                                              StringConstant.earningOverTime),
+
                                           /*  EarningsGraph(
                                             earning: state.insightDetail
                                                     ?.earning_over_time ??
@@ -185,21 +188,34 @@ class ContractorPerformanceInsightView extends StatelessWidget {
     return chartFormat(
       title: StringConstant.earningOverTime,
       chart: SfCartesianChart(
+        title: ChartTitle(
+          text: StringConstant.earnings,
+          alignment: ChartAlignment.near,
+          textStyle: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: getFontSize(8),
+          ),
+        ),
+        plotAreaBorderWidth: 0,
         primaryXAxis: CategoryAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
+          numberFormat: NumberFormat("\$0"),
         ),
         series: [
-          AreaSeries<ChartData, String>(
+          AreaSeries<InsightListDTO, String>(
             color: AppColors.primaryColor,
             // width: 2,
             borderWidth: 2,
             borderColor: AppColors.primaryColor,
-
             markerSettings: MarkerSettings(
               isVisible: true,
               shape: DataMarkerType.circle,
@@ -239,15 +255,9 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                     selectedPoint: point,
                   ));
             },
-            dataSource: [
-              ChartData(x: "Week 1", y: 300),
-              ChartData(x: "Week 2", y: 350),
-              ChartData(x: "Week 3", y: 300),
-              ChartData(x: "Week 4", y: 500),
-              ChartData(x: "Week 5", y: 500),
-            ],
-            xValueMapper: (datum, _) => datum.x,
-            yValueMapper: (datum, _) => datum.y,
+            dataSource: state.insightDetail?.earning_over_time?.list ?? [],
+            xValueMapper: (InsightListDTO data, _) => data.name,
+            yValueMapper: (InsightListDTO data, _) => data.value,
             // markerSettings: MarkerSettings(
             //   borderColor: AppColors.primaryColor,
             //   isVisible: true,
@@ -345,31 +355,51 @@ class ContractorPerformanceInsightView extends StatelessWidget {
     return chartFormat(
       title: StringConstant.hoursWorked,
       chart: SfCartesianChart(
+        title: ChartTitle(
+          text: StringConstant.hours,
+          alignment: ChartAlignment.near,
+          textStyle: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: getFontSize(8),
+          ),
+        ),
+        plotAreaBorderWidth: 0,
         primaryXAxis: CategoryAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
+          numberFormat: NumberFormat("0 'h'"),
         ),
         series: [
-          ColumnSeries<ChartData, String>(
+          ColumnSeries<InsightListDTO, String>(
             isTrackVisible: false,
-            dataSource: [
-              ChartData(x: "Week 1", y: 18),
-              ChartData(x: "Week 2", y: 26),
-              ChartData(x: "Week 3", y: 14),
-              ChartData(x: "Week 4", y: 32),
-              ChartData(x: "Week 5", y: 39),
-            ],
+            dataSource: state.insightDetail?.hours_worked?.list ?? [],
+            xValueMapper: (InsightListDTO data, _) => data.name,
+            yValueMapper: (InsightListDTO data, _) => data.value,
             color: AppColors.primaryColor,
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                AppColors.darkGreen,
+                AppColors.primaryColor,
+                AppColors.primaryColor.withOpacity(0.6),
+              ],
+            ),
             width: 0.4,
             borderRadius: BorderRadius.circular(10),
             trackBorderWidth: 0,
             trackPadding: getSize(5),
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
               builder: (data, point, series, pointIndex, _) {
                 return Container(
                   padding: EdgeInsets.symmetric(
@@ -386,8 +416,6 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                 );
               },
             ),
-            xValueMapper: (datum, _) => datum.x,
-            yValueMapper: (datum, _) => datum.y,
           ),
         ],
       ),
@@ -397,39 +425,68 @@ class ContractorPerformanceInsightView extends StatelessWidget {
   Widget CompletedShiftChart(
       BuildContext context, ContractorPerformanceInsightState state) {
     return chartFormat(
-      title: StringConstant.hoursWorked,
+      title: StringConstant.completedShift,
       chart: SfCartesianChart(
+        title: ChartTitle(
+          text: StringConstant.shifts,
+          alignment: ChartAlignment.near,
+          textStyle: TextStyle(
+            color: AppColors.primaryColor,
+            fontSize: getFontSize(8),
+          ),
+        ),
+        plotAreaBorderWidth: 0,
         primaryXAxis: CategoryAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
+          axisLine: AxisLine(width: 0, color: Colors.transparent),
+          majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
           minorGridLines: MinorGridLines(width: 0),
         ),
         series: [
-          ColumnSeries<ChartData, String>(
-            isTrackVisible: true,
-            dataSource: [
-              ChartData(x: "Week 1", y: 300),
-              ChartData(x: "Week 2", y: 350),
-              ChartData(x: "Week 3", y: 300),
-              ChartData(x: "Week 4", y: 500),
-              ChartData(x: "Week 5", y: 500),
-            ],
+          ColumnSeries<InsightListDTO, String>(
+            isTrackVisible: false,
+            dataSource: state.insightDetail?.completed_shift_map?.list ?? [],
+            xValueMapper: (InsightListDTO data, _) => data.name,
+            yValueMapper: (InsightListDTO data, _) => data.value,
             color: AppColors.primaryColor,
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                AppColors.darkGreen,
+                AppColors.primaryColor,
+                AppColors.primaryColor.withOpacity(0.6),
+              ],
+            ),
             width: 0.4,
             borderRadius: BorderRadius.circular(10),
-            trackColor: AppColors.primaryColor.withOpacity(0.1),
-            trackPadding: getSize(4),
-            // selectionBehavior:
-            //     SelectionBehavior(
-            //     selectedColor: yello),
+            trackBorderWidth: 0,
+            trackPadding: getSize(5),
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.outer,
+              builder: (data, point, series, pointIndex, _) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(10),
+                    vertical: getSize(2),
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColors.primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text(
+                    '${point.y}',
+                    style: TextStyle(color: AppColors.primaryColor),
+                  ),
+                );
+              },
             ),
-            xValueMapper: (datum, _) => datum.x,
-            yValueMapper: (datum, _) => datum.y,
           ),
         ],
       ),
@@ -438,7 +495,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
 
   Widget titleText(String title, {TextStyle? textStyle}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: getSize(15))
+      padding: EdgeInsets.only(top: getSize(20), bottom: getSize(10))
           .copyWith(left: getSize(18)),
       child: BaseText(
         text: title,
@@ -457,7 +514,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        titleText(title),
+        titleText(title, textStyle: TextStyle(fontWeight: FontWeight.w600)),
         Container(
           padding: EdgeInsets.symmetric(
               vertical: getSize(15), horizontal: getSize(5)),

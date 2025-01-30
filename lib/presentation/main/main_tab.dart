@@ -249,17 +249,16 @@ getAppbar(MainTabState state, BuildContext context) {
           children: [
             BaseText(
               text: StringConstant.welcome,
-              fontSize: 13,
+              fontSize: 12,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
               lineHeight: getSize(1),
               textColor: AppColors.black.withOpacity(0.7),
             ),
-            SizedBox(height: getSize(2)),
             BaseText(
               text:
                   "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 13,
+              fontSize: 12,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
               maxLines: 1,
@@ -269,6 +268,7 @@ getAppbar(MainTabState state, BuildContext context) {
               fontSize: 10,
               fontWeight: FontWeight.w600,
               textColor: AppColors.primaryColor,
+              maxLines: 1,
             ),
           ],
         ),

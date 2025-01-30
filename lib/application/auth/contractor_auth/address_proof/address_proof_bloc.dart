@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
@@ -14,7 +13,6 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-
 part 'address_proof_event.dart';
 part 'address_proof_state.dart';
 part 'address_proof_bloc.freezed.dart';
@@ -301,8 +299,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 currentAddressProofType: e.selectedType,
                 addressproofFrontDoc: InputEmptyOrNot(""),
                 addressProofBackDoc: InputEmptyOrNot(""),
-                /* governmentExpiryDate: "",
-                isGovernemtExpiryCheck: false, */
+                docExpiryDate: "",
+                // isGovernemtExpiryCheck: false,
                 showErrorMesages: false,
               ));
             }

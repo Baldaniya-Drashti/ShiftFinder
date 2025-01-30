@@ -139,12 +139,13 @@ class SelectedDocumentBox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        BaseText(
-          text: title ?? "",
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-          lineHeight: 0,
-        ),
+        if (title != null && title.isNotEmpty)
+          BaseText(
+            text: title,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            lineHeight: 0,
+          ),
         if (subTitle1 != null)
           BaseText(
             text: subTitle1,

@@ -11,6 +11,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage(name: "CustomerSupportView")
 class CustomerSupportView extends StatelessWidget {
@@ -25,7 +26,7 @@ class CustomerSupportView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(18),
+          padding: EdgeInsets.all(getSize(18)),
           child: Column(
             children: [
               Gap(getSize(50)),
@@ -89,18 +90,40 @@ class CustomerSupportView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           _ListTile(
             icon: SvgImageConstant.message,
-            onPressed: () {
-              showUnderDevelopment(context);
-              // context.router.push(PageRouteInfo(PaymentHistoryView.name))
+            onPressed: () async {
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: StringConstant.adminEmailID,
+                queryParameters: {
+                  'subject': 'Support',
+                },
+              );
+
+              if (await canLaunchUrl(emailUri)) {
+                await launchUrl(emailUri);
+              } else {
+                print('Could not launch email app');
+              }
             },
-            label: StringConstant.chatWithSupport,
+            label: StringConstant.contactSupport,
           ),
           if (getCurrentRole() == 1) ...[
             SizedBox(height: getSize(10)),
             _ListTile(
               icon: SvgImageConstant.questionMark,
-              onPressed: () {
-                context.router.push(PageRouteInfo(FaqView.name));
+              onPressed: () async {
+                // context.router.push(PageRouteInfo(FaqView.name));
+                final Uri url =
+                    Uri.parse('${StringConstant.shiftFinderWebsite}/faq-3/');
+                try {
+                  bool launched = await launchUrl(url,
+                      mode: LaunchMode.externalApplication);
+                  if (!launched) {
+                    print("Could not launch the URL");
+                  }
+                } catch (e) {
+                  print("Catch error: $e");
+                }
               },
               label: StringConstant.faq,
             ),

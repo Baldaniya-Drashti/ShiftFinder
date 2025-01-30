@@ -233,15 +233,15 @@ class ShiftActionsView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Gap(15),
+                      Gap(getSize(15)),
                       Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: EdgeInsets.all(getSize(24)),
                         child: BaseText(
                           textAlign: TextAlign.center,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           text:
-                              "You can now rate, favorite, add remarks, or block the contractor. These actions can also be performed later from the profile section.",
+                              "Shift has been approved you give rating, add to favorite, remark and block the user.",
                         ),
                       )
                     ],

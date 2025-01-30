@@ -24,6 +24,7 @@ class PngImageConstants {
   static const profile_employer = "assets/png/profile_employer.png";
   static const contractor_employer = "assets/png/profile_contractor.png";
   static const add_experience_desc = "assets/png/add_experience_desc.png";
+  static const update_experience_desc = "assets/png/update_experience_desc.png";
   static const add_speciality_experience_desc =
       "assets/png/add_speciality_experience_desc.png";
   static const document_img = "assets/png/document_img.png";
@@ -50,6 +51,7 @@ class PngImageConstants {
   static const fullPosition = "assets/png/full_position.png";
   static const send = "assets/png/send.png";
   static const shiftFinderWhiteLogo = "assets/png/shift_finder_white_logo.png";
+  static const document = "assets/png/chat_document.png";
 
   static const List<String> allImages = [
     fullPosition,
@@ -86,5 +88,6 @@ class PngImageConstants {
     suitcase,
     passwordChanged,
     ticketSubmittedSuccess,
+    update_experience_desc
   ];
 }

@@ -323,7 +323,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               (bank) => bank.name == selectedBankName,
               orElse: () => SkillDTO(id: -1, name: ""),
             );
-
             final selectedBankId = selectedBank.id; */
 
             emit(

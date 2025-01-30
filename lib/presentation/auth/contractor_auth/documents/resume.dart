@@ -145,7 +145,7 @@ class ResumeDocument extends StatelessWidget {
         AppDialog.showDelete(
           context,
           title: StringConstant.delete,
-          infoMessage: StringConstant.deleteGovernmentIdDesc,
+          infoMessage: StringConstant.deleteResumeDesc,
           onCancelClick: () {
             Navigator.pop(context);
           },

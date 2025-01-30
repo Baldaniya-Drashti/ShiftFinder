@@ -112,8 +112,8 @@ class FilledShiftsView extends StatelessWidget {
               ? Container(
                   padding: EdgeInsets.symmetric(
                     vertical: getSize(10),
-                    horizontal: getSize(15),
-                  ),
+                    horizontal: getSize(10),
+                  ).copyWith(left: getSize(5)),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppColors.scaffoldColor,
@@ -137,7 +137,7 @@ class FilledShiftsView extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColors.transparent,
-                          radius: getSize(20),
+                          radius: getSize(19),
                           backgroundImage: (shift.user != null &&
                                   shift.user!.profile != null &&
                                   shift.user!.profile!.isNotEmpty)
@@ -152,6 +152,7 @@ class FilledShiftsView extends StatelessWidget {
                                 "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Icon(
@@ -160,11 +161,19 @@ class FilledShiftsView extends StatelessWidget {
                         ),
                         Spacer(),
                         CommonButton(
-                          height: 35,
-                          width: 85,
+                          height: getSize(35),
+                          width: getSize(80),
                           borderRadius: 5,
                           onPressed: () {
-                            showUnderDevelopment(context);
+                            // showUnderDevelopment(context);
+                            context.router.push(
+                              PageRouteInfo(
+                                Message.name,
+                                args: MessageArgs(
+                                  receiverId: shift.user?.user_id ?? 0,
+                                ),
+                              ),
+                            );
                           },
                           backgroundColor:
                               AppColors.primaryColor.withOpacity(0.15),

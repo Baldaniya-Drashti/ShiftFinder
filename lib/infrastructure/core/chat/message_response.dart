@@ -39,24 +39,30 @@ class MessageData {
   int? senderId;
   int? receiverId;
   String? message;
+  String? thumbnail;
   int? type;
   int? createdAt;
+  String? mediaName;
 
   MessageData(
       {this.id,
       this.senderId,
       this.receiverId,
       this.message,
+      this.thumbnail,
       this.type,
-      this.createdAt});
+      this.createdAt,
+      this.mediaName});
 
   MessageData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     senderId = json['sender_id'];
     receiverId = json['receiver_id'];
     message = json['message'];
+    thumbnail = json['thumbnail'];
     type = json['type'];
     createdAt = json['created_at'] * 1000;
+    mediaName = json['media_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +73,9 @@ class MessageData {
     data['message'] = message;
     data['type'] = type;
     data['created_at'] = createdAt;
+    data['thumbnail'] = thumbnail;
+    data['media_name'] = mediaName;
+
     return data;
   }
 }
@@ -135,6 +144,55 @@ class AdditionalInfo {
       this.status});
 
   AdditionalInfo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    serviceRoles = json['service_roles'];
+    name = json['name'];
+    companyName = json['company_name'];
+    profile = json['profile'];
+    email = json['email'];
+    roleListName = json['role_list_name'];
+    location = json['location'];
+    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['service_roles'] = serviceRoles;
+    data['name'] = name;
+    data['company_name'] = companyName;
+    data['profile'] = profile;
+    data['email'] = email;
+    data['role_list_name'] = roleListName;
+    data['location'] = location;
+    data['status'] = status;
+    return data;
+  }
+}
+
+class ChatUserInfo {
+  int? id;
+  String? serviceRoles;
+  String? name;
+  String? companyName;
+  String? profile;
+  String? email;
+  String? roleListName;
+  String? location;
+  bool? status;
+
+  ChatUserInfo(
+      {this.id,
+      this.serviceRoles,
+      this.name,
+      this.companyName,
+      this.profile,
+      this.email,
+      this.roleListName,
+      this.location,
+      this.status});
+
+  ChatUserInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     serviceRoles = json['service_roles'];
     name = json['name'];

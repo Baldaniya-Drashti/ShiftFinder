@@ -60,7 +60,7 @@ class MainProfileView extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       BaseText(
                         text: '${account.firstName} ${account.lastName}',
@@ -77,10 +77,13 @@ class MainProfileView extends StatelessWidget {
                             width: getSize(12),
                           ),
                           SizedBox(width: getSize(6)),
-                          BaseText(
-                            text: account.companyName ?? "",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          Flexible(
+                            child: BaseText(
+                              text: account.companyName ?? "",
+                              fontSize: 10,
+                              maxLines: 2,
+                              fontWeight: FontWeight.w600,
+                            ),
                           )
                         ],
                       ),
