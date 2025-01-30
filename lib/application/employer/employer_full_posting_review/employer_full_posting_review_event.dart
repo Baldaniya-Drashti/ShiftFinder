@@ -5,6 +5,7 @@ class EmployerFullPostingReviewEvent with _$EmployerFullPostingReviewEvent {
   const factory EmployerFullPostingReviewEvent.onSubmit({
     required BuildContext context,
     required EmployerLongTermSuccessDto employer,
+    required EmployerLongTermSuccessDto data,
     required int id,
 
     int? postId,

@@ -68,17 +68,13 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
-
-          final Map<String, dynamic> data = {
-            ...state.employerFullPosting.toJson(),
-          };
           Either<MainFailure, CommonResponse<dynamic>> result;
           emit(state.copyWith(postDataLoading: true));
           if ((state.postId ?? -1) < 0) {
-            result = await _iMainFacade.createLongFullTermPost(data: data);
+            result = await _iMainFacade.createLongFullTermPost(data: state.employerFullPosting.toJson());
           } else {
             result = await _iMainFacade.updateLongFullTermPost(data: {
-              ...data,
+              ...state.employerFullPosting.toJson(),
               "update_status": 0,
             });
           }
@@ -95,11 +91,15 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
               ).show(value.context);
             },
             (r) {
-              final data = EmployerLongTermSuccessDto.fromJson(r.data);
+              final response = EmployerLongTermSuccessDto.fromJson(r.data);
               value.context.router.navigate(
                 PageRouteInfo(
                   EmployerFullPostingReviewView.name,
-                  args: EmployerFullPostingReviewViewArgs(employerFullPosting: data,postId: state.postId),
+                  args: EmployerFullPostingReviewViewArgs(
+                    response: response,
+                    postId: state.postId,
+                    data: state.employerFullPosting,
+                  ),
                 ),
               );
             },

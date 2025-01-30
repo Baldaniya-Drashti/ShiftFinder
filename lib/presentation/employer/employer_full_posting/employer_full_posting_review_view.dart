@@ -23,9 +23,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerFullPostingReviewView")
 class EmployerFullPostingReviewView extends StatelessWidget {
-  const EmployerFullPostingReviewView({super.key, required this.employerFullPosting, this.postId});
+  const EmployerFullPostingReviewView({super.key, required this.response, required this.data, this.postId});
 
-  final EmployerLongTermSuccessDto employerFullPosting;
+  final EmployerLongTermSuccessDto response;
+  final EmployerLongTermSuccessDto data;
   final int? postId;
 
   @override
@@ -59,62 +60,62 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                       _buildSalaryInformation(context),
                       _buildEstimatedHours(context),
                       _buildShiftSchedule(context),
-                      if ((employerFullPosting.languages_list ?? []).isNotEmpty) _buildLanguageRequirement(context),
+                      _buildLanguageRequirement(context),
                       _buildLocationDetail(context),
                       _buildBargainingUnit(context),
                       _buildOnCall(context),
-                      if (employerFullPosting.benefits != null)
-                        _buildBulletPointsList(context, title: "Benefits Provided", content: employerFullPosting.benefits),
-                      if (employerFullPosting.compensation_package != null)
+                      if (response.benefits != null)
+                        _buildBulletPointsList(context, title: "Benefits Provided", content: response.benefits),
+                      if (response.compensation_package != null)
                         _buildBulletPointsList(
                           context,
                           title: "Compensation Package",
-                          content: employerFullPosting.compensation_package,
+                          content: response.compensation_package,
                         ),
-                      if (employerFullPosting.job_summary != null)
-                        _buildBulletPointsList(context, title: "Job Summary", content: employerFullPosting.job_summary),
-                      if (employerFullPosting.external_internal_relationships != null)
+                      if (response.job_summary != null)
+                        _buildBulletPointsList(context, title: "Job Summary", content: response.job_summary),
+                      if (response.external_internal_relationships != null)
                         _buildBulletPointsList(
                           context,
                           title: "External and Internal Relationships",
-                          content: employerFullPosting.external_internal_relationships,
+                          content: response.external_internal_relationships,
                         ),
-                      if (employerFullPosting.employer_payment_confirmation != null)
-                        _buildBulletPointsList(context, title: "Required Qualifications", content: employerFullPosting.qualifications),
-                      if (employerFullPosting.experience != null)
+                      if (response.employer_payment_confirmation != null)
+                        _buildBulletPointsList(context, title: "Required Qualifications", content: response.qualifications),
+                      if (response.experience != null)
                         _buildBulletPointsList(
                           context,
                           title: "Required Experience",
-                          content: employerFullPosting.experience,
+                          content: response.experience,
                         ),
-                      if (employerFullPosting.licenses_certifications != null)
+                      if (response.licenses_certifications != null)
                         _buildBulletPointsList(
                           context,
                           title: "Required Licenses/Certifications",
-                          content: employerFullPosting.licenses_certifications,
+                          content: response.licenses_certifications,
                         ),
-                      if (employerFullPosting.skills != null)
+                      if (response.skills != null)
                         _buildBulletPointsList(
                           context,
                           title: "Required Skills",
-                          content: employerFullPosting.skills,
+                          content: response.skills,
                         ),
-                      if (employerFullPosting.other != null)
+                      if (response.other != null)
                         _buildBulletPointsList(
                           context,
                           title: "Other",
-                          content: employerFullPosting.other,
+                          content: response.other,
                         ),
                       _buildNumberOfVacancy(context),
                       _buildCheckListTile(
                         context,
-                        value: employerFullPosting.on_call_included == 1,
+                        value: response.on_call_included == 1,
                         onChanged: (value) {},
                         label: "This position may include on call.",
                       ),
                       _buildCheckListTile(
                         context,
-                        value: employerFullPosting.save_template_status == 1,
+                        value: response.save_template_status == 1,
                         onChanged: (value) {},
                         label: "Save this as a template for future posting.",
                       )
@@ -137,9 +138,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
         context.read<EmployerFullPostingReviewBloc>().add(
               EmployerFullPostingReviewEvent.onSubmit(
                 context: context,
-                id: employerFullPosting.id ?? -1,
+                id: response.id ?? -1,
                 postId: postId,
-                employer: employerFullPosting,
+                employer: response,
+                data: data,
               ),
             );
       },
@@ -168,7 +170,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
   }
 
   Widget _buildPositionInfo(BuildContext context) {
-    final jobType = employerFullPosting.job_type == 1 ? "Full Time" : "Part Time";
+    final jobType = response.job_type == 1 ? "Full Time" : "Part Time";
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
@@ -189,7 +191,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               BaseText(
-                text: "(${getIndustryText(employerFullPosting.industry ?? 0)} - ${employerFullPosting.listing_id})",
+                text: "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.8),
@@ -210,7 +212,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
         width: getSize(24),
       ),
       title: BaseText(
-        text: employerFullPosting.location?.location ?? "",
+        text: response.location?.location ?? "",
         fontWeight: FontWeight.w500,
         fontSize: 11,
         overflow: TextOverflow.ellipsis,
@@ -231,7 +233,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           children: [
             BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
-            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: employerFullPosting.position ?? ""),
+            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: response.position ?? ""),
           ],
         ),
       ),
@@ -260,9 +262,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: employerFullPosting.compensation_type == 1 ? "Rate" : "Salary", fontSize: 12),
+                          BaseText(text: response.compensation_type == 1 ? "Rate" : "Salary", fontSize: 12),
                           BaseText(
-                            text: "${employerFullPosting.rate_hour ?? ""}",
+                            text: "${response.rate_hour ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.green,
@@ -289,10 +291,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                           Text.rich(
                             TextSpan(children: [
                               TextSpan(
-                                text: "${employerFullPosting.application_deadline?.year}",
+                                text: "${response.application_deadline?.year}",
                                 style: TextStyle(color: AppColors.green.withOpacity(0.5)),
                               )
-                            ], text: "${DateFormat("dd MMM").format(employerFullPosting.application_deadline ?? DateTime.now())}, "),
+                            ], text: "${DateFormat("dd MMM").format(response.application_deadline ?? DateTime.now())}, "),
                             style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
@@ -332,8 +334,8 @@ class EmployerFullPostingReviewView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
-                    child: BaseText(
-                        text: "${employerFullPosting.estimated_weekly_hours?.formatTimeOfDay}", fontSize: 20, fontWeight: FontWeight.w600)),
+                    child:
+                        BaseText(text: "${response.estimated_weekly_hours?.formatTimeOfDay}", fontSize: 20, fontWeight: FontWeight.w600)),
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: getSize(40),
@@ -348,7 +350,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
   }
 
   Widget _buildShiftSchedule(BuildContext context) {
-    final list = getShiftScheduleFromId(employerFullPosting.shift_schedule_type ?? "");
+    final list = getShiftScheduleFromId(response.shift_schedule_type ?? "");
 
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -389,7 +391,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
   }
 
   Widget _buildLanguageRequirement(BuildContext context) {
-    final list = employerFullPosting.languages_list ?? [];
+    final list = response.languages_list ?? [];
     final language = list.map((e) => e.name).join(", ");
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -410,7 +412,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
   }
 
   Widget _buildLocationDetail(BuildContext context) {
-    final location = employerFullPosting.location;
+    final location = response.location;
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -435,7 +437,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
               ],
             ),
             Gap(4),
-            BaseText(text: employerFullPosting.location_unit ?? "", fontSize: 13),
+            BaseText(text: response.location_unit ?? "", fontSize: 13),
           ],
         ),
       ),

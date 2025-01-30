@@ -66,10 +66,11 @@ class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, Emp
             },
             (r) {
               AppDialog.showSuccess(
+                barrierDismissible: false,
                 value.context,
                 title: "All Set!",
                 infoMessage:
-                    "Your healthcare long term position has been successfully posted, with a total of ${value.totalVacancy} vacancy.",
+                    "Your healthcare long term position has been successfully ${(value.postId == null || value.postId == -1) ? "Post" : "Update"}, with a total of ${value.totalVacancy} vacancy.",
                 onOkClick: () {
                   value.context.router.popUntil((route) => route.isFirst);
                 },

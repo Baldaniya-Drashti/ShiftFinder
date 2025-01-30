@@ -149,7 +149,7 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
             ));
           },
           onContinue: (OnContinue value) {
-            final longTermPosition = state.employerLongTermDto.copyWith(
+            final position = state.employerLongTermDto.copyWith(
               benefits: value.benefits,
               position: value.position,
               union_bargaining_unit: value.unionBargainUnit,
@@ -170,15 +170,17 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
               languages_list_id: getSelectedLanguageId(),
               post_type: 2,
               location_id: state.employerLongTermDto.location?.id.toString() ?? state.selectedLocation?.id.toString(),
+
+
             );
 
-            print("==>yyy ${longTermPosition.toJson()}");
+            print("==>yyy ${position.toJson()}");
             print("==>yyy ${state.selectedLocation?.id}");
             //
             value.context.router.push(
               PageRouteInfo(
                 EmployerFullPostingConfirmView.name,
-                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: longTermPosition, postId: state.postId),
+                args: EmployerFullPostingConfirmViewArgs(employerFullPosting: position, postId: state.postId),
               ),
             );
           },

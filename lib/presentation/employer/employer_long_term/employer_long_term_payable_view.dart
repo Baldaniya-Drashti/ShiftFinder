@@ -20,7 +20,8 @@ class EmployerLongTermPayableView extends StatelessWidget {
   const EmployerLongTermPayableView({
     super.key,
     required this.employerLongTermSuccessDto,
-    this.postId, required this.postShiftDTO,
+    this.postId,
+    required this.postShiftDTO,
   });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
@@ -48,9 +49,9 @@ class EmployerLongTermPayableView extends StatelessWidget {
                       onPressed: () async {
                         final result = await AppDialog.showCommonDialog(
                           context: context,
-                          title: "Post Long-Term Position",
-                          content: "Are you sure you want to post this long-term position?",
-                          successLabel: "Post",
+                          title: "${(postId == null || postId == -1) ? "Post" : "Update"} Long-Term Position",
+                          content: "Are you sure you want to post ${(postId == null || postId == -1) ? "post" : "update"} long-term position?",
+                          successLabel: (postId == null || postId == -1) ? "Post" : "Update",
                         );
                         if (result ?? false) {
                           context.read<EmployerLongTermPayableBloc>().add(
@@ -65,7 +66,7 @@ class EmployerLongTermPayableView extends StatelessWidget {
                               );
                         }
                       },
-                      buttonText: "Post The Shift",
+                      buttonText: "${(postId == null || postId == -1) ?"Post":"Update"} The Shift",
                     ),
                   ),
                   appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Payables"),

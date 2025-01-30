@@ -2325,14 +2325,16 @@ class EmployerFullPostingReviewView
     extends _i141.PageRouteInfo<EmployerFullPostingReviewViewArgs> {
   EmployerFullPostingReviewView({
     _i142.Key? key,
-    required _i154.EmployerLongTermSuccessDto employerFullPosting,
+    required _i154.EmployerLongTermSuccessDto response,
+    required _i154.EmployerLongTermSuccessDto data,
     int? postId,
     List<_i141.PageRouteInfo>? children,
   }) : super(
           EmployerFullPostingReviewView.name,
           args: EmployerFullPostingReviewViewArgs(
             key: key,
-            employerFullPosting: employerFullPosting,
+            response: response,
+            data: data,
             postId: postId,
           ),
           initialChildren: children,
@@ -2346,7 +2348,8 @@ class EmployerFullPostingReviewView
       final args = data.argsAs<EmployerFullPostingReviewViewArgs>();
       return _i57.EmployerFullPostingReviewView(
         key: args.key,
-        employerFullPosting: args.employerFullPosting,
+        response: args.response,
+        data: args.data,
         postId: args.postId,
       );
     },
@@ -2356,19 +2359,22 @@ class EmployerFullPostingReviewView
 class EmployerFullPostingReviewViewArgs {
   const EmployerFullPostingReviewViewArgs({
     this.key,
-    required this.employerFullPosting,
+    required this.response,
+    required this.data,
     this.postId,
   });
 
   final _i142.Key? key;
 
-  final _i154.EmployerLongTermSuccessDto employerFullPosting;
+  final _i154.EmployerLongTermSuccessDto response;
+
+  final _i154.EmployerLongTermSuccessDto data;
 
   final int? postId;
 
   @override
   String toString() {
-    return 'EmployerFullPostingReviewViewArgs{key: $key, employerFullPosting: $employerFullPosting, postId: $postId}';
+    return 'EmployerFullPostingReviewViewArgs{key: $key, response: $response, data: $data, postId: $postId}';
   }
 }
 
