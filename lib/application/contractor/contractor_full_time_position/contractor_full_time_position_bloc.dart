@@ -17,6 +17,10 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
 
   int currentPage = 1;
   int lastPage = 1;
+
+  int appliedCurrentPage = 1;
+  int appliedLastPage = 1;
+
   final RefreshController openRefreshController = RefreshController();
   final RefreshController appliedRefreshController = RefreshController();
 
@@ -71,11 +75,11 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
         fetchAppliedPositionList: (value) async {
 
           if (value.refresh) {
-            currentPage = 1;
-            emit(state.copyWith(appliedPositionList: [], isLoading: value.refresh));
+            appliedCurrentPage = 1;
+            emit(state.copyWith(appliedPositionList: [], appliedLoading: value.refresh));
             appliedRefreshController.resetNoData();
           } else {
-            if (currentPage > lastPage) {
+            if (appliedCurrentPage > appliedLastPage) {
               appliedRefreshController.loadNoData();
               return;
             }
@@ -88,21 +92,21 @@ class ContractorFullTimePositionBloc extends Bloc<ContractorFullTimePositionEven
           res.fold(
                 (l) => emit(
               state.copyWith(
-                isErrorInAPI: true,
-                isLoading: false,
+                appliedIsErrorInAPI: true,
+                appliedLoading: false,
                 appliedPositionList: [],
               ),
             ),
                 (r) {
-              lastPage = r.meta?.lastPage ?? 1;
+              appliedLastPage = r.meta?.lastPage ?? 1;
               if (value.refresh) {
                 List.from(state.appliedPositionList).clear();
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  appliedLoading: false,
+                  appliedIsErrorInAPI: false,
+                  appliedNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   appliedPositionList: List.from(state.appliedPositionList)
                     ..addAll(

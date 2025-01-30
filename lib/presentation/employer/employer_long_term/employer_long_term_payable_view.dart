@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -19,15 +20,17 @@ class EmployerLongTermPayableView extends StatelessWidget {
   const EmployerLongTermPayableView({
     super.key,
     required this.employerLongTermSuccessDto,
-    this.postId,
+    this.postId, required this.postShiftDTO,
   });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final PostShiftDTO postShiftDTO;
   final int? postId;
 
   @override
   Widget build(BuildContext context) {
     print("ppppp>?${employerLongTermSuccessDto.id}");
+    print("ppppp>?${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermPayableBloc>(),
       child: Builder(builder: (context) {
@@ -57,6 +60,7 @@ class EmployerLongTermPayableView extends StatelessWidget {
                                   totalVacancy: employerLongTermSuccessDto.number_of_vacancie ?? -1,
                                   postId: postId,
                                   employer: employerLongTermSuccessDto,
+                                  postShift: postShiftDTO,
                                 ),
                               );
                         }

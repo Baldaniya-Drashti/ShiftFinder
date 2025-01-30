@@ -50,6 +50,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
         body: BlocBuilder<EmployerFullPositionDetailBloc, EmployerFullPositionDetailState>(
           builder: (context, state) {
             final employerFullPosting = state.employerLongTermSuccessDto ?? EmployerLongTermSuccessDto();
+            print("---${employerFullPosting.languages_list}");
             return state.isLoading
                 ? CenterLoadingIndicator()
                 : state.employerLongTermSuccessDto == null
@@ -67,7 +68,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                   _buildSalaryInformation(context, employerFullPosting: employerFullPosting),
                                   _buildEstimatedHours(context, employerFullPosting: employerFullPosting),
                                   _buildShiftSchedule(context, employerFullPosting: employerFullPosting),
-                                  _buildLanguageRequirement(context, employerFullPosting: employerFullPosting),
+                                  if ((employerFullPosting.languages_list ?? []).isNotEmpty)
+                                    _buildLanguageRequirement(context, employerFullPosting: employerFullPosting),
                                   _buildLocationDetail(context, employerFullPosting: employerFullPosting),
                                   _buildBargainingUnit(context, employerFullPosting: employerFullPosting),
                                   _buildOnCall(context),
@@ -120,7 +122,6 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                           ],
                         ),
                       );
@@ -129,7 +130,6 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildPositionTile(
     BuildContext context, {
@@ -460,7 +460,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildBargainingUnit(BuildContext context,{
+  Widget _buildBargainingUnit(
+    BuildContext context, {
     required EmployerLongTermSuccessDto employerFullPosting,
   }) {
     return Material(
@@ -555,7 +556,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberOfVacancy(BuildContext context,{
+  Widget _buildNumberOfVacancy(
+    BuildContext context, {
     required EmployerLongTermSuccessDto employerFullPosting,
   }) {
     return Material(
@@ -568,7 +570,10 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             Expanded(
               child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w500),
             ),
-            BaseText(text: "${employerFullPosting.number_of_vacancie??""}", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "${employerFullPosting.number_of_vacancie ?? ""}",
+                fontSize: 14,
+                textColor: AppColors.primaryColor),
           ],
         ),
       ),

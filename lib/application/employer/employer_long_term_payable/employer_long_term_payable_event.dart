@@ -8,5 +8,6 @@ class EmployerLongTermPayableEvent with _$EmployerLongTermPayableEvent {
     required int totalVacancy,
     int? postId,
     required EmployerLongTermSuccessDto employer,
+    required PostShiftDTO postShift,
   }) = _OnPostShift;
 }

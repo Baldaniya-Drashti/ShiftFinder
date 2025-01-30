@@ -19,6 +19,13 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
 
   int currentPage = 1;
   int lastPage = 1;
+
+  int upcomingCurrentPage = 1;
+  int upcomingLastPage = 1;
+
+  int appliedCurrentPage = 1;
+  int appliedLastPage = 1;
+
   final RefreshController openRefreshController = RefreshController();
   final RefreshController upcomingRefreshController = RefreshController();
   final RefreshController appliedRefreshController = RefreshController();
@@ -60,8 +67,8 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
-                  //  getProductList: []
+                  isNoDataFound:
+                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
                       (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
@@ -73,11 +80,11 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
         },
         fetchUpcomingPositionList: (value) async {
           if (value.refresh) {
-            currentPage = 1;
-            emit(state.copyWith(upComingPositionList: [], isLoading: value.refresh));
+            upcomingCurrentPage = 1;
+            emit(state.copyWith(upComingPositionList: [], upcomingLoading: value.refresh));
             upcomingRefreshController.resetNoData();
           } else {
-            if (currentPage > lastPage) {
+            if (upcomingCurrentPage > upcomingLastPage) {
               upcomingRefreshController.loadNoData();
               return;
             }
@@ -90,21 +97,22 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
           res.fold(
             (l) => emit(
               state.copyWith(
-                isErrorInAPI: true,
-                isLoading: false,
+                upcomingIsErrorInAPI: true,
+                upcomingLoading: false,
                 upComingPositionList: [],
               ),
             ),
             (r) {
-              lastPage = r.meta?.lastPage ?? 1;
+              upcomingLastPage = r.meta?.lastPage ?? 1;
               if (value.refresh) {
                 List.from(state.upComingPositionList).clear();
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  upcomingLoading: false,
+                  upcomingIsErrorInAPI: false,
+                  upcomingNoDataFound:
+                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   upComingPositionList: List.from(state.upComingPositionList)
                     ..addAll(
@@ -117,11 +125,11 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
         },
         fetchAppliedPositionList: (value) async {
           if (value.refresh) {
-            currentPage = 1;
-            emit(state.copyWith(appliedPositionList: [], isLoading: value.refresh));
+            appliedCurrentPage = 1;
+            emit(state.copyWith(appliedPositionList: [], appliedLoading: value.refresh));
             appliedRefreshController.resetNoData();
           } else {
-            if (currentPage > lastPage) {
+            if (appliedCurrentPage > appliedLastPage) {
               appliedRefreshController.loadNoData();
               return;
             }
@@ -134,21 +142,22 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
           res.fold(
             (l) => emit(
               state.copyWith(
-                isErrorInAPI: true,
-                isLoading: false,
+                appliedIsErrorInAPI: true,
+                appliedLoading: false,
                 appliedPositionList: [],
               ),
             ),
             (r) {
-              lastPage = r.meta?.lastPage ?? 1;
+              appliedLastPage = r.meta?.lastPage ?? 1;
               if (value.refresh) {
                 List.from(state.appliedPositionList).clear();
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  appliedLoading: false,
+                  appliedIsErrorInAPI: false,
+                  appliedNoDataFound:
+                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   appliedPositionList: List.from(state.appliedPositionList)
                     ..addAll(

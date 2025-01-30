@@ -20,6 +20,11 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
   int currentPage = 1;
   int lastPage = 1;
 
+  int fillPositionCurrentPage = 1;
+  int fillPositionLastPage = 1;
+
+
+
   final RefreshController openPositionController = RefreshController();
   final RefreshController filledPositionController = RefreshController();
 
@@ -28,18 +33,43 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
       await event.map(
         getEmployerFilledPosition: (value) async {
           if (value.refresh) {
-            currentPage = 1;
-            emit(state.copyWith(openPositionList: [], isLoading: value.refresh));
-            openPositionController.resetNoData();
+            fillPositionCurrentPage = 1;
+            emit(state.copyWith(filledPositionList: [], fillPositionLoading: value.refresh));
+            filledPositionController.resetNoData();
           } else {
-            if (currentPage > lastPage) {
-              openPositionController.loadNoData();
+            if (fillPositionCurrentPage > fillPositionLastPage) {
+              filledPositionController.loadNoData();
               return;
             }
           }
           final response = await _iMainFacade.employerLongTermDashboard(
             positionsType: 2,
             page: 2,
+          );
+          fillPositionCurrentPage++;
+
+
+          response.fold(
+                (l) => emit(
+              state.copyWith(fillPositionErrorInAPI: true, fillPositionLoading: false, filledPositionList: []),
+            ),
+                (r) {
+              lastPage = r.meta?.lastPage ?? 1;
+              if (value.refresh) {
+                List.from(state.filledPositionList).clear();
+              }
+              return emit(
+                state.copyWith(
+                  fillPositionLoading: false,
+                  fillPositionErrorInAPI: false,
+                  fillPositionNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  filledPositionList: List.from(state.filledPositionList)
+                    ..addAll(
+                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
+                    ),
+                ),
+              );
+            },
           );
 
         },

@@ -352,7 +352,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                 Gap(getSize(16)),
                 BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
                   selector: (state) {
-                    return state.employerLongTermAddDetailDto.vacancie_type == 1;
+                    return state.employerLongTermAddDetailDto.vacancie_type == 1 ||state.employerLongTermAddDetailDto.number_of_vacancie!=null ;
                   },
                   builder: (context, vacancyEnable) {
                     return Column(

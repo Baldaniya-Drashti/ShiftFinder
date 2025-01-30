@@ -19,7 +19,8 @@ part 'employer_long_term_position_add_detail_state.dart';
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
+class EmployerLongTermPositionAddDetailBloc
+    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
   EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
@@ -93,6 +94,7 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
           );
         }, onContinue: (OnContinue value) {
           final postShift = state.postShiftDto;
+
           final employer = state.employerLongTermAddDetailDto.copyWith(
             job_description: value.jobDescription,
             requirements: value.requirements,
@@ -103,8 +105,8 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<EmployerLongTermPositio
             shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
             number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
             terms: value.terms,
-            location_unit: ""
           );
+
           print("employer => ${employer.toJson()}");
 
           value.context.router.push(

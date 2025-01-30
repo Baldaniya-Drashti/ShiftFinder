@@ -6,6 +6,11 @@ class ContractorFullTimePositionState with _$ContractorFullTimePositionState {
     @Default(false) bool isLoading,
     @Default(false) bool isNoDataFound,
     @Default(false) bool isErrorInAPI,
+
+    @Default(false) bool appliedLoading,
+    @Default(false) bool appliedNoDataFound,
+    @Default(false) bool appliedIsErrorInAPI,
+
     @Default(false) bool postDataLoading,
     required List<EmployerLongFullTermDashboardDto> openPositionList,
     required List<EmployerLongFullTermDashboardDto> appliedPositionList,

@@ -33,7 +33,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
         return Stack(
           children: [
             PaginatedListView(
-              isNoDataFound: state.isNoDataFound,
+              isNoDataFound: state.appliedNoDataFound,
               onRefresh: () {
                 context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: true));
               },
@@ -41,9 +41,9 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                 context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: false));
               },
               refreshController: context.read<ContractorLongTermBloc>().appliedRefreshController,
-              child: state.isLoading
+              child: state.appliedLoading
                   ? CenterLoadingIndicator()
-                  : state.isErrorInAPI
+                  : state.appliedIsErrorInAPI
                       ? Center(
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )

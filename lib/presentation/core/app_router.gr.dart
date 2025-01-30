@@ -2546,6 +2546,7 @@ class EmployerLongTermPayableView
     _i141.Key? key,
     required _i153.EmployerLongTermSuccessDto employerLongTermSuccessDto,
     int? postId,
+    required _i146.PostShiftDTO postShiftDTO,
     List<_i140.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermPayableView.name,
@@ -2553,6 +2554,7 @@ class EmployerLongTermPayableView
             key: key,
             employerLongTermSuccessDto: employerLongTermSuccessDto,
             postId: postId,
+            postShiftDTO: postShiftDTO,
           ),
           initialChildren: children,
         );
@@ -2567,6 +2569,7 @@ class EmployerLongTermPayableView
         key: args.key,
         employerLongTermSuccessDto: args.employerLongTermSuccessDto,
         postId: args.postId,
+        postShiftDTO: args.postShiftDTO,
       );
     },
   );
@@ -2577,6 +2580,7 @@ class EmployerLongTermPayableViewArgs {
     this.key,
     required this.employerLongTermSuccessDto,
     this.postId,
+    required this.postShiftDTO,
   });
 
   final _i141.Key? key;
@@ -2585,9 +2589,11 @@ class EmployerLongTermPayableViewArgs {
 
   final int? postId;
 
+  final _i146.PostShiftDTO postShiftDTO;
+
   @override
   String toString() {
-    return 'EmployerLongTermPayableViewArgs{key: $key, employerLongTermSuccessDto: $employerLongTermSuccessDto, postId: $postId}';
+    return 'EmployerLongTermPayableViewArgs{key: $key, employerLongTermSuccessDto: $employerLongTermSuccessDto, postId: $postId, postShiftDTO: $postShiftDTO}';
   }
 }
 
@@ -2812,6 +2818,7 @@ class EmployerLongTermReviewDetailView
     _i141.Key? key,
     required _i153.EmployerLongTermSuccessDto employerLongTermSuccessDto,
     int? postId,
+    required _i146.PostShiftDTO postShiftDTO,
     List<_i140.PageRouteInfo>? children,
   }) : super(
           EmployerLongTermReviewDetailView.name,
@@ -2819,6 +2826,7 @@ class EmployerLongTermReviewDetailView
             key: key,
             employerLongTermSuccessDto: employerLongTermSuccessDto,
             postId: postId,
+            postShiftDTO: postShiftDTO,
           ),
           initialChildren: children,
         );
@@ -2833,6 +2841,7 @@ class EmployerLongTermReviewDetailView
         key: args.key,
         employerLongTermSuccessDto: args.employerLongTermSuccessDto,
         postId: args.postId,
+        postShiftDTO: args.postShiftDTO,
       );
     },
   );
@@ -2843,6 +2852,7 @@ class EmployerLongTermReviewDetailViewArgs {
     this.key,
     required this.employerLongTermSuccessDto,
     this.postId,
+    required this.postShiftDTO,
   });
 
   final _i141.Key? key;
@@ -2851,9 +2861,11 @@ class EmployerLongTermReviewDetailViewArgs {
 
   final int? postId;
 
+  final _i146.PostShiftDTO postShiftDTO;
+
   @override
   String toString() {
-    return 'EmployerLongTermReviewDetailViewArgs{key: $key, employerLongTermSuccessDto: $employerLongTermSuccessDto, postId: $postId}';
+    return 'EmployerLongTermReviewDetailViewArgs{key: $key, employerLongTermSuccessDto: $employerLongTermSuccessDto, postId: $postId, postShiftDTO: $postShiftDTO}';
   }
 }
 

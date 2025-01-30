@@ -11,6 +11,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
@@ -29,9 +30,11 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
     super.key,
     required this.employerLongTermSuccessDto,
     this.postId,
+    required this.postShiftDTO,
   });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
+  final PostShiftDTO postShiftDTO;
   final int? postId;
 
   @override
@@ -137,7 +140,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ] else if (employerLongTermSuccessDto.terms_document == null && employerLongTermSuccessDto.terms != null) ...[
+                  ] else if (employerLongTermSuccessDto.terms_document == null &&
+                      employerLongTermSuccessDto.terms != null) ...[
                     _buildCommonDividerTile(
                       context,
                       title: 'Contract Terms',
@@ -251,13 +255,16 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
   }
 
   Widget _buildSubmitButton(BuildContext context) {
-
     return CommonButton(
       onPressed: () {
         context.router.push(
           PageRouteInfo(
             EmployerLongTermPayableView.name,
-            args: EmployerLongTermPayableViewArgs(employerLongTermSuccessDto: employerLongTermSuccessDto,postId: postId),
+            args: EmployerLongTermPayableViewArgs(
+              employerLongTermSuccessDto: employerLongTermSuccessDto,
+              postId: postId,
+              postShiftDTO: postShiftDTO,
+            ),
           ),
         );
       },
@@ -404,7 +411,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(employerLongTermSuccessDto.industry ?? 0)} - ${employerLongTermSuccessDto.listing_id})",
+                  text:
+                      "(${getIndustryText(employerLongTermSuccessDto.industry ?? 0)} - ${employerLongTermSuccessDto.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -468,13 +476,17 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         children: [
                           BaseText(text: "Start Date", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: employerLongTermSuccessDto.start_date?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.start_date ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: employerLongTermSuccessDto.start_date?.year.toString(),
+                                    style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(employerLongTermSuccessDto.start_date ?? DateTime.now())}, "),
+                            style:
+                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -503,9 +515,11 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                   style: TextStyle(color: AppColors.green.withOpacity(0.5)),
                                 )
                               ],
-                              text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.end_date ?? DateTime.now())}, ",
+                              text:
+                                  "${DateFormat("dd MMM").format(employerLongTermSuccessDto.end_date ?? DateTime.now())}, ",
                             ),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style:
+                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -527,13 +541,17 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                         children: [
                           BaseText(text: "Application Deadline", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: employerLongTermSuccessDto.application_deadline?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(employerLongTermSuccessDto.application_deadline ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: employerLongTermSuccessDto.application_deadline?.year.toString(),
+                                    style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(employerLongTermSuccessDto.application_deadline ?? DateTime.now())}, "),
+                            style:
+                                TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
                           ),
                         ],
                       ),
@@ -614,7 +632,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: list[index],
                         fontSize: 14,
@@ -727,7 +746,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               color: Colors.white,
               child: Padding(
                 padding: EdgeInsets.all(getSize(14)),
-                child: BaseText(text: "${employerLongTermSuccessDto.total_teams ?? 0}", fontSize: 14, fontWeight: FontWeight.w500),
+                child: BaseText(
+                    text: "${employerLongTermSuccessDto.total_teams ?? 0}", fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),
             Gap(getSize(20)),
@@ -741,7 +761,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: employerLongTermSuccessDto.teams?[index].name ?? "",
                         fontSize: 14,

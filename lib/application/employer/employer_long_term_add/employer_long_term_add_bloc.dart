@@ -378,6 +378,10 @@ class EmployerLongTermAddBloc extends Bloc<EmployerLongTermAddEvent, EmployerLon
             //     .then((value) {
             //   AppFocus.unfocus(e.context);
             // });
+
+
+            print("post=> ${post.toJson()}");
+
             e.context.router.push(
               PageRouteInfo(
                 EmployerLongTermPositionAddDetailView.name,

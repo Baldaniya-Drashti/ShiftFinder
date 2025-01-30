@@ -23,7 +23,8 @@ part 'employer_long_term_confirmation_state.dart';
 part 'employer_long_term_confirmation_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmationEvent, EmployerLongTermConfirmationState> {
+class EmployerLongTermConfirmationBloc
+    extends Bloc<EmployerLongTermConfirmationEvent, EmployerLongTermConfirmationState> {
   final IMainFacade _mainFacade;
 
   EmployerLongTermConfirmationBloc(this._mainFacade) : super(EmployerLongTermConfirmationState.initial()) {
@@ -79,6 +80,7 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             software_skill_other: postShift.software_skill_other,
             language_other: postShift.language_other,
             team_id: state.selectedTeamList.map((e) => e.id).toList().join(","),
+            softwares_skill_list_id: postShift.softwares_skill_list_id,
           );
           print("¢${state.selectedTeamList.join(",")}");
           print("00000>${postShift.languages_list_id}");
@@ -122,16 +124,19 @@ class EmployerLongTermConfirmationBloc extends Bloc<EmployerLongTermConfirmation
             },
             (r) {
               final data = EmployerLongTermSuccessDto.fromJson(r.data);
-              print("mmmmmmmmm${data.toJson()}");
               value.context.router.push(
-                PageRouteInfo(EmployerLongTermReviewDetailView.name,
-                    args: EmployerLongTermReviewDetailViewArgs(employerLongTermSuccessDto: data, postId: state.postId)),
+                PageRouteInfo(
+                  EmployerLongTermReviewDetailView.name,
+                  args: EmployerLongTermReviewDetailViewArgs(
+                      employerLongTermSuccessDto: data, postId: state.postId, postShiftDTO: postShift),
+                ),
               );
             },
           );
         },
         onCreate: (value) async {
-          emit(state.copyWith(postShiftDTO: value.postDetail, employerAddDetailDto: value.employer, postId: value.postId));
+          emit(state.copyWith(
+              postShiftDTO: value.postDetail, employerAddDetailDto: value.employer, postId: value.postId));
           final teamList = await _mainFacade.getTeamsList();
           teamList.fold(
             (l) => emit(

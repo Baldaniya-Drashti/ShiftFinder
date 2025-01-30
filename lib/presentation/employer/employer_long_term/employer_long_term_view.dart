@@ -22,8 +22,8 @@ class EmployerLongTermView extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
       getIt<EmployerLongTermBloc>()
-        ..add(EmployerLongTermEvent.getEmployerFilledPosition(context: context, refresh: true))..add(
-          EmployerLongTermEvent.getEmployerLongTermOpenPosition(context: context, refresh: true)),
+        ..add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(context: context, refresh: true))..add(
+          EmployerLongTermEvent.getEmployerFilledPosition(context: context, refresh: true)),
       child: BlocSelector<EmployerLongTermBloc, EmployerLongTermState, bool>(
         selector: (state) => state.postDataLoading,
         builder: (context, postDataLoading) {

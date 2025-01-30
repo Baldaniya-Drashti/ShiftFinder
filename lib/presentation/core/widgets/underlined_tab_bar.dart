@@ -16,7 +16,7 @@
 
     @override
     Widget build(BuildContext context) {
-      final baseTextStyle = TextStyle(fontSize: getFontSize(14), fontWeight: FontWeight.w500, color: AppColors.primaryColor);
+      final baseTextStyle = TextStyle(fontSize: getFontSize(13), fontWeight: FontWeight.w500, color: AppColors.primaryColor);
       final unselectedLabelStyle = baseTextStyle.copyWith(color: Colors.black.withOpacity(0.5));
 
       return TabBar(
