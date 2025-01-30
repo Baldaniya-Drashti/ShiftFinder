@@ -11,7 +11,7 @@ part 'contractor_long_term_dashboard_dto.g.dart';
 class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
   const factory ContractorLongTermDashboardDto({
     int? id,
-    String? roles_lists_name,
+    String? role_lists_name,
     String? company_name,
     int? post_id,
     int? employer_post_user_id,

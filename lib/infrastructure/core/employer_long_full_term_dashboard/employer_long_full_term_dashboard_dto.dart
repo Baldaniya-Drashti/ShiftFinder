@@ -30,8 +30,21 @@ class EmployerLongFullTermDashboardDto with _$EmployerLongFullTermDashboardDto {
     int? total_application_counts,
     List<ApplicationProfile>? total_application_profiles,
     bool? isEditable,
+    UserDto? user
   }) = _EmployerLongTermOpenPositionDto;
 
   factory EmployerLongFullTermDashboardDto.fromJson(Map<String, dynamic> json) =>
       _$EmployerLongFullTermDashboardDtoFromJson(json);
+}
+@freezed
+class UserDto with _$UserDto {
+  const factory UserDto({
+    int? user_id,
+    String? first_name,
+    String? last_name,
+    String? profile,
+  }) = _UserDto;
+
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
 }

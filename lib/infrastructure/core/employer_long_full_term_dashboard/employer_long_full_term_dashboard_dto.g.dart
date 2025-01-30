@@ -38,6 +38,9 @@ _$EmployerLongTermOpenPositionDtoImpl
                   (e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
               .toList(),
           isEditable: json['isEditable'] as bool?,
+          user: json['user'] == null
+              ? null
+              : UserDto.fromJson(json['user'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$$EmployerLongTermOpenPositionDtoImplToJson(
@@ -63,4 +66,21 @@ Map<String, dynamic> _$$EmployerLongTermOpenPositionDtoImplToJson(
       'total_application_counts': instance.total_application_counts,
       'total_application_profiles': instance.total_application_profiles,
       'isEditable': instance.isEditable,
+      'user': instance.user,
+    };
+
+_$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
+    _$UserDtoImpl(
+      user_id: (json['user_id'] as num?)?.toInt(),
+      first_name: json['first_name'] as String?,
+      last_name: json['last_name'] as String?,
+      profile: json['profile'] as String?,
+    );
+
+Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
+    <String, dynamic>{
+      'user_id': instance.user_id,
+      'first_name': instance.first_name,
+      'last_name': instance.last_name,
+      'profile': instance.profile,
     };

@@ -461,8 +461,7 @@ abstract class IMainFacade {
     required int page,
     required int positionsType,
   });
-  Future<Either<MainFailure, CommonResponse>> deleteLongTermPost(
-      {required int id});
+
 
   Future<Either<MainFailure, CommonResponse>> contractorLongFullConfirmAccpetence({
     required int id,

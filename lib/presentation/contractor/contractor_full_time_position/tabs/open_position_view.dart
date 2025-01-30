@@ -309,7 +309,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: contractorFullPosting?.roles_lists_name ?? "",
+                  text: contractorFullPosting?.role_lists_name ?? "",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),

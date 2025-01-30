@@ -378,7 +378,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: contractorLongTerm?.roles_lists_name ?? "",
+                  text: contractorLongTerm?.role_lists_name ?? "",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),

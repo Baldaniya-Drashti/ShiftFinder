@@ -10,7 +10,7 @@ _$ContractorLongTermDashboardDtoImpl
     _$$ContractorLongTermDashboardDtoImplFromJson(Map<String, dynamic> json) =>
         _$ContractorLongTermDashboardDtoImpl(
           id: (json['id'] as num?)?.toInt(),
-          roles_lists_name: json['roles_lists_name'] as String?,
+          role_lists_name: json['role_lists_name'] as String?,
           company_name: json['company_name'] as String?,
           post_id: (json['post_id'] as num?)?.toInt(),
           employer_post_user_id:
@@ -59,7 +59,7 @@ Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
         _$ContractorLongTermDashboardDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'roles_lists_name': instance.roles_lists_name,
+      'role_lists_name': instance.role_lists_name,
       'company_name': instance.company_name,
       'post_id': instance.post_id,
       'employer_post_user_id': instance.employer_post_user_id,

@@ -61,6 +61,10 @@ import 'package:shift/application/contractor/contractor_earning_bloc/contractor_
     as _i608;
 import 'package:shift/application/contractor/contractor_edit_profile_bloc/contractor_edit_profile_bloc.dart'
     as _i392;
+import 'package:shift/application/contractor/contractor_full_time_position/contractor_full_time_position_bloc.dart'
+    as _i725;
+import 'package:shift/application/contractor/contractor_long_time/contractor_long_term_bloc.dart'
+    as _i106;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -95,8 +99,12 @@ import 'package:shift/application/employer/billing/payment_method_bloc/payment_m
     as _i699;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/employer_full_position_detail/employer_full_position_detail_bloc.dart'
+    as _i435;
 import 'package:shift/application/employer/employer_full_posting/employer_full_posting_bloc.dart'
     as _i24;
+import 'package:shift/application/employer/employer_full_posting_applicant/employer_full_posting_applicant_bloc.dart'
+    as _i1002;
 import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart'
     as _i454;
 import 'package:shift/application/employer/employer_full_posting_review/employer_full_posting_review_bloc.dart'
@@ -111,8 +119,12 @@ import 'package:shift/application/employer/employer_long_term/employer_long_term
     as _i89;
 import 'package:shift/application/employer/employer_long_term_add/employer_long_term_add_bloc.dart'
     as _i165;
+import 'package:shift/application/employer/employer_long_term_authorize_payment/employer_long_term_authorize_payment_bloc.dart'
+    as _i545;
 import 'package:shift/application/employer/employer_long_term_confirmation/employer_long_term_confirmation_bloc.dart'
     as _i1042;
+import 'package:shift/application/employer/employer_long_term_detail/employer_long_term_detail_bloc.dart'
+    as _i120;
 import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart'
     as _i918;
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart'
@@ -193,14 +205,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i418.FullTimePositionDetailBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i79.EmployerFullPostingReviewBloc>(
-        () => _i79.EmployerFullPostingReviewBloc());
     gh.factory<_i218.EmployerLongTermPositionAddDetailBloc>(
         () => _i218.EmployerLongTermPositionAddDetailBloc());
-    gh.factory<_i24.EmployerFullPostingBloc>(
-        () => _i24.EmployerFullPostingBloc());
-    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
-        () => _i454.EmployerFullPostingConfirmBloc());
     gh.factory<_i164.ViewMediaBloc>(() => _i164.ViewMediaBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i730.PickLocationDialogBloc>(
@@ -217,8 +223,20 @@ extension GetItInjectableX on _i174.GetIt {
         _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i918.EmployerLongTermPayableBloc>(
         () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i24.EmployerFullPostingBloc>(
+        () => _i24.EmployerFullPostingBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
+        () => _i454.EmployerFullPostingConfirmBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1002.EmployerFullPostingApplicantBloc>(
+        () => _i1002.EmployerFullPostingApplicantBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i435.EmployerFullPositionDetailBloc>(
+        () => _i435.EmployerFullPositionDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i120.EmployerLongTermDetailBloc>(
+        () => _i120.EmployerLongTermDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i89.EmployerLongTermBloc>(
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i545.EmployerLongTermAuthorizePaymentBloc>(() =>
+        _i545.EmployerLongTermAuthorizePaymentBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i809.EmployerCompletedShiftBloc>(
         () => _i809.EmployerCompletedShiftBloc(
               gh<_i111.IMainFacade>(),
@@ -240,10 +258,6 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i383.HealthcarePostBloc>(() => _i383.HealthcarePostBloc(
           gh<_i277.IAuthFacade>(),
-          gh<_i253.IAccountRepository>(),
-          gh<_i111.IMainFacade>(),
-        ));
-    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
@@ -273,11 +287,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i170.MyCalendarViewBloc>(
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i725.ContractorFullTimePositionBloc>(
+        () => _i725.ContractorFullTimePositionBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i456.ContractorRatingBloc>(
         () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i634.ContractorPerformanceInsightBloc>(
         () => _i634.ContractorPerformanceInsightBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i106.ContractorLongTermBloc>(
+        () => _i106.ContractorLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i79.EmployerFullPostingReviewBloc>(
+        () => _i79.EmployerFullPostingReviewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i156.ProposalDetailBloc>(
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i119.HiredContractorBloc>(
@@ -395,6 +415,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+          gh<_i277.IAuthFacade>(),
+        ));
     gh.factory<_i392.ContractorEditProfileBloc>(
         () => _i392.ContractorEditProfileBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i234.EditProfileBloc>(

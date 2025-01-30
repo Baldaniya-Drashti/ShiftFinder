@@ -173,10 +173,10 @@ class OpenPositionTabView extends StatelessWidget {
                             );
                       }
                     },
-                    child: SvgPicture.asset(SvgImageConstant.delete, height: 25),
+                    child: SvgPicture.asset(SvgImageConstant.delete),
                   ),
                   if (employer.isEditable ?? false) ...[
-                    Gap(getSize(16)),
+                    Gap(getSize(12)),
                     GestureDetector(
                       onTap: () {
                         context.router.push(
@@ -186,7 +186,7 @@ class OpenPositionTabView extends StatelessWidget {
                           ),
                         );
                       },
-                      child: SvgPicture.asset(SvgImageConstant.edit, height: 25),
+                      child: SvgPicture.asset(SvgImageConstant.edit),
                     )
                   ],
                 ],
@@ -196,9 +196,9 @@ class OpenPositionTabView extends StatelessWidget {
               minTileHeight: getSize(43.41),
             ),
             Divider(color: AppColors.white.withOpacity(0.2)),
-            Gap(4),
+            Gap(getSize(4)),
             _buildLocationInfo(context, employer: employer),
-            Gap(4),
+            Gap(getSize(4)),
           ],
         ),
       ),
