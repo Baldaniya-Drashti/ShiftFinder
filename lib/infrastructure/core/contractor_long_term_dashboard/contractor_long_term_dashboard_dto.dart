@@ -11,7 +11,7 @@ part 'contractor_long_term_dashboard_dto.g.dart';
 class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
   const factory ContractorLongTermDashboardDto({
     int? id,
-    String? roles_list_name,
+    String? roles_lists_name,
     String? company_name,
     int? post_id,
     int? employer_post_user_id,
@@ -21,7 +21,7 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     String? profile,
     String? shift_schedule_type,
     String? specialties_list,
-    int? industry,
+    int? industry_id,
     int? request,
     int? urgent_action,
     @DateTimeConverter() DateTime? start_date,
@@ -35,13 +35,15 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     int? total_weeks,
     int? applied_proposal_status,
     int? applied_date,
-    int? offer_expires,
+    @DateTimeConverter() DateTime? offer_expires,
     int? total_months,
     int? button,
+    int? last_request,
     int? counter_proposal_button,
     double? latitude,
     bool? offer_expires_status,
     LocationDTO? location,
+    bool? deleteAt,
 
   }) = _ContractorLongTermDashboardDto;
 

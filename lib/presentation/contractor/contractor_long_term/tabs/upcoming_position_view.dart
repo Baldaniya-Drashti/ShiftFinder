@@ -131,12 +131,12 @@ class ContractorUpcomingPositionView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: contractorLongTerm?.roles_list_name ?? "",
+                  text: contractorLongTerm?.roles_lists_name ?? "",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(contractorLongTerm?.industry ?? 0)} - ${contractorLongTerm?.listing_id})",
+                  text: "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),

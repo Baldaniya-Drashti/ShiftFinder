@@ -461,4 +461,9 @@ abstract class IMainFacade {
     required int page,
     required int positionsType,
   });
+
+  Future<Either<MainFailure, CommonResponse>> contractorLongFullConfirmAccpetence({
+    required int id,
+    required int urgent_action,
+  });
 }

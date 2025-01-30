@@ -69,7 +69,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
           final employer = state.employerFullPosting;
           //employer.copyWith(lo);
           final Map<String, dynamic> data = {
-            "post_type": "2",
+            "post_type": 2,
             "location_id": employer.location?.id,
             ...state.employerFullPosting.toJson(),
           };

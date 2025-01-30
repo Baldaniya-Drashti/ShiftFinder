@@ -67,8 +67,7 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound:
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
                       (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
@@ -90,10 +89,10 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
             }
           }
           var res = await _mainFacade.contractorDashboardLongPost(
-            page: currentPage,
+            page: upcomingCurrentPage,
             positionsType: 2,
           );
-          currentPage++;
+          upcomingCurrentPage++;
           res.fold(
             (l) => emit(
               state.copyWith(
@@ -111,8 +110,7 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   upcomingLoading: false,
                   upcomingIsErrorInAPI: false,
-                  upcomingNoDataFound:
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  upcomingNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   upComingPositionList: List.from(state.upComingPositionList)
                     ..addAll(
@@ -135,10 +133,10 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
             }
           }
           var res = await _mainFacade.contractorDashboardLongPost(
-            page: currentPage,
+            page: appliedCurrentPage,
             positionsType: 3,
           );
-          currentPage++;
+          appliedCurrentPage++;
           res.fold(
             (l) => emit(
               state.copyWith(
@@ -156,8 +154,7 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   appliedLoading: false,
                   appliedIsErrorInAPI: false,
-                  appliedNoDataFound:
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  appliedNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
                   appliedPositionList: List.from(state.appliedPositionList)
                     ..addAll(
@@ -186,6 +183,30 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
             (r) {
               showSuccess(message: r.dioMessage ?? "").show(value.context);
               add(ContractorLongTermEvent.fetchOpenPositionList(refresh: true));
+            },
+          );
+        },
+        confirmRejectOffer: (ConfirmRejectOffer value) async {
+          emit(state.copyWith(postDataLoading: true));
+          final res = await _mainFacade.contractorLongFullConfirmAccpetence(
+            id: value.id,
+            urgent_action: value.urgent_action,
+          );
+          emit(state.copyWith(postDataLoading: false));
+
+          res.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Something went wrong!",
+                ),
+              ).show(value.context);
+            },
+            (r) {
+              showSuccess(message: r.dioMessage ?? "").show(value.context);
+              add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: true));
             },
           );
         },

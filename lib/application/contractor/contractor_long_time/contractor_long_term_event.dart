@@ -18,4 +18,10 @@ class ContractorLongTermEvent with _$ContractorLongTermEvent {
     required BuildContext context,
     required int id
   }) = ApplyOpenPosition;
+
+  factory ContractorLongTermEvent.confirmRejectOffer({
+    required BuildContext context,
+    required int id,
+    required int urgent_action
+  }) = ConfirmRejectOffer;
 }

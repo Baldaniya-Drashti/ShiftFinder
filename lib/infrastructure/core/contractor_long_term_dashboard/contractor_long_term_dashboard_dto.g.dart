@@ -10,7 +10,7 @@ _$ContractorLongTermDashboardDtoImpl
     _$$ContractorLongTermDashboardDtoImplFromJson(Map<String, dynamic> json) =>
         _$ContractorLongTermDashboardDtoImpl(
           id: (json['id'] as num?)?.toInt(),
-          roles_list_name: json['roles_list_name'] as String?,
+          roles_lists_name: json['roles_lists_name'] as String?,
           company_name: json['company_name'] as String?,
           post_id: (json['post_id'] as num?)?.toInt(),
           employer_post_user_id:
@@ -21,7 +21,7 @@ _$ContractorLongTermDashboardDtoImpl
           profile: json['profile'] as String?,
           shift_schedule_type: json['shift_schedule_type'] as String?,
           specialties_list: json['specialties_list'] as String?,
-          industry: (json['industry'] as num?)?.toInt(),
+          industry_id: (json['industry_id'] as num?)?.toInt(),
           request: (json['request'] as num?)?.toInt(),
           urgent_action: (json['urgent_action'] as num?)?.toInt(),
           start_date: const DateTimeConverter()
@@ -40,9 +40,11 @@ _$ContractorLongTermDashboardDtoImpl
           applied_proposal_status:
               (json['applied_proposal_status'] as num?)?.toInt(),
           applied_date: (json['applied_date'] as num?)?.toInt(),
-          offer_expires: (json['offer_expires'] as num?)?.toInt(),
+          offer_expires: const DateTimeConverter()
+              .fromJson((json['offer_expires'] as num?)?.toInt()),
           total_months: (json['total_months'] as num?)?.toInt(),
           button: (json['button'] as num?)?.toInt(),
+          last_request: (json['last_request'] as num?)?.toInt(),
           counter_proposal_button:
               (json['counter_proposal_button'] as num?)?.toInt(),
           latitude: (json['latitude'] as num?)?.toDouble(),
@@ -50,13 +52,14 @@ _$ContractorLongTermDashboardDtoImpl
           location: json['location'] == null
               ? null
               : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
+          deleteAt: json['deleteAt'] as bool?,
         );
 
 Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
         _$ContractorLongTermDashboardDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'roles_list_name': instance.roles_list_name,
+      'roles_lists_name': instance.roles_lists_name,
       'company_name': instance.company_name,
       'post_id': instance.post_id,
       'employer_post_user_id': instance.employer_post_user_id,
@@ -66,7 +69,7 @@ Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
       'profile': instance.profile,
       'shift_schedule_type': instance.shift_schedule_type,
       'specialties_list': instance.specialties_list,
-      'industry': instance.industry,
+      'industry_id': instance.industry_id,
       'request': instance.request,
       'urgent_action': instance.urgent_action,
       'start_date': const DateTimeConverter().toJson(instance.start_date),
@@ -82,11 +85,13 @@ Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
       'total_weeks': instance.total_weeks,
       'applied_proposal_status': instance.applied_proposal_status,
       'applied_date': instance.applied_date,
-      'offer_expires': instance.offer_expires,
+      'offer_expires': const DateTimeConverter().toJson(instance.offer_expires),
       'total_months': instance.total_months,
       'button': instance.button,
+      'last_request': instance.last_request,
       'counter_proposal_button': instance.counter_proposal_button,
       'latitude': instance.latitude,
       'offer_expires_status': instance.offer_expires_status,
       'location': instance.location,
+      'deleteAt': instance.deleteAt,
     };

@@ -158,5 +158,6 @@ class ApiConstants {
   static String employerLongTermApplicantsAcceptReject = 'employer_long_full_term_applicants_accept_reject';
   static String contractorApplyForLongFullTermPost = 'contractor_apply_for_long_full_term_post';
   static String updateLongFullTermPost = 'update_long_full_term_post';
+  static String contractorLongFulTermShiftConfirmAcceptance = 'contractor_long_full_term_shift_confirm_acceptance';
 
 }

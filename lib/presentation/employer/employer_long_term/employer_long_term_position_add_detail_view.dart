@@ -61,7 +61,7 @@ class EmployerLongTermPositionAddDetailView extends StatelessWidget {
       body: BlocProvider(
         create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>()
           ..add(
-            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer,postId),
+            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer, postId),
           ),
         child: _EmployerLongTermPositionDetailContent(employer),
       ),
@@ -352,7 +352,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                 Gap(getSize(16)),
                 BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
                   selector: (state) {
-                    return state.employerLongTermAddDetailDto.vacancie_type == 1 ||state.employerLongTermAddDetailDto.number_of_vacancie!=null ;
+                    return state.employerLongTermAddDetailDto.vacancie_type == 1 ||
+                        state.employerLongTermAddDetailDto.number_of_vacancie != null;
                   },
                   builder: (context, vacancyEnable) {
                     return Column(

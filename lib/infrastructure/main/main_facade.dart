@@ -2662,7 +2662,7 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({required Map<String, dynamic> data}) async {
-    if(data["terms_document"] != null && (data["terms_document"]as String).contains("https")){
+    if (data["terms_document"] != null && (data["terms_document"] as String).contains("https")) {
       data.remove("terms_document");
     }
     print("newData=> ${data}");
@@ -3133,7 +3133,6 @@ class MainFacade implements IMainFacade {
     }
   }
 
-
   @override
   Future<Either<MainFailure, CommonResponse>> contractorDashboardFullPost({
     required int page,
@@ -3163,6 +3162,7 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }
+
   @override
   Future<Either<MainFailure, CommonResponse>> contractorApplyLongFullPost({
     required int id,
@@ -3177,6 +3177,32 @@ class MainFacade implements IMainFacade {
       } else {
         return left(const MainFailure.serverError());
       }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> contractorLongFullConfirmAccpetence({required int id, required int urgent_action}) async {
+    try {
+      final response = await apiService.getMethod(ApiConstants.contractorLongFulTermShiftConfirmAcceptance, queryParameters: {
+        "id": id,
+        "urgent_action": urgent_action,
+      });
+
+      if (response != null) {
+        return right(response);
+      }
+      return left(const MainFailure.serverError());
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

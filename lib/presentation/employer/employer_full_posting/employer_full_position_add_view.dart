@@ -123,8 +123,8 @@ class _PositionFormState extends State<_PositionForm> {
               BlocSelector<AddFullPositionBloc, AddFullPositionState, int?>(
                 selector: (state) => state.employerLongTermDto.job_type,
                 builder: (context, selectedJobType) {
-               final model= selectedJobType==1?   CommonDropdownModel(id: 1, label: "Full time"):
-                  CommonDropdownModel(id: 2, label: "Part time");
+                  final model = selectedJobType == 1
+                      ? CommonDropdownModel(id: 1, label: "Full time") : selectedJobType==2?CommonDropdownModel(id: 2, label: "Part time"):null;
                   return _JobTypeDropdownField(
                     selectedJobType: model,
                     onChanged: (value) {
@@ -249,8 +249,7 @@ class _PositionFormState extends State<_PositionForm> {
                                   CustomTextField(
                                     keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
                                     inputFormatters: [
-                                      if (selectedRadioOption == 1)
-                                        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                      if (selectedRadioOption == 1) FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                                     ],
                                     controller: controller._rateAndSalaryController,
                                     autoValidateMode: AutovalidateMode.onUserInteraction,
@@ -571,10 +570,7 @@ class _PositionFormState extends State<_PositionForm> {
             }
           },
         ),
-        if (state.location.isValid() &&
-            state.unitList.isNotEmpty &&
-            state.showLocationError &&
-            state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );
@@ -838,8 +834,7 @@ class UpdateFullTimeJobPositionController extends ChangeNotifier {
     _compensationController = BulletTextEditingController(initialItems: data?.compensation_package);
     _jobSummaryController = BulletTextEditingController(initialItems: data?.job_summary);
     _keyResponsibilityController = BulletTextEditingController(initialItems: data?.responsibilities);
-    _externalInternalRelationshipController =
-        BulletTextEditingController(initialItems: data?.external_internal_relationships);
+    _externalInternalRelationshipController = BulletTextEditingController(initialItems: data?.external_internal_relationships);
     _qualificationController = BulletTextEditingController(initialItems: data?.qualifications);
     _experienceController = BulletTextEditingController(initialItems: data?.experience);
     _licenseController = BulletTextEditingController(initialItems: data?.licenses_certifications);
