@@ -107,8 +107,11 @@ class AppliedTab extends StatelessWidget {
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),
                                     child: BaseText(
-                                      text: StringConstant
-                                          .youHaveCancelledThisShiftApplication,
+                                      text: (shift.applied_date_status == 2)
+                                          ? StringConstant
+                                              .youHaveCancelledThisShiftProposal
+                                          : StringConstant
+                                              .youHaveCancelledThisShiftApplication,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       textColor: AppColors.redAccent,

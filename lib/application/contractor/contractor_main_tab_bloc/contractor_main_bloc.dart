@@ -31,6 +31,7 @@ class ContractorMainTabBloc
         await event.map(
           tabChange: (value) async {
             emit(state.copyWith(selectedTab: value.tabIndex));
+            print("tabIndex----> ${value.tabIndex}");
 
             switch (value.tabIndex) {
               case 0:

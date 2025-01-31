@@ -52,6 +52,7 @@ class PngImageConstants {
   static const send = "assets/png/send.png";
   static const shiftFinderWhiteLogo = "assets/png/shift_finder_white_logo.png";
   static const document = "assets/png/chat_document.png";
+  static const update_post_contractor = "assets/png/update_post_contractor.png";
 
   static const List<String> allImages = [
     fullPosition,
@@ -88,6 +89,7 @@ class PngImageConstants {
     suitcase,
     passwordChanged,
     ticketSubmittedSuccess,
-    update_experience_desc
+    update_experience_desc,
+    update_post_contractor
   ];
 }

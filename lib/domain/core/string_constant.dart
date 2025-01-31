@@ -748,6 +748,8 @@ class StringConstant {
   static const String addNewLocation = "Add New Location";
   static const String addExperience = "Add Experience";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String youHaveCancelledThisShiftProposal =
+      "You have cancelled this shift proposal";
   static const String updateRoleExperienceDec =
       "You can update experience for the selected roles";
   static const String addRoleExperienceDec =

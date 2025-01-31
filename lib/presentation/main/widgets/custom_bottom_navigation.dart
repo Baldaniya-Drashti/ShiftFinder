@@ -18,7 +18,10 @@ class CustomBottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainTabBloc, MainTabState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print("selectedTab---> ${state.selectedTab}");
+        print("current Index---> ${state.selectedTab}");
+      },
       builder: (context, state) {
         return Theme(
           data: ThemeData(

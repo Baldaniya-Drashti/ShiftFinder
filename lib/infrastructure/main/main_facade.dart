@@ -2731,7 +2731,7 @@ class MainFacade implements IMainFacade {
         ApiConstants.contractorPerformanceInsights,
         queryParameters: mapData,
       );
-      print("Response of insightss---> ${res}");
+      print("Response of insights---> ${res}");
 
       if (res != null) {
         final data = PerformanceInsightDTO.fromJson(res.data);

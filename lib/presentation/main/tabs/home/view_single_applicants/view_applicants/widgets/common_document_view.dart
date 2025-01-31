@@ -48,7 +48,7 @@ class CommonDocumentView extends StatelessWidget {
               itemCount: documentList.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return documentUI(context, documentList[0]);
+                return documentUI(context, documentList[index]);
               }),
         ),
       ),

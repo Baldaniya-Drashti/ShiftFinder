@@ -314,8 +314,7 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               isStateValid &&
               isPostalCodeValid &&
               isPhoneNoValid &&
-              ((state.bankDetail == null && isCheckTerms) ||
-                  state.bankDetail != null)) {
+              isCheckTerms) {
             print("All Details are validdddddd! ");
             // Find the ID of the selected bank name
             /* final selectedBankName = state.bankName.getValue();

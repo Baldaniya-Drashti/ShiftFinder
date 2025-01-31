@@ -123,28 +123,26 @@ class AddBankDetailsScreen extends StatelessWidget {
                               stateField(context, state),
                               paddingBetweenFields(),
                               postalCodeField(context, state),
-                              if (state.bankDetail == null) ...[
-                                paddingBetweenFields(height: getSize(30)),
-                                termsCheckBox(state, context),
-                                paddingBetweenFields(height: getSize(10)),
-                                if (state.showErrorMessages && !state.isCheck)
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: getSize(20),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: BaseText(
-                                        text: StringConstant.bankTermsErrorText,
-                                        style: TextStyle(
-                                          color: AppColors.red,
-                                          fontSize: getFontSize(11),
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                              paddingBetweenFields(height: getSize(30)),
+                              termsCheckBox(state, context),
+                              paddingBetweenFields(height: getSize(10)),
+                              if (state.showErrorMessages && !state.isCheck)
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(20),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: BaseText(
+                                      text: StringConstant.bankTermsErrorText,
+                                      style: TextStyle(
+                                        color: AppColors.red,
+                                        fontSize: getFontSize(11),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
-                              ],
+                                ),
                               Padding(
                                 padding: EdgeInsets.only(
                                   top: getSize(40),
