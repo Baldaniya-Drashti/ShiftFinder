@@ -23,8 +23,10 @@ class ContractorUpcomingPositionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Sdsdsdsd");
     return BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
       builder: (context, state) {
+        print("==>${state.upComingPositionList}");
         return PaginatedListView(
           isNoDataFound: state.upcomingNoDataFound,
           onRefresh: () {
@@ -45,7 +47,8 @@ class ContractorUpcomingPositionView extends StatelessWidget {
               : ListView.separated(
             padding: EdgeInsets.all(getSize(12)),
             itemBuilder: (context, index) {
-              final data = state.openPositionList[index];
+              final data = state.upComingPositionList[index];
+              print("data=> ${data}");
               return Container(
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -80,7 +83,7 @@ class ContractorUpcomingPositionView extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) => Gap(16),
-            itemCount: state.openPositionList.length,
+            itemCount: state.upComingPositionList.length,
           ),
         );
       },
@@ -144,11 +147,6 @@ class ContractorUpcomingPositionView extends StatelessWidget {
               ],
             ),
           ),
-          BaseText(
-            text: contractorLongTerm?.last_ago ?? "",
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-          )
         ],
       ),
     );

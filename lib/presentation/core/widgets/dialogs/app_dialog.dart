@@ -386,6 +386,7 @@ class AppDialog {
       String? content,
       String? extraContent,
       String? successLabel,
+      String? rejectLabel,
       Widget? action}) async {
     return showDialog<bool?>(
       context: context,
@@ -440,7 +441,7 @@ class AppDialog {
                   Expanded(
                     child: CommonButton(
                       onPressed: () => context.router.maybePop(false),
-                      buttonText: "Cancel",
+                      buttonText: rejectLabel??"Cancel",
                       backgroundColor: AppColors.white,
                       borderColor: AppColors.green,
                       buttonTextColor: AppColors.green,

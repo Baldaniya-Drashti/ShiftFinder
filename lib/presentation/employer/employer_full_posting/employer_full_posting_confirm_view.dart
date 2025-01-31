@@ -23,12 +23,14 @@ import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ TextEditingController _vacancyController = TextEditingController();
 
 @RoutePage(name: "EmployerFullPostingConfirmView")
 class EmployerFullPostingConfirmView extends StatelessWidget {
   const EmployerFullPostingConfirmView({
     super.key,
-    required this.employerFullPosting, this.postId,
+    required this.employerFullPosting,
+    this.postId,
   });
 
   final EmployerLongTermSuccessDto employerFullPosting;
@@ -39,47 +41,57 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<EmployerFullPostingConfirmBloc>()
         ..add(
-          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting,post: postId),
+          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting, post: postId),
         ),
-      child: Builder(
-        builder: (context) {
-         final loading= context.select<EmployerFullPostingConfirmBloc,bool>((value) => value.state.postDataLoading);
-          return Stack(
-            children: [
-              Scaffold(
-                bottomNavigationBar: SafeArea(
-                  minimum: EdgeInsets.all(getSize(16)),
-                  child: CommonButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate() != true) return;
-                      context.read<EmployerFullPostingConfirmBloc>().add(
-                        EmployerFullPostingConfirmEvent.onContinue(context: context),
-                      );
-                    },
-                    buttonText: "Continue",
-                  ),
+      child: Builder(builder: (context) {
+        final loading = context.select<EmployerFullPostingConfirmBloc, bool>((value) => value.state.postDataLoading);
+        return Stack(
+          children: [
+            Scaffold(
+              bottomNavigationBar: SafeArea(
+                minimum: EdgeInsets.all(getSize(16)),
+                child: CommonButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate() != true) return;
+                    context.read<EmployerFullPostingConfirmBloc>().add(
+                          EmployerFullPostingConfirmEvent.onContinue(context: context, vacancyNumber: _vacancyController.text.trim()),
+                        );
+                  },
+                  buttonText: "Continue",
                 ),
-                appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
-                body: _EmployerFullPostingContent(),
               ),
-              if(loading)CenterLoadingIndicator(),
-            ],
-          );
-        }
-      ),
+              appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
+              body: BlocBuilder<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState>(
+                builder: (context, state) {
+                  return _EmployerFullPostingContent(state.employerFullPosting);
+                },
+              ),
+            ),
+            if (loading) CenterLoadingIndicator(),
+          ],
+        );
+      }),
     );
   }
 }
 
 class _EmployerFullPostingContent extends StatefulWidget {
-  const _EmployerFullPostingContent();
+  const _EmployerFullPostingContent(this.data);
+
+  final EmployerLongTermSuccessDto data;
 
   @override
   State<_EmployerFullPostingContent> createState() => _EmployerFullPostingContentState();
 }
 
 class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent> {
-  final TextEditingController _vacancyController = TextEditingController();
+  @override
+  void initState() {
+    _vacancyController.text = "${widget.data.number_of_vacancie ?? ""}";
+    print("------<>${widget.data.number_of_vacancie}");
+    print("------<>${widget.data.vacancie_type}");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +107,12 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
               builder: (context, applicationDeadline) {
                 return DatePickerInputField(
                   validator: (value, context) {
-                    value=value?.trim()??"";
-                    if(value.isEmpty)return "Please select application deadline";
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) return "Please select application deadline";
                     return null;
                   },
                   initialDate: applicationDeadline,
-                  firstDate: applicationDeadline?? DateTime.now().add(Duration(days: 1)),
+                  firstDate: applicationDeadline ?? DateTime.now().add(Duration(days: 1)),
                   label: "Application Deadline",
                   hint: "Application Deadline",
                   onPickedDate: (date) {
@@ -145,7 +157,11 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
             ),
             Gap(getSize(16)),
             BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-              selector: (state) => state.employerFullPosting.vacancie_type == 1,
+              selector: (state) {
+                print("vacancie_type${state.employerFullPosting.vacancie_type}");
+                print("number_of_vacancie${state.employerFullPosting.number_of_vacancie}");
+                return state.employerFullPosting.vacancie_type == 1 || state.employerFullPosting.number_of_vacancie != null;
+              },
               builder: (context, moreVacancy) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,

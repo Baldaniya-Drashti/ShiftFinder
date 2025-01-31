@@ -45,24 +45,24 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
-                          padding: EdgeInsets.all(12),
+                          padding: EdgeInsets.all(getSize(12)),
                           itemBuilder: (context, index) {
                             final data = state.appliedPositionList[index];
                             return BaseTileDecoration(
                               child: Column(
                                 children: [
                                   _buildPositionTile(context, contractorFullPosting: data),
-                                  Gap(12),
-                                  _buildSalaryInformation(context),
-                                  Gap(12),
-                                  _buildPositionDescription(context),
-                                  Gap(12),
-                                  _buildButtons(context)
+                                  Gap(getSize(12)),
+                                  _buildSalaryInformation(context, contractorFullPosting: data),
+                                  Gap(getSize(12)),
+                                  _buildPositionDescription(context, contractorFullPosting: data),
+                                  Gap(getSize(12)),
+                                  _buildButtons(context, contractorFullPosting: data)
                                 ],
                               ),
                             );
                           },
-                          separatorBuilder: (context, index) => Gap(16),
+                          separatorBuilder: (context, index) => Gap(getSize(16)),
                           itemCount: state.appliedPositionList.length,
                         ),
             ),
@@ -73,26 +73,12 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     );
   }
 
-  Widget _positionDetailButton(
-    BuildContext context, {
-    required VoidCallback onPressed,
-  }) {
-    return CommonButton(
-      borderRadius: 7,
-      height: 40,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.2),
-      onPressed: onPressed,
-      buttonText: 'View Position Details',
-      buttonFontSize: 12,
-      buttonFontWeight: FontWeight.w600,
-      buttonTextColor: AppColors.black,
-    );
-  }
+
 
   Widget _buildPositionTile(
     BuildContext context, {
-        required ContractorLongTermDashboardDto? contractorFullPosting,
-      }) {
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -116,6 +102,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
+    final jobType = contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
@@ -133,7 +121,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: contractorFullPosting?.role_lists_name ?? "",
+                  text: jobType,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -158,8 +146,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
 
   Widget _buildLocationInfo(
     BuildContext context, {
-        required ContractorLongTermDashboardDto? contractorFullPosting,
-      }) {
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return CommonInfoTile(
       leading: SvgPicture.asset(
         SvgImageConstant.location,
@@ -177,7 +165,10 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     );
   }
 
-  Widget _buildPositionDescription(BuildContext context) {
+  Widget _buildPositionDescription(
+    BuildContext context, {
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return Material(
       color: AppColors.scaffoldColor,
       borderRadius: BorderRadius.circular(10),
@@ -189,19 +180,16 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
           children: [
             BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
-            BaseText(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              text:
-                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
-            ),
+            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: "${contractorFullPosting?.position ?? ""}"),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSalaryInformation(BuildContext context) {
+  Widget _buildSalaryInformation(BuildContext context,{
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
@@ -223,9 +211,9 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Salary", fontSize: 12),
+                          BaseText(text: contractorFullPosting?.compensation_type == "1" ? "Rate" : "Salary", fontSize: 12),
                           BaseText(
-                            text: "93,000 – 98,000",
+                            text: "${contractorFullPosting?.rate_hour??""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.green,
@@ -280,56 +268,81 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     );
   }
 
-  Widget _buildButtons(BuildContext context) {
+  Widget _buildButtons(BuildContext context,{
+    required ContractorLongTermDashboardDto? contractorFullPosting,
+  }) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: Material(
-            borderRadius: BorderRadius.circular(7),
-            color: AppColors.scaffoldColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {},
-                child: BaseText(
-                  text: "View Shift Details",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+
+        if (contractorFullPosting?.deleteAt == true && contractorFullPosting?.request == 0) ...[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: getSize(10)),
+            child: BaseText(
+              text: StringConstant.youHaveCancelledThisShiftApplication,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.redAccent,
             ),
-          ),
-        ),
-        Gap(14),
-        Expanded(
-          child: Material(
-            borderRadius: BorderRadius.circular(7),
-            color: AppColors.redAccent.withOpacity(0.15),
-            child: InkWell(
-              onTap: () async {
-                final result = await AppDialog.showCommonDialog(
-                  context: context,
-                  title: "Cancel",
-                  content: "Are you sure you want to cancel this application?",
-                  successLabel: "Ok",
-                );
-                if (result ?? false) {
-                  ///TODO:
-                }
-              },
+          )
+        ]else...[
+          Expanded(
+            child: Material(
+              borderRadius: BorderRadius.circular(7),
+              color: AppColors.scaffoldColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: BaseText(
-                  text: "Cancel Application",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  textAlign: TextAlign.center,
+                child: InkWell(
+                  onTap: () {},
+                  child: BaseText(
+                    text: "View Shift Details",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
           ),
-        )
+          Gap(14),
+          Expanded(
+            child: Material(
+              borderRadius: BorderRadius.circular(7),
+              color: AppColors.redAccent.withOpacity(0.15),
+              child: InkWell(
+                onTap: () async {
+                  final result = await AppDialog.showCommonDialog(
+                    context: context,
+                    title: "Cancel",
+                    content: "Are you sure you want to cancel this application?",
+                    successLabel: "Ok",
+                  );
+                  if (result ?? false) {
+
+                    context.read<ContractorFullTimePositionBloc>().add(
+                      ContractorFullTimePositionEvent.confirmRejectOffer(
+                        context: context,
+                        id: contractorFullPosting?.id ?? -1,
+                        urgent_action: 2,
+                      ),
+                    );
+
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BaseText(
+                    text: "Cancel Application",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+
       ],
     );
   }

@@ -14,10 +14,8 @@ class PngImageConstants {
   static const patient = "assets/png/patient.png";
   static const doctors = "assets/png/doctors.png";
   static const onboarding3 = "assets/png/onboarding3.png";
-  static const healthcare_post_employer =
-      "assets/png/healthcare_post_employer.png";
-  static const healthcare_post_contractor =
-      "assets/png/healthcare_post_contractor.png";
+  static const healthcare_post_employer = "assets/png/healthcare_post_employer.png";
+  static const healthcare_post_contractor = "assets/png/healthcare_post_contractor.png";
   static const floating_background = "assets/png/floating_background.png";
   static const onboarding2_contractor = "assets/png/onboarding2_contractor.png";
   static const onboarding2_employer = "assets/png/onboarding2_employer.png";
@@ -25,8 +23,7 @@ class PngImageConstants {
   static const contractor_employer = "assets/png/profile_contractor.png";
   static const add_experience_desc = "assets/png/add_experience_desc.png";
   static const update_experience_desc = "assets/png/update_experience_desc.png";
-  static const add_speciality_experience_desc =
-      "assets/png/add_speciality_experience_desc.png";
+  static const add_speciality_experience_desc = "assets/png/add_speciality_experience_desc.png";
   static const document_img = "assets/png/document_img.png";
   static const upload = "assets/png/upload.png";
   static const intro__video_image = "assets/png/intro__video_image.png";
@@ -52,8 +49,10 @@ class PngImageConstants {
   static const send = "assets/png/send.png";
   static const shiftFinderWhiteLogo = "assets/png/shift_finder_white_logo.png";
   static const document = "assets/png/chat_document.png";
+  static const longTermHeader = "assets/png/long_term_header.png";
 
   static const List<String> allImages = [
+    longTermHeader,
     fullPosition,
     withdrawDialogImage,
     about,

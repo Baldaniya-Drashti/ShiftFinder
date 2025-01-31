@@ -71,8 +71,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                     height: 36,
                                     onPressed: () {
                                       context.router.push(
-                                        PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                            args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
+                                        PageRouteInfo(EmployerFullPositionPositionDetailView.name,
+                                            args: EmployerFullPositionPositionDetailViewArgs(id: data.id ?? -1)),
                                       );
                                     },
                                     label: "View Position Details",
@@ -99,9 +99,9 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                         successLabel: "Apply",
                                       );
                                       if (result ?? false) {
-                                        /*    context.read<ContractorFullTimePositionBloc>().add(
-                              ContractorFullTimePositionEvent.applyOpenPosition(context: context, id: data.id ?? -1),
-                            );*/
+                                        context.read<ContractorFullTimePositionBloc>().add(
+                                              ContractorFullTimePositionEvent.applyOpenPosition(context: context, id: data.id ?? -1),
+                                            );
                                       }
                                     },
                                     buttonText: "Apply",
@@ -292,6 +292,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
+    final jobType = contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
@@ -309,7 +311,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: contractorFullPosting?.role_lists_name ?? "",
+                  text: jobType,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),

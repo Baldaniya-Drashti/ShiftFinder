@@ -10,6 +10,7 @@ class EmployerLongTermViewApplicantEvent with _$EmployerLongTermViewApplicantEve
   const factory EmployerLongTermViewApplicantEvent.onRejectApplicant({
     required BuildContext context,
     required int id,
+    required int postId,
   }) = _OnRejectApplicant;
 
 }

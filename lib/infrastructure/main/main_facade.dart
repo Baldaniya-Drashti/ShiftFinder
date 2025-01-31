@@ -3114,7 +3114,8 @@ class MainFacade implements IMainFacade {
         queryParameters: {
           "post_type": 1,
           "positions_type": positionsType,
-          "page": page
+          "page": page,
+          "perPage":10,
         },
       );
 
@@ -3204,9 +3205,8 @@ class MainFacade implements IMainFacade {
   Future<Either<MainFailure, CommonResponse>> deleteLongTermPost(
       {required int id}) async {
     try {
-      final response = await apiService.getMethod(
-        ApiConstants.deleteLongTermPost,
-        queryParameters: {"id": id},
+      final response = await apiService.deleteMethod(
+        "${ApiConstants.deleteLongFullTermPost}/$id",
       );
 
       if (response != null) {

@@ -68,13 +68,16 @@ class EmployerFullPostingConfirmBloc extends Bloc<EmployerFullPostingConfirmEven
         },
         onContinue: (OnContinue value) async {
           print("data => ${state.employerFullPosting.toJson()}");
+
+          final data= state.employerFullPosting.copyWith(number_of_vacancie: int.tryParse(value.vacancyNumber));
           Either<MainFailure, CommonResponse<dynamic>> result;
           emit(state.copyWith(postDataLoading: true));
+
           if ((state.postId ?? -1) < 0) {
-            result = await _iMainFacade.createLongFullTermPost(data: state.employerFullPosting.toJson());
+            result = await _iMainFacade.createLongFullTermPost(data: data.toJson());
           } else {
             result = await _iMainFacade.updateLongFullTermPost(data: {
-              ...state.employerFullPosting.toJson(),
+              ...data.toJson(),
               "update_status": 0,
             });
           }

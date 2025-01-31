@@ -23,6 +23,8 @@ _$EmployerLongTermApplicantDtoImpl _$$EmployerLongTermApplicantDtoImplFromJson(
       request: (json['request'] as num?)?.toInt(),
       urgent_action: (json['urgent_action'] as num?)?.toInt(),
       revoke_status: (json['revoke_status'] as num?)?.toInt(),
+      start_date: const DateTimeConverter()
+          .fromJson((json['start_date'] as num?)?.toInt()),
       revoke_start: (json['revoke_start'] as num?)?.toInt(),
       occupied: json['occupied'] as bool?,
       accept_btn_toggle: json['accept_btn_toggle'] as bool?,
@@ -30,6 +32,7 @@ _$EmployerLongTermApplicantDtoImpl _$$EmployerLongTermApplicantDtoImplFromJson(
       monthly_service_fee: json['monthly_service_fee'] as String?,
       total_amount_payable: json['total_amount_payable'] as String?,
       deleteAt: (json['deleteAt'] as num?)?.toInt(),
+      offer_expires_status: json['offer_expires_status'] as bool?,
     );
 
 Map<String, dynamic> _$$EmployerLongTermApplicantDtoImplToJson(
@@ -49,6 +52,7 @@ Map<String, dynamic> _$$EmployerLongTermApplicantDtoImplToJson(
       'request': instance.request,
       'urgent_action': instance.urgent_action,
       'revoke_status': instance.revoke_status,
+      'start_date': const DateTimeConverter().toJson(instance.start_date),
       'revoke_start': instance.revoke_start,
       'occupied': instance.occupied,
       'accept_btn_toggle': instance.accept_btn_toggle,
@@ -56,4 +60,5 @@ Map<String, dynamic> _$$EmployerLongTermApplicantDtoImplToJson(
       'monthly_service_fee': instance.monthly_service_fee,
       'total_amount_payable': instance.total_amount_payable,
       'deleteAt': instance.deleteAt,
+      'offer_expires_status': instance.offer_expires_status,
     };

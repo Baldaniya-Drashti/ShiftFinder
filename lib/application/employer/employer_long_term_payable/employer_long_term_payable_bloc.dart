@@ -11,6 +11,7 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 part 'employer_long_term_payable_event.dart';
@@ -35,18 +36,18 @@ class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, Emp
           } else {
             final postShift = value.postShift;
             final employer = value.employer.copyWith(
-              rate_hour: postShift.rate_hour,
-              languages_list_id: postShift.languages_list_id,
-              location_unit: postShift.location_unit,
-              location_id: postShift.location_id,
-              post_type: 1,
-              roles_list_id: postShift.roles_list_id,
-              specialties_detail_id: postShift.specialties_detail_id,
-              specialties_detail_other: postShift.specialties_detail_other,
-              software_skill_other: postShift.software_skill_other,
-              language_other: postShift.language_other,
-              team_id: value.employer.teams?.map((e) => e.id).toList().join(","),
-            );
+                rate_hour: postShift.rate_hour,
+                languages_list_id: postShift.languages_list_id,
+                location_unit: postShift.location_unit,
+                location_id: postShift.location_id,
+                post_type: 1,
+                roles_list_id: postShift.roles_list_id,
+                specialties_detail_id: postShift.specialties_detail_id,
+                specialties_detail_other: postShift.specialties_detail_other,
+                software_skill_other: postShift.software_skill_other,
+                language_other: postShift.language_other,
+                team_id: value.employer.teams?.map((e) => e.id).toList().join(","),
+                softwares_skill_list_id: postShift.softwares_skill_list_id);
 
             response = await _iMainFacade.updateLongFullTermPost(data: {
               ...employer.toJson(),

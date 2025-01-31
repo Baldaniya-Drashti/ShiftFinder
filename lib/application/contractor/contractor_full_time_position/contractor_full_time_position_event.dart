@@ -9,5 +9,12 @@ class ContractorFullTimePositionEvent with _$ContractorFullTimePositionEvent {
   factory ContractorFullTimePositionEvent.fetchAppliedPositionList({
     required bool refresh,
   }) = FetchAppliedPositionList;
-
+  factory ContractorFullTimePositionEvent.confirmRejectOffer({
+    required BuildContext context,
+    required int id,
+    required int urgent_action
+  }) = ConfirmRejectOffer; factory ContractorFullTimePositionEvent.applyOpenPosition({
+    required BuildContext context,
+    required int id,
+  }) = ApplyOpenPosition;
 }

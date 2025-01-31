@@ -156,7 +156,7 @@ class ApiConstants {
   static String contractorDashboardLongFullTermPost = 'contractor_dashboard_long_full_term_post';
   static String employerLongFullTermApplicants = 'employer_long_full_term_applicants';
   static String employerUpdateLongFullPostTermStatus = 'update_long_full_post_term_status';
-  static String deleteLongTermPost = 'delete_long_full_term_post';
+  static String deleteLongFullTermPost = 'delete_long_full_term_post';
   static String getEmployerLongFullTermPost = 'get_long_full_term_post';
   static String employerLongTermApplicantsAcceptReject = 'employer_long_full_term_applicants_accept_reject';
   static String contractorApplyForLongFullTermPost = 'contractor_apply_for_long_full_term_post';

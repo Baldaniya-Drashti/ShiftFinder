@@ -26,6 +26,7 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
      int? post
   }) = OnCreate;
   const factory EmployerFullPostingConfirmEvent.onContinue({
-    required BuildContext context
+    required BuildContext context,
+    required String vacancyNumber
   }) = OnContinue;
 }

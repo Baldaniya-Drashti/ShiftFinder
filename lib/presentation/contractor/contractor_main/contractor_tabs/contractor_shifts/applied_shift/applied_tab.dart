@@ -127,7 +127,7 @@ class AppliedTab extends StatelessWidget {
                                       textColor: AppColors.redAccent,
                                     ),
                                   ),
-                                ] else if (shift.deleteAt == true) ...[
+                                ] else if (shift.deleteAt == true ) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),

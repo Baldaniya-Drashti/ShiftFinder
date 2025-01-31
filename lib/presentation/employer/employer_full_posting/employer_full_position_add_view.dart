@@ -163,6 +163,13 @@ class _PositionFormState extends State<_PositionForm> {
                 builder: (context, selectedEstimatedHours) {
                   return TimePickerInputField(
                     initialTime: selectedEstimatedHours,
+                    validator: (value, _) {
+                      value = value?.trim() ?? "";
+                      if (value.isEmpty) {
+                        return "Please select estimation hours";
+                      }
+                      return null;
+                    },
                     label: "Estimated Weekly Hours",
                     hint: "00h 00min",
                     onPickedTime: (time) {
@@ -379,6 +386,7 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(28)),
               CommonButton(
                 onPressed: () {
+                  print("==>${controller.benefit}");
                   final list = context.read<AddFullPositionBloc>().state.requiredShiftScheduleChipList.getValue();
                   if (_formKey.currentState?.validate() != true || list.isEmpty) {
                     showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
@@ -752,7 +760,7 @@ class BulletTextEditingController extends TextEditingController {
   }
 
   String get toCommaSeparatedString {
-    return getBulletContent().join(",").trim();
+    return getBulletContent().where((item) => item.isNotEmpty).join(",").trim();
   }
 
   @override

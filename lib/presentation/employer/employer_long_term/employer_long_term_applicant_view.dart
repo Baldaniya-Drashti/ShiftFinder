@@ -58,28 +58,16 @@ class EmployerLongTermApplicantView extends StatelessWidget {
                       ? Center(
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )
-                      : _LongTermApplicantsListView(applicantList: state.applicantsList, id: id),
+                      : ListView.separated(
+                          padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
+                          itemCount: state.applicantsList.length,
+                          separatorBuilder: (context, index) => Gap(getSize(16)),
+                          itemBuilder: (context, index) => _ApplicantsListTile(data: state.applicantsList[index], id: id,),
+                        ),
             );
           },
         ),
       ),
-    );
-  }
-}
-
-class _LongTermApplicantsListView extends StatelessWidget {
-  const _LongTermApplicantsListView({required this.applicantList, required this.id});
-
-  final List<EmployerLongTermApplicantDto> applicantList;
-  final int id;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
-      itemCount: applicantList.length,
-      separatorBuilder: (context, index) => Gap(getSize(16)),
-      itemBuilder: (context, index) => _ApplicantsListTile(data: applicantList[index], id: id),
     );
   }
 }
@@ -138,8 +126,7 @@ class _ApplicantsListTile extends StatelessWidget {
                                 onPressed: () {
                                   context.router.maybePop();
                                   context.router
-                                      .push(PageRouteInfo(AddCardDetailPage.name,
-                                          args: AddCardDetailPageArgs(fromRegister: false)))
+                                      .push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false)))
                                       .then((value) {
                                     if (value != null && value == true) {
                                       _navigateToAuthorizePayment(context);
@@ -169,8 +156,7 @@ class _ApplicantsListTile extends StatelessWidget {
                           );
                           if (result ?? false) {
                             context.read<EmployerLongTermViewApplicantBloc>().add(
-                                  EmployerLongTermViewApplicantEvent.onRejectApplicant(
-                                      context: context, id: data.id ?? -1),
+                                  EmployerLongTermViewApplicantEvent.onRejectApplicant(context: context, id: data.id ?? -1,postId: id),
                                 );
                           }
                         },
@@ -197,7 +183,7 @@ class _ApplicantsListTile extends StatelessWidget {
                           ],
                         ),
                       )
-                    ] else if (data.revoke_status == 2) ...[
+                    ] else if (data.offer_expires_status==true) ...[
                       Expanded(
                         flex: 2,
                         child: Row(
@@ -229,8 +215,7 @@ class _ApplicantsListTile extends StatelessWidget {
                         context.router.push(
                           PageRouteInfo(
                             ViewApplicantProfile.name,
-                            args: ViewApplicantProfileArgs(
-                                id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
+                            args: ViewApplicantProfileArgs(id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
                           ),
                         );
                       },
@@ -273,7 +258,7 @@ class _ApplicantsListTile extends StatelessWidget {
   }) {
     return Expanded(
       child: CommonMaterialButton(
-        height: 42,
+        height: 35  ,
         onPressed: onPressed,
         label: label,
         radius: 10,
@@ -326,7 +311,7 @@ class _ApplicantsListTile extends StatelessWidget {
               children: [
                 BaseText(
                   text: "${data.first_name ?? ""} ${data.last_name ?? ""}",
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
@@ -338,6 +323,7 @@ class _ApplicantsListTile extends StatelessWidget {
               ],
             ),
           ),
+          Gap(getSize(4)),
           BaseText(
             text: data.last_ago ?? "",
             fontSize: 10,

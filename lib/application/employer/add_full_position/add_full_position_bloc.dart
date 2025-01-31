@@ -79,7 +79,9 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
                       unitList: (data.location != null) ? data.location?.add_units ?? [] : [],
                       languageChipList: ListInputEmptyOrNot(
                           (data.languages_list != null) ? data.languages_list!.map((element) => element.name ?? "").toList() : []),
-
+                        requiredShiftScheduleChipList: ListInputEmptyOrNot(
+                          getShiftSchedule(data.shift_schedule_type ?? "1"),
+                        )
                     ),
                   );
                   print("==>employerLongTermDto${state.employerLongTermDto.position}");
@@ -310,5 +312,17 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
     String commaSeparated = languageIds.join(',');
     print("Language Ids--> ${commaSeparated}");
     return commaSeparated;
+  }
+
+  List<String> getShiftSchedule(String scheduleShift) {
+    final list = <String>[];
+    final shiftList = scheduleShift.split(",");
+    if (shiftList.contains("1")) list.add("Morning");
+    if (shiftList.contains("2")) list.add("Evening");
+    if (shiftList.contains("3")) list.add("Night");
+    if (shiftList.contains("4")) list.add("Weekends");
+    if (shiftList.contains("5")) list.add("Weekdays");
+
+    return list;
   }
 }

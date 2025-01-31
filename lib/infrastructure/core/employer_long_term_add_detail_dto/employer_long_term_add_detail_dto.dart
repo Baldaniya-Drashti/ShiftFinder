@@ -67,16 +67,20 @@ class TimeConverter extends JsonConverter<TimeOfDay?, String?> {
   }
 
   TimeOfDay _convertStringToTimeOfDay(String timeString) {
-    final regex = RegExp(r'(\d{2})\s*h\s*(\d{2})\s*min');
+    final regex = RegExp(r'(\d{1,2})\s*h\s*(\d{1,2})\s*min');
     final match = regex.firstMatch(timeString);
 
     if (match != null) {
       int hours = int.parse(match.group(1)!);
       int minutes = int.parse(match.group(2)!);
-      return TimeOfDay(hour: hours, minute: minutes);
-    } else {
-      throw FormatException("Invalid time format");
+
+      // Ensure valid TimeOfDay range (0-23 hours, 0-59 minutes)
+      if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60) {
+        return TimeOfDay(hour: hours, minute: minutes);
+      }
     }
+
+    throw FormatException("Invalid time format: $timeString");
   }
 
   String _formatTimeOfDay(TimeOfDay timeOfDay) {

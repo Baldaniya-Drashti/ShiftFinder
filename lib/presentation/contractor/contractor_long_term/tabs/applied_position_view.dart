@@ -68,7 +68,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                 children: [
                                   _buildPositionTile(context, contractorLongTerm: data),
                                   Gap(getSize(10)),
-                                  if(data.request != 0 && data.urgent_action != 0)...[
+                                  if (data.request == 1|| data.request==2 && data.urgent_action == 0) ...[
                                     CommonMaterialButton(
                                       radius: 7,
                                       height: 36,
@@ -82,12 +82,9 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                       backgroundColor: AppColors.primaryColor.withOpacity(.1),
                                     ),
                                     Gap(getSize(10)),
-
                                   ],
-
                                   _buildApplicationInformation(context, contractorLongTerm: data),
                                   Gap(getSize(12)),
-
                                   if (data.offer_expires_status == true) ...[
                                     // if (data.request == 1 && data.urgent_action == 0) ...[
                                     //   ///Decline prtion 1
@@ -145,21 +142,27 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                           textColor: AppColors.redAccent,
                                         ),
                                       )
-                                    ] else if (data.deleteAt == true && data.request == 1)
-                                      ...[
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: getSize(10)),
-                                          child: BaseText(
-                                            text: StringConstant
-                                                .youHaveDeclinedThisShift,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            textColor: AppColors.redAccent,
-                                          ),
-                                        )
-                                      ]
-                                    else if (data.request == 1 && data.urgent_action == 0) ...[
+                                    ] else if (data.deleteAt == true && data.request == 2) ...[
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                        child: BaseText(
+                                          text: StringConstant.employerHaveRejectedThisShift,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          textColor: AppColors.redAccent,
+                                        ),
+                                      )
+                                    ] else if (data.deleteAt == true && data.request == 1) ...[
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                        child: BaseText(
+                                          text: StringConstant.youHaveDeclinedThisShift,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          textColor: AppColors.redAccent,
+                                        ),
+                                      )
+                                    ] else if (data.request == 1 && data.urgent_action == 0) ...[
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
@@ -263,12 +266,13 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                   content: "Are you sure you want to decline this offer?",
                                                   title: "Decline Offer",
                                                   successLabel: "Cancel",
+                                                  rejectLabel: "No"
                                                 );
                                                 if (result ?? false) {
                                                   context.read<ContractorLongTermBloc>().add(
                                                         ContractorLongTermEvent.confirmRejectOffer(
                                                           context: context,
-                                                          id: data.post_id ?? -1,
+                                                          id: data.id ?? -1,
                                                           urgent_action: 2,
                                                         ),
                                                       );
@@ -530,11 +534,6 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
               ],
             ),
           ),
-          BaseText(
-            text: contractorLongTerm?.last_ago ?? "",
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-          )
         ],
       ),
     );

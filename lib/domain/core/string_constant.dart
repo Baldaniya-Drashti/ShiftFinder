@@ -189,7 +189,7 @@ class StringConstant {
   static const String professionalLiabilityProtection =
       "Professional Liability Protection";
   static const String deleteGovernmentIdDesc =
-      "Are you sure you want to delete the government issued id?";
+        "Are you sure you want to delete the government issued id?";
   static const String deleteResumeDesc =
       "Are you sure you want to delete the resume?";
   static const String deleteCovidDocDesc =

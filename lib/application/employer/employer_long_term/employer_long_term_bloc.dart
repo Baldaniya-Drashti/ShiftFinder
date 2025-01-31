@@ -44,7 +44,7 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
           }
           final response = await _iMainFacade.employerLongTermDashboard(
             positionsType: 2,
-            page: 2,
+            page: fillPositionCurrentPage,
           );
           fillPositionCurrentPage++;
 

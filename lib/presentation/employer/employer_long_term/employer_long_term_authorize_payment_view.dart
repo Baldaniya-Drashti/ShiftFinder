@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_long_term_authorize_payment/employer_long_term_authorize_payment_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -69,7 +70,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                       Gap(getSize(10)),
                       BaseText(
                         text:
-                            "You also authorize ShiftFinder to withdraw the monthly service fee at the end of each month for the contract duration. The first monthly fee will be withdrawn 30 days after [start date].",
+                            "You also authorize ShiftFinder to withdraw the monthly service fee at the end of each month for the contract duration. The first monthly fee will be withdrawn 30 days after ${DateFormat("dd MMM yyy").format(employerApplicantsDto.start_date??DateTime.now())}.",
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         textAlign: TextAlign.center,

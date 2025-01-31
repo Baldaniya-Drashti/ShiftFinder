@@ -141,7 +141,7 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                                 },
                                 padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                                 label:
-                                    "By proceeding, I confirm that we, the employer, are responsible for making payments  directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract  violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a  contractor for the position.",
+                                    "By proceeding, I confirm that we, the employer, are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
                               );
                             },
                           ),

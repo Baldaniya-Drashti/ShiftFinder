@@ -28,9 +28,9 @@ class EmployerFullPostingReviewBloc extends Bloc<EmployerFullPostingReviewEvent,
         onSubmit: (OnSubmit value) async {
           final result = await AppDialog.showCommonDialog(
             context: value.context,
-            title: "Post Full Time Position",
+            title: "${(value.postId ?? -1) < 0?"Post":"Update"} Full Time Position",
             content: "Are you sure you want to post this full time position?",
-            successLabel: "Post",
+            successLabel: "${(value.postId ?? -1) < 0?"Post":"Update"} ",
           );
           if (result ?? false) {
             emit(state.copyWith(loading: true));

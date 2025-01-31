@@ -199,19 +199,9 @@ class _EmployerFullPostingContent extends StatelessWidget {
                         successLabel: "Delete",
                       );
                       if (result ?? false) {
-                        final result2 = await AppDialog.showCommonDialog(
-                          context: context,
-                          title: "Post a Full Time Position",
-                          content:
-                              "Interviews and other hiring procedures for full time positions are not handled by the platform at this time. As the employer, it is your responsibility to schedule interviews and directly contact contractors who apply.",
-                          extraContent: "Are you sure you want to continue?",
-                          successLabel: "Continue",
+                        context.read<EmployerFullPostingBloc>().add(
+                          EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
                         );
-                        if (result2 ?? false) {
-                          context.read<EmployerFullPostingBloc>().add(
-                                EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
-                              );
-                        }
                       }
                     },
                     child: SvgPicture.asset(SvgImageConstant.delete),

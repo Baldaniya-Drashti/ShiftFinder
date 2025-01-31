@@ -51,7 +51,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              PngImageConstants.healthcare_post_employer,
+                              PngImageConstants.longTermHeader,
                             ),
                             paddingBetweenFields(),
                             roleDropDown(context, state),

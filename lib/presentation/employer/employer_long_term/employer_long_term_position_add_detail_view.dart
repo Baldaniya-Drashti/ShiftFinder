@@ -469,35 +469,40 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
     required String label,
     EdgeInsets? padding,
   }) {
-    return Material(
-      color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(getSize(10)),
-      child: Padding(
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Transform.scale(
-              scale: 0.9,
-              child: Checkbox(
-                activeColor: AppColors.primaryColor,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                visualDensity: VisualDensity.compact,
-                side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                value: value,
-                onChanged: (value) {
-                  if (value == null) return;
-                  onChanged(value);
-                },
+    return GestureDetector(
+      onTap: () {
+        onChanged(value);
+      },
+      child: Material(
+        color: AppColors.surfaceColor,
+        borderRadius: BorderRadius.circular(getSize(10)),
+        child: Padding(
+          padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Transform.scale(
+                scale: 0.9,
+                child: Checkbox(
+                  activeColor: AppColors.primaryColor,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: VisualDensity.compact,
+                  side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                  value: value,
+                  onChanged: (value) {
+                    if (value == null) return;
+                    onChanged(value);
+                  },
+                ),
               ),
-            ),
-            Gap(4),
-            Expanded(
-              child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
-            )
-          ],
+              Gap(4),
+              Expanded(
+                child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -516,7 +521,7 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
         AppDialog.showDelete(
           context,
           title: StringConstant.delete,
-          infoMessage: StringConstant.deleteGovernmentIdDesc,
+          infoMessage: "Are you sure you want to delete this document?",
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);

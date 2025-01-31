@@ -14,8 +14,7 @@ part 'employer_long_term_view_applicant_state.dart';
 part 'employer_long_term_view_applicant_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermViewApplicantBloc
-    extends Bloc<EmployerLongTermViewApplicantEvent, EmployerLongTermViewApplicantState> {
+class EmployerLongTermViewApplicantBloc extends Bloc<EmployerLongTermViewApplicantEvent, EmployerLongTermViewApplicantState> {
   final IMainFacade _iMainFacade;
   int currentPage = 1;
   int lastPage = 1;
@@ -52,8 +51,7 @@ class EmployerLongTermViewApplicantBloc
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound:
-                      (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList().isEmpty,
                   applicantsList: List.from(state.applicantsList)
                     ..addAll(
                       (r.data as List<dynamic>).map((e) => EmployerLongTermApplicantDto.fromJson(e)).toList(),
@@ -79,9 +77,11 @@ class EmployerLongTermViewApplicantBloc
               ).show(value.context);
             },
             (r) {
-              List<EmployerLongTermApplicantDto> tempList = List.from(state.applicantsList);
-              tempList.removeWhere((element) => element.id == value.id);
-              emit(state.copyWith(applicantsList: tempList, isNoDataFound: tempList.isEmpty));
+              showSuccess(message: "Applicant reject successfully").show(value.context).then(
+                (_) {
+                  add(EmployerLongTermViewApplicantEvent.getApplicants(context: value.context, id: value.postId, refresh: true));
+                },
+              );
             },
           );
         },

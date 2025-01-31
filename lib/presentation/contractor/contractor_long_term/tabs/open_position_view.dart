@@ -80,7 +80,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                         onPressed: () {
                           context.router.push(
                             PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                args: EmployerLongTermPositionDetailViewArgs(id: data.post_id ?? -1)),
+                                args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
                           );
                         },
                         label: "View Position Details",
