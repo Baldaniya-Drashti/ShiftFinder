@@ -26,9 +26,8 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class DifferentTimeForEachDate extends StatelessWidget {
   PostShiftDTO post;
-
-  DifferentTimeForEachDate({super.key, required this.post, this.fromSaveTemplate = false});
-
+  DifferentTimeForEachDate(
+      {super.key, required this.post, this.fromSaveTemplate = false});
   final bool fromSaveTemplate;
 
   @override
@@ -40,26 +39,32 @@ class DifferentTimeForEachDate extends StatelessWidget {
             return volume.name == state.scriptVolume.getValue();
           }, orElse: () => SkillDTO());
           final data = MultiShiftDTO(
-            commute_allowance_type: (state.selectedCommuteAllownce.getValue() == "Flat Rate")
-                ? 1
-                : (state.selectedCommuteAllownce.getValue() == "Hours")
-                    ? 2
-                    : 0,
-            commute_allowance: (state.selectedCommuteAllownce.getValue() == "Flat Rate")
-                ? state.commuteRate.getValue()
-                : (state.selectedCommuteAllownce.getValue() == "Hours")
-                    ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
-                    : "",
-            accommodation_allowance_type: (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
-                ? 1
-                : (state.selectedAccomdationAllownce.getValue() == "Hours")
-                    ? 2
-                    : 0,
-            accommodation_allowance: (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
-                ? state.accomdationRate.getValue()
-                : (state.selectedAccomdationAllownce.getValue() == "Hours")
-                    ? getAccomdationHourId(state, state.accomdationHour.getValue() ?? "")
-                    : "",
+            commute_allowance_type:
+                (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                    ? 1
+                    : (state.selectedCommuteAllownce.getValue() == "Hours")
+                        ? 2
+                        : 0,
+            commute_allowance:
+                (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                    ? state.commuteRate.getValue()
+                    : (state.selectedCommuteAllownce.getValue() == "Hours")
+                        ? getAccomdationHourId(
+                            state, state.commuteHour.getValue() ?? "")
+                        : "",
+            accommodation_allowance_type:
+                (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
+                    ? 1
+                    : (state.selectedAccomdationAllownce.getValue() == "Hours")
+                        ? 2
+                        : 0,
+            accommodation_allowance:
+                (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
+                    ? state.accomdationRate.getValue()
+                    : (state.selectedAccomdationAllownce.getValue() == "Hours")
+                        ? getAccomdationHourId(
+                            state, state.accomdationHour.getValue() ?? "")
+                        : "",
             individual_shift: (state.isIndividualPost) ? 1 : 0,
             shift_note: state.singleShiftNote,
             vacancie_type: (state.isMoreVacancy) ? 1 : 0,
@@ -68,7 +73,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                     state.selectedVacancy.getValue(),
                   )
                 : null,
-              multi_date: state.selectedMultiDates.getValue().map((date) {
+            multi_date: state.selectedMultiDates.getValue().map((date) {
               return DateTimeDTO(date: date.toIso8601String());
             }).toList(),
             post_id: state.postId,
@@ -78,8 +83,8 @@ class DifferentTimeForEachDate extends StatelessWidget {
           );
 
           print("multi_date=> ${state.selectedMultiDates.getValue().map((date) {
-            return DateTimeDTO(date: date.toIso8601String());
-          }).toList().length}");
+                return DateTimeDTO(date: date.toIso8601String());
+              }).toList().length}");
           print("multi_date=> ${state.selectedMultiDates.getValue().map((date) {
             return DateTimeDTO(date: date.toIso8601String());
           }).toList()}");
@@ -87,7 +92,11 @@ class DifferentTimeForEachDate extends StatelessWidget {
           context.router
               .push(PageRouteInfo(
             AddMultiDateTime.name,
-            args: AddMultiDateTimeArgs(selectedObj: data, post: post, updateShift: state.updateShift, fromSaveTemplate: fromSaveTemplate),
+            args: AddMultiDateTimeArgs(
+                selectedObj: data,
+                post: post,
+                updateShift: state.updateShift,
+                fromSaveTemplate: fromSaveTemplate),
           ))
               .then((value) {
             context.read<PostShiftBloc>().add(PostShiftEvent.backEvent());
@@ -96,13 +105,16 @@ class DifferentTimeForEachDate extends StatelessWidget {
       },
       builder: (context, state) {
         return Form(
-          autovalidateMode: (state.singleShiftErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+          autovalidateMode: (state.singleShiftErrorMessages)
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               selectMultiDate(context, state),
-              if (state.singleShiftErrorMessages && !(state.selectedMultiDates.isValid()))
+              if (state.singleShiftErrorMessages &&
+                  !(state.selectedMultiDates.isValid()))
                 commonErrorText(
                   StringConstant.pleaseSelectAtLeastOneDate,
                 ),
@@ -110,10 +122,14 @@ class DifferentTimeForEachDate extends StatelessWidget {
               commuteAllownceDropDown(context, state),
               if (state.singleShiftErrorMessages &&
                   !(PostShiftBloc.isAllownceValid(
-                      selectedValue: state.selectedCommuteAllownce, hourValue: state.commuteHour, rateValue: state.commuteRate)))
-                commonErrorText((double.tryParse(state.commuteRate.getValue()) != null && double.parse(state.commuteRate.getValue()) <= 0)
-                    ? StringConstant.flatRateShouldNotBeZero
-                    : StringConstant.pleaseSelectCommuteAllownceValue),
+                      selectedValue: state.selectedCommuteAllownce,
+                      hourValue: state.commuteHour,
+                      rateValue: state.commuteRate)))
+                commonErrorText(
+                    (double.tryParse(state.commuteRate.getValue()) != null &&
+                            double.parse(state.commuteRate.getValue()) <= 0)
+                        ? StringConstant.flatRateShouldNotBeZero
+                        : StringConstant.pleaseSelectCommuteAllownceValue),
               paddingBetweenFields(),
               accommodationAllowanceDropDown(context, state),
               if (state.singleShiftErrorMessages &&
@@ -122,7 +138,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
                       hourValue: state.accomdationHour,
                       rateValue: state.accomdationRate)))
                 commonErrorText(
-                    (double.tryParse(state.accomdationRate.getValue()) != null && double.parse(state.accomdationRate.getValue()) <= 0)
+                    (double.tryParse(state.accomdationRate.getValue()) !=
+                                null &&
+                            double.parse(state.accomdationRate.getValue()) <= 0)
                         ? StringConstant.flatRateShouldNotBeZero
                         : StringConstant.pleaseSelectAccomdationAllownceValue),
               paddingBetweenFields(),
@@ -147,9 +165,13 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 child: CommonButton(
                   onPressed: () {
                     /// After click go to next screen to select time for different dates
-                    context.read<PostShiftBloc>().add(PostShiftEvent.multidateContinueButtonPressed(fromSaveTemplate: fromSaveTemplate));
+                    context.read<PostShiftBloc>().add(
+                        PostShiftEvent.multidateContinueButtonPressed(
+                            fromSaveTemplate: fromSaveTemplate));
                   },
-                  buttonText: fromSaveTemplate ? "Save and continue" : StringConstant.txtContinue,
+                  buttonText: fromSaveTemplate
+                      ? "Save and continue"
+                      : StringConstant.txtContinue,
                 ),
               ),
             ],
@@ -168,10 +190,14 @@ class DifferentTimeForEachDate extends StatelessWidget {
   Widget selectMultiDate(BuildContext context, PostShiftState state) {
     return CustomMultiDatePicker(
       value: state.selectedMultiDates.getValue(),
-      isDisabled: (state.updateShift.id != null && fromSaveTemplate == false) ? true : false,
+      isDisabled: (state.updateShift.id != null && fromSaveTemplate == false)
+          ? true
+          : false,
       onValueChanged: (value) {
         print("selected dates--> $value");
-        context.read<PostShiftBloc>().add(PostShiftEvent.multiDateSelectionChanged(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.multiDateSelectionChanged(value));
       },
     );
   }
@@ -190,9 +216,13 @@ class DifferentTimeForEachDate extends StatelessWidget {
       ],
       fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
       fieldHintText: "0.00",
-      value: (state.selectedCommuteAllownce.isValid()) ? state.selectedCommuteAllownce.getValue() : null,
-      childDropDownValue: (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
-      fieldInitialValue: (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
+      value: (state.selectedCommuteAllownce.isValid())
+          ? state.selectedCommuteAllownce.getValue()
+          : null,
+      childDropDownValue:
+          (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
+      fieldInitialValue:
+          (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
       fieldPrefixIcon: Padding(
           padding: EdgeInsets.only(
             left: getSize(20),
@@ -205,7 +235,8 @@ class DifferentTimeForEachDate extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: AppColors.black.withOpacity(0.7),
           )),
-      fieldPrefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      fieldPrefixIconConstraints:
+          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       items: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
           value: val,
@@ -218,11 +249,15 @@ class DifferentTimeForEachDate extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context.read<PostShiftBloc>().add(PostShiftEvent.commuteAllownceChanged(value));
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.commuteAllownceChanged(value));
         }
       },
       fieldOnChanged: (value) {
-        context.read<PostShiftBloc>().add(PostShiftEvent.commuteRateChanged(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.commuteRateChanged(value));
       },
       childDropDownItems: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
@@ -236,13 +271,16 @@ class DifferentTimeForEachDate extends StatelessWidget {
       }).toList(),
       childDropDownOnChanged: (value) {
         if (value != null) {
-          context.read<PostShiftBloc>().add(PostShiftEvent.commuteHoursChanged(value));
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.commuteHoursChanged(value));
         }
       },
       isOptional: true,
       optionalWidget: GestureDetector(
         onTap: () {
-          AppDialog.showInfo(context, StringConstant.multiCommuteInfoDesc, maxLines: 15);
+          AppDialog.showInfo(context, StringConstant.multiCommuteInfoDesc,
+              maxLines: 15);
         },
         child: Container(
           color: AppColors.transparent,
@@ -255,21 +293,29 @@ class DifferentTimeForEachDate extends StatelessWidget {
     );
   }
 
-  Widget accommodationAllowanceDropDown(BuildContext context, PostShiftState state) {
+  Widget accommodationAllowanceDropDown(
+      BuildContext context, PostShiftState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
       fieldMaxLength: 5,
-      showTextfield: (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
+      showTextfield:
+          (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedAccomdationAllownce.getValue() == "Hours"),
       childDroDwonHintText: StringConstant.selectHours,
       fieldInputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
-      value: (state.selectedAccomdationAllownce.isValid()) ? state.selectedAccomdationAllownce.getValue() : null,
-      childDropDownValue: (state.accomdationHour.isValid()) ? state.accomdationHour.getValue() : null,
-      fieldInitialValue: (state.accomdationRate.isValid()) ? state.accomdationRate.getValue() : null,
+      value: (state.selectedAccomdationAllownce.isValid())
+          ? state.selectedAccomdationAllownce.getValue()
+          : null,
+      childDropDownValue: (state.accomdationHour.isValid())
+          ? state.accomdationHour.getValue()
+          : null,
+      fieldInitialValue: (state.accomdationRate.isValid())
+          ? state.accomdationRate.getValue()
+          : null,
       fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
       fieldHintText: "0.00",
       fieldPrefixIcon: Padding(
@@ -284,7 +330,8 @@ class DifferentTimeForEachDate extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: AppColors.black.withOpacity(0.7),
           )),
-      fieldPrefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      fieldPrefixIconConstraints:
+          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       items: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
           value: val,
@@ -297,11 +344,15 @@ class DifferentTimeForEachDate extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context.read<PostShiftBloc>().add(PostShiftEvent.accomdationAllownceChanged(value));
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.accomdationAllownceChanged(value));
         }
       },
       fieldOnChanged: (value) {
-        context.read<PostShiftBloc>().add(PostShiftEvent.accomdationRateChanged(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.accomdationRateChanged(value));
       },
       childDropDownItems: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
@@ -315,13 +366,16 @@ class DifferentTimeForEachDate extends StatelessWidget {
       }).toList(),
       childDropDownOnChanged: (value) {
         if (value != null) {
-          context.read<PostShiftBloc>().add(PostShiftEvent.accomdationHoursChanged(value));
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.accomdationHoursChanged(value));
         }
       },
       isOptional: true,
       optionalWidget: GestureDetector(
         onTap: () {
-          AppDialog.showInfo(context, StringConstant.multiAccomdationInfoDesc, maxLines: 15);
+          AppDialog.showInfo(context, StringConstant.multiAccomdationInfoDesc,
+              maxLines: 15);
         },
         child: Container(
           color: AppColors.transparent,
@@ -343,7 +397,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       initialValue: state.singleShiftNote,
       onChanged: (value) {
-        context.read<PostShiftBloc>().add(PostShiftEvent.singleShiftNotesChanged(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.singleShiftNotesChanged(value));
       },
     );
   }
@@ -353,14 +409,17 @@ class DifferentTimeForEachDate extends StatelessWidget {
       onTap: () {
         bool value = state.isIndividualPost;
         value = !value;
-        context.read<PostShiftBloc>().add(PostShiftEvent.checkIsIndividualPost(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.checkIsIndividualPost(value));
       },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
           vertical: getSize(10),
         ),
-        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -379,7 +438,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context.read<PostShiftBloc>().add(PostShiftEvent.checkIsIndividualPost(value));
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.checkIsIndividualPost(value));
                   }
                 },
               ),
@@ -415,14 +476,17 @@ class DifferentTimeForEachDate extends StatelessWidget {
       onTap: () {
         bool value = state.isMoreVacancy;
         value = !value;
-        context.read<PostShiftBloc>().add(PostShiftEvent.checkIsMoreVancancy(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.checkIsMoreVancancy(value));
       },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
           vertical: getSize(10),
         ),
-        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -441,7 +505,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context.read<PostShiftBloc>().add(PostShiftEvent.checkIsMoreVancancy(value));
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.checkIsMoreVancancy(value));
                   }
                 },
               ),
@@ -473,25 +539,31 @@ class DifferentTimeForEachDate extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (value) {
-        context.read<PostShiftBloc>().add(PostShiftEvent.addVacancyChanged(value));
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.addVacancyChanged(value));
       },
       errorInputBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: AppColors.transparent),
         borderRadius: BorderRadius.circular(getSize(10)),
       ),
-      validator: (p0, p1) => context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
-              invalidVacancy: (value) => StringConstant.numberOfVacanciesMustBeGreaterThanOne,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (p0, p1) =>
+          context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+                  invalidVacancy: (value) =>
+                      StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
   String getAccomdationHourId(PostShiftState state, String selectedHour) {
-    final hourId = state.accomdationHoursList.firstWhere((hour) => hour.name == selectedHour, orElse: () => SkillDTO());
+    final hourId = state.accomdationHoursList.firstWhere(
+        (hour) => hour.name == selectedHour,
+        orElse: () => SkillDTO());
     print("Hour ID --> $hourId");
     return "${hourId.id ?? -1}";
   }

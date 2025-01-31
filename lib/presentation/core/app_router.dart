@@ -155,6 +155,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: Message.page),
         AutoRoute(page: Viewmedia.page),
         AutoRoute(page: NotificationView.page),
+        AutoRoute(page: CompleteShiftInvoiceView.page),
         // AutoRoute(page: ContractorNotificationView.page),
       ];
 }

@@ -316,7 +316,7 @@ class EmployerCompletedShiftBloc
               },
               (r) {
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 add(EmployerCompletedShiftEvent.fetchBlockedList(
                     refresh: true));
                 // final tempList = [...state.employerPreviousList];
@@ -352,7 +352,7 @@ class EmployerCompletedShiftBloc
               },
               (r) {
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );
@@ -381,7 +381,7 @@ class EmployerCompletedShiftBloc
                 // tempList[index] = tempList[index].copyWith(isFavourite: true);
                 // emit(state.copyWith(employerPreviousList: tempList));
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 add(EmployerCompletedShiftEvent.fetchFavoriteList(
                     refresh: true));
 
@@ -414,7 +414,7 @@ class EmployerCompletedShiftBloc
                 //
                 // emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 add(EmployerCompletedShiftEvent.fetchFavoriteList(
                     refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
@@ -443,7 +443,7 @@ class EmployerCompletedShiftBloc
               },
               (r) {
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 add(EmployerCompletedShiftEvent.fetchRemarkedList(
                   refresh: true,
                 ));
@@ -469,7 +469,7 @@ class EmployerCompletedShiftBloc
               },
               (r) {
                 add(EmployerCompletedShiftEvent.fetchAllCompletedPost(
-                    refresh: true, sortBy: 1));
+                    refresh: true, sortBy: state.currentFilledFilter.id ?? -1));
                 add(EmployerCompletedShiftEvent.fetchRemarkedList(
                     refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);

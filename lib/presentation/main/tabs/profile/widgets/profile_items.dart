@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
-import 'package:shift/application/main_tab/profile/profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -50,7 +49,7 @@ class ProfileItems extends StatelessWidget {
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-           context.router.push(PageRouteInfo(EmployerFullPostingView.name));
+          context.router.push(PageRouteInfo(EmployerFullPostingView.name));
         },
       ),
       ProfileItemModel(
@@ -224,14 +223,15 @@ class ContractorProfileItems extends StatelessWidget {
         title: StringConstant.longTermPositions,
         image: SvgImageConstant.calendarWithClock,
         onTap: () {
-           context.router.push(PageRouteInfo(ContractorLongTermView.name));
+          context.router.push(PageRouteInfo(ContractorLongTermView.name));
         },
       ),
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
         onTap: () {
-          context.router.push(PageRouteInfo(ContractorFullTimePositionView.name));
+          context.router
+              .push(PageRouteInfo(ContractorFullTimePositionView.name));
         },
       ),
       ProfileItemModel(

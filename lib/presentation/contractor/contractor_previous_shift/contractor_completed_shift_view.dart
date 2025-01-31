@@ -75,11 +75,13 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                     state.completedDataList[index]),
                                 CommonButton(
                                   onPressed: () {
-                                    showUnderDevelopment(context);
-                                    /* context.router.push(
-                                        PageRouteInfo(InvoiceDetailView.name,
-                                        args: InvoiceDetailViewArgs(id: state.completedDataList[index].id ?? -1)
-                                        )); */
+                                    // showUnderDevelopment(context);
+                                    context.router.push(PageRouteInfo(
+                                        InvoiceDetailView.name,
+                                        args: InvoiceDetailViewArgs(
+                                            id: state.completedDataList[index]
+                                                    .id ??
+                                                -1)));
                                   },
                                   buttonText: StringConstant.viewInvoice,
                                   backgroundColor:
@@ -273,7 +275,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                       PageRouteInfo(
                         ViewContractorShift.name,
                         args: ViewContractorShiftArgs(
-                          postId: shift.id ?? -1,
+                          postId: shift.applicants_id ?? -1,
                           isTotalApplicants: true,
                         ),
                       ),

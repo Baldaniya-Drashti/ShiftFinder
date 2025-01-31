@@ -121,9 +121,15 @@ class AddContractorSkillsForm extends StatelessWidget {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                Image.asset(
-                                  PngImageConstants.healthcare_post_contractor,
-                                ),
+                                (isUpdate)
+                                    ? Image.asset(
+                                        PngImageConstants
+                                            .update_post_contractor,
+                                      )
+                                    : Image.asset(
+                                        PngImageConstants
+                                            .healthcare_post_contractor,
+                                      ),
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),

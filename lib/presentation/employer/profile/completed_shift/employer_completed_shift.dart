@@ -528,6 +528,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                               context,
                               postId: data.post_id ?? 0,
                               userId: data.user_id ?? 0,
+                              existingRemark:
+                                  (data.isRemark == true) ? data.remarks : null,
                             );
                           }
                         : null,
@@ -795,10 +797,13 @@ class _PreviousShiftListTile extends StatelessWidget {
     BuildContext context, {
     required int postId,
     required int userId,
+    String? existingRemark,
   }) async {
     final result = await showDialog<String?>(
       context: context,
-      builder: (context) => AddRemarkModal(),
+      builder: (context) => AddRemarkModal(
+        initialValue: existingRemark,
+      ),
     );
     if (result != null) {
       context.read<EmployerCompletedShiftBloc>().add(

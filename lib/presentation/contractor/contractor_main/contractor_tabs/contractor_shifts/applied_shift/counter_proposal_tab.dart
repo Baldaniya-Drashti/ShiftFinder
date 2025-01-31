@@ -107,7 +107,7 @@ class CounterProposalTab extends StatelessWidget {
                                                   ? StringConstant
                                                       .employerHaveRejectedThisShift
                                                   : StringConstant
-                                                      .youHaveDeclinedThisShift,
+                                                      .youHaveRejectedThisShift,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
                                               textColor: AppColors.redAccent,

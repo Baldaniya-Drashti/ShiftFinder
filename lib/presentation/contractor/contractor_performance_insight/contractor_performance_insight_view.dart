@@ -58,6 +58,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                             label: StringConstant.period,
                             selectedMonth: selectedDateTime,
                             onDateSelected: (value) {
+                              print("selected Date---> ${value}");
                               context
                                   .read<ContractorPerformanceInsightBloc>()
                                   .add(ContractorPerformanceInsightEvent
@@ -130,7 +131,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                                   label: StringConstant
                                                       .totalEarnings,
                                                   value:
-                                                      "\$${state.insightDetail?.total_earnings ?? 0.0}",
+                                                      "\$${state.insightDetail?.total_earnings?.toStringAsFixed(2) ?? 0.0}",
                                                   icon: SvgImageConstant
                                                       .dollorRound),
                                               Gap(getSize(8)),

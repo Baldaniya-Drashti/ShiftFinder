@@ -21,7 +21,8 @@ mixin _$PostShiftEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -95,7 +96,8 @@ mixin _$PostShiftEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -163,7 +165,8 @@ mixin _$PostShiftEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -592,7 +595,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -670,7 +674,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -742,7 +747,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -1046,7 +1052,7 @@ abstract class _$$GetBreakAllownceListApiImplCopyWith<$Res> {
           $Res Function(_$GetBreakAllownceListApiImpl) then) =
       __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({HealthcarePostDTO? updateShift});
+  $Res call({HealthcarePostDTO? updateShift, bool? fromSaveTemplate});
 
   $HealthcarePostDTOCopyWith<$Res>? get updateShift;
 }
@@ -1066,12 +1072,17 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? updateShift = freezed,
+    Object? fromSaveTemplate = freezed,
   }) {
     return _then(_$GetBreakAllownceListApiImpl(
       freezed == updateShift
           ? _value.updateShift
           : updateShift // ignore: cast_nullable_to_non_nullable
               as HealthcarePostDTO?,
+      fromSaveTemplate: freezed == fromSaveTemplate
+          ? _value.fromSaveTemplate
+          : fromSaveTemplate // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -1093,14 +1104,17 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
-  const _$GetBreakAllownceListApiImpl(this.updateShift);
+  const _$GetBreakAllownceListApiImpl(this.updateShift,
+      {this.fromSaveTemplate});
 
   @override
   final HealthcarePostDTO? updateShift;
+  @override
+  final bool? fromSaveTemplate;
 
   @override
   String toString() {
-    return 'PostShiftEvent.getBreakAllownceListApi(updateShift: $updateShift)';
+    return 'PostShiftEvent.getBreakAllownceListApi(updateShift: $updateShift, fromSaveTemplate: $fromSaveTemplate)';
   }
 
   @override
@@ -1109,11 +1123,13 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         (other.runtimeType == runtimeType &&
             other is _$GetBreakAllownceListApiImpl &&
             (identical(other.updateShift, updateShift) ||
-                other.updateShift == updateShift));
+                other.updateShift == updateShift) &&
+            (identical(other.fromSaveTemplate, fromSaveTemplate) ||
+                other.fromSaveTemplate == fromSaveTemplate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, updateShift);
+  int get hashCode => Object.hash(runtimeType, updateShift, fromSaveTemplate);
 
   /// Create a copy of PostShiftEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -1130,7 +1146,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -1198,7 +1215,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         postTheShiftEvent,
     required TResult Function(String scriptVolume) scriptVolumeChanged,
   }) {
-    return getBreakAllownceListApi(updateShift);
+    return getBreakAllownceListApi(updateShift, fromSaveTemplate);
   }
 
   @override
@@ -1207,7 +1224,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -1269,7 +1287,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         postTheShiftEvent,
     TResult? Function(String scriptVolume)? scriptVolumeChanged,
   }) {
-    return getBreakAllownceListApi?.call(updateShift);
+    return getBreakAllownceListApi?.call(updateShift, fromSaveTemplate);
   }
 
   @override
@@ -1278,7 +1296,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -1341,7 +1360,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
-      return getBreakAllownceListApi(updateShift);
+      return getBreakAllownceListApi(updateShift, fromSaveTemplate);
     }
     return orElse();
   }
@@ -1555,10 +1574,11 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
 }
 
 abstract class GetBreakAllownceListApi implements PostShiftEvent {
-  const factory GetBreakAllownceListApi(final HealthcarePostDTO? updateShift) =
-      _$GetBreakAllownceListApiImpl;
+  const factory GetBreakAllownceListApi(final HealthcarePostDTO? updateShift,
+      {final bool? fromSaveTemplate}) = _$GetBreakAllownceListApiImpl;
 
   HealthcarePostDTO? get updateShift;
+  bool? get fromSaveTemplate;
 
   /// Create a copy of PostShiftEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -1643,7 +1663,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -1720,7 +1741,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -1791,7 +1813,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -2152,7 +2175,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -2229,7 +2253,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -2300,7 +2325,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -2660,7 +2686,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -2737,7 +2764,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -2808,7 +2836,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -3169,7 +3198,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -3246,7 +3276,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -3317,7 +3348,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -3677,7 +3709,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -3754,7 +3787,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -3825,7 +3859,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -4186,7 +4221,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -4263,7 +4299,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -4334,7 +4371,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -4670,7 +4708,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -4747,7 +4786,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -4818,7 +4858,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -5173,7 +5214,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -5250,7 +5292,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -5321,7 +5364,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -5683,7 +5727,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -5760,7 +5805,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -5831,7 +5877,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -6193,7 +6240,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -6270,7 +6318,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -6341,7 +6390,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -6705,7 +6755,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -6782,7 +6833,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -6853,7 +6905,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -7217,7 +7270,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -7294,7 +7348,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -7365,7 +7420,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -7729,7 +7785,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -7806,7 +7863,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -7877,7 +7935,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -8238,7 +8297,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -8315,7 +8375,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -8386,7 +8447,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -8747,7 +8809,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -8824,7 +8887,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -8895,7 +8959,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -9256,7 +9321,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -9333,7 +9399,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -9404,7 +9471,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -9775,7 +9843,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -9852,7 +9921,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -9923,7 +9993,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -10321,7 +10392,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -10398,7 +10470,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -10469,7 +10542,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -10832,7 +10906,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -10909,7 +10984,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -10980,7 +11056,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -11340,7 +11417,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -11417,7 +11495,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -11488,7 +11567,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -11849,7 +11929,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -11926,7 +12007,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -11997,7 +12079,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -12358,7 +12441,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -12435,7 +12519,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -12506,7 +12591,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -12869,7 +12955,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -12946,7 +13033,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -13017,7 +13105,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -13387,7 +13476,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -13464,7 +13554,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -13535,7 +13626,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -13912,7 +14004,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -13989,7 +14082,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -14060,7 +14154,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -14424,7 +14519,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -14501,7 +14597,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -14572,7 +14669,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -14945,7 +15043,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -15022,7 +15121,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -15093,7 +15193,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -15474,7 +15575,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -15551,7 +15653,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -15622,7 +15725,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -15989,7 +16093,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -16066,7 +16171,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -16137,7 +16243,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -16508,7 +16615,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -16585,7 +16693,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -16656,7 +16765,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -17023,7 +17133,8 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -17100,7 +17211,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -17171,7 +17283,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -17540,7 +17653,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -17617,7 +17731,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -17688,7 +17803,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -18069,7 +18185,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -18146,7 +18263,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -18217,7 +18335,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -18556,7 +18675,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -18633,7 +18753,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -18704,7 +18825,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -19073,7 +19195,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -19150,7 +19273,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -19221,7 +19345,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -19603,7 +19728,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -19680,7 +19806,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -19751,7 +19878,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -20131,7 +20259,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -20208,7 +20337,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -20279,7 +20409,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -20660,7 +20791,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -20737,7 +20869,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -20808,7 +20941,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -21208,7 +21342,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -21285,7 +21420,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -21357,7 +21493,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -21798,7 +21935,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -21876,7 +22014,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -21948,7 +22087,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -22288,7 +22428,8 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -22365,7 +22506,8 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -22436,7 +22578,8 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -22799,7 +22942,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -22876,7 +23020,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -22947,7 +23092,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -23310,7 +23456,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -23387,7 +23534,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -23458,7 +23606,8 @@ class _$AssitantOnSiteCheckImpl implements AssitantOnSiteCheck {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -23820,7 +23969,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -23897,7 +24047,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -23968,7 +24119,8 @@ class _$TechnicianOnSiteCheckImpl implements TechnicianOnSiteCheck {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -24365,7 +24517,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -24442,7 +24595,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -24513,7 +24667,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -24879,7 +25034,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     required TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         changeShiftType,
-    required TResult Function(HealthcarePostDTO? updateShift)
+    required TResult Function(
+            HealthcarePostDTO? updateShift, bool? fromSaveTemplate)
         getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
@@ -24956,7 +25112,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult? Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -25027,7 +25184,8 @@ class _$ScriptVolumeChangedImpl implements ScriptVolumeChanged {
     TResult Function(String shiftType, int postId, PostShiftDTO? post,
             HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
         changeShiftType,
-    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift, bool? fromSaveTemplate)?
+        getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,

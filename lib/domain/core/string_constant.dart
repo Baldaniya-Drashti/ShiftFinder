@@ -565,6 +565,7 @@ class StringConstant {
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
   static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String youHaveRejectedThisShift = "You have rejected this shift";
   static const String employerHaveRejectedThisShift =
       "Employer have rejected this shift";
   static const String youHaveCancelledThisShiftApplication =
@@ -747,6 +748,8 @@ class StringConstant {
   static const String addNewLocation = "Add New Location";
   static const String addExperience = "Add Experience";
   static const String iRoidSolutions = "iRoid Solutions";
+  static const String youHaveCancelledThisShiftProposal =
+      "You have cancelled this shift proposal";
   static const String updateRoleExperienceDec =
       "You can update experience for the selected roles";
   static const String addRoleExperienceDec =

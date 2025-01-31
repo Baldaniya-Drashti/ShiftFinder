@@ -42,6 +42,8 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
         await event.map(
           tabChange: (value) async {
             emit(state.copyWith(selectedTab: value.tabIndex));
+            print("get index---> ${value.tabIndex}");
+            print('Current page list----> $pageList');
 
             switch (value.tabIndex) {
               case 0:
@@ -79,6 +81,7 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                 if (!pageList.contains(state.notificationPage)) {
                   pageList.add(state.notificationPage);
                 }
+                print('Current page list111----> $pageList');
                 emit(state.copyWith(
                   pageIndex: pageList.indexOf(state.notificationPage),
                   currentPage: NotificationView(),
@@ -95,6 +98,8 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                 break;
               default:
             }
+
+            print("Page Index---> ${state.selectedTab}");
           },
           dontShowAgain: (e) {
             emit(state.copyWith(

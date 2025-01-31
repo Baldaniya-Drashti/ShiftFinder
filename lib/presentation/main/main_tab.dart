@@ -59,162 +59,168 @@ class MainTabView extends StatelessWidget {
         //     ),
         // ),
       ],
-      child: BlocBuilder<MainTabBloc, MainTabState>(
-        builder: (context, state) {
-          print("state.currentPage---> ${state.currentPage}");
-          return DefaultTabController(
-            length: context.read<MainTabBloc>().pageList.length,
-            child: Scaffold(
-              backgroundColor: AppColors.scaffoldColor,
-              appBar: getAppbar(state, context),
-              body: GestureDetector(
-                  onTap: () {
-                    AppFocus.unfocus(context);
-                  },
-                  // child: state.currentPage,
-                  child: IndexedStack(
-                    index: state.pageIndex,
-                    children: List<Widget>.generate(
-                      context.read<MainTabBloc>().pageList.length,
-                      (int index) {
-                        return Navigator(
-                          onGenerateRoute: (RouteSettings settings) {
-                            print(
-                                "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
-                            return onGenerateRoute(
-                              settings,
-                              context.read<MainTabBloc>().pageList[index],
-                            );
-                          },
-                          key: ValueKey(state.pageIndex),
-                        );
-                      },
-                    ),
-                  )
-                  /* child: IndexedStack(
-                  index: state.pageIndex,
-                  children: List<Widget>.generate(
-                    context.read<MainTabBloc>().pageList.length,
-                    (int index) {
-                      // final tabItem =
-                      //     context.read<MainTabBloc>().pageList[index];
-                      // return (tabItem == autoroute.HomeView.name)
-                      //     ? HomeView()
-                      //     : (tabItem == autoroute.EmployerShiftView.name)
-                      //         ? BlocProvider(
-                      //             create: (context) => getIt<ShiftsBloc>()
-                      //               ..add(ShiftsBlocEvent.getLocationListAPI()),
-                      //             child: EmployerShiftView(),
-                      //           )
-                      //         : (tabItem == autoroute.NotificationView.name)
-                      //             ? NotificationView()
-                      //             : (tabItem == autoroute.ProfileView.name)
-                      //                 ? ProfileView()
-                      //                 : Container();
-
-                      return Navigator(
-                        onGenerateRoute: (RouteSettings settings) {
+      child: Builder(builder: (context) {
+        return BlocBuilder<MainTabBloc, MainTabState>(
+          builder: (context, state) {
+            print(
+                "state.currentPage---> ${context.read<MainTabBloc>().pageList.length}");
+            return DefaultTabController(
+              length: context.read<MainTabBloc>().pageList.length,
+              child: Scaffold(
+                backgroundColor: AppColors.scaffoldColor,
+                appBar: getAppbar(state, context),
+                body: GestureDetector(
+                    onTap: () {
+                      AppFocus.unfocus(context);
+                    },
+                    // child: state.currentPage,
+                    child: IndexedStack(
+                      index: state.pageIndex,
+                      children: List<Widget>.generate(
+                        context.read<MainTabBloc>().pageList.length,
+                        (int index) {
+                          print("INDEX OF PAGE---> ${index}");
                           print(
-                              "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
-                          return onGenerateRoute(
-                              settings, state.currentPage ?? Container());
+                              "LIST OF PAGE---> ${context.read<MainTabBloc>().pageList}");
+                          return Navigator(
+                            onGenerateRoute: (RouteSettings settings) {
+                              print(
+                                  "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
+                              return onGenerateRoute(
+                                settings,
+                                context.read<MainTabBloc>().pageList[index],
+                              );
+                            },
+                            key: ValueKey(state.pageIndex),
+                          );
                         },
-                      );
-                    },
-                  ),
-                ), */
-                  ),
-              floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
-                listener: (context, state) {
-                  /*state.teamStatusFailureOrSuccessOption.fold(
-                    () {},
-                    (either) => either.fold(
-                      (failure) {
-                        showError(
-                          message: failure.maybeMap(
-                            showAPIResponseMessage: (value) => value.message,
-                            networkError: (value) =>
-                                'Please check your internet connectivity',
-                            orElse: () => "Server Error. Try again later.",
-                          ),
-                        ).show(context);
-                      },
-                      (r) {
-                        if (r.isTeamAvailable == 1) {
-                          context.router
-                              .push(PageRouteInfo(
-                                  autoroute.HealthCarePostForm.name))
-                              .then((value) {
-                            context
-                                .read<HomeBloc>()
-                                .add(HomeEvent.getEmployerDashboardList(true));
-                          });
-                        } else {
-                          teamCheckDialog(context, state);
-                        }
-                      },
-                    ),
-                  );*/
-                },
-                builder: (con, state) {
-                  return FloatingActionButton(
-                    onPressed: () {
-                      context
-                          .read<MainTabBloc>()
-                          .add(MainTabEvent.checkTeamAvailableEvent(context));
-
-                      /*context.router
-                                    .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
-                                    .then((value) {
-                                  context
-                                      .read<HomeBloc>()
-                                      .add(HomeEvent.getEmployerDashboardList(true));
-                                });*/
-
-                      // context.router.push(PageRouteInfo(
-                      //   autoroute.HealthcarePostShift.name,
-                      //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
-                      // ));
-
-                      // context.router.push(PageRouteInfo(
-                      //   autoroute.PostShiftRecurring.name,
-                      //   args: autoroute.PostShiftRecurringArgs(
-                      //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
-                      // ));
-                    },
-                    backgroundColor: AppColors.primaryColor,
-                    shape: CircleBorder(
-                      side: BorderSide(
-                        color: AppColors.darkGreen,
-                        width: getSize(3),
                       ),
+                    )
+                    /* child: IndexedStack(
+                      index: state.pageIndex,
+                      children: List<Widget>.generate(
+                        context.read<MainTabBloc>().pageList.length,
+                        (int index) {
+                          // final tabItem =
+                          //     context.read<MainTabBloc>().pageList[index];
+                          // return (tabItem == autoroute.HomeView.name)
+                          //     ? HomeView()
+                          //     : (tabItem == autoroute.EmployerShiftView.name)
+                          //         ? BlocProvider(
+                          //             create: (context) => getIt<ShiftsBloc>()
+                          //               ..add(ShiftsBlocEvent.getLocationListAPI()),
+                          //             child: EmployerShiftView(),
+                          //           )
+                          //         : (tabItem == autoroute.NotificationView.name)
+                          //             ? NotificationView()
+                          //             : (tabItem == autoroute.ProfileView.name)
+                          //                 ? ProfileView()
+                          //                 : Container();
+          
+                          return Navigator(
+                            onGenerateRoute: (RouteSettings settings) {
+                              print(
+                                  "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
+                              return onGenerateRoute(
+                                  settings, state.currentPage ?? Container());
+                            },
+                          );
+                        },
+                      ),
+                    ), */
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image:
-                              AssetImage(PngImageConstants.floating_background),
+                floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
+                  listener: (context, state) {
+                    /*state.teamStatusFailureOrSuccessOption.fold(
+                        () {},
+                        (either) => either.fold(
+                          (failure) {
+                            showError(
+                              message: failure.maybeMap(
+                                showAPIResponseMessage: (value) => value.message,
+                                networkError: (value) =>
+                                    'Please check your internet connectivity',
+                                orElse: () => "Server Error. Try again later.",
+                              ),
+                            ).show(context);
+                          },
+                          (r) {
+                            if (r.isTeamAvailable == 1) {
+                              context.router
+                                  .push(PageRouteInfo(
+                                      autoroute.HealthCarePostForm.name))
+                                  .then((value) {
+                                context
+                                    .read<HomeBloc>()
+                                    .add(HomeEvent.getEmployerDashboardList(true));
+                              });
+                            } else {
+                              teamCheckDialog(context, state);
+                            }
+                          },
+                        ),
+                      );*/
+                  },
+                  builder: (con, state) {
+                    return FloatingActionButton(
+                      onPressed: () {
+                        context
+                            .read<MainTabBloc>()
+                            .add(MainTabEvent.checkTeamAvailableEvent(context));
+
+                        /*context.router
+                                        .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
+                                        .then((value) {
+                                      context
+                                          .read<HomeBloc>()
+                                          .add(HomeEvent.getEmployerDashboardList(true));
+                                    });*/
+
+                        // context.router.push(PageRouteInfo(
+                        //   autoroute.HealthcarePostShift.name,
+                        //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
+                        // ));
+
+                        // context.router.push(PageRouteInfo(
+                        //   autoroute.PostShiftRecurring.name,
+                        //   args: autoroute.PostShiftRecurringArgs(
+                        //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
+                        // ));
+                      },
+                      backgroundColor: AppColors.primaryColor,
+                      shape: CircleBorder(
+                        side: BorderSide(
+                          color: AppColors.darkGreen,
+                          width: getSize(3),
                         ),
                       ),
-                      alignment: Alignment.center,
-                      child: SvgPicture.asset(
-                        SvgImageConstant.plus,
-                        height: getSize(30),
-                        width: getSize(30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(
+                                PngImageConstants.floating_background),
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: SvgPicture.asset(
+                          SvgImageConstant.plus,
+                          height: getSize(30),
+                          width: getSize(30),
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: CustomBottomNavigationWidget(),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: CustomBottomNavigationWidget(),
-            ),
-          );
-        },
-      ),
+            );
+          },
+        );
+      }),
     );
   }
 }

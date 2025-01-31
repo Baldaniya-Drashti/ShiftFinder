@@ -10,7 +10,6 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/healthcare_post/different_time_for_each_date.dart';
 import 'package:shift/presentation/employer/healthcare_post/same_time_for_multi_date.dart';
@@ -33,24 +32,28 @@ class MultiPostShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Log.debug("===>MultiPostShiftCalled");
-    Log.debug("===>MultiPostShiftCalled");
     return BlocProvider(
-      create: (context) =>
-          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Multi", postId: postId, post: post, updateShift: updateShift)),
+      create: (context) => getIt<PostShiftBloc>()
+        ..add(PostShiftEvent.changeShiftType("Multi",
+            postId: postId,
+            post: post,
+            updateShift: updateShift,
+            fromSaveTemplate: fromSaveTemplate)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
-          Log.debug("===>MultiPostShiftCalled==> ${state.updateShift.id}");
-
           return (state.isLoading)
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : Form(
-                  autovalidateMode: (state.singleShiftErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                  autovalidateMode: (state.singleShiftErrorMessages)
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Visibility(visible: state.updateShift.id == null, child: sameOrDifferentRadio(context, state)),
+                      Visibility(
+                          visible: state.updateShift.id == null,
+                          child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
                           ? SameTimeForMultiDate(
@@ -77,17 +80,23 @@ class MultiPostShift extends StatelessWidget {
   Widget sameOrDifferentRadio(BuildContext context, PostShiftState state) {
     print("selected multi shift type --> ${state.selectedMultiShiftType}");
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(10)),
       margin: EdgeInsets.only(top: getSize(15)),
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RadioListTile(
             value: StringConstant.sameTimeForAllDates,
-            groupValue: (state.selectedMultiShiftType == 2) ? StringConstant.differentTimeForEachDate : StringConstant.sameTimeForAllDates,
+            groupValue: (state.selectedMultiShiftType == 2)
+                ? StringConstant.differentTimeForEachDate
+                : StringConstant.sameTimeForAllDates,
             onChanged: (value) {
-              context.read<PostShiftBloc>().add(PostShiftEvent.multiDateSameDiffTypeChanged(1));
+              context
+                  .read<PostShiftBloc>()
+                  .add(PostShiftEvent.multiDateSameDiffTypeChanged(1));
             },
             title: BaseText(
               text: StringConstant.sameTimeForAllDates,
@@ -105,9 +114,13 @@ class MultiPostShift extends StatelessWidget {
           ),
           RadioListTile(
             value: StringConstant.differentTimeForEachDate,
-            groupValue: (state.selectedMultiShiftType == 2) ? StringConstant.differentTimeForEachDate : StringConstant.sameTimeForAllDates,
+            groupValue: (state.selectedMultiShiftType == 2)
+                ? StringConstant.differentTimeForEachDate
+                : StringConstant.sameTimeForAllDates,
             onChanged: (value) {
-              context.read<PostShiftBloc>().add(PostShiftEvent.multiDateSameDiffTypeChanged(2));
+              context
+                  .read<PostShiftBloc>()
+                  .add(PostShiftEvent.multiDateSameDiffTypeChanged(2));
             },
             title: BaseText(
               text: StringConstant.differentTimeForEachDate,

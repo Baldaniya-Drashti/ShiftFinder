@@ -10,6 +10,7 @@ class ContractorPreviousShiftDTO with _$ContractorPreviousShiftDTO {
   const factory ContractorPreviousShiftDTO({
     int? id,
     int? post_id,
+    int? applicants_id,
     String? listing_id,
     String? last_ago,
     String? roles_list_name,
