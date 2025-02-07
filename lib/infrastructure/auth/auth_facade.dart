@@ -23,7 +23,6 @@ import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 
 @LazySingleton(as: IAuthFacade)
 class AuthFacade implements IAuthFacade {
@@ -206,6 +205,7 @@ class AuthFacade implements IAuthFacade {
     /// if current user is contractor
     required String? referralCode,
     required String? locationAddress,
+    required int? dateOfBirth,
     required String? latitude,
     required String? longitude,
   }) async {
@@ -228,6 +228,7 @@ class AuthFacade implements IAuthFacade {
         "location": locationAddress,
         "latitude": latitude,
         "longitude": longitude,
+        if (getCurrentRole() == 1) "bday": dateOfBirth,
         "referral_code": referralCode,
         "last_page": "Login",
       });
@@ -250,6 +251,7 @@ class AuthFacade implements IAuthFacade {
         "location": locationAddress,
         "latitude": latitude,
         "longitude": longitude,
+        "bday": dateOfBirth,
         "referral_code": referralCode,
         "last_page": "Login",
       };

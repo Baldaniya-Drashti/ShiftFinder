@@ -1,9 +1,7 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/change_password/change_password_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -19,7 +17,8 @@ class ReferenceListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Reference"),
+      appBar: CommonAppBar(
+          onBackPressed: () => context.router.maybePop(), title: "Reference"),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -41,8 +40,7 @@ class ReferenceListView extends StatelessWidget {
             color: AppColors.green.withOpacity(0.15),
             borderRadius: BorderRadius.circular(7),
             child: InkWell(
-              onTap: () async {
-              },
+              onTap: () async {},
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                 child: BaseText(
@@ -128,8 +126,7 @@ class _ReferenceListTile extends StatelessWidget {
                   final result = await AppDialog.showCommonDialog(
                     context: context,
                     title: "Delete",
-                    content:
-                        "Are you sure you want to delete this reference?",
+                    content: "Are you sure you want to delete this reference?",
                     successLabel: "Delete",
                   );
                   if (result ?? false) {}

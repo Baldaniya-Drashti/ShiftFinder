@@ -4,13 +4,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_notification/contractor_notification_view.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as route;
-import 'package:shift/presentation/core/helper/push_notification_helper.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
-
 part 'contractor_main_state.dart';
 part 'contractor_main_event.dart';
 part 'contractor_main_bloc.freezed.dart';
@@ -31,8 +28,6 @@ class ContractorMainTabBloc
         await event.map(
           tabChange: (value) async {
             emit(state.copyWith(selectedTab: value.tabIndex));
-            print("tabIndex----> ${value.tabIndex}");
-
             switch (value.tabIndex) {
               case 0:
                 if (!pageList.contains(state.homePage)) {
@@ -73,7 +68,7 @@ class ContractorMainTabBloc
               default:
             }
           },
-          registerForPush: (RegisterForPush value) async {
+          /* registerForPush: (RegisterForPush value) async {
             print("FCM token----> ${value.fcmToken}");
             await authFacade.registerForPush(fcmToken: value.fcmToken);
           },
@@ -99,7 +94,7 @@ class ContractorMainTabBloc
             // DynamicLinksService.initDynamicLinks(value.context);
             add(ContractorMainTabEvent.pushNotificationInitialize(
                 value.context));
-          },
+          }, */
         );
       },
     );

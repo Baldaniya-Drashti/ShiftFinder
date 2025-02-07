@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +12,6 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
-import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
-import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -27,24 +27,32 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorFullTimePositionBloc, ContractorFullTimePositionState>(
+    return BlocBuilder<ContractorFullTimePositionBloc,
+        ContractorFullTimePositionState>(
       builder: (context, state) {
         return Stack(
           children: [
             PaginatedListView(
               isNoDataFound: state.isNoDataFound,
               onRefresh: () {
-                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchOpenPositionList(refresh: true));
+                context.read<ContractorFullTimePositionBloc>().add(
+                    ContractorFullTimePositionEvent.fetchOpenPositionList(
+                        refresh: true));
               },
               onLoading: () {
-                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchOpenPositionList(refresh: false));
+                context.read<ContractorFullTimePositionBloc>().add(
+                    ContractorFullTimePositionEvent.fetchOpenPositionList(
+                        refresh: false));
               },
-              refreshController: context.read<ContractorFullTimePositionBloc>().openRefreshController,
+              refreshController: context
+                  .read<ContractorFullTimePositionBloc>()
+                  .openRefreshController,
               child: state.isLoading
                   ? CenterLoadingIndicator()
                   : state.isErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(12)),
@@ -53,7 +61,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                             return Container(
                               decoration: BoxDecoration(
                                 color: AppColors.white,
-                                borderRadius: BorderRadius.circular(getSize(20)),
+                                borderRadius:
+                                    BorderRadius.circular(getSize(20)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: AppColors.lightGrey.withOpacity(0.2),
@@ -64,43 +73,61 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                               padding: EdgeInsets.all(getSize(12)),
                               child: Column(
                                 children: [
-                                  _buildPositionTile(context, contractorFullPosting: data),
+                                  _buildPositionTile(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
                                   CommonMaterialButton(
                                     radius: 7,
                                     height: 36,
                                     onPressed: () {
                                       context.router.push(
-                                        PageRouteInfo(EmployerFullPositionPositionDetailView.name,
-                                            args: EmployerFullPositionPositionDetailViewArgs(id: data.id ?? -1)),
+                                        PageRouteInfo(
+                                            EmployerFullPositionPositionDetailView
+                                                .name,
+                                            args:
+                                                EmployerFullPositionPositionDetailViewArgs(
+                                                    id: data.id ?? -1)),
                                       );
                                     },
                                     label: "View Position Details",
-                                    backgroundColor: AppColors.primaryColor.withOpacity(.1),
+                                    backgroundColor:
+                                        AppColors.primaryColor.withOpacity(.1),
                                   ),
                                   Gap(getSize(12)),
-                                  _buildApplicationInformation(context, contractorFullPosting: data),
+                                  _buildApplicationInformation(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(10)),
-                                  _buildEstimatedHours(context, contractorFullPosting: data),
+                                  _buildEstimatedHours(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
-                                  _buildShiftSchedule(context, contractorFullPosting: data),
+                                  _buildShiftSchedule(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
-                                  _buildNumberOfVacancy(context, contractorFullPosting: data),
+                                  _buildNumberOfVacancy(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
                                   CommonButton(
                                     borderRadius: 10,
                                     onPressed: () async {
-                                      final result = await AppDialog.showCommonDialog(
+                                      final result =
+                                          await AppDialog.showCommonDialog(
                                         context: context,
                                         title: "Apply",
-                                        extraContent: "Are you sure you want to apply for this position?",
+                                        extraContent:
+                                            "Are you sure you want to apply for this position?",
                                         content:
                                             "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
                                         successLabel: "Apply",
                                       );
                                       if (result ?? false) {
-                                        context.read<ContractorFullTimePositionBloc>().add(
-                                              ContractorFullTimePositionEvent.applyOpenPosition(context: context, id: data.id ?? -1),
+                                        context
+                                            .read<
+                                                ContractorFullTimePositionBloc>()
+                                            .add(
+                                              ContractorFullTimePositionEvent
+                                                  .applyOpenPosition(
+                                                      context: context,
+                                                      id: data.id ?? -1),
                                             );
                                       }
                                     },
@@ -129,13 +156,20 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(14)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(14)),
         child: Row(
           children: [
             Expanded(
-              child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w500),
+              child: BaseText(
+                  text: "Number of Vacancies",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
             ),
-            BaseText(text: "${contractorFullPosting?.number_of_vacancie ?? ""}", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "${contractorFullPosting?.number_of_vacancie ?? ""}",
+                fontSize: 14,
+                textColor: AppColors.primaryColor),
           ],
         ),
       ),
@@ -154,7 +188,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -277,11 +312,13 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPositionInfo(context, contractorFullPosting: contractorFullPosting),
+            _buildPositionInfo(context,
+                contractorFullPosting: contractorFullPosting),
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, contractorFullPosting: contractorFullPosting),
+            _buildLocationInfo(context,
+                contractorFullPosting: contractorFullPosting),
           ],
         ),
       ),
@@ -292,7 +329,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
-    final jobType = contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+    final jobType =
+        contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
 
     return Material(
       color: AppColors.scaffoldColor,
@@ -316,7 +354,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
+                  text:
+                      "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -386,13 +425,23 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                         children: [
                           BaseText(text: "Start Date", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: contractorFullPosting?.start_date?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(contractorFullPosting?.start_date ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: contractorFullPosting
+                                        ?.start_date?.year
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(contractorFullPosting?.start_date ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -417,13 +466,19 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: contractorFullPosting?.end_date?.year.toString(),
-                                  style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                  text: contractorFullPosting?.end_date?.year
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: AppColors.green.withOpacity(0.5)),
                                 )
                               ],
-                              text: "${DateFormat("dd MMM").format(contractorFullPosting?.end_date ?? DateTime.now())}, ",
+                              text:
+                                  "${DateFormat("dd MMM").format(contractorFullPosting?.end_date ?? DateTime.now())}, ",
                             ),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -445,13 +500,23 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                         children: [
                           BaseText(text: "Application Deadline", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: contractorFullPosting?.application_deadline?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(contractorFullPosting?.application_deadline ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: contractorFullPosting
+                                        ?.application_deadline?.year
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(contractorFullPosting?.application_deadline ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -488,13 +553,18 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Estimated Weekly Hours", fontSize: 13, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Estimated Weekly Hours",
+                fontSize: 13,
+                fontWeight: FontWeight.w500),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: BaseText(
-                      text: formatTimeOfDay(contractorFullPosting?.estimated_weekly_hours ?? TimeOfDay.now()),
+                      text: formatTimeOfDay(
+                          contractorFullPosting?.estimated_weekly_hours ??
+                              TimeOfDay.now()),
                       fontSize: 18,
                       fontWeight: FontWeight.w600),
                 ),
@@ -515,7 +585,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
-    final list = getShiftScheduleFromId(contractorFullPosting?.shift_schedule_type ?? "");
+    final list = getShiftScheduleFromId(
+        contractorFullPosting?.shift_schedule_type ?? "");
 
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -526,7 +597,10 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Shift Schedule", fontSize: 14, fontWeight: FontWeight.w600),
+            BaseText(
+                text: "Shift Schedule",
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
             Gap(12),
             SizedBox(
               width: double.maxFinite,
@@ -538,7 +612,9 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey),
+                          borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: list[index],
                         fontSize: 14,

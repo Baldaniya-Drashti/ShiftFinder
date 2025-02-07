@@ -25,8 +25,8 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ImmunizationsVaccinations extends StatelessWidget {
-  bool isUpdate;
-  ImmunizationsVaccinations({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const ImmunizationsVaccinations({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {

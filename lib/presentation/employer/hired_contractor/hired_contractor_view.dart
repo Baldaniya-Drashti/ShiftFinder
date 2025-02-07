@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -12,7 +11,6 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'HiredContractorView')
@@ -37,16 +35,17 @@ class HiredContractorView extends StatelessWidget {
           ),
           body: PaginatedListView(
             onRefresh: () {
-              context
-                  .read<HiredContractorBloc>()
-                  .add(HiredContractorEvent.getHiredContractorList(postId: postId, context: context, refresh: true));
+              context.read<HiredContractorBloc>().add(
+                  HiredContractorEvent.getHiredContractorList(
+                      postId: postId, context: context, refresh: true));
             },
             onLoading: () {
-              context
-                  .read<HiredContractorBloc>()
-                  .add(HiredContractorEvent.getHiredContractorList(postId: postId, context: context, refresh: false));
+              context.read<HiredContractorBloc>().add(
+                  HiredContractorEvent.getHiredContractorList(
+                      postId: postId, context: context, refresh: false));
             },
-            refreshController: context.read<HiredContractorBloc>().refreshController,
+            refreshController:
+                context.read<HiredContractorBloc>().refreshController,
             child: ListView.separated(
               padding: EdgeInsets.all(16),
               itemCount: 4,
@@ -113,15 +112,19 @@ class HiredContractorView extends StatelessWidget {
                         child: Row(
                           children: [
                             UserAvatar(
-                              url: "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
+                              url:
+                                  "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
                             ),
-                          Gap(10),
+                            Gap(10),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  BaseText(text: "View Agreed Proposal", fontSize: 14, fontWeight: FontWeight.w600),
+                                  BaseText(
+                                      text: "View Agreed Proposal",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
                                   Gap(4),
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -131,7 +134,8 @@ class HiredContractorView extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {},
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 14, vertical: 5),
                                           child: BaseText(
                                             text: "View Agreed Proposal",
                                             fontSize: 9,
@@ -147,7 +151,8 @@ class HiredContractorView extends StatelessWidget {
                             ),
                             CommonMaterialButton.icon(
                               radius: 5,
-                              backgroundColor: AppColors.green.withOpacity(0.15),
+                              backgroundColor:
+                                  AppColors.green.withOpacity(0.15),
                               width: 65,
                               height: 32,
                               onPressed: () {},
@@ -156,9 +161,11 @@ class HiredContractorView extends StatelessWidget {
                                 SvgImageConstant.chat,
                                 height: 14,
                                 width: 14,
-                                colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcIn),
+                                colorFilter: ColorFilter.mode(
+                                    AppColors.black, BlendMode.srcIn),
                               ),
-                              textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 10),
+                              textStyle: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 10),
                             )
                           ],
                         ),

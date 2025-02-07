@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
-import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'onboarding_event.dart';
 part 'onboarding_state.dart';

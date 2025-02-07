@@ -12,8 +12,6 @@ import 'package:shift/infrastructure/contractor_main/earning/statement_dto/state
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/contractor_statement_viewer.dart';
 import 'package:shift/presentation/billing/invoice_detail_view.dart';
-import 'package:shift/presentation/billing/invoice_viewer.dart';
-import 'package:shift/presentation/billing/total_earning_statement_viewer.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
@@ -104,7 +102,7 @@ class ContractorStatementView extends StatelessWidget {
                                     'Please select date to view ${state.currentStatementFilter.label}',
                               )
                             : SingleChildScrollView(
-                                child: _BaseStatementTile(
+                                child: BaseStatementTile(
                                   statementPeriod: state.selectedDates,
                                   statement: state.statement ?? StatementDTO(),
                                   currentStatement:
@@ -122,13 +120,14 @@ class ContractorStatementView extends StatelessWidget {
   }
 }
 
-class _BaseStatementTile extends StatelessWidget {
-  List<DateTime> statementPeriod;
-  StatementDTO statement;
-  StatementFilterModel currentStatement;
+class BaseStatementTile extends StatelessWidget {
+  final List<DateTime> statementPeriod;
+  final StatementDTO statement;
+  final StatementFilterModel currentStatement;
 
-  _BaseStatementTile(
-      {required this.statementPeriod,
+  const BaseStatementTile(
+      {super.key,
+      required this.statementPeriod,
       required this.statement,
       required this.currentStatement});
 

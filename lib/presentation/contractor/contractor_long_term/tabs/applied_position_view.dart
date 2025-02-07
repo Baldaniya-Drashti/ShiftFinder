@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +21,7 @@ import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
-import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 class ContractorLongTermAppliedPosition extends StatelessWidget {
   const ContractorLongTermAppliedPosition({super.key});
@@ -35,27 +35,34 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
             PaginatedListView(
               isNoDataFound: state.appliedNoDataFound,
               onRefresh: () {
-                context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: true));
+                context.read<ContractorLongTermBloc>().add(
+                    ContractorLongTermEvent.fetchAppliedPositionList(
+                        refresh: true));
               },
               onLoading: () {
-                context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: false));
+                context.read<ContractorLongTermBloc>().add(
+                    ContractorLongTermEvent.fetchAppliedPositionList(
+                        refresh: false));
               },
-              refreshController: context.read<ContractorLongTermBloc>().appliedRefreshController,
+              refreshController: context
+                  .read<ContractorLongTermBloc>()
+                  .appliedRefreshController,
               child: state.appliedLoading
                   ? CenterLoadingIndicator()
                   : state.appliedIsErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(12)),
                           itemBuilder: (context, index) {
                             final data = state.appliedPositionList[index];
-                            print("===rr${data}");
                             return Container(
                               decoration: BoxDecoration(
                                 color: AppColors.white,
-                                borderRadius: BorderRadius.circular(getSize(20)),
+                                borderRadius:
+                                    BorderRadius.circular(getSize(20)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: AppColors.lightGrey.withOpacity(0.2),
@@ -66,24 +73,33 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                               padding: EdgeInsets.all(getSize(12)),
                               child: Column(
                                 children: [
-                                  _buildPositionTile(context, contractorLongTerm: data),
+                                  _buildPositionTile(context,
+                                      contractorLongTerm: data),
                                   Gap(getSize(10)),
-                                  if (data.request == 1|| data.request==2 && data.urgent_action == 0) ...[
+                                  if (data.request == 1 ||
+                                      data.request == 2 &&
+                                          data.urgent_action == 0) ...[
                                     CommonMaterialButton(
                                       radius: 7,
                                       height: 36,
                                       onPressed: () {
                                         context.router.push(
-                                          PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                              args: EmployerLongTermPositionDetailViewArgs(id: data.post_id ?? -1)),
+                                          PageRouteInfo(
+                                              EmployerLongTermPositionDetailView
+                                                  .name,
+                                              args:
+                                                  EmployerLongTermPositionDetailViewArgs(
+                                                      id: data.post_id ?? -1)),
                                         );
                                       },
                                       label: "View Position Details",
-                                      backgroundColor: AppColors.primaryColor.withOpacity(.1),
+                                      backgroundColor: AppColors.primaryColor
+                                          .withOpacity(.1),
                                     ),
                                     Gap(getSize(10)),
                                   ],
-                                  _buildApplicationInformation(context, contractorLongTerm: data),
+                                  _buildApplicationInformation(context,
+                                      contractorLongTerm: data),
                                   Gap(getSize(12)),
                                   if (data.offer_expires_status == true) ...[
                                     // if (data.request == 1 && data.urgent_action == 0) ...[
@@ -98,7 +114,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               SvgPicture.asset(
@@ -120,8 +137,13 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                           child: CommonMaterialButton(
                                             onPressed: () {
                                               context.router.push(
-                                                PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                                    args: EmployerLongTermPositionDetailViewArgs(id: data.post_id ?? -1)),
+                                                PageRouteInfo(
+                                                    EmployerLongTermPositionDetailView
+                                                        .name,
+                                                    args:
+                                                        EmployerLongTermPositionDetailViewArgs(
+                                                            id: data.post_id ??
+                                                                -1)),
                                               );
                                             },
                                             label: "View Position Details",
@@ -132,54 +154,88 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                       ],
                                     )
                                   ] else ...[
-                                    if (data.deleteAt == true && data.request == 0) ...[
+                                    if (data.deleteAt == true &&
+                                        data.request == 0) ...[
                                       Padding(
-                                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: getSize(10)),
                                         child: BaseText(
-                                          text: StringConstant.youHaveCancelledThisShiftApplication,
+                                          text: StringConstant
+                                              .youHaveCancelledThisShiftApplication,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                           textColor: AppColors.redAccent,
                                         ),
                                       )
-                                    ] else if (data.deleteAt == true && data.request == 2) ...[
+                                    ] else if (data.deleteAt == true &&
+                                        data.request == 2) ...[
                                       Padding(
-                                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: getSize(10)),
                                         child: BaseText(
-                                          text: StringConstant.employerHaveRejectedThisShift,
+                                          text: StringConstant
+                                              .yourApplicationForThisShiftWasNotAcepted,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                           textColor: AppColors.redAccent,
                                         ),
                                       )
-                                    ] else if (data.deleteAt == true && data.request == 1) ...[
+                                    ] else if (data.deleteAt == true &&
+                                        data.request == 1) ...[
                                       Padding(
-                                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: getSize(10)),
                                         child: BaseText(
-                                          text: StringConstant.youHaveDeclinedThisShift,
+                                          text: StringConstant
+                                              .youHaveDeclinedThisShift,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                           textColor: AppColors.redAccent,
                                         ),
                                       )
-                                    ] else if (data.request == 1 && data.urgent_action == 0) ...[
+                                    ] else if (data.request == 1 &&
+                                        data.urgent_action == 0) ...[
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          BaseText(text: "Please Note", fontSize: 10),
+                                          BaseText(
+                                              text: "Please Note",
+                                              fontSize: 10),
                                           Text.rich(
                                             TextSpan(
                                               children: [
-                                                TextSpan(text: "Offer Expires on ", style: TextStyle(color: Colors.black, fontSize: 12)),
                                                 TextSpan(
-                                                  text: DateFormat("dd MMM yyyy").format(data.offer_expires ?? DateTime.now()),
-                                                  style: TextStyle(color: AppColors.primaryColor, fontSize: 12),
+                                                    text: "Offer Expires on ",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 12)),
+                                                TextSpan(
+                                                  text: DateFormat(
+                                                          "dd MMM yyyy")
+                                                      .format(
+                                                          data.offer_expires ??
+                                                              DateTime.now()),
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                      fontSize: 12),
                                                 ),
-                                                TextSpan(text: " at ", style: TextStyle(color: Colors.black, fontSize: 12)),
                                                 TextSpan(
-                                                  text: DateFormat("hh:mm a").format(data.offer_expires ?? DateTime.now()),
-                                                  style: TextStyle(color: AppColors.primaryColor, fontSize: 12),
+                                                    text: " at ",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 12)),
+                                                TextSpan(
+                                                  text: DateFormat("hh:mm a")
+                                                      .format(
+                                                          data.offer_expires ??
+                                                              DateTime.now()),
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                      fontSize: 12),
                                                 ),
                                               ],
                                             ),
@@ -190,15 +246,22 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                               Flexible(
                                                 child: CommonMaterialButton(
                                                   onPressed: () async {
-                                                    final result = await AppDialog.showCommonDialog(
+                                                    final result =
+                                                        await AppDialog
+                                                            .showCommonDialog(
                                                       context: context,
-                                                      content: "Are you sure you want to decline this offer?",
+                                                      content:
+                                                          "Are you sure you want to decline this offer?",
                                                       title: "Decline Offer",
                                                       successLabel: "Confirm",
                                                     );
                                                     if (result ?? false) {
-                                                      context.read<ContractorLongTermBloc>().add(
-                                                            ContractorLongTermEvent.confirmRejectOffer(
+                                                      context
+                                                          .read<
+                                                              ContractorLongTermBloc>()
+                                                          .add(
+                                                            ContractorLongTermEvent
+                                                                .confirmRejectOffer(
                                                               context: context,
                                                               id: data.id ?? -1,
                                                               urgent_action: 2,
@@ -207,7 +270,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                     }
                                                   },
                                                   label: "Decline Offer",
-                                                  backgroundColor: AppColors.red.withOpacity(0.15),
+                                                  backgroundColor: AppColors.red
+                                                      .withOpacity(0.15),
                                                   radius: 7,
                                                 ),
                                               ),
@@ -215,15 +279,23 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                               Flexible(
                                                 child: CommonMaterialButton(
                                                   onPressed: () async {
-                                                    final result = await AppDialog.showCommonDialog(
+                                                    final result =
+                                                        await AppDialog
+                                                            .showCommonDialog(
                                                       context: context,
-                                                      content: "Are you sure you want to confirm the offer for this position?",
-                                                      title: "Confirm Acceptance",
+                                                      content:
+                                                          "Are you sure you want to confirm the offer for this position?",
+                                                      title:
+                                                          "Confirm Acceptance",
                                                       successLabel: "Confirm",
                                                     );
                                                     if (result ?? false) {
-                                                      context.read<ContractorLongTermBloc>().add(
-                                                            ContractorLongTermEvent.confirmRejectOffer(
+                                                      context
+                                                          .read<
+                                                              ContractorLongTermBloc>()
+                                                          .add(
+                                                            ContractorLongTermEvent
+                                                                .confirmRejectOffer(
                                                               context: context,
                                                               id: data.id ?? -1,
                                                               urgent_action: 1,
@@ -232,8 +304,11 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                     }
                                                   },
                                                   label: "Confirm Acceptance",
-                                                  backgroundColor: AppColors.primaryColor,
-                                                  textStyle: TextStyle(color: Colors.white, fontSize: getSize(12)),
+                                                  backgroundColor:
+                                                      AppColors.primaryColor,
+                                                  textStyle: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: getSize(12)),
                                                   radius: 7,
                                                 ),
                                               ),
@@ -241,19 +316,26 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                           ),
                                         ],
                                       )
-                                    ] else if (data.request == 0 && data.urgent_action == 0) ...[
+                                    ] else if (data.request == 0 &&
+                                        data.urgent_action == 0) ...[
                                       Row(
                                         children: [
                                           Flexible(
                                             child: CommonMaterialButton(
                                               onPressed: () {
                                                 context.router.push(
-                                                  PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                                      args: EmployerLongTermPositionDetailViewArgs(id: data.post_id ?? -1)),
+                                                  PageRouteInfo(
+                                                      EmployerLongTermPositionDetailView
+                                                          .name,
+                                                      args:
+                                                          EmployerLongTermPositionDetailViewArgs(
+                                                              id: data.post_id ??
+                                                                  -1)),
                                                 );
                                               },
                                               label: "View Position Details",
-                                              backgroundColor: Color(0xFFF5F5F5),
+                                              backgroundColor:
+                                                  Color(0xFFF5F5F5),
                                               radius: 7,
                                             ),
                                           ),
@@ -261,16 +343,21 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                           Flexible(
                                             child: CommonMaterialButton(
                                               onPressed: () async {
-                                                final result = await AppDialog.showCommonDialog(
-                                                  context: context,
-                                                  content: "Are you sure you want to decline this offer?",
-                                                  title: "Decline Offer",
-                                                  successLabel: "Cancel",
-                                                  rejectLabel: "No"
-                                                );
+                                                final result = await AppDialog
+                                                    .showCommonDialog(
+                                                        context: context,
+                                                        content:
+                                                            "Are you sure you want to decline this offer?",
+                                                        title: "Decline Offer",
+                                                        successLabel: "Cancel",
+                                                        rejectLabel: "No");
                                                 if (result ?? false) {
-                                                  context.read<ContractorLongTermBloc>().add(
-                                                        ContractorLongTermEvent.confirmRejectOffer(
+                                                  context
+                                                      .read<
+                                                          ContractorLongTermBloc>()
+                                                      .add(
+                                                        ContractorLongTermEvent
+                                                            .confirmRejectOffer(
                                                           context: context,
                                                           id: data.id ?? -1,
                                                           urgent_action: 2,
@@ -279,7 +366,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                 }
                                               },
                                               label: "Cancel Application",
-                                              backgroundColor: AppColors.red.withOpacity(0.15),
+                                              backgroundColor: AppColors.red
+                                                  .withOpacity(0.15),
                                               radius: 7,
                                             ),
                                           )
@@ -314,7 +402,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -389,7 +478,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -526,7 +616,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
+                  text:
+                      "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -591,13 +682,22 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                         children: [
                           BaseText(text: "Start Date", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: contractorLongTerm?.start_date?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(contractorLongTerm?.start_date ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: contractorLongTerm?.start_date?.year
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(contractorLongTerm?.start_date ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -622,13 +722,19 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: contractorLongTerm?.end_date?.year.toString(),
-                                  style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                  text: contractorLongTerm?.end_date?.year
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: AppColors.green.withOpacity(0.5)),
                                 )
                               ],
-                              text: "${DateFormat("dd MMM").format(contractorLongTerm?.end_date ?? DateTime.now())}, ",
+                              text:
+                                  "${DateFormat("dd MMM").format(contractorLongTerm?.end_date ?? DateTime.now())}, ",
                             ),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),

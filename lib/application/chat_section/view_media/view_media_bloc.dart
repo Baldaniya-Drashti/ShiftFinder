@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:video_player/video_player.dart';
-
 part 'view_media_state.dart';
 part 'view_media_event.dart';
 part 'view_media_bloc.freezed.dart';

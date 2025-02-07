@@ -1,12 +1,11 @@
-import 'dart:async';
 import 'dart:math';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -92,7 +91,10 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
             if (widget.label != null) ...[
               Padding(
                 padding: const EdgeInsets.only(left: 16),
-                child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
+                child: BaseText(
+                    text: widget.label!,
+                    fontSize: widget.fontSize ?? 10,
+                    fontWeight: FontWeight.w500),
               ),
               Gap(8),
             ],
@@ -103,7 +105,10 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                 style: widget.hintTextStyle,
               ),
               isDense: true,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
               isExpanded: true,
               menuItemStyleData: const MenuItemStyleData(
                 height: 45,
@@ -125,12 +130,14 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                   valueListenable: _isMenuOpened,
                   builder: (context, value, child) => AnimatedContainer(
                     duration: const Duration(milliseconds: 100),
-                    transform: Matrix4.rotationZ(_isMenuOpened.value ? pi / 1 : 0),
+                    transform:
+                        Matrix4.rotationZ(_isMenuOpened.value ? pi / 1 : 0),
                     transformAlignment: Alignment.center,
                     child: SvgPicture.asset(
                       height: 8,
                       SvgImageConstant.downArrow,
-                      colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                      colorFilter:
+                          ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     ),
                   ),
                 ),
@@ -142,7 +149,9 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                 isDense: true,
                 errorStyle: TextStyle(),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: field.hasError ? BorderSide(color: AppColors.red) : BorderSide.none,
+                  borderSide: field.hasError
+                      ? BorderSide(color: AppColors.red)
+                      : BorderSide.none,
                   borderRadius: BorderRadius.circular(getSize(10)),
                 ),
                 border: OutlineInputBorder(
@@ -150,7 +159,9 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                   borderRadius: BorderRadius.circular(getSize(10)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: field.hasError ? BorderSide(color: AppColors.red) : BorderSide.none,
+                  borderSide: field.hasError
+                      ? BorderSide(color: AppColors.red)
+                      : BorderSide.none,
                   borderRadius: BorderRadius.circular(getSize(10)),
                 ),
                 errorBorder: OutlineInputBorder(
@@ -204,10 +215,12 @@ class ShiftScheduleDropdownField extends StatefulWidget {
   final CommonDropdownModel? selectedShiftSchedule;
 
   @override
-  State<ShiftScheduleDropdownField> createState() => _ShiftScheduleDropdownFieldState();
+  State<ShiftScheduleDropdownField> createState() =>
+      _ShiftScheduleDropdownFieldState();
 }
 
-class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField> {
+class _ShiftScheduleDropdownFieldState
+    extends State<ShiftScheduleDropdownField> {
   @override
   void didUpdateWidget(covariant ShiftScheduleDropdownField oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -227,7 +240,9 @@ class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField>
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
-        boxShadow: [BoxShadow(color: AppColors.lightGrey.withOpacity(0.2), blurRadius: 30)],
+        boxShadow: [
+          BoxShadow(color: AppColors.lightGrey.withOpacity(0.2), blurRadius: 30)
+        ],
       ),
       child: CustomDropdownField<CommonDropdownModel>(
         validator: (value) {
@@ -248,7 +263,8 @@ class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField>
           (e) {
             return DropdownMenuItem<CommonDropdownModel>(
               value: e,
-              child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+              child: BaseText(
+                  text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
             );
           },
         ).toList(),
@@ -258,6 +274,7 @@ class _ShiftScheduleDropdownFieldState extends State<ShiftScheduleDropdownField>
 }
 
 class CustomFormFieldExample extends StatelessWidget {
+  CustomFormFieldExample({super.key});
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -300,13 +317,13 @@ class CustomFormFieldExample extends StatelessWidget {
                       if (state.hasError)
                         Text(
                           state.errorText ?? '',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: AppColors.redAccent),
                         ),
                     ],
                   );
                 },
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: getSize(20)),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
@@ -315,7 +332,7 @@ class CustomFormFieldExample extends StatelessWidget {
                     );
                   }
                 },
-                child: Text('Submit'),
+                child: Text(StringConstant.submit),
               ),
             ],
           ),

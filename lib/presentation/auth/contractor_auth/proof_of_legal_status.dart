@@ -24,9 +24,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProofOfLegalStatus')
 class ProofOfLegalStatus extends StatelessWidget {
-  bool isFromSplash = false;
-
-  ProofOfLegalStatus({super.key, this.isFromSplash = false});
+  final bool isFromSplash;
+  const ProofOfLegalStatus({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +370,7 @@ class ProofOfLegalStatus extends StatelessWidget {
         (doc != null && doc.isNotEmpty)
             ? selectedImage(
                 context,
-                doc ?? "",
+                doc,
                 isBackFile: isBackFile,
                 state: state,
               )

@@ -13,8 +13,8 @@ class _DayPicker extends StatefulWidget {
     required this.onChanged,
     required this.dayRowsCount,
     required this.selectedDateColors,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The calendar configurations
   final CalendarDatePicker2Config config;
@@ -128,7 +128,6 @@ class _DayPickerState extends State<_DayPicker> {
     final TextStyle dayStyle = textTheme.bodySmall!;
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = colorScheme.onPrimary;
     final Color selectedDayBackground = colorScheme.primary;
     final Color todayColor = colorScheme.primary;
     final Color daySplashColor =

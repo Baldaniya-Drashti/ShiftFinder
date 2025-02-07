@@ -31,6 +31,7 @@ abstract class IAuthFacade {
     required String? locationAddress,
     required String? latitude,
     required String? longitude,
+    required int? dateOfBirth,
   });
 
   Future<Either<AuthFailure, Account>> login({

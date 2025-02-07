@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +135,7 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                         CommonDropdownModel>(
                                       value: e,
                                       child: BaseText(
-                                        text: e.label ?? "",
+                                        text: e.label,
                                         fontSize: 14,
                                         maxLines: 1,
                                       ),
@@ -347,8 +349,9 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
           Radio(
             fillColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(WidgetState.selected))
+                if (states.contains(WidgetState.selected)) {
                   return AppColors.green;
+                }
                 return Colors.grey;
               },
             ),

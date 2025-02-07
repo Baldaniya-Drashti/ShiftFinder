@@ -14,7 +14,6 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 part 'counter_proposal_detail_event.dart';
@@ -183,7 +182,7 @@ class CounterProposalDetailBloc
               );
             }
           } else {
-            final result = await showDialog<bool?>(
+            await showDialog<bool?>(
               context: value.context,
               builder: (context) {
                 return AlertDialog(

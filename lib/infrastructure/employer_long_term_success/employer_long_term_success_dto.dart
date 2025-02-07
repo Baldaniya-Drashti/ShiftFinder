@@ -4,9 +4,7 @@ import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/empl
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
-
 part 'employer_long_term_success_dto.freezed.dart';
-
 part 'employer_long_term_success_dto.g.dart';
 
 @freezed
@@ -68,7 +66,7 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     int? total_teams,
     List<TeamDTO>? teams,
     String? position,
-    @Default(1)int? compensation_type,
+    @Default(1) int? compensation_type,
     String? job_summary,
     String? external_internal_relationships,
     String? experience,
@@ -78,5 +76,6 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     String? compensation_package,
   }) = _EmployerLongTermSuccessDto;
 
-  factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermSuccessDtoFromJson(json);
+  factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerLongTermSuccessDtoFromJson(json);
 }

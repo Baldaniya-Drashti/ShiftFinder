@@ -25,8 +25,8 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ApparelEquipment extends StatelessWidget {
-  bool isUpdate;
-  ApparelEquipment({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const ApparelEquipment({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {

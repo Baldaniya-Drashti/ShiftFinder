@@ -7,7 +7,6 @@ import 'package:shift/application/auth/contractor_auth/background_doc_bloc/backg
 import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
@@ -16,18 +15,16 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'BackgroundDocument')
 class BackgroundDocument extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  BackgroundDocument({super.key, this.isFromSplash = false});
+  const BackgroundDocument({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +300,7 @@ class BackgroundDocument extends StatelessWidget {
         (doc != null && doc.isNotEmpty)
             ? selectedImage(
                 context,
-                doc ?? "",
+                doc,
                 isBackFile: isBackFile,
                 state: state,
               )

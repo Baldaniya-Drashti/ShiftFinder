@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,19 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class EditClockTimeDialog extends StatelessWidget {
   const EditClockTimeDialog({super.key});
@@ -31,7 +24,7 @@ class EditClockTimeDialog extends StatelessWidget {
 
   editClockTimeDialog(
       BuildContext context, HiredContractorListDTO contractor) async {
-    final result = await showDialog<bool?>(
+    await showDialog<bool?>(
       context: context,
       builder: (__) => BlocProvider(
         create: (_) => getIt<HiredContractorBloc>()
@@ -40,7 +33,6 @@ class EditClockTimeDialog extends StatelessWidget {
               clockOut: contractor.clock_out_time)),
         child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
           builder: (con, state) {
-            print("state.clockIn-----////>  ${contractor.clock_in_time}");
             return AlertDialog(
               contentPadding: EdgeInsets.zero,
               clipBehavior: Clip.none,
@@ -488,7 +480,6 @@ class EditClockTimeDialog extends StatelessWidget {
 
   Future<TimeOfDay?> _showTimePicker(BuildContext context,
       {required DateTime dateTime}) async {
-    Log.success("date => ${dateTime}");
     final TimeOfDay? pickedTime = await showDialog(
         context: context,
         builder: (context) {

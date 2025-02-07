@@ -21,8 +21,8 @@ class YearPicker extends StatefulWidget {
     required this.onChanged,
     required this.initialMonth,
     this.dragStartBehavior = DragStartBehavior.start,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The calendar configurations
   final CalendarDatePicker2Config config;

@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_long_term/employer_long_term_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
@@ -19,7 +18,6 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
-
 import '../../../../domain/core/string_constant.dart';
 
 class OpenPositionTabView extends StatelessWidget {
@@ -46,10 +44,11 @@ class OpenPositionTabView extends StatelessWidget {
                   ),
                 );
           },
-          refreshController: context.read<EmployerLongTermBloc>().openPositionController,
+          refreshController:
+              context.read<EmployerLongTermBloc>().openPositionController,
           isNoDataFound: state.isNoDataFound,
           child: state.isLoading
-              ? CenterLoadingIndicator()
+              ? CenterLoadingIndicator(isOnlyLoader: true)
               : state.isErrorInAPI
                   ? Center(
                       child: BaseText(text: StringConstant.somethindWentWrong),
@@ -81,8 +80,12 @@ class OpenPositionTabView extends StatelessWidget {
                                   context,
                                   onPressed: () {
                                     context.router.push(
-                                      PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                          args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
+                                      PageRouteInfo(
+                                          EmployerLongTermPositionDetailView
+                                              .name,
+                                          args:
+                                              EmployerLongTermPositionDetailViewArgs(
+                                                  id: data.id ?? -1)),
                                     );
                                   },
                                 ),
@@ -93,11 +96,14 @@ class OpenPositionTabView extends StatelessWidget {
                                   context,
                                   employer: data,
                                   onPressed: () {
-                                    if (state.openPositionList[index].total_application_counts == 0) return;
+                                    if (state.openPositionList[index]
+                                            .total_application_counts ==
+                                        0) return;
                                     context.router.push(
                                       PageRouteInfo(
                                         EmployerLongTermApplicantView.name,
-                                        args: EmployerLongTermApplicantViewArgs(id: data.id ?? -1),
+                                        args: EmployerLongTermApplicantViewArgs(
+                                            id: data.id ?? -1),
                                       ),
                                     );
                                   },
@@ -121,7 +127,7 @@ class OpenPositionTabView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.primaryColor,
       child: Padding(
-        padding: EdgeInsets.all(getSize(8)).copyWith(right: 12,left: 12),
+        padding: EdgeInsets.all(getSize(8)).copyWith(right: 12, left: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -144,7 +150,8 @@ class OpenPositionTabView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BaseText(
-                    text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
+                    text:
+                        "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.white.withOpacity(0.80),
@@ -165,11 +172,13 @@ class OpenPositionTabView extends StatelessWidget {
                       final result = await AppDialog.showCommonDialog(
                           context: context,
                           title: "Delete The Position",
-                          content: "Are you sure you want to delete this long term position?",
+                          content:
+                              "Are you sure you want to delete this long term position?",
                           successLabel: "Delete");
                       if (result ?? false) {
                         context.read<EmployerLongTermBloc>().add(
-                              EmployerLongTermEvent.deletePost(context: context, id: employer.id ?? -1),
+                              EmployerLongTermEvent.deletePost(
+                                  context: context, id: employer.id ?? -1),
                             );
                       }
                     },
@@ -182,7 +191,8 @@ class OpenPositionTabView extends StatelessWidget {
                         context.router.push(
                           PageRouteInfo(
                             EmployerLongTermPositionAddView.name,
-                            args: EmployerLongTermPositionAddViewArgs(postId: employer.id),
+                            args: EmployerLongTermPositionAddViewArgs(
+                                postId: employer.id),
                           ),
                         );
                       },
@@ -204,7 +214,6 @@ class OpenPositionTabView extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildLocationInfo(
     BuildContext context, {
@@ -260,7 +269,10 @@ class OpenPositionTabView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BaseText(text: "Total Applications", fontSize: 12, fontWeight: FontWeight.w500),
+              BaseText(
+                  text: "Total Applications",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
               Gap(getSize(8)),
               Row(
                 children: [
@@ -294,13 +306,15 @@ class OpenPositionTabView extends StatelessWidget {
       color: AppColors.scaffoldColor,
       child: IntrinsicHeight(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(16), vertical: getSize(8)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(16), vertical: getSize(8)),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child:
-                    _buildDateInfoTile(context, title: 'Start Date:-', dateTime: employer.start_date ?? DateTime.now()),
+                child: _buildDateInfoTile(context,
+                    title: 'Start Date:-',
+                    dateTime: employer.start_date ?? DateTime.now()),
               ),
               VerticalDivider(),
               Gap(getSize(18)),
@@ -329,7 +343,8 @@ class OpenPositionTabView extends StatelessWidget {
       children: [
         BaseText(text: title, fontSize: 9),
         Text.rich(
-          style: TextStyle(fontSize: getFontSize(10), fontWeight: FontWeight.w600),
+          style:
+              TextStyle(fontSize: getFontSize(10), fontWeight: FontWeight.w600),
           TextSpan(
             text: "${DateFormat("dd MMM").format(dateTime)},",
             children: [
@@ -347,7 +362,6 @@ class OpenPositionTabView extends StatelessWidget {
 
 class _EmployerStackedImage extends StatelessWidget {
   const _EmployerStackedImage({
-    super.key,
     required this.imageList,
   });
 
@@ -358,10 +372,9 @@ class _EmployerStackedImage extends StatelessWidget {
     return BlocBuilder<EmployerLongTermBloc, EmployerLongTermState>(
       builder: (context, state) {
         List<double> imagePosition = [0, 13, 26, 39, 52, 65];
-        return Container(
+        return SizedBox(
           width: getSize(100),
           height: getSize(30),
-          // color: Colors.yellow,
           child: Stack(
             clipBehavior: Clip.none,
             children: [

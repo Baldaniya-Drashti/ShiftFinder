@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,6 @@ import 'package:shift/infrastructure/core/location_dto/search_location_dto/place
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
-import 'package:http/http.dart' as http;
 import 'package:shift/presentation/core/helper/location_helper.dart';
 
 part 'register_form_event.dart';
@@ -296,7 +294,14 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             ),
           );
         },
-
+        dobChanged: (e) {
+          emit(
+            state.copyWith(
+              dateOfBirth: InputEmptyOrNot(e.dob),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         referralCodeChanged: (e) {
           emit(
             state.copyWith(
@@ -323,10 +328,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isNewPassValid = state.password.isValid();
           final isConfirmPassValid = state.confirmPassword.isValid();
           final isLocationAddressValid = state.locationAddress.isValid();
+          final isDobValid = state.dateOfBirth.isValid();
           final isProfilePicValid = (state.selectImage.isNotEmpty);
-
-          print(
-              "Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
 
           if (getCurrentRole() == 1) {
             if (isPhoneNumberValid &&
@@ -334,8 +337,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 isNewPassValid &&
                 isConfirmPassValid &&
                 isLocationAddressValid &&
+                isDobValid &&
                 isProfilePicValid) {
-              print("All details are valid");
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -343,28 +346,34 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 ),
               );
               failureOrSuccess = await _authFacade.register(
-                firstName: Username(e.firstName),
-                lastName: Username(e.lastName),
-                check_terms_privacy: e.isCheckTerms,
-                profileImage: state.selectImage,
-                companyName: null,
-                phoneNumber: state.phoneNumber,
-                countryCode: '+${state.selectedCountrycode}',
-                countryFlag: state.selectedCountryFlag,
-                email: state.email,
-                password: state.password,
-                confirmPassword: state.confirmPassword,
-                association: null,
-                companyDescription: null,
-                referralCode: state.referralCode,
-                locationAddress: state.locationAddress.getValue() ?? "",
-                latitude: state.selectedAddress.result?.geometry?.location?.lat
-                        .toString() ??
-                    '',
-                longitude: state.selectedAddress.result?.geometry?.location?.lng
-                        .toString() ??
-                    '',
-              );
+                  firstName: Username(e.firstName),
+                  lastName: Username(e.lastName),
+                  check_terms_privacy: e.isCheckTerms,
+                  profileImage: state.selectImage,
+                  companyName: null,
+                  phoneNumber: state.phoneNumber,
+                  countryCode: '+${state.selectedCountrycode}',
+                  countryFlag: state.selectedCountryFlag,
+                  email: state.email,
+                  password: state.password,
+                  confirmPassword: state.confirmPassword,
+                  association: null,
+                  companyDescription: null,
+                  referralCode: state.referralCode,
+                  locationAddress: state.locationAddress.getValue() ?? "",
+                  latitude: state
+                          .selectedAddress.result?.geometry?.location?.lat
+                          .toString() ??
+                      '',
+                  longitude: state
+                          .selectedAddress.result?.geometry?.location?.lng
+                          .toString() ??
+                      '',
+                  dateOfBirth:
+                      DateTime.parse(state.dateOfBirth.getValue() ?? "")
+                              .toUtc()
+                              .millisecondsSinceEpoch ~/
+                          1000);
             } else {
               showError(
                       message: StringConstant
@@ -402,6 +411,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 locationAddress: null,
                 latitude: null,
                 longitude: null,
+                dateOfBirth: null,
               );
               print("Failure Or successs---> $failureOrSuccess");
               // failureOrSuccess = right("sucess");

@@ -1,10 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:shift/application/faq/faq_bloc.dart';
-import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
-import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/statement_dto/statement_dto.dart';
@@ -12,13 +9,11 @@ import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_
 import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/chat/upload_media_response.dart';
-import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
-import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -74,7 +69,8 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
 
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi({required MultiShiftDTO shift});
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
+      {required MultiShiftDTO shift});
 
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftRecurringApi({
     required int postShiftId,
@@ -175,13 +171,16 @@ abstract class IMainFacade {
     String reason = "",
   });
 
-  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
+      {required int postId});
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({required int postId, required int urgentAction});
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+      {required int postId, required int urgentAction});
 
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
 
-  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(String id, int? date);
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(String id, int? date);
 
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
@@ -244,7 +243,8 @@ abstract class IMainFacade {
     required int request,
   });
 
-  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+  Future<Either<MainFailure, CommonResponse>>
+      sendEmployerApplicantsCounterPropose({
     required int id,
     required num counterRateHour,
     required int commuteAllowanceType,
@@ -306,7 +306,8 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getLocationListApi();
 
-  Future<Either<MainFailure, CommonResponse>> getLocationDetail({required int id});
+  Future<Either<MainFailure, CommonResponse>> getLocationDetail(
+      {required int id});
 
   Future<Either<MainFailure, CommonResponse>> updateLocation({required int id});
 
@@ -326,7 +327,8 @@ abstract class IMainFacade {
     int? sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> addCardAPI({required String paymentMethodId});
+  Future<Either<MainFailure, CommonResponse>> addCardAPI(
+      {required String paymentMethodId});
 
   Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI();
 
@@ -336,7 +338,8 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
 
-  Future<Either<MainFailure, PerformanceInsightDTO>> getPerformanceInsightListAPI({required double date});
+  Future<Either<MainFailure, PerformanceInsightDTO>>
+      getPerformanceInsightListAPI({required double date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
@@ -370,7 +373,8 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, MonthlyStatementDTO>> getEmployerMonthlyStatementAPI({
+  Future<Either<MainFailure, MonthlyStatementDTO>>
+      getEmployerMonthlyStatementAPI({
     required double? startDate,
     required double? endDate,
   });
@@ -391,9 +395,11 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost({required Map<String, dynamic> data});
+  Future<Either<MainFailure, CommonResponse>> createLongFullTermPost(
+      {required Map<String, dynamic> data});
 
-  Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost({required Map<String, dynamic> data});
+  Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost(
+      {required Map<String, dynamic> data});
 
   Future<Either<MainFailure, CommonResponse>> employerLongTermDashboard({
     required int positionsType,
@@ -404,7 +410,8 @@ abstract class IMainFacade {
     required int id,
   });
 
-  Future<Either<MainFailure, CommonResponse>> getEmployerLongTermPositionApplicants({
+  Future<Either<MainFailure, CommonResponse>>
+      getEmployerLongTermPositionApplicants({
     required int id,
     required int page,
   });
@@ -462,8 +469,8 @@ abstract class IMainFacade {
     required int positionsType,
   });
 
-
-  Future<Either<MainFailure, CommonResponse>> contractorLongFullConfirmAccpetence({
+  Future<Either<MainFailure, CommonResponse>>
+      contractorLongFullConfirmAccpetence({
     required int id,
     required int urgent_action,
   });

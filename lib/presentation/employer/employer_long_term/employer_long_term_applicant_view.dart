@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_long_term_view_applicant/employer_long_term_view_applicant_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart';
@@ -33,36 +34,49 @@ class EmployerLongTermApplicantView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermViewApplicantBloc>()
         ..add(
-          EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+          EmployerLongTermViewApplicantEvent.getApplicants(
+              context: context, id: id, refresh: true),
         ),
       child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Applicants"),
-        body: BlocBuilder<EmployerLongTermViewApplicantBloc, EmployerLongTermViewApplicantState>(
+        appBar: CommonAppBar(
+            onBackPressed: () => context.router.maybePop(),
+            title: "View Applicants"),
+        body: BlocBuilder<EmployerLongTermViewApplicantBloc,
+            EmployerLongTermViewApplicantState>(
           builder: (context, state) {
             return PaginatedListView(
               onRefresh: () {
                 context.read<EmployerLongTermViewApplicantBloc>().add(
-                      EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+                      EmployerLongTermViewApplicantEvent.getApplicants(
+                          context: context, id: id, refresh: true),
                     );
               },
               onLoading: () {
                 context.read<EmployerLongTermViewApplicantBloc>().add(
-                      EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: false),
+                      EmployerLongTermViewApplicantEvent.getApplicants(
+                          context: context, id: id, refresh: false),
                     );
               },
-              refreshController: context.read<EmployerLongTermViewApplicantBloc>().refreshController,
+              refreshController: context
+                  .read<EmployerLongTermViewApplicantBloc>()
+                  .refreshController,
               isNoDataFound: state.isNoDataFound,
               child: state.isLoading
                   ? CenterLoadingIndicator()
                   : state.isErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
                           itemCount: state.applicantsList.length,
-                          separatorBuilder: (context, index) => Gap(getSize(16)),
-                          itemBuilder: (context, index) => _ApplicantsListTile(data: state.applicantsList[index], id: id,),
+                          separatorBuilder: (context, index) =>
+                              Gap(getSize(16)),
+                          itemBuilder: (context, index) => _ApplicantsListTile(
+                            data: state.applicantsList[index],
+                            id: id,
+                          ),
                         ),
             );
           },
@@ -85,7 +99,8 @@ class _ApplicantsListTile extends StatelessWidget {
     );
     return Material(
       color: AppColors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(20))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(getSize(20))),
       child: Padding(
         padding: EdgeInsets.all(getSize(12)),
         child: Column(
@@ -96,7 +111,8 @@ class _ApplicantsListTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Material(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(10))),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(getSize(10))),
                   color: AppColors.scaffoldColor,
                   child: _buildPositionTile(context, data: data),
                 ),
@@ -113,7 +129,8 @@ class _ApplicantsListTile extends StatelessWidget {
                             title: "Accept",
                             content:
                                 "Once the contractor is accepted for the position, they will have 72 hours to confirm. If not confirmed, the offer will expire.",
-                            extraContent: "Are you sure you want to accept this contractor for the position?",
+                            extraContent:
+                                "Are you sure you want to accept this contractor for the position?",
                             successLabel: "Accept",
                           );
 
@@ -121,12 +138,16 @@ class _ApplicantsListTile extends StatelessWidget {
                             if (!cardAdded) {
                               CommonCardDialog(
                                 title: StringConstant.cardDetails,
-                                description: StringConstant.pleaseAddYourCardDetailsToProceed,
+                                description: StringConstant
+                                    .pleaseAddYourCardDetailsToProceed,
                                 buttonText: StringConstant.addCard,
                                 onPressed: () {
                                   context.router.maybePop();
                                   context.router
-                                      .push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false)))
+                                      .push(PageRouteInfo(
+                                          AddCardDetailPage.name,
+                                          args: AddCardDetailPageArgs(
+                                              fromRegister: false)))
                                       .then((value) {
                                     if (value != null && value == true) {
                                       _navigateToAuthorizePayment(context);
@@ -151,12 +172,19 @@ class _ApplicantsListTile extends StatelessWidget {
                           final result = await AppDialog.showCommonDialog(
                             context: context,
                             title: "Reject",
-                            content: "Are you sure you want to reject this application?",
+                            content:
+                                "Are you sure you want to reject this application?",
                             successLabel: "Reject",
                           );
                           if (result ?? false) {
-                            context.read<EmployerLongTermViewApplicantBloc>().add(
-                                  EmployerLongTermViewApplicantEvent.onRejectApplicant(context: context, id: data.id ?? -1,postId: id),
+                            context
+                                .read<EmployerLongTermViewApplicantBloc>()
+                                .add(
+                                  EmployerLongTermViewApplicantEvent
+                                      .onRejectApplicant(
+                                          context: context,
+                                          id: data.id ?? -1,
+                                          postId: id),
                                 );
                           }
                         },
@@ -171,7 +199,8 @@ class _ApplicantsListTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SvgPicture.asset(SvgImageConstant.clock, height: 18),
+                            SvgPicture.asset(SvgImageConstant.clock,
+                                height: 18),
                             Gap(4),
                             Flexible(
                               child: BaseText(
@@ -183,7 +212,7 @@ class _ApplicantsListTile extends StatelessWidget {
                           ],
                         ),
                       )
-                    ] else if (data.offer_expires_status==true) ...[
+                    ] else if (data.offer_expires_status == true) ...[
                       Expanded(
                         flex: 2,
                         child: Row(
@@ -215,7 +244,10 @@ class _ApplicantsListTile extends StatelessWidget {
                         context.router.push(
                           PageRouteInfo(
                             ViewApplicantProfile.name,
-                            args: ViewApplicantProfileArgs(id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
+                            args: ViewApplicantProfileArgs(
+                                id: data.user_id ?? -1,
+                                postId: data.post_id ?? -1,
+                                isLongOrFull: 1),
                           ),
                         );
                       },
@@ -243,7 +275,8 @@ class _ApplicantsListTile extends StatelessWidget {
     ) as bool?;
     if (result ?? false) {
       context.read<EmployerLongTermViewApplicantBloc>().add(
-            EmployerLongTermViewApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+            EmployerLongTermViewApplicantEvent.getApplicants(
+                context: context, id: id, refresh: true),
           );
     }
   }
@@ -258,14 +291,15 @@ class _ApplicantsListTile extends StatelessWidget {
   }) {
     return Expanded(
       child: CommonMaterialButton(
-        height: 35  ,
+        height: 35,
         onPressed: onPressed,
         label: label,
         radius: 10,
         padding: EdgeInsets.all(4),
         backgroundColor: backgroundColor,
         borderColor: outline,
-        textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
+        textStyle: TextStyle(
+            fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
       ),
     );
   }

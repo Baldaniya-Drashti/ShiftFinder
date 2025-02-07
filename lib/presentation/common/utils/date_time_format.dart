@@ -27,8 +27,6 @@ class CustomDateTimeFormat {
   // }
 
   static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
-    print("strt hour---> ${hour} \n start minute ${minute}");
-    print("strt hour--->1111---->  ${dateTime}");
     final now = dateTime ?? DateTime.now();
     final hourInt = extractHour(hour);
     final minuteInt = extractMinutes(minute);
@@ -46,8 +44,6 @@ class CustomDateTimeFormat {
 
   static DateTime mergeDateAndTime(String startTime, String endTime,
       {DateTime? dateTime}) {
-    print("Recurrence iD1111--->>  ${startTime}");
-
     final now = dateTime ?? DateTime.now();
     final hourInt = DateTime.parse(startTime).hour;
     final minuteInt = DateTime.parse(startTime).minute;

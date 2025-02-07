@@ -8,7 +8,6 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 part 'applicant_profile_event.dart';
 part 'applicant_profile_state.dart';
 part 'applicant_profile_bloc.freezed.dart';
@@ -26,7 +25,9 @@ class ApplicantProfileBloc
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(isLoading: true));
           failureOrSuccess = await _mainFacade.getApplicantProfile(
-              id: value.id, postId: value.postId,isLongOrFull: value.isLongOrFull);
+              id: value.id,
+              postId: value.postId,
+              isLongOrFull: value.isLongOrFull);
           emit(state.copyWith(isLoading: false));
 
           failureOrSuccess.fold(
@@ -42,9 +43,8 @@ class ApplicantProfileBloc
               emit(state.copyWith(isErrorInAPI: true));
             },
             (r) {
-              Log.info("datat=> ${r.data}");
               final data = ApplicantDto.fromJson(r.data);
-              Log.success("data =>${data}");
+
               emit(state.copyWith(account: data));
             },
           );

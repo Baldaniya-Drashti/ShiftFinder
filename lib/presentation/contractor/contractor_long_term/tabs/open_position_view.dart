@@ -1,23 +1,17 @@
-import 'package:flutter/material.dart';
-import 'dart:math';
+// ignore_for_file: deprecated_member_use
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_long_time/contractor_long_term_bloc.dart';
-import 'package:shift/application/employer/employer_long_term_detail/employer_long_term_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
-import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
-import 'package:shift/injection.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -27,9 +21,7 @@ import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
-import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 class ContractorLongTermOpenPosition extends StatelessWidget {
   const ContractorLongTermOpenPosition({super.key});
@@ -38,101 +30,127 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
       builder: (context, state) {
-        return Stack(children: [
-          PaginatedListView(
-            isNoDataFound: state.isNoDataFound,
-            onRefresh: () {
-              context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchOpenPositionList(refresh: true));
-            },
-            onLoading: () {
-              context.read<ContractorLongTermBloc>().add(ContractorLongTermEvent.fetchOpenPositionList(refresh: false));
-            },
-            refreshController: context.read<ContractorLongTermBloc>().openRefreshController,
-            child: state.isLoading
-                ? CenterLoadingIndicator()
-                : state.isErrorInAPI
-                ? Center(
-              child: BaseText(text: StringConstant.somethindWentWrong),
-            )
-                : ListView.separated(
-              padding: EdgeInsets.all(getSize(12)),
-              itemBuilder: (context, index) {
-                final data = state.openPositionList[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(getSize(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.lightGrey.withOpacity(0.2),
-                        blurRadius: getSize(20),
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(getSize(12)),
-                  child: Column(
-                    children: [
-                      _buildPositionTile(context, contractorLongTerm: data),
-                      Gap(getSize(12)),
-                      CommonMaterialButton(
-                        radius: 7,
-                        height: 36,
-                        onPressed: () {
-                          context.router.push(
-                            PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
-                          );
-                        },
-                        label: "View Position Details",
-                        backgroundColor: AppColors.primaryColor.withOpacity(.1),
-                      ),
-                      Gap(getSize(12)),
-                      _buildApplicationInformation(context, contractorLongTerm: data),
-                      Gap(getSize(10)),
-                      if ((data.specialties_list ?? "").isNotEmpty)
-                        requiredSkillBox(
-                          svgPrefixIcon: SvgImageConstant.female,
-                          title: StringConstant.specialtiesRequired,
-                          value: data.specialties_list ?? "",
-                        ),
-                      Gap(getSize(4)),
-                      rateHoursBox(contractorLongTerm: data),
-                      Gap(getSize(8)),
-                      _buildEstimatedHours(context, contractorLongTerm: data),
-                      Gap(getSize(12)),
-                      _buildShiftSchedule(context, contractorLongTerm: data),
-                      Gap(getSize(12)),
-                      _buildNumberOfVacancy(context, contractorLongTerm: data),
-                      Gap(getSize(12)),
-                      CommonButton(
-                        borderRadius: 10,
-                        onPressed: () async {
-                          final result = await AppDialog.showCommonDialog(
-                            context: context,
-                            title: "Apply",
-                            extraContent: "Are you sure you want to apply for this position?",
-                            content:
-                            "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
-                            successLabel: "Apply",
-                          );
-                          if (result ?? false) {
-                            context.read<ContractorLongTermBloc>().add(
-                              ContractorLongTermEvent.applyOpenPosition(context: context, id: data.id ?? -1),
-                            );
-                          }
-                        },
-                        buttonText: "Apply",
-                      )
-                    ],
-                  ),
-                );
+        return Stack(
+          children: [
+            PaginatedListView(
+              isNoDataFound: state.isNoDataFound,
+              onRefresh: () {
+                context.read<ContractorLongTermBloc>().add(
+                    ContractorLongTermEvent.fetchOpenPositionList(
+                        refresh: true));
               },
-              separatorBuilder: (context, index) => Gap(16),
-              itemCount: state.openPositionList.length,
+              onLoading: () {
+                context.read<ContractorLongTermBloc>().add(
+                    ContractorLongTermEvent.fetchOpenPositionList(
+                        refresh: false));
+              },
+              refreshController:
+                  context.read<ContractorLongTermBloc>().openRefreshController,
+              child: state.isLoading
+                  ? CenterLoadingIndicator()
+                  : state.isErrorInAPI
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : ListView.separated(
+                          padding: EdgeInsets.all(getSize(12)),
+                          itemBuilder: (context, index) {
+                            final data = state.openPositionList[index];
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius:
+                                    BorderRadius.circular(getSize(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                    blurRadius: getSize(20),
+                                  ),
+                                ],
+                              ),
+                              padding: EdgeInsets.all(getSize(12)),
+                              child: Column(
+                                children: [
+                                  _buildPositionTile(context,
+                                      contractorLongTerm: data),
+                                  Gap(getSize(12)),
+                                  CommonMaterialButton(
+                                    radius: 7,
+                                    height: 36,
+                                    onPressed: () {
+                                      context.router.push(
+                                        PageRouteInfo(
+                                            EmployerLongTermPositionDetailView
+                                                .name,
+                                            args:
+                                                EmployerLongTermPositionDetailViewArgs(
+                                                    id: data.id ?? -1)),
+                                      );
+                                    },
+                                    label: "View Position Details",
+                                    backgroundColor:
+                                        AppColors.primaryColor.withOpacity(.1),
+                                  ),
+                                  Gap(getSize(12)),
+                                  _buildApplicationInformation(context,
+                                      contractorLongTerm: data),
+                                  Gap(getSize(10)),
+                                  if ((data.specialties_list ?? "").isNotEmpty)
+                                    requiredSkillBox(
+                                      svgPrefixIcon: SvgImageConstant.female,
+                                      title: StringConstant.specialtiesRequired,
+                                      value: data.specialties_list ?? "",
+                                    ),
+                                  Gap(getSize(4)),
+                                  rateHoursBox(contractorLongTerm: data),
+                                  Gap(getSize(8)),
+                                  _buildEstimatedHours(context,
+                                      contractorLongTerm: data),
+                                  Gap(getSize(12)),
+                                  _buildShiftSchedule(context,
+                                      contractorLongTerm: data),
+                                  Gap(getSize(12)),
+                                  _buildNumberOfVacancy(context,
+                                      contractorLongTerm: data),
+                                  Gap(getSize(12)),
+                                  CommonButton(
+                                    borderRadius: 10,
+                                    onPressed: () async {
+                                      final result =
+                                          await AppDialog.showCommonDialog(
+                                        context: context,
+                                        title: "Apply",
+                                        extraContent:
+                                            "Are you sure you want to apply for this position?",
+                                        content:
+                                            "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
+                                        successLabel: "Apply",
+                                      );
+                                      if (result ?? false) {
+                                        context
+                                            .read<ContractorLongTermBloc>()
+                                            .add(
+                                              ContractorLongTermEvent
+                                                  .applyOpenPosition(
+                                                      context: context,
+                                                      id: data.id ?? -1),
+                                            );
+                                      }
+                                    },
+                                    buttonText: "Apply",
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => Gap(16),
+                          itemCount: state.openPositionList.length,
+                        ),
             ),
-          ),
-          if(state.postDataLoading)CenterLoadingIndicator()
-        ],);
+            if (state.postDataLoading) CenterLoadingIndicator()
+          ],
+        );
       },
     );
   }
@@ -145,13 +163,20 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(14)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(14)),
         child: Row(
           children: [
             Expanded(
-              child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w500),
+              child: BaseText(
+                  text: "Number of Vacancies",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
             ),
-            BaseText(text: "${contractorLongTerm?.number_of_vacancie ?? ""}", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "${contractorLongTerm?.number_of_vacancie ?? ""}",
+                fontSize: 14,
+                textColor: AppColors.primaryColor),
           ],
         ),
       ),
@@ -170,7 +195,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -219,7 +245,6 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
     );
   }
 
-
   Widget selectedImage(
     BuildContext context,
     String selectedFile,
@@ -246,7 +271,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -383,7 +409,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
+                  text:
+                      "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -453,13 +480,22 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                         children: [
                           BaseText(text: "Start Date", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: contractorLongTerm?.start_date?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(contractorLongTerm?.start_date ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: contractorLongTerm?.start_date?.year
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(contractorLongTerm?.start_date ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -484,13 +520,19 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: contractorLongTerm?.end_date?.year.toString(),
-                                  style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                  text: contractorLongTerm?.end_date?.year
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: AppColors.green.withOpacity(0.5)),
                                 )
                               ],
-                              text: "${DateFormat("dd MMM").format(contractorLongTerm?.end_date ?? DateTime.now())}, ",
+                              text:
+                                  "${DateFormat("dd MMM").format(contractorLongTerm?.end_date ?? DateTime.now())}, ",
                             ),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -512,13 +554,23 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                         children: [
                           BaseText(text: "Application Deadline", fontSize: 10),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: contractorLongTerm?.application_deadline?.year.toString(),
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(contractorLongTerm?.application_deadline ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: contractorLongTerm
+                                        ?.application_deadline?.year
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(contractorLongTerm?.application_deadline ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -555,13 +607,18 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Estimated Weekly Hours", fontSize: 13, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Estimated Weekly Hours",
+                fontSize: 13,
+                fontWeight: FontWeight.w500),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: BaseText(
-                      text: formatTimeOfDay(contractorLongTerm?.estimated_weekly_hours ?? TimeOfDay.now()),
+                      text: formatTimeOfDay(
+                          contractorLongTerm?.estimated_weekly_hours ??
+                              TimeOfDay.now()),
                       fontSize: 18,
                       fontWeight: FontWeight.w600),
                 ),
@@ -582,7 +639,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorLongTerm,
   }) {
-    final list = getShiftScheduleFromId(contractorLongTerm?.shift_schedule_type ?? "");
+    final list =
+        getShiftScheduleFromId(contractorLongTerm?.shift_schedule_type ?? "");
 
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -593,7 +651,10 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Shift Schedule", fontSize: 14, fontWeight: FontWeight.w600),
+            BaseText(
+                text: "Shift Schedule",
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
             Gap(12),
             SizedBox(
               width: double.maxFinite,
@@ -605,7 +666,9 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey),
+                          borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: list[index],
                         fontSize: 14,
@@ -621,5 +684,4 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
       ),
     );
   }
-
 }

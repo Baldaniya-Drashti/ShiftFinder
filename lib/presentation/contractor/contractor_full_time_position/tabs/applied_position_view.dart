@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,13 +10,11 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
-import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 
@@ -23,26 +23,32 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorFullTimePositionBloc, ContractorFullTimePositionState>(
+    return BlocBuilder<ContractorFullTimePositionBloc,
+        ContractorFullTimePositionState>(
       builder: (context, state) {
         return Stack(
           children: [
             PaginatedListView(
               isNoDataFound: state.appliedNoDataFound,
               onRefresh: () {
-                context.read<ContractorFullTimePositionBloc>().add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: true));
+                context.read<ContractorFullTimePositionBloc>().add(
+                    ContractorFullTimePositionEvent.fetchAppliedPositionList(
+                        refresh: true));
               },
               onLoading: () {
-                context
-                    .read<ContractorFullTimePositionBloc>()
-                    .add(ContractorFullTimePositionEvent.fetchAppliedPositionList(refresh: false));
+                context.read<ContractorFullTimePositionBloc>().add(
+                    ContractorFullTimePositionEvent.fetchAppliedPositionList(
+                        refresh: false));
               },
-              refreshController: context.read<ContractorFullTimePositionBloc>().appliedRefreshController,
+              refreshController: context
+                  .read<ContractorFullTimePositionBloc>()
+                  .appliedRefreshController,
               child: state.appliedLoading
                   ? CenterLoadingIndicator()
                   : state.appliedIsErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(12)),
@@ -51,18 +57,23 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                             return BaseTileDecoration(
                               child: Column(
                                 children: [
-                                  _buildPositionTile(context, contractorFullPosting: data),
+                                  _buildPositionTile(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
-                                  _buildSalaryInformation(context, contractorFullPosting: data),
+                                  _buildSalaryInformation(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
-                                  _buildPositionDescription(context, contractorFullPosting: data),
+                                  _buildPositionDescription(context,
+                                      contractorFullPosting: data),
                                   Gap(getSize(12)),
-                                  _buildButtons(context, contractorFullPosting: data)
+                                  _buildButtons(context,
+                                      contractorFullPosting: data)
                                 ],
                               ),
                             );
                           },
-                          separatorBuilder: (context, index) => Gap(getSize(16)),
+                          separatorBuilder: (context, index) =>
+                              Gap(getSize(16)),
                           itemCount: state.appliedPositionList.length,
                         ),
             ),
@@ -72,8 +83,6 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
       },
     );
   }
-
-
 
   Widget _buildPositionTile(
     BuildContext context, {
@@ -87,11 +96,13 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPositionInfo(context, contractorFullPosting: contractorFullPosting),
+            _buildPositionInfo(context,
+                contractorFullPosting: contractorFullPosting),
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, contractorFullPosting: contractorFullPosting),
+            _buildLocationInfo(context,
+                contractorFullPosting: contractorFullPosting),
           ],
         ),
       ),
@@ -102,7 +113,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
-    final jobType = contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+    final jobType =
+        contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
 
     return Material(
       color: AppColors.scaffoldColor,
@@ -126,7 +138,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
+                  text:
+                      "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.5),
@@ -178,16 +191,21 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
-            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: "${contractorFullPosting?.position ?? ""}"),
+            BaseText(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                text: contractorFullPosting?.position ?? ""),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSalaryInformation(BuildContext context,{
+  Widget _buildSalaryInformation(
+    BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
     return Material(
@@ -205,15 +223,21 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(SvgImageConstant.dollorRound, height: 18),
+                      SvgPicture.asset(SvgImageConstant.dollorRound,
+                          height: 18),
                       Gap(10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: contractorFullPosting?.compensation_type == "1" ? "Rate" : "Salary", fontSize: 12),
                           BaseText(
-                            text: "${contractorFullPosting?.rate_hour??""}",
+                              text: contractorFullPosting?.compensation_type ==
+                                      "1"
+                                  ? "Rate"
+                                  : "Salary",
+                              fontSize: 12),
+                          BaseText(
+                            text: "${contractorFullPosting?.rate_hour ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.green,
@@ -241,10 +265,14 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                             TextSpan(children: [
                               TextSpan(
                                 text: "2024",
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                style: TextStyle(
+                                    color: AppColors.green.withOpacity(0.5)),
                               )
                             ], text: "22 Oct, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -268,14 +296,15 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     );
   }
 
-  Widget _buildButtons(BuildContext context,{
+  Widget _buildButtons(
+    BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-
-        if (contractorFullPosting?.deleteAt == true && contractorFullPosting?.request == 0) ...[
+        if (contractorFullPosting?.deleteAt == true &&
+            contractorFullPosting?.request == 0) ...[
           Padding(
             padding: EdgeInsets.symmetric(vertical: getSize(10)),
             child: BaseText(
@@ -285,7 +314,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
               textColor: AppColors.redAccent,
             ),
           )
-        ]else...[
+        ] else ...[
           Expanded(
             child: Material(
               borderRadius: BorderRadius.circular(7),
@@ -314,19 +343,18 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                   final result = await AppDialog.showCommonDialog(
                     context: context,
                     title: "Cancel",
-                    content: "Are you sure you want to cancel this application?",
+                    content:
+                        "Are you sure you want to cancel this application?",
                     successLabel: "Ok",
                   );
                   if (result ?? false) {
-
                     context.read<ContractorFullTimePositionBloc>().add(
-                      ContractorFullTimePositionEvent.confirmRejectOffer(
-                        context: context,
-                        id: contractorFullPosting?.id ?? -1,
-                        urgent_action: 2,
-                      ),
-                    );
-
+                          ContractorFullTimePositionEvent.confirmRejectOffer(
+                            context: context,
+                            id: contractorFullPosting?.id ?? -1,
+                            urgent_action: 2,
+                          ),
+                        );
                   }
                 },
                 child: Padding(
@@ -342,7 +370,6 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
             ),
           )
         ],
-
       ],
     );
   }

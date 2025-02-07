@@ -27,8 +27,8 @@ import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_text
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CredentialRegistration extends StatelessWidget {
-  bool isUpdate;
-  CredentialRegistration({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const CredentialRegistration({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {

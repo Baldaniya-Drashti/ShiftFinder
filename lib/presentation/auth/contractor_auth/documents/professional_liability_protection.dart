@@ -25,8 +25,8 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 class ProfessionalLiabilityProtection extends StatelessWidget {
-  bool isUpdate;
-  ProfessionalLiabilityProtection({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const ProfessionalLiabilityProtection({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -358,8 +358,8 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: getSize(20)),
                                   child: const BaseText(
-                                    text:
-                                        "${StringConstant.pleaseSelectExpiryDateIfApplicable}",
+                                    text: StringConstant
+                                        .pleaseSelectExpiryDateIfApplicable,
                                     fontSize: 12,
                                     textColor: AppColors.red,
                                   ),

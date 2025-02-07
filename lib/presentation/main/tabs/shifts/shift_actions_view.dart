@@ -30,11 +30,12 @@ class ShiftActionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: false,
+      /* onWillPop: () {
         // context.router.popUntil((route) => route.isFirst);
         return Future.value(false);
-      },
+      }, */
       child: BlocProvider(
         create: (context) => getIt<ShiftActionBloc>()
           ..add(ShiftActionEvent.getEmployerData(

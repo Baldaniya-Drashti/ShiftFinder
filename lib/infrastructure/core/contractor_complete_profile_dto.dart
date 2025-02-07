@@ -2,7 +2,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
-import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 part 'contractor_complete_profile_dto.freezed.dart';
 part 'contractor_complete_profile_dto.g.dart';
 

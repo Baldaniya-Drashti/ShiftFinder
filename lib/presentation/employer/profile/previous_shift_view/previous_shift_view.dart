@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/widgets/underlined_tab_bar.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_blocked_view.dart';
@@ -49,9 +48,9 @@ class PreviousShiftView extends StatelessWidget {
                     Tab(text: "Remarked"),
                   ],
                   onTap: (value) {
-                    Log.info("value ${value}");
                     context.read<PreviousShiftBloc>().add(
-                          PreviousShiftEvent.tabChangeEvent(tabIndex: value + 1),
+                          PreviousShiftEvent.tabChangeEvent(
+                              tabIndex: value + 1),
                         );
                   },
                 ),

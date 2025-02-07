@@ -55,9 +55,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                       ColorFilter.mode(AppColors.black, BlendMode.srcIn),
                 ),
               ),
-              SizedBox(
-                width: getSize(15),
-              ),
+              SizedBox(width: getSize(15)),
               Container(
                 height: getSize(30),
                 width: getSize(35),
@@ -76,9 +74,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: getSize(12),
-              ),
+              SizedBox(width: getSize(12)),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -88,9 +84,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
                   ),
-                  SizedBox(
-                    height: getSize(2),
-                  ),
+                  SizedBox(height: getSize(2)),
                   BaseText(
                     text: additionalData.role_list_name ?? 'NA',
                     fontWeight: FontWeight.w600,
@@ -101,9 +95,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: getSize(13),
-          ),
+          SizedBox(height: getSize(5)),
           Divider(
             color: AppColors.black.withOpacity(0.1),
             thickness: 1,

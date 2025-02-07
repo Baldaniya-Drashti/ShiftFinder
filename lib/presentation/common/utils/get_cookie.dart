@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/infrastructure/account/account_entity.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
 import 'package:shift/infrastructure/core/network/hive_box_names.dart';
 import 'package:hive/hive.dart';
-import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 
 String? getUserToken() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.userToken);

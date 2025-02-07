@@ -5,7 +5,6 @@ import 'package:shift/application/employer/employer_long_term/employer_long_term
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/filled_tab_bar.dart';
@@ -20,52 +19,58 @@ class EmployerLongTermView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      getIt<EmployerLongTermBloc>()
-        ..add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(context: context, refresh: true))..add(
-          EmployerLongTermEvent.getEmployerFilledPosition(context: context, refresh: true)),
+      create: (context) => getIt<EmployerLongTermBloc>()
+        ..add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(
+            context: context, refresh: true))
+        ..add(EmployerLongTermEvent.getEmployerFilledPosition(
+            context: context, refresh: true)),
       child: BlocSelector<EmployerLongTermBloc, EmployerLongTermState, bool>(
         selector: (state) => state.postDataLoading,
         builder: (context, postDataLoading) {
-          return Stack(
-            children: [
-              Scaffold(
-                appBar: CommonAppBar(onBackPressed: context.maybePop, title: StringConstant.longTermPositions),
-                bottomNavigationBar: Padding(
-                  padding: EdgeInsets.all(getSize(16)),
-                  child: CommonButton(
-                    onPressed: () {
-                      print("Test");
-                      context.router.push(PageRouteInfo(EmployerLongTermPositionAddView.name));
-                    },
-                    buttonText: "Post a Long Term Position",
-                  ),
-                ),
-                body: DefaultTabController(
-                  length: 2,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(28)),
-                        child: FilledTabBar(tabs: [
-                          Tab(text: "Open Positions"),
-                          Tab(text: "Filled Positions"),
-                        ]),
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          children: [
-                            OpenPositionTabView(),
-                            FilledPositionTabView(),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+          return Scaffold(
+            appBar: CommonAppBar(
+                onBackPressed: context.maybePop,
+                title: StringConstant.longTermPositions),
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.all(getSize(16)),
+              child: CommonButton(
+                onPressed: () {
+                  context.router
+                      .push(PageRouteInfo(EmployerLongTermPositionAddView.name))
+                      .then((value) {
+                    final bloc = context.read<EmployerLongTermBloc>();
+                    bloc.add(
+                        EmployerLongTermEvent.getEmployerLongTermOpenPosition(
+                            context: context, refresh: true));
+                    bloc.add(EmployerLongTermEvent.getEmployerFilledPosition(
+                        context: context, refresh: true));
+                  });
+                },
+                buttonText: StringConstant.postALongTermPosition,
               ),
-              if(postDataLoading)CenterLoadingIndicator()
-            ],
+            ),
+            body: DefaultTabController(
+              length: 2,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(28)),
+                    child: FilledTabBar(tabs: [
+                      Tab(text: StringConstant.openPositions),
+                      Tab(text: StringConstant.filledPositions),
+                    ]),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        OpenPositionTabView(),
+                        FilledPositionTabView(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         },
       ),

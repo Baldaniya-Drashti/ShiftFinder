@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_long_term_payable/employer_long_term_payable_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -30,12 +30,11 @@ class EmployerLongTermPayableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ppppp>?${employerLongTermSuccessDto.id}");
-    print("ppppp>?${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermPayableBloc>(),
       child: Builder(builder: (context) {
-        return BlocSelector<EmployerLongTermPayableBloc, EmployerLongTermPayableState, bool>(
+        return BlocSelector<EmployerLongTermPayableBloc,
+            EmployerLongTermPayableState, bool>(
           selector: (state) {
             return state.postDataLoading;
           },
@@ -49,16 +48,22 @@ class EmployerLongTermPayableView extends StatelessWidget {
                       onPressed: () async {
                         final result = await AppDialog.showCommonDialog(
                           context: context,
-                          title: "${(postId == null || postId == -1) ? "Post" : "Update"} Long-Term Position",
-                          content: "Are you sure you want to post ${(postId == null || postId == -1) ? "post" : "update"} long-term position?",
-                          successLabel: (postId == null || postId == -1) ? "Post" : "Update",
+                          title:
+                              "${(postId == null || postId == -1) ? "Post" : "Update"} Long-Term Position",
+                          content:
+                              "Are you sure you want to post ${(postId == null || postId == -1) ? "post" : "update"} long-term position?",
+                          successLabel: (postId == null || postId == -1)
+                              ? "Post"
+                              : "Update",
                         );
                         if (result ?? false) {
                           context.read<EmployerLongTermPayableBloc>().add(
                                 EmployerLongTermPayableEvent.onPostShift(
                                   context: context,
                                   id: employerLongTermSuccessDto.id ?? -1,
-                                  totalVacancy: employerLongTermSuccessDto.number_of_vacancie ?? -1,
+                                  totalVacancy: employerLongTermSuccessDto
+                                          .number_of_vacancie ??
+                                      -1,
                                   postId: postId,
                                   employer: employerLongTermSuccessDto,
                                   postShift: postShiftDTO,
@@ -66,17 +71,20 @@ class EmployerLongTermPayableView extends StatelessWidget {
                               );
                         }
                       },
-                      buttonText: "${(postId == null || postId == -1) ?"Post":"Update"} The Shift",
+                      buttonText:
+                          "${(postId == null || postId == -1) ? "Post" : "Update"} The Shift",
                     ),
                   ),
-                  appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Payables"),
+                  appBar: CommonAppBar(
+                      onBackPressed: () => context.router.maybePop(),
+                      title: StringConstant.payables),
                   body: Padding(
                     padding: EdgeInsets.all(getSize(18)),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         BaseText(
-                          text: "ShiftFinder Service Fee Calculation",
+                          text: StringConstant.shiftFinderServiceFeeCalculation,
                           fontFamily: "Aclonica",
                           fontSize: 22,
                           fontWeight: FontWeight.w400,
@@ -86,8 +94,7 @@ class EmployerLongTermPayableView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(getSize(12)),
                           child: BaseText(
-                            text:
-                                "The ShiftFinder service fee is based on the total duration of the contract. If the contract duration is 15 days or more into the next month, it will be rounded up to the full month. For example, 4 months and 16 days will be charged as 5 months, while 4 months and 14 days will be charged as 4 months.",
+                            text: StringConstant.longTermPaybleDesc,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             textAlign: TextAlign.center,
@@ -98,19 +105,25 @@ class EmployerLongTermPayableView extends StatelessWidget {
                         Gap(getSize(22)),
                         Material(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color(0xFFC1F0C8),
+                          color: AppColors.primaryColor.withOpacity(0.2),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: getSize(18), horizontal: getSize(22)),
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(18), horizontal: getSize(22)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Expanded(
-                                  child: BaseText(text: "Total Months of Contract", fontSize: 13),
+                                  child: BaseText(
+                                      text:
+                                          StringConstant.totalMonthsOfContract,
+                                      fontSize: 13),
                                 ),
                                 BaseText(
-                                    text: "${employerLongTermSuccessDto.total_months ?? ""} Months",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16),
+                                  text:
+                                      "${employerLongTermSuccessDto.total_months ?? ""} Months",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
                               ],
                             ),
                           ),
@@ -120,25 +133,33 @@ class EmployerLongTermPayableView extends StatelessWidget {
                           color: AppColors.surfaceColor,
                           borderRadius: BorderRadius.circular(10),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: getSize(18), horizontal: getSize(22)),
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(18), horizontal: getSize(22)),
                             child: Column(
                               children: [
                                 _buildSpaceBetweenTile(context,
-                                    label: "Number of Vacancy", value: "${employerLongTermSuccessDto.number_of_vacancie ?? ""}"),
+                                    label: StringConstant.numberOfVacancies,
+                                    value:
+                                        "${employerLongTermSuccessDto.number_of_vacancie ?? ""}"),
                                 Gap(getSize(14)),
                                 _buildSpaceBetweenTile(context,
-                                    label: "Monthly Service Fee", value: "\$${employerLongTermSuccessDto.monthly_service_fee ?? " "}"),
+                                    label: StringConstant.monthlyServiceFee,
+                                    value:
+                                        "\$${employerLongTermSuccessDto.monthly_service_fee ?? " "}"),
                                 Gap(getSize(14)),
                                 _buildSpaceBetweenTile(context,
-                                    label: "Total Months", value: "${employerLongTermSuccessDto.total_months ?? ""}"),
-                                Divider(
-                                  height: 28,
+                                    label: StringConstant.totalMonths,
+                                    value:
+                                        "${employerLongTermSuccessDto.total_months ?? ""}"),
+                                Divider(height: getSize(28)),
+                                _buildSpaceBetweenTile(
+                                  context,
+                                  label: StringConstant.totalServiceFee,
+                                  value:
+                                      "\$${employerLongTermSuccessDto.total_amount_payable ?? ""}",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
                                 ),
-                                _buildSpaceBetweenTile(context,
-                                    label: "Total Service Fee",
-                                    value: "\$${employerLongTermSuccessDto.total_amount_payable ?? ""}",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14),
                               ],
                             ),
                           ),
@@ -173,7 +194,10 @@ class EmployerLongTermPayableView extends StatelessWidget {
             textColor: AppColors.black.withOpacity(0.7),
           ),
         ),
-        BaseText(text: value, fontWeight: fontWeight ?? FontWeight.w400, fontSize: fontSize ?? 13),
+        BaseText(
+            text: value,
+            fontWeight: fontWeight ?? FontWeight.w400,
+            fontSize: fontSize ?? 13),
       ],
     );
   }

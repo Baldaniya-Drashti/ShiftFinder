@@ -8,14 +8,9 @@ class MainTabEvent with _$MainTabEvent {
 
   const factory MainTabEvent.dontShowAgain(BuildContext context,
       {@Default(false) bool isCheck}) = DontShowAgain;
-  factory MainTabEvent.registerForPush(String fcmToken) = RegisterForPush;
 
+  /* factory MainTabEvent.registerForPush(String fcmToken) = RegisterForPush;
   factory MainTabEvent.pushNotificationInitialize(BuildContext context) =
       PushNotificationInitialize;
-  factory MainTabEvent.initDynamicLink(BuildContext context) = InitDynamicLink;
-  // factory MainTabEvent.registerForPush(String fcmToken) = RegisterForPush;
-
-  // factory MainTabEvent.pushNotificationInitialize(BuildContext context) =
-  //     PushNotificationInitialize;
-  // factory MainTabEvent.initDynamicLink(BuildContext context) = InitDynamicLink;
+  factory MainTabEvent.initDynamicLink(BuildContext context) = InitDynamicLink; */
 }

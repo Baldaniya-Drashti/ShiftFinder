@@ -7,23 +7,27 @@ import 'package:shift/application/employer/employer_long_term_confirmation/emplo
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermPostConfirmationView")
 class EmployerLongTermPostConfirmationView extends StatelessWidget {
   const EmployerLongTermPostConfirmationView(
-      {super.key, required this.postShiftDTO, required this.employerAddDetailDto, this.postId});
+      {super.key,
+      required this.postShiftDTO,
+      required this.employerAddDetailDto,
+      this.postId});
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto employerAddDetailDto;
@@ -31,133 +35,176 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("pppps${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermConfirmationBloc>()
         ..add(
-          EmployerLongTermConfirmationEvent.onCreate(postShiftDTO, employerAddDetailDto,postId),
+          EmployerLongTermConfirmationEvent.onCreate(
+              postShiftDTO, employerAddDetailDto, postId),
         ),
       child: Builder(
         builder: (context) {
           return Scaffold(
             bottomNavigationBar: SafeArea(
-              minimum: EdgeInsets.all(getSize(16)).copyWith(bottom: getSize(22)),
+              minimum:
+                  EdgeInsets.all(getSize(16)).copyWith(bottom: getSize(22)),
               child: CommonButton(
                 onPressed: () {
                   context.read<EmployerLongTermConfirmationBloc>().add(
                         EmployerLongTermConfirmationEvent.onContinue(context),
                       );
                 },
-                buttonText: "Continue",
+                buttonText: StringConstant.txtContinue,
               ),
             ),
-            appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
-            body: BlocBuilder<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState>(
+            appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                title: CommonList.industryList
+                        .firstWhere((item) => item.id == getCurrentIndustry())
+                        .title ??
+                    ""),
+            body: BlocBuilder<EmployerLongTermConfirmationBloc,
+                EmployerLongTermConfirmationState>(
               builder: (context, state) {
-                return Stack(
-                  children: [
-                    SingleChildScrollView(
-                      padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
-                      child: Column(
-                        children: [
-                          BlocSelector<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState, bool>(
-                            selector: (state) {
-                              return state.employerAddDetailDto.share_team_status == 1;
-                            },
-                            builder: (context, shareTeamStatus) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildCheckListTile(
-                                    context,
-                                    value: shareTeamStatus,
-                                    onChanged: (value) {
-                                      if (state.teamList.isEmpty) {
-                                        showError(message: StringConstant.toShareThisPostDesc).show(context);
-                                        return;
-                                      }
-                                      context.read<EmployerLongTermConfirmationBloc>().add(
-                                            EmployerLongTermConfirmationEvent.selectSharePostWithTeam(
-                                                shareTeamStatus ? 0 : 1),
-                                          );
-                                    },
-                                    label: "Share this posting with the Team",
-                                  ),
-                                  if (shareTeamStatus) ...[
-                                    Gap(getSize(18)),
-                                    _TeamsListView(
-                                      teamList: state.teamList,
-                                      selectedTeamList: state.selectedTeamList,
-                                    ),
-                                  ],
-                                ],
-                              );
-                            },
-                          ),
-                          Gap(getSize(18)),
-                          BlocSelector<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState, bool>(
-                            selector: (state) {
-                              return state.employerAddDetailDto.save_template_status == 1;
-                            },
-                            builder: (context, saveTemplateStatus) {
-                              return _buildCheckListTile(
-                                context,
-                                value: saveTemplateStatus,
-                                onChanged: (value) {
-                                  context.read<EmployerLongTermConfirmationBloc>().add(
-                                      EmployerLongTermConfirmationEvent.selectFuturePosting(
-                                          saveTemplateStatus ? 0 : 1));
-                                },
-                                label: "Save this as a template for future posting",
-                                trailing: GestureDetector(
-                                  onTap: () {
-                                    AppDialog.showInfo(
+                return (state.postDataLoading)
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BlocSelector<EmployerLongTermConfirmationBloc,
+                                EmployerLongTermConfirmationState, bool>(
+                              selector: (state) {
+                                return state.employerAddDetailDto
+                                        .share_team_status ==
+                                    1;
+                              },
+                              builder: (context, shareTeamStatus) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildCheckListTile(
                                       context,
-                                      StringConstant.teamInfoDesc,
-                                      maxLines: 10,
-                                    );
+                                      value: shareTeamStatus,
+                                      onChanged: (value) {
+                                        if (state.teamList.isEmpty) {
+                                          showError(
+                                                  message: StringConstant
+                                                      .toShareThisPostDesc)
+                                              .show(context);
+                                          return;
+                                        }
+                                        context
+                                            .read<
+                                                EmployerLongTermConfirmationBloc>()
+                                            .add(
+                                              EmployerLongTermConfirmationEvent
+                                                  .selectSharePostWithTeam(
+                                                      shareTeamStatus ? 0 : 1),
+                                            );
+                                      },
+                                      label: StringConstant
+                                          .shareThisPostingWithTheTeam,
+                                    ),
+                                    if (shareTeamStatus) ...[
+                                      Gap(getSize(18)),
+                                      _TeamsListView(
+                                        teamList: state.teamList,
+                                        selectedTeamList:
+                                            state.selectedTeamList,
+                                      ),
+                                    ],
+                                  ],
+                                );
+                              },
+                            ),
+                            Gap(getSize(18)),
+                            BlocSelector<EmployerLongTermConfirmationBloc,
+                                EmployerLongTermConfirmationState, bool>(
+                              selector: (state) {
+                                return state.employerAddDetailDto
+                                        .save_template_status ==
+                                    1;
+                              },
+                              builder: (context, saveTemplateStatus) {
+                                return _buildCheckListTile(
+                                  context,
+                                  value: saveTemplateStatus,
+                                  onChanged: (value) {
+                                    context
+                                        .read<
+                                            EmployerLongTermConfirmationBloc>()
+                                        .add(EmployerLongTermConfirmationEvent
+                                            .selectFuturePosting(
+                                                saveTemplateStatus ? 0 : 1));
                                   },
-                                  child: SvgPicture.asset(
-                                    SvgImageConstant.infoCircle,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          Gap(getSize(18)),
-                          BlocSelector<EmployerLongTermConfirmationBloc, EmployerLongTermConfirmationState, bool>(
-                            selector: (state) {
-                              return state.employerAddDetailDto.employer_payment_confirmation == 1;
-                            },
-                            builder: (context, employerConfirmation) {
-                              return _buildCheckListTile(
-                                context,
-                                value: employerConfirmation,
-                                onChanged: (value) {
-                                  context.read<EmployerLongTermConfirmationBloc>().add(
-                                        EmployerLongTermConfirmationEvent.selectTermsAndCondition(
-                                            employerConfirmation ? 0 : 1),
-                                      );
-                                },
-                                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                                label:
-                                    "By proceeding, I confirm that we, the employer, are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (state.postDataLoading)
-                      CenterLoadingIndicator(
-                        isOnlyLoader: true,
-                      ),
-                  ],
-                );
+                                  label: StringConstant
+                                      .saveThisAsATemplateForFuturePosting,
+                                );
+                              },
+                            ),
+                            Gap(getSize(18)),
+                            isTermsCheck(context, state),
+                            if (state.showErrorMessage && !state.isTermsCheck)
+                              commonErrorText(
+                                  StringConstant.pleaseCheckTheBoxToProceeding)
+                          ],
+                        ),
+                      );
               },
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget isTermsCheck(
+    BuildContext context,
+    EmployerLongTermConfirmationState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: getSize(20),
+            width: getSize(16.67),
+            child: Checkbox(
+              value: state.isTermsCheck,
+              activeColor: AppColors.primaryColor,
+              side: BorderSide(
+                width: getSize(1.5),
+                color: AppColors.black.withOpacity(0.5),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              onChanged: (value) {
+                if (value != null) {
+                  context.read<EmployerLongTermConfirmationBloc>().add(
+                      EmployerLongTermConfirmationEvent.selectTermsAndCondition(
+                          value));
+                }
+              },
+            ),
+          ),
+          SizedBox(width: getSize(15)),
+          Expanded(
+            child: BaseText(
+              text: StringConstant.longTermsDesc,
+              fontSize: 12,
+              maxLines: 7,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -176,7 +223,8 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
             horizontal: getSize(20),
             vertical: getSize(10),
           ),
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
         onTap: () {
           onChanged(!value);
@@ -222,7 +270,8 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
 }
 
 class _TeamsListView extends StatelessWidget {
-  const _TeamsListView({required this.teamList, required this.selectedTeamList});
+  const _TeamsListView(
+      {required this.teamList, required this.selectedTeamList});
 
   final List<TeamDTO> teamList;
   final List<TeamDTO> selectedTeamList;
@@ -255,7 +304,8 @@ class _TeamsListView extends StatelessWidget {
                 width: getSize(24),
               ),
               trailing: Checkbox(
-                value: selectedTeamList.any((selectedTeam) => selectedTeam.id == teamList[index].id),
+                value: selectedTeamList.any(
+                    (selectedTeam) => selectedTeam.id == teamList[index].id),
                 activeColor: AppColors.primaryColor,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 visualDensity: VisualDensity.compact,
@@ -269,7 +319,8 @@ class _TeamsListView extends StatelessWidget {
                 onChanged: (value) {
                   if (value != null) {
                     context.read<EmployerLongTermConfirmationBloc>().add(
-                          EmployerLongTermConfirmationEvent.selectTeam(teamList[index]),
+                          EmployerLongTermConfirmationEvent.selectTeam(
+                              teamList[index]),
                         );
                   }
                 },

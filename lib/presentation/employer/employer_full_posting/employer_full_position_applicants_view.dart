@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,30 +30,39 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<EmployerFullPostingApplicantBloc>()
         ..add(
-          EmployerFullPostingApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+          EmployerFullPostingApplicantEvent.getApplicants(
+              context: context, id: id, refresh: true),
         ),
       child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Applicants"),
-        body: BlocBuilder<EmployerFullPostingApplicantBloc, EmployerFullPostingApplicantState>(
+        appBar: CommonAppBar(
+            onBackPressed: () => context.router.maybePop(),
+            title: "View Applicants"),
+        body: BlocBuilder<EmployerFullPostingApplicantBloc,
+            EmployerFullPostingApplicantState>(
           builder: (context, state) {
             return PaginatedListView(
               onRefresh: () {
                 context.read<EmployerFullPostingApplicantBloc>().add(
-                      EmployerFullPostingApplicantEvent.getApplicants(context: context, id: id, refresh: true),
+                      EmployerFullPostingApplicantEvent.getApplicants(
+                          context: context, id: id, refresh: true),
                     );
               },
               onLoading: () {
                 context.read<EmployerFullPostingApplicantBloc>().add(
-                      EmployerFullPostingApplicantEvent.getApplicants(context: context, id: id, refresh: false),
+                      EmployerFullPostingApplicantEvent.getApplicants(
+                          context: context, id: id, refresh: false),
                     );
               },
-              refreshController: context.read<EmployerFullPostingApplicantBloc>().refreshController,
+              refreshController: context
+                  .read<EmployerFullPostingApplicantBloc>()
+                  .refreshController,
               isNoDataFound: state.isNoDataFound,
               child: state.isLoading
                   ? CenterLoadingIndicator()
                   : state.isErrorInAPI
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
@@ -64,7 +72,9 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                             final data = state.applicantsList[index];
                             return Material(
                               color: AppColors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(20))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(getSize(20))),
                               child: Padding(
                                 padding: EdgeInsets.all(getSize(12)),
                                 child: Column(
@@ -79,13 +89,16 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                                         context.router.push(
                                           PageRouteInfo(
                                             ViewApplicantProfile.name,
-                                              args: ViewApplicantProfileArgs(
-                                                id: data.user_id ?? -1, postId: data.post_id ?? -1, isLongOrFull: 1),
+                                            args: ViewApplicantProfileArgs(
+                                                id: data.user_id ?? -1,
+                                                postId: data.post_id ?? -1,
+                                                isLongOrFull: 1),
                                           ),
                                         );
                                       },
                                       label: "View Profile",
-                                      backgroundColor: AppColors.primaryColor.withOpacity(.1),
+                                      backgroundColor: AppColors.primaryColor
+                                          .withOpacity(.1),
                                     )
                                   ],
                                 ),

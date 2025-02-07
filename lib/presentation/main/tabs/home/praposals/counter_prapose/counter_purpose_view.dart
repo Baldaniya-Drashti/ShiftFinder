@@ -7,7 +7,6 @@ import 'package:shift/application/employer/counter_proposal_detail/counter_propo
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -19,8 +18,6 @@ import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_text
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
-import 'package:shift/presentation/main/tabs/home/praposals/widgets/person_praposal_view.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'CounterPurposeView')

@@ -1,16 +1,13 @@
-import 'dart:math';
+// ignore_for_file: deprecated_member_use
 
-import 'package:auto_route/annotations.dart';
+import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/contractor/full_time_position_detail/full_time_position_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -23,7 +20,9 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Position Details"),
+      appBar: CommonAppBar(
+          onBackPressed: () => context.router.maybePop(),
+          title: "View Position Details"),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(12),
         child: BaseTileDecoration(
@@ -42,10 +41,12 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
               _buildBulletPointsList(context, title: "Benefits Provided"),
               _buildBulletPointsList(context, title: "Compensation Package"),
               _buildBulletPointsList(context, title: "Job Summary"),
-              _buildBulletPointsList(context, title: "External and Internal Relationships"),
+              _buildBulletPointsList(context,
+                  title: "External and Internal Relationships"),
               _buildBulletPointsList(context, title: "Required Qualifications"),
               _buildBulletPointsList(context, title: "Required Experience"),
-              _buildBulletPointsList(context, title: "Required Licenses/Certifications"),
+              _buildBulletPointsList(context,
+                  title: "Required Licenses/Certifications"),
               _buildBulletPointsList(context, title: "Required Skills"),
               _buildBulletPointsList(context, title: "Other"),
               _buildNumberOfVacancy(context)
@@ -137,13 +138,14 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
             BaseText(
               fontWeight: FontWeight.w400,
               fontSize: 14,
               text:
-              "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
+                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
             ),
           ],
         ),
@@ -167,7 +169,8 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(SvgImageConstant.dollorRound, height: 18),
+                      SvgPicture.asset(SvgImageConstant.dollorRound,
+                          height: 18),
                       Gap(10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,10 +206,14 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
                             TextSpan(children: [
                               TextSpan(
                                 text: "2024",
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
+                                style: TextStyle(
+                                    color: AppColors.green.withOpacity(0.5)),
                               )
                             ], text: "22 Oct, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -240,11 +247,18 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Estimated Weekly Hours", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Estimated Weekly Hours",
+                fontSize: 14,
+                fontWeight: FontWeight.w500),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(child: BaseText(text: "45 Hour", fontSize: 20, fontWeight: FontWeight.w600)),
+                Expanded(
+                    child: BaseText(
+                        text: "45 Hour",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600)),
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: 40,
@@ -268,7 +282,10 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Shift Schedule", fontSize: 14, fontWeight: FontWeight.w600),
+            BaseText(
+                text: "Shift Schedule",
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
             Gap(12),
             SizedBox(
               width: double.maxFinite,
@@ -277,10 +294,12 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
                 runSpacing: 12,
                 children: List.generate(
                   4,
-                      (index) {
+                  (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey),
+                          borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: "Morning",
                         fontSize: 14,
@@ -307,9 +326,15 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Language Requirements", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Language Requirements",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Gap(3),
-            BaseText(text: "English, Hindi", fontSize: 14, textColor: AppColors.green)
+            BaseText(
+                text: "English, Hindi",
+                fontSize: 14,
+                textColor: AppColors.green)
           ],
         ),
       ),
@@ -326,18 +351,31 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Location Details", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Location Details",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "Location", fontSize: 12, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "Location",
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
             Gap(4),
-            BaseText(text: "2464 Royal Ln. Mesa, New Jersey 45463", fontSize: 14),
+            BaseText(
+                text: "2464 Royal Ln. Mesa, New Jersey 45463", fontSize: 14),
             Gap(10),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BaseText(text: "Unit - ", fontSize: 12, textColor: AppColors.primaryColor),
-                BaseText(text: "Unit Name", fontSize: 12, fontWeight: FontWeight.w500),
+                BaseText(
+                    text: "Unit - ",
+                    fontSize: 12,
+                    textColor: AppColors.primaryColor),
+                BaseText(
+                    text: "Unit Name",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500),
               ],
             ),
             Gap(4),
@@ -358,10 +396,14 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Union/Bargaining Unit", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Union/Bargaining Unit",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
           ],
         ),
       ),
@@ -378,17 +420,24 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "On-Call", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "On-Call",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "This position may include on-call", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "This position may include on-call",
+                fontSize: 14,
+                fontWeight: FontWeight.w500),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBulletPointsList(BuildContext context, {
+  Widget _buildBulletPointsList(
+    BuildContext context, {
     required String title,
   }) {
     return Material(
@@ -400,13 +449,15 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: title, fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: title,
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
             ...List.generate(
               max(0, (4 * 2) - 1),
-                  (initialIndex) {
-                final int index = initialIndex ~/ 2;
+              (initialIndex) {
                 if (initialIndex.isEven) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -443,9 +494,13 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w600),
+              child: BaseText(
+                  text: "Number of Vacancies",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600),
             ),
-            BaseText(text: "05", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "05", fontSize: 14, textColor: AppColors.primaryColor),
           ],
         ),
       ),

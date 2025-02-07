@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/auth/contractor_auth/address_proof/address_proof_bloc.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
@@ -21,10 +20,12 @@ part 'employer_long_term_payable_state.dart';
 part 'employer_long_term_payable_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, EmployerLongTermPayableState> {
+class EmployerLongTermPayableBloc
+    extends Bloc<EmployerLongTermPayableEvent, EmployerLongTermPayableState> {
   final IMainFacade _iMainFacade;
 
-  EmployerLongTermPayableBloc(this._iMainFacade) : super(EmployerLongTermPayableState.initial()) {
+  EmployerLongTermPayableBloc(this._iMainFacade)
+      : super(EmployerLongTermPayableState.initial()) {
     on<EmployerLongTermPayableEvent>((event, emit) async {
       await event.map(
         onPostShift: (value) async {
@@ -46,7 +47,8 @@ class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, Emp
                 specialties_detail_other: postShift.specialties_detail_other,
                 software_skill_other: postShift.software_skill_other,
                 language_other: postShift.language_other,
-                team_id: value.employer.teams?.map((e) => e.id).toList().join(","),
+                team_id:
+                    value.employer.teams?.map((e) => e.id).toList().join(","),
                 softwares_skill_list_id: postShift.softwares_skill_list_id);
 
             response = await _iMainFacade.updateLongFullTermPost(data: {
@@ -60,7 +62,8 @@ class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, Emp
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
@@ -73,7 +76,23 @@ class EmployerLongTermPayableBloc extends Bloc<EmployerLongTermPayableEvent, Emp
                 infoMessage:
                     "Your healthcare long term position has been successfully ${(value.postId == null || value.postId == -1) ? "Post" : "Update"}, with a total of ${value.totalVacancy} vacancy.",
                 onOkClick: () {
-                  value.context.router.popUntil((route) => route.isFirst);
+                  // value.context.router.popUntilRouteWithName(
+                  //   EmployerLongTermView.name,
+                  // );
+
+                  value.context.router.popUntil((route) {
+                    if (route.settings.name == EmployerLongTermView.name) {
+                      bool argument = true;
+                      route.onPopInvokedWithResult(true, argument);
+                      // (route.settings.arguments as Map)['isPOP'] = true;
+                      return true;
+                    } else {
+                      return false;
+                    }
+                    // return route.settings.name == EmployerLongTermView.name;
+                  });
+
+                  // value.context.router.popUntil((route) => route.isFirst);
                 },
               );
             },

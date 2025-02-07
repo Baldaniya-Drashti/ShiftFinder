@@ -1,7 +1,8 @@
 part of 'employer_long_term_confirmation_bloc.dart';
 
 @freezed
-class EmployerLongTermConfirmationState with _$EmployerLongTermConfirmationState {
+class EmployerLongTermConfirmationState
+    with _$EmployerLongTermConfirmationState {
   const factory EmployerLongTermConfirmationState({
     @Default([]) List<TeamDTO> teamList,
     @Default([]) List<TeamDTO> selectedTeamList,
@@ -11,8 +12,12 @@ class EmployerLongTermConfirmationState with _$EmployerLongTermConfirmationState
     @Default(false) bool postDataLoading,
     @Default(PostShiftDTO()) PostShiftDTO postShiftDTO,
     int? postId,
-    @Default(EmployerLongTermSuccessDto()) EmployerLongTermSuccessDto employerAddDetailDto,
+    @Default(false) bool isTermsCheck,
+    @Default(false) bool showErrorMessage,
+    @Default(EmployerLongTermSuccessDto())
+    EmployerLongTermSuccessDto employerAddDetailDto,
   }) = _EmployerLongTermConfirmationState;
 
-  factory EmployerLongTermConfirmationState.initial() => EmployerLongTermConfirmationState();
+  factory EmployerLongTermConfirmationState.initial() =>
+      EmployerLongTermConfirmationState();
 }

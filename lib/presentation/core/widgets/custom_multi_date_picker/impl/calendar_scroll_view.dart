@@ -10,8 +10,8 @@ class _CalendarScrollView extends StatefulWidget {
     required this.onChanged,
     required this.onDisplayedMonthChanged,
     required this.selectedDateColors,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The calendar configurations
   final CalendarDatePicker2Config config;

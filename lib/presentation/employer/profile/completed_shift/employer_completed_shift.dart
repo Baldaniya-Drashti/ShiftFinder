@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,6 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
-import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerCompletedShiftView")
@@ -151,71 +152,6 @@ class _CompletedShiftListView extends StatelessWidget {
         data: allPostList[index],
       ),
       separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
-    );
-  }
-}
-
-class _RatingsDropdown extends StatelessWidget {
-  const _RatingsDropdown({
-    required this.onChanged,
-    required this.value,
-  });
-
-  final ValueSetter<RatingDropdownModel> onChanged;
-  final RatingDropdownModel value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BaseText(text: "Sort by", fontSize: 10, fontWeight: FontWeight.w500),
-        SizedBox(height: getSize(7)),
-        CustomDropdownField<RatingDropdownModel>(
-          items: [
-            RatingDropdownModel(
-              value: 1,
-              title: "Rating (Ascending to Descending)",
-              icon: SvgImageConstant.starFilled,
-            ),
-            RatingDropdownModel(
-                value: 2,
-                title: "Location (Descending to Ascending) ",
-                icon: SvgImageConstant.locationIcon,
-                iconColor: Colors.black),
-          ]
-              .map(
-                (e) => DropdownMenuItem<RatingDropdownModel>(
-                  value: e,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        e.icon,
-                        height: 18,
-                        width: 18,
-                        colorFilter: e.iconColor != null
-                            ? ColorFilter.mode(e.iconColor!, BlendMode.srcIn)
-                            : null,
-                      ),
-                      SizedBox(
-                        width: getSize(10),
-                      ),
-                      BaseText(
-                        text: e.title,
-                        fontWeight: FontWeight.w500,
-                        fontSize: getSize(13),
-                      )
-                    ],
-                  ),
-                ),
-              )
-              .toList(),
-          onChanged: (value) => onChanged(value!),
-          value: value,
-        ),
-      ],
     );
   }
 }

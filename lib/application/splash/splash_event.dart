@@ -4,4 +4,10 @@ part of 'splash_bloc.dart';
 class SplashEvent with _$SplashEvent {
   const factory SplashEvent.started() = _Started;
   const factory SplashEvent.getAccount() = _GetAccount;
+
+  factory SplashEvent.registerForPush(String fcmToken) = RegisterForPush;
+
+  factory SplashEvent.pushNotificationInitialize(BuildContext context) =
+      PushNotificationInitialize;
+  factory SplashEvent.initDynamicLink(BuildContext context) = InitDynamicLink;
 }

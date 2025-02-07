@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 part 'notification_dto.freezed.dart';
 part 'notification_dto.g.dart';
 

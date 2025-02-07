@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/core/helper/push_notification_helper.dart';
 
 part 'splash_event.dart';
 part 'splash_state.dart';
@@ -57,6 +59,31 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
               ),
             );
           }
+        },
+        registerForPush: (RegisterForPush value) async {
+          print("FCM token----> ${value.fcmToken}");
+          await _authFacade.registerForPush(fcmToken: value.fcmToken);
+        },
+        pushNotificationInitialize: (PushNotificationInitialize value) async {
+          print("pushNotificationInitialize calledd");
+          await PushNotificationService().setupInteractedMessage(value.context);
+          PushNotificationService()
+              .firebaseMessaging
+              .onTokenRefresh
+              .listen((event) {
+            add(SplashEvent.registerForPush(event));
+          });
+          await PushNotificationService()
+              .firebaseMessaging
+              .getToken()
+              .then((value) async {
+            add(SplashEvent.registerForPush(value ?? ""));
+          });
+        },
+        initDynamicLink: (InitDynamicLink value) async {
+          print("initDynamicLink called!!! Splashhh");
+          // DynamicLinksService.initDynamicLinks(value.context);
+          add(SplashEvent.pushNotificationInitialize(value.context));
         },
       );
     });

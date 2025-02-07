@@ -318,7 +318,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
       case CalendarDatePicker2Mode.day:
         return _CalendarView(
           config: widget.config,
-          selectedDateColors: widget.selectedDateColors ?? {},
+          selectedDateColors: widget.selectedDateColors,
           key: _dayPickerKey,
           initialMonth: _currentDisplayedMonthDate,
           selectedDates: _selectedDates,

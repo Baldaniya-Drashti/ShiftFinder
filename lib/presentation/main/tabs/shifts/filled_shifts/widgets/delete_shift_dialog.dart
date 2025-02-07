@@ -11,10 +11,10 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class DeleteShiftDialog extends StatelessWidget {
-  bool showCADDesc;
-  bool showDelete;
-  int postId;
-  DeleteShiftDialog(
+  final bool showCADDesc;
+  final bool showDelete;
+  final int postId;
+  const DeleteShiftDialog(
       {super.key,
       this.showCADDesc = false,
       this.showDelete = false,

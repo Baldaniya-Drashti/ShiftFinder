@@ -1,45 +1,48 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
-import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
-import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
-
 part 'employer_long_term_position_add_detail_event.dart';
-
 part 'employer_long_term_position_add_detail_state.dart';
-
 part 'employer_long_term_position_add_detail_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermPositionAddDetailBloc
-    extends Bloc<EmployerLongTermPositionAddDetailEvent, EmployerLongTermPositionAddDetailState> {
-  EmployerLongTermPositionAddDetailBloc() : super(EmployerLongTermPositionAddDetailState.initial()) {
+class EmployerLongTermPositionAddDetailBloc extends Bloc<
+    EmployerLongTermPositionAddDetailEvent,
+    EmployerLongTermPositionAddDetailState> {
+  EmployerLongTermPositionAddDetailBloc()
+      : super(EmployerLongTermPositionAddDetailState.initial()) {
     on<EmployerLongTermPositionAddDetailEvent>(
       (event, emit) {
         event.map(selectStartDate: (value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(start_date: value.startDate),
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto
+                  .copyWith(
+                      start_date: value.startDate,
+                      end_date: null,
+                      application_deadline: null),
             ),
           );
         }, selectEndDate: (value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(end_date: value.endaDate),
+              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto
+                  .copyWith(end_date: value.endaDate),
             ),
           );
         }, selectApplicationDeadline: (value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 application_deadline: value.deadLine,
               ),
             ),
@@ -47,7 +50,8 @@ class EmployerLongTermPositionAddDetailBloc
         }, selectEstimatedHour: (value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 estimated_weekly_hours: value.estimatedHour,
               ),
             ),
@@ -57,7 +61,8 @@ class EmployerLongTermPositionAddDetailBloc
         }, selectDocument: (SelectDocument value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 terms_document: value.path,
               ),
             ),
@@ -65,29 +70,34 @@ class EmployerLongTermPositionAddDetailBloc
         }, addMoreVacancy: (AddMoreVacancy value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 vacancie_type: value.value,
               ),
             ),
           );
         }, onCreate: (OnCreate value) {
           print("==============> ${value.employer?.job_description}");
-          print("==============> tt${getShiftSchedule(value.employer?.shift_schedule_type ?? "")}");
+          print(
+              "==============> tt${getShiftSchedule(value.employer?.shift_schedule_type ?? "")}");
           emit(
             state.copyWith(
               postShiftDto: value.postShitDto,
               postId: value.postId,
-              employerLongTermAddDetailDto: value.employer ?? EmployerLongTermSuccessDto(),
+              employerLongTermAddDetailDto:
+                  value.employer ?? EmployerLongTermSuccessDto(),
               requiredShiftScheduleChipList: ListInputEmptyOrNot(
                 getShiftSchedule(value.employer?.shift_schedule_type ?? "1"),
               ),
             ),
           );
-          print("==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
+          print(
+              "==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
         }, removeDocument: (RemoveDocument value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 terms_document: null,
               ),
             ),
@@ -102,7 +112,8 @@ class EmployerLongTermPositionAddDetailBloc
             qualifications: value.qualification,
             licenses_certifications: value.licences,
             onboarding_process: value.onboarding,
-            shift_schedule_type: getShiftScheduleId(state.requiredShiftScheduleChipList.getValue()),
+            shift_schedule_type: getShiftScheduleId(
+                state.requiredShiftScheduleChipList.getValue()),
             number_of_vacancie: int.tryParse(value.numberOfVacancy ?? ""),
             terms: value.terms,
           );
@@ -112,13 +123,17 @@ class EmployerLongTermPositionAddDetailBloc
           value.context.router.push(
             PageRouteInfo(
               EmployerLongTermPostConfirmationView.name,
-              args: EmployerLongTermPostConfirmationViewArgs(postShiftDTO: postShift, employerAddDetailDto: employer, postId: state.postId),
+              args: EmployerLongTermPostConfirmationViewArgs(
+                  postShiftDTO: postShift,
+                  employerAddDetailDto: employer,
+                  postId: state.postId),
             ),
           );
         }, onChangeContractIncludeCall: (OnChangeContractIncludeCall value) {
           emit(
             state.copyWith(
-              employerLongTermAddDetailDto: state.employerLongTermAddDetailDto.copyWith(
+              employerLongTermAddDetailDto:
+                  state.employerLongTermAddDetailDto.copyWith(
                 on_call_included: value.value,
               ),
             ),
@@ -128,7 +143,8 @@ class EmployerLongTermPositionAddDetailBloc
             state.copyWith(
               requiredShiftScheduleChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.requiredShiftScheduleChipList.getValue())..remove(value.selectedValue),
+                  List.of(state.requiredShiftScheduleChipList.getValue())
+                    ..remove(value.selectedValue),
                 ),
               ),
             ),

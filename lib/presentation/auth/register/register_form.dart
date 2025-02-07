@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';

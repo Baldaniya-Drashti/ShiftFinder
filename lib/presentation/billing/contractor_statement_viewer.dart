@@ -6,7 +6,6 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/contractor_main/earning/statement_dto/statement_dto.dart';
-import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/contractor_earning/contractor_statement_view.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
@@ -29,8 +28,6 @@ class GenerateContractorStatement extends StatelessWidget {
     final regularFont = pw.Font.ttf(
       await rootBundle.load('assets/fonts/RobotoFlex-Regular.ttf'),
     );
-
-    final logoImage = await rootBundle.load('assets/png/splash_logo.png');
 
     pdf.addPage(
       index: 0,

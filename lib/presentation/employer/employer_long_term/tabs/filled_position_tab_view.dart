@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_long_term/employer_long_term_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
@@ -44,14 +43,14 @@ class FilledPositionTabView extends StatelessWidget {
                   ),
                 );
           },
-          refreshController: context.read<EmployerLongTermBloc>().filledPositionController,
+          refreshController:
+              context.read<EmployerLongTermBloc>().filledPositionController,
           isNoDataFound: state.fillPositionNoDataFound,
           child: state.fillPositionLoading
-              ? CenterLoadingIndicator()
+              ? CenterLoadingIndicator(isOnlyLoader: true)
               : state.fillPositionErrorInAPI
                   ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
+                      child: BaseText(text: StringConstant.somethindWentWrong))
                   : ListView.separated(
                       padding: EdgeInsets.all(getSize(12)),
                       separatorBuilder: (context, index) => Gap(getSize(16)),
@@ -62,7 +61,10 @@ class FilledPositionTabView extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: AppColors.white,
                             boxShadow: [
-                              BoxShadow(color: AppColors.lightGrey.withOpacity(0.3), blurRadius: getSize(20), spreadRadius: 5),
+                              BoxShadow(
+                                  color: AppColors.lightGrey.withOpacity(0.3),
+                                  blurRadius: getSize(20),
+                                  spreadRadius: 5),
                             ],
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -76,8 +78,12 @@ class FilledPositionTabView extends StatelessWidget {
                                   context,
                                   onPressed: () {
                                     context.router.push(
-                                      PageRouteInfo(EmployerLongTermPositionDetailView.name,
-                                          args: EmployerLongTermPositionDetailViewArgs(id: data.id ?? -1)),
+                                      PageRouteInfo(
+                                          EmployerLongTermPositionDetailView
+                                              .name,
+                                          args:
+                                              EmployerLongTermPositionDetailViewArgs(
+                                                  id: data.id ?? -1)),
                                     );
                                   },
                                 ),
@@ -89,8 +95,10 @@ class FilledPositionTabView extends StatelessWidget {
                                     context.router.push(
                                       PageRouteInfo(
                                         ViewApplicantProfile.name,
-                                        args:
-                                            ViewApplicantProfileArgs(id: data.user?.user_id ?? -1, postId: data.id ?? -1, isLongOrFull: 1),
+                                        args: ViewApplicantProfileArgs(
+                                            id: data.user?.user_id ?? -1,
+                                            postId: data.id ?? -1,
+                                            isLongOrFull: 1),
                                       ),
                                     );
                                   },
@@ -98,17 +106,23 @@ class FilledPositionTabView extends StatelessWidget {
                                     color: AppColors.scaffoldColor,
                                     borderRadius: BorderRadius.circular(7),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(8),
+                                          horizontal: getSize(12)),
                                       child: CommonInfoTile(
-                                        leading: UserAvatar(url: data.user?.profile ?? ""),
+                                        leading: UserAvatar(
+                                            url: data.user?.profile ?? ""),
                                         title: BaseText(
-                                          text: "${data.user?.first_name ?? ""} ${data.user?.last_name ?? ""}",
+                                          text:
+                                              "${data.user?.first_name ?? ""} ${data.user?.last_name ?? ""}",
                                           fontSize: 14,
                                         ),
                                         trailing: SvgPicture.asset(
                                           SvgImageConstant.rightArrow,
                                           height: 16,
-                                          color: AppColors.black.withOpacity(0.5),
+                                          // ignore: deprecated_member_use
+                                          color:
+                                              AppColors.black.withOpacity(0.5),
                                         ),
                                       ),
                                     ),
@@ -133,7 +147,8 @@ class FilledPositionTabView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.primaryColor,
       child: Padding(
-        padding: EdgeInsets.all(getSize(8)).copyWith(right: getSize(12), left: getSize(12)),
+        padding: EdgeInsets.all(getSize(8))
+            .copyWith(right: getSize(12), left: getSize(12)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -156,7 +171,8 @@ class FilledPositionTabView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BaseText(
-                    text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
+                    text:
+                        "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.white.withOpacity(0.80),
@@ -174,51 +190,11 @@ class FilledPositionTabView extends StatelessWidget {
               minTileHeight: getSize(43.41),
             ),
             Divider(color: AppColors.white.withOpacity(0.2)),
-
             Gap(getSize(4)),
             _buildLocationInfo(context, employer: employer),
             Gap(getSize(4)),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildPositionInfo(
-    BuildContext context, {
-    required EmployerLongFullTermDashboardDto employer,
-  }) {
-    return Material(
-      color: AppColors.primaryColor,
-      child: Row(
-        children: [
-          Image.asset(
-            PngImageConstants.nurse2,
-            height: getSize(50),
-            color: AppColors.white,
-          ),
-          Gap(getSize(16)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: employer.roles_list_name ?? "",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.white,
-                ),
-                BaseText(
-                  text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.white,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -270,12 +246,15 @@ class FilledPositionTabView extends StatelessWidget {
       color: AppColors.scaffoldColor,
       child: IntrinsicHeight(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(16), vertical: getSize(8)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(16), vertical: getSize(8)),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: _buildDateInfoTile(context, title: 'Start Date:-', dateTime: employer.start_date ?? DateTime.now()),
+                child: _buildDateInfoTile(context,
+                    title: 'Start Date:-',
+                    dateTime: employer.start_date ?? DateTime.now()),
               ),
               VerticalDivider(),
               Gap(getSize(18)),
@@ -304,7 +283,8 @@ class FilledPositionTabView extends StatelessWidget {
       children: [
         BaseText(text: title, fontSize: 9),
         Text.rich(
-          style: TextStyle(fontSize: getFontSize(10), fontWeight: FontWeight.w600),
+          style:
+              TextStyle(fontSize: getFontSize(10), fontWeight: FontWeight.w600),
           TextSpan(
             text: "${DateFormat("dd MMM").format(dateTime)},",
             children: [

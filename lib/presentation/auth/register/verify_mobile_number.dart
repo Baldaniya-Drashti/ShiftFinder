@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/register_form/register_form_bloc.dart';
+import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -82,6 +83,10 @@ class VerifyPhoneNumber extends StatelessWidget {
                     AppFocus.unfocus(context);
                   },
                   (r) {
+                    context
+                        .read<SplashBloc>()
+                        .add(SplashEvent.initDynamicLink(context));
+
                     if (getCurrentRole() == 1) {
                       /*context.router.replace(PageRouteInfo(
                           AddContractorSkillsForm.name,

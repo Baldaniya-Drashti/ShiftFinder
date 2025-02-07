@@ -17,11 +17,9 @@ import 'package:shift/presentation/common/widgets/common_country_code_picker.dar
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/attachment.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
-import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/customer_support/support_ticket_layout.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -99,8 +97,9 @@ class _SupportFormState extends State<_SupportForm> {
                           textInputAction: TextInputAction.next,
                           validator: (value, context) {
                             value = value?.trim() ?? "";
-                            if (value.isEmpty)
+                            if (value.isEmpty) {
                               return StringConstant.pleaseEnterCompanyName;
+                            }
                             return null;
                           },
                         ),
@@ -204,8 +203,9 @@ class _SupportFormState extends State<_SupportForm> {
                         textInputAction: TextInputAction.done,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          if (value.isEmpty)
+                          if (value.isEmpty) {
                             return StringConstant.pleaseEnterDescription;
+                          }
                           return null;
                         },
                       ),

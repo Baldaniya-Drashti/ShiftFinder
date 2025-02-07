@@ -16,8 +16,8 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class DocumentList extends StatefulWidget {
-  bool isUpdate;
-  DocumentList({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const DocumentList({super.key, this.isUpdate = false});
 
   @override
   State<DocumentList> createState() => _DocumentListState();

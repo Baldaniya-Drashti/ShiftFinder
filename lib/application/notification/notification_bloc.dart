@@ -1,14 +1,14 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';
 part 'notification_bloc.freezed.dart';
+
 @injectable
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc() : super(const NotificationState()) {
-    on<NotificationEvent>((event, emit) {
-    });
+    on<NotificationEvent>((event, emit) {});
   }
 }

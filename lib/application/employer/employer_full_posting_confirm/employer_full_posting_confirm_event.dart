@@ -10,7 +10,6 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
     required bool value,
   }) = OnIncludeOnCallChanged;
 
-
   const factory EmployerFullPostingConfirmEvent.onFuturePostingChanged({
     required bool value,
   }) = OnFuturePostingChanged;
@@ -21,12 +20,16 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
   const factory EmployerFullPostingConfirmEvent.onTermsAndConditionChanged({
     required bool value,
   }) = OnTermsAndConditionChanged;
-  const factory EmployerFullPostingConfirmEvent.onCreate({
-    required EmployerLongTermSuccessDto employerLongTermSuccessDto,
-     int? post
-  }) = OnCreate;
-  const factory EmployerFullPostingConfirmEvent.onContinue({
-    required BuildContext context,
-    required String vacancyNumber
-  }) = OnContinue;
+  const factory EmployerFullPostingConfirmEvent.onCreate(
+      {required EmployerLongTermSuccessDto employerLongTermSuccessDto,
+      int? post}) = OnCreate;
+
+  const factory EmployerFullPostingConfirmEvent.onContinue(
+      {required BuildContext context}) = OnContinue;
+
+  const factory EmployerFullPostingConfirmEvent.addVacancyChanged(
+      String vacancy) = AddVacancyChanged;
+
+  const factory EmployerFullPostingConfirmEvent.checkIsMoreVancancy(
+      bool isMoreVacancy) = CheckIsMoreVancancy;
 }

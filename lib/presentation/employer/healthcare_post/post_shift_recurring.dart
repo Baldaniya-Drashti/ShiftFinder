@@ -1,7 +1,3 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, avoid_print
-
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +18,6 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -33,12 +28,12 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'postShiftRecurring')
 class PostShiftRecurring extends StatelessWidget {
-  int shiftType;
-  HealthcarePostDTO? updateShift;
-  PostShiftDTO post;
+  final int shiftType;
+  final HealthcarePostDTO? updateShift;
+  final PostShiftDTO post;
   final bool fromSaveTemplate;
 
-  PostShiftRecurring({
+  const PostShiftRecurring({
     super.key,
     required this.shiftType,
     required this.updateShift,
@@ -54,8 +49,6 @@ class PostShiftRecurring extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Log.success("===rrr ${fromSaveTemplate}");
-    print("updatedShift--->  ${jsonEncode(post)}");
     return PopScope(
       canPop: false,
       child: GestureDetector(
@@ -215,7 +208,6 @@ class PostShiftRecurring extends StatelessWidget {
                                           vertical: getSize(20)),
                                       child: CommonButton(
                                         onPressed: () {
-                                          int? difference;
                                           DateTime? startDate =
                                               state.recurringStartDate.isValid()
                                                   ? DateTime.parse(state
@@ -255,18 +247,10 @@ class PostShiftRecurring extends StatelessWidget {
                                             }
                                           }
 
-                                          /* if (startDate != null &&
-                                              endDate != null) {
-                                            difference = endDate
-                                                .difference(startDate)
-                                                .inDays;
-                                          } */
                                           if (selectedDayCount > 20) {
                                             confirmationDialog(context, state,
                                                 noOfShift: selectedDayCount);
                                           } else {
-                                            print(
-                                                "----------ll>${fromSaveTemplate}");
                                             context.read<PostShiftBloc>().add(
                                                 PostShiftEvent
                                                     .recurringButtonEvent(

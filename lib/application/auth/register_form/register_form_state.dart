@@ -25,6 +25,7 @@ class RegisterFormState with _$RegisterFormState {
     required Password password,
     required ConfirmPassword confirmPassword,
     required String association,
+    required InputEmptyOrNot dateOfBirth,
     required String referralCode,
     required String companyDescription,
     required String selectedCountrycode,
@@ -64,6 +65,7 @@ class RegisterFormState with _$RegisterFormState {
         /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
         selectImage: "",
         companyName: InputEmptyOrNot(""),
+        dateOfBirth: InputEmptyOrNot(""),
         phoneNumber: MobileNumber(""),
         email: EmailAddress(""),
         locationAddress: InputEmptyOrNot(""),

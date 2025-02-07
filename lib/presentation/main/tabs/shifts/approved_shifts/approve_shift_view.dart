@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
@@ -130,7 +132,6 @@ class ApproveShiftView extends StatelessWidget {
                                                                 .id ??
                                                             -1)))
                                                 .then((value) {
-                                              print("shift value---> ${value}");
                                               if (value == true) {
                                                 context.read<ShiftsBloc>().add(
                                                     ShiftsBlocEvent

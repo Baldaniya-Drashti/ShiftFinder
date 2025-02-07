@@ -47,9 +47,9 @@ class StringConstant {
   static const String verifyYourPhoneNumber = "Verify Your Phone Number";
   static const String verifyYourEmail = "Verify Your Email";
   static const String verificationDesc =
-      "Please enter the verification code that sent to your phone number.";
+      "Please enter the verification code sent to your phone number.";
   static const String emailVerificationDesc =
-      "Please enter the verification code that sent to your email.";
+      "Please enter the verification code sent to your email.";
   static const String resendCode = "Resend Code";
   static const String code = "Code";
   static const String newPassword = "New Password";
@@ -189,7 +189,7 @@ class StringConstant {
   static const String professionalLiabilityProtection =
       "Professional Liability Protection";
   static const String deleteGovernmentIdDesc =
-        "Are you sure you want to delete the government issued id?";
+      "Are you sure you want to delete the government issued id?";
   static const String deleteResumeDesc =
       "Are you sure you want to delete the resume?";
   static const String deleteCovidDocDesc =
@@ -536,7 +536,7 @@ class StringConstant {
       "’s hours. Once approved, the times will be finalized.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
-  static const String allWithdralContractors = "All Withdrwal Contractors";
+  static const String allWithdranContractors = "All Withdrawn Contractors";
   static const String allCancelledContractors = "All Cancelled Contractors";
   static const String compassion = "Compassion";
   static const String approvedDesc =
@@ -568,6 +568,10 @@ class StringConstant {
   static const String youHaveRejectedThisShift = "You have rejected this shift";
   static const String employerHaveRejectedThisShift =
       "Employer have rejected this shift";
+  static const String yourApplicationForThisShiftWasNotAcepted =
+      "Your application for this shift was not accepted";
+  static const String yourProposalForThisShiftWasNotAcepted =
+      "Your proposal for this shift was not accepted";
   static const String youHaveCancelledThisShiftApplication =
       "You have cancelled this shift application";
   static const String shiftDeclined = "Shift Declined";
@@ -747,7 +751,10 @@ class StringConstant {
   static const String editLocationDetails = "Edit Location Details";
   static const String addNewLocation = "Add New Location";
   static const String addExperience = "Add Experience";
-  static const String iRoidSolutions = "iRoid Solutions";
+  static const String openPositions = "Open Positions";
+  static const String filledPositions = "Filled Positions";
+  static const String postALongTermPosition = "Post a Long Term Position";
+  static const String postAFullTimePosition = "Post a Full Time Position";
   static const String youHaveCancelledThisShiftProposal =
       "You have cancelled this shift proposal";
   static const String updateRoleExperienceDec =
@@ -758,6 +765,26 @@ class StringConstant {
       "You can update experience for the selected specialties";
   static const String addSpeExperienceDec =
       "Please add experience for the selected specialties";
+  static const String thisPositionMayIncludeOnCall =
+      "This position may include on call.";
+  static const String thisContractMayIncludeOnCall =
+      "This contract may include on call.";
+  static const String fullTermsDesc =
+      "By proceeding, I confirm that we, the employer are responsible for making payments directly to the contractor for this full-time position. We understand that ShiftFinder is not responsible for any  disputes, including those arising from non-payment or contract violations.";
+  static const String longTermsDesc =
+      "By proceeding, I confirm that we, the employer are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is  not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.";
+  static const String applicationDeadline = "Application Deadline";
+  static const String shiftFinderMonthlyServiceFee =
+      "ShiftFinder Monthly Service Fee";
+  static const String monthlyServiceFee = "Monthly Service Fee";
+  static const String totalMonths = "Total Months";
+  static const String totalServiceFee = "Total Service Fee";
+  static const String longTermPaybleDesc =
+      "The ShiftFinder service fee is based on the total duration of the contract. If the contract duration is 15 days or more into the next month, it will be rounded up to the full month. For example, 4 months and 16 days will be charged as 5 months, while 4 months and 14 days will be charged as 4 months.";
+  static const String shiftFinderServiceFeeCalculation =
+      "ShiftFinder Service Fee Calculation";
+  static const String totalMonthsOfContract = "Total Months of Contract";
+  static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
   static const String adminEmailID = "admin@shiftfinder.com";
@@ -1035,6 +1062,10 @@ class StringConstant {
       "Please enter withdraw amount";
   static const String youCanT =
       "You can’t send any message after the shift has completed.";
+  static const String pleaseSelectApplicationDeadline =
+      "Please select application deadline";
+  static const String pleaseCheckTheBoxToProceeding =
+      'Please check the box to proceeding';
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

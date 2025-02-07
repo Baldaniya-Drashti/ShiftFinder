@@ -10,10 +10,8 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -37,12 +35,9 @@ class EmployerAvailabilityView extends StatefulWidget {
 }
 
 class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
-  late ValueNotifier _confirmationCheckBox;
-
   @override
   void initState() {
     super.initState();
-
     // _confirmationCheckBox = ValueNotifier(widget.confirmDialog);
   }
 
@@ -254,7 +249,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
 }
 
 class _EmployerAvailabilityListTile extends StatelessWidget {
-  const _EmployerAvailabilityListTile({super.key, required this.data});
+  const _EmployerAvailabilityListTile({required this.data});
 
   final EmployerProposalShiftDetailDto data;
 

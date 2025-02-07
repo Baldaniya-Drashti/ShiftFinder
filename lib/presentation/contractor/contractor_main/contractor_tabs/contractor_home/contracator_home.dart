@@ -186,7 +186,7 @@ class ContractorHomeView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          contractorDataBox(context, index),
+          contractorDataBox(context, state.contractorDashboardList[index]),
           SizedBox(
             height: getSize(8),
           ),
@@ -307,147 +307,148 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget contractorDataBox(BuildContext context, int index) {
-    return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
-      builder: (context, state) {
-        return Container(
-          // height: getSize(113.41),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(getSize(10)),
-            color: AppColors.scaffoldColor,
-          ),
-          padding: EdgeInsets.symmetric(horizontal: getSize(12)),
-          child: Column(
-            children: [
-              ListTile(
-                dense: true,
-                leading: Container(
-                  height: getSize(40),
-                  width: getSize(40),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                    PngImageConstants.leafWithBG,
-                  ))),
-                ),
-                // leading: SvgPicture.asset(
-                //   SvgImageConstant.leafWithBG,
-                //   width: getSize(36.28),
-                //   height: getSize(43.41),
-                //   color: AppColors.primaryColor,
-                // ),
-                isThreeLine: true,
-                title: BaseText(
-                  text: state.contractorDashboardList[index].roles_list_name ??
-                      "",
-                  textColor: AppColors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  maxLines: 1,
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BaseText(
-                      text: state.contractorDashboardList[index].company_name ??
-                          "",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.80),
-                    ),
-                    BaseText(
-                      text:
-                          "(${getIndustryText(state.contractorDashboardList[index].industry ?? 0)} - ${state.contractorDashboardList[index].listing_id ?? ""})",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.80),
-                    ),
-                    BaseText(
-                      text: state.contractorDashboardList[index].location
-                              ?.facility_type?.name ??
-                          "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
-                ),
-                trailing: BaseText(
-                  text: state.contractorDashboardList[index].last_ago ?? "",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
+  Widget contractorDataBox(BuildContext context, ContactorDashboardDTO post) {
+    return Container(
+      // height: getSize(113.41),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.scaffoldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+      child: Column(
+        children: [
+          ListTile(
+            dense: true,
+            leading: Container(
+              height: getSize(40),
+              width: getSize(40),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                PngImageConstants.leafWithBG,
+              ))),
+            ),
+            // leading: SvgPicture.asset(
+            //   SvgImageConstant.leafWithBG,
+            //   width: getSize(36.28),
+            //   height: getSize(43.41),
+            //   color: AppColors.primaryColor,
+            // ),
+            isThreeLine: true,
+            title: Container(
+              margin: (post.isHighlightShift == true)
+                  ? EdgeInsets.symmetric(vertical: getSize(2))
+                  : null,
+              padding: (post.isHighlightShift == true)
+                  ? EdgeInsets.symmetric(horizontal: getSize(5))
+                  : null,
+              decoration: (post.isHighlightShift == true)
+                  ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: AppColors.primaryColor,
+                        width: getSize(3),
+                      ))
+                  : null,
+              child: BaseText(
+                text: post.roles_list_name ?? "",
+                textColor: AppColors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                maxLines: 1,
+              ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: post.company_name ?? "",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
-                contentPadding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-                minTileHeight: getSize(43.41),
-              ),
-              Divider(
-                color: AppColors.black.withOpacity(0.2),
-                thickness: getSize(0.5),
-              ),
-              GestureDetector(
-                onTap: () {
-                  final location =
-                      state.contractorDashboardList[index].location;
-                  final latitude = location?.latitude;
-                  final longitude = location?.longitude;
-                  if (latitude != null && longitude != null) {
-                    context.router.push(
-                      PageRouteInfo(
-                        ShowGoogleMap.name,
-                        args: ShowGoogleMapArgs(
-                          latitude: latitude,
-                          longitude: longitude,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      SvgImageConstant.location,
-                      height: getSize(25),
-                      width: getSize(25),
-                      color: AppColors.black,
-                    ),
-                    SizedBox(
-                      width: getSize(10),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          BaseText(
-                            text: state.contractorDashboardList[index].location
-                                    ?.location ??
-                                "",
-                            fontSize: 12,
-                            maxLines: 1,
-                            fontWeight: FontWeight.w500,
-                            textColor: AppColors.black,
-                          ),
-                          BaseText(
-                            text:
-                                state.contractorDashboardList[index].distance ??
-                                    "",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            textColor: AppColors.primaryColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                BaseText(
+                  text:
+                      "(${getIndustryText(post.industry ?? 0)} - ${post.listing_id ?? ""})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.80),
                 ),
-              ),
-              SizedBox(height: getSize(12)),
-            ],
+                BaseText(
+                  text: post.location?.facility_type?.name ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
+            trailing: BaseText(
+              text: post.last_ago ?? "",
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black.withOpacity(0.80),
+            ),
+            contentPadding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            minTileHeight: getSize(43.41),
           ),
-        );
-      },
+          Divider(
+            color: AppColors.black.withOpacity(0.2),
+            thickness: getSize(0.5),
+          ),
+          GestureDetector(
+            onTap: () {
+              final location = post.location;
+              final latitude = location?.latitude;
+              final longitude = location?.longitude;
+              if (latitude != null && longitude != null) {
+                context.router.push(
+                  PageRouteInfo(
+                    ShowGoogleMap.name,
+                    args: ShowGoogleMapArgs(
+                      latitude: latitude,
+                      longitude: longitude,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  height: getSize(25),
+                  width: getSize(25),
+                  color: AppColors.black,
+                ),
+                SizedBox(width: getSize(10)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text: post.location?.location ?? "",
+                        fontSize: 12,
+                        maxLines: 1,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
+                      ),
+                      BaseText(
+                        text: post.distance ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        textColor: AppColors.primaryColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: getSize(12)),
+        ],
+      ),
     );
   }
 
@@ -599,7 +600,7 @@ class ContractorHomeView extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (list.shift_type == 2)
+              (list.shift_type == 2 && list.same_or_different_time == 2)
                   ? displayDateBreak(context, list,
                       boldValue:
                           "${list.total_shift != null ? (list.total_shift! > 9 ? list.total_shift! : "0${list.total_shift!}") : "00"}",

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, avoid_print, deprecated_member_use, unused_result
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';

@@ -30,7 +30,7 @@ class ViewContractorShift extends StatelessWidget {
   final int postId;
   final bool isTotalApplicants;
   final bool fromDashboard;
-  ViewContractorShift({
+  const ViewContractorShift({
     super.key,
     required this.postId,
     this.isTotalApplicants = false,

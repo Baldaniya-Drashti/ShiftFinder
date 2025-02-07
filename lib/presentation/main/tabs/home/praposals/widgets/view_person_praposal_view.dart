@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
@@ -241,7 +240,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                       if ((state.confirmDialog == null ||
                                               state.confirmDialog == false) &&
                                           data.shift_type == 2) {
-                                        final result = await showDialog<bool?>(
+                                        await showDialog<bool?>(
                                           barrierDismissible: false,
                                           context: context,
                                           builder: (_) {

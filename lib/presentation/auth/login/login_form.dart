@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:shift/application/auth/login_form/login_form_bloc.dart';
+import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -46,6 +47,9 @@ class LoginForm extends StatelessWidget {
               ).show(context);
             },
             (r) {
+              context
+                  .read<SplashBloc>()
+                  .add(SplashEvent.initDynamicLink(context));
               if (r.isProfileComplete == 1) {
                 print("profile complete");
                 if (getCurrentRole() == 2) {
@@ -197,8 +201,8 @@ class LoginForm extends StatelessWidget {
             height: getSize(28),
           ),
           CustomTextField(
-              hintText: StringConstant.email,
-              labelText: StringConstant.email,
+            hintText: StringConstant.email,
+            labelText: StringConstant.email,
             keyboardType: TextInputType.emailAddress,
             maxLength: 340,
             errorMaxLines: 2,

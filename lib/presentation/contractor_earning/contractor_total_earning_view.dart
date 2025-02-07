@@ -10,10 +10,8 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
-import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/invoice_detail_view.dart';
-import 'package:shift/presentation/billing/invoice_viewer.dart';
 import 'package:shift/presentation/billing/total_earning_statement_viewer.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -88,15 +86,15 @@ class ContractorTotalEarningView extends StatelessWidget {
                                         statement: state.statement ??
                                             EarningStatementDTO()),
                                     commonDivider(),
-                                    _Earning(
+                                    Earning(
                                         statement: state.statement ??
                                             EarningStatementDTO()),
                                     Gap(getSize(15)),
-                                    _Compensation(
+                                    Compensation(
                                         statement: state.statement ??
                                             EarningStatementDTO()),
                                     Gap(getSize(15)),
-                                    _ReferralBonus(
+                                    ReferralBonus(
                                         statement: state.statement ??
                                             EarningStatementDTO()),
                                     Gap(getSize(15)),
@@ -362,9 +360,9 @@ class _Footer extends StatelessWidget {
   }
 }
 
-class _Earning extends StatelessWidget {
-  EarningStatementDTO statement;
-  _Earning({required this.statement});
+class Earning extends StatelessWidget {
+  final EarningStatementDTO statement;
+  const Earning({super.key, required this.statement});
 
   @override
   Widget build(BuildContext context) {
@@ -450,9 +448,9 @@ class _Earning extends StatelessWidget {
   }
 }
 
-class _Compensation extends StatelessWidget {
-  EarningStatementDTO statement;
-  _Compensation({required this.statement});
+class Compensation extends StatelessWidget {
+  final EarningStatementDTO statement;
+  const Compensation({super.key, required this.statement});
 
   @override
   Widget build(BuildContext context) {
@@ -510,9 +508,9 @@ class _Compensation extends StatelessWidget {
   }
 }
 
-class _ReferralBonus extends StatelessWidget {
-  EarningStatementDTO statement;
-  _ReferralBonus({required this.statement});
+class ReferralBonus extends StatelessWidget {
+  final EarningStatementDTO statement;
+  const ReferralBonus({super.key, required this.statement});
 
   @override
   Widget build(BuildContext context) {

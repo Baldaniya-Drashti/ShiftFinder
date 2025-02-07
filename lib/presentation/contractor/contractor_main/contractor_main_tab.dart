@@ -9,7 +9,6 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_notification/contractor_notification_view.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
@@ -28,7 +27,7 @@ class ContractorMainTabView extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<ContractorMainTabBloc>()
-            ..add(ContractorMainTabEvent.initDynamicLink(context))
+            // ..add(ContractorMainTabEvent.initDynamicLink(context))
             ..add(ContractorMainTabEvent.tabChange(0)),
         ),
         BlocProvider(

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_notification_bloc/contractor_notification_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -61,7 +60,7 @@ class _NotificationViewState extends State<NotificationView> {
 
 class _NotificationListView extends StatelessWidget {
   final List<NotificationDTO> list;
-  _NotificationListView(this.list);
+  const _NotificationListView(this.list);
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +76,8 @@ class _NotificationListView extends StatelessWidget {
 }
 
 class _NotificationTile extends StatelessWidget {
-  NotificationDTO obj;
-  _NotificationTile({required this.obj});
+  final NotificationDTO obj;
+  const _NotificationTile({required this.obj});
 
   @override
   Widget build(BuildContext context) {

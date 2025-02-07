@@ -1,29 +1,26 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_full_posting_confirm/employer_full_posting_confirm_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_long_term_add_detail_dto/employer_long_term_add_detail_dto.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
-import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- TextEditingController _vacancyController = TextEditingController();
 
 @RoutePage(name: "EmployerFullPostingConfirmView")
 class EmployerFullPostingConfirmView extends StatelessWidget {
@@ -41,226 +38,253 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<EmployerFullPostingConfirmBloc>()
         ..add(
-          EmployerFullPostingConfirmEvent.onCreate(employerLongTermSuccessDto: employerFullPosting, post: postId),
+          EmployerFullPostingConfirmEvent.onCreate(
+              employerLongTermSuccessDto: employerFullPosting, post: postId),
         ),
-      child: Builder(builder: (context) {
-        final loading = context.select<EmployerFullPostingConfirmBloc, bool>((value) => value.state.postDataLoading);
-        return Stack(
-          children: [
-            Scaffold(
-              bottomNavigationBar: SafeArea(
-                minimum: EdgeInsets.all(getSize(16)),
-                child: CommonButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() != true) return;
-                    context.read<EmployerFullPostingConfirmBloc>().add(
-                          EmployerFullPostingConfirmEvent.onContinue(context: context, vacancyNumber: _vacancyController.text.trim()),
-                        );
-                  },
-                  buttonText: "Continue",
-                ),
-              ),
-              appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Healthcare"),
-              body: BlocBuilder<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState>(
-                builder: (context, state) {
-                  return _EmployerFullPostingContent(state.employerFullPosting);
+      child: BlocBuilder<EmployerFullPostingConfirmBloc,
+          EmployerFullPostingConfirmState>(
+        builder: (context, state) {
+          return Scaffold(
+            bottomNavigationBar: SafeArea(
+              minimum: EdgeInsets.all(getSize(16)),
+              child: CommonButton(
+                onPressed: () {
+                  context.read<EmployerFullPostingConfirmBloc>().add(
+                        EmployerFullPostingConfirmEvent.onContinue(
+                            context: context),
+                      );
                 },
+                buttonText: StringConstant.txtContinue,
               ),
             ),
-            if (loading) CenterLoadingIndicator(),
-          ],
-        );
-      }),
-    );
-  }
-}
-
-class _EmployerFullPostingContent extends StatefulWidget {
-  const _EmployerFullPostingContent(this.data);
-
-  final EmployerLongTermSuccessDto data;
-
-  @override
-  State<_EmployerFullPostingContent> createState() => _EmployerFullPostingContentState();
-}
-
-class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent> {
-  @override
-  void initState() {
-    _vacancyController.text = "${widget.data.number_of_vacancie ?? ""}";
-    print("------<>${widget.data.number_of_vacancie}");
-    print("------<>${widget.data.vacancie_type}");
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(getSize(16)),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, DateTime?>(
-              selector: (state) => state.employerFullPosting.application_deadline,
-              builder: (context, applicationDeadline) {
-                return DatePickerInputField(
-                  validator: (value, context) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please select application deadline";
-                    return null;
-                  },
-                  initialDate: applicationDeadline,
-                  firstDate: applicationDeadline ?? DateTime.now().add(Duration(days: 1)),
-                  label: "Application Deadline",
-                  hint: "Application Deadline",
-                  onPickedDate: (date) {
-                    context.read<EmployerFullPostingConfirmBloc>().add(
-                          EmployerFullPostingConfirmEvent.onApplicationDeadlineChanged(selectedDateTime: date),
-                        );
-                  },
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-              selector: (state) => state.employerFullPosting.on_call_included == 1,
-              builder: (context, includeOnCall) {
-                return _buildCheckListTile(
-                  context,
-                  value: includeOnCall,
-                  onChanged: (value) {
-                    context.read<EmployerFullPostingConfirmBloc>().add(
-                          EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(value: value),
-                        );
-                  },
-                  label: "This position may include on call.",
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-              selector: (state) => state.employerFullPosting.save_template_status == 1,
-              builder: (context, saveFuturePosting) {
-                return _buildCheckListTile(
-                  context,
-                  value: saveFuturePosting,
-                  onChanged: (value) {
-                    context.read<EmployerFullPostingConfirmBloc>().add(
-                          EmployerFullPostingConfirmEvent.onFuturePostingChanged(value: value),
-                        );
-                  },
-                  label: "Save this as a template for future posting",
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-              selector: (state) {
-                print("vacancie_type${state.employerFullPosting.vacancie_type}");
-                print("number_of_vacancie${state.employerFullPosting.number_of_vacancie}");
-                return state.employerFullPosting.vacancie_type == 1 || state.employerFullPosting.number_of_vacancie != null;
-              },
-              builder: (context, moreVacancy) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildCheckListTile(
-                      context,
-                      value: moreVacancy,
-                      onChanged: (value) {
-                        context.read<EmployerFullPostingConfirmBloc>().add(
-                              EmployerFullPostingConfirmEvent.onMoreVacancyChanged(value: value),
-                            );
-                      },
-                      label: "We are looking to fill more than one vacancies with the same  requirements.",
-                    ),
-                    if (moreVacancy) ...[
-                      Gap(getSize(12)),
-                      CustomTextField(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _vacancyController,
-                        labelText: StringConstant.numberOfVacancies,
-                        hintText: StringConstant.numberOfVacancies,
-                        keyboardType: TextInputType.number,
-                        errorInputBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: AppColors.transparent),
-                          borderRadius: BorderRadius.circular(getSize(10)),
-                        ),
-                        maxLength: 3,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
+            appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                title: CommonList.industryList
+                        .firstWhere((item) => item.id == getCurrentIndustry())
+                        .title ??
+                    ""),
+            body: (state.postDataLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : SingleChildScrollView(
+                    child: Form(
+                      autovalidateMode: (state.showErrorMessage)
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          appDeadLineField(context, state),
+                          Gap(getSize(16)),
+                          isIncludeOnCall(context, state),
+                          Gap(getSize(16)),
+                          templateCheckBox(context, state),
+                          Gap(getSize(16)),
+                          vacancyCheckBox(context, state),
+                          if (state.isMoreVacancy) ...[
+                            Gap(getSize(12)),
+                            numberOfVacancy(context, state),
+                          ],
+                          Gap(getSize(16)),
+                          isTermsCheck(context, state),
+                          if (state.showErrorMessage && !state.isTermsCheck)
+                            commonErrorText(
+                                StringConstant.pleaseCheckTheBoxToProceeding)
                         ],
-                        validator: (value, _) {
-                          if (!moreVacancy) return null;
-                          value = value?.trim() ?? "";
-                          if (value.isEmpty) {
-                            return StringConstant.pleaseAddNumberOfVacancies;
-                          }
-                          if (value == "1" || value == "0") {
-                            return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
-                          } else {
-                            return null;
-                          }
-                        },
-                      )
-                    ]
-                  ],
-                );
-              },
-            ),
-            Gap(getSize(16)),
-            BlocSelector<EmployerFullPostingConfirmBloc, EmployerFullPostingConfirmState, bool>(
-              selector: (state) => state.employerFullPosting.employer_payment_confirmation == 1,
-              builder: (context, termsAndCondition) {
-                return _buildCheckListTile(
-                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                  context,
-                  value: termsAndCondition,
-                  onChanged: (value) {
-                    context.read<EmployerFullPostingConfirmBloc>().add(
-                          EmployerFullPostingConfirmEvent.onTermsAndConditionChanged(value: value),
-                        );
-                  },
-                  label:
-                      "By proceeding, I confirm that we, the employer, are responsible for making payments directly to  the contractor for this full-time position. We understand that ShiftFinder is not responsible for any  disputes, including those arising from non-payment or contract violations.",
-                );
-              },
-            ),
-          ],
-        ),
+                      ),
+                    ),
+                  ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildCheckListTile(
-    BuildContext context, {
-    required bool value,
-    required void Function(bool value) onChanged,
-    required String label,
-    EdgeInsets? padding,
-    Widget? trailing,
-  }) {
-    return Container(
-      padding: padding ??
-          EdgeInsets.symmetric(
-            horizontal: getSize(20),
-            vertical: getSize(10),
+  Widget appDeadLineField(
+    BuildContext context,
+    EmployerFullPostingConfirmState state,
+  ) {
+    return CustomTextField(
+      labelText: StringConstant.applicationDeadline,
+      hintText: (state.deadLineDate.isValid())
+          ? DateFormat('d MMM, yyyy')
+              .format(DateTime.parse(state.deadLineDate.getValue() ?? ""))
+          : StringConstant.applicationDeadline,
+      hintAsValue: (state.deadLineDate.isValid()) ? true : false,
+      readOnly: true,
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.calendar,
+          height: getSize(24),
+          width: getSize(24),
+        ),
+      ),
+      onTap: () {
+        DocumentExpiryDatePicker.customDatePicker(
+          context,
+          firstDate: DateTime.now().add(Duration(days: 1)),
+          onPickedDate: (pickedDate) {
+            context.read<EmployerFullPostingConfirmBloc>().add(
+                    EmployerFullPostingConfirmEvent
+                        .onApplicationDeadlineChanged(
+                  selectedDateTime: pickedDate,
+                ));
+          },
+          onCancelClick: () {},
+          selectedDate: (state.deadLineDate.isValid())
+              ? DateTime.parse(state.deadLineDate.getValue() ?? "")
+              : DateTime.now().add(Duration(days: 1)),
+        );
+      },
+      validator: (_, context) => context
+          .read<EmployerFullPostingConfirmBloc>()
+          .state
+          .deadLineDate
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseSelectApplicationDeadline,
+              orElse: () => null,
+            ),
+            (_) => null,
           ),
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+    );
+  }
+
+  Widget isTermsCheck(
+    BuildContext context,
+    EmployerFullPostingConfirmState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: getSize(20),
+            width: getSize(16.67),
+            child: Checkbox(
+              value: state.isTermsCheck,
+              activeColor: AppColors.primaryColor,
+              side: BorderSide(
+                width: getSize(1.5),
+                color: AppColors.black.withOpacity(0.5),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              onChanged: (value) {
+                if (value != null) {
+                  context.read<EmployerFullPostingConfirmBloc>().add(
+                      EmployerFullPostingConfirmEvent
+                          .onTermsAndConditionChanged(value: value));
+                }
+              },
+            ),
+          ),
+          SizedBox(width: getSize(15)),
+          Expanded(
+            child: BaseText(
+              text: StringConstant.fullTermsDesc,
+              fontSize: 12,
+              maxLines: 7,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget templateCheckBox(
+    BuildContext context,
+    EmployerFullPostingConfirmState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: getSize(20),
+            width: getSize(16.67),
+            child: Checkbox(
+              value: state.isSaveAsTemplate,
+              activeColor: AppColors.primaryColor,
+              side: BorderSide(
+                width: getSize(1.5),
+                color: AppColors.black.withOpacity(0.5),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              onChanged: (value) {
+                if (value != null) {
+                  context.read<EmployerFullPostingConfirmBloc>().add(
+                      EmployerFullPostingConfirmEvent.onFuturePostingChanged(
+                          value: value));
+                }
+              },
+            ),
+          ),
+          SizedBox(width: getSize(15)),
+          Expanded(
+            child: BaseText(
+              text: StringConstant.saveThisAsATemplateForFuturePosting,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget isIncludeOnCall(
+    BuildContext context,
+    EmployerFullPostingConfirmState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
         onTap: () {
-          onChanged(!value);
+          bool value = state.isIncludeOnCall;
+          value = !value;
+          context.read<EmployerFullPostingConfirmBloc>().add(
+              EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(
+                  value: value));
         },
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: getSize(20),
               width: getSize(16.67),
               child: Checkbox(
-                value: value,
+                value: state.isIncludeOnCall,
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
@@ -270,25 +294,119 @@ class _EmployerFullPostingContentState extends State<_EmployerFullPostingContent
                   borderRadius: BorderRadius.circular(5),
                 ),
                 onChanged: (value) {
-                  onChanged(value!);
+                  if (value != null) {
+                    context.read<EmployerFullPostingConfirmBloc>().add(
+                        EmployerFullPostingConfirmEvent.onIncludeOnCallChanged(
+                            value: value));
+                  }
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: BaseText(
-                text: label,
+                text: StringConstant.thisPositionMayIncludeOnCall,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                maxLines: 15,
               ),
             ),
-            if (trailing != null) trailing
           ],
         ),
       ),
+    );
+  }
+
+  Widget vacancyCheckBox(
+      BuildContext context, EmployerFullPostingConfirmState state) {
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isMoreVacancy;
+        value = !value;
+        context
+            .read<EmployerFullPostingConfirmBloc>()
+            .add(EmployerFullPostingConfirmEvent.checkIsMoreVancancy(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(10),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isMoreVacancy,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context.read<EmployerFullPostingConfirmBloc>().add(
+                        EmployerFullPostingConfirmEvent.checkIsMoreVancancy(
+                            value));
+                  }
+                },
+              ),
+            ),
+            SizedBox(width: getSize(15)),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.singleShiftVacancyDesc,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget numberOfVacancy(
+      BuildContext context, EmployerFullPostingConfirmState state) {
+    print("selectedVacancy--> ${state.selectedVacancy.getValue()}");
+    return CustomTextField(
+      labelText: StringConstant.numberOfVacancies,
+      hintText: StringConstant.numberOfVacancies,
+      initialValue: state.selectedVacancy.getValue(),
+      keyboardType: TextInputType.number,
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      maxLength: 3,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      onChanged: (value) {
+        context
+            .read<EmployerFullPostingConfirmBloc>()
+            .add(EmployerFullPostingConfirmEvent.addVacancyChanged(value));
+      },
+      validator: (p0, p1) => context
+          .read<EmployerFullPostingConfirmBloc>()
+          .state
+          .selectedVacancy
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+              invalidVacancy: (value) =>
+                  StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 }

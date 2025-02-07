@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/injection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/apparel_equipment.dart';
@@ -256,7 +254,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
             (r) {
               if (r.isNotEmpty) {
-                print("ExpiryDate--> ${r}");
                 return emit(
                   state.copyWith(
                     isLoading: false,

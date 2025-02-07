@@ -59,6 +59,8 @@ class RegisterFormEvent with _$RegisterFormEvent {
 
   const factory RegisterFormEvent.obscureText(int field) = ObscureText;
 
+  const factory RegisterFormEvent.dobChanged(String dob) = DobChanged;
+
   /// >>>>>>>>>>>>>>>>>>> FOR OTP VERIFICATION BOTTOM SHEET <<<<<<<<<<<<<<<<<<<<
 
   const factory RegisterFormEvent.changeOTP(String otp) = ChangeOTP;

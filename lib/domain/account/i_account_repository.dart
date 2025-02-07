@@ -7,9 +7,7 @@ import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
-import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
-
 import '../../infrastructure/core/skill_list_model/skill_dto.dart';
 
 abstract class IAccountRepository {

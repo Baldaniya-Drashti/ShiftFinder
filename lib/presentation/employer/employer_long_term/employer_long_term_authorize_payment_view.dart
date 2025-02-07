@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_long_term_authorize_payment/employer_long_term_authorize_payment_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -21,13 +19,15 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
   final EmployerLongTermApplicantDto employerApplicantsDto;
 
-  const EmployerLongTermAuthorizePaymentView({super.key, required this.employerApplicantsDto});
+  const EmployerLongTermAuthorizePaymentView(
+      {super.key, required this.employerApplicantsDto});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermAuthorizePaymentBloc>(),
-      child: BlocSelector<EmployerLongTermAuthorizePaymentBloc, EmployerLongTermAuthorizePaymentState, bool>(
+      child: BlocSelector<EmployerLongTermAuthorizePaymentBloc,
+          EmployerLongTermAuthorizePaymentState, bool>(
         selector: (state) => state.postDataLoading,
         builder: (context, postDataLoading) {
           return Stack(
@@ -38,19 +38,23 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                   child: CommonButton(
                     onPressed: () {
                       context.read<EmployerLongTermAuthorizePaymentBloc>().add(
-                            EmployerLongTermAuthorizePaymentEvent.onAuthorizePayment(
-                                context, employerApplicantsDto.id ?? -1),
+                            EmployerLongTermAuthorizePaymentEvent
+                                .onAuthorizePayment(
+                                    context, employerApplicantsDto.id ?? -1),
                           );
                     },
                     buttonText: "Authorize Payment",
                   ),
                 ),
-                appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Accept"),
+                appBar: CommonAppBar(
+                    onBackPressed: () => context.router.maybePop(),
+                    title: "Accept"),
                 body: SingleChildScrollView(
                   padding: EdgeInsets.all(getSize(22)).copyWith(top: 0),
                   child: Column(
                     children: [
-                      SvgPicture.asset(SvgImageConstant.securePayment, height: 60),
+                      SvgPicture.asset(SvgImageConstant.securePayment,
+                          height: 60),
                       Gap(getSize(24)),
                       BaseText(
                         text: "Authorize Payment",
@@ -70,14 +74,15 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                       Gap(getSize(10)),
                       BaseText(
                         text:
-                            "You also authorize ShiftFinder to withdraw the monthly service fee at the end of each month for the contract duration. The first monthly fee will be withdrawn 30 days after ${DateFormat("dd MMM yyy").format(employerApplicantsDto.start_date??DateTime.now())}.",
+                            "You also authorize ShiftFinder to withdraw the monthly service fee at the end of each month for the contract duration. The first monthly fee will be withdrawn 30 days after ${DateFormat("dd MMM yyy").format(employerApplicantsDto.start_date ?? DateTime.now())}.",
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         textAlign: TextAlign.center,
                       ),
                       Gap(getSize(10)),
                       BaseText(
-                        text: "Are you sure you want to proceed with the ShiftFinder service fee payment?",
+                        text:
+                            "Are you sure you want to proceed with the ShiftFinder service fee payment?",
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         textAlign: TextAlign.center,
@@ -100,13 +105,17 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                               _buildSpaceBetweenTile(
                                 context,
                                 label: "ShiftFinder Monthly Service Fee",
-                                value: employerApplicantsDto.monthly_service_fee ?? "",
+                                value:
+                                    employerApplicantsDto.monthly_service_fee ??
+                                        "",
                               ),
                               Gap(getSize(8)),
                               _buildSpaceBetweenTile(
                                 context,
                                 label: "Total Service Fee Payable",
-                                value: employerApplicantsDto.total_amount_payable ?? "",
+                                value: employerApplicantsDto
+                                        .total_amount_payable ??
+                                    "",
                               ),
                             ],
                           ),
@@ -141,7 +150,10 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
             textColor: AppColors.black.withOpacity(0.7),
           ),
         ),
-        BaseText(text: value, fontWeight: fontWeight ?? FontWeight.w400, fontSize: fontSize ?? 13),
+        BaseText(
+            text: value,
+            fontWeight: fontWeight ?? FontWeight.w400,
+            fontSize: fontSize ?? 13),
       ],
     );
   }

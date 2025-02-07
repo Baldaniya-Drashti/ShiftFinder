@@ -1,15 +1,12 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/contractor_rating_dto/contractor_rating_dto.dart';
-
 part 'contractor_rating_event.dart';
-
 part 'contractor_rating_state.dart';
-
 part 'contractor_rating_bloc.freezed.dart';
 
 @injectable

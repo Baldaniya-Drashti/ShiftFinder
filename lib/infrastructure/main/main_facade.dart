@@ -5,8 +5,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/faq/faq_bloc.dart';
-import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
@@ -19,7 +17,6 @@ import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_
 import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/chat/chat_response.dart';
-import 'package:shift/infrastructure/core/chat/message_response.dart';
 import 'package:shift/infrastructure/core/chat/upload_media_response.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
@@ -3106,6 +3103,7 @@ class MainFacade implements IMainFacade {
   Future<Either<MainFailure, CommonResponse>> createLongFullTermPost(
       {required Map<String, dynamic> data}) async {
     try {
+      print("Sending Data---> ${data}");
       final formData = FormData.fromMap(data);
       if (data["terms_document"] != null) {
         var multipartFile =
@@ -3147,7 +3145,7 @@ class MainFacade implements IMainFacade {
           "post_type": 1,
           "positions_type": positionsType,
           "page": page,
-          "perPage":10,
+          "perPage": 10,
         },
       );
 

@@ -94,7 +94,7 @@ class ApplicantsDetailView extends StatelessWidget {
                 SizedBox(width: getSize(5)),
                 Expanded(
                     child: BaseText(
-                  text: '${data.location ?? ""}',
+                  text: data.location ?? "",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   maxLines: 4,

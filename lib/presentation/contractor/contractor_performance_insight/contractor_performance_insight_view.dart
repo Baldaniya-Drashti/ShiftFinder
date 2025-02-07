@@ -53,12 +53,10 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                           ContractorPerformanceInsightState, DateTime?>(
                         selector: (state) => state.selectedMonth,
                         builder: (context, selectedDateTime) {
-                          print("selected month---> $selectedDateTime");
                           return MonthPickerTile(
                             label: StringConstant.period,
                             selectedMonth: selectedDateTime,
                             onDateSelected: (value) {
-                              print("selected Date---> ${value}");
                               context
                                   .read<ContractorPerformanceInsightBloc>()
                                   .add(ContractorPerformanceInsightEvent

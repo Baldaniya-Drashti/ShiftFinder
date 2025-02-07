@@ -1,21 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 class SaveFileToStorage {
   static Future<String?> savePdfToShiftFinderDirectory(Uint8List pdfData,
       {required String fileName}) async {
     try {
-      /*  if (Platform.isAndroid) {
-        final status = await Permission.storage.request();
-        if (!status.isGranted) {
-          return 'Storage permission denied.';
-        }
-      } */
       if (Platform.isAndroid) {
         DeviceInfoPlugin plugin = DeviceInfoPlugin();
         AndroidDeviceInfo android = await plugin.androidInfo;

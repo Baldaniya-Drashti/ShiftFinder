@@ -28,7 +28,7 @@ class DocumentExpiryDatePicker {
           ? TextStyle(
               fontSize: getFontSize(14),
               color: AppColors.black.withOpacity(0.3))
-          : labelStyle ?? null,
+          : labelStyle,
       fillColor: (!isDisabled) ? AppColors.grey04 : null,
       isLabelPadding: true,
       readOnly: true,

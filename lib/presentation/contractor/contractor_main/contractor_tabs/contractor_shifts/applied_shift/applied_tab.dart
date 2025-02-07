@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,6 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -130,13 +131,16 @@ class AppliedTab extends StatelessWidget {
                                       textColor: AppColors.redAccent,
                                     ),
                                   ),
-                                ] else if (shift.deleteAt == true ) ...[
+                                ] else if (shift.deleteAt == true) ...[
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),
                                     child: BaseText(
-                                      text: StringConstant
-                                          .employerHaveRejectedThisShift,
+                                      text: (shift.applied_date_status == 2)
+                                          ? StringConstant
+                                              .yourProposalForThisShiftWasNotAcepted
+                                          : StringConstant
+                                              .yourApplicationForThisShiftWasNotAcepted,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       textColor: AppColors.redAccent,

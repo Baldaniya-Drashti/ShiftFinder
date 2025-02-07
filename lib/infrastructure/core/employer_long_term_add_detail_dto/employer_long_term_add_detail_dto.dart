@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
-
 part 'employer_long_term_add_detail_dto.freezed.dart';
-
 part 'employer_long_term_add_detail_dto.g.dart';
 
 @freezed
@@ -19,7 +16,7 @@ class EmployerLongTermAddDetailDto with _$EmployerLongTermAddDetailDto {
     String? benefits,
     String? qualifications,
     String? onboarding_process,
-    @Default(0)int? on_call_included,
+    @Default(0) int? on_call_included,
     String? licenses_certifications,
     String? terms_document,
     String? terms,
@@ -27,12 +24,13 @@ class EmployerLongTermAddDetailDto with _$EmployerLongTermAddDetailDto {
     @Default(0) int? share_team_status,
     @Default(0) int? employer_payment_confirmation,
     @Default(0) int? save_template_status,
-    @Default(0)int? vacancie_type,
+    @Default(0) int? vacancie_type,
     int? number_of_vacancie,
     int? job_type,
   }) = _EmployerLongTermAddDetailDto;
 
-  factory EmployerLongTermAddDetailDto.fromJson(Map<String, dynamic> json) => _$EmployerLongTermAddDetailDtoFromJson(json);
+  factory EmployerLongTermAddDetailDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerLongTermAddDetailDtoFromJson(json);
 }
 
 class DateTimeConverter extends JsonConverter<DateTime?, int?> {

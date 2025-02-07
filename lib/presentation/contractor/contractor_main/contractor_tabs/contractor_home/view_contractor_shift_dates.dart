@@ -79,8 +79,7 @@ class ViewContractorShiftDates extends StatelessWidget {
                       title: StringConstant.shiftTime,
                       value:
                           "${convertTimeStampToDate(shift[index].start_time ?? -1)} to ${convertTimeStampToDate(shift[index].end_time ?? -1)}",
-                      unpaidBreak:
-                          "${shift[index].unpaid_break?.short_name ?? ""}",
+                      unpaidBreak: shift[index].unpaid_break?.short_name ?? "",
                     );
                   }),
               /*startEndDate(

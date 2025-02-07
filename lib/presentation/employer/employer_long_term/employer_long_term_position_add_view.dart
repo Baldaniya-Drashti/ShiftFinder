@@ -9,8 +9,10 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -30,14 +32,18 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ddddd${postId}");
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermAddBloc>()
         ..add(
           EmployerLongTermAddEvent.getAllDropDownList(postId ?? -1),
         ),
       child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
+        appBar: CommonAppBar(
+            onBackPressed: () => context.router.maybePop(),
+            title: CommonList.industryList
+                    .firstWhere((item) => item.id == getCurrentIndustry())
+                    .title ??
+                ""),
         body: BlocConsumer<EmployerLongTermAddBloc, EmployerLongTermAddState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -46,7 +52,9 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                     child: Form(
-                      autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                      autovalidateMode: state.showErrorMessages
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -58,7 +66,8 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                             paddingBetweenFields(),
                             requiredSpecialityDropDownChipset(context, state),
                             paddingBetweenFields(),
-                            preferredSoftwareSkillsDropDownChipSet(context, state),
+                            preferredSoftwareSkillsDropDownChipSet(
+                                context, state),
                             paddingBetweenFields(),
                             languageDropDownChipSet(context, state),
                             paddingBetweenFields(),
@@ -66,15 +75,16 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                             paddingBetweenFields(),
                             rateHourDropDown(context, state),
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(50)),
                               child: CommonButton(
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
-                                  context
-                                      .read<EmployerLongTermAddBloc>()
-                                      .add(EmployerLongTermAddEvent.continueBtnPressed(context, false));
+                                  context.read<EmployerLongTermAddBloc>().add(
+                                      EmployerLongTermAddEvent
+                                          .continueBtnPressed(context, false));
                                 },
-                                buttonText: "Continue",
+                                buttonText: StringConstant.txtContinue,
                               ),
                             ),
                           ],
@@ -100,7 +110,9 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
       hintText: StringConstant.selectRole,
       isLabelPadding: true,
       showTextfield: false,
-      value: (state.roleType.getValue()!.isNotEmpty) ? state.roleType.getValue() : null,
+      value: (state.roleType.getValue()!.isNotEmpty)
+          ? state.roleType.getValue()
+          : null,
       items: state.roleList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -111,13 +123,14 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           ),
         );
       }).toList(),
-      validator: (p0) => context.read<EmployerLongTermAddBloc>().state.roleType.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseSelectRoleType,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (p0) =>
+          context.read<EmployerLongTermAddBloc>().state.roleType.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectRoleType,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
       onChanged: (value) {
         if (value != null) {
           context.read<EmployerLongTermAddBloc>().add(
@@ -128,92 +141,8 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
     );
   }
 
-  Widget preferredSoftwareSkillsDropDownChipSet(BuildContext context, EmployerLongTermAddState state) {
-    print("state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          isOptional: true,
-          fieldController: otherPreferredSkillsController,
-          labelText: StringConstant.softwareSkillSet,
-          hintText: StringConstant.softwareSkillSet,
-          showTextfield:
-              state.requiredSoftwareSkillChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSoftwareSkills,
-          items: state.softwareList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSoftwareSkillChip.isEmpty)
-              ? null
-              : state.requiredSoftwareSkillChip,
-          // validator: (val) {
-          //   if (val != null && val.toLowerCase() == "other") {
-          //     return null;
-          //   } else {
-          //     return context
-          //         .read<EmployerLongTermAddBloc>()
-          //         .state
-          //         .requiredSoftwareSkillChipList
-          //         .value
-          //         .fold(
-          //           (f) => f.maybeMap(
-          //             empty: (value) =>
-          //                 StringConstant.pleaseSelectAtLeastOneSkillSet,
-          //             orElse: () => null,
-          //           ),
-          //           (_) => null,
-          //         );
-          //   }
-          // },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<EmployerLongTermAddBloc>().add(
-                  EmployerLongTermAddEvent.addPreferedSoftwareSkillchips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              print("Other skill--> ${otherPreferredSkillsController.text}");
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.addPreferedSoftwareSkillchips(
-                    otherPreferredSkillsController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherPreferredSkillsController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
-            state.showSoftwareSkillError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSoftwareSkill),
-        CustomChipSet(
-          chipList:
-              (state.requiredSoftwareSkillChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context.read<EmployerLongTermAddBloc>().add(
-                EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(value));
-          },
-        ),
-      ],
-    );*/
-
+  Widget preferredSoftwareSkillsDropDownChipSet(
+      BuildContext context, EmployerLongTermAddState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,7 +151,10 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSoftwareSkillChipList.getValue(),
           otherInitialValue: state.softwareSkillOther,
-          items: state.softwareList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.softwareList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.softwareSkillSet,
           labelText: StringConstant.softwareSkillSet,
           selectedColor: AppColors.black,
@@ -234,18 +166,21 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(
+                  EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.softwareSkillSet,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.confirmSoftwareSkill(
+            context
+                .read<EmployerLongTermAddBloc>()
+                .add(EmployerLongTermAddEvent.confirmSoftwareSkill(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
@@ -259,89 +194,8 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
     );
   }
 
-  Widget requiredSpecialityDropDownChipset(BuildContext context, EmployerLongTermAddState state) {
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          isOptional: true,
-          fieldController: otherSpecialitiesController,
-          labelText: StringConstant.specialties,
-          hintText: StringConstant.specialties,
-          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSpecializations,
-          items: state.specialityList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSpecialityChip.isEmpty)
-              ? null
-              : state.requiredSpecialityChip,
-          // validator: (val) {
-          //   if (val != null && val.toLowerCase() == "other") {
-          //     return null;
-          //   } else {
-          //     return context
-          //         .read<EmployerLongTermAddBloc>()
-          //         .state
-          //         .requiredSpecialityChipList
-          //         .value
-          //         .fold(
-          //           (f) => f.maybeMap(
-          //             empty: (value) =>
-          //                 StringConstant.pleaseSelectAtLeastOneSpeciality,
-          //             orElse: () => null,
-          //           ),
-          //           (_) => null,
-          //         );
-          //   }
-          // },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<EmployerLongTermAddBloc>().add(
-                  EmployerLongTermAddEvent.addRequiredSpecialitichips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.addRequiredSpecialitichips(
-                    otherSpecialitiesController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherSpecialitiesController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSpecialityChip.toLowerCase() == "other" &&
-            state.showSpecialityError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
-        CustomChipSet(
-          chipList:
-              (state.requiredSpecialityChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<EmployerLongTermAddBloc>()
-                .add(EmployerLongTermAddEvent.removeRequiredSpecialitichips(value));
-          },
-        ),
-      ],
-    );*/
+  Widget requiredSpecialityDropDownChipset(
+      BuildContext context, EmployerLongTermAddState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +204,10 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSpecialityChipList.getValue(),
           otherInitialValue: state.specialityOther,
-          items: state.specialityList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.specialityList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.specialties,
           labelText: StringConstant.specialties,
           selectedColor: AppColors.black,
@@ -361,131 +218,41 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removeRequiredSpecialitichips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(
+                  EmployerLongTermAddEvent.removeRequiredSpecialitichips(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.specialties,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
-            context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.confirmSpecialityList(
+            context
+                .read<EmployerLongTermAddBloc>()
+                .add(EmployerLongTermAddEvent.confirmSpecialityList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
           },
         ),
-        /* if (state.showErrorMessages &&
-            state.requiredSpecialityChipList.getValue().isEmpty &&
-            state.specialityOther.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectAtLeastOneSpeciality)*/
       ],
     );
   }
 
-  Widget languageDropDownChipSet(BuildContext context, EmployerLongTermAddState state) {
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          fieldController: languageController,
-          labelText: StringConstant.languagesKnown,
-          hintText: StringConstant.languagesKnown,
-          showTextfield: state.languageChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourLanguage,
-          items: state.languageList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          // items: const [
-          //   "English",
-          //   "Hindi",
-          //   "Gujarati",
-          //   "Bengali",
-          //   "Marathi",
-          //   "Punjabi",
-          //   "Tamil",
-          //   "Kannad",
-          //   "Other",
-          // ],
-          value: (state.languageChip.isEmpty) ? null : state.languageChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<EmployerLongTermAddBloc>()
-                  .state
-                  .languageChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneLanguage,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            print("valllll-> $newValue");
-            if (newValue != null) {
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.addLanguageChips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.addLanguageChips(
-                    languageController.text,
-                    isOtherValue: true,
-                  ));
-              languageController.clear();
-            },
-          ),
-        ),
-        if (state.languageChip.toLowerCase() == "other" &&
-            state.showLanguageError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfLanguage),
-        CustomChipSet(
-          chipList: (state.languageChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<EmployerLongTermAddBloc>()
-                .add(EmployerLongTermAddEvent.removeLanguageChips(value));
-          },
-        ),
-      ],
-    );*/
+  Widget languageDropDownChipSet(
+      BuildContext context, EmployerLongTermAddState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MultiSelectDialogField(
-          items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.languageList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.languagesKnown,
           labelText: StringConstant.languagesKnown,
           selectedColor: AppColors.black,
@@ -496,43 +263,51 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              context
-                  .read<EmployerLongTermAddBloc>()
-                  .add(EmployerLongTermAddEvent.removeLanguageChips(value.toString()));
+              context.read<EmployerLongTermAddBloc>().add(
+                  EmployerLongTermAddEvent.removeLanguageChips(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.languagesKnown,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
             print("----> $otherValues");
-            context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.confirmLanguageList(
+            context
+                .read<EmployerLongTermAddBloc>()
+                .add(EmployerLongTermAddEvent.confirmLanguageList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
           },
         ),
-        if (state.showErrorMessages && state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+        if (state.showErrorMessages &&
+            state.languageChipList.getValue().isEmpty &&
+            state.languageOther.isEmpty)
           commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
       ],
     );
   }
 
-  Widget rateHourDropDown(BuildContext context, EmployerLongTermAddState state) {
+  Widget rateHourDropDown(
+      BuildContext context, EmployerLongTermAddState state) {
     return CustomTextField(
       labelText: StringConstant.rateHour,
       isLabelPadding: true,
       isPrefixValueShow: true,
       errorMaxLines: 2,
       maxLength: 5,
-      initialValue: (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
+      initialValue:
+          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
-      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+      keyboardType:
+          TextInputType.numberWithOptions(decimal: true, signed: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
@@ -546,13 +321,23 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: (state.rateHour.isValid()) ? AppColors.black : AppColors.black.withOpacity(0.5),
+            textColor: (state.rateHour.isValid())
+                ? AppColors.black
+                : AppColors.black.withOpacity(0.5),
           )),
-      prefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      prefixIconConstraints:
+          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       onChanged: (value) {
-        context.read<EmployerLongTermAddBloc>().add(EmployerLongTermAddEvent.rateHourChanged(value));
+        context
+            .read<EmployerLongTermAddBloc>()
+            .add(EmployerLongTermAddEvent.rateHourChanged(value));
       },
-      validator: (p0, p1) => context.read<EmployerLongTermAddBloc>().state.rateHour.value.fold(
+      validator: (p0, p1) => context
+          .read<EmployerLongTermAddBloc>()
+          .state
+          .rateHour
+          .value
+          .fold(
             (f) => f.maybeMap(
               empty: (value) => StringConstant.pleaseEnterRateHour,
               invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
@@ -563,7 +348,8 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
     );
   }
 
-  Widget locationDropDown(BuildContext context, EmployerLongTermAddState state) {
+  Widget locationDropDown(
+      BuildContext context, EmployerLongTermAddState state) {
     print("state.location.getValue()--> ${state.selectedLocationUnit}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -621,7 +407,9 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           },
           hintText: StringConstant.location,
           childDroDwonHintText: StringConstant.selectUnitIfAny,
-          childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
+              ? state.selectedLocationUnit
+              : null,
           // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
@@ -637,7 +425,8 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           childDropDownOnChanged: (value) {
             if (value != null) {
               context.read<EmployerLongTermAddBloc>().add(
-                    EmployerLongTermAddEvent.locationUnitSelectionChanged(value),
+                    EmployerLongTermAddEvent.locationUnitSelectionChanged(
+                        value),
                   );
             }
           },

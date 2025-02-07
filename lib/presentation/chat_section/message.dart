@@ -48,21 +48,19 @@ class Message extends StatelessWidget {
                 additionalData: state.additional_data,
               ),
               body: state.isLoading
-                  ? CenterLoadingIndicator(
-                      isOnlyLoader: true,
-                    )
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
                   : PaginatedListView(
                       enablePullDown: false,
                       reverse: true,
                       onRefresh: () {
-                        context.read<MessageBloc>().add(
-                              MessageEvent.getMessageList(true),
-                            );
+                        context
+                            .read<MessageBloc>()
+                            .add(MessageEvent.getMessageList(true));
                       },
                       onLoading: () {
-                        context.read<MessageBloc>().add(
-                              MessageEvent.getMessageList(false),
-                            );
+                        context
+                            .read<MessageBloc>()
+                            .add(MessageEvent.getMessageList(false));
                       },
                       refreshController:
                           context.read<MessageBloc>().refreshController,

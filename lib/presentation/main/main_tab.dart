@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
-import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -35,7 +34,7 @@ class MainTabView extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<MainTabBloc>()
-            ..add(MainTabEvent.initDynamicLink(context))
+            // ..add(MainTabEvent.initDynamicLink(context))
             ..add(TabChange(0)),
         ),
         BlocProvider(
@@ -79,13 +78,8 @@ class MainTabView extends StatelessWidget {
                       children: List<Widget>.generate(
                         context.read<MainTabBloc>().pageList.length,
                         (int index) {
-                          print("INDEX OF PAGE---> ${index}");
-                          print(
-                              "LIST OF PAGE---> ${context.read<MainTabBloc>().pageList}");
                           return Navigator(
                             onGenerateRoute: (RouteSettings settings) {
-                              print(
-                                  "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
                               return onGenerateRoute(
                                 settings,
                                 context.read<MainTabBloc>().pageList[index],
@@ -95,97 +89,15 @@ class MainTabView extends StatelessWidget {
                           );
                         },
                       ),
-                    )
-                    /* child: IndexedStack(
-                      index: state.pageIndex,
-                      children: List<Widget>.generate(
-                        context.read<MainTabBloc>().pageList.length,
-                        (int index) {
-                          // final tabItem =
-                          //     context.read<MainTabBloc>().pageList[index];
-                          // return (tabItem == autoroute.HomeView.name)
-                          //     ? HomeView()
-                          //     : (tabItem == autoroute.EmployerShiftView.name)
-                          //         ? BlocProvider(
-                          //             create: (context) => getIt<ShiftsBloc>()
-                          //               ..add(ShiftsBlocEvent.getLocationListAPI()),
-                          //             child: EmployerShiftView(),
-                          //           )
-                          //         : (tabItem == autoroute.NotificationView.name)
-                          //             ? NotificationView()
-                          //             : (tabItem == autoroute.ProfileView.name)
-                          //                 ? ProfileView()
-                          //                 : Container();
-          
-                          return Navigator(
-                            onGenerateRoute: (RouteSettings settings) {
-                              print(
-                                  "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
-                              return onGenerateRoute(
-                                  settings, state.currentPage ?? Container());
-                            },
-                          );
-                        },
-                      ),
-                    ), */
-                    ),
+                    )),
                 floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
-                  listener: (context, state) {
-                    /*state.teamStatusFailureOrSuccessOption.fold(
-                        () {},
-                        (either) => either.fold(
-                          (failure) {
-                            showError(
-                              message: failure.maybeMap(
-                                showAPIResponseMessage: (value) => value.message,
-                                networkError: (value) =>
-                                    'Please check your internet connectivity',
-                                orElse: () => "Server Error. Try again later.",
-                              ),
-                            ).show(context);
-                          },
-                          (r) {
-                            if (r.isTeamAvailable == 1) {
-                              context.router
-                                  .push(PageRouteInfo(
-                                      autoroute.HealthCarePostForm.name))
-                                  .then((value) {
-                                context
-                                    .read<HomeBloc>()
-                                    .add(HomeEvent.getEmployerDashboardList(true));
-                              });
-                            } else {
-                              teamCheckDialog(context, state);
-                            }
-                          },
-                        ),
-                      );*/
-                  },
+                  listener: (context, state) {},
                   builder: (con, state) {
                     return FloatingActionButton(
                       onPressed: () {
                         context
                             .read<MainTabBloc>()
                             .add(MainTabEvent.checkTeamAvailableEvent(context));
-
-                        /*context.router
-                                        .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
-                                        .then((value) {
-                                      context
-                                          .read<HomeBloc>()
-                                          .add(HomeEvent.getEmployerDashboardList(true));
-                                    });*/
-
-                        // context.router.push(PageRouteInfo(
-                        //   autoroute.HealthcarePostShift.name,
-                        //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
-                        // ));
-
-                        // context.router.push(PageRouteInfo(
-                        //   autoroute.PostShiftRecurring.name,
-                        //   args: autoroute.PostShiftRecurringArgs(
-                        //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
-                        // ));
                       },
                       backgroundColor: AppColors.primaryColor,
                       shape: CircleBorder(

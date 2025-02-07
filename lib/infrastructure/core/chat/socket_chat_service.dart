@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/chat/i_chat_service.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
@@ -20,7 +21,9 @@ class SocketChatService extends ChatService {
   }
 
   SocketChatService() {
-    socket = io.io('http://157.245.106.111:3010/',
+    socket = io.io(
+        dotenv.env['DEV_SOCKET_URL']!,
+        // 'http://157.245.106.111:3010/',
         io.OptionBuilder().setTransports(['websocket']).build());
     socket.onConnect((_) {
       log('Socket Connected');

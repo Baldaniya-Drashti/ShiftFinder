@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -12,7 +13,6 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_previus_shift_dto/contractor_previus_shift_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -21,8 +21,6 @@ import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
-import 'package:shift/presentation/core/widgets/tile.dart';
 
 class ContractorCancelledShiftView extends StatelessWidget {
   const ContractorCancelledShiftView({super.key});

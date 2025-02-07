@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations, must_be_immutable, avoid_print
 
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +15,6 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -30,13 +28,14 @@ class ReviewPostShiftDetail extends StatelessWidget {
   final bool fromSaveTemplate;
 
   ReviewPostShiftDetail(
-      {super.key, required this.post, this.isUpdate = false, this.updatedPost,this.fromSaveTemplate=false});
+      {super.key,
+      required this.post,
+      this.isUpdate = false,
+      this.updatedPost,
+      this.fromSaveTemplate = false});
 
   @override
   Widget build(BuildContext context) {
-    Log.success("fromSaveTemplate -----${fromSaveTemplate}");
-
-    print("postpostpostpost---> ${jsonEncode(post.shift_detail)}");
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -149,11 +148,10 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         onPressed: () {
                           context.router.push(PageRouteInfo(PayableDetail.name,
                               args: PayableDetailArgs(
-                                post: post,
-                                updatedPost: updatedPost,
-                                isUpdate: isUpdate,
-                                fromSaveTemplate: fromSaveTemplate
-                              )));
+                                  post: post,
+                                  updatedPost: updatedPost,
+                                  isUpdate: isUpdate,
+                                  fromSaveTemplate: fromSaveTemplate)));
                         },
                         buttonText: StringConstant.txtContinue,
                       ),

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,11 +10,8 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_saved_template/employer_saved_template_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-
 part 'save_template_event.dart';
-
 part 'save_template_state.dart';
-
 part 'save_template_bloc.freezed.dart';
 
 @injectable
@@ -45,7 +42,9 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
           var res = await _mainFacade.employerSavedTemplate(
               page: currentPage,
               shiftType: state.selectedFilterType?.id ?? 1,
-              sameOrDifferentTime: state.selectedFilterType?.id == 2 ? state.selectedMultiShift : null,
+              sameOrDifferentTime: state.selectedFilterType?.id == 2
+                  ? state.selectedMultiShift
+                  : null,
               search: state.searchQuery);
           currentPage++;
           res.fold(
@@ -65,11 +64,16 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
                 state.copyWith(
                   loading: false,
                   error: false,
-                  noDataFound: (r.data as List<dynamic>).map((e) => EmployerSavedTemplateDto.fromJson(e)).toList().isEmpty,
+                  noDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerSavedTemplateDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
                   savedTemplateList: List.from(state.savedTemplateList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerSavedTemplateDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map((e) => EmployerSavedTemplateDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
@@ -82,26 +86,27 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
         },
         onSearchJobRole: (OnSearchJobRole value) {
           emit(state.copyWith(searchQuery: value.query));
-          add(SaveTemplateEvent.getSavedTemplateList(refresh: true, search: value.query));
+          add(SaveTemplateEvent.getSavedTemplateList(
+              refresh: true, search: value.query));
         },
         onDeleteCodeSavedTemplate: (OnDeleteCodeSavedTemplate value) async {
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(postDataLoading: true));
-          failureOrSuccess = await _mainFacade.deleteEmployerSavedTemplate(
-            id: value.id
-          );
+          failureOrSuccess =
+              await _mainFacade.deleteEmployerSavedTemplate(id: value.id);
           emit(state.copyWith(postDataLoading: false));
           failureOrSuccess.fold(
-                (l) {
+            (l) {
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
             },
-                (r) {
+            (r) {
               add(SaveTemplateEvent.getSavedTemplateList(refresh: true));
               showSuccess(message: r.dioMessage ?? "").show(value.context);
             },

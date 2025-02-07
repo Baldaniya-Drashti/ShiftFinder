@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, invalid_use_of_visible_for_testing_member
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';

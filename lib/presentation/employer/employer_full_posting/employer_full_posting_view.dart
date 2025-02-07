@@ -1,13 +1,10 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_full_posting/employer_full_posting_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
@@ -30,116 +27,133 @@ class EmployerFullPostingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Full Time Positions"),
-      body: BlocProvider<EmployerFullPostingBloc>(
-        create: (context) => getIt<EmployerFullPostingBloc>()
-          ..add(
-            EmployerFullPostingEvent.getEmployerFullPosition(context: context, refresh: true),
-          ),
-        child: _EmployerFullPostingContent(),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(getSize(16)).copyWith(top: getSize(12)),
-        child: CommonButton(
-          onPressed: () {
-            context.router.push(PageRouteInfo(EmployerFullPositionAddView.name));
-          },
-          buttonText: "Post a Full Time Position",
-        ),
+    return BlocProvider(
+      create: (context) => getIt<EmployerFullPostingBloc>()
+        ..add(EmployerFullPostingEvent.getEmployerFullPosition(
+            context: context, refresh: true)),
+      child: BlocBuilder<EmployerFullPostingBloc, EmployerFullPostingState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                title: StringConstant.fullTimePositions),
+            body: _EmployerFullPostingContent(state),
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.all(getSize(16)).copyWith(top: getSize(12)),
+              child: CommonButton(
+                onPressed: () {
+                  context.router
+                      .push(PageRouteInfo(EmployerFullPositionAddView.name))
+                      .then((value) {
+                    context.read<EmployerFullPostingBloc>().add(
+                        EmployerFullPostingEvent.getEmployerFullPosition(
+                            context: context, refresh: true));
+                  });
+                },
+                buttonText: StringConstant.postAFullTimePosition,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 }
 
 class _EmployerFullPostingContent extends StatelessWidget {
-  const _EmployerFullPostingContent({super.key});
+  final EmployerFullPostingState state;
+  const _EmployerFullPostingContent(this.state);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EmployerFullPostingBloc, EmployerFullPostingState>(
-      builder: (context, state) {
-        return PaginatedListView(
-          onRefresh: () {
-            context.read<EmployerFullPostingBloc>().add(
-                  EmployerFullPostingEvent.getEmployerFullPosition(
-                    refresh: true,
-                    context: context,
-                  ),
-                );
-          },
-          onLoading: () {
-            context.read<EmployerFullPostingBloc>().add(
-                  EmployerFullPostingEvent.getEmployerFullPosition(
-                    refresh: false,
-                    context: context,
-                  ),
-                );
-          },
-          refreshController: context.read<EmployerFullPostingBloc>().refreshController,
-          isNoDataFound: state.isNoDataFound,
-          child: state.isLoading
-              ? CenterLoadingIndicator()
-              : state.isErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  : ListView.separated(
-                      padding: EdgeInsets.all(getSize(12)),
-                      separatorBuilder: (context, index) => Gap(getSize(16)),
-                      itemCount: state.employerFullPosition.length,
-                      itemBuilder: (context, index) {
-                        final data = state.employerFullPosition[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(getSize(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.lightGrey.withOpacity(0.2),
-                                blurRadius: getSize(20),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(getSize(12)),
-                            child: Column(
-                              children: [
-                                _buildPositionTile(context, employer: data),
-                                Gap(getSize(10)),
-                                _positionDetailButton(
-                                  context,
-                                  onPressed: () {
-                                    context.router.push(
-                                      PageRouteInfo(EmployerFullPositionPositionDetailView.name,
-                                          args: EmployerFullPositionPositionDetailViewArgs(id: data.id ?? -1)),
-                                    );
-                                  },
-                                ),
-                                Gap(getSize(10)),
-                                _buildPositionDescription(context, employer: data),
-                                Gap(getSize(10)),
-                                _buildTotalApplication(
-                                  context,
-                                  employer: data,
-                                  onPressed: () {
-                                    if (state.employerFullPosition[index].total_application_counts == 0) return;
-                                    context.router.push(
-                                      PageRouteInfo(
-                                        EmployerFullPositionApplicantsView.name,
-                                        args: EmployerFullPositionApplicantsViewArgs(id: data.id ?? -1),
-                                      ),
-                                    );
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-        );
+    return PaginatedListView(
+      onRefresh: () {
+        context.read<EmployerFullPostingBloc>().add(
+              EmployerFullPostingEvent.getEmployerFullPosition(
+                refresh: true,
+                context: context,
+              ),
+            );
       },
+      onLoading: () {
+        context.read<EmployerFullPostingBloc>().add(
+              EmployerFullPostingEvent.getEmployerFullPosition(
+                refresh: false,
+                context: context,
+              ),
+            );
+      },
+      refreshController:
+          context.read<EmployerFullPostingBloc>().refreshController,
+      isNoDataFound: state.isNoDataFound,
+      child: state.isLoading
+          ? CenterLoadingIndicator(isOnlyLoader: true)
+          : state.isErrorInAPI
+              ? Center(
+                  child: BaseText(text: StringConstant.somethindWentWrong),
+                )
+              : ListView.separated(
+                  padding: EdgeInsets.all(getSize(12)),
+                  separatorBuilder: (context, index) => Gap(getSize(16)),
+                  itemCount: state.employerFullPosition.length,
+                  itemBuilder: (context, index) {
+                    final data = state.employerFullPosition[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(getSize(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.lightGrey.withOpacity(0.2),
+                            blurRadius: getSize(20),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(getSize(12)),
+                        child: Column(
+                          children: [
+                            _buildPositionTile(context, employer: data),
+                            Gap(getSize(10)),
+                            _positionDetailButton(
+                              context,
+                              onPressed: () {
+                                context.router.push(
+                                  PageRouteInfo(
+                                      EmployerFullPositionPositionDetailView
+                                          .name,
+                                      args:
+                                          EmployerFullPositionPositionDetailViewArgs(
+                                              id: data.id ?? -1)),
+                                );
+                              },
+                            ),
+                            Gap(getSize(10)),
+                            _buildPositionDescription(context, employer: data),
+                            Gap(getSize(10)),
+                            _buildTotalApplication(
+                              context,
+                              employer: data,
+                              onPressed: () {
+                                if (state.employerFullPosition[index]
+                                        .total_application_counts ==
+                                    0) return;
+                                context.router.push(
+                                  PageRouteInfo(
+                                    EmployerFullPositionApplicantsView.name,
+                                    args:
+                                        EmployerFullPositionApplicantsViewArgs(
+                                            id: data.id ?? -1),
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
     );
   }
 
@@ -174,7 +188,8 @@ class _EmployerFullPostingContent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BaseText(
-                    text: "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
+                    text:
+                        "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.white.withOpacity(0.80),
@@ -195,13 +210,15 @@ class _EmployerFullPostingContent extends StatelessWidget {
                       final result = await AppDialog.showCommonDialog(
                         context: context,
                         title: "Delete The Position",
-                        content: "Are you sure you want to delete this long term position?",
+                        content:
+                            "Are you sure you want to delete this long term position?",
                         successLabel: "Delete",
                       );
                       if (result ?? false) {
                         context.read<EmployerFullPostingBloc>().add(
-                          EmployerFullPostingEvent.deletePost(context: context, id: employer.id ?? -1),
-                        );
+                              EmployerFullPostingEvent.deletePost(
+                                  context: context, id: employer.id ?? -1),
+                            );
                       }
                     },
                     child: SvgPicture.asset(SvgImageConstant.delete),
@@ -212,7 +229,8 @@ class _EmployerFullPostingContent extends StatelessWidget {
                       context.router.push(
                         PageRouteInfo(
                           EmployerFullPositionAddView.name,
-                          args: EmployerFullPositionAddViewArgs(postId: employer.id ?? -1),
+                          args: EmployerFullPositionAddViewArgs(
+                              postId: employer.id ?? -1),
                         ),
                       );
                     },
@@ -233,7 +251,6 @@ class _EmployerFullPostingContent extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildLocationInfo(
     BuildContext context, {
@@ -286,9 +303,13 @@ class _EmployerFullPostingContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
-            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: employer.position ?? ""),
+            BaseText(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                text: employer.position ?? ""),
           ],
         ),
       ),
@@ -311,7 +332,10 @@ class _EmployerFullPostingContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BaseText(text: "Total Applications", fontSize: 12, fontWeight: FontWeight.w500),
+              BaseText(
+                  text: "Total Applications",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
               Gap(getSize(8)),
               Row(
                 children: [
@@ -335,39 +359,10 @@ class _EmployerFullPostingContent extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildDateInfoTile(
-    BuildContext context, {
-    required String title,
-    required DateTime dateTime,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BaseText(text: title, fontSize: 9),
-        Text.rich(
-          style: TextStyle(fontSize: getFontSize(10), fontWeight: FontWeight.w600),
-          TextSpan(
-            text: "${DateFormat("dd MMM").format(dateTime)},",
-            children: [
-              TextSpan(
-                text: " ${dateTime.year.toString()}",
-                style: TextStyle(color: AppColors.black.withOpacity(0.5)),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
 }
 
 class _EmployerStackedImage extends StatelessWidget {
-  const _EmployerStackedImage({
-    super.key,
-    required this.imageList,
-  });
+  const _EmployerStackedImage({required this.imageList});
 
   final List<ApplicationProfile> imageList;
 
@@ -376,7 +371,7 @@ class _EmployerStackedImage extends StatelessWidget {
     return BlocBuilder<EmployerFullPostingBloc, EmployerFullPostingState>(
       builder: (context, state) {
         List<double> imagePosition = [0, 13, 26, 39, 52, 65];
-        return Container(
+        return SizedBox(
           width: getSize(100),
           height: getSize(30),
           // color: Colors.yellow,

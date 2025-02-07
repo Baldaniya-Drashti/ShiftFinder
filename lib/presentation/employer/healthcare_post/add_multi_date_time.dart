@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, must_be_immutable
 
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,54 +32,50 @@ class AddMultiDateTime extends StatelessWidget {
   HealthcarePostDTO? updateShift;
   final bool fromSaveTemplate;
 
-
   MultiShiftDTO selectedObj;
 
-  AddMultiDateTime({super.key,
-    this.fromSaveTemplate = false,
-
-    required this.selectedObj,
-    this.updateShift,
-    required this.post});
+  AddMultiDateTime(
+      {super.key,
+      this.fromSaveTemplate = false,
+      required this.selectedObj,
+      this.updateShift,
+      required this.post});
 
   @override
   Widget build(BuildContext context) {
-    print("Selected Obj--> ${jsonEncode(selectedObj.multi_date)}");
-    print("fromSaveTemplate--> ${fromSaveTemplate}");
     Log.debug(selectedObj.multi_date);
     return BlocProvider(
-      create: (context) =>
-      getIt<PostShiftBloc>()
+      create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.initMultiDifferentDateEvent(
             selectedObj.multi_date ?? [],
             updateShift: updateShift,
-            post: post,fromSaveTemplate: fromSaveTemplate)),
+            post: post,
+            fromSaveTemplate: fromSaveTemplate)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(
-                () {},
-                (either) =>
-                either.fold(
-                      (failure) {
-                    showError(
-                      message: failure.maybeMap(
-                        showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
                         'Please check your internet connectivity',
-                        orElse: () => "Server Error. Try again later.",
-                      ),
-                    ).show(context);
-                  },
-                      (r) {
-                    /*context.router.push(PageRouteInfo(
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                /*context.router.push(PageRouteInfo(
                   PostShiftRecurring.name,
                   args: PostShiftRecurringArgs(
                       shiftType: state.shiftType,
                       healthcarePost: r,
                       post: post),
                 ));*/
-                  },
-                ),
+              },
+            ),
           );
         },
         builder: (context, state) {
@@ -96,65 +90,67 @@ class AddMultiDateTime extends StatelessWidget {
             body: (state.isLoading)
                 ? CenterLoadingIndicator()
                 : Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // unpaidBreakDropDown(context, state),
-                  // if (state.singleShiftErrorMessages &&
-                  //     !state.unpaidBreak.isValid())
-                  //   commonErrorText(
-                  //       StringConstant.pleaseSelectUnpaidBreakTime),
-                  // paddingBetweenFields(),
-                  totalPaybleHours(state),
-                  paddingBetweenFields(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (state.multiDateTimeList.isNotEmpty)
-                            ListView.builder(
-                                itemCount: state.multiDateTimeList.length,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, index) {
-
-                                  print("Get updatedd list----> ${state.multiDateTimeList.length}");
-                                  return startEndTime(context, state,
-                                      state.multiDateTimeList[index],
-                                      index: index);
-                                }),
-                          if (!(state.multiDateTimeList.every((dto) =>
-                          dto.totalPaybleHours != null &&
-                              dto.totalPaybleHours!.isNotEmpty)) &&
-                              state.singleShiftErrorMessages)
-                            commonErrorText(
-                              StringConstant
-                                  .pleaseSelectStartAndEndTimeForEachDate,
-                            ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: getSize(30)),
-                            child: CommonButton(
-                              onPressed: () {
-                                ///TTTTT
-                                context.read<PostShiftBloc>().add(
-                                    PostShiftEvent
-                                        .differentTimeShiftSubmitted(
-                                        selectedObj, context, fromSaveTemplate));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // unpaidBreakDropDown(context, state),
+                        // if (state.singleShiftErrorMessages &&
+                        //     !state.unpaidBreak.isValid())
+                        //   commonErrorText(
+                        //       StringConstant.pleaseSelectUnpaidBreakTime),
+                        // paddingBetweenFields(),
+                        totalPaybleHours(state),
+                        paddingBetweenFields(),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (state.multiDateTimeList.isNotEmpty)
+                                  ListView.builder(
+                                      itemCount: state.multiDateTimeList.length,
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (_, index) {
+                                        print(
+                                            "Get updatedd list----> ${state.multiDateTimeList.length}");
+                                        return startEndTime(context, state,
+                                            state.multiDateTimeList[index],
+                                            index: index);
+                                      }),
+                                if (!(state.multiDateTimeList.every((dto) =>
+                                        dto.totalPaybleHours != null &&
+                                        dto.totalPaybleHours!.isNotEmpty)) &&
+                                    state.singleShiftErrorMessages)
+                                  commonErrorText(
+                                    StringConstant
+                                        .pleaseSelectStartAndEndTimeForEachDate,
+                                  ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(30)),
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      ///TTTTT
+                                      context.read<PostShiftBloc>().add(
+                                          PostShiftEvent
+                                              .differentTimeShiftSubmitted(
+                                                  selectedObj,
+                                                  context,
+                                                  fromSaveTemplate));
+                                    },
+                                    buttonText: StringConstant.txtContinue,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
           );
         },
       ),
@@ -171,7 +167,7 @@ class AddMultiDateTime extends StatelessWidget {
 
     return Container(
       padding:
-      EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(18)),
+          EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(18)),
       decoration: BoxDecoration(
           color: AppColors.grey04,
           borderRadius: BorderRadius.circular(getSize(10))),
@@ -192,7 +188,8 @@ class AddMultiDateTime extends StatelessWidget {
     );
   }
 
-  Widget unpaidBreakDropDown(BuildContext context, PostShiftState state, int index) {
+  Widget unpaidBreakDropDown(
+      BuildContext context, PostShiftState state, int index) {
     final breakTime = state.multiDateTimeList[index].unpaidBreak;
 
     return CustomDropdwonWithTextField(
@@ -200,8 +197,11 @@ class AddMultiDateTime extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: false,
-      dropDownReadOnly: (updateShift?.id != null&& fromSaveTemplate==false) ? true : false,
-      dropDownIcon: (state.updateShift.id != null&& fromSaveTemplate==false) ? Container() : null,
+      dropDownReadOnly:
+          (updateShift?.id != null && fromSaveTemplate == false) ? true : false,
+      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+          ? Container()
+          : null,
       value: (breakTime != null && breakTime.isNotEmpty) ? breakTime : null,
       items: state.breakList.map((val) {
         return DropdownMenuItem<String>(
@@ -250,7 +250,8 @@ class AddMultiDateTime extends StatelessWidget {
     );
   }
 
-  Widget startEndTime(BuildContext context, PostShiftState state, DateTimeDTO currentObj,
+  Widget startEndTime(
+      BuildContext context, PostShiftState state, DateTimeDTO currentObj,
       {required int index}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,7 +263,7 @@ class AddMultiDateTime extends StatelessWidget {
           child: BaseText(
             text: (currentObj.date != null && currentObj.date!.isNotEmpty)
                 ? DateFormat('d MMM, yyyy')
-                .format(DateTime.parse(currentObj.date ?? ""))
+                    .format(DateTime.parse(currentObj.date ?? ""))
                 : "",
             textColor: AppColors.primaryColor,
             fontSize: 14,
@@ -296,8 +297,8 @@ class AddMultiDateTime extends StatelessWidget {
                 multiDate: currentObj,
               ))
                   ? commonErrorText(
-                  StringConstant.shiftStartTimeMustBeAFutureTime,
-                  padding: EdgeInsets.only(top: getSize(10)))
+                      StringConstant.shiftStartTimeMustBeAFutureTime,
+                      padding: EdgeInsets.only(top: getSize(10)))
                   : Container(),
             ],
           ),
@@ -311,8 +312,13 @@ class AddMultiDateTime extends StatelessWidget {
     final minute = state.multiDateTimeList[index].startMinute;
     return CustomTimePickerDropdown(
       labelText: StringConstant.startTime,
-      dropDownIcon: (state.updateShift.id != null&& fromSaveTemplate==false) ? Container() : null,
-      dropDownReadOnly: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
+      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+          ? Container()
+          : null,
+      dropDownReadOnly:
+          (state.updateShift.id != null && fromSaveTemplate == false)
+              ? true
+              : false,
       isLabelPadding: false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
@@ -338,8 +344,13 @@ class AddMultiDateTime extends StatelessWidget {
     return CustomTimePickerDropdown(
       labelText: StringConstant.endTime,
       isLabelPadding: false,
-      dropDownIcon: (state.updateShift.id != null&& fromSaveTemplate==false) ? Container() : null,
-      dropDownReadOnly: (state.updateShift.id != null&& fromSaveTemplate==false) ? true : false,
+      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+          ? Container()
+          : null,
+      dropDownReadOnly:
+          (state.updateShift.id != null && fromSaveTemplate == false)
+              ? true
+              : false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
       hourOnChanged: (value) {

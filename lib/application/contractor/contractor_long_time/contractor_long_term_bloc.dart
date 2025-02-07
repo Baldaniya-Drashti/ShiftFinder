@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -6,15 +6,13 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-
 part 'contractor_long_term_event.dart';
-
 part 'contractor_long_term_state.dart';
-
 part 'contractor_long_term_bloc.freezed.dart';
 
 @injectable
-class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLongTermState> {
+class ContractorLongTermBloc
+    extends Bloc<ContractorLongTermEvent, ContractorLongTermState> {
   final IMainFacade _mainFacade;
 
   int currentPage = 1;
@@ -30,13 +28,15 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
   final RefreshController upcomingRefreshController = RefreshController();
   final RefreshController appliedRefreshController = RefreshController();
 
-  ContractorLongTermBloc(this._mainFacade) : super(ContractorLongTermState.initial()) {
+  ContractorLongTermBloc(this._mainFacade)
+      : super(ContractorLongTermState.initial()) {
     on<ContractorLongTermEvent>((event, emit) async {
       await event.map(
         fetchOpenPositionList: (value) async {
           if (value.refresh) {
             currentPage = 1;
-            emit(state.copyWith(openPositionList: [], isLoading: value.refresh));
+            emit(
+                state.copyWith(openPositionList: [], isLoading: value.refresh));
             openRefreshController.resetNoData();
           } else {
             if (currentPage > lastPage) {
@@ -49,7 +49,6 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
             positionsType: 1,
           );
           currentPage++;
-          print("-========>${res}");
           res.fold(
             (l) => emit(
               state.copyWith(
@@ -67,10 +66,16 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => ContractorLongTermDashboardDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map(
+                              (e) => ContractorLongTermDashboardDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
@@ -80,7 +85,8 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
         fetchUpcomingPositionList: (value) async {
           if (value.refresh) {
             upcomingCurrentPage = 1;
-            emit(state.copyWith(upComingPositionList: [], upcomingLoading: value.refresh));
+            emit(state.copyWith(
+                upComingPositionList: [], upcomingLoading: value.refresh));
             upcomingRefreshController.resetNoData();
           } else {
             if (upcomingCurrentPage > upcomingLastPage) {
@@ -110,11 +116,17 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   upcomingLoading: false,
                   upcomingIsErrorInAPI: false,
-                  upcomingNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  upcomingNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => ContractorLongTermDashboardDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
                   upComingPositionList: List.from(state.upComingPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map(
+                              (e) => ContractorLongTermDashboardDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
@@ -124,7 +136,8 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
         fetchAppliedPositionList: (value) async {
           if (value.refresh) {
             appliedCurrentPage = 1;
-            emit(state.copyWith(appliedPositionList: [], appliedLoading: value.refresh));
+            emit(state.copyWith(
+                appliedPositionList: [], appliedLoading: value.refresh));
             appliedRefreshController.resetNoData();
           } else {
             if (appliedCurrentPage > appliedLastPage) {
@@ -154,11 +167,17 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
                 state.copyWith(
                   appliedLoading: false,
                   appliedIsErrorInAPI: false,
-                  appliedNoDataFound: (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  appliedNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => ContractorLongTermDashboardDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
                   appliedPositionList: List.from(state.appliedPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => ContractorLongTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map(
+                              (e) => ContractorLongTermDashboardDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
@@ -167,7 +186,8 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
         },
         applyOpenPosition: (ApplyOpenPosition value) async {
           emit(state.copyWith(postDataLoading: true));
-          final res = await _mainFacade.contractorApplyLongFullPost(id: value.id);
+          final res =
+              await _mainFacade.contractorApplyLongFullPost(id: value.id);
           emit(state.copyWith(postDataLoading: false));
 
           res.fold(
@@ -175,7 +195,8 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Something went wrong!",
                 ),
               ).show(value.context);
@@ -199,14 +220,16 @@ class ContractorLongTermBloc extends Bloc<ContractorLongTermEvent, ContractorLon
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Something went wrong!",
                 ),
               ).show(value.context);
             },
             (r) {
               showSuccess(message: r.dioMessage ?? "").show(value.context);
-              add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: true));
+              add(ContractorLongTermEvent.fetchAppliedPositionList(
+                  refresh: true));
             },
           );
         },

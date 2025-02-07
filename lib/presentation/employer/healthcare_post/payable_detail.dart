@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations, must_be_immutable, avoid_print
-
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +11,6 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -22,16 +18,20 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'payableDetail')
 class PayableDetail extends StatelessWidget {
-  HealthcarePostDTO post;
-  PostShiftDTO? updatedPost;
-  bool isUpdate;
+  final HealthcarePostDTO post;
+  final PostShiftDTO? updatedPost;
+  final bool isUpdate;
   final bool fromSaveTemplate;
 
-  PayableDetail({super.key, required this.post, this.isUpdate = false, this.updatedPost, this.fromSaveTemplate = false});
+  const PayableDetail(
+      {super.key,
+      required this.post,
+      this.isUpdate = false,
+      this.updatedPost,
+      this.fromSaveTemplate = false});
 
   @override
   Widget build(BuildContext context) {
-    Log.success("fromSaveTemplate ${fromSaveTemplate}");
     return PopScope(
       canPop: false,
       child: BlocProvider(
@@ -45,7 +45,8 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -72,7 +73,8 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -135,12 +137,14 @@ class PayableDetail extends StatelessWidget {
                                         title: (isUpdate && !fromSaveTemplate)
                                             ? StringConstant.updateTheShift
                                             : StringConstant.postTheShift,
-                                        infoMessage: (isUpdate && !fromSaveTemplate)
-                                            ? StringConstant.updateShiftDesc
-                                            : StringConstant.postShiftDesc,
-                                        deleteBtnText: isUpdate && !fromSaveTemplate
-                                            ? StringConstant.update
-                                            : StringConstant.post,
+                                        infoMessage:
+                                            (isUpdate && !fromSaveTemplate)
+                                                ? StringConstant.updateShiftDesc
+                                                : StringConstant.postShiftDesc,
+                                        deleteBtnText:
+                                            isUpdate && !fromSaveTemplate
+                                                ? StringConstant.update
+                                                : StringConstant.post,
                                         onCancelClick: () {
                                           Navigator.pop(context);
                                         },
@@ -150,7 +154,10 @@ class PayableDetail extends StatelessWidget {
                                                   PostShiftEvent
                                                       .postTheShiftEvent(
                                                 post.id ?? -1,
-                                                (isUpdate && !fromSaveTemplate) ? updatedPost : null,fromSaveTemplate,
+                                                (isUpdate && !fromSaveTemplate)
+                                                    ? updatedPost
+                                                    : null,
+                                                fromSaveTemplate,
                                               ));
                                         },
                                       );

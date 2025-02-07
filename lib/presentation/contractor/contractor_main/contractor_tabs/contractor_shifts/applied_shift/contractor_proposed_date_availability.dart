@@ -10,10 +10,8 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -38,8 +36,6 @@ class ContractorProposedAvailability extends StatefulWidget {
 
 class _ContractorProposedAvailabilityState
     extends State<ContractorProposedAvailability> {
-  late ValueNotifier _confirmationCheckBox;
-
   @override
   void initState() {
     super.initState();
@@ -143,7 +139,7 @@ class _ContractorProposedAvailabilityState
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) =>
-                                  _EmployerAvailabilityListTile(
+                                  EmployerAvailabilityListTile(
                                       data: widget.list[index]),
                               separatorBuilder: (context, index) => Gap(28),
                               itemCount: widget.list.length,
@@ -253,8 +249,8 @@ class _ContractorProposedAvailabilityState
   }
 }
 
-class _EmployerAvailabilityListTile extends StatelessWidget {
-  const _EmployerAvailabilityListTile({super.key, required this.data});
+class EmployerAvailabilityListTile extends StatelessWidget {
+  const EmployerAvailabilityListTile({super.key, required this.data});
 
   final EmployerProposalShiftDetailDto data;
 

@@ -9,7 +9,6 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/profile/widgets/contractor_main_profile_view.dart';
 import 'package:shift/presentation/main/tabs/profile/widgets/profile_items.dart';
-import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage(name: 'ContractorProfileView')

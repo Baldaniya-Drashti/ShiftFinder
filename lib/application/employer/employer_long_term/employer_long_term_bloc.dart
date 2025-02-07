@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -6,15 +6,13 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_full_term_dashboard/employer_long_full_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-
 part 'employer_long_term_event.dart';
-
 part 'employer_long_term_state.dart';
-
 part 'employer_long_term_bloc.freezed.dart';
 
 @injectable
-class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermState> {
+class EmployerLongTermBloc
+    extends Bloc<EmployerLongTermEvent, EmployerLongTermState> {
   final IMainFacade _iMainFacade;
 
   int currentPage = 1;
@@ -23,18 +21,18 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
   int fillPositionCurrentPage = 1;
   int fillPositionLastPage = 1;
 
-
-
   final RefreshController openPositionController = RefreshController();
   final RefreshController filledPositionController = RefreshController();
 
-  EmployerLongTermBloc(this._iMainFacade) : super(EmployerLongTermState.initial()) {
+  EmployerLongTermBloc(this._iMainFacade)
+      : super(EmployerLongTermState.initial()) {
     on<EmployerLongTermEvent>((event, emit) async {
       await event.map(
         getEmployerFilledPosition: (value) async {
           if (value.refresh) {
             fillPositionCurrentPage = 1;
-            emit(state.copyWith(filledPositionList: [], fillPositionLoading: value.refresh));
+            emit(state.copyWith(
+                filledPositionList: [], fillPositionLoading: value.refresh));
             filledPositionController.resetNoData();
           } else {
             if (fillPositionCurrentPage > fillPositionLastPage) {
@@ -48,12 +46,14 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
           );
           fillPositionCurrentPage++;
 
-
           response.fold(
-                (l) => emit(
-              state.copyWith(fillPositionErrorInAPI: true, fillPositionLoading: false, filledPositionList: []),
+            (l) => emit(
+              state.copyWith(
+                  fillPositionErrorInAPI: true,
+                  fillPositionLoading: false,
+                  filledPositionList: []),
             ),
-                (r) {
+            (r) {
               lastPage = r.meta?.lastPage ?? 1;
               if (value.refresh) {
                 List.from(state.filledPositionList).clear();
@@ -62,21 +62,27 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
                 state.copyWith(
                   fillPositionLoading: false,
                   fillPositionErrorInAPI: false,
-                  fillPositionNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  fillPositionNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerLongFullTermDashboardDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   filledPositionList: List.from(state.filledPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map((e) =>
+                              EmployerLongFullTermDashboardDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
             },
           );
-
         },
         getEmployerLongTermOpenPosition: (value) async {
           if (value.refresh) {
             currentPage = 1;
-            emit(state.copyWith(openPositionList: [], isLoading: value.refresh));
+            emit(
+                state.copyWith(openPositionList: [], isLoading: value.refresh));
             openPositionController.resetNoData();
           } else {
             if (currentPage > lastPage) {
@@ -84,12 +90,14 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
               return;
             }
           }
-          final response = await _iMainFacade.employerLongTermDashboard(positionsType: 1, page: currentPage);
+          final response = await _iMainFacade.employerLongTermDashboard(
+              positionsType: 1, page: currentPage);
           currentPage++;
 
           response.fold(
             (l) => emit(
-              state.copyWith(isErrorInAPI: true, isLoading: false, openPositionList: []),
+              state.copyWith(
+                  isErrorInAPI: true, isLoading: false, openPositionList: []),
             ),
             (r) {
               lastPage = r.meta?.lastPage ?? 1;
@@ -100,10 +108,16 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerLongFullTermDashboardDto.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   openPositionList: List.from(state.openPositionList)
                     ..addAll(
-                      (r.data as List<dynamic>).map((e) => EmployerLongFullTermDashboardDto.fromJson(e)).toList(),
+                      (r.data as List<dynamic>)
+                          .map((e) =>
+                              EmployerLongFullTermDashboardDto.fromJson(e))
+                          .toList(),
                     ),
                 ),
               );
@@ -122,14 +136,16 @@ class EmployerLongTermBloc extends Bloc<EmployerLongTermEvent, EmployerLongTermS
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
             },
             (r) {
               showSuccess(message: r.dioMessage ?? "").show(value.context);
-              add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(context: value.context, refresh: true));
+              add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(
+                  context: value.context, refresh: true));
             },
           );
         },

@@ -2,18 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart';
-import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/applicant_detail_container.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/applicant_specialize.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/documents_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewCollegueProfile')

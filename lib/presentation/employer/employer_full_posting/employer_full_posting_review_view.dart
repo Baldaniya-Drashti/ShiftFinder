@@ -1,6 +1,6 @@
-import 'dart:math';
+// ignore_for_file: deprecated_member_use
 
-import 'package:auto_route/annotations.dart';
+import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_full_posting_review/employer_full_posting_review_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
@@ -23,7 +24,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerFullPostingReviewView")
 class EmployerFullPostingReviewView extends StatelessWidget {
-  const EmployerFullPostingReviewView({super.key, required this.response, required this.data, this.postId});
+  const EmployerFullPostingReviewView(
+      {super.key, required this.response, required this.data, this.postId});
 
   final EmployerLongTermSuccessDto response;
   final EmployerLongTermSuccessDto data;
@@ -35,7 +37,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       create: (context) => getIt<EmployerFullPostingReviewBloc>(),
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Review Details"),
+          appBar: CommonAppBar(
+              onBackPressed: () => context.router.maybePop(),
+              title: StringConstant.reviewDetails),
           body: SingleChildScrollView(
             padding: EdgeInsets.all(getSize(12)),
             child: Column(
@@ -65,7 +69,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                       _buildBargainingUnit(context),
                       _buildOnCall(context),
                       if (response.benefits != null)
-                        _buildBulletPointsList(context, title: "Benefits Provided", content: response.benefits),
+                        _buildBulletPointsList(context,
+                            title: "Benefits Provided",
+                            content: response.benefits),
                       if (response.compensation_package != null)
                         _buildBulletPointsList(
                           context,
@@ -73,7 +79,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                           content: response.compensation_package,
                         ),
                       if (response.job_summary != null)
-                        _buildBulletPointsList(context, title: "Job Summary", content: response.job_summary),
+                        _buildBulletPointsList(context,
+                            title: "Job Summary",
+                            content: response.job_summary),
                       if (response.external_internal_relationships != null)
                         _buildBulletPointsList(
                           context,
@@ -81,7 +89,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                           content: response.external_internal_relationships,
                         ),
                       if (response.employer_payment_confirmation != null)
-                        _buildBulletPointsList(context, title: "Required Qualifications", content: response.qualifications),
+                        _buildBulletPointsList(context,
+                            title: "Required Qualifications",
+                            content: response.qualifications),
                       if (response.experience != null)
                         _buildBulletPointsList(
                           context,
@@ -106,23 +116,19 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                           title: "Other",
                           content: response.other,
                         ),
-                      _buildNumberOfVacancy(context),
-                      _buildCheckListTile(
-                        context,
-                        value: response.on_call_included == 1,
-                        onChanged: (value) {},
-                        label: "This position may include on call.",
-                      ),
-                      _buildCheckListTile(
-                        context,
-                        value: response.save_template_status == 1,
-                        onChanged: (value) {},
-                        label: "Save this as a template for future posting.",
-                      )
+                      _buildNumberOfVacancy(
+                          context, response.number_of_vacancie ?? 00),
+                      if (response.on_call_included == 1)
+                        _buildCheckListTile(
+                          context,
+                          value: response.on_call_included == 1,
+                          onChanged: (value) {},
+                          label: StringConstant.thisPositionMayIncludeOnCall,
+                        ),
                     ],
                   ),
                 ),
-                Gap(22),
+                Gap(getSize(22)),
                 _buildSubmitButton(context)
               ],
             ),
@@ -191,7 +197,8 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               BaseText(
-                text: "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
+                text:
+                    "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 textColor: AppColors.black.withOpacity(0.8),
@@ -231,9 +238,13 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
             Divider(),
-            BaseText(fontWeight: FontWeight.w400, fontSize: 14, text: response.position ?? ""),
+            BaseText(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                text: response.position ?? ""),
           ],
         ),
       ),
@@ -256,13 +267,18 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(SvgImageConstant.dollorRound, height: getSize(18)),
+                      SvgPicture.asset(SvgImageConstant.dollorRound,
+                          height: getSize(18)),
                       Gap(getSize(10)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: response.compensation_type == 1 ? "Rate" : "Salary", fontSize: 12),
+                          BaseText(
+                              text: response.compensation_type == 1
+                                  ? "Rate"
+                                  : "Salary",
+                              fontSize: 12),
                           BaseText(
                             text: "${response.rate_hour ?? ""}",
                             fontSize: 14,
@@ -289,13 +305,22 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                         children: [
                           BaseText(text: "Application Deadline", fontSize: 12),
                           Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: "${response.application_deadline?.year}",
-                                style: TextStyle(color: AppColors.green.withOpacity(0.5)),
-                              )
-                            ], text: "${DateFormat("dd MMM").format(response.application_deadline ?? DateTime.now())}, "),
-                            style: TextStyle(fontSize: getSize(14), fontWeight: FontWeight.w600, color: AppColors.green),
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        "${response.application_deadline?.year}",
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(response.application_deadline ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
                           ),
                         ],
                       ),
@@ -329,13 +354,19 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Estimated Weekly Hours", fontSize: 12, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "Estimated Weekly Hours",
+                fontSize: 12,
+                fontWeight: FontWeight.w500),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
-                    child:
-                        BaseText(text: "${response.estimated_weekly_hours?.formatTimeOfDay}", fontSize: 20, fontWeight: FontWeight.w600)),
+                    child: BaseText(
+                        text:
+                            "${response.estimated_weekly_hours?.formatTimeOfDay}",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600)),
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: getSize(40),
@@ -361,7 +392,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BaseText(text: "Shift Schedule", fontSize: 14, fontWeight: FontWeight.w600),
+            BaseText(
+                text: "Shift Schedule",
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
             Gap(12),
             SizedBox(
               width: double.maxFinite,
@@ -373,7 +407,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                   (index) {
                     return Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey),
+                          borderRadius: BorderRadius.circular(10)),
                       child: BaseText(
                         text: list[index],
                         fontSize: 14,
@@ -402,7 +438,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Language Requirements", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Language Requirements",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Gap(3),
             BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
@@ -422,18 +461,30 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Location Details", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Location Details",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "Location", fontSize: 12, textColor: AppColors.primaryColor),
+            BaseText(
+                text: "Location",
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(text: location?.location ?? "", fontSize: 13),
             Gap(10),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BaseText(text: "Unit - ", fontSize: 12, textColor: AppColors.primaryColor),
-                BaseText(text: "Unit Name", fontSize: 12, fontWeight: FontWeight.w500),
+                BaseText(
+                    text: "Unit - ",
+                    fontSize: 12,
+                    textColor: AppColors.primaryColor),
+                BaseText(
+                    text: "Unit Name",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500),
               ],
             ),
             Gap(4),
@@ -449,15 +500,20 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "Union/Bargaining Unit", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "Union/Bargaining Unit",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
           ],
         ),
       ),
@@ -469,15 +525,22 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: "On-Call", fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: "On-Call",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
-            BaseText(text: "This position may include on-call", fontSize: 14, fontWeight: FontWeight.w500),
+            BaseText(
+                text: "This position may include on-call",
+                fontSize: 14,
+                fontWeight: FontWeight.w500),
           ],
         ),
       ),
@@ -494,12 +557,16 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(16)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            BaseText(text: title, fontSize: 12, textColor: AppColors.black.withOpacity(0.8)),
+            BaseText(
+                text: title,
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.8)),
             Divider(),
             Gap(4),
             ...List.generate(
@@ -512,10 +579,11 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: CircleAvatar(radius: 2, backgroundColor: AppColors.black),
+                        padding: EdgeInsets.only(top: getSize(8)),
+                        child: CircleAvatar(
+                            radius: 2, backgroundColor: AppColors.black),
                       ),
-                      Gap(8),
+                      Gap(getSize(8)),
                       Expanded(
                         child: BaseText(
                           maxLines: 1,
@@ -537,18 +605,25 @@ class EmployerFullPostingReviewView extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberOfVacancy(BuildContext context) {
+  Widget _buildNumberOfVacancy(BuildContext context, int vacancie) {
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(22), vertical: getSize(14)),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(14)),
         child: Row(
           children: [
             Expanded(
-              child: BaseText(text: "Number of Vacancies", fontSize: 12, fontWeight: FontWeight.w500),
+              child: BaseText(
+                  text: StringConstant.numberOfVacancies,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
             ),
-            BaseText(text: "05", fontSize: 14, textColor: AppColors.primaryColor),
+            BaseText(
+                text: (vacancie > 9) ? "$vacancie" : "0$vacancie",
+                fontSize: 14,
+                textColor: AppColors.primaryColor),
           ],
         ),
       ),
@@ -577,8 +652,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                   activeColor: AppColors.primaryColor,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   visualDensity: VisualDensity.compact,
-                  side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                  side: BorderSide(
+                      color: AppColors.black.withOpacity(.5), width: 1.5),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
                   value: value,
                   onChanged: (value) {
                     if (value == null) return;
@@ -589,7 +666,11 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             ),
             Gap(8),
             Expanded(
-              child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
+              child: BaseText(
+                  text: label,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  maxLines: 10),
             )
           ],
         ),

@@ -1,16 +1,10 @@
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
-import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/faq_dto/faq_dto.dart';
-import 'package:shift/infrastructure/core/network/common_response.dart';
-import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-
 part 'faq_event.dart';
 part 'faq_state.dart';
 part 'faq_bloc.freezed.dart';

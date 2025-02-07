@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +13,6 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -353,9 +354,7 @@ class CancelledShiftView extends StatelessWidget {
                         context.router
                             .push(PageRouteInfo(CancelledContractorList.name,
                                 args: CancelledContractorListArgs(
-                                  title: (state.currentCancelFilter.id == 2)
-                                      ? StringConstant.allHiredContractors
-                                      : StringConstant.allHiredContractors,
+                                  title: StringConstant.allWithdranContractors,
                                   postId: shift.id ?? -1,
                                   cancelFilter:
                                       state.currentCancelFilter.id ?? -1,
@@ -374,8 +373,7 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              // "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
-                              "${StringConstant.allHiredContractors} (${shift.hired_user}/${shift.total_user})",
+                              "${StringConstant.allWithdranContractors} (${shift.hired_user}/${shift.total_user})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

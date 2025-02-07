@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
 import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
-import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -20,14 +16,15 @@ import 'package:shift/infrastructure/employer_long_term_success/employer_long_te
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/date_picker_input_field.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
@@ -35,7 +32,6 @@ import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/core/widgets/time_picker_input_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
 import '../../common/utils/file_picker_utils.dart';
 import '../../core/widgets/buttons/common_button.dart';
 
@@ -54,14 +50,18 @@ class EmployerLongTermPositionAddDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("employerrrr=> ${employer?.job_description}");
-    print("employerrrr=> ${postId}");
     return Scaffold(
-      appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Health Care"),
+      appBar: CommonAppBar(
+          onBackPressed: () => context.router.maybePop(),
+          title: CommonList.industryList
+                  .firstWhere((item) => item.id == getCurrentIndustry())
+                  .title ??
+              ""),
       body: BlocProvider(
         create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>()
           ..add(
-            EmployerLongTermPositionAddDetailEvent.onCreate(postShiftDTO, employer, postId),
+            EmployerLongTermPositionAddDetailEvent.onCreate(
+                postShiftDTO, employer, postId),
           ),
         child: _EmployerLongTermPositionDetailContent(employer),
       ),
@@ -75,10 +75,12 @@ class _EmployerLongTermPositionDetailContent extends StatefulWidget {
   final EmployerLongTermSuccessDto? data;
 
   @override
-  State<_EmployerLongTermPositionDetailContent> createState() => _EmployerLongTermPositionDetailContentState();
+  State<_EmployerLongTermPositionDetailContent> createState() =>
+      _EmployerLongTermPositionDetailContentState();
 }
 
-class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTermPositionDetailContent> {
+class _EmployerLongTermPositionDetailContentState
+    extends State<_EmployerLongTermPositionDetailContent> {
   late final UpdateLongTermDetailController controller;
   late final GlobalKey<FormState> _formKey;
 
@@ -94,13 +96,15 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: BlocBuilder<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState>(
+      child: BlocBuilder<EmployerLongTermPositionAddDetailBloc,
+          EmployerLongTermPositionAddDetailState>(
         builder: (context, state) {
           return SingleChildScrollView(
             padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
             child: Column(
               children: [
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, DateTime?>(
                   selector: (state) {
                     return state.employerLongTermAddDetailDto.start_date;
                   },
@@ -118,15 +122,19 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       firstDate: DateTime.now().add(Duration(days: 1)),
                       initialDate: startDate,
                       onPickedDate: (DateTime date) {
-                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.selectStartDate(startDate: date),
+                        context
+                            .read<EmployerLongTermPositionAddDetailBloc>()
+                            .add(
+                              EmployerLongTermPositionAddDetailEvent
+                                  .selectStartDate(startDate: date),
                             );
                       },
                     );
                   },
                 ),
                 Gap(getSize(12)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, DateTime?>(
                   selector: (state) {
                     return state.employerLongTermAddDetailDto.end_date;
                   },
@@ -135,25 +143,35 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       validator: (value, _) {
                         value = value?.trim() ?? "";
                         if (value.isEmpty) {
-                          return "Please select end date";
+                          return StringConstant.pleaseSelectEndDate;
                         }
                         return null;
                       },
-                      label: "End Date",
-                      hint: "End Date",
-                      initialDate: endDate,
-                      firstDate: DateTime.now().add(Duration(days: 1)),
+                      label: StringConstant.endDate,
+                      hint: StringConstant.endDate,
+                      initialDate: (endDate != null) ? endDate : null,
+                      firstDate:
+                          (state.employerLongTermAddDetailDto.start_date !=
+                                  null)
+                              ? state.employerLongTermAddDetailDto.start_date!
+                                  .add(Duration(days: 1))
+                              : DateTime.now().add(Duration(days: 1)),
                       onPickedDate: (DateTime date) {
-                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.selectEndDate(endaDate: date),
+                        context
+                            .read<EmployerLongTermPositionAddDetailBloc>()
+                            .add(
+                              EmployerLongTermPositionAddDetailEvent
+                                  .selectEndDate(endaDate: date),
                             );
                       },
                     );
                   },
                 ),
                 Gap(getSize(12)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, DateTime?>(
-                  selector: (state) => state.employerLongTermAddDetailDto.application_deadline,
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, DateTime?>(
+                  selector: (state) =>
+                      state.employerLongTermAddDetailDto.application_deadline,
                   builder: (context, applicationDeadline) {
                     return DatePickerInputField(
                       label: "Application Deadline",
@@ -165,19 +183,31 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                         }
                         return null;
                       },
-                      initialDate: applicationDeadline,
-                      firstDate: DateTime.now().add(Duration(days: 1)),
+                      initialDate: (applicationDeadline != null)
+                          ? applicationDeadline
+                          : null,
+                      firstDate:
+                          (state.employerLongTermAddDetailDto.start_date !=
+                                  null)
+                              ? state.employerLongTermAddDetailDto.start_date!
+                                  .add(Duration(days: 1))
+                              : null,
                       onPickedDate: (DateTime date) {
-                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(deadLine: date),
+                        context
+                            .read<EmployerLongTermPositionAddDetailBloc>()
+                            .add(
+                              EmployerLongTermPositionAddDetailEvent
+                                  .selectApplicationDeadline(deadLine: date),
                             );
                       },
                     );
                   },
                 ),
                 Gap(getSize(12)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, TimeOfDay?>(
-                  selector: (state) => state.employerLongTermAddDetailDto.estimated_weekly_hours,
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, TimeOfDay?>(
+                  selector: (state) =>
+                      state.employerLongTermAddDetailDto.estimated_weekly_hours,
                   builder: (context, estimatedHours) {
                     return TimePickerInputField(
                       label: "Estimated Weekly Hours",
@@ -191,15 +221,21 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                       },
                       initialTime: estimatedHours,
                       onPickedTime: (value) {
-                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.selectEstimatedHour(estimatedHour: value),
+                        context
+                            .read<EmployerLongTermPositionAddDetailBloc>()
+                            .add(
+                              EmployerLongTermPositionAddDetailEvent
+                                  .selectEstimatedHour(estimatedHour: value),
                             );
                       },
                     );
                   },
                 ),
                 Gap(getSize(12)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, ListInputEmptyOrNot>(
+                BlocSelector<
+                    EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState,
+                    ListInputEmptyOrNot>(
                   selector: (state) {
                     return state.requiredShiftScheduleChipList;
                   },
@@ -269,7 +305,9 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter licenses/certifications";
+                    if (value.isEmpty) {
+                      return "Please enter licenses/certifications";
+                    }
                     return null;
                   },
                 ),
@@ -310,10 +348,14 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                           maxLines: 3,
                         ),
                         Gap(getSize(16)),
-                        BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, String?>(
-                          selector: (state) => state.employerLongTermAddDetailDto.terms_document,
+                        BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                            EmployerLongTermPositionAddDetailState, String?>(
+                          selector: (state) =>
+                              state.employerLongTermAddDetailDto.terms_document,
                           builder: (context, documentPath) {
-                            if (documentPath != null) return selectedImage(context, documentPath);
+                            if (documentPath != null) {
+                              return selectedImage(context, documentPath);
+                            }
                             return _UploadDocument();
                           },
                         ),
@@ -335,17 +377,24 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   },
                 ),
                 Gap(getSize(16)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, bool>(
                   selector: (state) {
-                    return state.employerLongTermAddDetailDto.on_call_included == 1;
+                    return state
+                            .employerLongTermAddDetailDto.on_call_included ==
+                        1;
                   },
                   builder: (context, onCallIncluded) {
                     return _buildCheckListTile(
                       context,
                       value: onCallIncluded,
                       onChanged: (value) {
-                        context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                              EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(onCallIncluded ? 0 : 1),
+                        context
+                            .read<EmployerLongTermPositionAddDetailBloc>()
+                            .add(
+                              EmployerLongTermPositionAddDetailEvent
+                                  .onChangeContractIncludeCall(
+                                      onCallIncluded ? 0 : 1),
                             );
                       },
                       label: "This contract may include on call.",
@@ -353,10 +402,13 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   },
                 ),
                 Gap(getSize(16)),
-                BlocSelector<EmployerLongTermPositionAddDetailBloc, EmployerLongTermPositionAddDetailState, bool>(
+                BlocSelector<EmployerLongTermPositionAddDetailBloc,
+                    EmployerLongTermPositionAddDetailState, bool>(
                   selector: (state) {
-                    return state.employerLongTermAddDetailDto.vacancie_type == 1 ||
-                        state.employerLongTermAddDetailDto.number_of_vacancie != null;
+                    return state.employerLongTermAddDetailDto.vacancie_type ==
+                            1 ||
+                        state.employerLongTermAddDetailDto.number_of_vacancie !=
+                            null;
                   },
                   builder: (context, vacancyEnable) {
                     return Column(
@@ -366,23 +418,30 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                           context,
                           value: vacancyEnable,
                           onChanged: (value) {
-                            context.read<EmployerLongTermPositionAddDetailBloc>().add(
-                                  EmployerLongTermPositionAddDetailEvent.addMoreVacancy(vacancyEnable ? 0 : 1),
+                            context
+                                .read<EmployerLongTermPositionAddDetailBloc>()
+                                .add(
+                                  EmployerLongTermPositionAddDetailEvent
+                                      .addMoreVacancy(vacancyEnable ? 0 : 1),
                                 );
                           },
-                          label: "We are looking to fill more than one vacancies with the same  requirements.",
-                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                          label:
+                              "We are looking to fill more than one vacancies with the same  requirements.",
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 16),
                         ),
                         if (vacancyEnable) ...[
                           Gap(getSize(12)),
                           CustomTextField(
-                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
                             controller: controller._vacancyController,
                             labelText: StringConstant.numberOfVacancies,
                             hintText: StringConstant.numberOfVacancies,
                             keyboardType: TextInputType.number,
                             errorInputBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: AppColors.transparent),
+                              borderSide: const BorderSide(
+                                  color: AppColors.transparent),
                               borderRadius: BorderRadius.circular(getSize(10)),
                             ),
                             maxLength: 3,
@@ -392,11 +451,17 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                             validator: (value, _) {
                               if (!vacancyEnable) return null;
                               value = value?.trim() ?? "";
-                              if (value.isEmpty) return StringConstant.pleaseAddNumberOfVacancies;
+                              if (value.isEmpty) {
+                                return StringConstant
+                                    .pleaseAddNumberOfVacancies;
+                              }
                               final newValue = int.tryParse(value);
-                              if (newValue == null) return "Please enter valid value";
+                              if (newValue == null) {
+                                return "Please enter valid value";
+                              }
                               if (newValue < 1) {
-                                return StringConstant.numberOfVacanciesMustBeGreaterThanOne;
+                                return StringConstant
+                                    .numberOfVacanciesMustBeGreaterThanOne;
                               } else {
                                 return null;
                               }
@@ -410,12 +475,23 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                 Gap(getSize(16)),
                 CommonButton(
                   onPressed: () {
-                    final list = context.read<EmployerLongTermPositionAddDetailBloc>().state.requiredShiftScheduleChipList.getValue();
-                    if (_formKey.currentState?.validate() != true || list.isEmpty) {
-                      showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                    final list = context
+                        .read<EmployerLongTermPositionAddDetailBloc>()
+                        .state
+                        .requiredShiftScheduleChipList
+                        .getValue();
+                    if (_formKey.currentState?.validate() != true ||
+                        list.isEmpty) {
+                      showError(
+                              message: StringConstant
+                                  .someDetailsAreMissingOrInvalidPleaseCheck)
+                          .show(context);
                       return;
                     }
-                    final employer = context.read<EmployerLongTermPositionAddDetailBloc>().state.employerLongTermAddDetailDto;
+                    final employer = context
+                        .read<EmployerLongTermPositionAddDetailBloc>()
+                        .state
+                        .employerLongTermAddDetailDto;
                     final startDate = employer.start_date;
                     final endDate = employer.end_date;
                     if (startDate == null || endDate == null) return;
@@ -429,7 +505,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                         title: "Long-Term Position",
                         successLabel: "Ok",
                         action: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(32)),
                           child: CommonButton(
                             onPressed: () => context.router.maybePop(true),
                             buttonText: "Ok",
@@ -477,7 +554,8 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
         color: AppColors.surfaceColor,
         borderRadius: BorderRadius.circular(getSize(10)),
         child: Padding(
-          padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+          padding: padding ??
+              const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -488,8 +566,10 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
                   activeColor: AppColors.primaryColor,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   visualDensity: VisualDensity.compact,
-                  side: BorderSide(color: AppColors.black.withOpacity(.5), width: 1.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                  side: BorderSide(
+                      color: AppColors.black.withOpacity(.5), width: 1.5),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
                   value: value,
                   onChanged: (value) {
                     if (value == null) return;
@@ -499,7 +579,11 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
               ),
               Gap(4),
               Expanded(
-                child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500, maxLines: 10),
+                child: BaseText(
+                    text: label,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    maxLines: 10),
               )
             ],
           ),
@@ -525,7 +609,9 @@ class _EmployerLongTermPositionDetailContentState extends State<_EmployerLongTer
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
-            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+            context
+                .read<EmployerLongTermPositionAddDetailBloc>()
+                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
           },
         );
       },
@@ -612,24 +698,34 @@ class _UploadDocument extends StatelessWidget {
   void clickUploadButton(BuildContext context) {
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
+        String path = await ImagePickerUtils()
+                .pickImage(imageSource: ImageSource.camera, context: context) ??
+            '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(
+              EmployerLongTermPositionAddDetailEvent.selectDocument(
+                  path: path));
         }
       },
       selectPhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
+        String path = await ImagePickerUtils().pickImage(
+                imageSource: ImageSource.gallery, context: context) ??
+            '';
 
         if (path.isNotEmpty) {
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(
+              EmployerLongTermPositionAddDetailEvent.selectDocument(
+                  path: path));
         }
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
           print("SELECTED FILE PATH: $path");
-          context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.selectDocument(path: path));
+          context.read<EmployerLongTermPositionAddDetailBloc>().add(
+              EmployerLongTermPositionAddDetailEvent.selectDocument(
+                  path: path));
         }
       },
       context: context,
@@ -638,13 +734,12 @@ class _UploadDocument extends StatelessWidget {
 }
 
 class _ShiftSchedule extends StatelessWidget {
-  const _ShiftSchedule({super.key, required this.initialValue});
+  const _ShiftSchedule({required this.initialValue});
 
   final List<dynamic> initialValue;
 
   @override
   Widget build(BuildContext context) {
-    print("===> ${initialValue}");
     final list = [
       CommonDropdownModel(id: 1, label: "Morning"),
       CommonDropdownModel(id: 2, label: "Evening"),
@@ -661,7 +756,9 @@ class _ShiftSchedule extends StatelessWidget {
           isOptional: false,
           isShowOtherValue: false,
           initialValue: initialValue,
-          items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
+          items: list
+              .map((item) => MultiSelectItem<String>(item.label, item.label))
+              .toList(),
           title: "Shift Schedule",
           labelText: "Shift Schedule",
           selectedColor: AppColors.black,
@@ -673,18 +770,20 @@ class _ShiftSchedule extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context
-                  .read<EmployerLongTermPositionAddDetailBloc>()
-                  .add(EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(value.toString()));
+              context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                  EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             "Shift Schedule",
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context.read<EmployerLongTermPositionAddDetailBloc>().add(EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+            context.read<EmployerLongTermPositionAddDetailBloc>().add(
+                    EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
                   List<String>.from(selectedList),
                 ));
           },
@@ -701,14 +800,20 @@ class _ShiftSchedule extends StatelessWidget {
 
 class UpdateLongTermDetailController extends ChangeNotifier {
   UpdateLongTermDetailController(EmployerLongTermSuccessDto? data) {
-    _jobDescriptionController = TextEditingController(text: data?.job_description);
+    _jobDescriptionController =
+        TextEditingController(text: data?.job_description);
     _requirementsController = TextEditingController(text: data?.requirements);
-    _responsibilityController = TextEditingController(text: data?.responsibilities);
-    _qualificationController = TextEditingController(text: data?.qualifications);
-    _licensesController = TextEditingController(text: data?.licenses_certifications);
+    _responsibilityController =
+        TextEditingController(text: data?.responsibilities);
+    _qualificationController =
+        TextEditingController(text: data?.qualifications);
+    _licensesController =
+        TextEditingController(text: data?.licenses_certifications);
     _termsController = TextEditingController(text: data?.terms);
-    _onBoardingController = TextEditingController(text: data?.onboarding_process);
-    _vacancyController = TextEditingController(text: "${data?.number_of_vacancie ?? ""}");
+    _onBoardingController =
+        TextEditingController(text: data?.onboarding_process);
+    _vacancyController =
+        TextEditingController(text: "${data?.number_of_vacancie ?? ""}");
   }
 
   late final TextEditingController _jobDescriptionController;

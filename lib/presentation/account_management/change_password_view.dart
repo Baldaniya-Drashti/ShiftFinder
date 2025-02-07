@@ -245,18 +245,3 @@ class _PasswordInputFieldState extends State<_PasswordInputField> {
     );
   }
 }
-
-String? _validatePassword(String? input) {
-  if (input == null || input.isEmpty) {
-    return StringConstant.pleaseEnterPassword;
-  } else {
-    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
-        .hasMatch(input)) {
-      return StringConstant.pleaseEnterCorrectPasswordFormat;
-    } else if (input.length < 8) {
-      return StringConstant.passwordShouldBeMinimum8Digit;
-    } else {
-      return null;
-    }
-  }
-}

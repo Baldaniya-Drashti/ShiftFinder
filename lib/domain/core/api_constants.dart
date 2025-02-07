@@ -43,7 +43,8 @@ class ApiConstants {
   static String locationBrandsList = 'location_brands_list';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';
-  static String legalScreeningQuestionAnswer = 'legal_screening_question_answer';
+  static String legalScreeningQuestionAnswer =
+      'legal_screening_question_answer';
 
 // Common
   static String roleList = 'role_list';
@@ -84,7 +85,8 @@ class ApiConstants {
   /// Stripe doc
   static String stripeDocument = 'stripe_document';
   static String contractorConnectAccount = 'contractor_connect_account';
-  static String contractorRetrieveAccountDetail = 'contractor_retrieve_account_detail';
+  static String contractorRetrieveAccountDetail =
+      'contractor_retrieve_account_detail';
 
   //chat
   static String getChatList = 'chat-list';
@@ -97,19 +99,23 @@ class ApiConstants {
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';
-  static String contractorApplyOrSendProposal = 'contractor_apply_or_send_proposal';
+  static String contractorApplyOrSendProposal =
+      'contractor_apply_or_send_proposal';
 
   //contractor shift
   static String contractorShifts = 'contractor_shifts';
   static String contractorShiftDetail = 'contractor_shifts_details';
   static String contractorClockInClockOut = 'contractor_clock_in_or_out';
   static String deleteUpcomingShift = 'contractor_shift';
-  static String contractorShiftsUrgentAction = 'contractor_shifts_urgent_action';
+  static String contractorShiftsUrgentAction =
+      'contractor_shifts_urgent_action';
   static String contractorMyCalendar = 'contractor_my_calendar';
   static String contractorMyCalendarDetails = 'contractor_my_calendar_details';
   static String getSendProposalDetail = 'send_proposal';
-  static String contractorPerformanceInsights = 'contractor_performance_insights';
-  static String contractorTotalEarningStatement = 'contractor_total_earning_statement';
+  static String contractorPerformanceInsights =
+      'contractor_performance_insights';
+  static String contractorTotalEarningStatement =
+      'contractor_total_earning_statement';
 
   //team
   static String getTeamList = 'get_team';
@@ -123,7 +129,8 @@ class ApiConstants {
   static String employerPreviousShift = 'employer_previous_shift';
   static String employerCompleteShift = 'employer_complete_shift';
   static String employerApplicants = 'employer_applicants';
-  static String employerApplicantsAcceptReject = 'employer_applicants_accept_reject';
+  static String employerApplicantsAcceptReject =
+      'employer_applicants_accept_reject';
   static String employerRating = 'employer_rating';
   static String employerRemark = 'employer_remark';
   static String employerAddFavorite = 'employer_favorite';
@@ -139,28 +146,37 @@ class ApiConstants {
   static String submitTicket = 'submit_ticket';
   static String contractorUser = 'contractor_user';
   static String employerApplicantsProposal = 'employer_applicants_proposal';
-  static String employerApplicantsCounterPropose = 'employer_applicants_counter_propose';
+  static String employerApplicantsCounterPropose =
+      'employer_applicants_counter_propose';
   static String employerAddRemark = 'employer_remark';
   static String destroyRemark = 'destroy_remark';
   static String destroyLocation = 'destroy_location';
   static String updateLocation = 'update_location';
-  static String getEmployerApprovedShiftUser = 'get_employer_approved_shift_user';
+  static String getEmployerApprovedShiftUser =
+      'get_employer_approved_shift_user';
   static String contractorRating = 'contractor_rating';
   static String contractorPreviousShift = 'contractor_previous_shift';
   static String contractorReferColleague = 'contractor_refer_a_colleague';
   static String faqsList = 'faqs';
   static String employerSavedTemplates = 'employer_saved_templates';
-  static String destroyEmployerSavedTemplates = 'destroy_employer_saved_templates';
-  static String employerDashboardLongFullTermPost = 'employer_dashboard_long_full_term_post';
+  static String destroyEmployerSavedTemplates =
+      'destroy_employer_saved_templates';
+  static String employerDashboardLongFullTermPost =
+      'employer_dashboard_long_full_term_post';
   static String createLongFullTermPost = 'create_long_full_term_post';
-  static String contractorDashboardLongFullTermPost = 'contractor_dashboard_long_full_term_post';
-  static String employerLongFullTermApplicants = 'employer_long_full_term_applicants';
-  static String employerUpdateLongFullPostTermStatus = 'update_long_full_post_term_status';
+  static String contractorDashboardLongFullTermPost =
+      'contractor_dashboard_long_full_term_post';
+  static String employerLongFullTermApplicants =
+      'employer_long_full_term_applicants';
+  static String employerUpdateLongFullPostTermStatus =
+      'update_long_full_post_term_status';
   static String deleteLongFullTermPost = 'delete_long_full_term_post';
   static String getEmployerLongFullTermPost = 'get_long_full_term_post';
-  static String employerLongTermApplicantsAcceptReject = 'employer_long_full_term_applicants_accept_reject';
-  static String contractorApplyForLongFullTermPost = 'contractor_apply_for_long_full_term_post';
+  static String employerLongTermApplicantsAcceptReject =
+      'employer_long_full_term_applicants_accept_reject';
+  static String contractorApplyForLongFullTermPost =
+      'contractor_apply_for_long_full_term_post';
   static String updateLongFullTermPost = 'update_long_full_term_post';
-  static String contractorLongFulTermShiftConfirmAcceptance = 'contractor_long_full_term_shift_confirm_acceptance';
-
+  static String contractorLongFulTermShiftConfirmAcceptance =
+      'contractor_long_full_term_shift_confirm_acceptance';
 }

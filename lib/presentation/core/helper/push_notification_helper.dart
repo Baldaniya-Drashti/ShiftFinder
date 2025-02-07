@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -187,15 +186,15 @@ onTapNotification(RemoteMessage message) async {
   log('onTapNotification : ${message.data}');
   // getIt<MainTabBloc>().add(MainTabEvent.tabChange(2));
   if (message.data['type'] == '2') {
-    //   await getIt<AppRouter>().push(
-    //     PageRouteInfo(
-    //       NotificationView.name,
-    //       /*        Chat.name,
-    //  args: ChatViewArgs(
-    //         recieverID: message.data['data_id'],
-    //       ), */
-    //     ),
-    //   );
+    /*   await getIt<AppRouter>().push(
+        PageRouteInfo(
+          NotificationView.name,
+          /*        Chat.name,
+     args: ChatViewArgs(
+            recieverID: message.data['data_id'],
+          ), */
+        ),
+      ); */
 // context.read<MainTabBloc>().add(MainTabEvent.tabChange(3));
     /* await getIt<AppRouter>().push(
       PageRouteInfo(

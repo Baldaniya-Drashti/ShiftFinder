@@ -24,9 +24,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'AddressProofScreen')
 class AddressProofScreen extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  AddressProofScreen({super.key, this.isFromSplash = false});
+  const AddressProofScreen({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -392,7 +392,7 @@ class AddressProofScreen extends StatelessWidget {
         (doc != null && doc.isNotEmpty)
             ? selectedImage(
                 context,
-                doc ?? "",
+                doc,
                 isBackFile: isBackFile,
                 state: state,
               )

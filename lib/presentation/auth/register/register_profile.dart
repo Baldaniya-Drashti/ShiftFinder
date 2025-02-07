@@ -8,7 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/auth/register_form/register_form_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -140,6 +142,8 @@ class RegisterProfileScreen extends StatelessWidget {
                         if (getCurrentRole() == 1) ...[
                           paddingBetweenFields(),
                           // locationAddressTextField(context, state),
+                          dobField(context, state),
+                          paddingBetweenFields(),
                           addressField(context, state),
                           paddingBetweenFields(),
                           referralCodeTextField(context, state),
@@ -690,6 +694,54 @@ class RegisterProfileScreen extends StatelessWidget {
       ],
     );
   } */
+
+  Widget dobField(BuildContext context, RegisterFormState state) {
+    return CustomTextField(
+      labelText: StringConstant.dateOfBirth,
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.calendar,
+          height: getSize(24),
+          width: getSize(24),
+          color: AppColors.primaryColor,
+        ),
+      ),
+      hintText: (state.dateOfBirth.isValid())
+          ? DateFormat('d MMM, yyyy')
+              .format(DateTime.parse(state.dateOfBirth.getValue() ?? ""))
+          : StringConstant.dateOfBirth,
+      hintAsValue: (state.dateOfBirth.isValid()) ? true : false,
+      readOnly: true,
+      onTap: () {
+        DocumentExpiryDatePicker.customDatePicker(
+          context,
+          firstDate: DateTime(1950),
+          lastDate: DateTime.now(),
+          onPickedDate: (pickedDate) {
+            context.read<RegisterFormBloc>().add(RegisterFormEvent.dobChanged(
+                  pickedDate.toString(),
+                ));
+          },
+          onCancelClick: () {},
+          selectedDate: (state.dateOfBirth.isValid())
+              ? DateTime.parse(state.dateOfBirth.getValue() ?? "")
+              : DateTime.now(),
+        );
+      },
+      validator: (_, context) =>
+          context.read<RegisterFormBloc>().state.dateOfBirth.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectDob,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+    );
+  }
 
   Widget addressField(BuildContext context, RegisterFormState state) {
     return CustomTextField(

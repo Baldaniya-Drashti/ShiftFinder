@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,17 +8,12 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shift/domain/account/account.dart';
-import 'package:shift/domain/account/account_failure.dart';
-import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
-import 'package:shift/infrastructure/core/contractor_previus_shift_dto/contractor_previus_shift_dto.dart';
 import 'package:shift/infrastructure/core/contractor_refer_collegue_dto/contractor_refer_collegue_dto.dart';
-
 part 'refer_colleague_event.dart';
 part 'refer_colleague_state.dart';
 part 'refer_colleague_bloc.freezed.dart';

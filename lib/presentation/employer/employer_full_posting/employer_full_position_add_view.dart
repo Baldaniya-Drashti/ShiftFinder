@@ -1,13 +1,10 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/contractor/full_time_position/full_time_position_bloc.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
-import 'package:shift/application/employer/employer_long_term_position_add_detail/employer_long_term_position_add_detail_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -16,9 +13,10 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -43,10 +41,16 @@ class EmployerFullPositionAddView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddFullPositionBloc>()..add(AddFullPositionEvent.onCreate(context, postId)),
+      create: (context) => getIt<AddFullPositionBloc>()
+        ..add(AddFullPositionEvent.onCreate(context, postId)),
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "HealthCare"),
+          appBar: CommonAppBar(
+              onBackPressed: () => context.router.maybePop(),
+              title: CommonList.industryList
+                      .firstWhere((item) => item.id == getCurrentIndustry())
+                      .title ??
+                  ""),
           body: BlocBuilder<AddFullPositionBloc, AddFullPositionState>(
             builder: (context, state) {
               if (state.loading) return CenterLoadingIndicator();
@@ -122,17 +126,23 @@ class _PositionFormState extends State<_PositionForm> {
                 selector: (state) => state.employerLongTermDto.job_type,
                 builder: (context, selectedJobType) {
                   final model = selectedJobType == 1
-                      ? CommonDropdownModel(id: 1, label: "Full time") : selectedJobType==2?CommonDropdownModel(id: 2, label: "Part time"):null;
+                      ? CommonDropdownModel(id: 1, label: "Full time")
+                      : selectedJobType == 2
+                          ? CommonDropdownModel(id: 2, label: "Part time")
+                          : null;
                   return _JobTypeDropdownField(
                     selectedJobType: model,
                     onChanged: (value) {
-                      context.read<AddFullPositionBloc>().add(AddFullPositionEvent.onJobTypeChanged(value));
+                      context
+                          .read<AddFullPositionBloc>()
+                          .add(AddFullPositionEvent.onJobTypeChanged(value));
                     },
                   );
                 },
               ),
               Gap(getSize(18)),
-              BlocSelector<AddFullPositionBloc, AddFullPositionState, ListInputEmptyOrNot>(
+              BlocSelector<AddFullPositionBloc, AddFullPositionState,
+                  ListInputEmptyOrNot>(
                 selector: (state) => state.requiredShiftScheduleChipList,
                 builder: (context, shiftSchedule) {
                   return _ShiftSchedule(initialValue: shiftSchedule.getValue());
@@ -152,14 +162,18 @@ class _PositionFormState extends State<_PositionForm> {
                 keyboardType: TextInputType.number,
                 validator: (value, context) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) return "Please Enter Union/Bargaining Unit";
+                  if (value.isEmpty) {
+                    return "Please Enter Union/Bargaining Unit";
+                  }
                   return null;
                 },
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               Gap(getSize(18)),
-              BlocSelector<AddFullPositionBloc, AddFullPositionState, TimeOfDay?>(
-                selector: (state) => state.employerLongTermDto.estimated_weekly_hours,
+              BlocSelector<AddFullPositionBloc, AddFullPositionState,
+                  TimeOfDay?>(
+                selector: (state) =>
+                    state.employerLongTermDto.estimated_weekly_hours,
                 builder: (context, selectedEstimatedHours) {
                   return TimePickerInputField(
                     initialTime: selectedEstimatedHours,
@@ -174,7 +188,8 @@ class _PositionFormState extends State<_PositionForm> {
                     hint: "00h 00min",
                     onPickedTime: (time) {
                       context.read<AddFullPositionBloc>().add(
-                            AddFullPositionEvent.selectEstimatedHour(estimatedHour: time),
+                            AddFullPositionEvent.selectEstimatedHour(
+                                estimatedHour: time),
                           );
                     },
                   );
@@ -187,7 +202,10 @@ class _PositionFormState extends State<_PositionForm> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: getSize(16)),
-                    child: BaseText(text: "Compensation Type", fontWeight: FontWeight.w500, fontSize: 14),
+                    child: BaseText(
+                        text: "Compensation Type",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14),
                   ),
                   Gap(12),
                   Material(
@@ -204,19 +222,27 @@ class _PositionFormState extends State<_PositionForm> {
                             fontWeight: FontWeight.w500,
                           ),
                           Gap(getSize(8)),
-                          BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
-                            selector: (state) => state.employerLongTermDto.compensation_type ?? 1,
+                          BlocSelector<AddFullPositionBloc,
+                              AddFullPositionState, int>(
+                            selector: (state) =>
+                                state.employerLongTermDto.compensation_type ??
+                                1,
                             builder: (context, selectedRadioOption) {
-                              final label = selectedRadioOption == 1 ? "Rate/Hour" : "Salary/Year";
+                              final label = selectedRadioOption == 1
+                                  ? "Rate/Hour"
+                                  : "Salary/Year";
 
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Material(
-                                    borderRadius: BorderRadius.circular(getSize(10)),
+                                    borderRadius:
+                                        BorderRadius.circular(getSize(10)),
                                     color: AppColors.white,
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(vertical: getSize(16), horizontal: getSize(22)),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(16),
+                                          horizontal: getSize(22)),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
@@ -224,8 +250,12 @@ class _PositionFormState extends State<_PositionForm> {
                                             context,
                                             onChanged: (value) {
                                               print(value);
-                                              context.read<AddFullPositionBloc>().add(
-                                                    AddFullPositionEvent.onCompensationTypeChanged(type: value),
+                                              context
+                                                  .read<AddFullPositionBloc>()
+                                                  .add(
+                                                    AddFullPositionEvent
+                                                        .onCompensationTypeChanged(
+                                                            type: value),
                                                   );
                                             },
                                             label: "Rate/Hour",
@@ -238,8 +268,12 @@ class _PositionFormState extends State<_PositionForm> {
                                             onChanged: (value) {
                                               print(value);
 
-                                              context.read<AddFullPositionBloc>().add(
-                                                    AddFullPositionEvent.onCompensationTypeChanged(type: value),
+                                              context
+                                                  .read<AddFullPositionBloc>()
+                                                  .add(
+                                                    AddFullPositionEvent
+                                                        .onCompensationTypeChanged(
+                                                            type: value),
                                                   );
                                             },
                                             label: "Salary/Year",
@@ -252,19 +286,28 @@ class _PositionFormState extends State<_PositionForm> {
                                   ),
                                   Gap(getSize(8)),
                                   CustomTextField(
-                                    keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                            decimal: true, signed: true),
                                     inputFormatters: [
-                                      if (selectedRadioOption == 1) FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                      if (selectedRadioOption == 1)
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'^\d+\.?\d{0,2}')),
                                     ],
-                                    controller: controller._rateAndSalaryController,
-                                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                                    hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
+                                    controller:
+                                        controller._rateAndSalaryController,
+                                    autoValidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    hintText: selectedRadioOption == 1
+                                        ? "\$$label"
+                                        : "\$$label",
                                     validator: (value, context) {
                                       value = value?.trim() ?? "";
                                       if (value.isEmpty) {
                                         return "Please enter $label";
                                       }
-                                      final parsedValue = double.tryParse(value);
+                                      final parsedValue =
+                                          double.tryParse(value);
                                       if (parsedValue == null) {
                                         return "Please enter a valid number";
                                       }
@@ -302,7 +345,7 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter job summary";
                   }
                   return null;
@@ -315,7 +358,7 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter key responsibilities";
                   }
                   return null;
@@ -333,7 +376,7 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter required qualifications";
                   }
                   return null;
@@ -346,7 +389,7 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter required experience";
                   }
                   return null;
@@ -359,7 +402,7 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter required licenses/certifications";
                   }
                   return null;
@@ -372,7 +415,8 @@ class _PositionFormState extends State<_PositionForm> {
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) {
+
+                  if (value.isEmpty || isValueInValid(value)) {
                     return "Please enter required skills";
                   }
                   return null;
@@ -386,10 +430,17 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(28)),
               CommonButton(
                 onPressed: () {
-                  print("==>${controller.benefit}");
-                  final list = context.read<AddFullPositionBloc>().state.requiredShiftScheduleChipList.getValue();
-                  if (_formKey.currentState?.validate() != true || list.isEmpty) {
-                    showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(context);
+                  final list = context
+                      .read<AddFullPositionBloc>()
+                      .state
+                      .requiredShiftScheduleChipList
+                      .getValue();
+                  if (_formKey.currentState?.validate() != true ||
+                      list.isEmpty) {
+                    showError(
+                            message: StringConstant
+                                .someDetailsAreMissingOrInvalidPleaseCheck)
+                        .show(context);
                     return;
                   }
                   context.read<AddFullPositionBloc>().add(
@@ -401,7 +452,8 @@ class _PositionFormState extends State<_PositionForm> {
                           compensationPackage: controller.compensation,
                           jobSummary: controller.jobSummary,
                           keyResponsibility: controller.keyResponsibility,
-                          externalInternalRelationship: controller.externalInternalRelationship,
+                          externalInternalRelationship:
+                              controller.externalInternalRelationship,
                           requiredQualification: controller.qualification,
                           requiredExperience: controller.qualification,
                           licenseCertification: controller.license,
@@ -420,14 +472,18 @@ class _PositionFormState extends State<_PositionForm> {
     );
   }
 
-  Widget languageDropDownChipSet(BuildContext context, AddFullPositionState state) {
+  Widget languageDropDownChipSet(
+      BuildContext context, AddFullPositionState state) {
     print("rrrr---->${state.languageChipList.getValue()}");
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MultiSelectDialogField(
-          items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.languageList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.languagesKnown,
           labelText: StringConstant.languagesKnown,
           selectedColor: AppColors.black,
@@ -438,24 +494,29 @@ class _PositionFormState extends State<_PositionForm> {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              context.read<AddFullPositionBloc>().add(AddFullPositionEvent.removeLanguageChips(value.toString()));
+              context.read<AddFullPositionBloc>().add(
+                  AddFullPositionEvent.removeLanguageChips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.languagesKnown,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
-            context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmLanguageList(
+            context
+                .read<AddFullPositionBloc>()
+                .add(AddFullPositionEvent.confirmLanguageList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
           },
         ),
-        if (state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+        if (state.languageChipList.getValue().isEmpty &&
+            state.languageOther.isEmpty)
           commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
       ],
     );
@@ -477,7 +538,9 @@ class _PositionFormState extends State<_PositionForm> {
           Radio(
             fillColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(WidgetState.selected)) return AppColors.green;
+                if (states.contains(WidgetState.selected)) {
+                  return AppColors.green;
+                }
                 return Colors.grey;
               },
             ),
@@ -491,7 +554,9 @@ class _PositionFormState extends State<_PositionForm> {
             },
           ),
           Gap(8),
-          Expanded(child: BaseText(text: label, fontSize: 13, fontWeight: FontWeight.w500)),
+          Expanded(
+              child: BaseText(
+                  text: label, fontSize: 13, fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -554,7 +619,9 @@ class _PositionFormState extends State<_PositionForm> {
           },
           hintText: StringConstant.location,
           childDroDwonHintText: StringConstant.selectUnitIfAny,
-          childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
+              ? state.selectedLocationUnit
+              : null,
           // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
@@ -575,7 +642,10 @@ class _PositionFormState extends State<_PositionForm> {
             }
           },
         ),
-        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() &&
+            state.unitList.isNotEmpty &&
+            state.showLocationError &&
+            state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );
@@ -619,12 +689,20 @@ class _JobTypeDropdownField extends StatelessWidget {
         (e) {
           return DropdownMenuItem<CommonDropdownModel>(
             value: e,
-            child: BaseText(text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
+            child: BaseText(
+                text: e.label, fontSize: 14, fontWeight: FontWeight.w500),
           );
         },
       ).toList(),
     );
   }
+}
+
+isValueInValid(String value) {
+  if (value == "•") {
+    return true;
+  }
+  return false;
 }
 
 class _BulletTextField extends StatelessWidget {
@@ -655,21 +733,30 @@ class _BulletTextField extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  BaseText(text: label, fontSize: 13, fontWeight: FontWeight.w500),
+                  BaseText(
+                      text: label, fontSize: 13, fontWeight: FontWeight.w500),
                   if (optional) ...[
-                    Gap(6),
+                    Gap(getSize(6)),
                     Flexible(
-                      child: BaseText(text: "(Optional)", fontSize: 10, fontWeight: FontWeight.w500),
+                      child: BaseText(
+                        text: "(Optional)",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ]
                 ],
               ),
-              Gap(2),
-              BaseText(text: "You can add multiple points", fontSize: 10, fontWeight: FontWeight.w500)
+              Gap(getSize(2)),
+              BaseText(
+                text: "You can add multiple points",
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              )
             ],
           ),
         ),
-        Gap(8),
+        Gap(getSize(8)),
         CustomTextField(
           minLines: 1,
           maxLines: 7,
@@ -680,6 +767,7 @@ class _BulletTextField extends StatelessWidget {
           autoValidateMode: AutovalidateMode.onUserInteraction,
           validator: validator != null
               ? (value, context) {
+                  print("VALIII Value---> $value");
                   return validator!(value);
                 }
               : null,
@@ -693,7 +781,6 @@ class BulletTextEditingController extends TextEditingController {
   BulletTextEditingController({String? initialItems}) {
     if (initialItems != null) {
       List<String> items = initialItems.split(",");
-
       text = items.map((item) => '$bullet$item').join('\n');
     }
     addListener(_handleTextChange);
@@ -722,7 +809,9 @@ class BulletTextEditingController extends TextEditingController {
       bool isLastLine = i == lines.length - 1;
 
       // Handle backspace on an empty bullet line
-      if (isBackspace && line == bullet && cursorPosition <= buffer.length + bullet.length) {
+      if (isBackspace &&
+          line == bullet &&
+          cursorPosition <= buffer.length + bullet.length) {
         // Skip adding this line, effectively deleting it
         newCursorPosition -= bullet.length;
         continue;
@@ -732,7 +821,8 @@ class BulletTextEditingController extends TextEditingController {
       if (line.isNotEmpty && !line.startsWith(bullet)) {
         line = '$bullet$line';
         // Adjust cursor if we’re on the line where the bullet was added
-        if (cursorPosition > buffer.length && cursorPosition <= buffer.length + line.length) {
+        if (cursorPosition > buffer.length &&
+            cursorPosition <= buffer.length + line.length) {
           newCursorPosition += bullet.length;
         }
       }
@@ -756,7 +846,11 @@ class BulletTextEditingController extends TextEditingController {
   }
 
   List<String> getBulletContent() {
-    return text.split('\n').map((line) => line.startsWith(bullet) ? line.substring(bullet.length) : line).toList();
+    return text
+        .split('\n')
+        .map((line) =>
+            line.startsWith(bullet) ? line.substring(bullet.length) : line)
+        .toList();
   }
 
   String get toCommaSeparatedString {
@@ -771,7 +865,7 @@ class BulletTextEditingController extends TextEditingController {
 }
 
 class _ShiftSchedule extends StatelessWidget {
-  const _ShiftSchedule({super.key, required this.initialValue});
+  const _ShiftSchedule({required this.initialValue});
 
   final List<dynamic> initialValue;
 
@@ -793,7 +887,9 @@ class _ShiftSchedule extends StatelessWidget {
           isOptional: false,
           isShowOtherValue: false,
           initialValue: initialValue,
-          items: list.map((item) => MultiSelectItem<String>(item.label, item.label)).toList(),
+          items: list
+              .map((item) => MultiSelectItem<String>(item.label, item.label))
+              .toList(),
           title: "Shift Schedule",
           labelText: "Shift Schedule",
           selectedColor: AppColors.black,
@@ -805,16 +901,20 @@ class _ShiftSchedule extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context.read<AddFullPositionBloc>().add(AddFullPositionEvent.removeShiftSchedule(value.toString()));
+              context.read<AddFullPositionBloc>().add(
+                  AddFullPositionEvent.removeShiftSchedule(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             "Shift Schedule",
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context.read<AddFullPositionBloc>().add(AddFullPositionEvent.confirmShiftSchedule(
+            context
+                .read<AddFullPositionBloc>()
+                .add(AddFullPositionEvent.confirmShiftSchedule(
                   List<String>.from(selectedList),
                 ));
           },
@@ -833,16 +933,26 @@ class UpdateFullTimeJobPositionController extends ChangeNotifier {
   UpdateFullTimeJobPositionController(EmployerLongTermSuccessDto? data) {
     print("===>position${data?.position}");
     _positionController = TextEditingController(text: data?.position);
-    _unionUnitController = TextEditingController(text: data?.union_bargaining_unit);
-    _rateAndSalaryController = TextEditingController(text: "${data?.rate_hour ?? ""}");
-    _benefitController = BulletTextEditingController(initialItems: data?.benefits);
-    _compensationController = BulletTextEditingController(initialItems: data?.compensation_package);
-    _jobSummaryController = BulletTextEditingController(initialItems: data?.job_summary);
-    _keyResponsibilityController = BulletTextEditingController(initialItems: data?.responsibilities);
-    _externalInternalRelationshipController = BulletTextEditingController(initialItems: data?.external_internal_relationships);
-    _qualificationController = BulletTextEditingController(initialItems: data?.qualifications);
-    _experienceController = BulletTextEditingController(initialItems: data?.experience);
-    _licenseController = BulletTextEditingController(initialItems: data?.licenses_certifications);
+    _unionUnitController =
+        TextEditingController(text: data?.union_bargaining_unit);
+    _rateAndSalaryController =
+        TextEditingController(text: "${data?.rate_hour ?? ""}");
+    _benefitController =
+        BulletTextEditingController(initialItems: data?.benefits);
+    _compensationController =
+        BulletTextEditingController(initialItems: data?.compensation_package);
+    _jobSummaryController =
+        BulletTextEditingController(initialItems: data?.job_summary);
+    _keyResponsibilityController =
+        BulletTextEditingController(initialItems: data?.responsibilities);
+    _externalInternalRelationshipController = BulletTextEditingController(
+        initialItems: data?.external_internal_relationships);
+    _qualificationController =
+        BulletTextEditingController(initialItems: data?.qualifications);
+    _experienceController =
+        BulletTextEditingController(initialItems: data?.experience);
+    _licenseController = BulletTextEditingController(
+        initialItems: data?.licenses_certifications);
     _skillController = BulletTextEditingController(initialItems: data?.skills);
     _otherController = BulletTextEditingController(initialItems: data?.other);
   }
@@ -855,7 +965,8 @@ class UpdateFullTimeJobPositionController extends ChangeNotifier {
   late final BulletTextEditingController _compensationController;
   late final BulletTextEditingController _jobSummaryController;
   late final BulletTextEditingController _keyResponsibilityController;
-  late final BulletTextEditingController _externalInternalRelationshipController;
+  late final BulletTextEditingController
+      _externalInternalRelationshipController;
   late final BulletTextEditingController _qualificationController;
   late final BulletTextEditingController _experienceController;
   late final BulletTextEditingController _licenseController;
@@ -874,9 +985,11 @@ class UpdateFullTimeJobPositionController extends ChangeNotifier {
 
   String get jobSummary => _jobSummaryController.toCommaSeparatedString;
 
-  String get keyResponsibility => _keyResponsibilityController.toCommaSeparatedString;
+  String get keyResponsibility =>
+      _keyResponsibilityController.toCommaSeparatedString;
 
-  String get externalInternalRelationship => _externalInternalRelationshipController.toCommaSeparatedString;
+  String get externalInternalRelationship =>
+      _externalInternalRelationshipController.toCommaSeparatedString;
 
   String get qualification => _qualificationController.toCommaSeparatedString;
 

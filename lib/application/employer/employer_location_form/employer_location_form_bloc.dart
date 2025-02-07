@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,11 +21,8 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
-
 part 'employer_location_form_event.dart';
-
 part 'employer_location_form_state.dart';
-
 part 'employer_location_form_bloc.freezed.dart';
 
 @injectable

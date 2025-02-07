@@ -27,8 +27,8 @@ import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_text
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ProfessionalLicenses extends StatelessWidget {
-  bool isUpdate;
-  ProfessionalLicenses({super.key, this.isUpdate = false});
+  final bool isUpdate;
+  const ProfessionalLicenses({super.key, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {

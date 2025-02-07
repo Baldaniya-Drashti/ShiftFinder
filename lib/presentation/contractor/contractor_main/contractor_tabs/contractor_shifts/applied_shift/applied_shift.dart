@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/applied_tab.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/counter_proposal_tab.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -13,11 +12,6 @@ class AppliedShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return Center(
-      child: BaseText(
-        text: StringConstant.underDevelopment,
-      ),
-    );*/
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return DefaultTabController(

@@ -193,8 +193,8 @@ class ContractorWalletView extends StatelessWidget {
 }
 
 class WalletInfoWithDifferentLayout extends StatelessWidget {
-  GetBalanceDTO? balance;
-  WalletInfoWithDifferentLayout({super.key, this.balance});
+  final GetBalanceDTO? balance;
+  const WalletInfoWithDifferentLayout({super.key, this.balance});
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +202,7 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
       color: AppColors.surfaceColor,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -247,8 +247,8 @@ class WalletInfoWithDifferentLayout extends StatelessWidget {
 }
 
 class WalletInfoSection extends StatelessWidget {
-  GetBalanceDTO? balance;
-  WalletInfoSection({super.key, this.balance});
+  final GetBalanceDTO? balance;
+  const WalletInfoSection({super.key, this.balance});
 
   @override
   Widget build(BuildContext context) {
@@ -365,8 +365,8 @@ class WalletDropdownField extends StatelessWidget {
 }
 
 class TransactionListView extends StatelessWidget {
-  List<ContractorWalletDTO> walletList;
-  TransactionListView({super.key, required this.walletList});
+  final List<ContractorWalletDTO> walletList;
+  const TransactionListView({super.key, required this.walletList});
 
   @override
   Widget build(BuildContext context) {

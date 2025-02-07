@@ -41,7 +41,8 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
   void initState() {
     super.initState();
     _controller = TextEditingController(
-      text: widget.initialDate != null ? widget.initialDate!.formattedString : "",
+      text:
+          widget.initialDate != null ? widget.initialDate!.formattedString : "",
     );
   }
 
@@ -52,7 +53,9 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
     Timer.run(
       () {
         if (widget.initialDate != oldWidget.initialDate) {
-          _controller.text = widget.initialDate != null ? widget.initialDate!.formattedString : "";
+          _controller.text = widget.initialDate != null
+              ? widget.initialDate!.formattedString
+              : "";
         }
       },
     );
@@ -83,7 +86,8 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
           horizontal: getSize(14),
           vertical: getSize(14),
         ),
-        child: SvgPicture.asset(SvgImageConstant.calendar, height: getSize(24), width: getSize(24)),
+        child: SvgPicture.asset(SvgImageConstant.calendar,
+            height: getSize(24), width: getSize(24)),
       ),
       onTap: () async {
         await DocumentExpiryDatePicker.customDatePicker(
@@ -91,7 +95,7 @@ class _DatePickerInputFieldState extends State<DatePickerInputField> {
           firstDate: widget.firstDate ?? DateTime.now(),
           onPickedDate: widget.onPickedDate,
           onCancelClick: () {},
-          selectedDate: widget.initialDate ?? DateTime.now().add(Duration(days: 1)),
+          selectedDate: widget.initialDate,
         );
       },
     );
