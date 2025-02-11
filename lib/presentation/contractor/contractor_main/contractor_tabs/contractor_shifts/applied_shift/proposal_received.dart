@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -18,6 +19,7 @@ import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProposalReceived')
@@ -29,7 +31,6 @@ class ProposalReceived extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final proposal = post.proposal_received;
-    print("Proposal sharee---> ${post.last_request}");
     return BlocProvider(
       create: (context) => getIt<ContractorShiftBloc>(),
       child: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
@@ -45,208 +46,251 @@ class ProposalReceived extends StatelessWidget {
                       ? StringConstant.proposalAccepted
                       : StringConstant.proposalSent,
             ),
-            body: Container(
-              padding: EdgeInsets.all(getSize(10)),
-              margin: EdgeInsets.symmetric(horizontal: getSize(20)),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  userDetail(context),
-                  /* if (post.shift_type == 2) ...[
-                    CommonButton(
-                      height: 34,
-                      onPressed: () async {
-                        /*         await context.router
-                          .push(
-                        PageRouteInfo(
-                          ContractorProposedAvailability.name,
-                          args: ContractorProposedAvailabilityArgs(
-                              list: data.shift_details ?? [],
-                              confirmDialog: confirmDialog),
-                        ),
-                      )
-                          .then((result) {
-                        context.read<ProposalDetailBloc>().add(
-                            ProposalDetailEvent.addConfirmDialogFlag(
-                                result as bool));
-                      }); */
-                      },
-                      backgroundColor: AppColors.green.withOpacity(0.1),
-                      buttonText: StringConstant.viewAvailability,
-                      borderRadius: 7,
-                      buttonFontSize: 11,
-                      buttonTextColor: AppColors.black,
-                    ),
-                  ] else ...[
-                    BaseText(
-                      text: DateFormat("dd MMM, yyyy").format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (post.date ?? 0) * 1000)),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.green,
-                    ),
-                    SizedBox(height: getSize(10)),
-                    Container(
-                      padding: EdgeInsets.all(getSize(20)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEDEDED),
-                        borderRadius: BorderRadius.circular(getSize(20)),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(getSize(10)),
+                margin: EdgeInsets.symmetric(horizontal: getSize(20)),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    userDetail(context),
+                    /* if (post.shift_type == 1) ...[
+                      CommonButton(
+                        height: 34,
+                        onPressed: () async {
+                          /*         await context.router
+                            .push(
+                          PageRouteInfo(
+                            ContractorProposedAvailability.name,
+                            args: ContractorProposedAvailabilityArgs(
+                                list: data.shift_details ?? [],
+                                confirmDialog: confirmDialog),
+                          ),
+                        )
+                            .then((result) {
+                          context.read<ProposalDetailBloc>().add(
+                              ProposalDetailEvent.addConfirmDialogFlag(
+                                  result as bool));
+                        }); */
+                        },
+                        backgroundColor: AppColors.green.withOpacity(0.1),
+                        buttonText: StringConstant.viewAvailability,
+                        borderRadius: 7,
+                        buttonFontSize: 11,
+                        buttonTextColor: AppColors.black,
                       ),
-                      child: Column(
+                    ] else ...[
+                      BaseText(
+                        text: DateFormat("dd MMM, yyyy").format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                (post.date ?? 0) * 1000)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.primaryColor,
+                      ),
+                      SizedBox(height: getSize(10)),
+                      Container(
+                        padding: EdgeInsets.all(getSize(20)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEDEDED),
+                          borderRadius: BorderRadius.circular(getSize(20)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            getTitleAndDescription(
+                              context,
+                              title: StringConstant.postedTime,
+                              description:
+                                  '${formatUnixTimestamp(post.start_time ?? 0)} to ${formatUnixTimestamp(post.end_time ?? 0)}',
+                            ),
+                            SizedBox(height: getSize(20)),
+                            getTitleAndDescription(
+                              context,
+                              title: StringConstant.proposedTime,
+                              description:
+                                  '${formatUnixTimestamp(post.start_time ?? 0)} to ${formatUnixTimestamp(post.end_time ?? 0)}',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: getSize(20)),
+                    ], */
+                    proposedBox(
+                      title: StringConstant.hourlyRate,
+                      postedValue: allowncValue(
+                        "${proposal?.posted_hourly_rate ?? 00}",
+                        isRate: true,
+                      ),
+                      proposedValue: allowncValue(
+                        "${proposal?.proposed_hourly_rate ?? 00}",
+                        isRate: true,
+                      ),
+                      counterProposalValue: allowncValue(
+                        "${proposal?.counter_proposal_hourly_rate ?? ""}",
+                        isRate: true,
+                      ),
+                    ),
+                    paddingBetweenFields(),
+                    proposedBox(
+                      title: StringConstant.commuteAllowance,
+                      postedValue: allowncValue(
+                          "${proposal?.posted_commute_allowance ?? 0.0}",
+                          isHour: proposal?.commute_allowance_type == "2"),
+                      proposedValue: allowncValue(
+                          "${proposal?.proposed_commute_allowance ?? 0.0}",
+                          isHour: proposal?.commute_allowance_type == "2"),
+                      counterProposalValue: allowncValue(
+                          "${proposal?.counter_proposal_commute_allowance ?? 0.0}",
+                          isHour: proposal?.commute_allowance_type == "2"),
+                    ),
+                    paddingBetweenFields(),
+                    proposedBox(
+                      title: StringConstant.accommodationAllowance,
+                      postedValue: allowncValue(
+                          "${proposal?.posted_accommodation_allowance ?? 0.0}",
+                          isHour:
+                              proposal?.accommodation_allowance_type == "2"),
+                      proposedValue: allowncValue(
+                          "${proposal?.proposed_accommodation_allowance ?? 0.0}",
+                          isHour:
+                              proposal?.accommodation_allowance_type == "2"),
+                      counterProposalValue: allowncValue(
+                          "${proposal?.counter_proposal_accommodation_allowance ?? 0.0}",
+                          isHour:
+                              proposal?.accommodation_allowance_type == "2"),
+                    ),
+                    if (post.last_request != null &&
+                        post.last_request != 1) ...[
+                      paddingBetweenFields(height: 20),
+                      Row(
                         children: [
-                          // getTitleAndDescription(
-                          //   context,
-                          //   title: 'Posted Time',
-                          //   description:
-                          //       '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
-                          // ),
-                          // SizedBox(height: getSize(20)),
-                          // getTitleAndDescription(
-                          //   context,
-                          //   title: 'Proposed Time',
-                          //   description:
-                          //       '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
-                          // ),
+                          buttonUI(
+                            onPressed: () {
+                              AppDialog.showDelete(
+                                context,
+                                title: StringConstant.accept,
+                                infoMessage: StringConstant.acceptProposalDesc,
+                                deleteBtnText: StringConstant.accept,
+                                onCancelClick: () {
+                                  context.router.maybePop();
+                                },
+                                onDeleteClick: () {
+                                  context.router.maybePop();
+                                  context.read<ContractorShiftBloc>().add(
+                                        ContractorShiftEvent
+                                            .proposalAcceptRejectEvent(
+                                          context,
+                                          postId: post.id ?? -1,
+                                          urgentAction: 1,
+                                        ),
+                                      );
+                                },
+                              );
+                            },
+                            buttonText: StringConstant.accept,
+                          ),
+                          SizedBox(width: getSize(10)),
+                          buttonUI(
+                            onPressed: () {
+                              AppDialog.showDelete(
+                                context,
+                                title: StringConstant.reject,
+                                infoMessage: StringConstant.rejectProposalDesc,
+                                deleteBtnText: StringConstant.reject,
+                                onCancelClick: () {
+                                  context.router.maybePop();
+                                },
+                                onDeleteClick: () {
+                                  context.router.maybePop();
+                                  context.read<ContractorShiftBloc>().add(
+                                        ContractorShiftEvent
+                                            .proposalAcceptRejectEvent(
+                                          context,
+                                          postId: post.id ?? -1,
+                                          urgentAction: 2,
+                                        ),
+                                      );
+                                },
+                              );
+                            },
+                            buttonText: StringConstant.reject,
+                            bgColor: AppColors.transparent,
+                            textColor: AppColors.primaryColor,
+                            borderColor: AppColors.primaryColor,
+                          ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: getSize(20)),
-                  ], */
-                  proposedBox(
-                    title: StringConstant.hourlyRate,
-                    postedValue: allowncValue(
-                      "${proposal?.posted_hourly_rate ?? 00}",
-                      isRate: true,
-                    ),
-                    proposedValue: allowncValue(
-                      "${proposal?.proposed_hourly_rate ?? 00}",
-                      isRate: true,
-                    ),
-                    counterProposalValue: allowncValue(
-                      "${proposal?.counter_proposal_hourly_rate ?? ""}",
-                      isRate: true,
-                    ),
-                  ),
-                  paddingBetweenFields(),
-                  proposedBox(
-                    title: StringConstant.commuteAllowance,
-                    postedValue: allowncValue(
-                        "${proposal?.posted_commute_allowance ?? 0.0}",
-                        isHour: proposal?.commute_allowance_type == "2"),
-                    proposedValue: allowncValue(
-                        "${proposal?.proposed_commute_allowance ?? 0.0}",
-                        isHour: proposal?.commute_allowance_type == "2"),
-                    counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_commute_allowance ?? 0.0}",
-                        isHour: proposal?.commute_allowance_type == "2"),
-                  ),
-                  paddingBetweenFields(),
-                  proposedBox(
-                    title: StringConstant.accommodationAllowance,
-                    postedValue: allowncValue(
-                        "${proposal?.posted_accommodation_allowance ?? 0.0}",
-                        isHour: proposal?.accommodation_allowance_type == "2"),
-                    proposedValue: allowncValue(
-                        "${proposal?.proposed_accommodation_allowance ?? 0.0}",
-                        isHour: proposal?.accommodation_allowance_type == "2"),
-                    counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_accommodation_allowance ?? 0.0}",
-                        isHour: proposal?.accommodation_allowance_type == "2"),
-                  ),
-                  if (post.last_request != null && post.last_request != 1) ...[
-                    paddingBetweenFields(height: 20),
-                    Row(
-                      children: [
-                        buttonUI(
-                          onPressed: () {
-                            AppDialog.showDelete(
-                              context,
-                              title: StringConstant.accept,
-                              infoMessage: StringConstant.acceptProposalDesc,
-                              deleteBtnText: StringConstant.accept,
-                              onCancelClick: () {
-                                context.router.maybePop();
-                              },
-                              onDeleteClick: () {
-                                context.router.maybePop();
-                                context.read<ContractorShiftBloc>().add(
-                                      ContractorShiftEvent
-                                          .proposalAcceptRejectEvent(
-                                        context,
-                                        postId: post.id ?? -1,
-                                        urgentAction: 1,
-                                      ),
-                                    );
-                              },
-                            );
-                          },
-                          buttonText: StringConstant.accept,
-                        ),
-                        SizedBox(width: getSize(10)),
-                        buttonUI(
-                          onPressed: () {
-                            AppDialog.showDelete(
-                              context,
-                              title: StringConstant.reject,
-                              infoMessage: StringConstant.rejectProposalDesc,
-                              deleteBtnText: StringConstant.reject,
-                              onCancelClick: () {
-                                context.router.maybePop();
-                              },
-                              onDeleteClick: () {
-                                context.router.maybePop();
-                                context.read<ContractorShiftBloc>().add(
-                                      ContractorShiftEvent
-                                          .proposalAcceptRejectEvent(
-                                        context,
-                                        postId: post.id ?? -1,
-                                        urgentAction: 2,
-                                      ),
-                                    );
-                              },
-                            );
-                          },
-                          buttonText: StringConstant.reject,
-                          bgColor: AppColors.transparent,
-                          textColor: AppColors.primaryColor,
-                          borderColor: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
+                    ],
+                    if (post.last_request == 2) ...[
+                      paddingBetweenFields(height: 15),
+                      buttonUI(
+                        onPressed: () {
+                          context.router
+                              .push(PageRouteInfo(SendProposal.name,
+                                  args: SendProposalArgs(
+                                    postId: post.post_id ?? -1,
+                                    id: post.id ?? -1,
+                                    isFromCounterPropose: true,
+                                  )))
+                              .then((value) {
+                            if (value == true) {
+                              Navigator.pop(context, true);
+                            }
+                          });
+                        },
+                        buttonText: StringConstant.sendNewProposal,
+                        textColor: AppColors.black,
+                        bgColor: AppColors.scaffoldColor,
+                      ),
+                    ],
                   ],
-                  if (post.last_request == 2) ...[
-                    paddingBetweenFields(height: 15),
-                    buttonUI(
-                      onPressed: () {
-                        context.router
-                            .push(PageRouteInfo(SendProposal.name,
-                                args: SendProposalArgs(
-                                  postId: post.post_id ?? -1,
-                                  id: post.id ?? -1,
-                                  isFromCounterPropose: true,
-                                )))
-                            .then((value) {
-                          if (value == true) {
-                            Navigator.pop(context, true);
-                          }
-                        });
-                      },
-                      buttonText: StringConstant.sendNewProposal,
-                      textColor: AppColors.black,
-                      bgColor: AppColors.scaffoldColor,
-                    ),
-                  ],
-                ],
+                ),
               ),
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget getTitleAndDescription(
+    BuildContext context, {
+    required String title,
+    required String description,
+    bool unavailable = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BaseText(
+          text: title,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        SizedBox(height: getSize(8)),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(15)),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(getSize(10)),
+          ),
+          child: BaseText(
+            text: description,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: unavailable ? AppColors.redAccent : null,
+          ),
+        ),
+      ],
     );
   }
 
@@ -388,9 +432,7 @@ class ProposalReceived extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: getSize(12),
-          ),
+          SizedBox(height: getSize(12)),
         ],
       ),
     );
