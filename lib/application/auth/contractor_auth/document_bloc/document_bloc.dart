@@ -14,7 +14,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
-import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
+import 'package:shift/presentation/auth/contractor_auth/documents/professional_liability_protection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/apparel_equipment.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/covid_vaccination_proof.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/credential_registration.dart';
