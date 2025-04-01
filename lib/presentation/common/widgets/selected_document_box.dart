@@ -67,7 +67,7 @@ class SelectedDocumentBox extends StatelessWidget {
                   //       BoxShadow(
                   //           blurRadius: 5,
                   //           spreadRadius: 1,
-                  //           color: Colors.black.withOpacity(0.2)),
+                  //           color: Colors.black.withValues(alpha: 0.2)),
                   //     ]),
                   //     child: leadingImage!,
                   //   ),
@@ -148,18 +148,17 @@ class SelectedDocumentBox extends StatelessWidget {
           ),
         if (subTitle1 != null)
           BaseText(
-            text: subTitle1,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.8),
-          ),
+              text: subTitle1,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withValues(alpha: 0.8)),
         if (subTitle2 != null)
           BaseText(
             text: subTitle2,
             fontSize: 10,
             fontWeight: FontWeight.w400,
             lineHeight: 0,
-            textColor: AppColors.black.withOpacity(0.8),
+            textColor: AppColors.black.withValues(alpha: 0.8),
           ),
       ],
     );

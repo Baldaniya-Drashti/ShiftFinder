@@ -203,14 +203,14 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
         backgroundColor: widget.unselectedColor,
         selectedColor: widget.colorator?.call(item.value) ??
             widget.selectedColor ??
-            Theme.of(context).primaryColor.withOpacity(0.35),
+            Theme.of(context).primaryColor.withValues(alpha: 0.35),
         label: Text(
           item.label,
           style: item.selected
               ? TextStyle(
                   color: widget.selectedItemsTextStyle?.color ??
                       widget.colorator?.call(item.value) ??
-                      widget.selectedColor?.withOpacity(1) ??
+                      widget.selectedColor?.withValues(alpha: 1) ??
                       Theme.of(context).primaryColor,
                   fontSize: widget.selectedItemsTextStyle?.fontSize,
                 )
@@ -456,8 +456,8 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
                   //       .addAll(selectedOtherList.map((item) => item.label as T));
                   // }
                   print("Selected Other list ---> $_selectedOtherList");
-                  widget.onConfirmTap(
-                      context, _selectedValues, _selectedOtherList, widget.onConfirm);
+                  widget.onConfirmTap(context, _selectedValues,
+                      _selectedOtherList, widget.onConfirm);
                 },
                 buttonText: StringConstant.ok,
               ),

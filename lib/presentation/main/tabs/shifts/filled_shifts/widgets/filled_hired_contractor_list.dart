@@ -167,7 +167,8 @@ class FilledHiredContractorList extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: AppColors.primaryColor.withOpacity(0.15),
+                              color: AppColors.primaryColor
+                                  .withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(getSize(5)),
                             ),
                             padding: EdgeInsets.symmetric(
@@ -184,7 +185,7 @@ class FilledHiredContractorList extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               SvgImageConstant.clock,
-                              color: AppColors.black.withOpacity(0.7),
+                              color: AppColors.black.withValues(alpha: 0.7),
                               height: getSize(15),
                               width: getSize(15),
                             ),

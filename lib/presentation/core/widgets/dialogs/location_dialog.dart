@@ -112,7 +112,7 @@ class LocationDialog {
                       buttonText: StringConstant.txtContinue,
                       backgroundColor: ((state.locationAddress.isValid()))
                           ? null
-                          : AppColors.primaryColor.withOpacity(0.5),
+                          : AppColors.primaryColor.withValues(alpha: 0.5),
                     )
                   ],
                 );

@@ -114,7 +114,7 @@ class OnBoarding3 extends StatelessWidget {
                 : StringConstant.onBoarding3Desc_employer,
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
           SizedBox(
             height: getSize(35),
@@ -124,7 +124,7 @@ class OnBoarding3 extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(28),
               side: BorderSide(
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             elevation: 0,

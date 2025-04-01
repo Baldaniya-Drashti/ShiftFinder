@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_long_term_authorize_payment/employer_long_term_authorize_payment_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart';
 import 'package:shift/injection.dart';
@@ -43,12 +44,12 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                                     context, employerApplicantsDto.id ?? -1),
                           );
                     },
-                    buttonText: "Authorize Payment",
+                    buttonText: StringConstant.authorizePayment,
                   ),
                 ),
                 appBar: CommonAppBar(
                     onBackPressed: () => context.router.maybePop(),
-                    title: "Accept"),
+                    title: StringConstant.accept),
                 body: SingleChildScrollView(
                   padding: EdgeInsets.all(getSize(22)).copyWith(top: 0),
                   child: Column(
@@ -57,7 +58,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                           height: 60),
                       Gap(getSize(24)),
                       BaseText(
-                        text: "Authorize Payment",
+                        text: StringConstant.authorizePayment,
                         fontSize: 22,
                         fontWeight: FontWeight.w400,
                         fontFamily: "Aclonica",
@@ -65,8 +66,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                       ),
                       Gap(getSize(12)),
                       BaseText(
-                        text:
-                            "By proceeding, you confirm your responsibility for making direct payments to the contractor and acknowledge that ShiftFinder is not liable for any payment or contract disputes.",
+                        text: StringConstant.paymentProcessConfirmationDesc,
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         textAlign: TextAlign.center,
@@ -81,8 +81,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                       ),
                       Gap(getSize(10)),
                       BaseText(
-                        text:
-                            "Are you sure you want to proceed with the ShiftFinder service fee payment?",
+                        text: StringConstant.shiftFinderServiceFeePaymentDesc,
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         textAlign: TextAlign.center,
@@ -98,13 +97,14 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                             children: [
                               _buildSpaceBetweenTile(
                                 context,
-                                label: "Total Months of Contract",
+                                label: StringConstant.totalMonthsOfContract,
                                 value: employerApplicantsDto.total_months ?? "",
                               ),
                               Gap(getSize(8)),
                               _buildSpaceBetweenTile(
                                 context,
-                                label: "ShiftFinder Monthly Service Fee",
+                                label:
+                                    StringConstant.shiftFinderMonthlyServiceFee,
                                 value:
                                     employerApplicantsDto.monthly_service_fee ??
                                         "",
@@ -112,7 +112,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
                               Gap(getSize(8)),
                               _buildSpaceBetweenTile(
                                 context,
-                                label: "Total Service Fee Payable",
+                                label: StringConstant.totalServiceFeePayable,
                                 value: employerApplicantsDto
                                         .total_amount_payable ??
                                     "",
@@ -147,7 +147,7 @@ class EmployerLongTermAuthorizePaymentView extends StatelessWidget {
           child: BaseText(
             text: label,
             fontSize: 12,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
         ),
         BaseText(

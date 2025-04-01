@@ -321,7 +321,7 @@ class HealthCarePostForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.softwareSkillSet,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context
@@ -456,7 +456,7 @@ class HealthCarePostForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.specialties,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
@@ -596,7 +596,7 @@ class HealthCarePostForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.languagesKnown,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
@@ -646,7 +646,7 @@ class HealthCarePostForm extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: (state.rateHour.isValid())
                 ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
+                : AppColors.black.withValues(alpha: 0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),

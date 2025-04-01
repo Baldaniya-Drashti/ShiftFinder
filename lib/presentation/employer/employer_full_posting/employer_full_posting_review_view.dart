@@ -68,7 +68,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(getSize(20)),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.lightGrey.withOpacity(0.2),
+                          color: AppColors.lightGrey.withValues(alpha: 0.2),
                           blurRadius: getSize(20),
                         ),
                       ],
@@ -210,7 +210,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.8),
+            color: AppColors.black.withValues(alpha: 0.8),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -229,7 +229,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                       "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.8),
+                  textColor: AppColors.black.withValues(alpha: 0.8),
                   maxLines: 1,
                 ),
               ],
@@ -355,7 +355,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -370,8 +370,8 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                                     text:
                                         "${response.application_deadline?.year}",
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -394,7 +394,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -429,7 +429,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: getSize(40),
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),
@@ -500,7 +500,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             BaseText(
                 text: "Language Requirements",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
             BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
@@ -523,7 +523,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             BaseText(
                 text: "Location Details",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -557,7 +557,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             BaseText(
                 text: "Union/Bargaining Unit",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -582,7 +582,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             BaseText(
                 text: "On-Call",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -614,7 +614,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             BaseText(
                 text: title,
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             ...List.generate(
@@ -701,7 +701,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   visualDensity: VisualDensity.compact,
                   side: BorderSide(
-                      color: AppColors.black.withOpacity(.5), width: 1.5),
+                      color: AppColors.black.withValues(alpha: .5), width: 1.5),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   value: value,

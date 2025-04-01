@@ -227,7 +227,7 @@ class ViewDates extends StatelessWidget {
                   text: title,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: getSize(5)),
@@ -252,7 +252,7 @@ class ViewDates extends StatelessWidget {
                     text: StringConstant.unpaidBreak,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: getSize(5)),

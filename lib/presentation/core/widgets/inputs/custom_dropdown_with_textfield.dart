@@ -129,7 +129,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                           style: TextStyle(
                             fontSize: getFontSize(10),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.black.withOpacity(0.8),
+                            color: AppColors.black.withValues(alpha: 0.8),
                             fontFamily: "Roboto Flex",
                           ),
                         )
@@ -148,7 +148,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: AppColors.lightGrey.withOpacity(0.2),
+                color: AppColors.lightGrey.withValues(alpha: 0.2),
                 blurRadius: 30,
               ),
             ],
@@ -193,7 +193,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   hint: BaseText(
                     text: hintText!,
-                    textColor: AppColors.black.withOpacity(0.50),
+                    textColor: AppColors.black.withValues(alpha: 0.50),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -210,7 +210,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
               ),
               if (showTextfield) ...[
                 Divider(
-                  color: AppColors.black.withOpacity(0.3),
+                  color: AppColors.black.withValues(alpha: 0.3),
                   indent: getSize(18),
                   endIndent: getSize(18),
                 ),
@@ -218,7 +218,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
               ],
               if (showDropDown) ...[
                 Divider(
-                  color: AppColors.black.withOpacity(0.3),
+                  color: AppColors.black.withValues(alpha: 0.3),
                   indent: getSize(18),
                   endIndent: getSize(18),
                 ),
@@ -303,7 +303,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
       alignment: Alignment.centerLeft,
       hint: BaseText(
         text: childDroDwonHintText ?? "",
-        textColor: AppColors.black.withOpacity(0.50),
+        textColor: AppColors.black.withValues(alpha: 0.50),
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
@@ -426,7 +426,7 @@ class CustomLocationDropdDown extends StatelessWidget {
                           style: TextStyle(
                             fontSize: getFontSize(10),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.black.withOpacity(0.8),
+                            color: AppColors.black.withValues(alpha: 0.8),
                             fontFamily: "Roboto Flex",
                           ),
                         )
@@ -445,7 +445,7 @@ class CustomLocationDropdDown extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: AppColors.lightGrey.withOpacity(0.2),
+                color: AppColors.lightGrey.withValues(alpha: 0.2),
                 blurRadius: 30,
               ),
             ],
@@ -487,7 +487,7 @@ class CustomLocationDropdDown extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 hint: BaseText(
                   text: hintText!,
-                  textColor: AppColors.black.withOpacity(0.50),
+                  textColor: AppColors.black.withValues(alpha: 0.50),
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -501,7 +501,7 @@ class CustomLocationDropdDown extends StatelessWidget {
               ),
               if (showTextfield) ...[
                 Divider(
-                  color: AppColors.black.withOpacity(0.3),
+                  color: AppColors.black.withValues(alpha: 0.3),
                   indent: getSize(18),
                   endIndent: getSize(18),
                 ),
@@ -509,7 +509,7 @@ class CustomLocationDropdDown extends StatelessWidget {
               ],
               if (showDropDown) ...[
                 Divider(
-                  color: AppColors.black.withOpacity(0.3),
+                  color: AppColors.black.withValues(alpha: 0.3),
                   indent: getSize(18),
                   endIndent: getSize(18),
                 ),
@@ -593,7 +593,7 @@ class CustomLocationDropdDown extends StatelessWidget {
       alignment: Alignment.centerLeft,
       hint: BaseText(
         text: childDroDwonHintText ?? "",
-        textColor: AppColors.black.withOpacity(0.50),
+        textColor: AppColors.black.withValues(alpha: 0.50),
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),

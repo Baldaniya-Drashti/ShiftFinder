@@ -37,7 +37,7 @@ class ViewAgreedPraposal extends StatelessWidget {
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppColors.primaryColor.withOpacity(0.10),
+                color: AppColors.primaryColor.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(getSize(10)),
               ),
               child: Row(
@@ -48,7 +48,7 @@ class ViewAgreedPraposal extends StatelessWidget {
                     height: getSize(15),
                     width: getSize(15),
                     colorFilter: ColorFilter.mode(
-                      AppColors.black.withOpacity(0.7),
+                      AppColors.black.withValues(alpha: 0.7),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -57,7 +57,7 @@ class ViewAgreedPraposal extends StatelessWidget {
                     text: 'Shift Date - 12 May 2024',
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                 ],
               ),

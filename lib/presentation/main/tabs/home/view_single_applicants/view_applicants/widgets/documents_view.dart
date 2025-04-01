@@ -24,7 +24,7 @@ class DocumentsView extends StatelessWidget {
           text: StringConstant.documentsUploadedTapToView,
           fontSize: 10,
           fontWeight: FontWeight.w600,
-          textColor: Colors.black.withOpacity(0.8),
+          textColor: Colors.black.withValues(alpha: 0.8),
         ),
         SizedBox(height: getSize(8)),
         if (data.document?.any((element) => element.document_type == 1) ??

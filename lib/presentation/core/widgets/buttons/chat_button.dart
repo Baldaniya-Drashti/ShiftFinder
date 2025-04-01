@@ -51,7 +51,7 @@ class ChatButton extends StatelessWidget {
             onPressed: onPressed,
             backgroundColor: (customWidget != null)
                 ? AppColors.transparent
-                : AppColors.primaryColor.withOpacity(0.15),
+                : AppColors.primaryColor.withValues(alpha: 0.15),
             buttonText: "",
             customWidget: Row(
               mainAxisSize: MainAxisSize.min,

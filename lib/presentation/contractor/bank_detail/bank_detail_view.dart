@@ -227,7 +227,7 @@ class BankListView extends StatelessWidget {
             width: getSize(100),
             SvgImageConstant.bankDollar,
             colorFilter: ColorFilter.mode(
-                AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                AppColors.black.withValues(alpha: 0.7), BlendMode.srcIn),
           ),
           Gap(getSize(30)),
           BaseText(

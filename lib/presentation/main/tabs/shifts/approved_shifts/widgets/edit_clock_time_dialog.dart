@@ -64,7 +64,7 @@ class EditClockTimeDialog extends StatelessWidget {
                       showFullDescription: true,
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w500,
-                      textColor: AppColors.black.withOpacity(0.7),
+                      textColor: AppColors.black.withValues(alpha: 0.7),
                     ),
                     SizedBox(height: getSize(18)),
                     Text.rich(
@@ -93,7 +93,7 @@ class EditClockTimeDialog extends StatelessWidget {
                             style: TextStyle(
                               fontSize: getFontSize(12),
                               fontWeight: FontWeight.w600,
-                              color: AppColors.black.withOpacity(0.7),
+                              color: AppColors.black.withValues(alpha: 0.7),
                             ),
                           ),
                           TextSpan(
@@ -328,7 +328,7 @@ class EditClockTimeDialog extends StatelessWidget {
                       fontSize: 14,
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w500,
-                      textColor: AppColors.black.withOpacity(0.7),
+                      textColor: AppColors.black.withValues(alpha: 0.7),
                     ),
                   ],
                 ),
@@ -417,7 +417,7 @@ class EditClockTimeDialog extends StatelessWidget {
                     fontSize: 14,
                     textAlign: TextAlign.center,
                     fontWeight: FontWeight.w500,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                 ],
               ),

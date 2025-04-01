@@ -112,7 +112,7 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
               height: 13,
               width: 13,
               colorFilter: ColorFilter.mode(
-                  AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+                  AppColors.black.withValues(alpha: 0.5), BlendMode.srcIn),
             ),
             padding: EdgeInsets.symmetric(horizontal: getSize(16)),
             url: data.profile ?? "",
@@ -120,7 +120,7 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
             subTitle: "${data.role_lists_name}",
             trailing: CommonMaterialButton.icon(
               radius: 10.0,
-              backgroundColor: AppColors.redAccent.withOpacity(0.15),
+              backgroundColor: AppColors.redAccent.withValues(alpha: 0.15),
               width: 90,
               height: 33,
               onPressed: () {

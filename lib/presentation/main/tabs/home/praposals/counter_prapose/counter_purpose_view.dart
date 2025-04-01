@@ -395,7 +395,7 @@ class CounterPurposeView extends StatelessWidget {
   Widget verticalDivider() {
     return VerticalDivider(
       width: getSize(25),
-      color: AppColors.black.withOpacity(0.30),
+      color: AppColors.black.withValues(alpha: 0.30),
       thickness: getSize(2),
       indent: getSize(10),
       endIndent: getSize(5),
@@ -411,7 +411,7 @@ class CounterPurposeView extends StatelessWidget {
       children: [
         BaseText(
           text: mainTitle,
-          textColor: AppColors.green.withOpacity(0.8),
+          textColor: AppColors.green.withValues(alpha: 0.8),
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),
@@ -454,7 +454,7 @@ class CounterPurposeView extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: (state.rateHour.isValid())
                 ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
+                : AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         prefixIconConstraints:
@@ -511,7 +511,7 @@ class CounterPurposeView extends StatelessWidget {
               fontWeight: FontWeight.w500,
               // textColor: (state.rateHour.isValid())
               //     ? AppColors.black
-              //     : AppColors.black.withOpacity(0.5),
+              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -569,7 +569,7 @@ class CounterPurposeView extends StatelessWidget {
               text: '\$ ',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             )),
         fieldPrefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -634,7 +634,7 @@ class CounterPurposeView extends StatelessWidget {
               fontWeight: FontWeight.w500,
               // textColor: (state.rateHour.isValid())
               //     ? AppColors.black
-              //     : AppColors.black.withOpacity(0.5),
+              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -686,7 +686,7 @@ class CounterPurposeView extends StatelessWidget {
               text: '\$ ',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             )),
         fieldPrefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),

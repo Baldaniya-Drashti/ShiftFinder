@@ -311,14 +311,14 @@ class MyCalendarView extends StatelessWidget {
                   text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustry(post.industry_id ?? 0)}  - ${post.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: post.location?.facility_type?.name ?? "",
@@ -364,7 +364,7 @@ class MyCalendarView extends StatelessWidget {
             minTileHeight: getSize(43.41),
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -448,7 +448,7 @@ class MyCalendarView extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,
@@ -517,7 +517,7 @@ class MyCalendarView extends StatelessWidget {
                 text: title,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               highLightText(boldValue: boldValue, timidValue: timidValue),
             ],
@@ -545,7 +545,7 @@ class MyCalendarView extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         TextSpan(
@@ -581,7 +581,7 @@ class MyCalendarView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 children: [
@@ -589,19 +589,19 @@ class MyCalendarView extends StatelessWidget {
                     text: startDate,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   BaseText(
                     text: ' to ',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   BaseText(
                     text: endDate,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                 ],
               ),

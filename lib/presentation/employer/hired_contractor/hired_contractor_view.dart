@@ -74,7 +74,7 @@ class HiredContractorView extends StatelessWidget {
                       //         alignment: Alignment.centerLeft,
                       //         child: Material(
                       //           borderRadius: BorderRadius.circular(3),
-                      //           color: AppColors.green.withOpacity(0.15),
+                      //           color: AppColors.green.withValues(alpha: 0.15),
                       //           child: InkWell(
                       //             onTap: () {},
                       //             child: Padding(
@@ -93,7 +93,7 @@ class HiredContractorView extends StatelessWidget {
                       //   ),
                       //   trailing: CommonMaterialButton.icon(
                       //     radius: 5,
-                      //     backgroundColor: AppColors.green.withOpacity(0.15),
+                      //     backgroundColor: AppColors.green.withValues(alpha: 0.15),
                       //     width: 65,
                       //     height: 32,
                       //     onPressed: () {},
@@ -130,7 +130,8 @@ class HiredContractorView extends StatelessWidget {
                                     alignment: Alignment.centerLeft,
                                     child: Material(
                                       borderRadius: BorderRadius.circular(3),
-                                      color: AppColors.green.withOpacity(0.15),
+                                      color: AppColors.green
+                                          .withValues(alpha: 0.15),
                                       child: InkWell(
                                         onTap: () {},
                                         child: Padding(
@@ -152,7 +153,7 @@ class HiredContractorView extends StatelessWidget {
                             CommonMaterialButton.icon(
                               radius: 5,
                               backgroundColor:
-                                  AppColors.green.withOpacity(0.15),
+                                  AppColors.green.withValues(alpha: 0.15),
                               width: 65,
                               height: 32,
                               onPressed: () {},

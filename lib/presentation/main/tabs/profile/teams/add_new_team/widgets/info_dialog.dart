@@ -31,7 +31,7 @@ class InfoDialog extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(height: getSize(30)),
             CommonButton(

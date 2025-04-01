@@ -66,7 +66,8 @@ class OpenPositionTabView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(getSize(20)),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.lightGrey.withOpacity(0.1),
+                                color:
+                                    AppColors.lightGrey.withValues(alpha: 0.1),
                                 blurRadius: getSize(20),
                               ),
                             ],
@@ -99,7 +100,9 @@ class OpenPositionTabView extends StatelessWidget {
                                   onPressed: () {
                                     if (state.openPositionList[index]
                                             .total_application_counts ==
-                                        0) return;
+                                        0) {
+                                      return;
+                                    }
                                     context.router
                                         .push(
                                       PageRouteInfo(
@@ -163,13 +166,13 @@ class OpenPositionTabView extends StatelessWidget {
                         "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.white.withOpacity(0.80),
+                    textColor: AppColors.white.withValues(alpha: 0.80),
                   ),
                   BaseText(
                     text: employer.location?.facility_type?.name ?? "",
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
-                    textColor: AppColors.white.withOpacity(0.80),
+                    textColor: AppColors.white.withValues(alpha: 0.80),
                   ),
                 ],
               ),
@@ -180,10 +183,10 @@ class OpenPositionTabView extends StatelessWidget {
                     onTap: () async {
                       final result = await AppDialog.showCommonDialog(
                           context: context,
-                          title: "Delete The Position",
-                          content:
-                              "Are you sure you want to delete this long term position?",
-                          successLabel: "Delete");
+                          title: StringConstant.deleteThePosition,
+                          content: StringConstant
+                              .areYouSureYouWantToDeleteThisLongTermPosition,
+                          successLabel: StringConstant.delete);
                       if (result ?? false) {
                         context.read<EmployerLongTermBloc>().add(
                               EmployerLongTermEvent.deletePost(
@@ -226,7 +229,7 @@ class OpenPositionTabView extends StatelessWidget {
               visualDensity: VisualDensity.compact,
               minTileHeight: getSize(43.41),
             ),
-            Divider(color: AppColors.white.withOpacity(0.2)),
+            Divider(color: AppColors.white.withValues(alpha: 0.2)),
             Gap(getSize(4)),
             GestureDetector(
                 onTap: () {
@@ -275,7 +278,7 @@ class OpenPositionTabView extends StatelessWidget {
     return CommonButton(
       borderRadius: 7,
       height: 45,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.2),
+      backgroundColor: AppColors.primaryColor.withValues(alpha: 0.2),
       onPressed: onPressed,
       buttonText: StringConstant.viewPositionDetails,
       buttonFontSize: 12,
@@ -301,7 +304,7 @@ class OpenPositionTabView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
-                  text: "Total Applications",
+                  text: StringConstant.totalApplications,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
               Gap(getSize(8)),
@@ -344,7 +347,7 @@ class OpenPositionTabView extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildDateInfoTile(context,
-                    title: 'Start Date:-',
+                    title: '${StringConstant.startDate}:-',
                     dateTime: employer.start_date ?? DateTime.now()),
               ),
               VerticalDivider(),
@@ -352,7 +355,7 @@ class OpenPositionTabView extends StatelessWidget {
               Expanded(
                 child: _buildDateInfoTile(
                   context,
-                  title: 'End Date:-',
+                  title: '${StringConstant.endDate}:-',
                   dateTime: employer.end_date ?? DateTime.now(),
                 ),
               ),
@@ -381,7 +384,7 @@ class OpenPositionTabView extends StatelessWidget {
             children: [
               TextSpan(
                 text: " ${dateTime.year.toString()}",
-                style: TextStyle(color: AppColors.black.withOpacity(0.5)),
+                style: TextStyle(color: AppColors.black.withValues(alpha: 0.5)),
               ),
             ],
           ),
@@ -425,9 +428,7 @@ class _EmployerStackedImage extends StatelessWidget {
                         ),
                         image: DecorationImage(
                           opacity: (imageList.length > 6 && i == 5) ? 0.4 : 100,
-                          image: NetworkImage(
-                            imageList[i].profile ?? "",
-                          ),
+                          image: NetworkImage(imageList[i].profile ?? ""),
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -102,7 +102,7 @@ class ContractorWithdrawPaymentView extends StatelessWidget {
                                           hintStyle: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color: AppColors.primaryColor
-                                                  .withOpacity(0.4),
+                                                  .withValues(alpha: 0.4),
                                               fontSize: getFontSize(34)),
                                           hintText: "0.00",
                                           focusedBorder: InputBorder.none,

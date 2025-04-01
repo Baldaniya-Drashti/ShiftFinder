@@ -70,8 +70,8 @@ class CustomPinField extends StatelessWidget {
             inactiveBorderWidth: 0,
             disabledBorderWidth: 0,
             activeColor: AppColors.primaryColor,
-            inactiveColor: AppColors.black.withOpacity(0.2),
-            selectedColor: AppColors.primaryColor.withOpacity(0.2),
+            inactiveColor: AppColors.black.withValues(alpha: 0.2),
+            selectedColor: AppColors.primaryColor.withValues(alpha: 0.2),
             errorBorderColor: AppColors.red,
           ),
           cursorColor: AppColors.primaryColor,
@@ -80,8 +80,6 @@ class CustomPinField extends StatelessWidget {
           onCompleted: onCompleted,
           onChanged: onChanged,
           beforeTextPaste: (text) {
-            debugPrint("Allowing to paste ");
-
             return true;
           },
         ),

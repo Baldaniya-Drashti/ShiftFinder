@@ -110,7 +110,8 @@ class InvoiceDetailView extends StatelessWidget {
                                       padding: EdgeInsets.all(getSize(16)),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.green.withOpacity(0.2),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.2),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:

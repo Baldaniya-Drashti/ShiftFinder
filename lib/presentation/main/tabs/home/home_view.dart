@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                     SizedBox(
                       width: getSize(280),
                       child: BaseText(
-                        textColor: AppColors.black.withOpacity(0.65),
+                        textColor: AppColors.black.withValues(alpha: 0.65),
                         text: StringConstant.getStartedwithNewShift,
                         textAlign: TextAlign.center,
                         lineHeight: 1.2,
@@ -136,7 +136,7 @@ class HomeView extends StatelessWidget {
             borderRadius: BorderRadius.circular(getSize(20)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.lightGrey.withOpacity(0.2),
+                color: AppColors.lightGrey.withValues(alpha: 0.2),
                 blurRadius: getSize(20),
               ),
             ],
@@ -161,7 +161,7 @@ class HomeView extends StatelessWidget {
                 },
                 height: getSize(40),
                 borderRadius: 7,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+                backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
                 buttonTextColor: AppColors.black,
                 buttonFontSize: 12,
                 buttonText: StringConstant.viewShiftDetails,
@@ -224,7 +224,7 @@ class HomeView extends StatelessWidget {
                       text: StringConstant.numberOfVacancies,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.7),
+                      textColor: AppColors.black.withValues(alpha: 0.7),
                     ),
                     BaseText(
                       text:
@@ -322,7 +322,7 @@ class HomeView extends StatelessWidget {
                           "(${getIndustryText(state.employerDashboardList[index].industry ?? 0)} - ${state.employerDashboardList[index].listing_id ?? ""})",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      textColor: AppColors.white.withOpacity(0.80),
+                      textColor: AppColors.white.withValues(alpha: 0.80),
                     ),
                     BaseText(
                       text: state.employerDashboardList[index].location
@@ -330,7 +330,7 @@ class HomeView extends StatelessWidget {
                           "",
                       fontSize: 10,
                       fontWeight: FontWeight.w500,
-                      textColor: AppColors.white.withOpacity(0.80),
+                      textColor: AppColors.white.withValues(alpha: 0.80),
                     ),
                   ],
                 ),
@@ -410,7 +410,7 @@ class HomeView extends StatelessWidget {
                 minTileHeight: getSize(43.41),
               ),
               Divider(
-                color: AppColors.white.withOpacity(0.7),
+                color: AppColors.white.withValues(alpha: 0.7),
                 thickness: getSize(0.5),
               ),
               GestureDetector(
@@ -505,7 +505,7 @@ class HomeView extends StatelessWidget {
 
   Widget verticalDivider() {
     return VerticalDivider(
-      color: AppColors.black.withOpacity(0.56),
+      color: AppColors.black.withValues(alpha: 0.56),
       indent: getSize(2),
       endIndent: getSize(2),
     );
@@ -538,7 +538,7 @@ class HomeView extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             Row(
               children: [

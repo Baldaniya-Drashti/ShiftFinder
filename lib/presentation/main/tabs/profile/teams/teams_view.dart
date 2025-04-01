@@ -54,7 +54,7 @@ class TeamsView extends StatelessWidget {
                       child: SizedBox(
                         width: getSize(280),
                         child: BaseText(
-                          textColor: AppColors.black.withOpacity(0.65),
+                          textColor: AppColors.black.withValues(alpha: 0.65),
                           text: StringConstant.noTeamsAddedYet,
                           textAlign: TextAlign.center,
                           lineHeight: 1.2,
@@ -80,7 +80,7 @@ class TeamsView extends StatelessWidget {
                               .add(TeamsEvent.getTeamList(true, null));
                         }
                       },
-                      backgroundColor: AppColors.green.withOpacity(0.15),
+                      backgroundColor: AppColors.green.withValues(alpha: 0.15),
                       buttonText: '+ Add New Team',
                       buttonTextColor: AppColors.green,
                       buttonFontSize: 12,
@@ -160,7 +160,7 @@ class TeamsView extends StatelessWidget {
                                   }
                                 },
                                 backgroundColor:
-                                    AppColors.green.withOpacity(0.15),
+                                    AppColors.green.withValues(alpha: 0.15),
                                 buttonText: '+ Add New Team',
                                 buttonTextColor: AppColors.green,
                                 buttonFontSize: 12,

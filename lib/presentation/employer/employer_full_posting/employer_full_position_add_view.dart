@@ -529,7 +529,7 @@ class _PositionFormState extends State<_PositionForm> {
           buttonText: Text(
             StringConstant.languagesKnown,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
@@ -709,7 +709,7 @@ class _JobTypeDropdownField extends StatelessWidget {
       hintTextStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: AppColors.black.withOpacity(0.5),
+        color: AppColors.black.withValues(alpha: 0.5),
       ),
       value: selectedJobType,
       items: list.map(
@@ -936,7 +936,7 @@ class _ShiftSchedule extends StatelessWidget {
           buttonText: Text(
             "Shift Schedule",
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context

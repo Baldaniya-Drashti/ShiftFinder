@@ -32,5 +32,5 @@ class AppColors {
   static Color blue = Color(0xff22215B);
 
   static Color grey = Color(0xFFD9D9D9);
-  static Color grey04 = grey.withOpacity(0.4);
+  static Color grey04 = grey.withValues(alpha: 0.4);
 }

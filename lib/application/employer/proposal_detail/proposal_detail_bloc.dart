@@ -151,7 +151,7 @@ class ProposalDetailBloc
                         fontSize: 14,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.w500,
-                        textColor: AppColors.black.withOpacity(0.7),
+                        textColor: AppColors.black.withValues(alpha: 0.7),
                       ),
                     ],
                   ),

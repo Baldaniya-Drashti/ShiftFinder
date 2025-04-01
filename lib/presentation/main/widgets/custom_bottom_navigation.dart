@@ -52,7 +52,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
                     fontFamily: "Sarabun",
                     textColor: isActive
                         ? AppColors.primaryColor
-                        : AppColors.black.withOpacity(0.50),
+                        : AppColors.black.withValues(alpha: 0.50),
                     fontWeight: FontWeight.w600,
                   ),
                 ],
@@ -138,7 +138,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
                     fontFamily: "Sarabun",
                     textColor: isActive
                         ? AppColors.primaryColor
-                        : AppColors.black.withOpacity(0.50),
+                        : AppColors.black.withValues(alpha: 0.50),
                     fontWeight: FontWeight.w600,
                   ),
                 ],

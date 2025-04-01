@@ -63,7 +63,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(getSize(20)),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.black.withOpacity(0.2),
+                                  color: AppColors.black.withValues(alpha: 0.2),
                                   blurRadius: 10,
                                 ),
                               ],
@@ -86,7 +86,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                   },
                                   buttonText: StringConstant.viewReceipt,
                                   backgroundColor:
-                                      AppColors.green.withOpacity(0.1),
+                                      AppColors.green.withValues(alpha: 0.1),
                                   buttonFontSize: 12,
                                   height: 43,
                                   buttonTextColor: AppColors.black,
@@ -158,13 +158,13 @@ class ContractorCompletedShiftView extends StatelessWidget {
                   text: user.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: "(${industry.title} - ${user.listing_id ?? ""})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: user.location?.facility_type?.name ?? "",
@@ -177,7 +177,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -335,7 +335,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 children: [
@@ -422,7 +422,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                         text: title,
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        textColor: AppColors.black.withOpacity(0.7),
+                        textColor: AppColors.black.withValues(alpha: 0.7),
                       ),
                       highLightText(
                           boldValue: boldValue, timidValue: timidValue),
@@ -454,7 +454,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
               style: TextStyle(
                 fontSize: getFontSize(13),
                 fontWeight: FontWeight.w500,
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             TextSpan(

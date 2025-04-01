@@ -182,7 +182,6 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
               context.read<EmployerLongTermAddBloc>().add(
                   EmployerLongTermAddEvent.removePreferedSoftwareSkillchips(
                       value.toString()));
@@ -192,7 +191,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           buttonText: Text(
             StringConstant.softwareSkillSet,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context
@@ -203,10 +202,6 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                 ));
           },
         ),
-        /*if (state.showErrorMessages &&
-            state.requiredSoftwareSkillChipList.getValue().isEmpty &&
-            state.softwareSkillOther.isEmpty)
-          commonErrorText(StringConstant.pleaseSelectAtLeastOneSkillSet)*/
       ],
     );
   }
@@ -244,7 +239,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           buttonText: Text(
             StringConstant.specialties,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context
@@ -289,13 +284,11 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           buttonText: Text(
             StringConstant.languagesKnown,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
             context
                 .read<EmployerLongTermAddBloc>()
                 .add(EmployerLongTermAddEvent.confirmLanguageList(
@@ -340,7 +333,7 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: (state.rateHour.isValid())
                 ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
+                : AppColors.black.withValues(alpha: 0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -367,7 +360,6 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
 
   Widget locationDropDown(
       BuildContext context, EmployerLongTermAddState state) {
-    print("state.location.getValue()--> ${state.selectedLocationUnit}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -414,8 +406,6 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                     (_) => null,
                   ),
           onChanged: (value) {
-            // print("SELECTED LOCATION----> ${value}");
-            // LocationDTO selectedValue = value;
             if (value != null) {
               context.read<EmployerLongTermAddBloc>().add(
                     EmployerLongTermAddEvent.locationChanged(value.toString()),

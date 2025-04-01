@@ -134,7 +134,8 @@ class ContractorTotalEarningView extends StatelessWidget {
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.green.withOpacity(0.2),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.2),
                                       ),
                                       padding: EdgeInsets.all(getSize(16)),
                                       child: MonthlyStatementInfo(
@@ -268,7 +269,7 @@ class ContractorTotalEarningView extends StatelessWidget {
       borderRadius: 5,
       width: 76,
       height: 20,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.20),
+      backgroundColor: AppColors.primaryColor.withValues(alpha: 0.20),
       buttonTextColor: AppColors.primaryColor,
       customWidget: Row(
         mainAxisSize: MainAxisSize.min,
@@ -381,7 +382,7 @@ class Earning extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.completedShiftsEarning,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         // Gap(getSize(8)),
         ListView.separated(
@@ -476,7 +477,7 @@ class Compensation extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.compensationReceivedFromCancellations,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(8),
         ListView.separated(
@@ -537,7 +538,7 @@ class ReferralBonus extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.referralBonusReceived,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(8),
         ListView.separated(

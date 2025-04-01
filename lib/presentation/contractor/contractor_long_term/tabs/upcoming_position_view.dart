@@ -63,7 +63,8 @@ class ContractorUpcomingPositionView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(getSize(20)),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  color: AppColors.lightGrey
+                                      .withValues(alpha: 0.2),
                                   blurRadius: getSize(20),
                                 ),
                               ],
@@ -88,8 +89,8 @@ class ContractorUpcomingPositionView extends StatelessWidget {
                                     );
                                   },
                                   label: StringConstant.viewPositionDetails,
-                                  backgroundColor:
-                                      AppColors.primaryColor.withOpacity(.1),
+                                  backgroundColor: AppColors.primaryColor
+                                      .withValues(alpha: 0.1),
                                 ),
                               ],
                             ),
@@ -150,7 +151,7 @@ class ContractorUpcomingPositionView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -168,7 +169,7 @@ class ContractorUpcomingPositionView extends StatelessWidget {
                       "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),

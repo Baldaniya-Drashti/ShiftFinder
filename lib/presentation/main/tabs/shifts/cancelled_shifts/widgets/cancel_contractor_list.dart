@@ -152,7 +152,7 @@ class CancelledContractorList extends StatelessWidget {
               child: BaseText(
                 text: StringConstant.reason,
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
             ),
             Container(
@@ -168,7 +168,7 @@ class CancelledContractorList extends StatelessWidget {
               child: BaseText(
                 text: contractor.reason ?? "",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
             ),
           ],

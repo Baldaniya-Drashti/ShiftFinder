@@ -282,7 +282,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -325,7 +325,8 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
       width: getSize(60),
       height: getSize(26),
       borderRadius: 7,
-      backgroundColor: (isAnswer) ? buttonColor : buttonColor.withOpacity(0.15),
+      backgroundColor:
+          (isAnswer) ? buttonColor : buttonColor.withValues(alpha: 0.15),
       buttonTextColor: (isAnswer) ? AppColors.white : buttonColor,
     );
   }

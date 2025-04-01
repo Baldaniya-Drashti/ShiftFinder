@@ -463,7 +463,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                               height: 46,
                               backgroundColor: (user.occupied == true ||
                                       user.accept_btn_toggle == false)
-                                  ? AppColors.green.withOpacity(0.2)
+                                  ? AppColors.green.withValues(alpha: 0.2)
                                   : null,
                             ),
                           ),
@@ -506,7 +506,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                       ).acceptRejectDialog(context);
                                     },
                               backgroundColor: (user.accept_btn_toggle == false)
-                                  ? AppColors.green.withOpacity(0.2)
+                                  ? AppColors.green.withValues(alpha: 0.2)
                                   : AppColors.white,
                               borderColor: (user.accept_btn_toggle == false)
                                   ? null
@@ -646,7 +646,7 @@ class ViewPersonPraposalView extends StatelessWidget {
               horizontal: getSize(15), vertical: getSize(10)),
           child: BaseText(
             text: title,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
             fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
@@ -690,7 +690,7 @@ class ViewPersonPraposalView extends StatelessWidget {
 
   Widget verticalDivider() {
     return VerticalDivider(
-      color: AppColors.black.withOpacity(0.30),
+      color: AppColors.black.withValues(alpha: 0.30),
       thickness: getSize(2),
       indent: getSize(5),
       endIndent: getSize(5),
@@ -706,7 +706,7 @@ class ViewPersonPraposalView extends StatelessWidget {
           text: title,
           fontSize: 10,
           fontWeight: FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         SizedBox(height: getSize(2)),
         BaseText(
@@ -728,7 +728,7 @@ class ViewPersonPraposalView extends StatelessWidget {
       children: [
         BaseText(
           text: mainTitle,
-          textColor: AppColors.green.withOpacity(0.8),
+          textColor: AppColors.green.withValues(alpha: 0.8),
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),

@@ -43,12 +43,8 @@ mixin _$HealthcarePostDTO {
   String? get software_skill => throw _privateConstructorUsedError;
   String? get specialties_detail => throw _privateConstructorUsedError;
 
-  /// Serializes this HealthcarePostDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $HealthcarePostDTOCopyWith<HealthcarePostDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -95,8 +91,6 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -205,8 +199,6 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     ) as $Val);
   }
 
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocationDTOCopyWith<$Res>? get location {
@@ -219,8 +211,6 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     });
   }
 
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ShiftDetailDTOCopyWith<$Res>? get shift_detail {
@@ -278,8 +268,6 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
       $Res Function(_$HealthcarePostDTOImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -547,7 +535,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
                 other.specialties_detail == specialties_detail));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -573,9 +561,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
         specialties_detail
       ]);
 
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>
@@ -656,11 +642,8 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   String? get software_skill;
   @override
   String? get specialties_detail;
-
-  /// Create a copy of HealthcarePostDTO
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

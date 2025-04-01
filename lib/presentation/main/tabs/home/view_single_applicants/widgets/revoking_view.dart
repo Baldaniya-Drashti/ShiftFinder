@@ -16,7 +16,7 @@ class RevokingView extends StatelessWidget {
         Expanded(
           child: BaseText(
             text: 'Revoking...',
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
@@ -28,7 +28,7 @@ class RevokingView extends StatelessWidget {
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.green.withOpacity(0.1),
+            color: AppColors.green.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(getSize(6)),
           ),
           child: Row(

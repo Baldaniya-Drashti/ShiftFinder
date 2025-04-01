@@ -201,7 +201,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
           axisLine: AxisLine(width: 0, color: Colors.transparent),
           majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
-          minorGridLines: MinorGridLines(width: 0),
+          // minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
           axisLine: AxisLine(width: 0, color: Colors.transparent),
@@ -235,7 +235,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                       vertical: getSize(2),
                     ),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withOpacity(0.1),
+                        color: AppColors.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Text(
                       '\$${point.y}',
@@ -279,8 +279,8 @@ class ContractorPerformanceInsightView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppColors.primaryColor.withOpacity(0.25),
-                AppColors.primaryColor.withOpacity(0.01),
+                AppColors.primaryColor.withValues(alpha: 0.25),
+                AppColors.primaryColor.withValues(alpha: 0.01),
               ],
             ),
           ),
@@ -315,7 +315,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                       vertical: getSize(2),
                     ),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withOpacity(0.1),
+                        color: AppColors.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Text(
                       '\$${point.y}',
@@ -368,7 +368,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
           axisLine: AxisLine(width: 0, color: Colors.transparent),
           majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
-          minorGridLines: MinorGridLines(width: 0),
+          // minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
           axisLine: AxisLine(width: 0, color: Colors.transparent),
@@ -391,7 +391,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
               colors: [
                 AppColors.darkGreen,
                 AppColors.primaryColor,
-                AppColors.primaryColor.withOpacity(0.6),
+                AppColors.primaryColor.withValues(alpha: 0.6),
               ],
             ),
             width: 0.4,
@@ -408,7 +408,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                     vertical: getSize(2),
                   ),
                   decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withOpacity(0.1),
+                      color: AppColors.primaryColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Text(
                     '${point.y} h',
@@ -441,7 +441,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
           axisLine: AxisLine(width: 0, color: Colors.transparent),
           majorTickLines: MajorTickLines(width: 0),
           majorGridLines: MajorGridLines(width: 0),
-          minorGridLines: MinorGridLines(width: 0),
+          // minorGridLines: MinorGridLines(width: 0),
         ),
         primaryYAxis: NumericAxis(
           axisLine: AxisLine(width: 0, color: Colors.transparent),
@@ -462,7 +462,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
               colors: [
                 AppColors.darkGreen,
                 AppColors.primaryColor,
-                AppColors.primaryColor.withOpacity(0.6),
+                AppColors.primaryColor.withValues(alpha: 0.6),
               ],
             ),
             width: 0.4,
@@ -479,7 +479,7 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                     vertical: getSize(2),
                   ),
                   decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withOpacity(0.1),
+                      color: AppColors.primaryColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Text(
                     '${point.y}',
@@ -649,13 +649,13 @@ double convertTimeToDecimal(String time) {
                       isStrokeCapRound: true,
                       belowBarData: BarAreaData(
                         show: true,
-                        color: Colors.green.withOpacity(0.2),
+                        color: Colors.green.withValues(alpha: 0.2),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            AppColors.primaryColor.withOpacity(0.2),
-                            AppColors.primaryColor.withOpacity(0.1),
+                            AppColors.primaryColor.withValues(alpha: 0.2),
+                            AppColors.primaryColor.withValues(alpha: 0.1),
                             AppColors.transparent,
                           ],
                         ),

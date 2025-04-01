@@ -321,8 +321,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                   TextSpan(
                       text:
                           "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_end_time ?? 0) * 1000).year}",
-                      style:
-                          TextStyle(color: AppColors.black.withOpacity(0.5))),
+                      style: TextStyle(
+                          color: AppColors.black.withValues(alpha: 0.5))),
                 ],
               ),
             ),
@@ -416,7 +416,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
+                        ? AppColors.white.withValues(alpha: 0.5)
                         : AppColors.white,
                     onPressed: !isBlock
                         ? () async {
@@ -456,14 +456,14 @@ class _PreviousShiftListTile extends StatelessWidget {
                     label:
                         "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
                     textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
+                        isBlock ? AppColors.black.withValues(alpha: 0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
                 Expanded(
                   child: _ActionButton(
                     backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
+                        ? AppColors.white.withValues(alpha: 0.5)
                         : AppColors.white,
                     onPressed: !isBlock
                         ? () => _onAddRating(
@@ -486,7 +486,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         ? AppColors.primaryColor
                         : null,
                     textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
+                        isBlock ? AppColors.black.withValues(alpha: 0.5) : null,
                     label: (data.isRating == true &&
                             data.rating != null &&
                             data.rating != 0)
@@ -502,7 +502,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
+                        ? AppColors.white.withValues(alpha: 0.5)
                         : AppColors.white,
                     onPressed: !isBlock
                         ? () {
@@ -520,7 +520,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         ? SvgImageConstant.remarkAdded
                         : SvgImageConstant.medalStar,
                     textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
+                        isBlock ? AppColors.black.withValues(alpha: 0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
@@ -551,7 +551,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         ? SvgImageConstant.blockedFilled
                         : SvgImageConstant.block,
                     backgroundColor: isBlock
-                        ? AppColors.redAccent.withOpacity(0.15)
+                        ? AppColors.redAccent.withValues(alpha: 0.15)
                         : AppColors.white,
                   ),
                 ),

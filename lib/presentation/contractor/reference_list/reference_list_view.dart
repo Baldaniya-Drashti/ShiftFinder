@@ -37,7 +37,7 @@ class ReferenceListView extends StatelessWidget {
           ),
           Material(
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: AppColors.green.withOpacity(0.15),
+            color: AppColors.green.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(7),
             child: InkWell(
               onTap: () async {},

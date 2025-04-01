@@ -234,7 +234,7 @@ class PayableDetail extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,
@@ -248,7 +248,7 @@ class PayableDetail extends StatelessWidget {
 
   Widget commonDivider() {
     return Divider(
-      color: AppColors.black.withOpacity(0.2),
+      color: AppColors.black.withValues(alpha: 0.2),
       thickness: getSize(0.5),
     );
   }
@@ -327,7 +327,7 @@ class PayableDetail extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.3),
+          color: AppColors.primaryColor.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,

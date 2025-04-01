@@ -424,11 +424,11 @@ class ApparelEquipment extends StatelessWidget {
         buttonFontWeight: FontWeight.w600,
         height: 35,
         backgroundColor: (isAllDetailsAdded)
-            ? AppColors.primaryColor.withOpacity(0.15)
-            : AppColors.primaryColor.withOpacity(0.05),
+            ? AppColors.primaryColor.withValues(alpha: 0.15)
+            : AppColors.primaryColor.withValues(alpha: 0.05),
         buttonTextColor: (isAllDetailsAdded)
             ? AppColors.primaryColor
-            : AppColors.primaryColor.withOpacity(0.3),
+            : AppColors.primaryColor.withValues(alpha: 0.3),
       ),
     );
   }

@@ -58,8 +58,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                     : state.isErrorInAPI
                         ? Center(
                             child: BaseText(
-                                text: StringConstant.somethindWentWrong),
-                          )
+                                text: StringConstant.somethindWentWrong))
                         : ListView.separated(
                             padding: EdgeInsets.all(getSize(12)),
                             itemBuilder: (context, index) {
@@ -71,8 +70,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                       BorderRadius.circular(getSize(20)),
                                   boxShadow: [
                                     BoxShadow(
-                                      color:
-                                          AppColors.lightGrey.withOpacity(0.2),
+                                      color: AppColors.lightGrey
+                                          .withValues(alpha: 0.2),
                                       blurRadius: getSize(20),
                                     ),
                                   ],
@@ -98,7 +97,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                       },
                                       label: StringConstant.viewPositionDetails,
                                       backgroundColor: AppColors.primaryColor
-                                          .withOpacity(.1),
+                                          .withValues(alpha: .1),
                                     ),
                                     Gap(getSize(12)),
                                     _buildSalaryInformation(context,
@@ -121,26 +120,25 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                         final result =
                                             await AppDialog.showCommonDialog(
                                           context: context,
-                                          title: "Apply",
-                                          extraContent:
-                                              "Are you sure you want to apply for this position?",
+                                          title: StringConstant.apply,
+                                          extraContent: StringConstant
+                                              .areYouSureYouWantToApplyForThisPosition,
                                           content:
                                               StringConstant.fullTimeApplyDesc,
-                                          successLabel: "Apply",
+                                          successLabel: StringConstant.apply,
                                         );
                                         if (result ?? false) {
                                           context
                                               .read<
                                                   ContractorFullTimePositionBloc>()
                                               .add(
-                                                ContractorFullTimePositionEvent
-                                                    .applyOpenPosition(
-                                                        context: context,
-                                                        id: data.id ?? -1),
-                                              );
+                                                  ContractorFullTimePositionEvent
+                                                      .applyOpenPosition(
+                                                          context: context,
+                                                          id: data.id ?? -1));
                                         }
                                       },
-                                      buttonText: "Apply",
+                                      buttonText: StringConstant.apply,
                                     )
                                   ],
                                 ),
@@ -173,7 +171,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           children: [
             Expanded(
               child: BaseText(
-                  text: "Number of Vacancies",
+                  text: StringConstant.numberOfVacancies,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
@@ -268,11 +266,9 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
-            SizedBox(
-              height: getSize(5),
-            ),
+            SizedBox(height: getSize(5)),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -286,7 +282,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                   Gap(getSize(4)),
                   Flexible(
                     child: BaseText(
-                      text: "Months",
+                      text: StringConstant.months,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       textColor: AppColors.black,
@@ -304,7 +300,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -363,7 +359,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -381,7 +377,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                       "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -439,7 +435,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -456,7 +452,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                         .toString(),
                                     style: TextStyle(
                                         color:
-                                            AppColors.green.withOpacity(0.5)),
+                                            AppColors.green.withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -477,7 +473,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -492,7 +488,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                   text: contractorFullPosting?.end_date?.year
                                       .toString(),
                                   style: TextStyle(
-                                      color: AppColors.green.withOpacity(0.5)),
+                                      color: AppColors.green.withValues(alpha: 0.5)),
                                 )
                               ],
                               text:
@@ -514,7 +510,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -531,7 +527,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                         .toString(),
                                     style: TextStyle(
                                         color:
-                                            AppColors.green.withOpacity(0.5)),
+                                            AppColors.green.withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -554,7 +550,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -592,8 +588,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                         children: [
                           BaseText(
                               text: employerFullPosting.compensation_type == '1'
-                                  ? "Rate"
-                                  : "Salary",
+                                  ? StringConstant.rate
+                                  : StringConstant.salary,
                               fontSize: 12),
                           BaseText(
                             text: "${employerFullPosting.rate_hour ?? ""}",
@@ -612,14 +608,16 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Application Deadline", fontSize: 12),
+                          BaseText(
+                              text: StringConstant.applicationDeadline,
+                              fontSize: 12),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -627,8 +625,8 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                                     text:
                                         "${employerFullPosting.application_deadline?.year}",
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -651,7 +649,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -674,7 +672,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Estimated Weekly Hours",
+                text: StringConstant.estimatedWeeklyHours,
                 fontSize: 13,
                 fontWeight: FontWeight.w500),
             Row(
@@ -691,7 +689,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: 40,
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),
@@ -718,7 +716,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Shift Schedule",
+                text: StringConstant.shiftSchedule,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
             Gap(12),

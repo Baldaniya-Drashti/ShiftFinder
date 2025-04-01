@@ -251,7 +251,7 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                   activeColor: AppColors.primaryColor,
                   side: BorderSide(
                     width: getSize(1.5),
-                    color: AppColors.black.withOpacity(0.5),
+                    color: AppColors.black.withValues(alpha: 0.5),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -271,7 +271,7 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                   maxLines: 20,
                 ),
               ),

@@ -39,7 +39,7 @@ class TabBarViewWidget extends StatelessWidget {
               fontFamily: 'Roboto Flex',
             ),
             labelColor: AppColors.black,
-            unselectedLabelColor: AppColors.black.withOpacity(0.60),
+            unselectedLabelColor: AppColors.black.withValues(alpha: 0.60),
             splashFactory: NoSplash.splashFactory,
             dividerColor: Color(0xFFC5C5C5),
             indicatorColor: AppColors.primaryColor,

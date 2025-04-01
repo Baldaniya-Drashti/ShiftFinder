@@ -65,7 +65,8 @@ class FilledPositionTabView extends StatelessWidget {
                             color: AppColors.white,
                             boxShadow: [
                               BoxShadow(
-                                  color: AppColors.lightGrey.withOpacity(0.3),
+                                  color: AppColors.lightGrey
+                                      .withValues(alpha: 0.3),
                                   blurRadius: getSize(20),
                                   spreadRadius: 5),
                             ],
@@ -128,7 +129,7 @@ class FilledPositionTabView extends StatelessWidget {
                                                 SvgImageConstant.rightArrow,
                                                 height: 16,
                                                 color: AppColors.black
-                                                    .withOpacity(0.5),
+                                                    .withValues(alpha: 0.5),
                                               ),
                                             ),
                                           ),
@@ -229,13 +230,13 @@ class FilledPositionTabView extends StatelessWidget {
                         "(${getIndustryText(employer.industry ?? 0)} - ${employer.listing_id ?? ""})",
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.white.withOpacity(0.80),
+                    textColor: AppColors.white.withValues(alpha: 0.80),
                   ),
                   BaseText(
                     text: employer.location?.facility_type?.name ?? "",
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
-                    textColor: AppColors.white.withOpacity(0.80),
+                    textColor: AppColors.white.withValues(alpha: 0.80),
                   ),
                 ],
               ),
@@ -243,7 +244,7 @@ class FilledPositionTabView extends StatelessWidget {
               visualDensity: VisualDensity.compact,
               minTileHeight: getSize(43.41),
             ),
-            Divider(color: AppColors.white.withOpacity(0.2)),
+            Divider(color: AppColors.white.withValues(alpha: 0.2)),
             Gap(getSize(4)),
             GestureDetector(
                 onTap: () {
@@ -292,7 +293,7 @@ class FilledPositionTabView extends StatelessWidget {
     return CommonButton(
       borderRadius: 7,
       height: 45,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.2),
+      backgroundColor: AppColors.primaryColor.withValues(alpha: 0.2),
       onPressed: onPressed,
       buttonText: StringConstant.viewPositionDetails,
       buttonFontSize: 12,
@@ -354,7 +355,7 @@ class FilledPositionTabView extends StatelessWidget {
             children: [
               TextSpan(
                 text: " ${dateTime.year.toString()}",
-                style: TextStyle(color: AppColors.black.withOpacity(0.5)),
+                style: TextStyle(color: AppColors.black.withValues(alpha: 0.5)),
               ),
             ],
           ),

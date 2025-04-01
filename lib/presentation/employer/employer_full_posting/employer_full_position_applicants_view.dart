@@ -99,7 +99,7 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                                       },
                                       label: "View Profile",
                                       backgroundColor: AppColors.primaryColor
-                                          .withOpacity(.1),
+                                          .withValues(alpha: .1),
                                     )
                                   ],
                                 ),
@@ -171,7 +171,7 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                   text: data.distance ?? "",
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),

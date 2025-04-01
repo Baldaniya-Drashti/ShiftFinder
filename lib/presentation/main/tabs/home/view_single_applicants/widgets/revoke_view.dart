@@ -28,7 +28,7 @@ class RevokeView extends StatelessWidget {
                 },
               ).acceptRejectDialog(context);
             },
-            backgroundColor: AppColors.redAccent.withOpacity(0.1),
+            backgroundColor: AppColors.redAccent.withValues(alpha: 0.1),
             buttonTextColor: AppColors.black,
             buttonFontSize: 12,
             borderRadius: 10,

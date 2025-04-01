@@ -112,7 +112,7 @@ class _PreviousShiftFavTile extends StatelessWidget {
               height: 13,
               width: 13,
               colorFilter: ColorFilter.mode(
-                  AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+                  AppColors.black.withValues(alpha: 0.5), BlendMode.srcIn),
             ),
             padding: EdgeInsets.symmetric(horizontal: getSize(16)),
             url: data.profile ?? "",
@@ -120,7 +120,7 @@ class _PreviousShiftFavTile extends StatelessWidget {
             subTitle: "${data.role_lists_name}",
             trailing: CommonMaterialButton.icon(
               radius: 10.0,
-              backgroundColor: AppColors.green.withOpacity(0.2),
+              backgroundColor: AppColors.green.withValues(alpha: 0.2),
               width: 80,
               height: 33,
               onPressed: () async {

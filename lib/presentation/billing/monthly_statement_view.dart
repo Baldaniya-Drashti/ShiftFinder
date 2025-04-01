@@ -80,7 +80,8 @@ class MonthlyStatementView extends StatelessWidget {
                                     if (state.statement.list != null &&
                                         state.statement.list!.isNotEmpty) ...[
                                       Material(
-                                        color: AppColors.green.withOpacity(0.2),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.2),
                                         borderRadius: BorderRadius.circular(7),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -200,7 +201,7 @@ class MonthlyStatementView extends StatelessWidget {
       borderRadius: 5,
       width: 76,
       height: 20,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.20),
+      backgroundColor: AppColors.primaryColor.withValues(alpha: 0.20),
       buttonTextColor: AppColors.primaryColor,
       customWidget: Row(
         mainAxisSize: MainAxisSize.min,

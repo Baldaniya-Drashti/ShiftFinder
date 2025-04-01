@@ -73,7 +73,8 @@ class AppliedTab extends StatelessWidget {
                                     BorderRadius.circular(getSize(20)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                    color: AppColors.lightGrey
+                                        .withValues(alpha: 0.2),
                                     blurRadius: getSize(20),
                                   ),
                                 ],
@@ -205,7 +206,7 @@ class AppliedTab extends StatelessWidget {
                                               StringConstant.viewShiftDetails,
                                           textColor: AppColors.black,
                                           bgColor: AppColors.primaryColor
-                                              .withOpacity(0.10),
+                                              .withValues(alpha: 0.10),
                                         ),
                                         // if (shift.isVacancies == false) ...[
                                         SizedBox(width: getSize(10)),
@@ -317,7 +318,7 @@ class AppliedTab extends StatelessWidget {
                   text: StringConstant.time,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 highLightText(
                     boldValue: "$startDate to $endDate", timidValue: ""),
@@ -377,7 +378,7 @@ class AppliedTab extends StatelessWidget {
                           text: title,
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                     highLightText(boldValue: boldValue, timidValue: timidValue),
                   ],
@@ -427,7 +428,7 @@ class AppliedTab extends StatelessWidget {
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
           decoration: BoxDecoration(
-              color: AppColors.redAccent.withOpacity(0.10),
+              color: AppColors.redAccent.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -489,14 +490,14 @@ class AppliedTab extends StatelessWidget {
                   text: shift.company_name ?? " ",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: shift.facility_type?.name ?? "",
@@ -514,7 +515,7 @@ class AppliedTab extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -621,7 +622,7 @@ class AppliedTab extends StatelessWidget {
           horizontalTitleGap: 0,
           leading: SvgPicture.asset(
             SvgImageConstant.calendar,
-            color: AppColors.black.withOpacity(0.7),
+            color: AppColors.black.withValues(alpha: 0.7),
             height: getSize(20),
             width: getSize(20),
           ),
@@ -640,7 +641,7 @@ class AppliedTab extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: getSize(18),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ],
@@ -681,7 +682,7 @@ class AppliedTab extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         TextSpan(
@@ -722,7 +723,7 @@ class AppliedTab extends StatelessWidget {
               : StringConstant.urgentActionRequiredDesc,
           cancelText: StringConstant.declineShift,
           deleteBtnText: StringConstant.confirmAcceptance,
-          deleteBTnBgColor: AppColors.primaryColor.withOpacity(0.1),
+          deleteBTnBgColor: AppColors.primaryColor.withValues(alpha: 0.1),
           onCancelClick: () {
             AppDialog.showDelete(
               context,
@@ -787,7 +788,7 @@ class AppliedTab extends StatelessWidget {
       },
       buttonText: StringConstant.cancelApplication,
       textColor: AppColors.black,
-      bgColor: AppColors.redAccent.withOpacity(0.10),
+      bgColor: AppColors.redAccent.withValues(alpha: 0.10),
     );
   }
 }

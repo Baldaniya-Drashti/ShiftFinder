@@ -93,7 +93,7 @@ class CustomeSpecialityBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: AppColors.lightGrey.withOpacity(0.2),
+                color: AppColors.lightGrey.withValues(alpha: 0.2),
                 blurRadius: 30,
               ),
             ],
@@ -121,7 +121,7 @@ class CustomeSpecialityBox extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: getSize(5)),
                 child: Divider(
-                  color: AppColors.black.withOpacity(0.3),
+                  color: AppColors.black.withValues(alpha: 0.3),
                 ),
               ),
               DropdownButtonFormField<String>(
@@ -154,7 +154,7 @@ class CustomeSpecialityBox extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 hint: BaseText(
                   text: hintText!,
-                  textColor: AppColors.black.withOpacity(0.50),
+                  textColor: AppColors.black.withValues(alpha: 0.50),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),

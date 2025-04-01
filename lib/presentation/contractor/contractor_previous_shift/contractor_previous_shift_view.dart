@@ -68,7 +68,7 @@ class ContractorPreviousShiftView extends StatelessWidget {
         ),
         unselectedLabelStyle: TextStyle(
           fontSize: getFontSize(14),
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.w500,
         ),
         indicatorSize: TabBarIndicatorSize.tab,

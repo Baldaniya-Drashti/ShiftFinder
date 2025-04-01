@@ -209,7 +209,7 @@ class _PlayPauseButton extends StatelessWidget {
         padding: EdgeInsets.all(getSize(18)),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: AppColors.white.withOpacity(0.15),
+          color: AppColors.white.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(10),
           gradient:
               LinearGradient(colors: const [AppColors.white, AppColors.white]),

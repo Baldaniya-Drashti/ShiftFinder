@@ -150,30 +150,31 @@ class ApprovedHiredList extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Spacer(),
-                  ChatButton(
-                      badgeCount: contractor.count ?? 0,
-                      onPressed: () {
-                        // showUnderDevelopment(context);
-                        context.router
-                            .push(
-                          PageRouteInfo(
-                            Message.name,
-                            args: MessageArgs(
-                              receiverId: contractor.user_id ?? 0,
+                  if (contractor.shift_complete == true) ...[
+                    Spacer(),
+                    ChatButton(
+                        badgeCount: contractor.count ?? 0,
+                        onPressed: () {
+                          context.router
+                              .push(
+                            PageRouteInfo(
+                              Message.name,
+                              args: MessageArgs(
+                                receiverId: contractor.user_id ?? 0,
+                              ),
                             ),
-                          ),
-                        )
-                            .then((value) {
-                          if (contractor.count != null &&
-                              (contractor.count ?? 0) > 0) {
-                            context.read<HiredContractorBloc>().add(
-                                HiredContractorEvent
-                                    .getHiredApproveContractorList(
-                                        refresh: true, postId: postId));
-                          }
-                        });
-                      }),
+                          )
+                              .then((value) {
+                            if (contractor.count != null &&
+                                (contractor.count ?? 0) > 0) {
+                              context.read<HiredContractorBloc>().add(
+                                  HiredContractorEvent
+                                      .getHiredApproveContractorList(
+                                          refresh: true, postId: postId));
+                            }
+                          });
+                        }),
+                  ],
                 ],
               ),
             ),
@@ -191,7 +192,7 @@ class ApprovedHiredList extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(getSize(5)),
                 ),
                 padding: EdgeInsets.symmetric(
@@ -235,7 +236,7 @@ class ApprovedHiredList extends StatelessWidget {
                           backgroundColor: (contractor.clock_in_time != null &&
                                   contractor.clock_out_time != null)
                               ? AppColors.primaryColor
-                              : AppColors.primaryColor.withOpacity(0.3),
+                              : AppColors.primaryColor.withValues(alpha: 0.3),
                         ),
                       ),
                       SizedBox(width: getSize(10)),
@@ -248,7 +249,7 @@ class ApprovedHiredList extends StatelessWidget {
                           buttonTextColor: (contractor.clock_in_time != null &&
                                   contractor.clock_out_time != null)
                               ? AppColors.black
-                              : AppColors.black.withOpacity(0.3),
+                              : AppColors.black.withValues(alpha: 0.3),
                           onPressed: (contractor.clock_in_time != null &&
                                   contractor.clock_out_time != null)
                               ? () {
@@ -279,7 +280,7 @@ class ApprovedHiredList extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   vertical: getSize(8), horizontal: getSize(20)),
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(getSize(5))),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -338,7 +339,7 @@ class ApprovedHiredList extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               BaseText(
                 text:
@@ -428,7 +429,7 @@ class ApprovedHiredList extends StatelessWidget {
               text: title,
               fontSize: 10,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             BaseText(
               text: (value.isNotEmpty) ? value : "--",
@@ -504,7 +505,7 @@ class ApprovedHiredList extends StatelessWidget {
               text: StringConstant.approvedDesc,
               fontSize: 14,
               textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
           ),
           actionsAlignment: MainAxisAlignment.center,

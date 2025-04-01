@@ -63,7 +63,7 @@ class AcceptRejectDialog extends StatelessWidget {
                 showFullDescription: true,
                 textAlign: TextAlign.center,
                 fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               otherContent ?? SizedBox(),
               SizedBox(

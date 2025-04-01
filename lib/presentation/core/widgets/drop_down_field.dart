@@ -241,7 +241,8 @@ class _ShiftScheduleDropdownFieldState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
         boxShadow: [
-          BoxShadow(color: AppColors.lightGrey.withOpacity(0.2), blurRadius: 30)
+          BoxShadow(
+              color: AppColors.lightGrey.withValues(alpha: 0.2), blurRadius: 30)
         ],
       ),
       child: CustomDropdownField<CommonDropdownModel>(
@@ -255,7 +256,7 @@ class _ShiftScheduleDropdownFieldState
         hintTextStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: AppColors.black.withOpacity(0.5),
+          color: AppColors.black.withValues(alpha: 0.5),
         ),
         onChanged: (value) => widget.onChanged(value as CommonDropdownModel),
         value: widget.selectedShiftSchedule,

@@ -244,7 +244,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -339,7 +339,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -442,7 +442,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -509,7 +509,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),

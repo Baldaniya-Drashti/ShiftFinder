@@ -69,7 +69,8 @@ class CommonPaymentHistoryTile extends StatelessWidget {
                                     ? "${DateTime.fromMillisecondsSinceEpoch((shift.end_date!) * 1000).year}"
                                     : "",
                                 style: TextStyle(
-                                    color: AppColors.black.withOpacity(0.8)),
+                                    color:
+                                        AppColors.black.withValues(alpha: 0.8)),
                               ),
                             ],
                           ),

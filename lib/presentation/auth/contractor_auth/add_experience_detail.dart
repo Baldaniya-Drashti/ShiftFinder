@@ -144,7 +144,7 @@ class AddExperienceDetail extends StatelessWidget {
         horizontal: getSize(20),
       ),
       decoration: BoxDecoration(
-        color: AppColors.grey.withOpacity(0.15),
+        color: AppColors.grey.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -521,7 +521,7 @@ class AddExperienceDetail extends StatelessWidget {
           alignment: Alignment.centerLeft,
           hint: BaseText(
             text: hintText ?? "",
-            textColor: AppColors.black.withOpacity(0.50),
+            textColor: AppColors.black.withValues(alpha: 0.50),
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),

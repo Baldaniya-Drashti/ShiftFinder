@@ -35,7 +35,7 @@ class ApplicantSpecialize extends StatelessWidget {
           if ((data.experience ?? []).isNotEmpty) ...[
             BaseText(
               text: "Roles",
-              textColor: AppColors.green.withOpacity(0.8),
+              textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -87,7 +87,7 @@ class ApplicantSpecialize extends StatelessWidget {
           if ((speciality ?? []).isNotEmpty) ...[
             BaseText(
               text: "Specialties",
-              textColor: AppColors.green.withOpacity(0.8),
+              textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -125,7 +125,7 @@ class ApplicantSpecialize extends StatelessWidget {
             SizedBox(height: getSize(8)),
             BaseText(
               text: "Other Specialties",
-              textColor: AppColors.green.withOpacity(0.8),
+              textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -207,7 +207,7 @@ class ApplicantSpecialize extends StatelessWidget {
       children: [
         BaseText(
           text: mainTitle,
-          textColor: AppColors.green.withOpacity(0.8),
+          textColor: AppColors.green.withValues(alpha: 0.8),
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),
@@ -262,7 +262,7 @@ class ApplicantSpecialize extends StatelessWidget {
       children: [
         BaseText(
           text: mainTitle,
-          textColor: AppColors.green.withOpacity(0.8),
+          textColor: AppColors.green.withValues(alpha: 0.8),
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),

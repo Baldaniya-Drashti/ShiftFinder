@@ -216,7 +216,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                     ? "$countryCodeValue $emailOrPhoneValue"
                     : emailOrPhoneValue,
                 fontSize: getSize(12),
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
                 fontWeight: FontWeight.w600,
               ),
               GestureDetector(
@@ -372,7 +372,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.center,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: getSize(20)),
@@ -488,7 +488,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.center,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: getSize(20)),

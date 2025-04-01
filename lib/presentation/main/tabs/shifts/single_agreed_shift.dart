@@ -38,7 +38,7 @@ class SingleAgreedShift extends StatelessWidget {
               Container(
                 height: getSize(50),
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
+                  color: AppColors.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(getSize(7)),
                 ),
                 child: Row(
@@ -48,7 +48,7 @@ class SingleAgreedShift extends StatelessWidget {
                       SvgImageConstant.calendar,
                       height: getSize(15),
                       width: getSize(15),
-                      color: AppColors.black.withOpacity(0.7),
+                      color: AppColors.black.withValues(alpha: 0.7),
                     ),
                     SizedBox(width: getSize(5)),
                     RichText(
@@ -227,7 +227,7 @@ class SingleAgreedShift extends StatelessWidget {
                 horizontal: getSize(15), vertical: getSize(10)),
             child: BaseText(
               text: label,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -264,7 +264,7 @@ class SingleAgreedShift extends StatelessWidget {
 
   Widget verticalDivider() {
     return VerticalDivider(
-      color: AppColors.black.withOpacity(0.30),
+      color: AppColors.black.withValues(alpha: 0.30),
       thickness: getSize(2),
       indent: getSize(5),
       endIndent: getSize(5),
@@ -288,7 +288,7 @@ class SingleAgreedShift extends StatelessWidget {
               text: title,
               fontSize: 10,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             Gap(getSize(5)),
             BaseText(
@@ -396,7 +396,7 @@ class SingleAgreedShift extends StatelessWidget {
 
   Widget commonDivider() {
     return Divider(
-      color: AppColors.black.withOpacity(0.2),
+      color: AppColors.black.withValues(alpha: 0.2),
       thickness: getSize(0.5),
     );
   }
@@ -415,7 +415,7 @@ class SingleAgreedShift extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: (isLast || isBold) ? FontWeight.w600 : FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,

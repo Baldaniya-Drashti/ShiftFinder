@@ -70,7 +70,7 @@ class OnBoarding1 extends StatelessWidget {
                         text: StringConstant.onBoarding1Desc,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        textColor: AppColors.black.withOpacity(0.9),
+                        textColor: AppColors.black.withValues(alpha: 0.9),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -86,11 +86,9 @@ class OnBoarding1 extends StatelessWidget {
                               ),
                               child: GestureDetector(
                                 onTap: () {
-                                  context
-                                      .read<OnboardingBloc>()
-                                      .add(OnboardingEvent.submitOnboarding1(
-                                        userList[index].id ?? 1,
-                                      ));
+                                  context.read<OnboardingBloc>().add(
+                                      OnboardingEvent.submitOnboarding1(
+                                          userList[index].id ?? 1));
                                 },
                                 child: OnBoardTile(
                                   title: userList[index].title ?? "",

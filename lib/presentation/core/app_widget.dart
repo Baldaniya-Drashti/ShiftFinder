@@ -9,7 +9,7 @@ import 'package:shift/presentation/core/app_router.dart';
 import 'package:shift/presentation/core/app_theme.dart';
 import 'package:shift/presentation/core/widgets/utility/life_cycle_watcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 
@@ -18,28 +18,28 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bloc.MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
-        bloc.BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AuthStatusBloc>()
             ..add(
               const AuthStatusEvent.authCheckRequested(),
             ),
         ),
-        bloc.BlocProvider(
+        BlocProvider(
           create: (context) => getIt<ContractorMainTabBloc>()
             ..add(ContractorMainTabEvent.tabChange(0)),
         ),
-        bloc.BlocProvider(
+        BlocProvider(
           create: (context) =>
               getIt<MainTabBloc>()..add(MainTabEvent.tabChange(0)),
         ),
-        bloc.BlocProvider(
+        BlocProvider(
           create: (context) => getIt<SplashBloc>()
             ..add(SplashEvent.initDynamicLink(context))
             ..add(SplashEvent.started()),
         ),
-        bloc.BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AccountCubit>(),
         ),
         // bloc.BlocProvider(

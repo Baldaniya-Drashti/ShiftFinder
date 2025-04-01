@@ -46,7 +46,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                 child: SizedBox(
                   width: getSize(280),
                   child: BaseText(
-                    textColor: AppColors.black.withOpacity(0.65),
+                    textColor: AppColors.black.withValues(alpha: 0.65),
                     text: 'No result found.',
                     textAlign: TextAlign.center,
                     lineHeight: 1.2,
@@ -84,7 +84,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                         ),
                         Material(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: AppColors.green.withOpacity(0.15),
+                          color: AppColors.green.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(7),
                           child: InkWell(
                             onTap: () async {

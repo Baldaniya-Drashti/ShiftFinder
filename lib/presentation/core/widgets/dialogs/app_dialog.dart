@@ -92,7 +92,7 @@ class AppDialog {
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                     maxLines: 20,
                   ),
                   otherContent ?? Container()
@@ -188,7 +188,7 @@ class AppDialog {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 otherContent ?? Container()
               ],
@@ -258,7 +258,7 @@ class AppDialog {
             fontSize: 16,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
           elevation: 80,
           backgroundColor: AppColors.white,
@@ -341,7 +341,7 @@ class AppDialog {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Gap(getSize(20)),
               RatingBar(
@@ -417,7 +417,7 @@ class AppDialog {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                     maxLines: 20,
                   ),
                   if (extraContent != null) ...[
@@ -427,7 +427,7 @@ class AppDialog {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
-                      textColor: AppColors.black.withOpacity(0.7),
+                      textColor: AppColors.black.withValues(alpha: 0.7),
                       maxLines: 20,
                     ),
                   ]
@@ -503,7 +503,7 @@ class AppDialog {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                   maxLines: 20,
                 ),
                 otherContent ?? Container()
@@ -595,7 +595,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
           Gap(getSize(20)),
           BaseText(text: StringConstant.comment, fontSize: 12),

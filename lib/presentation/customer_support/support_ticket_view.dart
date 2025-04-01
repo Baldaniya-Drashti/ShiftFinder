@@ -228,7 +228,8 @@ class _SupportFormState extends State<_SupportForm> {
                                     text: "(Optional)",
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
-                                    textColor: AppColors.black.withOpacity(0.8),
+                                    textColor:
+                                        AppColors.black.withValues(alpha: 0.8),
                                     fontFamily: "Roboto Flex",
                                   )),
                             ],
@@ -373,7 +374,7 @@ class LocationDropdown extends StatelessWidget {
                     hintTextStyle: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.black.withOpacity(0.5),
+                      color: AppColors.black.withValues(alpha: 0.5),
                     ),
                     items: state.locationList.map(
                       (e) {

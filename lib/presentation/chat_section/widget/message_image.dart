@@ -35,7 +35,7 @@ class MessageImage extends StatelessWidget {
           border: Border.all(
             color: isSender
                 ? AppColors.primaryColor
-                : AppColors.grey2.withOpacity(0.10),
+                : AppColors.grey2.withValues(alpha: 0.10),
             width: getSize(3),
           ),
           image: DecorationImage(

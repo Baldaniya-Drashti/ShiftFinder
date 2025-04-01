@@ -104,7 +104,8 @@ class CompleteShiftInvoiceView extends StatelessWidget {
                                       padding: EdgeInsets.all(getSize(16)),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.green.withOpacity(0.2),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.2),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
@@ -153,7 +154,7 @@ class CompleteShiftInvoiceView extends StatelessWidget {
       borderRadius: 5,
       width: 76,
       height: 20,
-      backgroundColor: AppColors.primaryColor.withOpacity(0.20),
+      backgroundColor: AppColors.primaryColor.withValues(alpha: 0.20),
       buttonTextColor: AppColors.primaryColor,
       customWidget: Row(
         mainAxisSize: MainAxisSize.min,

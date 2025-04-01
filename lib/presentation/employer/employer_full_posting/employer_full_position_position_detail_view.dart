@@ -203,7 +203,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.8),
+            color: AppColors.black.withValues(alpha: 0.8),
           ),
           Gap(getSize(16)),
           Column(
@@ -220,7 +220,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                     "(${getIndustryText(employerFullPosting.industry ?? 0)} - ${employerFullPosting.listing_id})",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.8),
+                textColor: AppColors.black.withValues(alpha: 0.8),
               ),
             ],
           )
@@ -324,7 +324,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -339,8 +339,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                     text:
                                         "${employerFullPosting.application_deadline?.year}",
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -363,7 +363,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -401,7 +401,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: getSize(40),
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),
@@ -479,7 +479,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "Language Requirements",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
             BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
@@ -505,7 +505,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "Location Details",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -543,7 +543,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "Union/Bargaining Unit",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -570,7 +570,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "On-Call",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -602,7 +602,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             BaseText(
                 text: title,
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             ...List.generate(

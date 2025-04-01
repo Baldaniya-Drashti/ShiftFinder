@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/chat_section/view_media/view_media_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -9,7 +10,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:video_player/video_player.dart';
 
 @RoutePage(name: 'viewmedia')
@@ -64,9 +65,12 @@ class ViewMedia extends StatelessWidget {
                                   state.controller!,
                                 )
                               : SizedBox()
-                          : SfPdfViewer.network(
-                              mediaUrl,
+                          : PDFView(
+                              filePath: mediaUrl,
                             ),
+                  /* SfPdfViewer.network(
+                              mediaUrl,
+                            ), */
                 ),
               ),
               bottomNavigationBar: (type == 2 &&

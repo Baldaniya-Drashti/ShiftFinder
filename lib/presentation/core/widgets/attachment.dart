@@ -41,7 +41,7 @@ class AttachmentOption extends StatelessWidget {
               Gap(30),
               Material(
                 borderRadius: BorderRadius.circular(5),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 34),
                   child: Row(
@@ -83,11 +83,13 @@ class AttachmentOption extends StatelessWidget {
 
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
-        final path = await imagePicker.pickImage(imageSource: ImageSource.camera, context: context);
+        final path = await imagePicker.pickImage(
+            imageSource: ImageSource.camera, context: context);
         if (path != null) onSelected(path);
       },
       selectPhotoCallback: () async {
-        final path = await imagePicker.pickImage(imageSource: ImageSource.gallery, context: context);
+        final path = await imagePicker.pickImage(
+            imageSource: ImageSource.gallery, context: context);
         if (path != null) onSelected(path);
       },
       selectPdfCallback: () async {

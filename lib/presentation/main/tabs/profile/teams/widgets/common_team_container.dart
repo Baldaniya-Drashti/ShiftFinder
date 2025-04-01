@@ -71,7 +71,7 @@ class CommonTeamContainer extends StatelessWidget {
                           style: TextStyle(
                             fontSize: getFontSize(8),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.black.withOpacity(0.8),
+                            color: AppColors.black.withValues(alpha: 0.8),
                           ),
                           children: [
                             TextSpan(
@@ -100,7 +100,7 @@ class CommonTeamContainer extends StatelessWidget {
                   text: address,
                   fontSize: 10,
                   maxLines: 3,
-                  textColor: AppColors.black.withOpacity(0.8),
+                  textColor: AppColors.black.withValues(alpha: 0.8),
                 ),
               ],
             ),
@@ -116,7 +116,7 @@ class CommonTeamContainer extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(getSize(5)),
                     decoration: BoxDecoration(
-                      color: Color(0xFF2512FF).withOpacity(0.15),
+                      color: Color(0xFF2512FF).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(getSize(6)),
                     ),
                     child: SvgPicture.asset(
@@ -136,7 +136,7 @@ class CommonTeamContainer extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(getSize(5)),
                     decoration: BoxDecoration(
-                      color: Color(0xFFEB0000).withOpacity(0.15),
+                      color: Color(0xFFEB0000).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(getSize(6)),
                     ),
                     child: SvgPicture.asset(

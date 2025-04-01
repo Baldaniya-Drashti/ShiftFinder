@@ -77,7 +77,8 @@ class UpcomingShift extends StatelessWidget {
                                     BorderRadius.circular(getSize(20)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                    color: AppColors.lightGrey
+                                        .withValues(alpha: 0.2),
                                     blurRadius: getSize(20),
                                   ),
                                 ],
@@ -126,7 +127,7 @@ class UpcomingShift extends StatelessWidget {
                                           buttonTextColor: AppColors.black,
                                           backgroundColor: AppColors
                                               .primaryColor
-                                              .withOpacity(0.2),
+                                              .withValues(alpha: 0.2),
                                         ),
                                       ),
                                       Gap(getSize(5)),
@@ -219,14 +220,14 @@ class UpcomingShift extends StatelessWidget {
                   text: shift.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: shift.facility_type?.name ?? "",
@@ -278,7 +279,7 @@ class UpcomingShift extends StatelessWidget {
             minTileHeight: getSize(43.41),
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -426,7 +427,7 @@ class UpcomingShift extends StatelessWidget {
                     text: StringConstant.shiftDate,
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   )
                 : Row(
                     children: [
@@ -434,7 +435,7 @@ class UpcomingShift extends StatelessWidget {
                         text: StringConstant.startDate,
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        textColor: AppColors.black.withOpacity(0.7),
+                        textColor: AppColors.black.withValues(alpha: 0.7),
                       ),
                       if (shift.shift_type == 2)
                         BaseText(
@@ -589,7 +590,7 @@ class UpcomingShift extends StatelessWidget {
                           text: title,
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                     highLightText(boldValue: boldValue, timidValue: timidValue),
                   ],
@@ -626,7 +627,7 @@ class UpcomingShift extends StatelessWidget {
                   text: StringConstant.time,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 highLightText(
                     boldValue: "$startDate to $endDate", timidValue: ""),
@@ -657,7 +658,7 @@ class UpcomingShift extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             TextSpan(
@@ -679,7 +680,7 @@ class UpcomingShift extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,

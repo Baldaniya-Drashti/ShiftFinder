@@ -96,7 +96,7 @@ class OnBoardTile extends StatelessWidget {
                         text: designation,
                         style: TextStyle(
                           fontSize: getFontSize(14),
-                          color: AppColors.black.withOpacity(0.7),
+                          color: AppColors.black.withValues(alpha: 0.7),
                           fontWeight: FontWeight.w500,
                           height: getSize(3),
                         ),

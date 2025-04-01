@@ -122,7 +122,7 @@ class _PaymentHistoryExpandableTile extends StatelessWidget {
                 child: SvgPicture.asset(
                   SvgImageConstant.billingAccount,
                   colorFilter: ColorFilter.mode(
-                      AppColors.green.withOpacity(0.15), BlendMode.srcIn),
+                      AppColors.green.withValues(alpha: 0.15), BlendMode.srcIn),
                 ),
               ),
             )

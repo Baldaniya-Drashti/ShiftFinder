@@ -185,7 +185,7 @@ class ReferColleagueView extends StatelessWidget {
                                                     height: 13,
                                                     width: 13,
                                                     color: AppColors.black
-                                                        .withOpacity(0.5),
+                                                        .withValues(alpha: 0.5),
                                                   )
                                                 ],
                                               ),

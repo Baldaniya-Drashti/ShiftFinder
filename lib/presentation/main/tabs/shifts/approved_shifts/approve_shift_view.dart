@@ -81,7 +81,7 @@ class ApproveShiftView extends StatelessWidget {
                                     boxShadow: [
                                       BoxShadow(
                                         color: AppColors.lightGrey
-                                            .withOpacity(0.2),
+                                            .withValues(alpha: 0.2),
                                         blurRadius: getSize(20),
                                       ),
                                     ],
@@ -270,7 +270,7 @@ class ApproveShiftView extends StatelessWidget {
                       text:
                           '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
-                      textColor: AppColors.black.withOpacity(0.8),
+                      textColor: AppColors.black.withValues(alpha: 0.8),
                     ),
                     BaseText(
                       text: shift.location?.facility_type?.name ?? "",
@@ -285,7 +285,7 @@ class ApproveShiftView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           Divider(
             height: 0,
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
@@ -492,7 +492,7 @@ class ApproveShiftView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 children: [
@@ -582,7 +582,7 @@ class ApproveShiftView extends StatelessWidget {
                         text: title,
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        textColor: AppColors.black.withOpacity(0.7),
+                        textColor: AppColors.black.withValues(alpha: 0.7),
                       ),
                       highLightText(
                           boldValue: boldValue,
@@ -617,7 +617,7 @@ class ApproveShiftView extends StatelessWidget {
               style: TextStyle(
                 fontSize: getFontSize(13),
                 fontWeight: FontWeight.w500,
-                color: valueColor ?? AppColors.black.withOpacity(0.5),
+                color: valueColor ?? AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             TextSpan(

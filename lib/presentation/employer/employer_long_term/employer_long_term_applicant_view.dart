@@ -41,7 +41,7 @@ class EmployerLongTermApplicantView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: "View Applicants"),
+            title: StringConstant.viewApplicants),
         body: BlocBuilder<EmployerLongTermViewApplicantBloc,
             EmployerLongTermViewApplicantState>(
           builder: (context, state) {
@@ -123,16 +123,14 @@ class _ApplicantsListTile extends StatelessWidget {
                     if (data.revoke_status == null) ...[
                       _buildButton(
                         context,
-                        label: "Accept",
+                        label: StringConstant.accept,
                         onPressed: () async {
                           final result = await AppDialog.showCommonDialog(
                             context: context,
-                            title: "Accept",
-                            content:
-                                "Once the contractor is accepted for the position, they will have 72 hours to confirm. If not confirmed, the offer will expire.",
-                            extraContent:
-                                "Are you sure you want to accept this contractor for the position?",
-                            successLabel: "Accept",
+                            title: StringConstant.accept,
+                            content: StringConstant.acceptLongTermApplicantDesc,
+                            extraContent: StringConstant.acceptApplicantDesc,
+                            successLabel: StringConstant.accept,
                           );
 
                           if (result ?? false) {
@@ -168,14 +166,13 @@ class _ApplicantsListTile extends StatelessWidget {
                       Gap(getSize(10)),
                       _buildButton(
                         context,
-                        label: "Reject",
+                        label: StringConstant.reject,
                         onPressed: () async {
                           final result = await AppDialog.showCommonDialog(
                             context: context,
-                            title: "Reject",
-                            content:
-                                "Are you sure you want to reject this application?",
-                            successLabel: "Reject",
+                            title: StringConstant.reject,
+                            content: StringConstant.rejectApplicantDesc,
+                            successLabel: StringConstant.reject,
                           );
                           if (result ?? false) {
                             context
@@ -205,7 +202,8 @@ class _ApplicantsListTile extends StatelessWidget {
                             Gap(4),
                             Flexible(
                               child: BaseText(
-                                text: "Awaiting Confirmation...",
+                                text:
+                                    "${StringConstant.awaitingConfirmation}...",
                                 fontSize: 11,
                                 textColor: AppColors.primaryColor,
                               ),
@@ -228,7 +226,7 @@ class _ApplicantsListTile extends StatelessWidget {
                             Gap(4),
                             Flexible(
                               child: BaseText(
-                                text: "Offer Expired",
+                                text: StringConstant.offerExpired,
                                 fontSize: 11,
                                 textColor: AppColors.red,
                               ),
@@ -379,7 +377,7 @@ class _ApplicantsListTile extends StatelessWidget {
                   text: data.distance ?? "",
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),

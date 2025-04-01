@@ -69,7 +69,7 @@ class ContractorHomeView extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontFamily: "Aclonica",
                     lineHeight: getSize(1),
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   BaseText(
                     text:
@@ -205,7 +205,7 @@ class ContractorHomeView extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(20)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGrey.withOpacity(0.2),
+            color: AppColors.lightGrey.withValues(alpha: 0.2),
             blurRadius: getSize(20),
           ),
         ],
@@ -232,7 +232,7 @@ class ContractorHomeView extends StatelessWidget {
             },
             height: getSize(40),
             borderRadius: 7,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+            backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
             buttonTextColor: AppColors.black,
             buttonFontSize: 12,
             buttonText: StringConstant.viewShiftDetails,
@@ -398,14 +398,14 @@ class ContractorHomeView extends StatelessWidget {
                   text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustryText(post.industry ?? 0)} - ${post.listing_id ?? ""})",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: post.location?.facility_type?.name ?? "",
@@ -418,14 +418,14 @@ class ContractorHomeView extends StatelessWidget {
               text: post.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              textColor: AppColors.black.withOpacity(0.80),
+              textColor: AppColors.black.withValues(alpha: 0.80),
             ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             minTileHeight: getSize(43.41),
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -529,7 +529,7 @@ class ContractorHomeView extends StatelessWidget {
 
   Widget verticalDivider() {
     return VerticalDivider(
-      color: AppColors.black.withOpacity(0.56),
+      color: AppColors.black.withValues(alpha: 0.56),
       indent: getSize(2),
       endIndent: getSize(2),
     );
@@ -584,7 +584,7 @@ class ContractorHomeView extends StatelessWidget {
               SvgImageConstant.clockWithBag,
               height: getSize(85),
               width: getSize(85),
-              color: AppColors.primaryColor.withOpacity(0.15),
+              color: AppColors.primaryColor.withValues(alpha: 0.15),
             ),
           ),
         ],
@@ -659,7 +659,7 @@ class ContractorHomeView extends StatelessWidget {
               SvgImageConstant.clockWithBag,
               height: getSize(85),
               width: getSize(85),
-              color: AppColors.primaryColor.withOpacity(0.15),
+              color: AppColors.primaryColor.withValues(alpha: 0.15),
             ),
           ),
         ],
@@ -697,7 +697,7 @@ class ContractorHomeView extends StatelessWidget {
                 text: title,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               (showBtn)
                   ? CommonButton(
@@ -750,7 +750,7 @@ class ContractorHomeView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -763,7 +763,7 @@ class ContractorHomeView extends StatelessWidget {
                     text: "  to  ",
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   highLightText(
                       boldValue: "${endDate.split(':')[0]}:",
@@ -832,7 +832,7 @@ class ContractorHomeView extends StatelessWidget {
               width: getSize(35),
               child: SvgPicture.asset(
                 svgPrefixIcon,
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             Padding(
@@ -918,7 +918,7 @@ class ContractorHomeView extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(height: getSize(5)),
             BaseText(
@@ -936,7 +936,7 @@ class ContractorHomeView extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -996,7 +996,7 @@ class ContractorHomeView extends StatelessWidget {
 
   Widget commonDivider() {
     return Divider(
-      color: AppColors.black.withOpacity(0.2),
+      color: AppColors.black.withValues(alpha: 0.2),
       thickness: getSize(0.5),
     );
   }
@@ -1013,7 +1013,7 @@ class ContractorHomeView extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,

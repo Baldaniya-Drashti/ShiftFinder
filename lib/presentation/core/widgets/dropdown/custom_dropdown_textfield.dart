@@ -54,7 +54,7 @@ class CustomDropdownTextfield extends StatelessWidget {
         // label: BaseText(
         //   text: labelText ?? '',
         //   fontSize: 16,
-        //   textColor: ColorConstants.black.withOpacity(0.60),
+        //   textColor: ColorConstants.black.withValues(alpha: 0.60),
         // ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: getSize(20),
@@ -157,7 +157,7 @@ class CustomDropdownTextfield extends StatelessWidget {
         label: BaseText(
           text: labelText ?? '',
           fontSize: 16,
-          textColor: AppColors.black.withOpacity(0.60),
+          textColor: AppColors.black.withValues(alpha: 0.60),
         ),
         fillColor: AppColors.white,
         focusedBorder: OutlineInputBorder(
@@ -214,7 +214,7 @@ class CustomDropdownTextfield extends StatelessWidget {
           fontWeight: FontWeight.w400,
           // letterSpacing: 0.5,
           fontFamily: 'Roboto Flex',
-          color: AppColors.black.withOpacity(0.6),
+          color: AppColors.black.withValues(alpha: 0.6),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintStyle: TextStyle(
@@ -222,7 +222,7 @@ class CustomDropdownTextfield extends StatelessWidget {
           fontFamily: 'Roboto Flex',
           fontWeight: FontWeight.w500,
           //letterSpacing: 0.5,
-          color: AppColors.black.withOpacity(0.5),
+          color: AppColors.black.withValues(alpha: 0.5),
         ),
         prefixStyle: TextStyle(
           fontSize: getFontSize(15),

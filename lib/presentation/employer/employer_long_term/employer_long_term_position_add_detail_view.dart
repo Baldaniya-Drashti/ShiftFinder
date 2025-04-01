@@ -133,12 +133,12 @@ class _EmployerLongTermPositionDetailContentState
                       validator: (value, _) {
                         value = value?.trim() ?? "";
                         if (value.isEmpty) {
-                          return "Please select start date";
+                          return StringConstant.pleaseSelectStartDate;
                         }
                         return null;
                       },
-                      label: "Start Date",
-                      hint: "Start Date",
+                      label: StringConstant.startDate,
+                      hint: StringConstant.startDate,
                       firstDate: DateTime.now().add(Duration(days: 1)),
                       initialDate: startDate,
                       onPickedDate: (DateTime date) {
@@ -194,12 +194,13 @@ class _EmployerLongTermPositionDetailContentState
                       state.employerLongTermAddDetailDto.application_deadline,
                   builder: (context, applicationDeadline) {
                     return DatePickerInputField(
-                      label: "Application Deadline",
-                      hint: "Application Deadline",
+                      label: StringConstant.applicationDeadline,
+                      hint: StringConstant.applicationDeadline,
                       validator: (value, _) {
                         value = value?.trim() ?? "";
                         if (value.isEmpty) {
-                          return "Please select application deadline date";
+                          return StringConstant
+                              .pleaseSelectApplicationDeadlineDate;
                         }
                         return null;
                       },
@@ -260,73 +261,80 @@ class _EmployerLongTermPositionDetailContentState
                     return state.requiredShiftScheduleChipList;
                   },
                   builder: (context, state) {
-                    print("initialValue =>${state.getValue()}");
                     return _ShiftSchedule(initialValue: state.getValue());
                   },
                 ),
                 Gap(getSize(12)),
                 CustomTextField(
                   autoValidateMode: AutovalidateMode.onUserInteraction,
-                  labelText: "Job Description",
+                  labelText: StringConstant.jobDescription,
                   controller: controller._jobDescriptionController,
-                  hintText: "Type Here...",
+                  hintText: StringConstant.typeHere,
                   maxLines: 3,
                   validator: (value, context) {
                     value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter job description";
+                    if (value.isEmpty) {
+                      return StringConstant.pleaseEnterJobDescription;
+                    }
                     return null;
                   },
                 ),
                 Gap(getSize(12)),
                 CustomTextField(
                   autoValidateMode: AutovalidateMode.onUserInteraction,
-                  labelText: "Requirements",
+                  labelText: StringConstant.requirements,
                   controller: controller._requirementsController,
-                  hintText: "Type Here...",
+                  hintText: StringConstant.typeHere,
                   maxLines: 3,
                   validator: (value, context) {
                     value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter requirements";
+                    if (value.isEmpty) {
+                      return StringConstant.pleaseEnterRequirements;
+                    }
                     return null;
                   },
                 ),
                 Gap(getSize(12)),
                 CustomTextField(
-                  labelText: "Responsibilities",
+                  labelText: StringConstant.responsibilities,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   controller: controller._responsibilityController,
-                  hintText: "Type Here...",
-                  maxLines: 3,
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter responsibilities";
-                    return null;
-                  },
-                ),
-                Gap(getSize(12)),
-                CustomTextField(
-                  labelText: "Qualifications",
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  controller: controller._qualificationController,
-                  hintText: "Type Here...",
-                  maxLines: 3,
-                  validator: (value, _) {
-                    value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter qualification";
-                    return null;
-                  },
-                ),
-                Gap(getSize(12)),
-                CustomTextField(
-                  labelText: "Licenses/Certifications",
-                  controller: controller._licensesController,
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: "Type Here...",
+                  hintText: StringConstant.typeHere,
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
                     if (value.isEmpty) {
-                      return "Please enter licenses/certifications";
+                      return StringConstant.pleaseEnterResponsibilities;
+                    }
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  labelText: StringConstant.qualifications,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  controller: controller._qualificationController,
+                  hintText: StringConstant.typeHere,
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) {
+                      return StringConstant.pleaseEnterQualification;
+                    }
+                    return null;
+                  },
+                ),
+                Gap(getSize(12)),
+                CustomTextField(
+                  labelText: StringConstant.licensesCertifications,
+                  controller: controller._licensesController,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  hintText: StringConstant.typeHere,
+                  maxLines: 3,
+                  validator: (value, _) {
+                    value = value?.trim() ?? "";
+                    if (value.isEmpty) {
+                      return StringConstant.pleaseEnterLicensesCertifications;
                     }
                     return null;
                   },
@@ -337,13 +345,13 @@ class _EmployerLongTermPositionDetailContentState
                   child: Row(
                     children: [
                       BaseText(
-                        text: "Contract Terms",
+                        text: StringConstant.contractTerms,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
-                      Gap(2),
+                      Gap(getSize(2)),
                       BaseText(
-                        text: "(Optional)",
+                        text: "(${StringConstant.optional})",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -360,11 +368,11 @@ class _EmployerLongTermPositionDetailContentState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        BaseText(text: "Terms", fontSize: 14),
+                        BaseText(text: StringConstant.terms, fontSize: 14),
                         Gap(getSize(12)),
                         CustomTextField(
                           controller: controller._termsController,
-                          hintText: "Type Here...",
+                          hintText: StringConstant.typeHere,
                           maxLines: 3,
                         ),
                         Gap(getSize(16)),
@@ -385,14 +393,16 @@ class _EmployerLongTermPositionDetailContentState
                 ),
                 Gap(getSize(16)),
                 CustomTextField(
-                  labelText: "Onboarding Process",
+                  labelText: StringConstant.onboardingProcess,
                   controller: controller._onBoardingController,
-                  hintText: "Type Here...",
+                  hintText: StringConstant.typeHere,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
-                    if (value.isEmpty) return "Please enter onboarding process";
+                    if (value.isEmpty) {
+                      return StringConstant.pleaseEnterOnboardingProcess;
+                    }
                     return null;
                   },
                 ),
@@ -417,7 +427,7 @@ class _EmployerLongTermPositionDetailContentState
                                       onCallIncluded ? 0 : 1),
                             );
                       },
-                      label: "This contract may include on call.",
+                      label: StringConstant.thisContractMayIncludeOnCall,
                     );
                   },
                 ),
@@ -445,8 +455,7 @@ class _EmployerLongTermPositionDetailContentState
                                       .addMoreVacancy(vacancyEnable ? 0 : 1),
                                 );
                           },
-                          label:
-                              "We are looking to fill more than one vacancies with the same requirements.",
+                          label: StringConstant.singleShiftVacancyDesc,
                           padding: EdgeInsets.symmetric(
                               horizontal: 12, vertical: 16),
                         ),
@@ -477,7 +486,7 @@ class _EmployerLongTermPositionDetailContentState
                               }
                               final newValue = int.tryParse(value);
                               if (newValue == null) {
-                                return "Please enter valid value";
+                                return StringConstant.pleaseEnterValidValue;
                               }
                               if (newValue < 2) {
                                 return StringConstant
@@ -520,16 +529,15 @@ class _EmployerLongTermPositionDetailContentState
                     if (months < 3) {
                       AppDialog.showCommonDialog(
                         context: context,
-                        content:
-                            "Long-term contracts must be at least three months. If your posting doesn't meet this  requirement, consider using our multi-shift feature to schedule your shifts more flexibly.",
-                        title: "Long-Term Position",
-                        successLabel: "Ok",
+                        content: StringConstant.threeMonthPolicyDesc,
+                        title: StringConstant.longTermPosition,
+                        successLabel: StringConstant.ok,
                         action: Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: getSize(32)),
                           child: CommonButton(
                             onPressed: () => context.router.maybePop(true),
-                            buttonText: "Ok",
+                            buttonText: StringConstant.ok,
                           ),
                         ),
                       );
@@ -590,7 +598,7 @@ class _EmployerLongTermPositionDetailContentState
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   visualDensity: VisualDensity.compact,
                   side: BorderSide(
-                      color: AppColors.black.withOpacity(.5), width: 1.5),
+                      color: AppColors.black.withValues(alpha: .5), width: 1.5),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   value: value,
@@ -628,7 +636,7 @@ class _EmployerLongTermPositionDetailContentState
         AppDialog.showDelete(
           context,
           title: StringConstant.delete,
-          infoMessage: "Are you sure you want to delete this document?",
+          infoMessage: StringConstant.areYouSureYouWantToDeleteThisDocument,
           onCancelClick: () => Navigator.pop(context),
           onDeleteClick: () {
             Navigator.pop(context);
@@ -655,7 +663,7 @@ class _UploadDocument extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         BaseText(
-          text: "Upload Document",
+          text: StringConstant.uploadDocument,
           fontSize: 14,
         ),
         Gap(getSize(12)),
@@ -680,16 +688,15 @@ class _UploadDocument extends StatelessWidget {
                     width: getSize(58),
                     child: Image.asset(PngImageConstants.upload),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: getSize(20)),
                   CommonButton(
                     onPressed: () {
                       clickUploadButton(context);
                     },
                     width: 140,
                     height: 28,
-                    backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                    backgroundColor:
+                        AppColors.primaryColor.withValues(alpha: 0.15),
                     borderRadius: 5,
                     buttonText: StringConstant.upload,
                     customWidget: Row(
@@ -728,7 +735,6 @@ class _UploadDocument extends StatelessWidget {
                 .pickImage(imageSource: ImageSource.camera, context: context) ??
             '';
         if (path.isNotEmpty) {
-          print("CAMERA IMAGE PATH: $path");
           context.read<EmployerLongTermPositionAddDetailBloc>().add(
               EmployerLongTermPositionAddDetailEvent.selectDocument(
                   path: path));
@@ -748,7 +754,6 @@ class _UploadDocument extends StatelessWidget {
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
-          print("SELECTED FILE PATH: $path");
           context.read<EmployerLongTermPositionAddDetailBloc>().add(
               EmployerLongTermPositionAddDetailEvent.selectDocument(
                   path: path));
@@ -785,8 +790,8 @@ class _ShiftSchedule extends StatelessWidget {
           items: list
               .map((item) => MultiSelectItem<String>(item.label, item.label))
               .toList(),
-          title: "Shift Schedule",
-          labelText: "Shift Schedule",
+          title: StringConstant.shiftSchedule,
+          labelText: StringConstant.shiftSchedule,
           selectedColor: AppColors.black,
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -795,7 +800,6 @@ class _ShiftSchedule extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
               context.read<EmployerLongTermPositionAddDetailBloc>().add(
                   EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(
                       value.toString()));
@@ -803,9 +807,9 @@ class _ShiftSchedule extends StatelessWidget {
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
-            "Shift Schedule",
+            StringConstant.shiftSchedule,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context.read<EmployerLongTermPositionAddDetailBloc>().add(

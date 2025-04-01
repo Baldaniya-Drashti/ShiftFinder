@@ -42,7 +42,7 @@ class NoTeamMemberView extends StatelessWidget {
               'No team members have been added yet.\nPlease click the \'Add Team Members\'\nbutton to get started.',
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
           textAlign: TextAlign.center,
         ),
         SizedBox(
@@ -52,7 +52,7 @@ class NoTeamMemberView extends StatelessWidget {
           height: 28,
           width: 170,
           onPressed: addMemberPressed,
-          backgroundColor: AppColors.green.withOpacity(0.15),
+          backgroundColor: AppColors.green.withValues(alpha: 0.15),
           buttonText: '+ Add Team Member',
           buttonTextColor: AppColors.green,
           buttonFontSize: 12,

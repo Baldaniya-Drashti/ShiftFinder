@@ -52,7 +52,7 @@ class ViewApplicantProfile extends StatelessWidget {
                 child: SizedBox(
                   width: getSize(280),
                   child: BaseText(
-                    textColor: AppColors.black.withOpacity(0.65),
+                    textColor: AppColors.black.withValues(alpha: 0.65),
                     text: StringConstant.noResultFound,
                     textAlign: TextAlign.center,
                     lineHeight: 1.2,
@@ -86,7 +86,7 @@ class ViewApplicantProfile extends StatelessWidget {
                           text: StringConstant.education,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
-                          textColor: Colors.black.withOpacity(0.8),
+                          textColor: Colors.black.withValues(alpha: 0.8),
                         ),
                         SizedBox(height: getSize(8)),
                         Container(
@@ -140,7 +140,7 @@ class ViewApplicantProfile extends StatelessWidget {
                       text: StringConstant.referencesTapToView,
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
-                      textColor: Colors.black.withOpacity(0.8),
+                      textColor: Colors.black.withValues(alpha: 0.8),
                     ),
                     if (state.account.reference
                             ?.where((element) => element.type == 1)

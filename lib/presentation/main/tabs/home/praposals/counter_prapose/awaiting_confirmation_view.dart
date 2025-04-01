@@ -27,7 +27,7 @@ class AwaitingConfirmationView extends StatelessWidget {
           borderRadius: BorderRadius.circular(getSize(20)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.15),
+              color: AppColors.black.withValues(alpha: 0.15),
               blurRadius: 24,
               offset: Offset(0, 0),
             ),
@@ -81,7 +81,7 @@ class AwaitingConfirmationView extends StatelessWidget {
                               text: '(Healthcare - 2DFG125)',
                               fontSize: 12,
                               textColor: const Color.fromARGB(255, 55, 46, 46)
-                                  .withOpacity(0.8),
+                                  .withValues(alpha: 0.8),
                             )
                           ],
                         ),
@@ -91,7 +91,7 @@ class AwaitingConfirmationView extends StatelessWidget {
                   SizedBox(height: getSize(10)),
                   Divider(
                     height: 0,
-                    color: AppColors.black.withOpacity(0.2),
+                    color: AppColors.black.withValues(alpha: 0.2),
                     thickness: 0.5,
                   ),
                   SizedBox(height: getSize(10)),
@@ -145,7 +145,7 @@ class AwaitingConfirmationView extends StatelessWidget {
                       ],
                     ),
                     VerticalDivider(
-                      color: AppColors.black.withOpacity(0.3),
+                      color: AppColors.black.withValues(alpha: 0.3),
                       width: 0,
                     ),
                     Column(
@@ -228,7 +228,7 @@ class AwaitingConfirmationView extends StatelessWidget {
         //   },
         // ).acceptRejectDialog(context);
       },
-      backgroundColor: AppColors.redAccent.withOpacity(0.15),
+      backgroundColor: AppColors.redAccent.withValues(alpha: 0.15),
       buttonTextColor: AppColors.black,
       buttonFontSize: 12,
       borderRadius: 10,
@@ -244,7 +244,7 @@ class AwaitingConfirmationView extends StatelessWidget {
           text: 'Revoking...',
           fontSize: 10,
           fontWeight: FontWeight.w500,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         SizedBox(height: getSize(3)),
         Row(

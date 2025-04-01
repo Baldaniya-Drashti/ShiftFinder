@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 @RoutePage(name: 'ContractorPdfViewer')
 class ContractorPdfViewer extends StatelessWidget {
@@ -18,10 +19,13 @@ class ContractorPdfViewer extends StatelessWidget {
           context.router.maybePop();
         },
       ),
-      body: SfPdfViewer.network(
-        pdfUrl,
-        // scrollDirection: PdfScrollDirection.horizontal,
+      body: PDFView(
+        filePath: pdfUrl,
       ),
+      //  SfPdfViewer.network(
+      //   pdfUrl,
+      //   // scrollDirection: PdfScrollDirection.horizontal,
+      // ),
     );
   }
 }

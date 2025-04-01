@@ -1,0 +1,2 @@
+/Users/imac/Desktop/shift/android/app/.cxx/Debug/43561p1k/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/imac/Desktop/shift/android/app/.cxx/Debug/43561p1k/armeabi-v7a/CMakeFiles/rebuild_cache.dir

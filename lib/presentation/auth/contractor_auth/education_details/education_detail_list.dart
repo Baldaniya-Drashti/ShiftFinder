@@ -273,7 +273,8 @@ class EducationListScreen extends StatelessWidget {
                   buttonFontSize: 12,
                   buttonFontWeight: FontWeight.w600,
                   height: 35,
-                  backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                  backgroundColor:
+                      AppColors.primaryColor.withValues(alpha: 0.15),
                   buttonTextColor: AppColors.primaryColor,
                 ),
               ),
@@ -299,7 +300,7 @@ class EducationListScreen extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: TextStyle(
-              color: AppColors.black.withOpacity(0.8),
+              color: AppColors.black.withValues(alpha: 0.8),
               fontSize: getFontSize(10),
               fontWeight: FontWeight.w500,
             ),
@@ -323,7 +324,7 @@ class EducationListScreen extends StatelessWidget {
           text: education.graduating_institution ?? "",
           fontSize: 10,
           fontWeight: FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.8),
+          textColor: AppColors.black.withValues(alpha: 0.8),
         ),
       ],
     );

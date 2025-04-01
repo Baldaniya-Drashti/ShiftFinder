@@ -89,7 +89,7 @@ class InvoiceView extends StatelessWidget {
                                       height: 36,
                                       buttonFontSize: 12,
                                       backgroundColor: AppColors.primaryColor
-                                          .withOpacity(0.15),
+                                          .withValues(alpha: 0.15),
                                       buttonTextColor: AppColors.black,
                                     )
                                   ],
@@ -102,7 +102,7 @@ class InvoiceView extends StatelessWidget {
                       width: double.maxFinite,
                       child: Material(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: AppColors.green.withOpacity(0.15),
+                        color: AppColors.green.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(7),
                         child: InkWell(
                           onTap: () {
@@ -205,7 +205,7 @@ class InvoiceView extends StatelessWidget {
                               ? "${DateTime.fromMillisecondsSinceEpoch((shift.date!) * 1000).year}"
                               : "",
                           style: TextStyle(
-                            color: AppColors.black.withOpacity(0.5),
+                            color: AppColors.black.withValues(alpha: 0.5),
                           ),
                         ),
                       ]),

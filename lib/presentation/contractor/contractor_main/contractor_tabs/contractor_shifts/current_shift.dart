@@ -75,7 +75,8 @@ class CurrentShift extends StatelessWidget {
                               borderRadius: BorderRadius.circular(getSize(20)),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  color: AppColors.lightGrey
+                                      .withValues(alpha: 0.2),
                                   blurRadius: getSize(20),
                                 ),
                               ],
@@ -423,7 +424,7 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
               backgroundColor: WidgetStatePropertyAll(
                 (shift.selectedClockInTime != null)
                     ? AppColors.primaryColor
-                    : AppColors.primaryColor.withOpacity(0.5),
+                    : AppColors.primaryColor.withValues(alpha: 0.5),
               ),
             ),
             child: BaseText(
@@ -457,7 +458,7 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
             width: 73,
             backgroundColor: (shift.selectedClockInTime != null)
                 ? AppColors.primaryColor
-                : AppColors.primaryColor.withOpacity(0.5),
+                : AppColors.primaryColor.withValues(alpha: 0.5),
             buttonText: StringConstant.submit,
           ), */
   );
@@ -571,7 +572,7 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
               backgroundColor: WidgetStatePropertyAll(
                 (shift.selectedClockOutTime != null)
                     ? AppColors.primaryColor
-                    : AppColors.primaryColor.withOpacity(0.5),
+                    : AppColors.primaryColor.withValues(alpha: 0.5),
               ),
             ),
             child: BaseText(
@@ -608,7 +609,7 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
             width: 73,
             backgroundColor: (shift.selectedClockOutTime != null)
                 ? AppColors.primaryColor
-                : AppColors.primaryColor.withOpacity(0.5),
+                : AppColors.primaryColor.withValues(alpha: 0.5),
             buttonText: StringConstant.submit,
           ), */
   );
@@ -707,7 +708,7 @@ Widget displayDateBreak(BuildContext context,
                     text: title,
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   highLightText(boldValue: boldValue, timidValue: timidValue),
                 ],
@@ -743,7 +744,7 @@ Widget displayTime({
               text: StringConstant.time,
               fontSize: 10,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             Row(
               children: [
@@ -751,19 +752,19 @@ Widget displayTime({
                   text: startDate,
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 BaseText(
                   text: ' to ',
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 BaseText(
                   text: endDate,
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
               ],
             ),
@@ -792,7 +793,7 @@ Widget highLightText(
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: AppColors.black.withOpacity(0.5),
+          color: AppColors.black.withValues(alpha: 0.5),
         ),
       ),
       TextSpan(
@@ -835,14 +836,14 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
                 text: shift.company_name ?? "",
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.80),
+                textColor: AppColors.black.withValues(alpha: 0.80),
               ),
               BaseText(
                 text:
                     "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.80),
+                textColor: AppColors.black.withValues(alpha: 0.80),
               ),
               BaseText(
                 text: shift.location?.facility_type?.name ?? "",
@@ -877,7 +878,7 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
           minTileHeight: getSize(43.41),
         ),
         Divider(
-          color: AppColors.black.withOpacity(0.2),
+          color: AppColors.black.withValues(alpha: 0.2),
           thickness: getSize(0.5),
         ),
         GestureDetector(
@@ -979,7 +980,7 @@ Widget paybaleTitleRate(
         text: title,
         fontSize: 12,
         fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-        textColor: AppColors.black.withOpacity(0.7),
+        textColor: AppColors.black.withValues(alpha: 0.7),
       ),
       BaseText(
         text: value,

@@ -153,7 +153,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
           ? Icon(
               icon!.icon,
               color: colorator != null && colorator!(item.value) != null
-                  ? colorator!(item.value)!.withOpacity(1)
+                  ? colorator!(item.value)!.withValues(alpha: 1)
                   : icon!.color ?? Theme.of(context).primaryColor,
             )
           : null,
@@ -173,7 +173,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
                     : textStyle != null && textStyle!.color != null
                         ? textStyle!.color
                         : chipColor != null
-                            ? chipColor!.withOpacity(1)
+                            ? chipColor!.withValues(alpha: 1)
                             : null,
                 fontSize: textStyle != null ? textStyle!.fontSize : null,
               ),

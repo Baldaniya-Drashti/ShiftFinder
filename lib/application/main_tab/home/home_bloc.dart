@@ -229,7 +229,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   activeColor: AppColors.primaryColor,
                   side: BorderSide(
                     width: getSize(1.5),
-                    color: AppColors.black.withOpacity(0.5),
+                    color: AppColors.black.withValues(alpha: 0.5),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -249,7 +249,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                   maxLines: 20,
                 ),
               ),

@@ -168,7 +168,7 @@ getAppbar(MainTabState state, BuildContext context) {
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
               lineHeight: getSize(1),
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             BaseText(
               text:

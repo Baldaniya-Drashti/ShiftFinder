@@ -189,7 +189,7 @@ class CancelledShiftView extends StatelessWidget {
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGrey.withOpacity(0.2),
+            color: AppColors.lightGrey.withValues(alpha: 0.2),
             blurRadius: getSize(20),
           ),
         ],
@@ -214,7 +214,7 @@ class CancelledShiftView extends StatelessWidget {
               },
               height: getSize(40),
               borderRadius: 7,
-              backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+              backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
               buttonTextColor: AppColors.black,
               buttonFontSize: 12,
               buttonText: StringConstant.viewShiftDetails,
@@ -229,7 +229,7 @@ class CancelledShiftView extends StatelessWidget {
                 text: StringConstant.reason,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
             ),
             Container(
@@ -245,7 +245,7 @@ class CancelledShiftView extends StatelessWidget {
               child: BaseText(
                 text: shift.reason ?? "",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
             ),
             SizedBox(height: getSize(10)),
@@ -400,7 +400,7 @@ class CancelledShiftView extends StatelessWidget {
                       text:
                           '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
-                      textColor: AppColors.black.withOpacity(0.8),
+                      textColor: AppColors.black.withValues(alpha: 0.8),
                     ),
                     BaseText(
                       text: shift.location?.facility_type?.name ?? "",
@@ -415,7 +415,7 @@ class CancelledShiftView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           Divider(
             height: 0,
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
@@ -620,7 +620,7 @@ class CancelledShiftView extends StatelessWidget {
             child: BaseText(
               text: StringConstant.reason,
               fontSize: 12,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
           ),
           Container(
@@ -702,7 +702,7 @@ class CancelledShiftView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 children: [
@@ -788,7 +788,7 @@ class CancelledShiftView extends StatelessWidget {
                       text: title,
                       fontSize: 10,
                       fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.7),
+                      textColor: AppColors.black.withValues(alpha: 0.7),
                     ),
                     highLightText(boldValue: boldValue, timidValue: timidValue),
                   ],
@@ -816,7 +816,7 @@ class CancelledShiftView extends StatelessWidget {
           style: TextStyle(
             fontSize: getFontSize(13),
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         TextSpan(

@@ -867,12 +867,61 @@ class StringConstant {
   static const String applicationRejectedSuccessfully =
       "Application rejected successfully";
   static const String editBankDetails = "Edit Bank Details";
+  static const String areYouSureYouWantToApplyForThisPosition =
+      "Are you sure you want to apply for this position?";
+  static const String months = "Months";
+  static const String rate = "Rate";
+  static const String salary = "Salary";
+  static const String shiftSchedule = "Shift Schedule";
+  static const String areYouSureYouWantToDeleteThisLongTermPosition =
+      "Are you sure you want to delete this long term position?";
+  static const String viewApplicants = "View Applicants";
+  static const String acceptLongTermApplicantDesc =
+      "Once the contractor is accepted for the position, they will have 72 hours to confirm. If not confirmed, the offer will expire.";
+  static const String acceptApplicantDesc =
+      "Are you sure you want to accept this contractor for the position?";
+  static const String rejectApplicantDesc =
+      "Are you sure you want to reject this application?";
+  static const String awaitingConfirmation = "Awaiting Confirmation";
+  static const String offerExpired = "Offer Expired";
+  static const String totalServiceFeePayable = "Total Service Fee Payable";
+  static const String shiftFinderServiceFeePaymentDesc =
+      "Are you sure you want to proceed with the ShiftFinder service fee payment?";
+  static const String paymentProcessConfirmationDesc =
+      "By proceeding, you confirm your responsibility for making direct payments to the contractor and acknowledge that ShiftFinder is not liable for any payment or contract disputes.";
+  static const String authorizePayment = "Authorize Payment";
+  static const String jobDescription = "Job Description";
+  static const String requirements = "Requirements";
+  static const String responsibilities = "Responsibilities";
+  static const String qualifications = "Qualifications";
+  static const String licensesCertifications = "Licenses/Certifications";
+  static const String optional = "Optional";
+  static const String longTermPosition = "Long-Term Position";
+  static const String threeMonthPolicyDesc =
+      "Long-term contracts must be at least three months. If your posting doesn't meet this requirement, consider using our multi-shift feature to schedule your shifts more flexibly.";
+  static const String uploadDocument = "Upload Document";
+  static const String noDataFound = "No data found";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
   static const String adminEmailID = "admin@shiftfinder.com";
 
   /// ERROR ///
+  static const String pleaseEnterRequirements = "Please enter requirements";
+  static const String pleaseEnterQualification = "Please enter qualification";
+  static const String pleaseEnterValidValue = "Please enter valid value";
+  static const String areYouSureYouWantToDeleteThisDocument =
+      "Are you sure you want to delete this document?";
+  static const String pleaseEnterOnboardingProcess =
+      "Please enter onboarding process";
+  static const String pleaseEnterLicensesCertifications =
+      "Please enter licenses/certifications";
+  static const String pleaseEnterResponsibilities =
+      "Please enter responsibilities";
+  static const String pleaseEnterJobDescription =
+      "Please enter job description";
+  static const String pleaseSelectApplicationDeadlineDate =
+      "Please select application deadline date";
   static const String pleaseEnterReason = "Please enter Reason";
   static const String pleaseSelectAValidTime = "Please select a valid time.";
   static const String pleaseSelectAtLeastOneLanguage =

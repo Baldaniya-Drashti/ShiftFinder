@@ -121,7 +121,7 @@ class LocationDetailForm extends StatelessWidget {
                                               fontSize: getFontSize(10),
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.black
-                                                  .withOpacity(0.8),
+                                                  .withValues(alpha: 0.8),
                                               fontFamily: "Roboto Flex",
                                             ),
                                           ),
@@ -563,11 +563,11 @@ class LocationDetailForm extends StatelessWidget {
               buttonFontWeight: FontWeight.w600,
               height: 35,
               backgroundColor: (state.unitNumber.isNotEmpty)
-                  ? AppColors.primaryColor.withOpacity(0.15)
+                  ? AppColors.primaryColor.withValues(alpha: 0.15)
                   : AppColors.primaryColor.withOpacity(0.05),
               buttonTextColor: (state.unitNumber.isNotEmpty)
                   ? AppColors.primaryColor
-                  : AppColors.primaryColor.withOpacity(0.3),
+                  : AppColors.primaryColor.withValues(alpha: 0.3),
             ),
           )
         ],
@@ -777,11 +777,11 @@ class LocationDetailForm extends StatelessWidget {
                           buttonFontWeight: FontWeight.w600,
                           height: 35,
                           backgroundColor: (updateUnitNameCtrl.text.isNotEmpty)
-                              ? AppColors.primaryColor.withOpacity(0.15)
+                              ? AppColors.primaryColor.withValues(alpha: 0.15)
                               : AppColors.primaryColor.withOpacity(0.05),
                           buttonTextColor: (updateUnitNameCtrl.text.isNotEmpty)
                               ? AppColors.primaryColor
-                              : AppColors.primaryColor.withOpacity(0.3),
+                              : AppColors.primaryColor.withValues(alpha: 0.3),
                         ),
                       )
                     ],

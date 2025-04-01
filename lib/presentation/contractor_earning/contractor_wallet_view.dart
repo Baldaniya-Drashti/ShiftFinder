@@ -302,7 +302,7 @@ class _WalletInfoItem extends StatelessWidget {
             height: 18,
             width: 18,
             colorFilter: ColorFilter.mode(
-                AppColors.black.withOpacity(0.8), BlendMode.srcIn),
+                AppColors.black.withValues(alpha: 0.8), BlendMode.srcIn),
           ),
           Gap(10),
         ],
@@ -310,7 +310,7 @@ class _WalletInfoItem extends StatelessWidget {
           child: BaseText(
             text: label,
             fontSize: 12,
-            textColor: AppColors.black.withOpacity(0.8),
+            textColor: AppColors.black.withValues(alpha: 0.8),
             fontWeight: FontWeight.w500,
           ),
         ),

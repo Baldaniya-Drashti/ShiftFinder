@@ -90,8 +90,8 @@ class PraposalPersonView extends StatelessWidget {
                                       vertical: getSize(5),
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          AppColors.redAccent.withOpacity(0.1),
+                                      color: AppColors.redAccent
+                                          .withValues(alpha: 0.1),
                                       borderRadius:
                                           BorderRadius.circular(getSize(10)),
                                     ),
@@ -103,7 +103,7 @@ class PraposalPersonView extends StatelessWidget {
                                           fontSize: 8,
                                           fontWeight: FontWeight.w600,
                                           textColor: AppColors.redAccent
-                                              .withOpacity(0.8),
+                                              .withValues(alpha: 0.8),
                                         ),
                                         Gap(getSize(2)),
                                         SvgPicture.asset(
@@ -122,7 +122,7 @@ class PraposalPersonView extends StatelessWidget {
                             text: 'Distance - ${data.distance ?? ""}',
                             fontSize: 8,
                             textColor: const Color.fromARGB(255, 55, 46, 46)
-                                .withOpacity(0.8),
+                                .withValues(alpha: 0.8),
                           )
                         ],
                       ),
@@ -132,7 +132,7 @@ class PraposalPersonView extends StatelessWidget {
                 SizedBox(height: getSize(10)),
                 Divider(
                   height: 0,
-                  color: AppColors.black.withOpacity(0.2),
+                  color: AppColors.black.withValues(alpha: 0.2),
                   thickness: 0.5,
                 ),
                 SizedBox(height: getSize(10)),
@@ -192,7 +192,7 @@ class PraposalPersonView extends StatelessWidget {
                               id: data.user_id ?? -1, postId: postId)),
                     );
                   },
-                  backgroundColor: AppColors.green.withOpacity(0.1),
+                  backgroundColor: AppColors.green.withValues(alpha: 0.1),
                   buttonText: StringConstant.viewProfile,
                   borderRadius: 7,
                   buttonFontSize: 11,
@@ -221,7 +221,7 @@ class PraposalPersonView extends StatelessWidget {
                       });
                       // Log.success("result=> $result");
                     },
-                    backgroundColor: AppColors.green.withOpacity(0.1),
+                    backgroundColor: AppColors.green.withValues(alpha: 0.1),
                     buttonText: 'Proposed Availability',
                     borderRadius: 7,
                     buttonFontSize: 11,

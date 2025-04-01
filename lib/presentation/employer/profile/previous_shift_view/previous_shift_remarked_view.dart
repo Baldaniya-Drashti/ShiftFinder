@@ -141,7 +141,8 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                                     SvgImageConstant.rightArrow,
                                     height: 10,
                                     width: 10,
-                                    color: AppColors.black.withOpacity(0.5),
+                                    color:
+                                        AppColors.black.withValues(alpha: 0.5),
                                   )
                                 ],
                               ),
@@ -174,7 +175,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                       ),
                     ),
                     Material(
-                      color: AppColors.red.withOpacity(0.2),
+                      color: AppColors.red.withValues(alpha: 0.2),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(getSize(7))),
                       child: InkWell(

@@ -30,7 +30,7 @@ class DocumentExpiryDatePicker {
       labelStyle: (!isDisabled)
           ? TextStyle(
               fontSize: getFontSize(14),
-              color: AppColors.black.withOpacity(0.3))
+              color: AppColors.black.withValues(alpha: 0.3))
           : labelStyle,
       fillColor: (!isDisabled) ? AppColors.grey04 : null,
       isLabelPadding: true,
@@ -128,7 +128,7 @@ class DocumentExpiryDatePicker {
           horizontal: getSize(20),
         ),
         decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity((isDisabled) ? 0.2 : 0.4),
+          color: AppColors.grey.withValues(alpha: (isDisabled) ? 0.2 : 0.4),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -143,7 +143,7 @@ class DocumentExpiryDatePicker {
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -163,8 +163,9 @@ class DocumentExpiryDatePicker {
                 text: StringConstant.expiryDateIsNotApplicable,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                textColor:
-                    (isDisabled) ? AppColors.black.withOpacity(0.5) : null,
+                textColor: (isDisabled)
+                    ? AppColors.black.withValues(alpha: 0.5)
+                    : null,
               ),
             ),
           ],

@@ -73,7 +73,7 @@ class CounterProposalTab extends StatelessWidget {
                                     boxShadow: [
                                       BoxShadow(
                                         color: AppColors.lightGrey
-                                            .withOpacity(0.2),
+                                            .withValues(alpha: 0.2),
                                         blurRadius: getSize(20),
                                       ),
                                     ],
@@ -99,7 +99,7 @@ class CounterProposalTab extends StatelessWidget {
                                         height: getSize(40),
                                         borderRadius: 7,
                                         backgroundColor: AppColors.primaryColor
-                                            .withOpacity(0.1),
+                                            .withValues(alpha: 0.1),
                                         buttonTextColor: AppColors.black,
                                         buttonFontSize: 12,
                                         buttonText:
@@ -273,7 +273,7 @@ class CounterProposalTab extends StatelessWidget {
               width: getSize(108),
               padding: EdgeInsets.symmetric(vertical: getSize(5)),
               decoration: BoxDecoration(
-                  color: AppColors.redAccent.withOpacity(0.10),
+                  color: AppColors.redAccent.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(6)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -297,7 +297,7 @@ class CounterProposalTab extends StatelessWidget {
             Icon(
               Icons.arrow_forward_ios_rounded,
               size: getSize(18),
-              color: AppColors.black.withOpacity(0.5),
+              color: AppColors.black.withValues(alpha: 0.5),
             ),
           ],
         ),
@@ -343,14 +343,14 @@ class CounterProposalTab extends StatelessWidget {
                   text: shift.company_name ?? " ",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: shift.facility_type?.name ?? "",
@@ -368,7 +368,7 @@ class CounterProposalTab extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -522,7 +522,7 @@ class CounterProposalTab extends StatelessWidget {
                   text: StringConstant.time,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 highLightText(
                     boldValue: "$startDate to $endDate", timidValue: ""),
@@ -582,7 +582,7 @@ class CounterProposalTab extends StatelessWidget {
                           text: title,
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                     highLightText(boldValue: boldValue, timidValue: timidValue),
                   ],
@@ -610,7 +610,7 @@ class CounterProposalTab extends StatelessWidget {
             horizontalTitleGap: 0,
             leading: SvgPicture.asset(
               SvgImageConstant.calendar,
-              color: AppColors.black.withOpacity(0.7),
+              color: AppColors.black.withValues(alpha: 0.7),
               height: getSize(20),
               width: getSize(20),
             ),
@@ -638,7 +638,7 @@ class CounterProposalTab extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: getSize(18),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             )),
@@ -679,7 +679,7 @@ class CounterProposalTab extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         TextSpan(

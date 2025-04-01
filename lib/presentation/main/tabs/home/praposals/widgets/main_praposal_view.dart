@@ -39,7 +39,7 @@ class MainPraposalView extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(20)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.15),
+            color: AppColors.black.withValues(alpha: 0.15),
             blurRadius: 24,
             offset: Offset(0, 0),
           ),
@@ -94,7 +94,7 @@ class MainPraposalView extends StatelessWidget {
                                 '($industry- ${additionalData.listing_id ?? ""})',
                             fontSize: 12,
                             textColor: const Color.fromARGB(255, 55, 46, 46)
-                                .withOpacity(0.8),
+                                .withValues(alpha: 0.8),
                           ),
                           BaseText(
                             text:
@@ -111,7 +111,7 @@ class MainPraposalView extends StatelessWidget {
                 SizedBox(height: getSize(10)),
                 Divider(
                   height: 0,
-                  color: AppColors.black.withOpacity(0.2),
+                  color: AppColors.black.withValues(alpha: 0.2),
                   thickness: 0.5,
                 ),
                 SizedBox(height: getSize(10)),
@@ -191,14 +191,15 @@ class MainPraposalView extends StatelessWidget {
                                 text:
                                     "${DateTime.fromMillisecondsSinceEpoch((additionalData.start_date ?? 0) * 1000).year}",
                                 style: TextStyle(
-                                    color: AppColors.black.withOpacity(0.5))),
+                                    color: AppColors.black
+                                        .withValues(alpha: 0.5))),
                           ],
                         ),
                       ),
                     ],
                   ),
                   VerticalDivider(
-                    color: AppColors.black.withOpacity(0.3),
+                    color: AppColors.black.withValues(alpha: 0.3),
                     width: 0,
                     indent: getSize(5),
                     endIndent: getSize(5),
@@ -263,7 +264,8 @@ class MainPraposalView extends StatelessWidget {
                     height: 14,
                     width: 14,
                     colorFilter: ColorFilter.mode(
-                        AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        AppColors.black.withValues(alpha: 0.7),
+                        BlendMode.srcIn),
                   ),
                 ],
               ),

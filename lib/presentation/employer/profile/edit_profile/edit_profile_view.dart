@@ -207,7 +207,7 @@ class EditProfileView extends StatelessWidget {
                   : StringConstant.companyLogo,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             if (state.showErrorMessages && state.selectImage.isEmpty)
               commonErrorText("* Please select profile photo"),

@@ -39,8 +39,8 @@ class PaginatedListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScrollbarTheme(
       data: ScrollbarThemeData(
-        thumbColor:
-            WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.5)),
+        thumbColor: WidgetStateProperty.all(
+            AppColors.primaryColor.withValues(alpha: 0.5)),
         thickness: WidgetStateProperty.all(getSize(3)),
         radius: Radius.circular(getSize(10)),
       ),
@@ -74,7 +74,7 @@ class PaginatedListView extends StatelessWidget {
                     child: SizedBox(
                       width: getSize(280),
                       child: BaseText(
-                        textColor: AppColors.black.withOpacity(0.65),
+                        textColor: AppColors.black.withValues(alpha: 0.65),
                         text: dataStatus ?? 'No result found.',
                         textAlign: TextAlign.center,
                         lineHeight: 1.2,

@@ -15,8 +15,12 @@ class FilledTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final baseTextStyle = TextStyle(fontSize: getFontSize(14), fontWeight: FontWeight.w500, color: AppColors.white);
-    final unselectedLabelStyle = baseTextStyle.copyWith(color: Colors.black.withOpacity(0.6));
+    final baseTextStyle = TextStyle(
+        fontSize: getFontSize(14),
+        fontWeight: FontWeight.w500,
+        color: AppColors.white);
+    final unselectedLabelStyle =
+        baseTextStyle.copyWith(color: Colors.black.withValues(alpha: 0.6));
 
     return Material(
       borderRadius: BorderRadius.circular(10),
@@ -30,13 +34,14 @@ class FilledTabBar extends StatelessWidget implements PreferredSizeWidget {
             tabs: tabs,
             padding: EdgeInsets.zero,
             labelStyle: baseTextStyle,
-            overlayColor: WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
+            overlayColor: WidgetStateProperty.all(
+                AppColors.primaryColor.withValues(alpha: 0.01)),
             unselectedLabelStyle: unselectedLabelStyle,
             indicatorSize: TabBarIndicatorSize.tab,
             dividerColor: Colors.transparent,
             indicatorColor: AppColors.primaryColor,
             labelPadding: EdgeInsets.zero,
-            unselectedLabelColor: AppColors.black.withOpacity(0.2),
+            unselectedLabelColor: AppColors.black.withValues(alpha: 0.2),
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: AppColors.primaryColor,

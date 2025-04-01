@@ -184,7 +184,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                           side: BorderSide(
                                             width: getSize(1.5),
                                             color: AppColors.black
-                                                .withOpacity(0.5),
+                                                .withValues(alpha: 0.5),
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:

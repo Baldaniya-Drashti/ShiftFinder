@@ -86,7 +86,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                 height: 14,
                                 width: 14,
                                 colorFilter: ColorFilter.mode(
-                                    AppColors.black.withOpacity(0.7),
+                                    AppColors.black.withValues(alpha: 0.7),
                                     BlendMode.srcIn),
                               ),
                             ],
@@ -502,7 +502,7 @@ class ViewSingleApplicants extends StatelessWidget {
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
           decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.1),
+              color: AppColors.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -597,7 +597,7 @@ class ViewSingleApplicants extends StatelessWidget {
                         BaseText(
                           text: 'Distance - ${data.distance ?? ""}',
                           fontSize: 8,
-                          textColor: AppColors.black.withOpacity(0.8),
+                          textColor: AppColors.black.withValues(alpha: 0.8),
                         ),
                         Spacer(),
                         Visibility(
@@ -616,7 +616,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                 vertical: getSize(5),
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.redAccent.withOpacity(0.1),
+                                color:
+                                    AppColors.redAccent.withValues(alpha: 0.1),
                                 borderRadius:
                                     BorderRadius.circular(getSize(10)),
                               ),
@@ -627,8 +628,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                     text: StringConstant.occupied,
                                     fontSize: 8,
                                     fontWeight: FontWeight.w600,
-                                    textColor:
-                                        AppColors.redAccent.withOpacity(0.8),
+                                    textColor: AppColors.redAccent
+                                        .withValues(alpha: 0.8),
                                   ),
                                   Gap(getSize(2)),
                                   SvgPicture.asset(
@@ -650,7 +651,7 @@ class ViewSingleApplicants extends StatelessWidget {
           SizedBox(height: getSize(10)),
           Divider(
             height: 0,
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),

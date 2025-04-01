@@ -137,7 +137,7 @@ class FaqView extends StatelessWidget {
 
         return ExpansionPanel(
           canTapOnHeader: true,
-          backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+          backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
           headerBuilder: (context, isExpanded) {
             return ListTile(
               title: Text(
@@ -188,7 +188,7 @@ class FaqView extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+            backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
             title: ListTile(
               title: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,7 +262,7 @@ class FaqView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+              backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
               title: ListTile(
                 title: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

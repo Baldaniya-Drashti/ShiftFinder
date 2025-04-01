@@ -197,7 +197,7 @@ class SendProposal extends StatelessWidget {
   Widget verticalDivider() {
     return VerticalDivider(
       width: getSize(15),
-      color: AppColors.black.withOpacity(0.30),
+      color: AppColors.black.withValues(alpha: 0.30),
       thickness: getSize(2),
       indent: getSize(10),
       endIndent: getSize(5),
@@ -640,14 +640,14 @@ class SendProposal extends StatelessWidget {
                   text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: post.location?.facility_type?.name ?? "",
@@ -660,14 +660,14 @@ class SendProposal extends StatelessWidget {
               text: post.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              textColor: AppColors.black.withOpacity(0.80),
+              textColor: AppColors.black.withValues(alpha: 0.80),
             ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             minTileHeight: getSize(43.41),
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -757,7 +757,7 @@ class SendProposal extends StatelessWidget {
                   text: StringConstant.shiftDate,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 SizedBox(height: getSize(5)),
                 highLightText(
@@ -799,7 +799,7 @@ class SendProposal extends StatelessWidget {
                   text: StringConstant.unpaidBreak,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
+                  textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
                 SizedBox(height: getSize(5)),
                 BaseText(
@@ -896,7 +896,7 @@ class SendProposal extends StatelessWidget {
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                           maxLines: 5,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                 ],
               ),
@@ -961,7 +961,7 @@ class SendProposal extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 maxLines: 5,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
         trailing: CommonButton(
           onPressed: () {
@@ -1017,7 +1017,7 @@ class SendProposal extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryColor.withOpacity(0.5),
+            color: AppColors.primaryColor.withValues(alpha: 0.5),
           ),
         ),
         TextSpan(
@@ -1144,7 +1144,7 @@ class SendProposal extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: (initialValue != null)
                 ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
+                : AppColors.black.withValues(alpha: 0.5),
           ),
         ),
         prefixIconConstraints:
@@ -1199,7 +1199,7 @@ class SendProposal extends StatelessWidget {
           fontWeight: FontWeight.w500,
           textColor: (state.rateHour.isValid())
               ? AppColors.black
-              : AppColors.black.withOpacity(0.5),
+              : AppColors.black.withValues(alpha: 0.5),
         ),
       ),
       prefixIconConstraints:
@@ -1261,7 +1261,7 @@ class SendProposal extends StatelessWidget {
               fontWeight: FontWeight.w500,
               // textColor: (state.rateHour.isValid())
               //     ? AppColors.black
-              //     : AppColors.black.withOpacity(0.5),
+              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1316,7 +1316,7 @@ class SendProposal extends StatelessWidget {
             fontWeight: FontWeight.w500,
             // textColor: (state.rateHour.isValid())
             //     ? AppColors.black
-            //     : AppColors.black.withOpacity(0.5),
+            //     : AppColors.black.withValues(alpha: 0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1366,7 +1366,7 @@ class SendProposal extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1431,7 +1431,7 @@ class SendProposal extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1546,7 +1546,7 @@ class SendProposal extends StatelessWidget {
               fontWeight: FontWeight.w500,
               // textColor: (state.rateHour.isValid())
               //     ? AppColors.black
-              //     : AppColors.black.withOpacity(0.5),
+              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1597,7 +1597,7 @@ class SendProposal extends StatelessWidget {
               text: '\$ ',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             )),
         fieldPrefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),

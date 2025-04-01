@@ -255,14 +255,12 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 singleShiftFailureOrSuccessOption: none(),
               ),
             );
-            print("ShiftType--->11 ${state.shiftType}");
 
             add(PostShiftEvent.getBreakAllownceListApi(
               e.updateShift,
               fromSaveTemplate: e.fromSaveTemplate,
               fromReview: e.fromReview,
             ));
-            print("ShiftType--->22 ${state.shiftType}");
 
             emit(
               state.copyWith(
@@ -272,8 +270,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 singleShiftFailureOrSuccessOption: none(),
               ),
             );
-
-            print("ShiftType--->33 ${state.shiftType}");
           }
 
           emit(state.copyWith(
@@ -283,14 +279,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
         /// Single Shift
         getBreakAllownceListApi: (e) async {
-          // Either<AuthFailure, SkillListDTO>? res;
-          // emit(
-          //   state.copyWith(
-          //     // isLoading: true,
-          //     singleShiftFailureOrSuccessOption: none(),
-          //   ),
-          // );
-
           await getUnpaidBreakListApi(emit);
           await getaAccomdationHoursListApi(emit);
           if (e.updateShift != null) {
@@ -302,7 +290,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             );
             // await Future.delayed(Duration(seconds: 2));
           }
-          print("ShiftType--->44 ${state.shiftType}");
 
           emit(
             state.copyWith(
@@ -1653,11 +1640,12 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           unpaidBreak: InputEmptyOrNot(r.unpaid_break?.name ?? ""),
           // totalPaybleHours: r.total_payable_hour ?? "",
           /// When edit from review screen and shift is Multi same time shift
-          totalPaybleHours: (r.shift_type == 2 && r.same_or_different_time == 1)
+          totalPaybleHours: /* (r.shift_type == 2 && r.same_or_different_time == 1)
               ? divideHours(
                   totalPayableHours: r.total_payable_hour,
                   totalShifts: r.detail?.length)
-              : r.total_payable_hour ?? "",
+              : */
+              r.total_payable_hour ?? "",
           selectedCommuteAllownce:
               InputEmptyOrNot((r.commute_allowance_type == 1)
                   ? "Flat Rate"
@@ -1758,7 +1746,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
     if (formattedstartDate != null && formattedEndDate != null) {
       difference = formattedEndDate.difference(formattedstartDate).inDays;
-      print("Total days difference ${difference}");
       if (difference > 7) {
         return true;
       }

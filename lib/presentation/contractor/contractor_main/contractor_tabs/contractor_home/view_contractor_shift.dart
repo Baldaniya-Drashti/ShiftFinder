@@ -225,7 +225,7 @@ class ViewContractorShift extends StatelessWidget {
 
   Widget commonDivider() {
     return Divider(
-      color: AppColors.black.withOpacity(0.2),
+      color: AppColors.black.withValues(alpha: 0.2),
       thickness: getSize(0.5),
     );
   }
@@ -267,7 +267,7 @@ class ViewContractorShift extends StatelessWidget {
                 text: "  to  ",
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               BaseText(
                 text: (post.shift_detail?.recurring_end_date != null)
@@ -376,7 +376,7 @@ class ViewContractorShift extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             commonDivider(),
             BaseText(
@@ -384,7 +384,7 @@ class ViewContractorShift extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w400,
               lineHeight: getSize(1),
-              textColor: AppColors.black.withOpacity(0.9),
+              textColor: AppColors.black.withValues(alpha: 0.9),
             ),
           ],
         ),
@@ -519,14 +519,14 @@ class ViewContractorShift extends StatelessWidget {
                   text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: post.location?.facility_type?.name ?? "",
@@ -654,7 +654,7 @@ class ViewContractorShift extends StatelessWidget {
               SvgImageConstant.clockWithBag,
               height: getSize(85),
               width: getSize(85),
-              color: AppColors.primaryColor.withOpacity(0.15),
+              color: AppColors.primaryColor.withValues(alpha: 0.15),
             ),
           ),
         ],
@@ -735,7 +735,7 @@ class ViewContractorShift extends StatelessWidget {
               SvgImageConstant.clockWithBag,
               height: getSize(85),
               width: getSize(85),
-              color: AppColors.primaryColor.withOpacity(0.15),
+              color: AppColors.primaryColor.withValues(alpha: 0.15),
             ),
           ),
         ],
@@ -772,7 +772,7 @@ class ViewContractorShift extends StatelessWidget {
                 text: title,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               (showBtn)
                   ? CommonButton(
@@ -826,7 +826,7 @@ class ViewContractorShift extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -839,7 +839,7 @@ class ViewContractorShift extends StatelessWidget {
                     text: "  to  ",
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black.withValues(alpha: 0.7),
                   ),
                   highLightText(
                       boldValue: "${endDate.split(':')[0]}:",
@@ -897,7 +897,7 @@ class ViewContractorShift extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(height: getSize(5)),
             BaseText(
@@ -915,7 +915,7 @@ class ViewContractorShift extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -948,7 +948,7 @@ class ViewContractorShift extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             commonDivider(),
             BaseText(
@@ -961,7 +961,7 @@ class ViewContractorShift extends StatelessWidget {
               text: locationValue,
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.9),
+              textColor: AppColors.black.withValues(alpha: 0.9),
             ),
             if (units.isNotEmpty) ...[
               SizedBox(
@@ -977,7 +977,7 @@ class ViewContractorShift extends StatelessWidget {
                 text: units,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.9),
+                textColor: AppColors.black.withValues(alpha: 0.9),
               ),
             ],
           ],
@@ -998,7 +998,7 @@ class ViewContractorShift extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         BaseText(
           text: value,
@@ -1084,7 +1084,7 @@ class ViewContractorShift extends StatelessWidget {
               activeColor: AppColors.primaryColor,
               side: BorderSide(
                 width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),

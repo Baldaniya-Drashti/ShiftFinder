@@ -115,7 +115,7 @@ class RegisterForm extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          color: AppColors.black.withOpacity(0.80),
+          color: AppColors.black.withValues(alpha: 0.80),
           fontSize: getFontSize(14),
           fontWeight: FontWeight.w400,
         ),
@@ -349,7 +349,7 @@ class RegisterForm extends StatelessWidget {
             activeColor: AppColors.primaryColor,
             side: BorderSide(
               width: getSize(1.5),
-              color: AppColors.black.withOpacity(0.5),
+              color: AppColors.black.withValues(alpha: 0.5),
             ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),

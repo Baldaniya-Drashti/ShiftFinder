@@ -11,7 +11,7 @@ class CenterLoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.black.withOpacity((isOnlyLoader) ? 0 : 0.2),
+      color: AppColors.black.withValues(alpha: (isOnlyLoader) ? 0 : 0.2),
       child: Center(
         child: Container(
           height: getSize(100),

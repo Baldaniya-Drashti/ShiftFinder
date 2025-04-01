@@ -79,19 +79,19 @@ class ContractorShiftView extends StatelessWidget {
         color: AppColors.primaryColor,
         fontWeight: FontWeight.w500,
       ),
-      overlayColor:
-          WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
+      overlayColor: WidgetStateProperty.all(
+          AppColors.primaryColor.withValues(alpha: 0.01)),
       unselectedLabelStyle: TextStyle(
         fontSize: getFontSize(14),
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withValues(alpha: 0.5),
         fontWeight: FontWeight.w500,
       ),
       dividerHeight: getSize(3),
       indicatorSize: TabBarIndicatorSize.tab,
-      dividerColor: AppColors.black.withOpacity(0.2),
+      dividerColor: AppColors.black.withValues(alpha: 0.2),
       indicatorColor: AppColors.primaryColor,
       labelPadding: EdgeInsets.zero,
-      unselectedLabelColor: AppColors.black.withOpacity(0.2),
+      unselectedLabelColor: AppColors.black.withValues(alpha: 0.2),
       tabs: const [
         Tab(text: StringConstant.currentShifts),
         Tab(text: StringConstant.upcomingShifts),

@@ -118,6 +118,7 @@ class NotificationNaviagtion {
             .push(PageRouteInfo(ContractorFullTimePositionView.name));
         break;
       case 22:
+        setNotificationTab(1);
         getIt<AppRouter>()
             .push(PageRouteInfo(ContractorFullTimePositionView.name));
         break;
@@ -150,6 +151,7 @@ class NotificationNaviagtion {
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 5:
+        // getIt<AppRouter>().push(PageRouteInfo(EmployerCompletedShiftView.name));
         getIt<AppRouter>().push(PageRouteInfo(TotalPraposalView.name,
             args: TotalPraposalViewArgs(postId: obj.post_id ?? -1)));
         break;
@@ -217,25 +219,21 @@ class NotificationNaviagtion {
         getIt<AppRouter>().push(PageRouteInfo(EmployerLongTermView.name));
         break;
       case 20:
-        getIt<AppRouter>().push(PageRouteInfo(EmployerLongTermView.name));
-        break;
-      /* getIt<AppRouter>().push(
-          PageRouteInfo(
+        /*getIt<AppRouter>().push(PageRouteInfo(EmployerLongTermView.name));
+        break; */
+        getIt<AppRouter>().push(PageRouteInfo(
             EmployerLongTermApplicantView.name,
             args: EmployerLongTermApplicantViewArgs(
-                id: obj.full_term_shift_id ?? -1),
-          ),
-        );
-        break; */
+                id: obj.full_term_shift_id ?? -1)));
+        break;
       case 21:
         getIt<AppRouter>().push(PageRouteInfo(EmployerFullPostingView.name));
         break;
       case 22:
-        context.router.push(
-          PageRouteInfo(EmployerFullPositionApplicantsView.name,
-              args: EmployerFullPositionApplicantsViewArgs(
-                  id: obj.full_term_shift_id ?? -1)),
-        );
+        context.router.push(PageRouteInfo(
+            EmployerFullPositionApplicantsView.name,
+            args: EmployerFullPositionApplicantsViewArgs(
+                id: obj.full_term_shift_id ?? -1)));
         break;
       case 23:
         getIt<AppRouter>().push(PageRouteInfo(EmployerFullPostingView.name));

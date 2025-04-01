@@ -115,14 +115,14 @@ class EmployerLongTermPayableView extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             textAlign: TextAlign.center,
-                            textColor: Colors.black.withOpacity(0.8),
+                            textColor: Colors.black.withValues(alpha: 0.8),
                             maxLines: 10,
                           ),
                         ),
                         Gap(getSize(22)),
                         Material(
                           borderRadius: BorderRadius.circular(10),
-                          color: AppColors.primaryColor.withOpacity(0.2),
+                          color: AppColors.primaryColor.withValues(alpha: 0.2),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: getSize(18), horizontal: getSize(22)),
@@ -137,7 +137,7 @@ class EmployerLongTermPayableView extends StatelessWidget {
                                 ),
                                 BaseText(
                                   text:
-                                      "${employerLongTermSuccessDto.total_months ?? ""} Months",
+                                      "${employerLongTermSuccessDto.total_months ?? ""} ${StringConstant.months}",
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
                                 ),
@@ -208,7 +208,7 @@ class EmployerLongTermPayableView extends StatelessWidget {
           child: BaseText(
             text: label,
             fontSize: 13,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
         ),
         BaseText(

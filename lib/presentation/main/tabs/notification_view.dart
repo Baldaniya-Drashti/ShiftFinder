@@ -86,7 +86,7 @@ class _NotificationTile extends StatelessWidget {
       onTap: () {
         setNotificationTab(null);
         setNotificationSubTab(null);
-        print("onTapNotification navigation---> $obj");
+        print("onTapNotification navigation---> ${obj.type}");
         if (getCurrentRole() == 1) {
           NotificationNaviagtion.contractorNavigateToRespectivePage(context,
               type: obj.type ?? 0);
@@ -124,7 +124,8 @@ class _NotificationTile extends StatelessWidget {
                                         : "",
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10,
-                                textColor: AppColors.black.withOpacity(0.7),
+                                textColor:
+                                    AppColors.black.withValues(alpha: 0.7),
                               ),
                             ),
                             BaseText(

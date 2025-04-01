@@ -122,7 +122,7 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                 hintTextStyle: TextStyle(
                                   fontSize: getFontSize(15),
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.black.withOpacity(0.5),
+                                  color: AppColors.black.withValues(alpha: 0.5),
                                 ),
                                 items: [
                                   CommonDropdownModel(

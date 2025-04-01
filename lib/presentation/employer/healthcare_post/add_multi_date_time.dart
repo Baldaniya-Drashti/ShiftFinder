@@ -181,7 +181,7 @@ class AddMultiDateTime extends StatelessWidget {
       child: CustomTextField(
         isLabelPadding: false,
         labelText: StringConstant.shiftTime,
-        labelStyle: TextStyle(color: AppColors.black.withOpacity(0.7)),
+        labelStyle: TextStyle(color: AppColors.black.withValues(alpha: 0.7)),
         readOnly: true,
         hintText: shiftTime,
         hintAsValue: true,

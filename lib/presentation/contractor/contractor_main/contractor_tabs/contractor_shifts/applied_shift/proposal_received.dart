@@ -75,7 +75,7 @@ class ProposalReceived extends StatelessWidget {
                             ),
                           );
                         },
-                        backgroundColor: AppColors.green.withOpacity(0.1),
+                        backgroundColor: AppColors.green.withValues(alpha: 0.1),
                         buttonText: StringConstant.viewAvailability,
                         borderRadius: 7,
                         buttonFontSize: 11,
@@ -275,7 +275,7 @@ class ProposalReceived extends StatelessWidget {
           text: title,
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         SizedBox(height: getSize(8)),
         Container(
@@ -355,14 +355,14 @@ class ProposalReceived extends StatelessWidget {
                   text: post.company_name ?? " ",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text:
                       "(${getIndustry(post.industry_id ?? 0)} - ${post.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black.withOpacity(0.80),
+                  textColor: AppColors.black.withValues(alpha: 0.80),
                 ),
                 BaseText(
                   text: post.facility_type?.name ?? "",
@@ -380,7 +380,7 @@ class ProposalReceived extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           Divider(
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: getSize(0.5),
           ),
           GestureDetector(
@@ -465,7 +465,7 @@ class ProposalReceived extends StatelessWidget {
               horizontal: getSize(15), vertical: getSize(10)),
           child: BaseText(
             text: title,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
             fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
@@ -512,7 +512,7 @@ class ProposalReceived extends StatelessWidget {
 
   Widget verticalDivider() {
     return VerticalDivider(
-      color: AppColors.black.withOpacity(0.30),
+      color: AppColors.black.withValues(alpha: 0.30),
       thickness: getSize(2),
       indent: getSize(5),
       endIndent: getSize(5),
@@ -528,7 +528,7 @@ class ProposalReceived extends StatelessWidget {
           text: title,
           fontSize: 10,
           fontWeight: FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
+          textColor: AppColors.black.withValues(alpha: 0.7),
         ),
         SizedBox(height: getSize(2)),
         BaseText(

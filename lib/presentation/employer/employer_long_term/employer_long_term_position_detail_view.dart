@@ -45,7 +45,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             return state.isLoading
                 ? CenterLoadingIndicator()
                 : state.employerLongTermSuccessDto == null
-                    ? Center(child: BaseText(text: "No data found"))
+                    ? Center(child: BaseText(text: StringConstant.noDataFound))
                     : SingleChildScrollView(
                         padding: EdgeInsets.all(getSize(12)),
                         child: Column(
@@ -57,7 +57,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                     BorderRadius.circular(getSize(20)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                    color: AppColors.lightGrey
+                                        .withValues(alpha: 0.2),
                                     blurRadius: getSize(20),
                                   ),
                                 ],
@@ -164,7 +165,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
                                             textColor: AppColors.black
-                                                .withOpacity(0.7),
+                                                .withValues(alpha: 0.7),
                                           ),
                                         ),
                                         Gap(6),
@@ -396,7 +397,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(
               height: getSize(5),
@@ -432,7 +433,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -487,7 +488,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -505,7 +506,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                       "(${getIndustryText(employerLongTermSuccessDto?.industry ?? 0)} - ${employerLongTermSuccessDto?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -563,7 +564,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -579,8 +580,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                         ?.start_date?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -601,7 +602,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -617,7 +618,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                       ?.end_date?.year
                                       .toString(),
                                   style: TextStyle(
-                                      color: AppColors.green.withOpacity(0.5)),
+                                      color: AppColors.green
+                                          .withValues(alpha: 0.5)),
                                 )
                               ],
                               text:
@@ -639,7 +641,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -655,8 +657,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                         ?.application_deadline?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -679,7 +681,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -719,7 +721,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: 40,
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),
@@ -797,7 +799,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "Language Requirements",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
             BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
@@ -823,7 +825,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             BaseText(
                 text: "Location Details",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -859,7 +861,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             BaseText(
                 text: title,
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(

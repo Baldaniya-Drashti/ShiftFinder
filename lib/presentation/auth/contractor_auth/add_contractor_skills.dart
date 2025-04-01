@@ -356,7 +356,7 @@ class AddContractorSkillsForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.selectRoles,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             context
@@ -407,7 +407,7 @@ class AddContractorSkillsForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.specialties,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
@@ -534,7 +534,6 @@ class AddContractorSkillsForm extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
               context.read<AddContractorSkillFormBloc>().add(
                   AddContractorSkillFormEvent.removePreferedSoftwareSkillchips(
                       value.toString()));
@@ -544,11 +543,9 @@ class AddContractorSkillsForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.softwareSkillSet,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
             context
                 .read<AddContractorSkillFormBloc>()
                 .add(AddContractorSkillFormEvent.confirmSoftwareSkill(
@@ -764,7 +761,7 @@ class AddContractorSkillsForm extends StatelessWidget {
           buttonText: Text(
             StringConstant.languagesKnown,
             style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+                fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,

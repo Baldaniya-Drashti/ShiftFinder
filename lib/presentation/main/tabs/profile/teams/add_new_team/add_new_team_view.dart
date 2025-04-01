@@ -80,7 +80,7 @@ class AddNewTeamView extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             textAlign: TextAlign.center,
-                            textColor: AppColors.black.withOpacity(0.7),
+                            textColor: AppColors.black.withValues(alpha: 0.7),
                           ),
                         ],
                       ),
@@ -104,7 +104,6 @@ class AddNewTeamView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(8)),
                     CustomDropdownTextfield(
-
                       valueController: state.singleValueDropDownController,
                       list: state.locationList,
                       hintText: 'Location',

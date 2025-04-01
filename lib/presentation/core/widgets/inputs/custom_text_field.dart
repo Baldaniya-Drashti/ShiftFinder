@@ -159,7 +159,7 @@ class CustomTextField extends StatelessWidget {
                           style: TextStyle(
                             fontSize: getFontSize(10),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.black.withOpacity(0.8),
+                            color: AppColors.black.withValues(alpha: 0.8),
                             fontFamily: "Roboto Flex",
                           ),
                         )
@@ -176,7 +176,7 @@ class CustomTextField extends StatelessWidget {
             boxShadow: [
               if (isBoxShadow == true)
                 BoxShadow(
-                  color: AppColors.lightGrey.withOpacity(0.2),
+                  color: AppColors.lightGrey.withValues(alpha: 0.2),
                   blurRadius: 30,
                 )
             ],
@@ -223,7 +223,7 @@ class CustomTextField extends StatelessWidget {
                       TextStyle(
                           color: hintAsValue
                               ? AppColors.black
-                              : AppColors.black.withOpacity(0.50),
+                              : AppColors.black.withValues(alpha: 0.50),
                           fontSize: getSize(
                             14,
                           ),
@@ -267,7 +267,7 @@ class CustomTextField extends StatelessWidget {
                             : hintAsValue
                                 ? AppColors.black
                                 : hintTextColor ??
-                                    AppColors.black.withOpacity(0.5),
+                                    AppColors.black.withValues(alpha: 0.5),
                         fontSize: getFontSize(hintAsValue ? 13 : 14),
                         fontWeight: FontWeight.w500,
                       ),

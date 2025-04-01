@@ -60,7 +60,7 @@ class ShiftActionsView extends StatelessWidget {
                   child: SizedBox(
                     width: getSize(280),
                     child: BaseText(
-                      textColor: AppColors.black.withOpacity(0.65),
+                      textColor: AppColors.black.withValues(alpha: 0.65),
                       text: 'No result found.',
                       textAlign: TextAlign.center,
                       lineHeight: 1.2,
@@ -98,7 +98,7 @@ class ShiftActionsView extends StatelessWidget {
                             Gap(16),
                             _ActionButton(
                               backgroundColor: isBlock
-                                  ? AppColors.white.withOpacity(0.5)
+                                  ? AppColors.white.withValues(alpha: 0.5)
                                   : AppColors.white,
                               onPressed: !isBlock
                                   ? () async {
@@ -139,13 +139,13 @@ class ShiftActionsView extends StatelessWidget {
                               label:
                                   "${(data?.isFavourite ?? false) ? "Added" : "Add"} to favorite",
                               textColor: isBlock
-                                  ? AppColors.black.withOpacity(0.5)
+                                  ? AppColors.black.withValues(alpha: 0.5)
                                   : null,
                             ),
                             Gap(getSize(16)),
                             _ActionButton(
                               backgroundColor: isBlock
-                                  ? AppColors.white.withOpacity(0.5)
+                                  ? AppColors.white.withValues(alpha: 0.5)
                                   : AppColors.white,
                               onPressed: !isBlock
                                   ? () => _onAddRating(
@@ -168,7 +168,7 @@ class ShiftActionsView extends StatelessWidget {
                                   ? AppColors.primaryColor
                                   : null,
                               textColor: isBlock
-                                  ? AppColors.black.withOpacity(0.5)
+                                  ? AppColors.black.withValues(alpha: 0.5)
                                   : null,
                               label: (data?.isRating == true &&
                                       data?.rating != null &&
@@ -179,7 +179,7 @@ class ShiftActionsView extends StatelessWidget {
                             Gap(getSize(16)),
                             _ActionButton(
                               backgroundColor: isBlock
-                                  ? AppColors.white.withOpacity(0.5)
+                                  ? AppColors.white.withValues(alpha: 0.5)
                                   : AppColors.white,
                               onPressed: !isBlock
                                   ? () {
@@ -197,7 +197,7 @@ class ShiftActionsView extends StatelessWidget {
                                   ? SvgImageConstant.remarkAdded
                                   : SvgImageConstant.medalStar,
                               textColor: isBlock
-                                  ? AppColors.black.withOpacity(0.5)
+                                  ? AppColors.black.withValues(alpha: 0.5)
                                   : null,
                             ),
                             Gap(16),
@@ -228,7 +228,7 @@ class ShiftActionsView extends StatelessWidget {
                                   ? SvgImageConstant.blockedFilled
                                   : SvgImageConstant.block,
                               backgroundColor: isBlock
-                                  ? AppColors.redAccent.withOpacity(0.15)
+                                  ? AppColors.redAccent.withValues(alpha: 0.15)
                                   : AppColors.white,
                             ),
                           ],
@@ -298,7 +298,7 @@ class ShiftActionsView extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withValues(alpha: 0.7),
           ),
         ],
       ),

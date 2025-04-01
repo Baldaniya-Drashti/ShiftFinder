@@ -186,7 +186,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
           trailing: Icon(
             Icons.arrow_forward_rounded,
             size: getSize(20),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           title: BaseText(
             text: profileItems[index].title,
@@ -374,7 +374,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
           trailing: Icon(
             Icons.arrow_forward_rounded,
             size: getSize(20),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           title: BaseText(
             text: profileItems[index].title,

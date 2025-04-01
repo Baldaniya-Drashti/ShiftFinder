@@ -95,7 +95,7 @@ class FilledShiftsView extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(20)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGrey.withOpacity(0.2),
+            color: AppColors.lightGrey.withValues(alpha: 0.2),
             blurRadius: getSize(20),
           ),
         ],
@@ -184,7 +184,7 @@ class FilledShiftsView extends StatelessWidget {
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: AppColors.primaryColor
-                                          .withOpacity(0.15),
+                                          .withValues(alpha: 0.15),
                                       borderRadius:
                                           BorderRadius.circular(getSize(5)),
                                     ),
@@ -356,7 +356,7 @@ class FilledShiftsView extends StatelessWidget {
                       text:
                           '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
-                      textColor: AppColors.black.withOpacity(0.8),
+                      textColor: AppColors.black.withValues(alpha: 0.8),
                     ),
                     BaseText(
                       text: shift.location?.facility_type?.name ?? "",
@@ -371,7 +371,7 @@ class FilledShiftsView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           Divider(
             height: 0,
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),
@@ -578,7 +578,7 @@ class FilledShiftsView extends StatelessWidget {
                 text: StringConstant.time,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
+                textColor: AppColors.black.withValues(alpha: 0.7),
               ),
               Row(
                 children: [
@@ -665,7 +665,7 @@ class FilledShiftsView extends StatelessWidget {
                         text: title,
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        textColor: AppColors.black.withOpacity(0.7),
+                        textColor: AppColors.black.withValues(alpha: 0.7),
                       ),
                       highLightText(
                           boldValue: boldValue, timidValue: timidValue),
@@ -697,7 +697,7 @@ class FilledShiftsView extends StatelessWidget {
               style: TextStyle(
                 fontSize: getFontSize(13),
                 fontWeight: FontWeight.w500,
-                color: AppColors.black.withOpacity(0.5),
+                color: AppColors.black.withValues(alpha: 0.5),
               ),
             ),
             TextSpan(

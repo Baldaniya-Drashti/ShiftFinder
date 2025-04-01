@@ -179,7 +179,7 @@ class BaseStatementTile extends StatelessWidget {
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(5),
-                  color: AppColors.green.withOpacity(0.15),
+                  color: AppColors.green.withValues(alpha: 0.15),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -272,7 +272,7 @@ class _Earning extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.completedShiftsEarning,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(8),
         ListView.separated(
@@ -322,7 +322,7 @@ class _Earning extends StatelessWidget {
         Gap(getSize(12)),
         Material(
           borderRadius: BorderRadius.circular(10),
-          color: AppColors.green.withOpacity(0.2),
+          color: AppColors.green.withValues(alpha: 0.2),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -361,7 +361,7 @@ class _Compensation extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.compensationReceivedFromCancellations,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(getSize(8)),
         ListView.separated(
@@ -395,7 +395,7 @@ class _Compensation extends StatelessWidget {
         Gap(getSize(12)),
         Material(
           borderRadius: BorderRadius.circular(10),
-          color: AppColors.green.withOpacity(0.2),
+          color: AppColors.green.withValues(alpha: 0.2),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -434,7 +434,7 @@ class _ReferralBonus extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.compensationReceivedFromCancellations,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(getSize(8)),
         ListView.separated(
@@ -465,7 +465,7 @@ class _ReferralBonus extends StatelessWidget {
         Gap(getSize(3)),
         Material(
           borderRadius: BorderRadius.circular(10),
-          color: AppColors.green.withOpacity(0.2),
+          color: AppColors.green.withValues(alpha: 0.2),
           child: Padding(
             padding: EdgeInsets.all(getSize(16)),
             child: Row(
@@ -503,7 +503,7 @@ class _Bank extends StatelessWidget {
       children: [
         StatementHeadingTitle(
           title: StringConstant.compensationReceivedFromCancellations,
-          color: AppColors.green.withOpacity(0.15),
+          color: AppColors.green.withValues(alpha: 0.15),
         ),
         Gap(getSize(8)),
         ListView.separated(
@@ -533,7 +533,7 @@ class _Bank extends StatelessWidget {
         Gap(getSize(12)),
         Material(
           borderRadius: BorderRadius.circular(10),
-          color: AppColors.green.withOpacity(0.2),
+          color: AppColors.green.withValues(alpha: 0.2),
           child: Padding(
             padding: EdgeInsets.all(getSize(16)),
             child: Row(

@@ -69,8 +69,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                                       BorderRadius.circular(getSize(20)),
                                   boxShadow: [
                                     BoxShadow(
-                                      color:
-                                          AppColors.lightGrey.withOpacity(0.2),
+                                      color: AppColors.lightGrey
+                                          .withValues(alpha: 0.2),
                                       blurRadius: getSize(20),
                                     ),
                                   ],
@@ -96,7 +96,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                                       },
                                       label: StringConstant.viewPositionDetails,
                                       backgroundColor: AppColors.primaryColor
-                                          .withOpacity(.1),
+                                          .withValues(alpha: .1),
                                     ),
                                     Gap(getSize(12)),
                                     _buildApplicationInformation(context,
@@ -327,7 +327,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(
               height: getSize(5),
@@ -363,7 +363,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -416,7 +416,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -434,7 +434,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                       "(${getIndustryText(contractorLongTerm?.industry_id ?? 0)} - ${contractorLongTerm?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -492,7 +492,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -507,8 +507,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                                     text: contractorLongTerm?.start_date?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -529,7 +529,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -544,7 +544,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                                   text: contractorLongTerm?.end_date?.year
                                       .toString(),
                                   style: TextStyle(
-                                      color: AppColors.green.withOpacity(0.5)),
+                                      color: AppColors.green
+                                          .withValues(alpha: 0.5)),
                                 )
                               ],
                               text:
@@ -566,7 +567,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -582,8 +583,8 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                                         ?.application_deadline?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -606,7 +607,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -646,7 +647,7 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: 40,
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),

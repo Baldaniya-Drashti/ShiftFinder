@@ -43,7 +43,7 @@ class UploadDocumentBox extends StatelessWidget {
                 onPressed: () {},
                 width: 140,
                 height: 28,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                backgroundColor: AppColors.primaryColor.withValues(alpha: 0.15),
                 borderRadius: 5,
                 buttonText: StringConstant.upload,
                 customWidget: Row(

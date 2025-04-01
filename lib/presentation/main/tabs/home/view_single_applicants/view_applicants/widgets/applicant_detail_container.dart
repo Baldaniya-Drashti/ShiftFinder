@@ -55,7 +55,7 @@ class ApplicantsDetailView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           Divider(
             height: 0,
-            color: AppColors.black.withOpacity(0.2),
+            color: AppColors.black.withValues(alpha: 0.2),
             thickness: 0.5,
           ),
           SizedBox(height: getSize(10)),

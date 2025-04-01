@@ -64,7 +64,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(getSize(20)),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.lightGrey.withOpacity(0.2),
+                      color: AppColors.lightGrey.withValues(alpha: 0.2),
                       blurRadius: getSize(20),
                     ),
                   ],
@@ -119,7 +119,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                               text: StringConstant.contractTerms,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
-                              textColor: AppColors.black.withOpacity(0.7),
+                              textColor: AppColors.black.withValues(alpha: 0.7),
                             ),
                           ),
                           Gap(getSize(6)),
@@ -265,7 +265,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                 activeColor: AppColors.primaryColor,
                 side: BorderSide(
                   width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -407,7 +407,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               text: title,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
+              textColor: AppColors.black.withValues(alpha: 0.7),
             ),
             SizedBox(
               height: getSize(5),
@@ -443,7 +443,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             svgIcon,
             height: getSize(35),
             width: getSize(35),
-            color: AppColors.primaryColor.withOpacity(0.2),
+            color: AppColors.primaryColor.withValues(alpha: 0.2),
           ),
         )
       ],
@@ -479,7 +479,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -497,7 +497,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                       "(${getIndustryText(employerLongTermSuccessDto.industry ?? 0)} - ${employerLongTermSuccessDto.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -550,7 +550,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(getSize(10)),
                       Column(
@@ -566,8 +566,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                         .start_date?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -588,7 +588,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -604,7 +604,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                       .end_date?.year
                                       .toString(),
                                   style: TextStyle(
-                                      color: AppColors.green.withOpacity(0.5)),
+                                      color: AppColors.green
+                                          .withValues(alpha: 0.5)),
                                 )
                               ],
                               text:
@@ -626,7 +627,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -642,8 +643,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                         .application_deadline?.year
                                         .toString(),
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -666,7 +667,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -703,7 +704,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: 40,
-                  color: AppColors.primaryColor.withOpacity(0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                 )
               ],
             ),
@@ -775,7 +776,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             BaseText(
                 text: "Language Requirements",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
             BaseText(text: language, fontSize: 14, textColor: AppColors.green)
           ],
@@ -798,7 +799,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             BaseText(
                 text: "Location Details",
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
@@ -834,7 +835,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             BaseText(
                 text: title,
                 fontSize: 12,
-                textColor: AppColors.black.withOpacity(0.8)),
+                textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(

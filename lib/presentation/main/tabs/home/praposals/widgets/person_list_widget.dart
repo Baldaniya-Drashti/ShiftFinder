@@ -107,7 +107,7 @@ class PersonListWidget extends StatelessWidget {
                                         ),
                                         decoration: BoxDecoration(
                                           color: AppColors.redAccent
-                                              .withOpacity(0.1),
+                                              .withValues(alpha: 0.1),
                                           borderRadius: BorderRadius.circular(
                                               getSize(10)),
                                         ),
@@ -119,7 +119,7 @@ class PersonListWidget extends StatelessWidget {
                                               fontSize: 8,
                                               fontWeight: FontWeight.w600,
                                               textColor: AppColors.redAccent
-                                                  .withOpacity(0.8),
+                                                  .withValues(alpha: 0.8),
                                             ),
                                             Gap(getSize(2)),
                                             SvgPicture.asset(
@@ -209,7 +209,7 @@ class PersonListWidget extends StatelessWidget {
                             list[index].deleteAt != 1)
                         ? CommonMaterialButton(
                             backgroundColor:
-                                AppColors.redAccent.withOpacity(0.15),
+                                AppColors.redAccent.withValues(alpha: 0.15),
                             radius: 5,
                             width: 70,
                             height: 35,
@@ -282,7 +282,7 @@ class PersonListWidget extends StatelessWidget {
       width: getSize(108),
       padding: EdgeInsets.symmetric(vertical: getSize(5)),
       decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.1),
+          color: AppColors.primaryColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(6)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

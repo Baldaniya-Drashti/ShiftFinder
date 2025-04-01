@@ -3521,7 +3521,7 @@ class MainFacade implements IMainFacade {
         ApiConstants.notifications,
         queryParameters: {
           "page": page,
-          "perPage": _perPage,
+          "perPage": 100,
         },
       );
 

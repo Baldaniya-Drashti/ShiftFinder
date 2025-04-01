@@ -95,7 +95,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                         : additionalData.role_list_name ?? "",
                     fontWeight: FontWeight.w600,
                     fontSize: 9,
-                    textColor: AppColors.black.withOpacity(0.8),
+                    textColor: AppColors.black.withValues(alpha: 0.8),
                   ),
                 ],
               ),
@@ -103,7 +103,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           SizedBox(height: getSize(5)),
           Divider(
-            color: AppColors.black.withOpacity(0.1),
+            color: AppColors.black.withValues(alpha: 0.1),
             thickness: 1,
           ),
         ],

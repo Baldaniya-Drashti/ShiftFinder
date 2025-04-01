@@ -146,7 +146,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
           Image.asset(
             PngImageConstants.nurse2,
             height: getSize(50),
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black.withValues(alpha: 0.5),
           ),
           Gap(getSize(16)),
           Expanded(
@@ -164,7 +164,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                       "(${getIndustryText(contractorFullPosting?.industry_id ?? 0)} - ${contractorFullPosting?.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.5),
+                  textColor: AppColors.black.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -275,7 +275,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstant.calendar,
                         height: 18,
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                       ),
                       Gap(10),
                       Column(
@@ -290,8 +290,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                                     text:
                                         "${contractorFullPosting?.application_deadline?.year}",
                                     style: TextStyle(
-                                        color:
-                                            AppColors.green.withOpacity(0.5)),
+                                        color: AppColors.green
+                                            .withValues(alpha: 0.5)),
                                   )
                                 ],
                                 text:
@@ -314,7 +314,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
                 width: getSize(70),
-                color: AppColors.primaryColor.withOpacity(0.15),
+                color: AppColors.primaryColor.withValues(alpha: 0.15),
               ),
             )
           ],
@@ -370,7 +370,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
           Expanded(
             child: Material(
               borderRadius: BorderRadius.circular(7),
-              color: AppColors.redAccent.withOpacity(0.15),
+              color: AppColors.redAccent.withValues(alpha: 0.15),
               child: InkWell(
                 onTap: () async {
                   final result = await AppDialog.showCommonDialog(

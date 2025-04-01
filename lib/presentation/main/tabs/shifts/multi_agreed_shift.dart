@@ -189,7 +189,7 @@ class MultiAgreedShift extends StatelessWidget {
                           "${StringConstant.unavailableShifts} - $unavailableShift",
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
-                      textColor: AppColors.black.withOpacity(0.5),
+                      textColor: AppColors.black.withValues(alpha: 0.5),
                     ),
                   ],
                 ),

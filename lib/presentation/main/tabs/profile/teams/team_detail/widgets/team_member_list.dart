@@ -119,7 +119,7 @@ class TeamMemberList extends StatelessWidget {
                       );
                 }
               },
-              backgroundColor: AppColors.green.withOpacity(0.15),
+              backgroundColor: AppColors.green.withValues(alpha: 0.15),
               buttonText: '+ Add New Team Member',
               buttonTextColor: AppColors.green,
               buttonFontSize: 12,

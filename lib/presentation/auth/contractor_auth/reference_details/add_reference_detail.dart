@@ -25,14 +25,15 @@ class AddReferenceDetail extends StatelessWidget {
     super.key,
     this.isFromSplash = false,
     this.referenceObj,
-    this.readOnly=false,
+    this.readOnly = false,
   });
 
   @override
   Widget build(BuildContext context) {
     print("referenceObj--->  $referenceObj");
     return BlocProvider(
-      create: (context) => getIt<ReferenceBloc>()..add(ReferenceEvent.referenceObjEvent(referenceObj)),
+      create: (context) => getIt<ReferenceBloc>()
+        ..add(ReferenceEvent.referenceObjEvent(referenceObj)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -58,7 +59,8 @@ class AddReferenceDetail extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) => 'Please check your internet connectivity',
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -75,7 +77,8 @@ class AddReferenceDetail extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) => 'Please check your internet connectivity',
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -133,7 +136,9 @@ class AddReferenceDetail extends StatelessWidget {
       ),
       child: TabBar(
         onTap: (value) {
-          context.read<ReferenceBloc>().add(ReferenceEvent.tabChangeEvent(value));
+          context
+              .read<ReferenceBloc>()
+              .add(ReferenceEvent.tabChangeEvent(value));
         },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(
@@ -143,7 +148,7 @@ class AddReferenceDetail extends StatelessWidget {
         ),
         unselectedLabelStyle: TextStyle(
           fontSize: getFontSize(14),
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.w500,
         ),
         indicatorSize: TabBarIndicatorSize.tab,

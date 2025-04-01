@@ -179,7 +179,7 @@ class HiredContractorBloc
                           text: StringConstant.approvedDesc,
                           fontSize: 14,
                           textAlign: TextAlign.center,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                       ),
                       actionsAlignment: MainAxisAlignment.center,

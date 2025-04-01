@@ -321,7 +321,7 @@ class AddNewMemberView extends StatelessWidget {
                       ),
                       child: SvgPicture.asset(
                         image,
-                        //   color: AppColors.black.withOpacity(0.5),
+                        //   color: AppColors.black.withValues(alpha: 0.5),
                       ),
                     ),
               onChanged: onChanged,

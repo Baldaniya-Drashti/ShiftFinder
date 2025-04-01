@@ -96,11 +96,11 @@ class CounterProposalDetailBloc
                           showFullDescription: true,
                           textAlign: TextAlign.center,
                           fontWeight: FontWeight.w500,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(
+                            alpha: 0.7,
+                          ),
                         ),
-                        SizedBox(
-                          height: getSize(30),
-                        ),
+                        SizedBox(height: getSize(30)),
                         Row(
                           children: [
                             Expanded(
@@ -109,12 +109,10 @@ class CounterProposalDetailBloc
                                 borderColor: AppColors.green,
                                 buttonTextColor: AppColors.green,
                                 onPressed: () => context.router.maybePop(false),
-                                buttonText: "Cancel",
+                                buttonText: StringConstant.cancle,
                               ),
                             ),
-                            SizedBox(
-                              width: getSize(25),
-                            ),
+                            SizedBox(width: getSize(25)),
                             Expanded(
                               child: CommonButton(
                                 onPressed: () => context.router.maybePop(true),
@@ -212,7 +210,7 @@ class CounterProposalDetailBloc
                           showFullDescription: true,
                           textAlign: TextAlign.center,
                           fontWeight: FontWeight.w500,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                         SizedBox(height: getSize(10)),
                         BaseText(
@@ -222,7 +220,7 @@ class CounterProposalDetailBloc
                           showFullDescription: true,
                           textAlign: TextAlign.center,
                           fontWeight: FontWeight.w500,
-                          textColor: AppColors.black.withOpacity(0.7),
+                          textColor: AppColors.black.withValues(alpha: 0.7),
                         ),
                         SizedBox(height: getSize(30)),
                         Row(
