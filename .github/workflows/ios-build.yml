@@ -53,7 +53,7 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
+            CODE_SIGN_IDENTITY="Apple Development: Iroid Dev (TBYWK2G86F)" \
             PROVISIONING_PROFILE_SPECIFIER="com.iroid.app.shiftfinder"
 
           xcodebuild -exportArchive \
