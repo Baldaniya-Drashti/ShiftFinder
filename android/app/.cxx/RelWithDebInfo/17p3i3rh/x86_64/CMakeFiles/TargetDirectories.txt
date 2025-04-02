@@ -1,0 +1,2 @@
+/Users/imac/Desktop/shift/android/app/.cxx/RelWithDebInfo/17p3i3rh/x86_64/CMakeFiles/edit_cache.dir
+/Users/imac/Desktop/shift/android/app/.cxx/RelWithDebInfo/17p3i3rh/x86_64/CMakeFiles/rebuild_cache.dir

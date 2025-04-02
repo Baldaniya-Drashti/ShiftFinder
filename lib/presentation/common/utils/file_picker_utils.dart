@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 
 class FilePickerUtils {
@@ -120,8 +121,8 @@ class FilePickerUtils {
                 ),
               ),
             ),
-            title: const BaseText(
-              text: 'Permission Denied!',
+            title: BaseText(
+              text: StringConstant.permissionDenied,
               fontWeight: FontWeight.w600,
             ),
             content: Column(

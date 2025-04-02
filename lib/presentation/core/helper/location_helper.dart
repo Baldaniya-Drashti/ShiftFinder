@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -67,9 +68,6 @@ class LocationHelper {
     final response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$apiKey'));
 
-    print(
-        "Selected Location full details---> ${jsonEncode(json.decode(response.body))}");
-
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
@@ -96,23 +94,6 @@ class LocationHelper {
     }
     return null;
   }
-
-  /*  Future<void> openDirections(
-        double startLat, double startLng, double endLat, double endLng) async {
-      final Uri googleMapsUrl = Uri.parse(
-          'https://www.google.com/maps/dir/?api=1&origin=$startLat,$startLng&destination=$endLat,$endLng&travelmode=driving');
-
-      final Uri appleMapsUrl = Uri.parse(
-          'http://maps.apple.com/?saddr=$startLat,$startLng&daddr=$endLat,$endLng');
-
-      if (await canLaunchUrl(googleMapsUrl)) {
-        await launchUrl(googleMapsUrl, mode: LaunchMode.platformDefault);
-      } else if (await canLaunchUrl(appleMapsUrl)) {
-        await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
-      } else {
-        throw 'Could not launch map application.';
-      }
-    } */
 
   static Future<(Position?, double?, double?)> getCurrentLocation(
       BuildContext context) async {
@@ -183,22 +164,6 @@ class LocationHelper {
     }
   }
 
-  /* Future<void> launchMapWithDirections(double startLat, double startLng,
-      double destinationLatitude, double destinationLongitude) async {
-    final availableMaps = await MapLauncher.showDirections(
-      mapType: MapType.google,
-      destination: Coords(
-        destinationLatitude,
-        destinationLongitude,
-      ),
-
-      origin: Coords(startLat, startLng),
-      directionsMode: DirectionsMode.driving,
-      // title: "",
-    );
-    print(availableMaps);
-  } */
-
   static showPermissionAlertDialog(BuildContext context) async {
     //  return Container();
     return showDialog<void>(
@@ -206,16 +171,16 @@ class LocationHelper {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          // shape: SmoothRectangleBorder(
-          //   borderRadius: SmoothBorderRadius.all(
-          //     SmoothRadius(
-          //       cornerRadius: getSize(20),
-          //       cornerSmoothing: 1,
-          //     ),
-          //   ),
-          // ),
+          /* shape: SmoothRectangleBorder(
+            borderRadius: SmoothBorderRadius.all(
+              SmoothRadius(
+                cornerRadius: getSize(20),
+                cornerSmoothing: 1,
+              ),
+            ),
+          ), */
           title: BaseText(
-            text: 'Permission Denied!',
+            text: StringConstant.permissionDenied,
             fontWeight: FontWeight.w600,
           ),
           content: Column(
@@ -235,7 +200,7 @@ class LocationHelper {
                     width: getSize(10),
                   ),
                   BaseText(
-                    text: 'Location',
+                    text: StringConstant.location,
                     fontWeight: FontWeight.w500,
                   ),
                 ],
@@ -245,7 +210,7 @@ class LocationHelper {
           actions: <Widget>[
             TextButton(
               child: BaseText(
-                text: 'Cancel',
+                text: StringConstant.cancle,
                 fontWeight: FontWeight.w600,
                 textColor: Colors.blueAccent,
               ),
@@ -255,7 +220,7 @@ class LocationHelper {
             ),
             TextButton(
               child: BaseText(
-                text: 'Open Settings',
+                text: StringConstant.openSettings,
                 fontWeight: FontWeight.w600,
                 textColor: Colors.blueAccent,
               ),

@@ -901,6 +901,11 @@ class StringConstant {
       "Long-term contracts must be at least three months. If your posting doesn't meet this requirement, consider using our multi-shift feature to schedule your shifts more flexibly.";
   static const String uploadDocument = "Upload Document";
   static const String noDataFound = "No data found";
+  static const String openSettings = "Open Settings";
+  static const String camera = "Camera";
+  static const String photos = "Photos";
+  static const String storage = "Storage";
+  static const String permissionDenied = "Permission Denied!";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";

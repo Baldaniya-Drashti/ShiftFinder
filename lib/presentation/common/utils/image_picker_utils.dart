@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 
 import '../widgets/base_text.dart';
 
@@ -199,8 +200,8 @@ class ImagePickerUtils {
                 ),
               ),
             ),
-            title: const BaseText(
-              text: 'Permission Denied!',
+            title: BaseText(
+              text: StringConstant.permissionDenied,
               fontWeight: FontWeight.w600,
             ),
             content: imageSource == ImageSource.gallery
@@ -224,7 +225,9 @@ class ImagePickerUtils {
                             width: getSize(10),
                           ),
                           BaseText(
-                            text: Platform.isIOS ? 'Photos' : 'Storage',
+                            text: Platform.isIOS
+                                ? StringConstant.photos
+                                : StringConstant.storage,
                             fontWeight: FontWeight.w500,
                           ),
                         ],
@@ -247,11 +250,9 @@ class ImagePickerUtils {
                       Row(
                         children: [
                           const Icon(Icons.camera_alt_outlined),
-                          SizedBox(
-                            width: getSize(10),
-                          ),
-                          const BaseText(
-                            text: 'Camera',
+                          SizedBox(width: getSize(10)),
+                          BaseText(
+                            text: StringConstant.camera,
                             fontWeight: FontWeight.w500,
                           ),
                         ],
@@ -260,8 +261,8 @@ class ImagePickerUtils {
                   ),
             actions: <Widget>[
               TextButton(
-                child: const BaseText(
-                  text: 'Cancel',
+                child: BaseText(
+                  text: StringConstant.cancle,
                   fontWeight: FontWeight.w600,
                   textColor: Colors.blueAccent,
                 ),
@@ -270,8 +271,8 @@ class ImagePickerUtils {
                 },
               ),
               TextButton(
-                child: const BaseText(
-                  text: 'Open Settings',
+                child: BaseText(
+                  text: StringConstant.openSettings,
                   fontWeight: FontWeight.w600,
                   textColor: Colors.blueAccent,
                 ),

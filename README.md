@@ -173,3 +173,23 @@ lib/
     - The entry point of the application.
     - Initializes dependencies and runs the app.
 ```
+
+
+
+##### Using Google api's in project
+
+```sh
+
+Google_Places_API_(Autocomplete_&_Place_Details)
+- place/autocomplete/json → Suggests locations as users type.
+- place/details/json → Retrieves coordinates of a place.
+
+Google_Geocoding_API
+- geocode/json → Converts lat/lng to an address.
+
+Google_Maps_Directions_(URL-based_Navigation)
+- Launches Google Maps for route navigation.
+- https://www.google.com/maps/dir/?api=1 → Android
+- http://maps.apple.com/ → iOS
+
+``` 
