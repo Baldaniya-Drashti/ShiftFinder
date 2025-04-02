@@ -1,48 +1,48 @@
-name: Flutter Build APK
+# name: Flutter Build APK
 
-on:
-  push:
-    branches:
-      - testing_drashti  
+# on:
+#   push:
+#     branches:
+#       - testing_drashti  
 
-jobs:
-  build:
-    name: Build APK
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     name: Build APK
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 3.29.2
+#       - name: Setup Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           flutter-version: 3.29.2
 
-      # - name: Check latest Kotlin version
-      #   id: kotlin_version
-      #   run: |
-      #     LATEST_KOTLIN=$(curl -s https://api.github.com/repos/JetBrains/kotlin/releases/latest | jq -r '.tag_name' | sed 's/v//')
-      #     echo "Latest Kotlin Version: $LATEST_KOTLIN"
-      #     echo "KOTLIN_VERSION=$LATEST_KOTLIN" >> $GITHUB_ENV
+#       # - name: Check latest Kotlin version
+#       #   id: kotlin_version
+#       #   run: |
+#       #     LATEST_KOTLIN=$(curl -s https://api.github.com/repos/JetBrains/kotlin/releases/latest | jq -r '.tag_name' | sed 's/v//')
+#       #     echo "Latest Kotlin Version: $LATEST_KOTLIN"
+#       #     echo "KOTLIN_VERSION=$LATEST_KOTLIN" >> $GITHUB_ENV
 
-      # - name: Update Kotlin version in build.gradle
-      #   run: |
-      #     sed -i "s/ext.kotlin_version = '.*'/ext.kotlin_version = '$KOTLIN_VERSION'/g" android/build.gradle
-      #     cat android/build.gradle | grep "ext.kotlin_version"    
+#       # - name: Update Kotlin version in build.gradle
+#       #   run: |
+#       #     sed -i "s/ext.kotlin_version = '.*'/ext.kotlin_version = '$KOTLIN_VERSION'/g" android/build.gradle
+#       #     cat android/build.gradle | grep "ext.kotlin_version"    
 
-      - name: Install dependencies
-        run: flutter pub get
+#       - name: Install dependencies
+#         run: flutter pub get
 
-      # This step is needed only if the project uses freezed
-      - name: Generate freezed files 
-        run: flutter pub run build_runner build --delete-conflicting-outputs
+#       # This step is needed only if the project uses freezed
+#       - name: Generate freezed files 
+#         run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      - name: Build APK
-        run: flutter build apk --release
+#       - name: Build APK
+#         run: flutter build apk --release
 
-      - name: Upload APK as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+#       - name: Upload APK as Artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: release-apk
+#           path: build/app/outputs/flutter-apk/app-release.apk
