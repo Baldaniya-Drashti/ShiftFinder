@@ -34,7 +34,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate freezed files
+      # This step is needed only if the project uses freezed
+      - name: Generate freezed files 
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Build APK

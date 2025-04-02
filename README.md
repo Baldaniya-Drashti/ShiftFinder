@@ -192,4 +192,11 @@ Google_Maps_Directions_(URL-based_Navigation)
 - https://www.google.com/maps/dir/?api=1 → Android
 - http://maps.apple.com/ → iOS
 
+
+
+iOS:
+    -.p12_Certificate_Path: /Users/imac/Documents/ShiftFinder_Certificates/cert.p12
+    -.p12_Password: ShiftFinder@p12
+    -.mobilePorvision_Path: /Users/imac/Documents/ShiftFinder_Certificates/profile.mobileprovision
+
 ``` 

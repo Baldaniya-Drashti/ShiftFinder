@@ -130,22 +130,6 @@ class LocationHelper {
       const String googleMapsBaseUrl = 'https://www.google.com/maps/dir/?api=1';
       const String appleMapsBaseUrl = 'http://maps.apple.com/';
 
-      // /// FOR DEMO
-      /* endLat = 21.25002048372512;
-      endLng = 72.7859071371221;
-
-      lat = 49.90233907611407;
-      lng = -97.03402648956586; */
-
-      // Define current location as the origin
-      // const String origin = "origin=My+Location";
-
-      /* final Uri googleMapsUrl = Uri.parse(
-          '$googleMapsBaseUrl&$origin&destination=$endLat,$endLng&travelmode=driving');
-
-      final Uri appleMapsUrl = Uri.parse(
-          '$appleMapsBaseUrl?&saddr=My+Location&daddr=$endLat,$endLng'); */
-
       final Uri googleMapsUrl = Uri.parse(
           '$googleMapsBaseUrl&origin=$lat,$lng&destination=$endLat,$endLng&travelmode=driving');
 
