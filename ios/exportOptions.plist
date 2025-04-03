@@ -10,7 +10,7 @@
     <string>Apple Development</string>
     <key>provisioningProfiles</key>
     <dict>
-        <key>com.iroi.app.shiftfinder</key> 
+        <key>com.iroid.app.shiftfinder</key> 
         <string>Apple Development: iRoid Dev (TBYWK2G86F)</string>
     </dict>
     <key>compileBitcode</key>

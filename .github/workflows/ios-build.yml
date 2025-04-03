@@ -37,7 +37,7 @@ jobs:
           PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
         run: |
           echo "🔑 Setting up provisioning profiles and certificates..."
-          
+
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
           echo "$P12_BASE64" | base64 --decode -o certificate.p12
@@ -64,18 +64,18 @@ jobs:
           
           # Archive the app
           xcodebuild clean archive \
-            -workspace Runner.xcworkspace \
+            -xcodebuild -workspace ios/Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
-            -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
+            -archivePath build/Runner.xcarchive archive
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates | xcpretty
             
           # Export the IPA  
           xcodebuild -exportArchive \
-            -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
-            -exportPath $GITHUB_WORKSPACE/build/ \
-            -exportOptionsPlist exportOptions.plist | xcpretty
+            -archivePath build/Runner.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist ios/exportOptions.plist
 
           echo "✅ Build completed successfully."  
 
