@@ -72,7 +72,8 @@ jobs:
             -configuration Release \
             -archivePath build/Runner.xcarchive \
             -destination 'generic/platform=iOS' \
-            -allowProvisioningUpdates | xcpretty
+            -allowProvisioningUpdates \
+            CODE_SIGNING_ALLOWED=YES | xcpretty
           
           # Export the IPA  
           xcodebuild -exportArchive \
