@@ -71,10 +71,10 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath build/Runner.xcarchive \ archive
+            -archivePath build/Runner.xcarchive \
             # -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
-            # -destination 'generic/platform=iOS' \
-            # -allowProvisioningUpdates | xcpretty
+            -destination 'generic/platform=iOS' \
+            -allowProvisioningUpdates | xcpretty
           
           
           # Export the IPA  
