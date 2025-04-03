@@ -32,7 +32,7 @@ jobs:
       
       - name: Install xcpretty (for clean logs)
         run: gem install xcpretty
-      
+
       - name: Set Up Provisioning Profile & Certificates
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
@@ -73,7 +73,10 @@ jobs:
             -archivePath build/Runner.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
-            CODE_SIGNING_ALLOWED=YES | xcpretty
+            CODE_SIGNING_ALLOWED=YES \
+            | tee xcodebuild.log | xcpretty --color
+            
+          cat xcodebuild.log
           
           # Export the IPA  
           xcodebuild -exportArchive \
