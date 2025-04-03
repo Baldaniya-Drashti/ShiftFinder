@@ -36,30 +36,46 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
         run: |
+          echo "🔑 Setting up provisioning profiles and certificates..."
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo $PROVISIONING_PROFILE_BASE64 | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
-          echo $P12_BASE64 | base64 --decode > certificate.p12
+          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
+          echo "$P12_BASE64" | base64 --decode -o certificate.p12
           security create-keychain -p "github-actions" build.keychain
           security default-keychain -s build.keychain
           security unlock-keychain -p "github-actions" build.keychain
-          security import certificate.p12 -k build.keychain -P $P12_PASSWORD -T /usr/bin/codesign
+          security import certificate.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "github-actions" build.keychain
           security list-keychains -s build.keychain
+          security find-identity -v
+          echo "✅ Provisioning and certificates set up successfully."
+          
       
       - name: Build IPA
         run: |
+          echo "🚀 Starting Xcode build..."
           cd ios
+
+          if [ ! -f exportOptions.plist ]; then
+          echo "❌ exportOptions.plist not found! Make sure it is included in the repo."
+            exit 1
+          fi
+          
+          # Archive the app
           xcodebuild clean archive \
             -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
             -destination 'generic/platform=iOS' \
-            -allowProvisioningUpdates
-
+            -allowProvisioningUpdates | xcpretty
+            
+          # Export the IPA  
           xcodebuild -exportArchive \
             -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
             -exportPath $GITHUB_WORKSPACE/build/ \
-            -exportOptionsPlist exportOptions.plist
+            -exportOptionsPlist exportOptions.plist | xcpretty
+
+          echo "✅ Build completed successfully."  
 
       - name: Upload IPA as Artifact
         uses: actions/upload-artifact@v4

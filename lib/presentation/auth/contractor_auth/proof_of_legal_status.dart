@@ -303,8 +303,7 @@ class ProofOfLegalStatus extends StatelessWidget {
           doc: state.proofBackDoc.getValue(),
           showDocError:
               (state.showErrorMesages && !state.proofBackDoc.isValid()),
-          errorMsg:
-              StringConstant.pleaseSelectFrontPageOfProofOfLegalWorkStatus,
+          errorMsg: StringConstant.pleaseSelectBackPageOfProofOfLegalWorkStatus,
           takePhotoCallback: (path) {
             context.read<ProofOfLegalStatusBloc>().add(
                   ProofOfLegalStatusEvent.selectBackDoc(path),

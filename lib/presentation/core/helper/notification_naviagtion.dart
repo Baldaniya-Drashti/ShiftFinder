@@ -127,6 +127,20 @@ class NotificationNaviagtion {
         getIt<AppRouter>()
             .push(PageRouteInfo(ContractorFullTimePositionView.name));
         break;
+      case 24:
+        setNotificationTab(3);
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(1));
+        break;
+      case 25:
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(1));
+        break;
+      case 26:
+        context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+        break;
       default:
         context
             .read<ContractorMainTabBloc>()
@@ -139,7 +153,7 @@ class NotificationNaviagtion {
       {required int type, required NotificationDTO obj}) async {
     switch (type) {
       case 2:
-        await getIt<AppRouter>().push(
+        getIt<AppRouter>().push(
           PageRouteInfo(ViewHomeShiftDetails.name,
               args: ViewHomeShiftDetailsArgs(postId: obj.post_id ?? -1)),
         );
@@ -147,16 +161,15 @@ class NotificationNaviagtion {
       case 3:
         break;
       case 4:
-        await getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 5:
-        // getIt<AppRouter>().push(PageRouteInfo(EmployerCompletedShiftView.name));
         getIt<AppRouter>().push(PageRouteInfo(TotalPraposalView.name,
             args: TotalPraposalViewArgs(postId: obj.post_id ?? -1)));
         break;
       case 6:
-        await getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 7:
@@ -167,7 +180,7 @@ class NotificationNaviagtion {
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
         break;
       case 9:
-        await getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 10:
@@ -182,7 +195,7 @@ class NotificationNaviagtion {
             args: TotalPraposalViewArgs(postId: obj.post_id ?? -1)));
         break;
       case 13:
-        await getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 14:
@@ -237,6 +250,17 @@ class NotificationNaviagtion {
         break;
       case 23:
         getIt<AppRouter>().push(PageRouteInfo(EmployerFullPostingView.name));
+        break;
+      case 24:
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+            args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
+        break;
+      case 25:
+        setNotificationTab(1);
+        context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
+        break;
+      case 26:
+        getIt<AppRouter>().push(PageRouteInfo(EmployerCompletedShiftView.name));
         break;
       default:
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));

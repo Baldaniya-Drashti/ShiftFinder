@@ -34,10 +34,8 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<MessageBloc>()
-        ..add(
-          MessageEvent.getReceiverId(receiverId),
-        ),
+      create: (context) =>
+          getIt<MessageBloc>()..add(MessageEvent.getReceiverId(receiverId)),
       child: BlocConsumer<MessageBloc, MessageState>(
         listener: (context, state) {},
         builder: (context, state) {
