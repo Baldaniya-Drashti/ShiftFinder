@@ -30,6 +30,9 @@ jobs:
           pod repo update
           pod install --verbose 
       
+      - name: Install xcpretty (for clean logs)
+        run: gem install xcpretty
+      
       - name: Set Up Provisioning Profile & Certificates
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
@@ -57,25 +60,28 @@ jobs:
           echo "🚀 Starting Xcode build..."
           cd ios
 
-          if [ ! -f exportOptions.plist ]; then
+          if [ ! -f ios/exportOptions.plist ]; then
           echo "❌ exportOptions.plist not found! Make sure it is included in the repo."
             exit 1
           fi
           
           # Archive the app
           xcodebuild clean archive \
-            -workspace ./ios/Runner.xcworkspace \
+            -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
-            -archivePath build/Runner.xcarchive archive
+            -archivePath build/Runner.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates | xcpretty
-            
+          
           # Export the IPA  
           xcodebuild -exportArchive \
             -archivePath build/Runner.xcarchive \
             -exportPath build \
             -exportOptionsPlist ios/exportOptions.plist
+          
+          # Lock the keychain after the build
+          security lock-keychain build.keychain
 
           echo "✅ Build completed successfully."  
 
