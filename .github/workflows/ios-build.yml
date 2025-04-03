@@ -70,19 +70,18 @@ jobs:
             -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
-            -archivePath build/Runner.xcarchive \
+            -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
             -destination 'generic/platform=iOS' \
-            -allowProvisioningUpdates \
-            CODE_SIGNING_ALLOWED=YES \
-            | tee xcodebuild.log | xcpretty --color
+            -allowProvisioningUpdates | xcpretty
             
           cat xcodebuild.log
           
           # Export the IPA  
           xcodebuild -exportArchive \
-            -archivePath build/Runner.xcarchive \
-            -exportPath build \
-            -exportOptionsPlist ./exportOptions.plist
+            -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
+            -exportPath $GITHUB_WORKSPACE/build/ \
+            -exportOptionsPlist exportOptions.plist | xcpretty
+            # -exportOptionsPlist ./exportOptions.plist
           
           # Lock the keychain after the build
           security lock-keychain build.keychain
