@@ -64,7 +64,7 @@ jobs:
           
           # Archive the app
           xcodebuild clean archive \
-            -workspace ios/Runner.xcworkspace \
+            -workspace ./ios/Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -archivePath build/Runner.xcarchive archive
