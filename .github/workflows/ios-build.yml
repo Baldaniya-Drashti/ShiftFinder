@@ -70,9 +70,11 @@ jobs:
             -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
-            -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
-            -destination 'generic/platform=iOS' \
-            -allowProvisioningUpdates | xcpretty
+            -sdk iphoneos \
+            -archivePath build/Runner.xcarchive \ archive
+            # -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
+            # -destination 'generic/platform=iOS' \
+            # -allowProvisioningUpdates | xcpretty
           
           
           # Export the IPA  
