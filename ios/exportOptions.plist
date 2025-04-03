@@ -11,7 +11,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>com.iroid.app.shiftfinder</key> 
-        <string>Apple Development: iRoid Dev (TBYWK2G86F)</string>
+        <string>iOS Team Provisioning Profile: com.iroid.app.shiftfinder</string>
     </dict>
     <key>compileBitcode</key>
     <true/>
