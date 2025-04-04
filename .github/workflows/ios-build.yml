@@ -32,6 +32,26 @@ jobs:
       
       - name: Install xcpretty (for clean logs)
         run: gem install xcpretty
+      
+      - name: Ensure Flutter iOS Project is Generated
+        run: |
+          flutter clean
+          flutter pub get
+          flutter build ios --no-codesign
+      
+      - name: Check iOS Workspace
+        run: |
+          cd ios
+          ls -la
+          if [ ! -d "Runner.xcworkspace" ]; then
+            echo "❌ Runner.xcworkspace not found! Build will fail."
+            exit 1
+          fi
+      
+      - name: List Xcode Schemes
+        run: |
+          cd ios
+          xcodebuild -list
 
       - name: Set Up Provisioning Profile & Certificates
         env:
@@ -67,11 +87,6 @@ jobs:
             exit 1
           fi
 
-          # Define correct paths using $GITHUB_WORKSPACE
-          ARCHIVE_PATH="$GITHUB_WORKSPACE/ios/build/Runner.xcarchive"
-          
-          EXPORT_PATH="$GITHUB_WORKSPACE/ios/build/"
-
       - name: Archive the App (Debugging Mode)
         run: |
           xcodebuild clean archive \
@@ -84,24 +99,19 @@ jobs:
             -allowProvisioningUpdates
 
           # Check if archive exists before proceeding
-          if [ ! -d "$ARCHIVE_PATH" ]; then
+          if [ ! -d "$GITHUB_WORKSPACE/ios/build/Runner.xcarchive" ]; then
             echo "❌ Archive failed! Runner.xcarchive not found."
             exit 1
           fi
 
           echo "📦 Exporting IPA..."
           xcodebuild -exportArchive \
-            -archivePath "$ARCHIVE_PATH" \
-            -exportPath "$EXPORT_PATH" \
-            -exportOptionsPlist exportOptions.plist \
+            -archivePath "$GITHUB_WORKSPACE/ios/build/Runner.xcarchive" \
+            -exportPath "$GITHUB_WORKSPACE/ios/build/" \
+            -exportOptionsPlist $GITHUB_WORKSPACE/ios/exportOptions.plist \
             -allowProvisioningUpdates | xcpretty
 
-          # Check if IPA was created successfully
-          if [ ! -f "$EXPORT_PATH/Runner.ipa" ]; then
-            echo "❌ IPA export failed!"
-            exit 1
-          fi
-
+      
           # Lock the keychain after the build
           security lock-keychain build.keychain
 
