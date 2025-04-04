@@ -42,14 +42,17 @@ jobs:
           echo "🔑 Setting up provisioning profiles and certificates..."
 
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
-          echo "$P12_BASE64" | base64 --decode -o certificate.p12
+          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o ~/Library/MobileDevice/Provisioning\ Profiles/ShiftFinder_Profile.mobileprovision
+          echo "$P12_BASE64" | base64 --decode -o cert.p12
           security create-keychain -p "github-actions" build.keychain
           security default-keychain -s build.keychain
           security unlock-keychain -p "github-actions" build.keychain
-          security import certificate.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security import cert.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k "github-actions" build.keychain
           security list-keychains -s build.keychain
+
+          echo "🔑 Start to Identify Correct Certificate is installed or not"
+
           security find-identity -v
 
           echo "✅ Provisioning and certificates set up successfully."

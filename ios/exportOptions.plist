@@ -7,7 +7,7 @@
     <key>teamID</key>
     <string>6F7ZM56Y52</string>  <!-- Replace with your Apple Developer Team ID -->
     <key>signingCertificate</key>
-    <string>iOS Development</string>
+    <string>Apple Development: iRoid Dev (TBYWK2G86F)</string>
     <key>provisioningProfiles</key> 
     <dict>
         <key>com.iroid.app.shiftfinder</key>
