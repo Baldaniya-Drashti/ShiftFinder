@@ -69,18 +69,19 @@ jobs:
 
           # Define correct paths using $GITHUB_WORKSPACE
           ARCHIVE_PATH="$GITHUB_WORKSPACE/ios/build/Runner.xcarchive"
-          EXPORT_PATH="$GITHUB_WORKSPACE/ios/build/"
           
-          # Archive the app
-          echo "📦 Archiving the app..."
+          EXPORT_PATH="$GITHUB_WORKSPACE/ios/build/"
+
+      - name: Archive the App (Debugging Mode)
+        run: |
           xcodebuild clean archive \
             -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath "$ARCHIVE_PATH" \
+            -archivePath "$GITHUB_WORKSPACE/ios/build/Runner.xcarchive" \
             -destination 'generic/platform=iOS' \
-            -allowProvisioningUpdates | xcpretty
+            -allowProvisioningUpdates
 
           # Check if archive exists before proceeding
           if [ ! -d "$ARCHIVE_PATH" ]; then
