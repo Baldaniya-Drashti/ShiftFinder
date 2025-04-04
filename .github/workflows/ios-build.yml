@@ -79,7 +79,8 @@ jobs:
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates | xcpretty
       
-
+          echo "🚀 xcWorkspace is Completing..."
+          echo "🚀 exportArchive is Starting..."
           # Export the IPA  
           # xcodebuild -exportArchive \
           #   -archivePath $GITHUB_WORKSPACE/build/Runner.xcarchive \
