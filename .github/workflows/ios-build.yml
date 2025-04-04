@@ -66,23 +66,41 @@ jobs:
           echo "❌ exportOptions.plist not found! Make sure it is included in the repo."
             exit 1
           fi
+
+          # Define correct paths using $GITHUB_WORKSPACE
+          ARCHIVE_PATH="$GITHUB_WORKSPACE/ios/build/Runner.xcarchive"
+          EXPORT_PATH="$GITHUB_WORKSPACE/ios/build/"
           
           # Archive the app
+          echo "📦 Archiving the app..."
           xcodebuild clean archive \
             -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath build/Runner.xcarchive \
+            -archivePath "$ARCHIVE_PATH" \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates | xcpretty
 
+          # Check if archive exists before proceeding
+          if [ ! -d "$ARCHIVE_PATH" ]; then
+            echo "❌ Archive failed! Runner.xcarchive not found."
+            exit 1
+          fi
+
+          echo "📦 Exporting IPA..."
           xcodebuild -exportArchive \
-            -archivePath build/Runner.xcarchive \
-            -exportPath ios/build/ \
+            -archivePath "$ARCHIVE_PATH" \
+            -exportPath "$EXPORT_PATH" \
             -exportOptionsPlist exportOptions.plist \
             -allowProvisioningUpdates | xcpretty
-          
+
+          # Check if IPA was created successfully
+          if [ ! -f "$EXPORT_PATH/Runner.ipa" ]; then
+            echo "❌ IPA export failed!"
+            exit 1
+          fi
+
           # Lock the keychain after the build
           security lock-keychain build.keychain
 
