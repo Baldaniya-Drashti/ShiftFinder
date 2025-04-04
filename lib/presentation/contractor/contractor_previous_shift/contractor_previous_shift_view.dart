@@ -5,6 +5,8 @@ import 'package:shift/application/contractor/contractor_previous_shift/contracto
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_cancelled_shift_view.dart';
 import 'package:shift/presentation/contractor/contractor_previous_shift/contractor_completed_shift_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -18,33 +20,43 @@ class ContractorPreviousShiftView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ContractorPreviousShiftBloc>()
-        ..add(ContractorPreviousShiftEvent.getCompletedList(isRefresh: true))
-        ..add(ContractorPreviousShiftEvent.getCancelledShift(
-            isRefresh: true, sortBy: 1)),
+        ..add(ContractorPreviousShiftEvent.tabChange(0)),
+      // ..add(ContractorPreviousShiftEvent.getCompletedList(isRefresh: true))
+      // ..add(ContractorPreviousShiftEvent.getCancelledShift(
+      //     isRefresh: true, sortBy: 1)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
           title: StringConstant.previousShifts,
         ),
-        body: DefaultTabController(
-          length: 2,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(25)),
-                child: buildTabBar(context),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    ContractorCompletedShiftView(),
-                    ContractorCancelledShiftView(),
-                  ],
-                ),
-              )
-            ],
-          ),
+        body: BlocBuilder<ContractorPreviousShiftBloc,
+            ContractorPreviousShiftState>(
+          builder: (context, state) {
+            return (state.isLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : DefaultTabController(
+                    length: 2,
+                    initialIndex: state.currentIndex,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(25)),
+                          child: buildTabBar(context),
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              ContractorCompletedShiftView(),
+                              ContractorCancelledShiftView(),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+          },
         ),
       ),
     );
@@ -59,7 +71,12 @@ class ContractorPreviousShiftView extends StatelessWidget {
         color: AppColors.white,
       ),
       child: TabBar(
-        onTap: (value) {},
+        onTap: (value) {
+          setNotificationTab(null);
+          context
+              .read<ContractorPreviousShiftBloc>()
+              .add(ContractorPreviousShiftEvent.tabChange(value));
+        },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(
           fontSize: getFontSize(14),

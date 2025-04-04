@@ -5,6 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/contractor_previus_shift_dto/contractor_previus_shift_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'contractor_previous_shift_event.dart';
 part 'contractor_previous_shift_state.dart';
 part 'contractor_previous_shift_bloc.freezed.dart';
@@ -27,15 +28,40 @@ class ContractorPreviousShiftBloc
       : super(ContractorPreviousShiftState.initial()) {
     on<ContractorPreviousShiftEvent>((event, emit) async {
       await event.map(
+        tabChange: (value) async {
+          final currentTab = getNotificationTab();
+
+          if (currentTab != null) {
+            emit(state.copyWith(isLoading: true, currentIndex: currentTab));
+            await Future.delayed(Duration(seconds: 1));
+            if (currentTab == 0) {
+              add(ContractorPreviousShiftEvent.getCompletedList(
+                  isRefresh: true));
+            } else {
+              add(ContractorPreviousShiftEvent.getCancelledShift(
+                isRefresh: true,
+                sortBy: 1,
+              ));
+            }
+            emit(state.copyWith(isLoading: false));
+          } else {
+            if (value.index == 0) {
+              add(ContractorPreviousShiftEvent.getCompletedList(
+                  isRefresh: true));
+            } else {
+              add(ContractorPreviousShiftEvent.getCancelledShift(
+                  isRefresh: true, sortBy: 1));
+            }
+
+            emit(state.copyWith(currentIndex: value.index));
+          }
+        },
         onCancelTypeSorting: (value) {
           if (state.currentCancelFilter != value.currentSorting) {
             add(ContractorPreviousShiftEvent.getCancelledShift(
                 isRefresh: true, sortBy: value.currentSorting.id ?? 1));
           }
           emit(state.copyWith(currentCancelFilter: value.currentSorting));
-        },
-        tabChange: (value) {
-          emit(state.copyWith(currentIndex: value.index));
         },
         getCompletedList: (GetCompletedList e) async {
           if (e.isRefresh) {

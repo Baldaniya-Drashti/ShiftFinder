@@ -89,7 +89,7 @@ class _NotificationTile extends StatelessWidget {
         print("onTapNotification navigation---> ${obj.type}");
         if (getCurrentRole() == 1) {
           NotificationNaviagtion.contractorNavigateToRespectivePage(context,
-              type: obj.type ?? 0);
+              type: obj.type ?? 0, obj: obj);
         } else {
           NotificationNaviagtion.employerNavigateToRespectivePage(context,
               type: obj.type ?? 0, obj: obj);
@@ -121,7 +121,7 @@ class _NotificationTile extends StatelessWidget {
                                         ? (obj.job_type == "1")
                                             ? StringConstant.fullTime
                                             : StringConstant.partTime
-                                        : "",
+                                        : StringConstant.shiftFinder,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10,
                                 textColor:

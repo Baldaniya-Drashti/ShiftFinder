@@ -3,7 +3,8 @@ part of 'contractor_previous_shift_bloc.dart';
 @freezed
 class ContractorPreviousShiftState with _$ContractorPreviousShiftState {
   factory ContractorPreviousShiftState(
-          {required int currentIndex,
+          {required bool isLoading,
+          required int currentIndex,
           required SkillDTO currentCancelFilter,
           required bool postDataLoading,
           required bool completedDataListLoading,
@@ -17,8 +18,9 @@ class ContractorPreviousShiftState with _$ContractorPreviousShiftState {
       _ContractorPreviousShiftState;
   factory ContractorPreviousShiftState.initial() =>
       ContractorPreviousShiftState(
+        isLoading: false,
         currentCancelFilter: SkillDTO(id: 1, name: "Withdrawn by You"),
-        currentIndex: 1,
+        currentIndex: 0,
         cancelledDataIsErrorApi: false,
         cancelledDataListLoading: false,
         cancelledDataNoDataFound: false,

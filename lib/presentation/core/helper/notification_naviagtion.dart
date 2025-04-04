@@ -11,7 +11,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 
 class NotificationNaviagtion {
   static contractorNavigateToRespectivePage(BuildContext context,
-      {required int type}) {
+      {required int type, required NotificationDTO obj}) {
     switch (type) {
       case 2:
         break;
@@ -141,6 +141,28 @@ class NotificationNaviagtion {
       case 26:
         context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
         break;
+      case 27:
+        setNotificationTab(3);
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(1));
+        break;
+      case 28:
+        break;
+      case 29:
+        setNotificationTab(1);
+        context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+        break;
+      case 30:
+        context.router.push(
+          PageRouteInfo(
+            Message.name,
+            args: MessageArgs(
+              receiverId: obj.post_id ?? -1,
+            ),
+          ),
+        );
+        break;
       default:
         context
             .read<ContractorMainTabBloc>()
@@ -261,6 +283,27 @@ class NotificationNaviagtion {
         break;
       case 26:
         getIt<AppRouter>().push(PageRouteInfo(EmployerCompletedShiftView.name));
+        break;
+      case 27:
+        getIt<AppRouter>().push(PageRouteInfo(ViewSingleApplicants.name,
+            args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
+        break;
+      case 28:
+        context.router.push(PageRouteInfo(EmployerLocationView.name));
+        break;
+      case 29:
+        setNotificationTab(2);
+        context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
+        break;
+      case 30:
+        context.router.push(
+          PageRouteInfo(
+            Message.name,
+            args: MessageArgs(
+              receiverId: obj.post_id ?? -1,
+            ),
+          ),
+        );
         break;
       default:
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));
