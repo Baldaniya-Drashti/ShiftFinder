@@ -34,7 +34,7 @@ class DateRangePickerTile extends StatelessWidget {
           padding: EdgeInsets.only(left: getSize(18)),
           child: BaseText(text: this.label, fontSize: 10),
         ),
-        Gap(8),
+        Gap(getSize(8)),
         Material(
           color: AppColors.white,
           shape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class DateRangePickerTile extends StatelessWidget {
                 children: [
                   SvgPicture.asset(SvgImageConstant.calendar,
                       height: 20, width: 20),
-                  Gap(8),
+                  Gap(getSize(8)),
                   Expanded(
                       child: BaseText(
                           text: label,

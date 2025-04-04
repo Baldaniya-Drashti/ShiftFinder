@@ -150,7 +150,7 @@ class ApprovedHiredList extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  if (contractor.shift_complete == true) ...[
+                  if (contractor.shift_complete != true) ...[
                     Spacer(),
                     ChatButton(
                         badgeCount: contractor.count ?? 0,
