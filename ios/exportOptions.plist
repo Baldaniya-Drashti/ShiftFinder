@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>method</key>
-    <string>app-store</string>  <!-- Change to "ad-hoc" or "enterprise" if needed -->
+    <string>development</string>  <!-- Change to "ad-hoc" or "enterprise" if needed -->
     <key>teamID</key>
     <string>6F7ZM56Y52</string>  <!-- Replace with your Apple Developer Team ID -->
     <key>signingCertificate</key>
@@ -11,7 +11,7 @@
     <key>provisioningProfiles</key> 
     <dict>
         <key>com.iroid.app.shiftfinder</key>
-        <string>Apple Development: iRoid Dev (TBYWK2G86F)</string>
+        <string>profile</string>
     </dict>
     <key>compileBitcode</key>
     <true/>
