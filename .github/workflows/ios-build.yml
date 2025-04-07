@@ -93,6 +93,14 @@ jobs:
 
       - name: Archive the App (Debugging Mode)
         run: |
+          echo "🔍 GITHUB_WORKSPACE is: $GITHUB_WORKSPACE"
+          cd ios
+           if [ ! -f "Runner.xcworkspace/contents.xcworkspacedata" ]; then
+            echo "❌ Runner.xcworkspace is missing!"
+            ls -la
+            exit 1
+          fi
+          
           xcodebuild clean archive \
             -workspace Runner.xcworkspace \
             -scheme Runner \

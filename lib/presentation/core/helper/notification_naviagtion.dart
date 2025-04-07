@@ -232,22 +232,16 @@ class NotificationNaviagtion {
         getIt<AppRouter>().push(PageRouteInfo(EmployerLongTermView.name));
         break;
       case 17:
-        getIt<AppRouter>().push(
-          PageRouteInfo(
+        getIt<AppRouter>().push(PageRouteInfo(
             EmployerLongTermApplicantView.name,
             args: EmployerLongTermApplicantViewArgs(
-                id: obj.full_term_shift_id ?? -1),
-          ),
-        );
+                id: obj.full_term_shift_id ?? -1)));
         break;
       case 18:
-        getIt<AppRouter>().push(
-          PageRouteInfo(
+        getIt<AppRouter>().push(PageRouteInfo(
             EmployerLongTermApplicantView.name,
             args: EmployerLongTermApplicantViewArgs(
-                id: obj.full_term_shift_id ?? -1),
-          ),
-        );
+                id: obj.full_term_shift_id ?? -1)));
         break;
       case 19:
         setNotificationTab(1);
@@ -296,14 +290,10 @@ class NotificationNaviagtion {
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
         break;
       case 30:
-        context.router.push(
-          PageRouteInfo(
-            Message.name,
+        context.router.push(PageRouteInfo(Message.name,
             args: MessageArgs(
               receiverId: obj.post_id ?? -1,
-            ),
-          ),
-        );
+            )));
         break;
       default:
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));
