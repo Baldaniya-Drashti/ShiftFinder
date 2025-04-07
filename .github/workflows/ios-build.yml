@@ -55,6 +55,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
 
+      - name: Generate Freezed & Other Code
+        run: |
+          flutter pub run build_runner build --delete-conflicting-outputs
+          
       - name: Build iOS using Flutter
         run: flutter build ios --debug --no-codesign
 
