@@ -90,6 +90,14 @@ jobs:
           echo "❌ exportOptions.plist not found! Make sure it is included in the repo."
             exit 1
           fi
+          
+      - name: Debug Signing & Profiles
+        run: |
+          echo "🔍 Installed Provisioning Profiles:"
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles
+
+          echo "🔍 Installed Certificates:"
+          security find-identity -v -p codesigning
 
       - name: Archive the App (Debugging Mode)
         run: |

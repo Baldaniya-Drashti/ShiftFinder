@@ -11,7 +11,8 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>com.iroid.app.shiftfinder</key>
-        <string>ShiftFinder Profile</string>
+        <!-- <string>ShiftFinder Profile</string> -->
+        <string>iOS Team Provisioning Profile: com.iroid.app.shiftfinder</string>
     </dict>
     <key>compileBitcode</key>
     <true/>
