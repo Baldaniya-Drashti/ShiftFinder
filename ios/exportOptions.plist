@@ -6,14 +6,16 @@
     <string>development</string>  <!-- Change to "ad-hoc" or "enterprise" if needed -->
     <key>teamID</key>
     <string>6F7ZM56Y52</string>  <!-- Replace with your Apple Developer Team ID -->
-    <key>signingCertificate</key>
+    <key>signingStyle</key>
+	<string>automatic</string>
+    <!-- <key>signingCertificate</key>
     <string>Apple Development: iRoid Dev (TBYWK2G86F)</string>
     <key>provisioningProfiles</key>
     <dict>
         <key>com.iroid.app.shiftfinder</key>
         <!-- <string>ShiftFinder Profile</string> -->
         <string>iOS Team Provisioning Profile: com.iroid.app.shiftfinder</string>
-    </dict>
+    </dict> -->
     <key>compileBitcode</key>
     <true/>
     <key>stripSwiftSymbols</key>
