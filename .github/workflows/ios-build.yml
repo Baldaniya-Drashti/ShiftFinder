@@ -123,7 +123,6 @@ jobs:
             -exportOptionsPlist $GITHUB_WORKSPACE/ios/exportOptions.plist \
             -allowProvisioningUpdates | xcpretty
 
-      
           # Lock the keychain after the build
           security lock-keychain build.keychain
 
