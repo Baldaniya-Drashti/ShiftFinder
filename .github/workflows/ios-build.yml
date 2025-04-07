@@ -77,9 +77,8 @@ jobs:
           -allowProvisioningUpdates \
           -allowProvisioningDeviceRegistration \
           -quiet \
-          -developmentTeam 6F7ZM56Y52 \
           CODE_SIGN_STYLE=automatic \
-          DEVELOPMENT_TEAM=$6F7ZM56Y52 \
+          DEVELOPMENT_TEAM=6F7ZM56Y52 \
           CODE_SIGN_IDENTITY="Apple Development" \
           PROVISIONING_PROFILE_SPECIFIER="ShiftFinder Profile" \
           clean archive          
