@@ -74,6 +74,11 @@ jobs:
           -sdk iphoneos \
           -configuration Debug \
           -destination generic/platform=iOS \
+          -allowProvisioningUpdates \
+          -allowProvisioningDeviceRegistration \
+          -quiet \
+          -authenticationKeyPath /dev/null \
+          -developmentTeam 6F7ZM56Y52 \
           CODE_SIGN_STYLE=automatic \
           DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
           CODE_SIGN_IDENTITY="Apple Development" \
