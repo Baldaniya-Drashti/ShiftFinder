@@ -133,7 +133,7 @@ class DeleteShiftDialog extends StatelessWidget {
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: CustomTextField(
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   labelText: StringConstant.reason,
                   labelStyle: TextStyle(fontWeight: FontWeight.w600),
                   fillColor: AppColors.scaffoldColor,

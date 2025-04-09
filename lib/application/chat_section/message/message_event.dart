@@ -5,6 +5,7 @@ class MessageEvent with _$MessageEvent {
   const factory MessageEvent.getMessageList(bool isRefresh) = _GetMessage;
   const factory MessageEvent.getReceiverId(int id) = _GetReceiverId;
   const factory MessageEvent.connectSocket() = _ConnectSocket;
+  const factory MessageEvent.disConnectSocket() = _DisConnectSocket;
   const factory MessageEvent.createRoom(String sender, String receiver) =
       _CreateRoom;
 

@@ -269,7 +269,7 @@ class _EmployerLongTermPositionDetailContentState
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   labelText: StringConstant.jobDescription,
                   controller: controller._jobDescriptionController,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   maxLines: 3,
                   validator: (value, context) {
                     value = value?.trim() ?? "";
@@ -284,7 +284,7 @@ class _EmployerLongTermPositionDetailContentState
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   labelText: StringConstant.requirements,
                   controller: controller._requirementsController,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   maxLines: 3,
                   validator: (value, context) {
                     value = value?.trim() ?? "";
@@ -299,7 +299,7 @@ class _EmployerLongTermPositionDetailContentState
                   labelText: StringConstant.responsibilities,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   controller: controller._responsibilityController,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
@@ -314,7 +314,7 @@ class _EmployerLongTermPositionDetailContentState
                   labelText: StringConstant.qualifications,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   controller: controller._qualificationController,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
@@ -329,7 +329,7 @@ class _EmployerLongTermPositionDetailContentState
                   labelText: StringConstant.licensesCertifications,
                   controller: controller._licensesController,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   maxLines: 3,
                   validator: (value, _) {
                     value = value?.trim() ?? "";
@@ -372,7 +372,7 @@ class _EmployerLongTermPositionDetailContentState
                         Gap(getSize(12)),
                         CustomTextField(
                           controller: controller._termsController,
-                          hintText: StringConstant.typeHere,
+                          hintText: StringConstant.typeHerewithDots,
                           maxLines: 3,
                         ),
                         Gap(getSize(16)),
@@ -395,7 +395,7 @@ class _EmployerLongTermPositionDetailContentState
                 CustomTextField(
                   labelText: StringConstant.onboardingProcess,
                   controller: controller._onBoardingController,
-                  hintText: StringConstant.typeHere,
+                  hintText: StringConstant.typeHerewithDots,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   maxLines: 3,
                   validator: (value, _) {

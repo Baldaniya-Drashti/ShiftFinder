@@ -402,7 +402,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isOptional: true,
       maxLines: 3,
       keyboardType: TextInputType.multiline,

@@ -5,6 +5,7 @@ import 'package:shift/domain/chat/i_chat_service.dart';
 import 'package:shift/domain/core/environment/base_config.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/core/enum.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 @injectable
@@ -22,12 +23,13 @@ class SocketChatService extends ChatService {
   }
 
   SocketChatService() {
+    log("SocketChatService constructor called");
     socket = io.io(
         // dotenv.env['DEV_SOCKET_URL']!,
         getIt<BaseConfig>().socketHost,
         io.OptionBuilder().setTransports(['websocket']).build());
     socket.onConnect((_) {
-      log('Socket Connected');
+      log('Socket Connected ---> ${socket.connected}');
       _socketConnectController.add(true);
     });
     socket.onConnecting((data) => log('Socket Connecting'));
@@ -70,8 +72,27 @@ class SocketChatService extends ChatService {
   Stream<MessageData> get newMessageStream => _newMessageController.stream;
   void connectToSocket() {
     socket.connect();
+    socketConnection = SocketConnectionStatus.connected;
 
-    log('Socket Connected ${socket.connected}');
+    log('Socket Connected111 ${socket.connected}');
+  }
+
+  void disconnectSocket() {
+    socket.disconnect();
+    socket.dispose();
+    socketConnection = SocketConnectionStatus.disconnected;
+
+    print("socket disconnect---> ${socket.connected}");
+  }
+
+  @override
+  Future<bool> socketConnected() async {
+    await Future.delayed(Duration(seconds: 2)).then((value) {
+      // log('Socket is connected---->: ${socket.connected}');
+
+      return socket.connected;
+    });
+    return false;
   }
 
   @override

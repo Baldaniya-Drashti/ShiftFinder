@@ -659,7 +659,7 @@ class SinglePostShift extends StatelessWidget {
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       // hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,

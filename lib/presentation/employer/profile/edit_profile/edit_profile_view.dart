@@ -403,7 +403,7 @@ class EditProfileView extends StatelessWidget {
     return CustomTextField(
       initialValue: state.companyDescription,
       labelText: StringConstant.companyDescription,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isLabelPadding: true,
       isOptional: true,
       maxLines: 4,

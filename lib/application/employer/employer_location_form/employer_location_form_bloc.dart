@@ -344,8 +344,6 @@ class EmployerLocationFormBloc
         continueBtnPressed: (e) async {
           Either<AccountFailure, Account>? failureOrSuccess;
 
-          print("state unit--> ${state.unitNumber}");
-          print("state unit note--> ${state.notes}");
           add(EmployerLocationFormEvent.addUnitNumberChipList(
               state.unitNumber, state.notes));
           await Future.delayed(Duration(milliseconds: 50));

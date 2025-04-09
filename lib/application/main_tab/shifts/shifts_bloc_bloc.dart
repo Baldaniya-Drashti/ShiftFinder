@@ -55,14 +55,14 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
         await event.map(
           started: (value) async {},
           changeNotificationTab: (e) async {
-            final currentTab = getNotificationTab();
+            // final currentTab = getNotificationTab();
 
-            if (currentTab != null) {
-              emit(state.copyWith(isLoading: true));
-              emit(state.copyWith(selectedTab: currentTab));
-              await Future.delayed(Duration(seconds: 1));
-              emit(state.copyWith(isLoading: false));
-            }
+            // if (currentTab != null) {
+            //   emit(state.copyWith(isLoading: true));
+            //   emit(state.copyWith(selectedTab: currentTab));
+            //   await Future.delayed(Duration(seconds: 1));
+            //   emit(state.copyWith(isLoading: false));
+            // }
           },
           onFilledSorting: (e) {
             if (state.currentFilledFilter != e.currentSorting) {
@@ -92,20 +92,26 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             final currentTab = getNotificationTab();
 
             if (currentTab != null) {
-              emit(state.copyWith(isLoading: true));
               emit(state.copyWith(selectedTab: currentTab));
               await Future.delayed(Duration(seconds: 1));
+              emit(state.copyWith(isLoading: false));
+              if (currentTab == 0) {
+                add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+              } else if (currentTab == 1) {
+                add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+              } else if (currentTab == 2) {
+                add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+              }
             } else {
+              emit(state.copyWith(isLoading: false));
               emit(state.copyWith(selectedTab: value.tabIndex));
-            }
-
-            emit(state.copyWith(isLoading: false));
-            if (value.tabIndex == 0) {
-              add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
-            } else if (value.tabIndex == 1) {
-              add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
-            } else if (value.tabIndex == 2) {
-              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+              if (value.tabIndex == 0) {
+                add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+              } else if (value.tabIndex == 1) {
+                add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+              } else if (value.tabIndex == 2) {
+                add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+              }
             }
           },
           getLocationListAPI: (GetLocationListAPI value) async {
@@ -134,6 +140,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                 );
               },
             );
+            emit(state.copyWith(isLoading: true));
             add(ShiftsBlocEvent.tabChange(0));
             // add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
             // add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));

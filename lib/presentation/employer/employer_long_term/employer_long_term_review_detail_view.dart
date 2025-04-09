@@ -139,7 +139,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                                         fontSize: 13),
                                     Gap(getSize(12)),
                                     CustomTextField(
-                                      hintText: StringConstant.typeHere,
+                                      hintText: StringConstant.typeHerewithDots,
                                       controller: TextEditingController(
                                           text: employerLongTermSuccessDto
                                                   .terms ??

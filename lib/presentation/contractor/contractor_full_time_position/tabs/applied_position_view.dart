@@ -357,7 +357,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                     );
                   },
                   child: BaseText(
-                    text: "View Shift Details",
+                    text: StringConstant.viewShiftDetails,
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     textAlign: TextAlign.center,

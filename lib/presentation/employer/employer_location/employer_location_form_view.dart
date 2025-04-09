@@ -139,8 +139,6 @@ class EmployerLocationFormView extends StatelessWidget {
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      print(
-                                          "Address---> ${state.address.getValue()}");
                                       context
                                           .read<EmployerLocationFormBloc>()
                                           .add(EmployerLocationFormEvent
@@ -569,7 +567,7 @@ class EmployerLocationFormView extends StatelessWidget {
       controller: EmployerLocationFormBloc.locationNoteCtrl,
 
       labelText: StringConstant.locationNote,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isLabelPadding: true,
       isOptional: true,
       errorMaxLines: 2,
@@ -687,7 +685,7 @@ class EmployerLocationFormView extends StatelessWidget {
   ) {
     return CustomTextField(
       labelText: StringConstant.notes,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isOptional: true,
       isLabelPadding: false,
       maxLines: 3,
@@ -816,7 +814,7 @@ class EmployerLocationFormView extends StatelessWidget {
                       CustomTextField(
                         controller: updateUnitNoteCtrl,
                         labelText: StringConstant.notes,
-                        hintText: StringConstant.typeHere,
+                        hintText: StringConstant.typeHerewithDots,
                         isOptional: true,
                         isLabelPadding: false,
                         maxLines: 3,

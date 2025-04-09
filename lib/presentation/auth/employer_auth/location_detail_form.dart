@@ -501,7 +501,7 @@ class LocationDetailForm extends StatelessWidget {
   ) {
     return CustomTextField(
       labelText: StringConstant.locationNote,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isLabelPadding: true,
       isOptional: true,
       errorMaxLines: 2,
@@ -619,7 +619,7 @@ class LocationDetailForm extends StatelessWidget {
   ) {
     return CustomTextField(
       labelText: StringConstant.notes,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isOptional: true,
       isLabelPadding: false,
       maxLines: 3,
@@ -742,7 +742,7 @@ class LocationDetailForm extends StatelessWidget {
                       CustomTextField(
                         controller: updateUnitNoteCtrl,
                         labelText: StringConstant.notes,
-                        hintText: StringConstant.typeHere,
+                        hintText: StringConstant.typeHerewithDots,
                         isOptional: true,
                         isLabelPadding: false,
                         maxLines: 3,

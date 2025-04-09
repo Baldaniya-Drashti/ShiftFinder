@@ -150,31 +150,29 @@ class ApprovedHiredList extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  if (contractor.shift_complete != true) ...[
-                    Spacer(),
-                    ChatButton(
-                        badgeCount: contractor.count ?? 0,
-                        onPressed: () {
-                          context.router
-                              .push(
-                            PageRouteInfo(
-                              Message.name,
-                              args: MessageArgs(
-                                receiverId: contractor.user_id ?? 0,
-                              ),
+                  Spacer(),
+                  ChatButton(
+                      badgeCount: contractor.count ?? 0,
+                      onPressed: () {
+                        context.router
+                            .push(
+                          PageRouteInfo(
+                            Message.name,
+                            args: MessageArgs(
+                              receiverId: contractor.user_id ?? 0,
                             ),
-                          )
-                              .then((value) {
-                            if (contractor.count != null &&
-                                (contractor.count ?? 0) > 0) {
-                              context.read<HiredContractorBloc>().add(
-                                  HiredContractorEvent
-                                      .getHiredApproveContractorList(
-                                          refresh: true, postId: postId));
-                            }
-                          });
-                        }),
-                  ],
+                          ),
+                        )
+                            .then((value) {
+                          if (contractor.count != null &&
+                              (contractor.count ?? 0) > 0) {
+                            context.read<HiredContractorBloc>().add(
+                                HiredContractorEvent
+                                    .getHiredApproveContractorList(
+                                        refresh: true, postId: postId));
+                          }
+                        });
+                      }),
                 ],
               ),
             ),

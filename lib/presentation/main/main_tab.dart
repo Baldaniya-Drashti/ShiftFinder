@@ -42,20 +42,6 @@ class MainTabView extends StatelessWidget {
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
-        // BlocProvider(
-        //   create: (context) => getIt<ShiftsBloc>()
-        //     ..add(ShiftsBlocEvent.getLocationListAPI())
-        //     ..add(
-        //       ShiftsBlocEvent.fetchFilledShiftList(refresh: true),
-        //     ),
-        // ),
-        // BlocProvider(
-        //   create: (context) => getIt<NotificationsBloc>()
-        //     ..add(NotificationsEvent.getNotificationList(true))
-        //     ..add(
-        //       NotificationsEvent.getMessageList(true),
-        //     ),
-        // ),
       ],
       child: Builder(builder: (context) {
         return BlocBuilder<MainTabBloc, MainTabState>(

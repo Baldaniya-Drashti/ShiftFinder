@@ -180,7 +180,7 @@ class _SupportFormState extends State<_SupportForm> {
                         controller: _subjectController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
                         labelText: StringConstant.subject,
-                        hintText: StringConstant.typeHere,
+                        hintText: StringConstant.typeHerewithDots,
                         maxLines: 2,
                         isLabelPadding: false,
                         textInputAction: TextInputAction.next,
@@ -196,7 +196,7 @@ class _SupportFormState extends State<_SupportForm> {
                       CustomTextField(
                         controller: _descriptionController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                        hintText: StringConstant.typeHere,
+                        hintText: StringConstant.typeHerewithDots,
                         labelText: StringConstant.description,
                         maxLines: 3,
                         isLabelPadding: false,

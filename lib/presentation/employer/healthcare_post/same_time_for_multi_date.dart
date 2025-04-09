@@ -349,9 +349,10 @@ class SameTimeForMultiDate extends StatelessWidget {
   }
 
   Widget totalPaybleHours(PostShiftState state) {
-    print("total Hours--> ${state.totalPaybleHours}");
     return CustomTextField(
-      labelText: StringConstant.totalPayableHours,
+      labelText: (state.shiftType == 2 && state.selectedMultiShiftType == 1)
+          ? StringConstant.totalOneShiftPayableHours
+          : StringConstant.totalPayableHours,
       hintText: state.totalPaybleHours,
       hintAsValue: true,
       readOnly: true,
@@ -550,10 +551,10 @@ class SameTimeForMultiDate extends StatelessWidget {
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
-      // hintText: StringConstant.typeHere,
+      // hintText: StringConstant.typeHerewithDots,
       hintText: (state.singleShiftNote.isNotEmpty)
           ? state.singleShiftNote
-          : StringConstant.typeHere,
+          : StringConstant.typeHerewithDots,
       hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,

@@ -79,7 +79,7 @@ jobs:
           -quiet \
           CODE_SIGN_STYLE=manual \
           DEVELOPMENT_TEAM=6F7ZM56Y52 \
-          CODE_SIGN_IDENTITY="Apple Development" \
+          CODE_SIGN_IDENTITY="iOS Development" \
           PROVISIONING_PROFILE_SPECIFIER="ShiftFinder Profile" \
           clean archive          
 

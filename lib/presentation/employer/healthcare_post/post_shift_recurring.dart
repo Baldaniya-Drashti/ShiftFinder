@@ -387,7 +387,7 @@ class PostShiftRecurring extends StatelessWidget {
   Widget disclaimer(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.disclaimer,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isOptional: true,
       maxLines: 3,
       keyboardType: TextInputType.multiline,

@@ -1640,12 +1640,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           unpaidBreak: InputEmptyOrNot(r.unpaid_break?.name ?? ""),
           // totalPaybleHours: r.total_payable_hour ?? "",
           /// When edit from review screen and shift is Multi same time shift
-          totalPaybleHours: /* (r.shift_type == 2 && r.same_or_different_time == 1)
+          totalPaybleHours: (r.shift_type == 2 && r.same_or_different_time == 1)
               ? divideHours(
                   totalPayableHours: r.total_payable_hour,
                   totalShifts: r.detail?.length)
-              : */
-              r.total_payable_hour ?? "",
+              : r.total_payable_hour ?? "",
           selectedCommuteAllownce:
               InputEmptyOrNot((r.commute_allowance_type == 1)
                   ? "Flat Rate"
@@ -1947,8 +1946,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         final dividedMinutes = totalMinutes ~/ totalShifts;
 
         // Format back to "hh mm" format
-        final totalHours = dividedMinutes ~/ 60;
-        final totalRemainingMinutes = dividedMinutes % 60;
+        final totalHours = (dividedMinutes ~/ 60).toString().padLeft(2, '0');
+        final totalRemainingMinutes =
+            (dividedMinutes % 60).toString().padLeft(2, '0');
 
         /*  final formattedHours = totalHours.toString().padLeft(2, '0');
         final formattedMinutes =
@@ -2024,11 +2024,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       ),
       (r) {
         print("Hours List ---> $hoursList");
-        return emit(
-          state.copyWith(
-            accomdationHoursList: r,
-          ),
-        );
+        return emit(state.copyWith(
+          accomdationHoursList: r,
+        ));
       },
     );
   }

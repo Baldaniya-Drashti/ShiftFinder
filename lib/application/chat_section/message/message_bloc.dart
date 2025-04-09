@@ -33,17 +33,19 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         createRoom: (_CreateRoom value) {
           chatService.createRoom(value.sender, value.receiver);
         },
+        disConnectSocket: (value) {
+          chatService.disconnectSocket();
+          print("dispose called---from event");
+        },
         connectSocket: (_ConnectSocket value) async {
           chatService.connectToSocket();
           await emit.forEach(
             chatService.socketConnectStream,
             onData: (data) {
-              add(
-                MessageEvent.createRoom(
-                  state.senderId.toString(),
-                  state.receiverId.toString(),
-                ),
-              );
+              add(MessageEvent.createRoom(
+                state.senderId.toString(),
+                state.receiverId.toString(),
+              ));
               add(MessageEvent.getMessageList(true));
               add(MessageEvent.receiveMessage());
               return state.copyWith(isLoading: false);
@@ -186,5 +188,10 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         },
       );
     });
+  }
+  @override
+  Future<void> close() {
+    chatService.disconnectSocket();
+    return super.close();
   }
 }

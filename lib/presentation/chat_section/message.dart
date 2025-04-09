@@ -163,7 +163,7 @@ class Message extends StatelessWidget {
       ),
       child: CustomTextField(
         controller: state.messageController,
-        hintText: 'Type here',
+        hintText: StringConstant.typeHere,
         prefixIconConstraints: BoxConstraints(
           // maxWidth: getSize(24),
           maxHeight: getSize(24),
@@ -233,7 +233,7 @@ class Message extends StatelessWidget {
                             result?.files.first.name ?? '',
                           ),
                         );
-                    print("Video PATH: ${result?.files.first.path}");
+                    print("Pdf PATH: ${result?.files.first.path}");
                   }
                 },
                 selectVideoCallback: () async {

@@ -63,7 +63,7 @@ class StringConstant {
   static const String association = "Association";
   static const String referralCode = "Referral Code";
   static const String companyDescription = "Company Description";
-  static const String typeHere = "Type here...";
+  static const String typeHerewithDots = "Type here...";
   static const String takePhoto = "Take Photo";
   static const String galleryPhoto = "Gallery Photo";
   static const String galleryVideo = "Gallery Video";
@@ -906,6 +906,9 @@ class StringConstant {
   static const String photos = "Photos";
   static const String storage = "Storage";
   static const String permissionDenied = "Permission Denied!";
+  static const String totalOneShiftPayableHours =
+      "Total One Shift Payable Hours";
+  static const String typeHere = "Type here";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";

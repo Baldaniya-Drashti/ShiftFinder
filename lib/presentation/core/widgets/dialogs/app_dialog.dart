@@ -607,7 +607,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 controller: _controller,
                 maxLines: 5,
-                hintText: StringConstant.typeHere,
+                hintText: StringConstant.typeHerewithDots,
                 fillColor: AppColors.scaffoldColor,
                 validator: (value, p1) {
                   if ((value == null) || value.trim().isEmpty) {

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +12,16 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/infrastructure/core/chat/socket_chat_service.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/core/app_router.dart';
+import 'package:shift/presentation/core/app_router.gr.dart' as route;
+import 'package:shift/presentation/core/enum.dart';
 
 late final IAuthFacade authFacade;
+final SocketChatService chatService = getIt<SocketChatService>();
+
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
   onTapNotification(
@@ -27,7 +35,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     onTapNotification(message);
     // DependencyInjection.readNotification('notificationId');
   }
-
   print('Handling a background message ${message.messageId}');
 }
 
@@ -45,7 +52,10 @@ class PushNotificationService {
     await firebaseMessaging.getInitialMessage().then((RemoteMessage? message) {
       log('getInitialMessage : ${message?.data}');
       if (message != null) {
-        onTapNotification(message, context: context);
+        Future.delayed(const Duration(milliseconds: 500), () {
+          onTapNotification(message, context: context);
+        });
+        // onTapNotification(message, context: context);
       }
     });
 
@@ -148,7 +158,7 @@ class PushNotificationService {
       _firebaseMessagingBackgroundHandler,
     );
 // onMessage is called when the app is in foreground and a notification is received
-    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage? message) async {
       log('onMessage : ${message?.data}');
       // homeController.getHomeData(
       //   withLoading: false,
@@ -159,20 +169,24 @@ class PushNotificationService {
 // If `onMessage` is triggered with a notification, construct our own
       // local notification to show to users using the created channel.
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channelDescription: channel.description,
-              icon: android.smallIcon ?? '@mipmap/ic_launcher',
-            ),
-          ),
-          payload: jsonEncode(message.data),
-        );
+        await Future.delayed(Duration(seconds: 2)).then((value) {
+          if (socketConnection == SocketConnectionStatus.disconnected) {
+            flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  channelDescription: channel.description,
+                  icon: android.smallIcon ?? '@mipmap/ic_launcher',
+                ),
+              ),
+              payload: jsonEncode(message.data),
+            );
+          }
+        });
       }
     });
   }
@@ -328,7 +342,17 @@ onTapNotification(RemoteMessage message, {BuildContext? context}) async {
   } */
 
   if (context != null) {
-    if (currentRole == 2) {
+    print("message.data['type']---> ${message.data['type']}");
+    if (message.data['type'] == '30') {
+      getIt<AppRouter>().push(
+        PageRouteInfo(
+          route.Message.name,
+          args: route.MessageArgs(
+            receiverId: int.parse(message.data['sender_id'] ?? '-1'),
+          ),
+        ),
+      );
+    } else if (currentRole == 2) {
       context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));
     } else {
       context

@@ -163,6 +163,15 @@ class NotificationNaviagtion {
           ),
         );
         break;
+      case 31:
+        setNotificationTab(2);
+        getIt<AppRouter>().push(PageRouteInfo(ContractorLongTermView.name));
+        break;
+      case 32:
+        setNotificationTab(1);
+        getIt<AppRouter>()
+            .push(PageRouteInfo(ContractorFullTimePositionView.name));
+        break;
       default:
         context
             .read<ContractorMainTabBloc>()
@@ -272,8 +281,10 @@ class NotificationNaviagtion {
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 25:
-        setNotificationTab(1);
-        context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
+        // setNotificationTab(1);
+        // context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
+        getIt<AppRouter>().push(PageRouteInfo(ApprovedHiredList.name,
+            args: ApprovedHiredListArgs(postId: obj.post_id ?? -1)));
         break;
       case 26:
         getIt<AppRouter>().push(PageRouteInfo(EmployerCompletedShiftView.name));
@@ -283,7 +294,7 @@ class NotificationNaviagtion {
             args: ViewSingleApplicantsArgs(postId: obj.post_id ?? -1)));
         break;
       case 28:
-        context.router.push(PageRouteInfo(EmployerLocationView.name));
+        // context.router.push(PageRouteInfo(EmployerLocationView.name));
         break;
       case 29:
         setNotificationTab(2);
@@ -294,6 +305,12 @@ class NotificationNaviagtion {
             args: MessageArgs(
               receiverId: obj.post_id ?? -1,
             )));
+        break;
+      case 31:
+        getIt<AppRouter>().push(PageRouteInfo(EmployerLongTermView.name));
+        break;
+      case 32:
+        getIt<AppRouter>().push(PageRouteInfo(EmployerFullPostingView.name));
         break;
       default:
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));

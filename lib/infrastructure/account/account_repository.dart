@@ -1351,6 +1351,7 @@ class AccountRepository extends IAccountRepository {
         "units": units,
         "latitude": latitude,
         "longitude": longitude,
+        if (fromRegister) "is_screen": '1',
       };
 
       if (units.isNotEmpty) {

@@ -609,7 +609,7 @@ class RegisterProfileScreen extends StatelessWidget {
   Widget companyDescTextField(BuildContext context, RegisterFormState state) {
     return CustomTextField(
       labelText: StringConstant.companyDescription,
-      hintText: StringConstant.typeHere,
+      hintText: StringConstant.typeHerewithDots,
       isLabelPadding: true,
       isOptional: true,
       maxLines: 4,

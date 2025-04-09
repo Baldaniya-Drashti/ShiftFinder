@@ -368,7 +368,7 @@ class UpcomingShift extends StatelessWidget {
               CustomTextField(
                 labelText: StringConstant.reason,
                 labelStyle: TextStyle(fontWeight: FontWeight.w600),
-                hintText: StringConstant.typeHere,
+                hintText: StringConstant.typeHerewithDots,
                 maxLines: 5,
                 fillColor: AppColors.grey04,
                 onChanged: (value) {
