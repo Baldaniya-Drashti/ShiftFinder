@@ -75,11 +75,9 @@ jobs:
           -configuration Debug \
           -destination generic/platform=iOS \
           -allowProvisioningUpdates \
-          -allowProvisioningDeviceRegistration \
-          -quiet \
-          CODE_SIGN_STYLE=manual \
+          CODE_SIGN_STYLE=Manual \
           DEVELOPMENT_TEAM=6F7ZM56Y52 \
-          CODE_SIGN_IDENTITY="iOS Development" \
+          CODE_SIGN_IDENTITY="Apple Development: iRoid Dev (TBYWK2G86F)" \
           PROVISIONING_PROFILE_SPECIFIER="ShiftFinder Profile" \
           clean archive          
 
