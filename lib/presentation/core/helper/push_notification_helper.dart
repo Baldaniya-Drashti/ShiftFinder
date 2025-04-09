@@ -135,14 +135,12 @@ class PushNotificationService {
               context: context,
             );
             break;
-
           case NotificationResponseType.selectedNotificationAction:
             log('NotificationResponseType.selectedNotificationAction : ${details.payload}');
             onTapNotification(
               RemoteMessage(data: jsonDecode(details.payload ?? "")),
               context: context,
             );
-
             break;
         }
       },
