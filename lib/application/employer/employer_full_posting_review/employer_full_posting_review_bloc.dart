@@ -47,6 +47,7 @@ class EmployerFullPostingReviewBloc extends Bloc<EmployerFullPostingReviewEvent,
               response = await _mainFacade.updateLongFullTermPost(data: {
                 ...value.data.toJson(),
                 "update_status": 1,
+                'isSendNotification': 1,
               });
             } else {
               response = await _mainFacade.updateLongTermStatus(id: value.id);

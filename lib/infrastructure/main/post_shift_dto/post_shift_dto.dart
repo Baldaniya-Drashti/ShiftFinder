@@ -55,6 +55,7 @@ class PostShiftDTO with _$PostShiftDTO {
     int? script_volume,
     int? assistant_on_site,
     int? technician_on_site,
+    int? isSendNotification,
   }) = _PostShiftDTO;
 
   factory PostShiftDTO.fromJson(Map<String, dynamic> json) =>

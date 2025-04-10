@@ -139,6 +139,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<
                 ...data.toJson(),
                 // "update_status": 0,
                 "update_status": 1,
+                'isSendNotification': 0,
               });
             } else {
               result = await _iMainFacade.createLongFullTermPost(

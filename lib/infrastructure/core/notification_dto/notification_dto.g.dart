@@ -24,6 +24,7 @@ _$NotificationDTOImpl _$$NotificationDTOImplFromJson(
       full_term_shift_id: (json['full_term_shift_id'] as num?)?.toInt(),
       full_term_shift_type: (json['full_term_shift_type'] as num?)?.toInt(),
       job_type: json['job_type'] as String?,
+      tab_type: json['tab_type'] as bool?,
     );
 
 Map<String, dynamic> _$$NotificationDTOImplToJson(
@@ -42,6 +43,7 @@ Map<String, dynamic> _$$NotificationDTOImplToJson(
       'full_term_shift_id': instance.full_term_shift_id,
       'full_term_shift_type': instance.full_term_shift_type,
       'job_type': instance.job_type,
+      'tab_type': instance.tab_type,
     };
 
 _$SenderDTOImpl _$$SenderDTOImplFromJson(Map<String, dynamic> json) =>

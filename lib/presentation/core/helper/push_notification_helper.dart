@@ -164,7 +164,7 @@ class PushNotificationService {
 
       final RemoteNotification? notification = message!.notification;
       final AndroidNotification? android = message.notification?.android;
-// If `onMessage` is triggered with a notification, construct our own
+      // If `onMessage` is triggered with a notification, construct our own
       // local notification to show to users using the created channel.
       if (notification != null && android != null) {
         await Future.delayed(Duration(seconds: 2)).then((value) {

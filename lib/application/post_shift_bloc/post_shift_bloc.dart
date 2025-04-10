@@ -1582,6 +1582,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             Either<MainFailure, CommonResponse>? updateFailureOrSuccess;
             PostShiftDTO postObj = e.updatedPost!.copyWith(
               update_status: 1,
+              isSendNotification: 1,
             );
             print("=====postObj.id>${jsonEncode(postObj)}");
             updateFailureOrSuccess = await _mainFacade.updatePostApi(

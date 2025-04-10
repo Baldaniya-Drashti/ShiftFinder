@@ -18,6 +18,7 @@ class NotificationDTO with _$NotificationDTO {
     int? full_term_shift_id,
     int? full_term_shift_type,
     String? job_type,
+    bool? tab_type,
   }) = _NotificationDTO;
 
   factory NotificationDTO.fromJson(Map<String, dynamic> json) =>

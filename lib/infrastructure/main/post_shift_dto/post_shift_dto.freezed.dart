@@ -68,6 +68,7 @@ mixin _$PostShiftDTO {
   int? get script_volume => throw _privateConstructorUsedError;
   int? get assistant_on_site => throw _privateConstructorUsedError;
   int? get technician_on_site => throw _privateConstructorUsedError;
+  int? get isSendNotification => throw _privateConstructorUsedError;
 
   /// Serializes this PostShiftDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -129,7 +130,8 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       String? multi_date,
       int? script_volume,
       int? assistant_on_site,
-      int? technician_on_site});
+      int? technician_on_site,
+      int? isSendNotification});
 }
 
 /// @nodoc
@@ -191,6 +193,7 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? script_volume = freezed,
     Object? assistant_on_site = freezed,
     Object? technician_on_site = freezed,
+    Object? isSendNotification = freezed,
   }) {
     return _then(_value.copyWith(
       update_status: freezed == update_status
@@ -369,6 +372,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
           ? _value.technician_on_site
           : technician_on_site // ignore: cast_nullable_to_non_nullable
               as int?,
+      isSendNotification: freezed == isSendNotification
+          ? _value.isSendNotification
+          : isSendNotification // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -425,7 +432,8 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
       String? multi_date,
       int? script_volume,
       int? assistant_on_site,
-      int? technician_on_site});
+      int? technician_on_site,
+      int? isSendNotification});
 }
 
 /// @nodoc
@@ -485,6 +493,7 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? script_volume = freezed,
     Object? assistant_on_site = freezed,
     Object? technician_on_site = freezed,
+    Object? isSendNotification = freezed,
   }) {
     return _then(_$PostShiftDTOImpl(
       update_status: freezed == update_status
@@ -663,6 +672,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
           ? _value.technician_on_site
           : technician_on_site // ignore: cast_nullable_to_non_nullable
               as int?,
+      isSendNotification: freezed == isSendNotification
+          ? _value.isSendNotification
+          : isSendNotification // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -714,7 +727,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
       this.multi_date,
       this.script_volume,
       this.assistant_on_site,
-      this.technician_on_site});
+      this.technician_on_site,
+      this.isSendNotification});
 
   factory _$PostShiftDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostShiftDTOImplFromJson(json);
@@ -811,10 +825,12 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   final int? assistant_on_site;
   @override
   final int? technician_on_site;
+  @override
+  final int? isSendNotification;
 
   @override
   String toString() {
-    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, dateUpdate: $dateUpdate, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date, script_volume: $script_volume, assistant_on_site: $assistant_on_site, technician_on_site: $technician_on_site)';
+    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, dateUpdate: $dateUpdate, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date, script_volume: $script_volume, assistant_on_site: $assistant_on_site, technician_on_site: $technician_on_site, isSendNotification: $isSendNotification)';
   }
 
   @override
@@ -891,7 +907,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
             (identical(other.multi_date, multi_date) || other.multi_date == multi_date) &&
             (identical(other.script_volume, script_volume) || other.script_volume == script_volume) &&
             (identical(other.assistant_on_site, assistant_on_site) || other.assistant_on_site == assistant_on_site) &&
-            (identical(other.technician_on_site, technician_on_site) || other.technician_on_site == technician_on_site));
+            (identical(other.technician_on_site, technician_on_site) || other.technician_on_site == technician_on_site) &&
+            (identical(other.isSendNotification, isSendNotification) || other.isSendNotification == isSendNotification));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -941,7 +958,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         multi_date,
         script_volume,
         assistant_on_site,
-        technician_on_site
+        technician_on_site,
+        isSendNotification
       ]);
 
   /// Create a copy of PostShiftDTO
@@ -1005,7 +1023,8 @@ abstract class _PostShiftDTO implements PostShiftDTO {
       final String? multi_date,
       final int? script_volume,
       final int? assistant_on_site,
-      final int? technician_on_site}) = _$PostShiftDTOImpl;
+      final int? technician_on_site,
+      final int? isSendNotification}) = _$PostShiftDTOImpl;
 
   factory _PostShiftDTO.fromJson(Map<String, dynamic> json) =
       _$PostShiftDTOImpl.fromJson;
@@ -1101,6 +1120,8 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   int? get assistant_on_site;
   @override
   int? get technician_on_site;
+  @override
+  int? get isSendNotification;
 
   /// Create a copy of PostShiftDTO
   /// with the given fields replaced by the non-null parameter values.

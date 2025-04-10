@@ -54,6 +54,7 @@ class EmployerLongTermPayableBloc
             response = await _iMainFacade.updateLongFullTermPost(data: {
               ...employer.toJson(),
               "update_status": 1,
+              'isSendNotification': 1,
             });
           } else {
             response = await _iMainFacade.updateLongTermStatus(id: value.id);

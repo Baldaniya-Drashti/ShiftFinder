@@ -102,6 +102,7 @@ class EmployerLongTermConfirmationBloc extends Bloc<
                 ...data,
                 // "update_status": 0,
                 "update_status": 1,
+                'isSendNotification': 0,
               });
             } else {
               // result = await _mainFacade.createLongFullTermPost(data: data);

@@ -719,10 +719,7 @@ class MainFacade implements IMainFacade {
       print("Sending Multi Date->  ${postShiftDetail}");
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.updatePost, mapData);
-      print("Posttt Healthcare->  ${res}");
 
-      final data = HealthcarePostDTO.fromJson(res.data);
-      print("Healthercare Update Post Response->  ${data}");
       // return right(data);
       return right(res);
     } on DioException catch (err) {

@@ -53,6 +53,7 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       script_volume: (json['script_volume'] as num?)?.toInt(),
       assistant_on_site: (json['assistant_on_site'] as num?)?.toInt(),
       technician_on_site: (json['technician_on_site'] as num?)?.toInt(),
+      isSendNotification: (json['isSendNotification'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
@@ -101,4 +102,5 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'script_volume': instance.script_volume,
       'assistant_on_site': instance.assistant_on_site,
       'technician_on_site': instance.technician_on_site,
+      'isSendNotification': instance.isSendNotification,
     };

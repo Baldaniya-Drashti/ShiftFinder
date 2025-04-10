@@ -44,7 +44,9 @@ class NotificationNaviagtion {
             .add(ContractorMainTabEvent.tabChange(1));
         break;
       case 8:
-        setNotificationTab(2);
+        if (obj.tab_type != true) {
+          setNotificationTab(2);
+        }
         context
             .read<ContractorMainTabBloc>()
             .add(ContractorMainTabEvent.tabChange(1));
@@ -63,7 +65,9 @@ class NotificationNaviagtion {
             .add(ContractorMainTabEvent.tabChange(1));
         break;
       case 11:
-        setNotificationTab(2);
+        if (obj.tab_type != true) {
+          setNotificationTab(2);
+        }
         context
             .read<ContractorMainTabBloc>()
             .add(ContractorMainTabEvent.tabChange(1));
@@ -208,6 +212,9 @@ class NotificationNaviagtion {
             args: TotalPraposalViewArgs(postId: obj.post_id ?? -1)));
         break;
       case 8:
+        if (obj.tab_type == true) {
+          setNotificationTab(1);
+        }
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
         break;
       case 9:
@@ -219,6 +226,9 @@ class NotificationNaviagtion {
             args: TotalPraposalViewArgs(postId: obj.post_id ?? -1)));
         break;
       case 11:
+        if (obj.tab_type == true) {
+          setNotificationTab(1);
+        }
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(1));
         break;
       case 12:
