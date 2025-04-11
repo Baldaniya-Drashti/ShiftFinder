@@ -330,7 +330,17 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (contractorFullPosting?.deleteAt == true &&
+        if (contractorFullPosting?.is_delete == 1)
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: getSize(10)),
+            child: BaseText(
+              text: StringConstant.employerCancelledThisShift,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.redAccent,
+            ),
+          )
+        else if (contractorFullPosting?.deleteAt == true &&
             contractorFullPosting?.request == 0) ...[
           Padding(
             padding: EdgeInsets.symmetric(vertical: getSize(10)),

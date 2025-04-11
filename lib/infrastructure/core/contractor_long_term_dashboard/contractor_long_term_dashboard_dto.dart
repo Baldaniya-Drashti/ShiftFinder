@@ -48,6 +48,7 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     bool? offer_expires_status,
     LocationDTO? location,
     bool? deleteAt,
+    int? is_delete,
   }) = _ContractorLongTermDashboardDto;
 
   factory ContractorLongTermDashboardDto.fromJson(Map<String, dynamic> json) =>

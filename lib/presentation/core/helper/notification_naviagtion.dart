@@ -16,6 +16,10 @@ class NotificationNaviagtion {
       case 2:
         break;
       case 3:
+        setNotificationTab(3);
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(1));
         break;
       case 4:
         setNotificationTab(3);
@@ -158,14 +162,8 @@ class NotificationNaviagtion {
         context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
         break;
       case 30:
-        context.router.push(
-          PageRouteInfo(
-            Message.name,
-            args: MessageArgs(
-              receiverId: obj.post_id ?? -1,
-            ),
-          ),
-        );
+        context.router.push(PageRouteInfo(Message.name,
+            args: MessageArgs(receiverId: obj.post_id ?? -1)));
         break;
       case 31:
         setNotificationTab(2);
@@ -175,6 +173,13 @@ class NotificationNaviagtion {
         setNotificationTab(1);
         getIt<AppRouter>()
             .push(PageRouteInfo(ContractorFullTimePositionView.name));
+        break;
+      case 34:
+        setNotificationTab(3);
+        setNotificationSubTab(1);
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(1));
         break;
       default:
         context
@@ -321,6 +326,8 @@ class NotificationNaviagtion {
         break;
       case 32:
         getIt<AppRouter>().push(PageRouteInfo(EmployerFullPostingView.name));
+        break;
+      case 34:
         break;
       default:
         context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));

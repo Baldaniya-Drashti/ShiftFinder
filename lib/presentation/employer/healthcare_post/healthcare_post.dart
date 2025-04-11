@@ -630,7 +630,7 @@ class HealthCarePostForm extends StatelessWidget {
           (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
       keyboardType:
-          TextInputType.numberWithOptions(decimal: true, signed: false),
+          TextInputType.numberWithOptions(decimal: true, signed: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],

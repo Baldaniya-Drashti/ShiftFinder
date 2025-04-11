@@ -57,6 +57,7 @@ _$ContractorLongTermDashboardDtoImpl
               ? null
               : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
           deleteAt: json['deleteAt'] as bool?,
+          is_delete: (json['is_delete'] as num?)?.toInt(),
         );
 
 Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
@@ -102,4 +103,5 @@ Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
       'offer_expires_status': instance.offer_expires_status,
       'location': instance.location,
       'deleteAt': instance.deleteAt,
+      'is_delete': instance.is_delete,
     };
