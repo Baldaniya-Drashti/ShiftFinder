@@ -85,8 +85,6 @@ class LoginForm extends StatelessWidget {
                 (getCurrentRole() == 1)
                     ? "${r.phone}"
                     : state.emailId.getValue(),
-                // "+${r.countryCode}",
-                // r.countryNameCode ?? "",
                 getCurrentUser().countryCode ?? '',
                 getCurrentUser().countryNameCode ?? '',
                 state.password.getValue(),
@@ -110,7 +108,6 @@ class LoginForm extends StatelessWidget {
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     mainView(state, context),
                     Align(
@@ -119,11 +116,8 @@ class LoginForm extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: getSize(33)),
                         child: createAccount(
                           onRegisterTap: () async {
-                            print("create an account clicked!");
                             context.router.replace(
                                 const PageRouteInfo(RegisterPage.name));
-                            // context.router.replaceAll(
-                            //     [const PageRouteInfo(RegisterPage.name)]);
                           },
                           title: StringConstant.dontHaveAnAccount,
                           description: StringConstant.register,
@@ -257,9 +251,7 @@ class LoginForm extends StatelessWidget {
             obscureText: state.isObscure,
             suffixIcon: GestureDetector(
               onTap: () {
-                context.read<LoginFormBloc>().add(
-                      const LoginFormEvent.obscureText(),
-                    );
+                context.read<LoginFormBloc>().add(LoginFormEvent.obscureText());
               },
               child: Container(
                 color: AppColors.transparent,
@@ -294,11 +286,7 @@ class LoginForm extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("OPEN BOTTOM SHEET");
               FilterBottomSheet().getForgotPassBottomSheet(context);
-
-              // Navigator.of(context).push(
-              //     MaterialPageRoute(builder: (context) => FilterBottomSheet()));
             },
             child: Align(
               alignment: Alignment.centerRight,

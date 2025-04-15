@@ -336,14 +336,6 @@ class WalletDropdownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*  final list = <WalletDropdownModel>[
-      WalletDropdownModel(id: 1, label: "All Transactions"),
-      WalletDropdownModel(id: 2, label: "Earnings"),
-      WalletDropdownModel(id: 3, label: "Compensations"),
-      WalletDropdownModel(id: 4, label: "Referrals"),
-      WalletDropdownModel(id: 5, label: "Deposits"),
-    ]; */
-
     return CustomDropdownField<WalletDropdownModel>(
       label: StringConstant.filter,
       value: value,

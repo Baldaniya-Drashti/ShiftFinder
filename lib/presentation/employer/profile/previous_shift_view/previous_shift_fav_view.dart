@@ -128,10 +128,10 @@ class _PreviousShiftFavTile extends StatelessWidget {
                 final userId = data.user_id ?? 0;
                 final result = await AppDialog.showCommonDialog(
                   context: context,
-                  title: "Unfavorite",
+                  title: StringConstant.unfavorite,
                   content:
                       "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                  successLabel: "Unfavorite",
+                  successLabel: StringConstant.unfavorite,
                 );
                 if (result ?? false) {
                   context.read<PreviousShiftBloc>().add(
@@ -143,7 +143,9 @@ class _PreviousShiftFavTile extends StatelessWidget {
                       );
                 }
               },
-              label: (data.isFavourite ?? false) ? "UnFavorite" : "Favorite",
+              label: (data.isFavourite ?? false)
+                  ? StringConstant.unfavorite
+                  : StringConstant.favorite,
               textStyle: TextStyle(fontSize: 10, color: AppColors.green),
               icon: SvgPicture.asset(SvgImageConstant.heartChecked,
                   height: 11, width: 11),

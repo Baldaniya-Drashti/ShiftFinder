@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart';
-// import 'package:printing/printing.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -387,16 +386,9 @@ void downloadInvoice(BuildContext context,
       fileName: 'PreviusShift_Invoice_${invoice.listing_id}.pdf');
 
   if (pdfPath != null) {
-    print('PDF saved to: $pdfPath');
     showSuccess(
             message: "PreviusShift_Invoice_${invoice.listing_id} Downloaded..!")
         .show(context);
-    /* Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PdfViewerScreen(pdfPath: pdfPath),
-      ),
-    ); */
   } else {
     showError(message: "Failed to download PDF!").show(context);
   }

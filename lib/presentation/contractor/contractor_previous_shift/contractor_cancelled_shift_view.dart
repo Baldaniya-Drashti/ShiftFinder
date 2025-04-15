@@ -94,122 +94,6 @@ class ContractorCancelledShiftView extends StatelessWidget {
                                           state.cancelledDataList[index]),
                                       dateAndTime(context, state,
                                           state.cancelledDataList[index]),
-                                      /* Row(
-                                        children: [
-                                          Expanded(
-                                            child: CommonInfoTile(
-                                              leading: SvgPicture.asset(
-                                                SvgImageConstant.calendar,
-                                                height: 15,
-                                                width: 15,
-                                                colorFilter: ColorFilter.mode(
-                                                    AppColors.black
-                                                        .withOpacity(0.6),
-                                                    BlendMode.srcIn),
-                                              ),
-                                              title: BaseText(
-                                                text: StringConstant.shiftDate,
-                                                fontSize: getSize(10),
-                                                textColor: AppColors.black
-                                                    .withOpacity(0.6),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                              subtitle: Text.rich(
-                                                style: TextStyle(fontSize: 12),
-                                                TextSpan(
-                                                  text: "12 May, ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                  children: [
-                                                    TextSpan(
-                                                        text: "2024",
-                                                        style: TextStyle(
-                                                            color: AppColors
-                                                                .black
-                                                                .withOpacity(
-                                                                    0.5))),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: CommonInfoTile(
-                                              key: ValueKey("time"),
-                                              leading: SvgPicture.asset(
-                                                SvgImageConstant.clock,
-                                                height: 15,
-                                                width: 15,
-                                                colorFilter: ColorFilter.mode(
-                                                    AppColors.black
-                                                        .withOpacity(0.6),
-                                                    BlendMode.srcIn),
-                                              ),
-                                              title: BaseText(
-                                                text: "Time",
-                                                fontSize: getSize(10),
-                                                textColor: AppColors.black
-                                                    .withOpacity(0.6),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                              subtitle: BaseText(
-                                                text: '09:15 AM to 07:30 PM',
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                       */
-                                      /* Gap(getSize(12)),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: CommonInfoTile(
-                                                leading: SvgPicture.asset(
-                                                  SvgImageConstant.dollorRound,
-                                                  height: 15,
-                                                  width: 15,
-                                                  colorFilter: ColorFilter.mode(
-                                                      AppColors.black
-                                                          .withOpacity(0.6),
-                                                      BlendMode.srcIn),
-                                                ),
-                                                title: BaseText(
-                                                  text: "Compassion",
-                                                  fontSize: getSize(10),
-                                                  textColor: AppColors.black
-                                                      .withOpacity(0.6),
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                subtitle: BaseText(
-                                                  text: '\$150',
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: CommonButton(
-                                                onPressed: () {},
-                                                buttonText: StringConstant
-                                                    .viewShiftDetails,
-                                                backgroundColor:
-                                                    AppColors.scaffoldColor,
-                                                height: 40,
-                                                buttonFontSize: 12,
-                                                buttonTextColor:
-                                                    AppColors.black,
-                                                buttonFontWeight:
-                                                    FontWeight.w600,
-                                                borderRadius: 7,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Gap(getSize(10)), */
                                       Padding(
                                         padding: EdgeInsets.only(
                                             left: getSize(10),
@@ -388,15 +272,6 @@ class ContractorCancelledShiftView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /*  context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(

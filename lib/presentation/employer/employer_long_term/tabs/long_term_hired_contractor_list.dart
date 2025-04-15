@@ -103,17 +103,6 @@ class LongTermHiredContractorList extends StatelessWidget {
               ),
             ),
             Spacer(),
-            // ChatButton(onPressed: () {
-            //   // showUnderDevelopment(context);
-            //   context.router.push(
-            //     PageRouteInfo(
-            //       Message.name,
-            //       args: MessageArgs(
-            //         receiverId: contractor.user_id ?? 0,
-            //       ),
-            //     ),
-            //   );
-            // }),
           ],
         ),
       ),

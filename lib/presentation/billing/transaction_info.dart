@@ -44,14 +44,12 @@ class TransactionInfo extends StatelessWidget {
                         fontSize: valueFontSize ?? 10,
                         fontWeight: FontWeight.w600,
                         textColor: valueColor,
-                        // maxLines: 1,overflow: TextOverflow.ellipsis,
                       ),
                       BaseText(
                         text: value2 ?? "",
                         fontSize: valueFontSize ?? 10,
                         fontWeight: FontWeight.w600,
                         textColor: valueColor,
-                        // maxLines: 1,overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   )
@@ -60,7 +58,6 @@ class TransactionInfo extends StatelessWidget {
                     fontSize: valueFontSize ?? 10,
                     fontWeight: FontWeight.w600,
                     textColor: valueColor,
-                    // maxLines: 1,overflow: TextOverflow.ellipsis,
                   ),
           ),
         ],

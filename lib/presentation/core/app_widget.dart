@@ -4,6 +4,7 @@ import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/application/splash/splash_bloc.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
 import 'package:shift/presentation/core/app_theme.dart';
@@ -42,9 +43,6 @@ class AppWidget extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<AccountCubit>(),
         ),
-        // bloc.BlocProvider(
-        //   create: (context) => getIt<MainTabBloc>(),
-        // ),
       ],
       child: _App(),
     );
@@ -65,16 +63,10 @@ class _AppState extends State<_App> {
       child: ScreenUtilInit(
         ensureScreenSize: true,
         child: MaterialApp.router(
-          title: 'ShiftFinder',
+          title: StringConstant.shiftFinder,
           debugShowCheckedModeBanner: false,
           theme: ThemeConfig.lightTheme,
           routerConfig: appRouter.config(),
-          // locale: state1.locale,
-          // supportedLocales: AppLocalizations.supportedLocales,
-          // localizationsDelegates: [
-          //   CountryLocalizations.delegate,
-          //   ...AppLocalizations.localizationsDelegates,
-          // ],
           localeResolutionCallback: (locale, supportedLocales) {
             for (final supportedLocale in supportedLocales) {
               if (supportedLocale.languageCode == locale!.languageCode &&

@@ -38,7 +38,6 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
   @override
   void initState() {
     super.initState();
-    // _confirmationCheckBox = ValueNotifier(widget.confirmDialog);
   }
 
   @override
@@ -57,25 +56,9 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
         builder: (context, state) {
           return PopScope(
             canPop: false,
-
-            /* onPopInvoked: (
-              didPop,
-            ) {
-              Log.debug("didPop---> ${state.isConfirmProposalDate}");
-              if (didPop) {
-                // context.router.maybePop(_confirmationCheckBox.value);
-                // context.router.maybePop(state.isConfirmProposalDate);
-                // Navigator.pop(context, state.isConfirmProposalDate);
-              }
-            }, */
-            // onPopInvoked: (result) {
-            //   context.router.maybePop(_confirmationCheckBox.value);
-            // },
             child: Scaffold(
               appBar: CommonAppBar(
                 onBackPressed: () =>
-                    // context.router.maybePop(_confirmationCheckBox.value),
-
                     Navigator.pop(context, state.isConfirmProposalDate),
                 title: StringConstant.viewAvailability,
               ),
@@ -93,7 +76,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                         children: [
                           SvgPicture.asset(SvgImageConstant.clockWithOuterLine,
                               height: 40),
-                          Gap(12),
+                          Gap(getSize(12)),
                           Image.asset(
                             PngImageConstants.line,
                             height: 40,
@@ -104,7 +87,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                             children: [
                               BaseText(
                                   text:
-                                      "Total Number of Shifts - ${widget.list.length}",
+                                      "${StringConstant.totalNumberOfShifts} - ${widget.list.length}",
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),
                               Row(
@@ -117,7 +100,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                   Gap(6),
                                   BaseText(
                                     text:
-                                        "Unavailable Shifts - $unavailableCount",
+                                        "${StringConstant.unavailableShifts} - $unavailableCount",
                                     fontWeight: FontWeight.w500,
                                     fontSize: 10,
                                   ),
@@ -128,7 +111,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                         ],
                       ),
                     ),
-                    Gap(16),
+                    Gap(getSize(16)),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
@@ -149,11 +132,9 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                 color: Color(0XFFEDEDED),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: EdgeInsets.all(8),
+                              padding: EdgeInsets.all(getSize(8)),
                               child: GestureDetector(
                                 onTap: () {
-                                  print(
-                                      "isConfirmProposalDate--> ${state.isConfirmProposalDate}");
                                   bool value =
                                       state.isConfirmProposalDate ?? false;
                                   value = !value;
@@ -170,15 +151,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                       child: SizedBox(
                                         height: getSize(20),
                                         width: getSize(16.67),
-                                        // child: ValueListenableBuilder(
-                                        //   // valueListenable: _confirmationCheckBox,
-                                        //   valueListenable:
-                                        //       state.isConfirmProposalDate,
-                                        //   builder: (context, value, child) {
-                                        //     return   },
-                                        // ),
                                         child: Checkbox(
-                                          // value: _confirmationCheckBox.value,
                                           value: state.isConfirmProposalDate,
                                           activeColor: AppColors.primaryColor,
                                           side: BorderSide(
@@ -191,7 +164,6 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                                 BorderRadius.circular(5),
                                           ),
                                           onChanged: (value) {
-                                            // _confirmationCheckBox.value = value;
                                             if (value != null) {
                                               context
                                                   .read<ProposalDetailBloc>()

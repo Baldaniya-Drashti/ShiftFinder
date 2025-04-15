@@ -68,13 +68,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             documentImage(),
-                            SizedBox(
-                              height: getSize(20),
-                            ),
+                            SizedBox(height: getSize(20)),
                             summaryAndTermsDesc(),
-                            SizedBox(
-                              height: getSize(30),
-                            ),
+                            SizedBox(height: getSize(30)),
                             if (!isFromRegister)
                               Align(
                                 alignment: Alignment.center,
@@ -97,7 +93,6 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
   Widget documentImage() {
     return Container(
-      // height: getSize(103),
       padding:
           EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(32)),
       decoration: BoxDecoration(

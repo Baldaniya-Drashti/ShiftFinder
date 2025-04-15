@@ -89,8 +89,6 @@ class MainProfileView extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       CommonButton(
                         onPressed: () {
-                          // showUnderDevelopment(context);
-
                           context.router
                               .push(PageRouteInfo(EditProfileView.name))
                               .then((value) {

@@ -30,7 +30,7 @@ class TeamsView extends StatelessWidget {
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
-              title: 'Teams',
+              title: StringConstant.teams,
             ),
             body: PaginatedListView(
               onRefresh: () {
@@ -61,9 +61,7 @@ class TeamsView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
+                    SizedBox(height: getSize(20)),
                     CommonButton(
                       height: 28,
                       width: 135,
@@ -81,7 +79,7 @@ class TeamsView extends StatelessWidget {
                         }
                       },
                       backgroundColor: AppColors.green.withValues(alpha: 0.15),
-                      buttonText: '+ Add New Team',
+                      buttonText: '+ ${StringConstant.addNewTeam}',
                       buttonTextColor: AppColors.green,
                       buttonFontSize: 12,
                       borderRadius: 7,
@@ -100,8 +98,7 @@ class TeamsView extends StatelessWidget {
                   : state.isErrorInAPI
                       ? Center(
                           child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
+                              BaseText(text: StringConstant.somethindWentWrong))
                       : SingleChildScrollView(
                           child: Column(
                             children: [
@@ -141,9 +138,7 @@ class TeamsView extends StatelessWidget {
                                   );
                                 },
                               ),
-                              SizedBox(
-                                height: getSize(20),
-                              ),
+                              SizedBox(height: getSize(20)),
                               CommonButton(
                                 height: 28,
                                 width: 135,
@@ -161,7 +156,7 @@ class TeamsView extends StatelessWidget {
                                 },
                                 backgroundColor:
                                     AppColors.green.withValues(alpha: 0.15),
-                                buttonText: '+ Add New Team',
+                                buttonText: '+ ${StringConstant.addNewTeam}',
                                 buttonTextColor: AppColors.green,
                                 buttonFontSize: 12,
                                 borderRadius: 7,

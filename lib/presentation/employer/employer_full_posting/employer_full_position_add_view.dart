@@ -134,14 +134,14 @@ class _PositionFormState extends State<_PositionForm> {
             children: [
               CustomTextField(
                 controller: controller._positionController,
-                labelText: "Position",
-                hintText: "Type Here... ",
+                labelText: StringConstant.position,
+                hintText: StringConstant.typeHerewithDots,
                 maxLines: 4,
                 textInputAction: TextInputAction.next,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value, context) {
                   value = value?.trim() ?? "";
-                  if (value.isEmpty) return "Please Enter Position";
+                  if (value.isEmpty) return StringConstant.pleaseEnterPosition;
                   return null;
                 },
               ),
@@ -150,9 +150,11 @@ class _PositionFormState extends State<_PositionForm> {
                 selector: (state) => state.employerLongTermDto.job_type,
                 builder: (context, selectedJobType) {
                   final model = selectedJobType == 1
-                      ? CommonDropdownModel(id: 1, label: "Full time")
+                      ? CommonDropdownModel(
+                          id: 1, label: StringConstant.fullTime)
                       : selectedJobType == 2
-                          ? CommonDropdownModel(id: 2, label: "Part time")
+                          ? CommonDropdownModel(
+                              id: 2, label: StringConstant.partTime)
                           : null;
                   return _JobTypeDropdownField(
                     selectedJobType: model,
@@ -179,15 +181,15 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(18)),
               CustomTextField(
                 controller: controller._unionUnitController,
-                labelText: "Union/Bargaining Unit",
-                hintText: "Union/Bargaining Unit",
+                labelText: StringConstant.unionBargainingUnit,
+                hintText: StringConstant.unionBargainingUnit,
                 textInputAction: TextInputAction.next,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.number,
                 validator: (value, context) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty) {
-                    return "Please Enter Union/Bargaining Unit";
+                    return StringConstant.pleaseEnterUnionBargainingUnit;
                   }
                   return null;
                 },
@@ -204,11 +206,11 @@ class _PositionFormState extends State<_PositionForm> {
                     validator: (value, _) {
                       value = value?.trim() ?? "";
                       if (value.isEmpty) {
-                        return "Please select estimation hours";
+                        return StringConstant.pleaseSelectEstimationHours;
                       }
                       return null;
                     },
-                    label: "Estimated Weekly Hours",
+                    label: StringConstant.estimatedWeeklyHours,
                     hint: "00h 00min",
                     onPickedTime: (time) {
                       context.read<AddFullPositionBloc>().add(
@@ -227,11 +229,11 @@ class _PositionFormState extends State<_PositionForm> {
                   Padding(
                     padding: EdgeInsets.only(left: getSize(16)),
                     child: BaseText(
-                        text: "Compensation Type",
+                        text: StringConstant.compensationType,
                         fontWeight: FontWeight.w500,
                         fontSize: 14),
                   ),
-                  Gap(12),
+                  Gap(getSize(12)),
                   Material(
                     color: AppColors.surfaceColor,
                     borderRadius: BorderRadius.circular(getSize(20)),
@@ -241,7 +243,7 @@ class _PositionFormState extends State<_PositionForm> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           BaseText(
-                            text: "Select Type",
+                            text: StringConstant.selectType,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -253,8 +255,8 @@ class _PositionFormState extends State<_PositionForm> {
                                 1,
                             builder: (context, selectedRadioOption) {
                               final label = selectedRadioOption == 1
-                                  ? "Rate/Hour"
-                                  : "Salary/Year";
+                                  ? StringConstant.rateHour
+                                  : StringConstant.salaryYear;
 
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -282,7 +284,7 @@ class _PositionFormState extends State<_PositionForm> {
                                                             type: value),
                                                   );
                                             },
-                                            label: "Rate/Hour",
+                                            label: StringConstant.rateHour,
                                             groupValue: selectedRadioOption,
                                             value: 1,
                                           ),
@@ -300,7 +302,7 @@ class _PositionFormState extends State<_PositionForm> {
                                                             type: value),
                                                   );
                                             },
-                                            label: "Salary/Year",
+                                            label: StringConstant.salaryYear,
                                             groupValue: selectedRadioOption,
                                             value: 2,
                                           ),
@@ -355,22 +357,22 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(18)),
               _BulletTextField(
                 controller: controller._benefitController,
-                label: "Benefits Provided",
+                label: StringConstant.benefitsProvided,
               ),
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._compensationController,
-                label: "Compensation Package",
+                label: StringConstant.compensationPackage,
               ),
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._jobSummaryController,
-                label: "Job Summary",
+                label: StringConstant.jobSummary,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter job summary";
+                    return StringConstant.pleaseEnterJobSummary;
                   }
                   return null;
                 },
@@ -378,12 +380,12 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._keyResponsibilityController,
-                label: "Key Responsibilities",
+                label: StringConstant.keyResponsibilities,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter key responsibilities";
+                    return StringConstant.pleaseEnterKeyResponsibilities;
                   }
                   return null;
                 },
@@ -391,17 +393,17 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._externalInternalRelationshipController,
-                label: "External and Internal Relationships",
+                label: StringConstant.externalAndInternalRelationships,
               ),
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._qualificationController,
-                label: "Required Qualifications",
+                label: StringConstant.requiredQualifications,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter required qualifications";
+                    return StringConstant.pleaseEnterRequiredQualifications;
                   }
                   return null;
                 },
@@ -409,12 +411,12 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._experienceController,
-                label: "Required Experience",
+                label: StringConstant.requiredExperience,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter required experience";
+                    return StringConstant.pleaseEnterRequiredExperience;
                   }
                   return null;
                 },
@@ -422,12 +424,13 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._licenseController,
-                label: "Required Licenses/Certifications",
+                label: StringConstant.requiredLicensesCertifications,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter required licenses/certifications";
+                    return StringConstant
+                        .pleaseEnterRequiredLicensesCertifications;
                   }
                   return null;
                 },
@@ -435,13 +438,13 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._skillController,
-                label: "Required Skills",
+                label: StringConstant.requiredSkills,
                 optional: false,
                 validator: (value) {
                   value = value?.trim() ?? "";
 
                   if (value.isEmpty || isValueInValid(value)) {
-                    return "Please enter required skills";
+                    return StringConstant.pleaseEnterRequiredSkills;
                   }
                   return null;
                 },
@@ -449,7 +452,7 @@ class _PositionFormState extends State<_PositionForm> {
               Gap(getSize(16)),
               _BulletTextField(
                 controller: controller._otherController,
-                label: "Other",
+                label: StringConstant.other,
               ),
               Gap(getSize(28)),
               CommonButton(
@@ -501,7 +504,6 @@ class _PositionFormState extends State<_PositionForm> {
 
   Widget languageDropDownChipSet(
       BuildContext context, AddFullPositionState state) {
-    print("rrrr---->${state.languageChipList.getValue()}");
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -580,7 +582,7 @@ class _PositionFormState extends State<_PositionForm> {
               onChanged(value);
             },
           ),
-          Gap(8),
+          Gap(getSize(8)),
           Expanded(
               child: BaseText(
                   text: label, fontSize: 13, fontWeight: FontWeight.w500)),
@@ -611,9 +613,7 @@ class _PositionFormState extends State<_PositionForm> {
                 ),
               );
             },
-            child: SvgPicture.asset(
-              SvgImageConstant.infoCircle,
-            ),
+            child: SvgPicture.asset(SvgImageConstant.infoCircle),
           ),
           items: state.locationList.map((val) {
             return DropdownMenuItem<String>(
@@ -636,8 +636,6 @@ class _PositionFormState extends State<_PositionForm> {
             (_) => null,
           ),
           onChanged: (value) {
-            // print("SELECTED LOCATION----> ${value}");
-            // LocationDTO selectedValue = value;
             if (value != null) {
               context.read<AddFullPositionBloc>().add(
                     AddFullPositionEvent.locationChanged(value.toString()),
@@ -649,7 +647,6 @@ class _PositionFormState extends State<_PositionForm> {
           childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
               ? state.selectedLocationUnit
               : null,
-          // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
             return DropdownMenuItem<String>(
@@ -691,17 +688,17 @@ class _JobTypeDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<CommonDropdownModel> list = [
-      CommonDropdownModel(id: 1, label: "Full time"),
-      CommonDropdownModel(id: 2, label: "Part time"),
+      CommonDropdownModel(id: 1, label: StringConstant.fullTime),
+      CommonDropdownModel(id: 2, label: StringConstant.partTime),
     ];
 
     return CustomDropdownField<CommonDropdownModel>(
       fontSize: 14,
-      label: "Job Type",
-      hintText: "Job Type",
+      label: StringConstant.jobType,
+      hintText: StringConstant.jobType,
       validator: (value) {
         if (value == null) {
-          return "Please enter job type";
+          return StringConstant.pleaseEnterJobType;
         }
         return null;
       },
@@ -766,7 +763,7 @@ class _BulletTextField extends StatelessWidget {
                     Gap(getSize(6)),
                     Flexible(
                       child: BaseText(
-                        text: "(Optional)",
+                        text: "(${StringConstant.optional})",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -776,7 +773,7 @@ class _BulletTextField extends StatelessWidget {
               ),
               Gap(getSize(2)),
               BaseText(
-                text: "You can add multiple points",
+                text: StringConstant.youCanAddMultiplePoints,
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               )
@@ -788,13 +785,12 @@ class _BulletTextField extends StatelessWidget {
           minLines: 1,
           maxLines: 7,
           controller: controller,
-          hintText: "• Type Here",
+          hintText: "• ${StringConstant.typeHere}",
           textInputAction: TextInputAction.newline,
           keyboardType: TextInputType.multiline,
           autoValidateMode: AutovalidateMode.onUserInteraction,
           validator: validator != null
               ? (value, context) {
-                  print("VALIII Value---> $value");
                   return validator!(value);
                 }
               : null,
@@ -917,8 +913,8 @@ class _ShiftSchedule extends StatelessWidget {
           items: list
               .map((item) => MultiSelectItem<String>(item.label, item.label))
               .toList(),
-          title: "Shift Schedule",
-          labelText: "Shift Schedule",
+          title: StringConstant.shiftSchedule,
+          labelText: StringConstant.shiftSchedule,
           selectedColor: AppColors.black,
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -927,14 +923,13 @@ class _ShiftSchedule extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
               context.read<AddFullPositionBloc>().add(
                   AddFullPositionEvent.removeShiftSchedule(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
-            "Shift Schedule",
+            StringConstant.shiftSchedule,
             style: TextStyle(
                 fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
@@ -958,7 +953,6 @@ class _ShiftSchedule extends StatelessWidget {
 
 class UpdateFullTimeJobPositionController extends ChangeNotifier {
   UpdateFullTimeJobPositionController(EmployerLongTermSuccessDto? data) {
-    print("===>position${data?.position}");
     _positionController = TextEditingController(text: data?.position);
     _unionUnitController =
         TextEditingController(text: data?.union_bargaining_unit);

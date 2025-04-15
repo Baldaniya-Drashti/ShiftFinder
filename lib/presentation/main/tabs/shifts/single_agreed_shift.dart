@@ -219,7 +219,6 @@ class SingleAgreedShift extends StatelessWidget {
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null)
           Padding(
@@ -322,18 +321,15 @@ class SingleAgreedShift extends StatelessWidget {
             title: StringConstant.numberOfShifts,
             value:
                 "${(shift.total_shift != null && shift.total_shift! > 9) ? shift.total_shift : "0${shift.total_shift ?? 0}"}",
-            // isFirst: true,
           ),
           SizedBox(height: getSize(10)),
           paybaleTitleRate(
             title: StringConstant.payableHours,
             value: payable.total_payable_hour ?? "",
-            // isFirst: true,
           ),
           paybaleTitleRate(
             title: StringConstant.hourlyRate,
             value: "\$${payable.rate_hour ?? ""}",
-            // isFirst: true,
           ),
           paybaleTitleRate(
             title: StringConstant.totalWage,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -209,7 +210,7 @@ class ContractorLongTermBloc
                   showAPIResponseMessage: (value) => value.message,
                   networkError: (value) =>
                       'Please check your internet connectivity',
-                  orElse: () => "Something went wrong!",
+                  orElse: () => StringConstant.somethingWentWrong,
                 ),
               ).show(value.context);
             },
@@ -234,7 +235,7 @@ class ContractorLongTermBloc
                   showAPIResponseMessage: (value) => value.message,
                   networkError: (value) =>
                       'Please check your internet connectivity',
-                  orElse: () => "Something went wrong!",
+                  orElse: () => StringConstant.somethingWentWrong,
                 ),
               ).show(value.context);
             },

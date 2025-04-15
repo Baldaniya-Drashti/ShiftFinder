@@ -508,15 +508,6 @@ class InvoiceGenerator {
                               ),
                             ],
                           ),
-                          /* detailWidget(
-                              title: "${StringConstant.invoice} :",
-                              value: "${invoice.id ?? ""}"),
-                          detailWidget(
-                              title: "${StringConstant.date} :",
-                              value: (invoice.date != null)
-                                  ? DateFormat("dd MMM, yyyy")
-                                      .format(DateTime.now())
-                                  : ""), */
                         ]),
                   ]),
               paddingBetweenFilled(height: getSize(20)),
@@ -567,18 +558,7 @@ class InvoiceGenerator {
                 padding: pw.EdgeInsets.symmetric(vertical: getSize(10)),
                 child: pw.Divider(),
               ),
-              /* titleWidget(StringConstant.contractorsDetails),
-              detailWidget(
-                  title: "${StringConstant.name} :",
-                  value:
-                      "${invoice.contractor_first_name ?? ""} ${invoice.contractor_last_name ?? ""}"),
-              detailWidget(
-                  title: "${StringConstant.email} :",
-                  value: invoice.contractor_email ?? ""),
-              detailWidget(
-                  title: "${StringConstant.address} :",
-                  value: invoice.location?.location ?? ""),
-              paddingBetweenFilled(height: getSize(30)), */
+
               titleWidget(StringConstant.shiftsDetails),
               horizontalDetailWidget(
                   title: "${StringConstant.role} :",
@@ -596,22 +576,7 @@ class InvoiceGenerator {
                   title2: "${StringConstant.shiftType} :",
                   value2: invoice.shift_type ?? "",
                   regularFont: regularFont),
-              /*  detailWidget(
-                  title: "${StringConstant.shiftType} :",
-                  value: (invoice.shift_type == "2")
-                      ? StringConstant.multi
-                      : StringConstant.single),
-              detailWidget(
-                  title: "${StringConstant.role} :",
-                  value: invoice.roles_list_name ?? ""),
-              detailWidget(
-                  title: "${StringConstant.date} :",
-                  value: (invoice.date != null)
-                      ? DateFormat("dd MMM, yyyy").format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (invoice.date!) * 1000))
-                      : ""),
-              paddingBetweenFilled(height: getSize(30)), */
+
               titleWidget(StringConstant.paymentsDetails),
               detailWidget(
                   title: "${StringConstant.totalPayableHours} :",
@@ -730,13 +695,6 @@ class InvoiceGenerator {
                                   fontSize: getFontSize(10),
                                 ),
                               ),
-                              /* pw.Text(
-                                "${StringConstant.invoice} 74523456",
-                                style: pw.TextStyle(
-                                  fontNormal: regularFont,
-                                  fontSize: getFontSize(10),
-                                ),
-                              ), */
                             ]),
                       ],
                     ),
@@ -770,21 +728,6 @@ class InvoiceGenerator {
                         ],
                       );
                     }),
-                    /*  pw.ListView.separated(
-                      itemCount: 15,
-                      itemBuilder: (context, index) {
-                        return statementBox();
-                      },
-                      separatorBuilder: (context, index) {
-                        return pw.Padding(
-                          padding:
-                              pw.EdgeInsets.symmetric(vertical: getSize(5)),
-                          child:
-                              pw.Divider(color: PdfColor.fromInt(0xFFD9D9D9)),
-                        );
-                      },
-                    ),
-                     */
                     statementTotal(statement),
                   ],
                 ),
@@ -794,131 +737,6 @@ class InvoiceGenerator {
     return pdf.save();
   }
 
-  /*  Future<Uint8List> generateTotalEarningStatement(
-      // MonthlyStatementDTO statement,
-      {required List<DateTime> selectedDates}) async {
-    final pdf = pw.Document();
-
-    // Load the custom font
-    final regularFont = pw.Font.ttf(
-      await rootBundle.load('assets/fonts/RobotoFlex-Regular.ttf'),
-    );
-
-    pw.SizedBox paddingBetweenFilled({double? height, double? width}) {
-      return (width != null)
-          ? pw.SizedBox(width: getSize(width))
-          : pw.SizedBox(height: getSize(height ?? 10));
-    }
-
-    final logoImage = await rootBundle.load('assets/png/splash_logo.png');
-
-    // List<MonthlyStatementDetailDTO> data = statement.list ?? [];
-    List<MonthlyStatementDetailDTO> data = [];
-
-    List<List<MonthlyStatementDetailDTO>> chunkedData = [];
-    int chunkSize = 6;
-
-    for (int i = 0; i < data.length; i += chunkSize) {
-      chunkedData.add(data.sublist(
-          i, i + chunkSize > data.length ? data.length : i + chunkSize));
-    }
-
-    final startDate = DateFormat('dd MMM').format(selectedDates.first);
-    final endDate = DateFormat('dd MMM, yyyy').format(selectedDates.last);
-    pdf.addPage(
-      index: 0,
-      pw.MultiPage(
-          build: (pw.Context context) => [
-                pw.Wrap(
-                  alignment: pw.WrapAlignment.start,
-                  crossAxisAlignment: pw.WrapCrossAlignment.start,
-                  children: [
-                    pw.Row(
-                      mainAxisSize: pw.MainAxisSize.min,
-                      children: [
-                        pw.Container(
-                            width: getSize(60),
-                            height: getSize(60),
-                            child: pw.Image(
-                              pw.MemoryImage(logoImage.buffer.asUint8List()),
-                            )),
-                        paddingBetweenFilled(width: getSize(20)),
-                        pw.Column(
-                            mainAxisSize: pw.MainAxisSize.min,
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: [
-                              pw.Text(
-                                "ShiftFinder",
-                                style: pw.TextStyle(
-                                  fontBold: regularFont,
-                                  fontSize: getFontSize(12),
-                                ),
-                              ),
-                              pw.SizedBox(height: getSize(5)),
-                              pw.Text(
-                                "Total Earning Statement",
-                                style: pw.TextStyle(
-                                  fontNormal: regularFont,
-                                  fontSize: getFontSize(10),
-                                ),
-                              ),
-                              pw.SizedBox(height: getSize(10)),
-                              pw.Text(
-                                "Contractor Name",
-                                style: pw.TextStyle(
-                                  fontBold: regularFont,
-                                  fontSize: getFontSize(10),
-                                ),
-                              ),
-                              pw.SizedBox(height: getSize(5)),
-                              pw.Text(
-                                "Statement Period  2 Apr to 2 May 2024",
-                                style: pw.TextStyle(
-                                  fontBold: regularFont,
-                                  fontSize: getFontSize(10),
-                                ),
-                              ),
-                            ]),
-                      ],
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.only(top: getSize(10)),
-                      child: pw.Divider(color: PdfColor.fromInt(0xFFD9D9D9)),
-                    ),
-                    titleWidget(
-                      StringConstant.completedShiftsEarning,
-                      bgColor: PdfColors.green100,
-                    ),
-                    ...chunkedData.map((chunk) {
-                      return pw.Wrap(
-                        alignment: pw.WrapAlignment.start,
-                        crossAxisAlignment: pw.WrapCrossAlignment.start,
-                        children: [
-                          ...chunk.map((item) {
-                            return pw.Column(
-                                mainAxisSize: pw.MainAxisSize.min,
-                                children: [
-                                  statementBox(item),
-                                  pw.Padding(
-                                    padding: pw.EdgeInsets.symmetric(
-                                        vertical: getSize(5)),
-                                    child: pw.Divider(
-                                        color: PdfColor.fromInt(0xFFD9D9D9)),
-                                  ),
-                                ]);
-                          }),
-                        ],
-                      );
-                    }),
-                    statementTotal(MonthlyStatementDTO()),
-                  ],
-                ),
-              ]),
-    );
-
-    return pdf.save();
-  }
- */
   pw.Container statementBox(MonthlyStatementDetailDTO item) {
     return pw.Container(
       child: pw.Column(

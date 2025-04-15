@@ -66,7 +66,6 @@ class ReferColleagueView extends StatelessWidget {
                           ),
                           CommonButton(
                             onPressed: () {
-                              // showUnderDevelopment(context);
                               context.read<ReferColleagueBloc>().add(
                                   ReferColleagueEvent.shareReferralEvent(
                                       referralCode:
@@ -130,9 +129,6 @@ class ReferColleagueView extends StatelessWidget {
                                         color: AppColors.white,
                                         child: InkWell(
                                           onTap: () {
-                                            // showUnderDevelopment(context);
-                                            print(
-                                                "user.user_id--->${user.user_id}");
                                             context.router.push(
                                               PageRouteInfo(
                                                   ViewCollegueProfile.name,

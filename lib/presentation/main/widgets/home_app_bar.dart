@@ -205,28 +205,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ]
           : actions,
     );
-
-    // Row(
-    //   children: [
-    //     GestureDetector(
-    //       onTap: onBackPressed,
-    //       child: SvgPicture.asset(
-    //         SvgImageConstant.back,
-    //         color: iconColor ?? AppColors.black,
-    //       ),
-    //     ),
-    //     SizedBox(
-    //       width: getSize(73),
-    //     ),
-    //     BaseText(
-    //       text: title,
-    //       fontSize: textStyle?.fontSize ?? 16,
-    //       fontWeight: textStyle?.fontWeight ?? FontWeight.w400,
-    //       textColor: textStyle?.color ?? AppColors.black,
-    //       fontFamily: textStyle?.fontFamily ?? "Aclonica",
-    //     ),
-    //   ],
-    // );
   }
 
   @override

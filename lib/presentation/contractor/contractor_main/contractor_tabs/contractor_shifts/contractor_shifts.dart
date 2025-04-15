@@ -25,10 +25,6 @@ class ContractorShiftView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ContractorShiftBloc>()
         ..add(ContractorShiftEvent.changeNotificationTab()),
-      // ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true))
-      // ..add(ContractorShiftEvent.getUpcomingShiftAPI(true))
-      // ..add(ContractorShiftEvent.getAppliedTypeList(true))
-      // ..add(ContractorShiftEvent.getCounterProposalList(true)),
       child: BlocConsumer<ContractorShiftBloc, ContractorShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -39,7 +35,6 @@ class ContractorShiftView extends StatelessWidget {
                     length: 3,
                     initialIndex: state.selectedTab - 1,
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         tabbar(context),
@@ -92,7 +87,7 @@ class ContractorShiftView extends StatelessWidget {
       indicatorColor: AppColors.primaryColor,
       labelPadding: EdgeInsets.zero,
       unselectedLabelColor: AppColors.black.withValues(alpha: 0.2),
-      tabs: const [
+      tabs: [
         Tab(text: StringConstant.currentShifts),
         Tab(text: StringConstant.upcomingShifts),
         Tab(text: StringConstant.appliedShifts),

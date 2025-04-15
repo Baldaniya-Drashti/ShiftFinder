@@ -7,6 +7,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
@@ -97,9 +98,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
                 );
               }
             } catch (error) {
-              print("error--> $error");
-
-              String errorMessage = "Something went wrong.";
+              String errorMessage = StringConstant.somethingWentWrong;
 
               if (error is StripeException) {
                 errorMessage = error.error.localizedMessage ??

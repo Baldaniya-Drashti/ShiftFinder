@@ -50,13 +50,7 @@ class SameTimeForMultiDate extends StatelessWidget {
                 ),
               ).show(context);
             },
-            (r) {
-              /*context.router.push(PageRouteInfo(
-                PostShiftRecurring.name,
-                args: PostShiftRecurringArgs(
-                    shiftType: state.shiftType, healthcarePost: r, post: post),
-              ));*/
-            },
+            (r) {},
           ),
         );
       },
@@ -127,13 +121,6 @@ class SameTimeForMultiDate extends StatelessWidget {
               if (state.isMoreVacancy) ...[
                 paddingBetweenFields(),
                 numberOfVacancy(context, state),
-                /*if (state.singleShiftErrorMessages &&
-                    !(PostShiftBloc.isMoreVacancyValid(
-                        isMoreVacancy: state.isMoreVacancy,
-                        vacancyValue: state.selectedVacancy)))
-                  commonErrorText(
-                    StringConstant.pleaseAddNumberOfVacancies,
-                  ),*/
               ],
               Padding(
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
@@ -149,7 +136,7 @@ class SameTimeForMultiDate extends StatelessWidget {
                         ));
                   },
                   buttonText: fromSaveTemplate
-                      ? "Save and Next"
+                      ? StringConstant.saveAndNext
                       : StringConstant.txtContinue,
                 ),
               ),
@@ -207,7 +194,6 @@ class SameTimeForMultiDate extends StatelessWidget {
           ? true
           : false,
       onValueChanged: (value) {
-        print("selected dates--> $value");
         context
             .read<PostShiftBloc>()
             .add(PostShiftEvent.multiDateSelectionChanged(value));

@@ -10,7 +10,4 @@ class MainTabEvent with _$MainTabEvent {
       {@Default(false) bool isCheck}) = DontShowAgain;
 
   factory MainTabEvent.registerForPush() = RegisterForPush;
-  /* factory MainTabEvent.pushNotificationInitialize(BuildContext context) =
-      PushNotificationInitialize;
-  factory MainTabEvent.initDynamicLink(BuildContext context) = InitDynamicLink; */
 }

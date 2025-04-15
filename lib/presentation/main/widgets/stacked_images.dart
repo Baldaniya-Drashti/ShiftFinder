@@ -31,7 +31,6 @@ class StackedImage extends StatelessWidget {
         return Container(
           width: getSize(100),
           height: getSize(30),
-          // color: Colors.yellow,
           child: Stack(
             clipBehavior: Clip.none,
             children: [

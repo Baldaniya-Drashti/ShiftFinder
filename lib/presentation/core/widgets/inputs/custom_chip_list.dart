@@ -78,11 +78,6 @@ class CustomChipSet extends StatelessWidget {
                 onDeleted: () {
                   onDelete.call(option);
                 },
-                // () {
-                //   setState(() {
-                //     _selectedOptions.remove(option);
-                //   });
-                // },
               );
             }).toList(),
           );

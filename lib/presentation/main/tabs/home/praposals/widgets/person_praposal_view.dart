@@ -33,7 +33,6 @@ class PraposalPersonView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(getSize(12)),
-      // margin: EdgeInsets.all(getSize(10)),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(getSize(20)),
@@ -119,7 +118,8 @@ class PraposalPersonView extends StatelessWidget {
                           ),
                           SizedBox(height: getSize(3)),
                           BaseText(
-                            text: 'Distance - ${data.distance ?? ""}',
+                            text:
+                                '${StringConstant.distance} - ${data.distance ?? ""}',
                             fontSize: 8,
                             textColor: const Color.fromARGB(255, 55, 46, 46)
                                 .withValues(alpha: 0.8),
@@ -144,15 +144,6 @@ class PraposalPersonView extends StatelessWidget {
                     if (latitude != null && longitude != null) {
                       LocationHelper.openDirections(context,
                           endLat: latitude, endLng: longitude);
-                      /* context.router.push(
-                        PageRouteInfo(
-                          ShowGoogleMap.name,
-                          args: ShowGoogleMapArgs(
-                            latitude: latitude,
-                            longitude: longitude,
-                          ),
-                        ),
-                      ); */
                     }
                   },
                   child: Row(
@@ -200,7 +191,7 @@ class PraposalPersonView extends StatelessWidget {
                 ),
               ),
               if (data.shift_type == 2) ...[
-                Gap(16),
+                Gap(getSize(16)),
                 Expanded(
                   child: CommonButton(
                     height: 34,
@@ -219,10 +210,9 @@ class PraposalPersonView extends StatelessWidget {
                             ProposalDetailEvent.addConfirmDialogFlag(
                                 result as bool));
                       });
-                      // Log.success("result=> $result");
                     },
                     backgroundColor: AppColors.green.withValues(alpha: 0.1),
-                    buttonText: 'Proposed Availability',
+                    buttonText: StringConstant.proposedAvailability,
                     borderRadius: 7,
                     buttonFontSize: 11,
                     buttonTextColor: AppColors.black,

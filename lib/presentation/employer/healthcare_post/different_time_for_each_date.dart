@@ -89,13 +89,6 @@ class DifferentTimeForEachDate extends StatelessWidget {
             script_volume: volumeId.id,
           );
 
-          print("multi_date=> ${state.selectedMultiDates.getValue().map((date) {
-                return DateTimeDTO(date: date.toIso8601String());
-              }).toList().length}");
-          print("multi_date=> ${state.selectedMultiDates.getValue().map((date) {
-            return DateTimeDTO(date: date.toIso8601String());
-          }).toList()}");
-
           context.router
               .push(PageRouteInfo(
             AddMultiDateTime.name,
@@ -162,13 +155,6 @@ class DifferentTimeForEachDate extends StatelessWidget {
               if (state.isMoreVacancy) ...[
                 paddingBetweenFields(),
                 numberOfVacancy(context, state),
-                /*if (state.singleShiftErrorMessages &&
-                    !(PostShiftBloc.isMoreVacancyValid(
-                        isMoreVacancy: state.isMoreVacancy,
-                        vacancyValue: state.selectedVacancy)))
-                  commonErrorText(
-                    StringConstant.pleaseAddNumberOfVacancies,
-                  ),*/
               ],
               Padding(
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
@@ -180,7 +166,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                             fromSaveTemplate: fromSaveTemplate));
                   },
                   buttonText: fromSaveTemplate
-                      ? "Save and continue"
+                      ? StringConstant.saveAndContinue
                       : StringConstant.txtContinue,
                 ),
               ),
@@ -523,9 +509,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Flexible(
               child: BaseText(
                 text: StringConstant.singleShiftVacancyDesc,
@@ -555,7 +539,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             .add(PostShiftEvent.addVacancyChanged(value));
       },
       errorInputBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.transparent),
+        borderSide: BorderSide(color: AppColors.transparent),
         borderRadius: BorderRadius.circular(getSize(10)),
       ),
       validator: (p0, p1) =>
@@ -575,7 +559,6 @@ class DifferentTimeForEachDate extends StatelessWidget {
     final hourId = state.accomdationHoursList.firstWhere(
         (hour) => hour.name == selectedHour,
         orElse: () => SkillDTO());
-    print("Hour ID --> $hourId");
     return "${hourId.id ?? -1}";
   }
 }

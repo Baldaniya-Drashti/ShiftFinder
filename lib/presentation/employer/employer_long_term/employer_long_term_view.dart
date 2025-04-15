@@ -28,7 +28,6 @@ class EmployerLongTermView extends StatelessWidget {
       // ..add(EmployerLongTermEvent.getEmployerFilledPosition(
       //     context: context, refresh: true)),
       child: BlocBuilder<EmployerLongTermBloc, EmployerLongTermState>(
-        // selector: (state) => state.postDataLoading,
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(

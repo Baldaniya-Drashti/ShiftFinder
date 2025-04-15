@@ -42,7 +42,6 @@ class ContractorMainTabView extends StatelessWidget {
                   onTap: () {
                     AppFocus.unfocus(context);
                   },
-                  // child: state.currentPage,
                   child: IndexedStack(
                     index: state.pageIndex,
                     children: List<Widget>.generate(
@@ -122,16 +121,6 @@ Route? onGenerateRoute(
   return MaterialPageRoute(
     settings: settings,
     builder: (context) {
-      // if (tabItem == autoroute.ContractorHomeView.name) {
-      //   return ContractorHomeView();
-      // } else if (tabItem == autoroute.ContractorShiftView.name) {
-      //   return ContractorShiftView();
-      // } else if (tabItem == autoroute.NotificationView.name) {
-      //   return NotificationView();
-      // } else if (tabItem == autoroute.ProfileView.name) {
-      //   return ContractorProfileView();
-      // }
-      // return Container();
       return currentPage;
     },
   );

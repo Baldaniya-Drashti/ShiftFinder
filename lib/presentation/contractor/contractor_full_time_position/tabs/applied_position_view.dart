@@ -135,8 +135,9 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
-    final jobType =
-        contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+    final jobType = contractorFullPosting?.job_type == "1"
+        ? StringConstant.fullTime
+        : StringConstant.partTime;
 
     return Material(
       color: AppColors.scaffoldColor,
@@ -208,13 +209,15 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
       color: AppColors.scaffoldColor,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+                text: StringConstant.position,
+                fontSize: 12,
+                fontWeight: FontWeight.w500),
             Divider(),
             BaseText(
                 fontWeight: FontWeight.w400,
@@ -234,7 +237,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(getSize(16)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -246,8 +249,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SvgPicture.asset(SvgImageConstant.dollorRound,
-                          height: 18),
-                      Gap(10),
+                          height: getSize(18)),
+                      Gap(getSize(10)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -255,8 +258,8 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                           BaseText(
                               text: contractorFullPosting?.compensation_type ==
                                       "1"
-                                  ? "Rate"
-                                  : "Salary",
+                                  ? StringConstant.rate
+                                  : StringConstant.salary,
                               fontSize: 12),
                           BaseText(
                             text: "${contractorFullPosting?.rate_hour ?? ""}",
@@ -282,7 +285,9 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Application Deadline", fontSize: 12),
+                          BaseText(
+                              text: StringConstant.applicationDeadline,
+                              fontSize: 12),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -376,7 +381,7 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
               ),
             ),
           ),
-          Gap(14),
+          Gap(getSize(14)),
           Expanded(
             child: Material(
               borderRadius: BorderRadius.circular(7),
@@ -385,10 +390,10 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                 onTap: () async {
                   final result = await AppDialog.showCommonDialog(
                     context: context,
-                    title: "Cancel",
+                    title: StringConstant.ok,
                     content:
                         "Are you sure you want to cancel this application?",
-                    successLabel: "Ok",
+                    successLabel: StringConstant.ok,
                   );
                   if (result ?? false) {
                     context.read<ContractorFullTimePositionBloc>().add(
@@ -401,9 +406,9 @@ class ContractorFullTimeAppliedPositionView extends StatelessWidget {
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(getSize(8)),
                   child: BaseText(
-                    text: "Cancel Application",
+                    text: StringConstant.cancelApplication,
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     textAlign: TextAlign.center,

@@ -225,7 +225,7 @@ class _SupportFormState extends State<_SupportForm> {
                               Padding(
                                   padding: EdgeInsets.only(left: getSize(5)),
                                   child: BaseText(
-                                    text: "(Optional)",
+                                    text: "(${StringConstant.optional})",
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
                                     textColor:
@@ -328,7 +328,7 @@ class LocationDropdown extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
-            Gap(8),
+            Gap(getSize(8)),
             Material(
               color: (state.selectedLocation != null)
                   ? AppColors.white
@@ -360,48 +360,12 @@ class LocationDropdown extends StatelessWidget {
                     showDropDown: false,
                     showTextfield: false,
                     validator: (value) {
-                      print("fvjvjdnj---> ${state.selectedLocation}");
                       if (state.selectedLocation == null) {
                         return StringConstant.pleaseSelectLocation;
                       }
                       return null;
                     },
                   ),
-                  /*  CustomDropdownField<LocationDTO>(
-                    hintText: StringConstant.locationAddress,
-                    value: initialLocation,
-                    radius: 10,
-                    hintTextStyle: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black.withValues(alpha: 0.5),
-                    ),
-                    items: state.locationList.map(
-                      (e) {
-                        return DropdownMenuItem<LocationDTO>(
-                          value: e,
-                          child: BaseText(
-                            text: e.location ?? "",
-                            fontSize: 14,
-                            maxLines: 1,
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (value) {
-                      final location = value as LocationDTO?;
-                      if (location != null) onLocationChanged(location);
-                    },
-                    // validator: (value) {
-                    //   value = value?.trim() ?? "";
-                    //   if (value.isEmpty) {
-                    //     return StringConstant.pleaseSelectLocation;
-                    //   }
-                    //   return null;
-                    // },
-                  ),
-                  if (!isValidate && state.selectedLocation == null)
-                    commonErrorText(StringConstant.pleaseSelectLocation), */
                   if (state.selectedLocation != null) ...[
                     Divider(height: 0),
                     Padding(

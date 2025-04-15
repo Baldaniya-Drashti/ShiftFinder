@@ -62,7 +62,7 @@ class _CommonButtonState extends State<CommonButton> {
       });
       AppFocus.unfocus(context);
       widget.onPressed();
-      // Enable the button after a specified duration (e.g., 3 seconds).
+
       buttonTimer = Timer(Duration(seconds: 3), () {
         setState(() {
           isButtonDisabled = false;
@@ -86,17 +86,12 @@ class _CommonButtonState extends State<CommonButton> {
         side: WidgetStatePropertyAll(
             BorderSide(color: widget.borderColor ?? Colors.transparent)),
         elevation: WidgetStatePropertyAll(0),
-        // shadowColor: WidgetStatePropertyAll(Colors.transparent),
-        // splashFactory: NoSplash.splashFactory,
         overlayColor: WidgetStatePropertyAll(AppColors.grey04),
-
         backgroundColor: WidgetStatePropertyAll(
             widget.backgroundColor ?? AppColors.primaryColor),
-        // disabledBackgroundColor:widget.backgroundColor ?? AppColors.primaryColor,
         padding: WidgetStatePropertyAll(EdgeInsets.zero),
         fixedSize: WidgetStatePropertyAll(Size(
           getSize(widget.width ?? MediaQuery.of(context).size.width * 100),
-          // (widget.width != null) ? getSize(widget.width!) : double.infinity,
           getSize(
             widget.height ?? 50,
           ),
@@ -125,7 +120,6 @@ class _CommonButtonState extends State<CommonButton> {
                   text: widget.buttonText,
                   fontSize: widget.buttonFontSize ?? 16,
                   textAlign: TextAlign.center,
-                  //maxLines: 1,
                   fontWeight: widget.buttonFontWeight ?? FontWeight.w600,
                   textColor: widget.buttonTextColor ?? Colors.white,
                 ),
@@ -142,8 +136,6 @@ Widget documentSkipButton(BuildContext context,
       buttonText: StringConstant.skip,
       height: 40,
       width: 150,
-      // borderRadius: 10,
-      // buttonFontSize: 12,
       buttonFontWeight: FontWeight.w500,
       backgroundColor: AppColors.transparent,
       buttonTextColor: AppColors.primaryColor,

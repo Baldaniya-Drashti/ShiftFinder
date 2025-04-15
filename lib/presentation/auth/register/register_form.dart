@@ -75,19 +75,12 @@ class RegisterForm extends StatelessWidget {
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     mainView(state, context),
                     GestureDetector(
                       onTap: () {
-                        print("Already account clicked!");
                         context.router
                             .replace(const PageRouteInfo(LoginPage.name));
-                        // context.router.pushAndPopUntil(
-                        //     const PageRouteInfo(LoginPage.name),
-                        //     predicate: (route) => false);
-                        // context.router.popUntil(
-                        //     (route) => route.settings.name == LoginPage.name);
                       },
                       child: Align(
                         alignment: Alignment.bottomCenter,
@@ -150,14 +143,11 @@ class RegisterForm extends StatelessWidget {
         leadingDistribution: TextLeadingDistribution.even,
       ),
       maxLines: 2,
-
       text: TextSpan(
         style: TextStyle(
           color: AppColors.black,
           fontSize: getFontSize(11),
           fontWeight: FontWeight.w400,
-          // height: getSize(2),
-          // backgroundColor: Colors.yellow,
         ),
         children: [
           TextSpan(
@@ -192,7 +182,6 @@ class RegisterForm extends StatelessWidget {
           ),
         ],
       ),
-      // textScaler: const TextScaler.linear(1),
     );
   }
 
@@ -363,9 +352,7 @@ class RegisterForm extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(
-          width: getSize(20),
-        ),
+        SizedBox(width: getSize(20)),
         Flexible(
           child: termsAndCondition(
             title: StringConstant.pleaseCheckTheBoxToConfirmThatYouHaveReviewed,
@@ -383,11 +370,6 @@ class RegisterForm extends StatelessWidget {
               } catch (e) {
                 print("Catch error: $e");
               }
-              /* context.router
-                  .push(const PageRouteInfo(TermsAndConditionsScreen.name,
-                      args: TermsAndConditionsScreenArgs(
-                        isFromRegister: true,
-                      ))); */
             },
             onPrivacyPolicyClick: () async {
               final Uri url = Uri.parse(StringConstant.shiftFinderWebsite);
@@ -400,8 +382,6 @@ class RegisterForm extends StatelessWidget {
               } catch (e) {
                 print("Catch error: $e");
               }
-              // context.router
-              //     .push(const PageRouteInfo(PrivacyPolicyScreen.name));
             },
           ),
         ),

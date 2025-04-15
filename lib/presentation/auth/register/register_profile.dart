@@ -93,16 +93,11 @@ class RegisterProfileScreen extends StatelessWidget {
                     AppFocus.unfocus(context);
                     VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
-                      // (getCurrentRole() == 1)
-                      //     ? state.enteredPhoneNo
-                      //     : state.email.getValue(),
-                      // "+${state.selectedCountrycode}",
                       (getCurrentRole() == 1)
                           ? "${getCurrentUser().phone ?? ''}"
                           : getCurrentUser().email ?? '',
                       getCurrentUser().countryCode ?? '',
                       getCurrentUser().countryNameCode ?? '',
-                      // state.selectedCountryFlag,
                       state.password.getValue(),
                     );
                   },
@@ -153,13 +148,6 @@ class RegisterProfileScreen extends StatelessWidget {
                           child: CommonButton(
                             isSubmitting: state.isSubmitting,
                             onPressed: () {
-                              /*VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
-                                context,
-                                (getCurrentRole() == 1)
-                                    ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
-                                    : state.email.getValue(),
-                                state.password.getValue(),
-                              );*/
                               context.read<RegisterFormBloc>().add(
                                       RegisterFormEvent
                                           .registerProfileBtnPressed(
@@ -209,7 +197,7 @@ class RegisterProfileScreen extends StatelessWidget {
                             );
                       }
                     } catch (e) {
-                      print("Camera picker catch errorr---> $e");
+                      print("Camera picker catch error--> $e");
                     }
                   },
                   selectPhotoCallback: () async {
@@ -292,37 +280,6 @@ class RegisterProfileScreen extends StatelessWidget {
               commonErrorText("* Please select profile photo"),
           ],
         ),
-        // Positioned(
-        //   top: getSize(75),
-        //   left: getSize(210),
-        //   child: GestureDetector(
-        //     onTap: () {},
-        //     child: Container(
-        //       height: getSize(25),
-        //       width: getSize(25),
-        //       alignment: Alignment.center,
-        //       decoration: BoxDecoration(
-        //         shape: BoxShape.circle,
-        //         color: AppColors.white,
-        //         border: Border.all(
-        //           color: AppColors.primaryColor,
-        //           width: getSize(1),
-        //         ),
-        //         boxShadow: [
-        //           BoxShadow(
-        //             color: AppColors.black.withValues(alpha: 0.2),
-        //             blurRadius: 14,
-        //           ),
-        //         ],
-        //       ),
-        //       child: SvgPicture.asset(
-        //         SvgImageConstant.camera,
-        //         height: getSize(15),
-        //         width: getSize(15),
-        //       ),
-        //     ),
-        //   ),
-        // )
       ],
     );
   }
@@ -378,7 +335,6 @@ class RegisterProfileScreen extends StatelessWidget {
         CountryCodeRemovingFormatter(),
       ],
       onChanged: (value) {
-        print("Filter Phone number --> $value");
         context.read<RegisterFormBloc>().add(
               RegisterFormEvent.phoneNumberChanged(value),
             );
@@ -620,81 +576,6 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
-  /* Widget locationAddressTextField(
-      BuildContext context, RegisterFormState state) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomTextField(
-          labelText: (getCurrentRole() == 1)
-              ? StringConstant.address
-              : StringConstant.locationAddress,
-          isLabelPadding: true,
-          hintText: (getCurrentRole() == 1)
-              ? StringConstant.address
-              : StringConstant.locationAddress,
-          // controller: TextEditingController()
-          //   ..text = state.locationAddress.getValue() ?? "",
-          controller: RegisterFormBloc.locationCtrl,
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getSize(14),
-              vertical: getSize(14),
-            ),
-            child: SvgPicture.asset(
-              SvgImageConstant.locationIcon,
-              height: getSize(24),
-              width: getSize(24),
-              color: AppColors.primaryColor,
-            ),
-          ),
-          onChanged: (value) => context.read<RegisterFormBloc>().add(
-              RegisterFormEvent.locationAddressChanged(
-                  RegisterFormBloc.locationCtrl.text)),
-          validator: (p0, p1) =>
-              context.read<RegisterFormBloc>().state.locationAddress.value.fold(
-                    (f) => f.maybeMap(
-                      empty: (value) => (getCurrentRole() == 1)
-                          ? StringConstant.pleaseEnterAddress
-                          : StringConstant.pleaseEnterLocationName,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  ),
-        ),
-        if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
-          Container(
-            height: getSize(200),
-            color: AppColors.white,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.searchLocationList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () {
-                    // final selectedLocation = state.searchLocationList[index]["description"];
-                    final selectedLocation = state.searchLocationList[index];
-
-                    context.read<RegisterFormBloc>().add(
-                        RegisterFormEvent.locationSelectedFromSearchList(
-                            selectedLocation));
-                  },
-                  dense: true,
-                  titleAlignment: ListTileTitleAlignment.top,
-                  leading: SvgPicture.asset(SvgImageConstant.locationIcon),
-                  title: BaseText(
-                    text: state.searchLocationList[index].description ?? "",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                );
-              },
-            ),
-          ),
-      ],
-    );
-  } */
-
   Widget dobField(BuildContext context, RegisterFormState state) {
     return CustomTextField(
       labelText: StringConstant.dateOfBirth,
@@ -764,7 +645,6 @@ class RegisterProfileScreen extends StatelessWidget {
           location: RegisterFormBloc.locationCtrl.text,
         ).then((value) {
           if (value != null) {
-            print("selected location ---> $value");
             context
                 .read<RegisterFormBloc>()
                 .add(RegisterFormEvent.locationSelectedFromSearchList(value));
@@ -784,9 +664,6 @@ class RegisterProfileScreen extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
       ),
-      /* onChanged: (value) => context.read<RegisterFormBloc>().add(
-          RegisterFormEvent.locationAddressChanged(
-              RegisterFormBloc.locationCtrl.text)), */
       validator: (p0, p1) =>
           context.read<RegisterFormBloc>().state.locationAddress.value.fold(
                 (f) => f.maybeMap(

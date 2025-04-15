@@ -117,7 +117,6 @@ class _DocumentPageState extends State<DocumentPage> {
       itemBuilder: (context, index) =>
           DocumentBloc.documentPageList(isUpdate: widget.isUpdate)[index],
       onPageChanged: (value) {
-        print("CURRENT PAGE IS===> $value");
         context.read<DocumentBloc>().add(DocumentEvent.nextPage(value));
       },
     );

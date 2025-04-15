@@ -71,16 +71,12 @@ class _ListTile extends StatelessWidget {
               height: getSize(40),
               width: getSize(45),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Image.asset(
               PngImageConstants.line,
               height: getSize(80),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,18 +86,14 @@ class _ListTile extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   Text.rich(
                     TextSpan(
                       text: "${data.profession_referrer ?? ""} ",
                       style: TextStyle(fontSize: 12),
                     ),
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   BaseText(
                     text: data.email ?? "",
                     fontSize: 10,
@@ -110,7 +102,6 @@ class _ListTile extends StatelessWidget {
                 ],
               ),
             ),
-            //  Icon(Icons.arrow_forward_rounded)
           ],
         ),
       ),

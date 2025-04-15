@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/injection.dart';
@@ -42,7 +43,9 @@ class AddNewTeamView extends StatelessWidget {
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
-              title: state.isEdit ? 'Update Team' : 'Add New Team',
+              title: state.isEdit
+                  ? StringConstant.updateTeam
+                  : StringConstant.addNewTeam,
             ),
             body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -67,7 +70,7 @@ class AddNewTeamView extends StatelessWidget {
                           ),
                           SizedBox(height: getSize(30)),
                           BaseText(
-                            text: 'Create a Team',
+                            text: StringConstant.createATeam,
                             fontSize: 22,
                             textAlign: TextAlign.center,
                             fontWeight: FontWeight.w400,
@@ -75,8 +78,7 @@ class AddNewTeamView extends StatelessWidget {
                           ),
                           SizedBox(height: getSize(10)),
                           BaseText(
-                            text:
-                                'Organize and manage your internal teams for efficient shift notification. Select a team to notify all members via email when a shift is posted.',
+                            text: StringConstant.createTeamDesc,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             textAlign: TextAlign.center,
@@ -89,7 +91,7 @@ class AddNewTeamView extends StatelessWidget {
                     Row(
                       children: [
                         BaseText(
-                          text: 'Location',
+                          text: StringConstant.location,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -106,10 +108,7 @@ class AddNewTeamView extends StatelessWidget {
                     CustomDropdownTextfield(
                       valueController: state.singleValueDropDownController,
                       list: state.locationList,
-                      hintText: 'Location',
-                      // onChanged: (p0) => context
-                      //     .read<TeamsBloc>()
-                      //     .add(TeamsEvent.changeLocation(p0)),
+                      hintText: StringConstant.location,
                       validator: (p0) {
                         if (p0 == null || p0.isEmpty) {
                           return 'Please select location';
@@ -117,13 +116,6 @@ class AddNewTeamView extends StatelessWidget {
                           return null;
                         }
                       },
-                      // validator: (p0) => state.locationTextField.value.fold(
-                      //   (l) => l.maybeMap(
-                      //     empty: (_) => 'Please select location',
-                      //     orElse: () => null,
-                      //   ),
-                      //   (r) => null,
-                      // ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: getSize(14),
@@ -136,14 +128,14 @@ class AddNewTeamView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(20)),
                     BaseText(
-                      text: 'Team Name',
+                      text: StringConstant.teamName,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: getSize(8)),
                     CustomTextField(
                       key: state.isEdit ? Key('Team Name') : null,
-                      hintText: 'Team Name',
+                      hintText: StringConstant.teamName,
                       initialValue: state.isEdit
                           ? state.teamNameTextField.getValue() ?? ""
                           : null,
@@ -193,7 +185,9 @@ class AddNewTeamView extends StatelessWidget {
                       context.read<TeamsBloc>().add(TeamsEvent.createTeam());
                     }
                   },
-                  buttonText: state.isEdit ? 'Update' : 'Create',
+                  buttonText: state.isEdit
+                      ? StringConstant.update
+                      : StringConstant.create,
                 ),
               ),
             ),
@@ -219,11 +213,6 @@ class AddNewTeamView extends StatelessWidget {
                 } else {
                   context.router.maybePop(true);
                 }
-
-                // await showSuccess(message: r).show(context).then(
-                //       (value) => context.router.maybePop(true),
-                //     );
-                //context.router.push(const PageRouteInfo(MainTabView.name));
               },
             ),
           );

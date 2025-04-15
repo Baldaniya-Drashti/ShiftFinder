@@ -252,15 +252,6 @@ class _PreviousShiftListTile extends StatelessWidget {
         if (latitude != null && longitude != null) {
           LocationHelper.openDirections(context,
               endLat: latitude, endLng: longitude);
-          /* context.router.push(
-            PageRouteInfo(
-              ShowGoogleMap.name,
-              args: ShowGoogleMapArgs(
-                latitude: latitude,
-                longitude: longitude,
-              ),
-            ),
-          ); */
         }
       },
       child: CommonInfoTile(
@@ -598,7 +589,6 @@ class _PreviousShiftListTile extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,
@@ -699,9 +689,9 @@ class _PreviousShiftListTile extends StatelessWidget {
     required String contractorName,
   }) {
     AppDialog.showDelete(
-      deleteBtnText: "Block",
+      deleteBtnText: StringConstant.block,
       deleteColor: AppColors.redAccent,
-      title: "Block",
+      title: StringConstant.block,
       context,
       infoMessage:
           "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
@@ -748,10 +738,10 @@ class _PreviousShiftListTile extends StatelessWidget {
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
-      title: "Unblock",
+      title: StringConstant.unblock,
       content:
           "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      successLabel: "Unblock",
+      successLabel: StringConstant.unblock,
     );
 
     if (result ?? false) {

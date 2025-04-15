@@ -174,16 +174,12 @@ class ViewApplicantProfile extends StatelessWidget {
                                 height: getSize(30),
                                 width: getSize(30),
                               ),
-                              SizedBox(
-                                width: getSize(15),
-                              ),
+                              SizedBox(width: getSize(15)),
                               Image.asset(
                                 PngImageConstants.line,
                                 height: getSize(25),
                               ),
-                              SizedBox(
-                                width: getSize(15),
-                              ),
+                              SizedBox(width: getSize(15)),
                               Expanded(
                                 child: BaseText(
                                   text: StringConstant.professional,

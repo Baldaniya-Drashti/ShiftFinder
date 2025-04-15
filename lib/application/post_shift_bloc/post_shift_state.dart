@@ -64,7 +64,8 @@ class PostShiftState with _$PostShiftState {
     required bool fromSaveTemplate,
     required List<DateTimeDTO> multiDateTimeList,
     required bool isDifferentDateDataValid,
-    required Option<Either<AuthFailure, MultiShiftDTO>> differentDateFailureOrSuccessOption,
+    required Option<Either<AuthFailure, MultiShiftDTO>>
+        differentDateFailureOrSuccessOption,
     required bool fromPreviousShift,
 
     /// Post the Shift
@@ -84,10 +85,11 @@ class PostShiftState with _$PostShiftState {
         shiftType: -1,
         postId: -1,
         isLoading: false,
-          fromSaveTemplate: false,
+        fromSaveTemplate: false,
+
         /// Single Shift
         signleShiftDate: InputEmptyOrNot(""),
-        // startTime: InputEmptyOrNot(""),
+
         startHour: InputEmptyOrNot(""),
         startMinute: InputEmptyOrNot("00 Min"),
         endHour: InputEmptyOrNot(""),

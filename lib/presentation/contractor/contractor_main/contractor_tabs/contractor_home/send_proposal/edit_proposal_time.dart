@@ -26,7 +26,6 @@ class EditProposalTime extends StatelessWidget {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            // return startEndTime(context, index, state.multiDates[index]);
             return (state.multiDates[index].isUnAvailable)
                 ? notAvailable(context, state.multiDates[index])
                 : startEndTime(context, index, state.multiDates[index]);

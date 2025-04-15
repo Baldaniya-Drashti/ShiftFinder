@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,12 +13,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ProfessionalReferenceDetail')
 class ProfessionalReferenceDetail extends StatelessWidget {
   const ProfessionalReferenceDetail({super.key, required this.data});
-
   final ReferenceDTO data;
 
   @override
   Widget build(BuildContext context) {
-    print("reference data---> ${jsonEncode(data)}");
     return Scaffold(
       appBar: CommonAppBar(
         title: StringConstant.referenceDetail,

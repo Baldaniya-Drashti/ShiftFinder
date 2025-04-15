@@ -417,7 +417,6 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
           childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
               ? state.selectedLocationUnit
               : null,
-          // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
             return DropdownMenuItem<String>(

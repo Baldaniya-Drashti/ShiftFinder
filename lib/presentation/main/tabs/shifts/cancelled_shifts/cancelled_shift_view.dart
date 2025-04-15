@@ -89,25 +89,6 @@ class CancelledShiftView extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                        /*if (state.currentCancelFilter.id == 1) ...[] else ...[
-                            Expanded(
-                              child: PaginatedListView(
-                                onRefresh: () {},
-                                onLoading: () {},
-                                refreshController: RefreshController(),
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  itemCount: 5,
-                                  separatorBuilder: (context, index) => SizedBox(
-                                    height: getSize(12),
-                                  ),
-                                  itemBuilder: (context, index) =>
-                                      _WithdrawnByContractorTile(),
-                                ),
-                              ),
-                            )
-                          ]*/
                       ],
                     ),
                   );
@@ -153,10 +134,8 @@ class CancelledShiftView extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: CustomDropdownField(
         onChanged: (value) {
-          // if (value != null) {
           context.read<ShiftsBloc>().add(
               ShiftsBlocEvent.onCancelLocationSorting(value ?? LocationDTO()));
-          // }
         },
         hintText: StringConstant.location,
         value: (state.currentCancelLocationFilter.location != null &&
@@ -299,17 +278,6 @@ class CancelledShiftView extends StatelessWidget {
                           Icons.arrow_forward_ios_rounded,
                           size: getSize(14),
                         ),
-                        /* ChatButton(  onPressed: () {
-                            // showUnderDevelopment(context);
-                            context.router.push(
-                              PageRouteInfo(
-                                Message.name,
-                                args: MessageArgs(
-                                  receiverId: shift.user?.user_id ?? 0,
-                                ),
-                              ),
-                            );
-                          }, ), */
                       ],
                     ),
                   ),
@@ -427,15 +395,6 @@ class CancelledShiftView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /*  context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -555,124 +514,6 @@ class CancelledShiftView extends StatelessWidget {
         )
       ],
     );
-
-    /* return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            (shift.shift_type == 1)
-                ? displayTime(
-                    title: StringConstant.time,
-                    startDate: (shift.start_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.start_time ?? 0) * 1000))
-                        : "",
-                    endDate: (shift.end_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.end_time ?? 0) * 1000))
-                        : "",
-                    svgPrefixIcon: SvgImageConstant.clock,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftStartDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-          ],
-        ),
-        if (state.currentCancelFilter.id == 1)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              displayDateBreak(
-                context,
-                boldValue: "",
-                timidValue: "",
-                title: "",
-                svgPrefixIcon: "",
-                showBtn: true,
-                onBtnPressed: () {
-                  context.router.push(
-                    PageRouteInfo(
-                      ViewHomeShiftDetails.name,
-                      args: ViewHomeShiftDetailsArgs(
-                        postId: shift.id ?? -1,
-                        route: ShiftDetailRoute.employerCancelledShift,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-
-        /* if (state.currentCancelFilter.id == 2) ...[
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getSize(18), vertical: getSize(8)),
-            child: BaseText(
-              text: StringConstant.reason,
-              fontSize: 12,
-              textColor: AppColors.black.withValues(alpha: 0.7),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: getSize(12), vertical: getSize(10)),
-            margin: EdgeInsets.only(bottom: getSize(15)),
-            decoration: BoxDecoration(
-                color: AppColors.scaffoldColor,
-                borderRadius: BorderRadius.circular(getSize(10))),
-            child: BaseText(
-              text:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-              fontSize: 12,
-              textColor: AppColors.black,
-            ),
-          ),
-        ] else ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              displayDateBreak(
-                context,
-                boldValue: "\$${shift.compassion ?? ""}",
-                timidValue: "",
-                title: StringConstant.compassion,
-                svgPrefixIcon: SvgImageConstant.dollorRound,
-              ),
-              displayDateBreak(
-                context,
-                boldValue: "",
-                timidValue: "",
-                title: "",
-                svgPrefixIcon: "",
-                showBtn: true,
-                onBtnPressed: () {
-                  context.router.push(
-                    PageRouteInfo(
-                      ViewHomeShiftDetails.name,
-                      args: ViewHomeShiftDetailsArgs(
-                        postId: shift.id ?? -1,
-                        route: ShiftDetailRoute.employerCancelledShift,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ] */
-      ],
-    );
-  */
   }
 
   Widget displayTime({
@@ -760,7 +601,6 @@ class CancelledShiftView extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,

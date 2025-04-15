@@ -54,8 +54,7 @@ class AppliedTab extends StatelessWidget {
                   : state.isAppliedErrorInAPI
                       ? Center(
                           child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
+                              BaseText(text: StringConstant.somethindWentWrong))
                       : ListView.builder(
                           itemCount: state.appliedList.length,
                           padding:
@@ -208,7 +207,6 @@ class AppliedTab extends StatelessWidget {
                                           bgColor: AppColors.primaryColor
                                               .withValues(alpha: 0.10),
                                         ),
-                                        // if (shift.isVacancies == false) ...[
                                         SizedBox(width: getSize(10)),
                                         (shift.request == 1 &&
                                                 shift.urgent_action == 0)
@@ -219,7 +217,6 @@ class AppliedTab extends StatelessWidget {
                                               )
                                             : cancelBtn(
                                                 context, shift.id ?? -1, shift)
-                                        // ],
                                       ],
                                     ),
                                   ],
@@ -253,7 +250,7 @@ class AppliedTab extends StatelessWidget {
               : displayDateBreak(
                   context,
                   boldValue:
-                      "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? "Shifts" : "Shift"}",
+                      "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
                   timidValue: "",
                   title: StringConstant.totalShifts,
                   svgPrefixIcon: SvgImageConstant.calendar,
@@ -343,13 +340,7 @@ class AppliedTab extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: (showBtn)
           ? CommonButton(
-              onPressed: () {
-                /*if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
-                        }*/
-              },
+              onPressed: () {},
               width: 160,
               height: 34,
               borderRadius: 5,
@@ -408,13 +399,7 @@ class AppliedTab extends StatelessWidget {
         dense: true,
         contentPadding: EdgeInsets.zero,
         horizontalTitleGap: 10,
-        onTap: () {
-          /*context.read<ContractorShiftBloc>().add(
-                ContractorShiftEvent.startRevokingTimer(
-                    Duration(hours: 2), shift.id ?? -1,
-                    revokeTime: (shift.id == 92) ? 1728627746 : 1728627655),
-              );*/
-        },
+        onTap: () {},
         title: Padding(
           padding: EdgeInsets.only(left: getSize(20)),
           child: BaseText(
@@ -525,15 +510,6 @@ class AppliedTab extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(

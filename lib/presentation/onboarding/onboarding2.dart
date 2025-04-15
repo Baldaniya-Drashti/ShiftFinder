@@ -50,7 +50,6 @@ class OnBoarding2 extends StatelessWidget {
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () {
-                print("Back is Tapped");
                 context.router.maybePop();
               },
               title: StringConstant.chooseIndustry,
@@ -62,9 +61,7 @@ class OnBoarding2 extends StatelessWidget {
                   Image.asset((getCurrentRole() == 1)
                       ? PngImageConstants.onboarding2_contractor
                       : PngImageConstants.onboarding2_employer),
-                  SizedBox(
-                    height: getSize(20),
-                  ),
+                  SizedBox(height: getSize(20)),
                   Expanded(
                     child: ListView.builder(
                         itemCount: industryList.length,

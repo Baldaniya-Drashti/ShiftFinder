@@ -73,21 +73,6 @@ class AppliedShift extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(StringConstant.applied),
-                /*Padding(
-                  padding: EdgeInsets.only(left: getSize(5)),
-                  child: Badge(
-                    backgroundColor: AppColors.redAccent,
-                    largeSize: getSize(15),
-                    padding: EdgeInsets.symmetric(horizontal: getSize(3)),
-                    // smallSize: getSize(10),
-                    // isLabelVisible: true,
-                    label: BaseText(
-                      text: '03',
-                      fontSize: 6,
-                      textColor: AppColors.white,
-                    ),
-                  ),
-                ),*/
               ],
             ),
           ),
@@ -96,21 +81,6 @@ class AppliedShift extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(StringConstant.counterProposal),
-                /*Padding(
-                  padding: EdgeInsets.only(left: getSize(5)),
-                  child: Badge(
-                    backgroundColor: AppColors.redAccent,
-                    largeSize: getSize(15),
-                    padding: EdgeInsets.symmetric(horizontal: getSize(3)),
-                    // smallSize: getSize(10),
-                    // isLabelVisible: true,
-                    label: BaseText(
-                      text: '03',
-                      fontSize: 6,
-                      textColor: AppColors.white,
-                    ),
-                  ),
-                ),*/
               ],
             ),
           ),

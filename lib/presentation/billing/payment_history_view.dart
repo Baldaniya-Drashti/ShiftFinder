@@ -94,8 +94,6 @@ class _PaymentHistoryExpandableTile extends StatelessWidget {
       childrenPadding: EdgeInsets.all(getSize(15)).copyWith(top: 0),
       tilePadding: EdgeInsets.symmetric(horizontal: getSize(15)),
       clipBehavior: Clip.none,
-
-      // trailing: SvgPicture.asset(SvgImageConstant.downArrow),
       title: _buildPaymentDetailTitle(context,
           title: StringConstant.totalAmountPayable,
           amount: shift.total_amount_payble ?? ""),

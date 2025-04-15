@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
@@ -34,7 +35,7 @@ class ApplicantSpecialize extends StatelessWidget {
         children: [
           if ((data.experience ?? []).isNotEmpty) ...[
             BaseText(
-              text: "Roles",
+              text: StringConstant.roles,
               textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
@@ -70,23 +71,14 @@ class ApplicantSpecialize extends StatelessWidget {
               ),
             ),
           ],
-
-          // getDetailsView(
-          //   mainTitle: 'Roles',
-          //   subTitle1: roles ?? "",
-          //   subTitle2: 'Paramedic',
-          //   experience1: 'EXP - 04 Yr.  03 Mo.',
-          //   experience2: 'EXP - 02 Yr.  11 Mo.',
-          // ),
           SizedBox(height: getSize(15)),
           Divider(
             height: 0,
           ),
           SizedBox(height: getSize(15)),
-
           if ((speciality ?? []).isNotEmpty) ...[
             BaseText(
-              text: "Specialties",
+              text: StringConstant.specialties,
               textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
@@ -120,11 +112,10 @@ class ApplicantSpecialize extends StatelessWidget {
               ),
             ),
           ],
-
           if ((specialityOther ?? []).isNotEmpty) ...[
             SizedBox(height: getSize(8)),
             BaseText(
-              text: "Other Specialties",
+              text: StringConstant.otherSpecialties,
               textColor: AppColors.green.withValues(alpha: 0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
@@ -165,16 +156,15 @@ class ApplicantSpecialize extends StatelessWidget {
             ),
             SizedBox(height: getSize(15)),
             getSkillsDetailsView(
-              mainTitle: 'Software Skillset',
+              mainTitle: StringConstant.softwareSkillSet,
               skills:
                   '${data.complete_profile?.softwares_skill_list?.map((e) => e.name ?? "").join(", ")}',
             ),
           ],
-
           if (data.complete_profile?.software_skill_other != null) ...[
             SizedBox(height: getSize(8)),
             getSkillsDetailsView(
-              mainTitle: 'Software Skillset Other',
+              mainTitle: StringConstant.softwareSkillsetOther,
               skills: '${data.complete_profile?.software_skill_other}',
             ),
           ],
@@ -185,7 +175,7 @@ class ApplicantSpecialize extends StatelessWidget {
             ),
             SizedBox(height: getSize(15)),
             getSkillsDetailsView(
-              mainTitle: 'Languages Known',
+              mainTitle: StringConstant.languagesKnown,
               skills:
                   '${completeProfile?.languages_list?.map((e) => e.name ?? "").toList().join(", ")}',
             ),

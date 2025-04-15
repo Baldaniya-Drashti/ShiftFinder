@@ -45,7 +45,6 @@ class AddSpecialityExperience extends StatelessWidget {
         child: Scaffold(
           appBar: CommonAppBar(
             isShowBackBtn: !isFromSplash,
-            // isShowBackBtn: (isUpdate) ? false : !isFromSplash,
             onBackPressed: () {
               if (isUpdate && isSpecialityForceUpdate) {
                 AppDialog.showInfo(
@@ -73,16 +72,7 @@ class AddSpecialityExperience extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
-
                     if (isUpdate) {
-                      /*  context.router.pushAndPopUntil(
-                        PageRouteInfo(AddContractorSkillsForm.name,
-                            args:
-                                AddContractorSkillsFormArgs(isFromSplash: true)),
-                        predicate:
-                            ModalRoute.withName(ContractorUpdateProfileView.name),
-                      ); */
                       Navigator.pop(context, true);
                     } else {
                       context.router
@@ -112,9 +102,7 @@ class AddSpecialityExperience extends StatelessWidget {
                                 child: mainListView(context, state)),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
-                          bottom: getSize(40),
-                        ),
+                        padding: EdgeInsets.only(bottom: getSize(40)),
                         child: CommonButton(
                           isSubmitting: state.isSubmitting,
                           onPressed: () {
@@ -165,7 +153,6 @@ class AddSpecialityExperience extends StatelessWidget {
               ),
               child: BaseText(
                 text:
-                    // "${index + 1}. ${(isUpdate) ? (currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? "" : currentObj.name}",
                     "${index + 1}. ${(currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? ""}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
@@ -179,7 +166,6 @@ class AddSpecialityExperience extends StatelessWidget {
                 Flexible(
                   child: customeDropDown(
                     hintText: StringConstant.year,
-
                     value: (currentObj.experience_year != null &&
                             currentObj.experience_year!.isNotEmpty)
                         ? currentObj.experience_year
@@ -204,12 +190,6 @@ class AddSpecialityExperience extends StatelessWidget {
                             name: currentObj.name ?? "",
                           ));
                     },
-                    // validator: (value) {
-                    //   return (state.records[index].experience_year != null &&
-                    //           state.records[index].experience_year!.isNotEmpty)
-                    //       ? null
-                    //       : StringConstant.pleaseSelectYear;
-                    // },
                   ),
                 ),
                 SizedBox(width: getSize(20)),
@@ -231,7 +211,6 @@ class AddSpecialityExperience extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      print("SELECT MONTH $value");
                       context
                           .read<SpecialityExperienceBloc>()
                           .add(SpecialityExperienceEvent.updateRecordEvent(
@@ -241,49 +220,8 @@ class AddSpecialityExperience extends StatelessWidget {
                             name: currentObj.name ?? "",
                           ));
                     },
-                    // validator: (value) {
-                    //   return (state.records[index].experience_month != null &&
-                    //           state.records[index].experience_month!
-                    //               .isNotEmpty)
-                    //       ? null
-                    //       : StringConstant.pleaseSelectMonth;
-                    // },
                   ),
                 ),
-                // customPicker(
-                //   context,
-                //   showYear: true,
-                //   showMonth: false,
-                //   onChangeyear: (value) {
-                //     context
-                //         .read<SpecialityExperienceBloc>()
-                //         .add(SpecialityExperienceEvent.updateRecordEvent(
-                //           index: index,
-                //           year: value ?? "",
-                //           month: currentObj.experience_month ?? "",
-                //           name: currentObj.name ?? "",
-                //         ));
-                //   },
-                // ),
-                // SizedBox(
-                //   width: getSize(20),
-                // ),
-                // customPicker(
-                //   context,
-                //   showYear: false,
-                //   showMonth: true,
-                //   onChangedMonth: (value) {
-                //     print("SELECTE MONTH $value");
-                //     context
-                //         .read<SpecialityExperienceBloc>()
-                //         .add(SpecialityExperienceEvent.updateRecordEvent(
-                //           index: index,
-                //           year: currentObj.experience_year ?? "",
-                //           month: value ?? "",
-                //           name: currentObj.name ?? "",
-                //         ));
-                //   },
-                // ),
               ],
             ),
             (!(state.records[index].experience_year != null &&
@@ -316,9 +254,7 @@ class AddSpecialityExperience extends StatelessWidget {
                           )
                         : Container(),
             if (index == (state.records.length - 1))
-              SizedBox(
-                height: getSize(20),
-              )
+              SizedBox(height: getSize(20))
           ],
         );
       },
@@ -447,13 +383,6 @@ class AddSpecialityExperience extends StatelessWidget {
               ),
             ),
           ),
-          // Container(
-          //   height: getSize(46),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.white,
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          // )
         ],
       ),
     );

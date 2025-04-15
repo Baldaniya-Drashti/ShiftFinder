@@ -92,9 +92,7 @@ class TeamDetailView extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: getSize(30),
-                  ),
+                  SizedBox(height: getSize(30)),
                   Expanded(
                     child: (state.teamDetail.members == null ||
                             state.teamDetail.members!.isEmpty)
@@ -175,7 +173,6 @@ class TeamDetailView extends StatelessWidget {
                         true,
                       ),
                     );
-                //context.router.push(const PageRouteInfo(MainTabView.name));
               },
             ),
           );

@@ -153,7 +153,10 @@ class _RatingsDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        BaseText(text: "Sort by", fontSize: 10, fontWeight: FontWeight.w500),
+        BaseText(
+            text: StringConstant.sortBy,
+            fontSize: 10,
+            fontWeight: FontWeight.w500),
         SizedBox(height: getSize(7)),
         CustomDropdownField<RatingDropdownModel>(
           items: [
@@ -267,7 +270,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         id: userId ?? -1, postId: postId ?? -1)),
               );
             },
-            label: "View Profile",
+            label: StringConstant.viewProfile,
             radius: 7.0,
             textStyle:
                 TextStyle(fontSize: getSize(12.0), fontWeight: FontWeight.w600),
@@ -306,7 +309,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                   AppColors.black.withOpacity(0.6), BlendMode.srcIn),
             ),
             title: BaseText(
-              text: "Last Worked Date",
+              text: StringConstant.lastWorkedDate,
               fontSize: getSize(10),
               textColor: AppColors.black.withOpacity(0.6),
               fontWeight: FontWeight.w400,
@@ -339,7 +342,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                   AppColors.black.withOpacity(0.6), BlendMode.srcIn),
             ),
             title: BaseText(
-              text: "Time",
+              text: StringConstant.time,
               fontSize: getSize(10),
               textColor: AppColors.black.withOpacity(0.6),
               fontWeight: FontWeight.w400,
@@ -364,15 +367,6 @@ class _PreviousShiftListTile extends StatelessWidget {
         if (latitude != null && longitude != null) {
           LocationHelper.openDirections(context,
               endLat: latitude, endLng: longitude);
-          /* context.router.push(
-            PageRouteInfo(
-              ShowGoogleMap.name,
-              args: ShowGoogleMapArgs(
-                latitude: latitude,
-                longitude: longitude,
-              ),
-            ),
-          ); */
         }
       },
       child: CommonInfoTile(
@@ -425,10 +419,10 @@ class _PreviousShiftListTile extends StatelessWidget {
                             if (data.isFavourite ?? false) {
                               final result = await AppDialog.showCommonDialog(
                                 context: context,
-                                title: "Unfavorite",
+                                title: StringConstant.unfavorite,
                                 content:
                                     "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                                successLabel: "Unfavorite",
+                                successLabel: StringConstant.unfavorite,
                               );
                               if (result ?? false) {
                                 context.read<PreviousShiftBloc>().add(
@@ -454,7 +448,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         ? SvgImageConstant.heartChecked
                         : SvgImageConstant.heart1,
                     label:
-                        "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                        "${(data.isFavourite ?? false) ? StringConstant.added : StringConstant.add} to favorite",
                     textColor:
                         isBlock ? AppColors.black.withValues(alpha: 0.5) : null,
                   ),
@@ -491,7 +485,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                             data.rating != null &&
                             data.rating != 0)
                         ? "${data.rating!.toDouble()}"
-                        : "Leave a Rating",
+                        : StringConstant.leaveARating,
                   ),
                 ),
               ],
@@ -515,7 +509,9 @@ class _PreviousShiftListTile extends StatelessWidget {
                             );
                           }
                         : null,
-                    label: data.isRemark == true ? "Remark Added" : "Remark",
+                    label: data.isRemark == true
+                        ? StringConstant.remarkAdded
+                        : StringConstant.remark,
                     icon: data.isRemark == true
                         ? SvgImageConstant.remarkAdded
                         : SvgImageConstant.medalStar,
@@ -593,9 +589,9 @@ class _PreviousShiftListTile extends StatelessWidget {
     required String contractorName,
   }) {
     AppDialog.showDelete(
-      deleteBtnText: "Block",
+      deleteBtnText: StringConstant.block,
       deleteColor: AppColors.redAccent,
-      title: "Block",
+      title: StringConstant.block,
       context,
       infoMessage:
           "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
@@ -642,10 +638,10 @@ class _PreviousShiftListTile extends StatelessWidget {
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
-      title: "Unblock",
+      title: StringConstant.unblock,
       content:
           "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      successLabel: "Unblock",
+      successLabel: StringConstant.unblock,
     );
 
     if (result ?? false) {

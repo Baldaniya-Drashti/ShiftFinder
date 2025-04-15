@@ -28,7 +28,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: IntroVideoScreen.page),
         AutoRoute(page: IntroQuizScreen.page),
         AutoRoute(page: AddCardDetailPage.page),
-        AutoRoute(page: LocationExample.page),
         AutoRoute(page: AddBankDetailsScreen.page),
         AutoRoute(page: ViewHomeShiftDetails.page),
         AutoRoute(page: ViewDates.page),
@@ -43,7 +42,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: TotalPraposalView.page),
         AutoRoute(page: ViewPersonPraposalView.page),
         AutoRoute(page: CounterPurposeView.page),
-        AutoRoute(page: AwaitingConfirmationView.page),
         AutoRoute(page: TeamsView.page),
         AutoRoute(page: AddNewTeamView.page),
         AutoRoute(page: TeamDetailView.page),
@@ -64,9 +62,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ViewUpcomingShiftDetails.page),
         AutoRoute(page: ViewContractorShift.page),
         AutoRoute(page: ViewContractorShiftDates.page),
-        AutoRoute(page: ViewFilledShiftsDetails.page),
-        AutoRoute(page: ViewFilledShiftsDates.page),
-        AutoRoute(page: ViewAgreedPraposal.page),
         AutoRoute(page: PreviousShiftView.page),
         AutoRoute(page: EditProfileView.page),
         AutoRoute(page: ShiftActionsView.page),
@@ -112,7 +107,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ReferColleagueView.page),
         AutoRoute(page: ContractorUpdateProfileView.page),
         AutoRoute(page: BankListView.page),
-        AutoRoute(page: ReferenceListView.page),
         // AutoRoute(page: FullTimePositionView.page),
         // AutoRoute(page: FullPositionDetailView.page),
 
@@ -134,7 +128,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EmployerFullPositionPositionDetailView.page),
 
         AutoRoute(page: ContractorFullTimePositionView.page),
-        AutoRoute(page: ContractorFullTimePositionDetailView.page),
         AutoRoute(page: ContractorLongTermView.page),
 
         AutoRoute(page: EmployerCompletedShiftView.page),
@@ -158,6 +151,5 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: CompleteShiftInvoiceView.page),
         AutoRoute(page: ContractorProposedAvailability.page),
         AutoRoute(page: LongTermHiredContractorList.page),
-        // AutoRoute(page: ContractorNotificationView.page),
       ];
 }

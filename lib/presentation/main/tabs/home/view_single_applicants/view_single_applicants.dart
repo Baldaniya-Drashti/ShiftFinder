@@ -37,7 +37,7 @@ class ViewSingleApplicants extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: 'View Applicants',
+          title: StringConstant.viewApplicants,
         ),
         body: BlocBuilder<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
           builder: (context, state) {
@@ -76,7 +76,7 @@ class ViewSingleApplicants extends StatelessWidget {
                               Expanded(
                                 child: BaseText(
                                   text:
-                                      "All Hired Contractors (${state.completeShift}/${state.totalShift})",
+                                      "${StringConstant.allHiredContractors} (${state.completeShift}/${state.totalShift})",
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
                                 ),
@@ -212,7 +212,9 @@ class ViewSingleApplicants extends StatelessWidget {
                                                         child: CommonButton(
                                                           onPressed: () {
                                                             AcceptRejectDialog(
-                                                              title: 'Revoke',
+                                                              title:
+                                                                  StringConstant
+                                                                      .revoke,
                                                               description:
                                                                   'Once you revoke, the contractor will have a 2-hour window to confirm the shift. If they do not confirm within 2 hours, the offer will be automatically revoked.',
                                                               onPressedAccept:
@@ -238,7 +240,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                     );
                                                               },
                                                               acceptButtonText:
-                                                                  'Revoke',
+                                                                  StringConstant
+                                                                      .revoke,
                                                               onPressedReject:
                                                                   () {
                                                                 context.router
@@ -256,7 +259,9 @@ class ViewSingleApplicants extends StatelessWidget {
                                                               AppColors.black,
                                                           buttonFontSize: 12,
                                                           borderRadius: 10,
-                                                          buttonText: 'Revoke',
+                                                          buttonText:
+                                                              StringConstant
+                                                                  .revoke,
                                                           height: 34,
                                                         ),
                                                       ),
@@ -298,35 +303,11 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                             state,
                                                                             data,
                                                                             index);
-                                                                        /* AcceptRejectDialog(
-                                                                          title:
-                                                                              'Accept',
-                                                                          description:
-                                                                              'Are you sure you want to accept this application?',
-                                                                          onPressedAccept:
-                                                                              () {
-                                                                            if (data.occupied ==
-                                                                                true)
-                                                                              return;
-                                                                            context.router.maybePop();
-                                                                            final id =
-                                                                                state.employerApplicantList[index].id;
-                                                                            context.read<ViewSingleApplicantsBloc>().add(
-                                                                                  ViewSingleApplicantsEvent.acceptApplicants(
-                                                                                    context,
-                                                                                    id ?? 0,
-                                                                                  ),
-                                                                                );
-                                                                          },
-                                                                          onPressedReject:
-                                                                              () {
-                                                                            context.router.maybePop();
-                                                                          },
-                                                                        ).acceptRejectDialog(
-                                                                            context); */
                                                                       }
                                                                     },
-                                                          buttonText: 'Accept',
+                                                          buttonText:
+                                                              StringConstant
+                                                                  .accept,
                                                           buttonFontSize: 12,
                                                           borderRadius: 10,
                                                           height: 34,
@@ -351,10 +332,10 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                   ? () {}
                                                                   : () {
                                                                       AcceptRejectDialog(
-                                                                        title:
-                                                                            'Reject',
+                                                                        title: StringConstant
+                                                                            .reject,
                                                                         description:
-                                                                            'Are you sure you want to reject this application?',
+                                                                            StringConstant.rejectApplicantDesc,
                                                                         onPressedAccept:
                                                                             () {
                                                                           context
@@ -374,7 +355,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                               );
                                                                         },
                                                                         acceptButtonText:
-                                                                            'Reject',
+                                                                            StringConstant.reject,
                                                                         onPressedReject:
                                                                             () {
                                                                           context
@@ -405,7 +386,9 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                       .green,
                                                           buttonFontSize: 12,
                                                           borderRadius: 10,
-                                                          buttonText: 'Reject',
+                                                          buttonText:
+                                                              StringConstant
+                                                                  .reject,
                                                           height: 34,
                                                         ),
                                                       ),
@@ -439,12 +422,13 @@ class ViewSingleApplicants extends StatelessWidget {
                                                         buttonFontSize: 12,
                                                         borderRadius: 10,
                                                         buttonText:
-                                                            'View Profile',
+                                                            StringConstant
+                                                                .viewProfile,
                                                         height: 34,
                                                       ),
                                                     ),
                                                   ],
-                                                )
+                                                ),
                                               ]
                                             ],
                                           ),
@@ -482,13 +466,7 @@ class ViewSingleApplicants extends StatelessWidget {
         dense: true,
         contentPadding: EdgeInsets.zero,
         horizontalTitleGap: 10,
-        onTap: () {
-          /*context.read<ContractorShiftBloc>().add(
-                ContractorShiftEvent.startRevokingTimer(
-                    Duration(hours: 2), shift.id ?? -1,
-                    revokeTime: (shift.id == 92) ? 1728627746 : 1728627655),
-              );*/
-        },
+        onTap: () {},
         title: Padding(
           padding: EdgeInsets.only(left: getSize(20)),
           child: BaseText(
@@ -529,7 +507,7 @@ class ViewSingleApplicants extends StatelessWidget {
       EmployerApplicantsDto data, int index) {
     return AcceptRejectDialog(
       title: StringConstant.accept,
-      description: 'Are you sure you want to accept this application?',
+      description: StringConstant.acceptApplicationDesc,
       onPressedAccept: () {
         if (data.occupied == true) return;
         context.router.maybePop();
@@ -595,7 +573,8 @@ class ViewSingleApplicants extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         BaseText(
-                          text: 'Distance - ${data.distance ?? ""}',
+                          text:
+                              '${StringConstant.distance} - ${data.distance ?? ""}',
                           fontSize: 8,
                           textColor: AppColors.black.withValues(alpha: 0.8),
                         ),
@@ -662,15 +641,6 @@ class ViewSingleApplicants extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(

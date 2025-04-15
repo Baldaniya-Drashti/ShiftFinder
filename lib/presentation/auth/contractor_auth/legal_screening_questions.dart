@@ -203,27 +203,9 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              /*(questionModel.answer == 0)
-                  ? SvgPicture.asset(
-                      SvgImageConstant.notApplicable,
-                      height: getSize(16),
-                      width: getSize(23),
-                    )
-                  : (questionModel.answer == 1 || questionModel.answer == 2)
-                      ? SvgPicture.asset(
-                          (questionModel.answer == 1)
-                              ? SvgImageConstant.icYes
-                              : SvgImageConstant.icNo,
-                          height: getSize(24),
-                          width: getSize(24),
-                        )
-                      : Container(),*/
             ],
           ),
-          // if (questionModel.answer == null) ...[
-          SizedBox(
-            height: getSize(10),
-          ),
+          SizedBox(height: getSize(10)),
           Row(
             children: [
               answerButton(
@@ -249,7 +231,6 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                 ),
             ],
           ),
-          // ],
         ],
       ),
     );
@@ -267,7 +248,6 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: getSize(12), vertical: getSize(12)),
-        // margin: EdgeInsets.symmetric(vertical: getSize(10)),
         decoration: BoxDecoration(
             color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -276,7 +256,6 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
             SizedBox(
               height: getSize(20),
               width: getSize(16.67),
-              // color: Colors.green,
               child: Checkbox(
                 value: state.isCheck,
                 activeColor: AppColors.primaryColor,
@@ -331,11 +310,3 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
     );
   }
 }
-
-// class QuestionModel {
-//   String? question;
-//   bool showNotApplicableButton;
-//   String? answer;
-//   QuestionModel(
-//       {this.question, this.showNotApplicableButton = false, this.answer});
-// }

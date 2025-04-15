@@ -1,13 +1,9 @@
 part of 'employer_long_term_add_bloc.dart';
 
 @freezed
-class EmployerLongTermAddState with _$EmployerLongTermAddState{
-  const factory  EmployerLongTermAddState({
+class EmployerLongTermAddState with _$EmployerLongTermAddState {
+  const factory EmployerLongTermAddState({
     required EmployerLongTermSuccessDto updatePost,
-
-    /// SPECIALITY
-    // required ListInputEmptyOrNot requiredSpecialityChipList,
-    // required String requiredSpecialityChip,
 
     /// SPECIALITY
 
@@ -18,8 +14,6 @@ class EmployerLongTermAddState with _$EmployerLongTermAddState{
 
     /// ROLE TYPE
     required List<SkillDTO> roleList,
-    // required ListInputEmptyOrNot roleTypeChipList,
-    // required String roleTypeChip,
     required InputEmptyOrNot roleType,
 
     /// SOFTWARE SKILL
@@ -54,42 +48,42 @@ class EmployerLongTermAddState with _$EmployerLongTermAddState{
     required bool showRoleTypeError,
     required bool showSpeExperienceError,
     required bool showLocationError,
-
     int? postId,
-    required Option<Either<MainFailure, HealthcarePostDTO>> authFailureOrSuccessOption,
-  }) =  _EmployerLongTermAddState;
+    required Option<Either<MainFailure, HealthcarePostDTO>>
+        authFailureOrSuccessOption,
+  }) = _EmployerLongTermAddState;
 
-  factory EmployerLongTermAddState.initial() =>  EmployerLongTermAddState(
-    updatePost: EmployerLongTermSuccessDto(),
-    rateHour: Rate(""),
-    location: InputEmptyOrNot(""),
-    locationObj: LocationDTO(),
-    locationList: [],
-    unitList: [],
-    selectedLocationUnit: "",
-    requiredSpecialityChipList: ListInputEmptyOrNot([]),
-    requiredSpecialityChip: "",
-    languageChip: "",
-    languageChipList: ListInputEmptyOrNot(["English"]),
-    specialityList: [],
-    softwareList: [],
-    languageList: [],
-    languageOther: [],
-    roleList: [],
-    softwareSkillOther: [],
-    specialityOther: [],
-    roleType: InputEmptyOrNot(""),
-    requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),
-    requiredSoftwareSkillChip: "",
-    isSubmitting: false,
-    isLoading: false,
-    showErrorMessages: false,
-    showRoleTypeError: false,
-    showSpecialityError: false,
-    showSoftwareSkillError: false,
-    showLanguageError: false,
-    showLocationError: false,
-    showSpeExperienceError: false,
-    authFailureOrSuccessOption: none(),
-  );
+  factory EmployerLongTermAddState.initial() => EmployerLongTermAddState(
+        updatePost: EmployerLongTermSuccessDto(),
+        rateHour: Rate(""),
+        location: InputEmptyOrNot(""),
+        locationObj: LocationDTO(),
+        locationList: [],
+        unitList: [],
+        selectedLocationUnit: "",
+        requiredSpecialityChipList: ListInputEmptyOrNot([]),
+        requiredSpecialityChip: "",
+        languageChip: "",
+        languageChipList: ListInputEmptyOrNot(["English"]),
+        specialityList: [],
+        softwareList: [],
+        languageList: [],
+        languageOther: [],
+        roleList: [],
+        softwareSkillOther: [],
+        specialityOther: [],
+        roleType: InputEmptyOrNot(""),
+        requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),
+        requiredSoftwareSkillChip: "",
+        isSubmitting: false,
+        isLoading: false,
+        showErrorMessages: false,
+        showRoleTypeError: false,
+        showSpecialityError: false,
+        showSoftwareSkillError: false,
+        showLanguageError: false,
+        showLocationError: false,
+        showSpeExperienceError: false,
+        authFailureOrSuccessOption: none(),
+      );
 }

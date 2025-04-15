@@ -32,10 +32,6 @@ class ShiftActionsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      /* onWillPop: () {
-        // context.router.popUntil((route) => route.isFirst);
-        return Future.value(false);
-      }, */
       child: BlocProvider(
         create: (context) => getIt<ShiftActionBloc>()
           ..add(ShiftActionEvent.getEmployerData(
@@ -43,7 +39,6 @@ class ShiftActionsView extends StatelessWidget {
         child: Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () {
-              // context.router.popUntil((route) => route.isFirst);
               Navigator.pop(context, true);
             },
             title: StringConstant.shiftApproved,
@@ -61,7 +56,7 @@ class ShiftActionsView extends StatelessWidget {
                     width: getSize(280),
                     child: BaseText(
                       textColor: AppColors.black.withValues(alpha: 0.65),
-                      text: 'No result found.',
+                      text: StringConstant.noResultFound,
                       textAlign: TextAlign.center,
                       lineHeight: 1.2,
                     ),
@@ -108,10 +103,11 @@ class ShiftActionsView extends StatelessWidget {
                                         final result =
                                             await AppDialog.showCommonDialog(
                                           context: context,
-                                          title: "Unfavorite",
+                                          title: StringConstant.unfavorite,
                                           content:
                                               "Removing ${data?.first_name ?? ""} ${data?.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                                          successLabel: "Unfavorite",
+                                          successLabel:
+                                              StringConstant.unfavorite,
                                         );
                                         if (result ?? false) {
                                           context.read<ShiftActionBloc>().add(
@@ -137,7 +133,7 @@ class ShiftActionsView extends StatelessWidget {
                                   ? SvgImageConstant.heartChecked
                                   : SvgImageConstant.heart1,
                               label:
-                                  "${(data?.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                                  "${(data?.isFavourite ?? false) ? StringConstant.added : StringConstant.add} to favorite",
                               textColor: isBlock
                                   ? AppColors.black.withValues(alpha: 0.5)
                                   : null,
@@ -264,10 +260,10 @@ class ShiftActionsView extends StatelessWidget {
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
-      title: "Unblock",
+      title: StringConstant.unblock,
       content:
           "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      successLabel: "Unblock",
+      successLabel: StringConstant.unblock,
     );
 
     if (result ?? false) {
@@ -285,16 +281,16 @@ class ShiftActionsView extends StatelessWidget {
     required String contractorName,
   }) {
     AppDialog.showDelete(
-      deleteBtnText: "Block",
+      deleteBtnText: StringConstant.block,
       deleteColor: AppColors.redAccent,
-      title: "Block",
+      title: StringConstant.block,
       context,
       otherContent: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Gap(10),
+          Gap(getSize(10)),
           BaseText(
-            text: "This will not impact any currently accepted shifts",
+            text: StringConstant.thisWillNotImpactAnyCurrentlyAcceptedShifts,
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
@@ -365,15 +361,6 @@ class ShiftActionsView extends StatelessWidget {
         if (latitude != null && longitude != null) {
           LocationHelper.openDirections(context,
               endLat: latitude, endLng: longitude);
-          /*  context.router.push(
-            PageRouteInfo(
-              ShowGoogleMap.name,
-              args: ShowGoogleMapArgs(
-                latitude: latitude,
-                longitude: longitude,
-              ),
-            ),
-          ); */
         }
       },
       child: CommonInfoTile(

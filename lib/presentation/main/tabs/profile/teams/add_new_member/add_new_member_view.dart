@@ -64,20 +64,17 @@ class AddNewMemberView extends StatelessWidget {
                 } else {
                   context.router.maybePop(true);
                 }
-
-                // Navigator.pop(context, true);
               },
             ),
           );
         },
         builder: (context, state) {
-          // log(state.teamNameTextField.getValue() ?? "");
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
               title: isUpdateMember
-                  ? "Edit Member’s Details"
-                  : 'Add New Team Member',
+                  ? StringConstant.editMembersDetails
+                  : StringConstant.addNewTeamMember,
             ),
             body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -91,7 +88,7 @@ class AddNewMemberView extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   children: [
                     memberDetail(
-                      title: 'Member Name',
+                      title: StringConstant.memberName,
                       image: SvgImageConstant.person,
                       prefillValue: state.teamNameTextField.getValue() ?? "",
                       textCapitalization: TextCapitalization.words,
@@ -99,7 +96,7 @@ class AddNewMemberView extends StatelessWidget {
                         FilteringTextInputFormatter.allow(
                             RegExp(r'[a-zA-Z\s]')),
                       ],
-                      value: 'Member Name',
+                      value: StringConstant.memberName,
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
                               AddNewMemberEvent.changeTeamMemberName(value),
@@ -118,10 +115,6 @@ class AddNewMemberView extends StatelessWidget {
                       image: SvgImageConstant.bag,
                       prefillValue: state.jobPositionTextField.getValue(),
                       value: StringConstant.jobPosition,
-                      inputFormatters: [
-                        // FilteringTextInputFormatter.allow(
-                        //     RegExp(r'[a-zA-Z\s]')),
-                      ],
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
                               AddNewMemberEvent.jobLocationChange(value),
@@ -137,16 +130,15 @@ class AddNewMemberView extends StatelessWidget {
                       ),
                     ),
                     memberDetail(
-                      title: 'Phone Number',
+                      title: StringConstant.phoneNumber,
                       image: SvgImageConstant.call,
                       prefillValue: state.mobileNumber.getValue(),
-                      //prefillValue: getTeamsListDTO?. ?? "",
                       maxLength: 10,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         CountryCodeRemovingFormatter(),
                       ],
-                      value: 'Phone Number',
+                      value: StringConstant.phoneNumber,
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
@@ -164,11 +156,10 @@ class AddNewMemberView extends StatelessWidget {
                       ),
                     ),
                     memberDetail(
-                      title: 'E-mail',
+                      title: StringConstant.e_mail,
                       image: SvgImageConstant.email,
-                      value: 'E-mail',
+                      value: StringConstant.e_mail,
                       prefillValue: state.emailAddress.getValue(),
-                      // prefillValue: getTeamsListDTO?. ?? "",
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
@@ -214,7 +205,9 @@ class AddNewMemberView extends StatelessWidget {
                               );
                         }
                       },
-                      buttonText: isUpdateMember ? 'Update' : 'Add',
+                      buttonText: isUpdateMember
+                          ? StringConstant.update
+                          : StringConstant.add,
                     ),
                     SizedBox(height: getSize(isUpdateMember ? 20 : 0)),
                     Visibility(
@@ -222,7 +215,7 @@ class AddNewMemberView extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           AcceptRejectDialog(
-                            title: 'Delete Team Member',
+                            title: StringConstant.deleteTeamMember,
                             description:
                                 'Are you sure you want to delete the team memeber?',
                             onPressedAccept: () {
@@ -240,7 +233,7 @@ class AddNewMemberView extends StatelessWidget {
                             onPressedReject: () {
                               context.router.maybePop(true);
                             },
-                            acceptButtonText: 'Delete',
+                            acceptButtonText: StringConstant.delete,
                           ).acceptRejectDialog(context);
                         },
                         child: Row(
@@ -255,7 +248,7 @@ class AddNewMemberView extends StatelessWidget {
                             ),
                             SizedBox(width: getSize(5)),
                             BaseText(
-                              text: 'Delete Team Member',
+                              text: StringConstant.deleteTeamMember,
                               fontSize: 12,
                               textColor: AppColors.redAccent,
                               fontWeight: FontWeight.w600,
@@ -286,7 +279,6 @@ class AddNewMemberView extends StatelessWidget {
     int? maxLength,
     List<TextInputFormatter>? inputFormatters,
   }) {
-    //  log('=====>$title ${prefillValue ?? ""}');
     return BlocBuilder<AddNewMemberBloc, AddNewMemberState>(
       builder: (context, state) {
         return Column(
@@ -321,7 +313,6 @@ class AddNewMemberView extends StatelessWidget {
                       ),
                       child: SvgPicture.asset(
                         image,
-                        //   color: AppColors.black.withValues(alpha: 0.5),
                       ),
                     ),
               onChanged: onChanged,

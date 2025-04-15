@@ -72,7 +72,7 @@ class PersonListWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     UserAvatar(url: list[index].profile ?? ""),
-                    Gap(12),
+                    Gap(getSize(12)),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ class PersonListWidget extends StatelessWidget {
                                 )
                               : (list[index].revoke_status == 1)
                                   ? BaseText(
-                                      text: "Awaiting...",
+                                      text: StringConstant.awaiting,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
                                     )
@@ -188,7 +188,7 @@ class PersonListWidget extends StatelessWidget {
                                                   height: 13,
                                                   width: 13,
                                                 ),
-                                                Gap(4),
+                                                Gap(getSize(4)),
                                                 BaseText(
                                                   text: list[index]
                                                               .sent_received_status ==
@@ -215,7 +215,7 @@ class PersonListWidget extends StatelessWidget {
                             height: 35,
                             onPressed: () {
                               AcceptRejectDialog(
-                                title: 'Revoke',
+                                title: StringConstant.revoke,
                                 description:
                                     'Once you revoke, the contractor will have a 2-hour window to confirm the shift. If they do not confirm within 2 hours, the offer will be automatically revoked.',
                                 onPressedAccept: () {
@@ -231,33 +231,20 @@ class PersonListWidget extends StatelessWidget {
                                             context: context),
                                       );
                                 },
-                                acceptButtonText: 'Revoke',
+                                acceptButtonText: StringConstant.revoke,
                                 onPressedReject: () {
                                   context.router.maybePop();
                                 },
                               ).acceptRejectDialog(context);
                             },
-                            label: "Revoke",
+                            label: StringConstant.revoke,
                             textStyle: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w600),
                           )
                         : (list[index].revoke_status == 2 &&
                                 list[index].deleteAt != 1)
                             ? revokingStatus(context, state, list[index])
-                            : /* (list[index].revoke_status == 3 &&
-                                    list[index].deleteAt != 1)
-                                ? Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: getSize(10)),
-                                    child: BaseText(
-                                      text: StringConstant
-                                          .offerRevokedByTheEmployer,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  )
-                                : */
-                            Icon(
+                            : Icon(
                                 Icons.arrow_forward_rounded,
                                 color: AppColors.black,
                               )

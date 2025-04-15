@@ -11,7 +11,6 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -187,173 +186,6 @@ class ViewPersonPraposalView extends StatelessWidget {
                         );
                       }),
                     ],
-                    /* 
-                     BaseText(
-                      text: StringConstant.hourlyRate,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(height: getSize(10)),
-                    Container(
-                      padding: EdgeInsets.all(getSize(20)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEDEDED),
-                        borderRadius: BorderRadius.circular(getSize(20)),
-                      ),
-                      child: Column(
-                        children: [
-                          getTitleAndDescription(
-                            context,
-                            title: StringConstant.posted,
-                            description: '\$${data.posted_hourly_rate ?? ""}',
-                          ),
-                          SizedBox(height: getSize(20)),
-                          getTitleAndDescription(
-                            context,
-                            title: StringConstant.proposed,
-                            description: '\$${data.proposed_hourly_rate ?? ""}',
-                          ),
-                          if (data.counter_proposal_hourly_rate != null) ...[
-                            SizedBox(height: getSize(20)),
-                            getTitleAndDescription(
-                              context,
-                              title: StringConstant.counterProposed,
-                              description:
-                                  '\$${data.counter_proposal_hourly_rate ?? ""}',
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                    if (data.commute_allowance_type != 0) ...[
-                      SizedBox(height: getSize(20)),
-                      BaseText(
-                        text: 'Commute Allowance',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      SizedBox(height: getSize(10)),
-                      Container(
-                        padding: EdgeInsets.all(getSize(20)),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEDEDED),
-                          borderRadius: BorderRadius.circular(getSize(20)),
-                        ),
-                        child: Builder(builder: (context) {
-                          final hourly = data.commute_allowance_type == 2;
-                          String postedDescription,
-                              proposedDescription,
-                              counterProposedDescription;
-                          if (hourly) {
-                            postedDescription =
-                                data.posted_commute_allowance_hour_name ?? "";
-                            proposedDescription =
-                                data.proposed_commute_allowance_hour_name ?? "";
-                            counterProposedDescription = data
-                                    .counter_commute_allowance_hour_id
-                                    .toString() ??
-                                "";
-                          } else {
-                            postedDescription =
-                                "\$${data.posted_commute_allowance_rate ?? ""}";
-                            proposedDescription =
-                                "\$${data.proposed_commute_allowance_rate ?? ""}";
-                            counterProposedDescription =
-                                "\$${data.counter_commute_allowance_rate ?? ""}";
-                          }
-
-                          return Column(
-                            children: [
-                              getTitleAndDescription(
-                                context,
-                                title: StringConstant.posted,
-                                description: postedDescription,
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: StringConstant.proposed,
-                                description: proposedDescription,
-                              ),
-                              if (counterProposedDescription.isNotEmpty) ...[
-                                SizedBox(height: getSize(20)),
-                                getTitleAndDescription(
-                                  context,
-                                  title: StringConstant.counterProposed,
-                                  description: counterProposedDescription,
-                                ),
-                              ],
-                            ],
-                          );
-                        }),
-                      ),
-                    ],
-                    if (data.accommodation_allowance_type != 0) ...[
-                      SizedBox(height: getSize(20)),
-                      BaseText(
-                        text: 'Accommodation Allowance',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      SizedBox(height: getSize(10)),
-                      Container(
-                        padding: EdgeInsets.all(getSize(20)),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEDEDED),
-                          borderRadius: BorderRadius.circular(getSize(20)),
-                        ),
-                        child: Builder(builder: (context) {
-                          final isCommuteAllowanceHourly =
-                              data.accommodation_allowance_type == 2;
-                          String postedDescription,
-                              proposedDescription,
-                              counterProposedDescription;
-
-                          if (isCommuteAllowanceHourly) {
-                            postedDescription =
-                                data.posted_accommodation_allowance_hour_name ??
-                                    "";
-                            proposedDescription =
-                                data.proposed_accommodation_allowance_hour_name ??
-                                    "";
-                            counterProposedDescription = data
-                                    .counter_accommodation_allowance_hour_id
-                                    .toString() ??
-                                "";
-                          } else {
-                            postedDescription =
-                                "\$${data.posted_accommodation_allowance_rate ?? ""}";
-                            proposedDescription =
-                                "\$${data.proposed_accommodation_allowance_rate ?? ""}";
-                            counterProposedDescription =
-                                "\$${data.counter_accommodation_allowance_rate ?? ""}";
-                          }
-                          return Column(
-                            children: [
-                              getTitleAndDescription(
-                                context,
-                                title: StringConstant.posted,
-                                description: postedDescription,
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: StringConstant.proposed,
-                                description: proposedDescription,
-                              ),
-                              if (counterProposedDescription.isNotEmpty) ...[
-                                SizedBox(height: getSize(20)),
-                                getTitleAndDescription(
-                                  context,
-                                  title: StringConstant.counterProposed,
-                                  description: counterProposedDescription,
-                                ),
-                              ],
-                            ],
-                          );
-                        }),
-                      ),
-                    ], */
                     SizedBox(height: getSize(40)),
                     if (user.sent_received_status != 2) ...[
                       Row(
@@ -420,7 +252,8 @@ class ViewPersonPraposalView extends StatelessWidget {
                                                                         as bool));
                                                       });
                                                     },
-                                                    buttonText: "Ok",
+                                                    buttonText:
+                                                        StringConstant.ok,
                                                   ),
                                                 )
                                               ],
@@ -474,9 +307,9 @@ class ViewPersonPraposalView extends StatelessWidget {
                                   ? () {}
                                   : () {
                                       AcceptRejectDialog(
-                                        title: 'Reject',
+                                        title: StringConstant.reject,
                                         description:
-                                            'Are you sure you want to reject this proposal?',
+                                            StringConstant.rejectProposaDesc,
                                         onPressedAccept: () {
                                           context.router.maybePop().then(
                                             (value) {
@@ -499,7 +332,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                             },
                                           );
                                         },
-                                        acceptButtonText: 'Reject',
+                                        acceptButtonText: StringConstant.reject,
                                         onPressedReject: () {
                                           context.router.maybePop();
                                         },
@@ -516,7 +349,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                                   : AppColors.green,
                               buttonFontSize: 16,
                               borderRadius: 10,
-                              buttonText: 'Reject',
+                              buttonText: StringConstant.reject,
                               height: 46,
                             ),
                           ),
@@ -529,12 +362,12 @@ class ViewPersonPraposalView extends StatelessWidget {
                             PageRouteInfo(CounterPurposeView.name,
                                 args: CounterPurposeViewArgs(data: data)),
                           ) as bool?;
-                          Log.success("result $result");
+
                           if (result ?? false) {
                             context.router.maybePop(true);
                           }
                         },
-                        buttonText: 'Counter Propose',
+                        buttonText: StringConstant.counterPropose,
                         borderRadius: 7,
                         buttonTextColor: AppColors.black,
                         backgroundColor: AppColors.white,
@@ -558,7 +391,7 @@ class ViewPersonPraposalView extends StatelessWidget {
     final firstName = bloc.proposalDetailDto.first_name;
     final lastName = bloc.proposalDetailDto.last_name;
     AcceptRejectDialog(
-      title: 'Confirm & Accept',
+      title: StringConstant.confirmAccept,
       description:
           "By proceeding I confirm that I have reviewed $firstName $lastName's${shiftType == 1 ? "" : " proposal for availability,"} wage and allowances",
       onPressedAccept: () {

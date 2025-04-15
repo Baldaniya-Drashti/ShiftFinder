@@ -182,7 +182,6 @@ class ApprovedHiredList extends StatelessWidget {
               onTap: () {
                 context.router.push(PageRouteInfo(AgreedProposal.name,
                     args: AgreedProposalArgs(
-                        // post: contractor,
                         shiftType: contractor.shift_type ?? -1,
                         postId: postId,
                         userId: contractor.user_id ?? -1)));
@@ -243,7 +242,6 @@ class ApprovedHiredList extends StatelessWidget {
                           height: 40,
                           backgroundColor: AppColors.scaffoldColor,
                           borderColor: AppColors.scaffoldColor,
-                          // buttonTextColor: AppColors.black,
                           buttonTextColor: (contractor.clock_in_time != null &&
                                   contractor.clock_out_time != null)
                               ? AppColors.black
@@ -262,7 +260,6 @@ class ApprovedHiredList extends StatelessWidget {
                                                   postId: postId));
                                     },
                                   );
-                                  // showUnderDevelopment(context);
                                 }
                               : () {},
                           buttonFontSize: 12,
@@ -468,67 +465,4 @@ class ApprovedHiredList extends StatelessWidget {
       },
     ).acceptRejectDialog(context);
   }
-
-/*   successFullyApproved(BuildContext context) async {
-    await showDialog<bool?>(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.all(24).copyWith(top: 0),
-          clipBehavior: Clip.none,
-          insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(getSize(15)),
-          ),
-          titlePadding: EdgeInsets.zero,
-          title: Column(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.approvedWithCurved,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(height: getSize(20)),
-              BaseText(
-                text: "${StringConstant.approved}!",
-                fontSize: 22,
-                fontFamily: 'Aclonica',
-              ),
-            ],
-          ),
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20))
-                .copyWith(top: getSize(10)),
-            child: BaseText(
-              text: StringConstant.approvedDesc,
-              fontSize: 14,
-              textAlign: TextAlign.center,
-              textColor: AppColors.black.withValues(alpha: 0.7),
-            ),
-          ),
-          actionsAlignment: MainAxisAlignment.center,
-          actions: [
-            CommonButton(
-              height: 46,
-              width: 200,
-              onPressed: () {
-                context.router.maybePop(true);
-              },
-              buttonText: StringConstant.ok,
-            ),
-          ],
-        );
-      },
-    ).then((value) {
-      if (value == true) {
-        showUnderDevelopment(context);
-        context.router.push(PageRouteInfo(ShiftActionsView.name)).then((value) {
-          if (value == true) {
-            Navigator.pop(context, true);
-          }
-        });
-      }
-    });
-  }
- */
 }

@@ -74,7 +74,7 @@ class SocketChatService extends ChatService {
     socket.connect();
     socketConnection = SocketConnectionStatus.connected;
 
-    log('Socket Connected111 ${socket.connected}');
+    log('Socket Connected---> ${socket.connected}');
   }
 
   void disconnectSocket() {

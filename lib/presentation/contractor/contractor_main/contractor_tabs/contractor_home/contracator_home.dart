@@ -50,7 +50,6 @@ class ContractorHomeView extends StatelessWidget {
                             getCurrentUser().profileImage!.isNotEmpty)
                         ? CachedNetworkImageProvider(
                             getCurrentUser().profileImage!,
-                            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
                           )
                         : AssetImage(
                             PngImageConstants.profile_employer,
@@ -78,23 +77,12 @@ class ContractorHomeView extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontFamily: "Aclonica",
                   ),
-                  // BaseText(
-                  //   text: "${getCurrentUser().companyName ?? ''}",
-                  //   fontSize: 10,
-                  //   fontWeight: FontWeight.w600,
-                  //   textColor: AppColors.primaryColor,
-                  // ),
                 ],
               ),
               actions: [
-                // SvgPicture.asset(
-                //   SvgImageConstant.filter,
-                //   height: getSize(38),
-                //   width: getSize(38),
-                // ),
                 PopupMenuButton<String>(
                   icon: SvgPicture.asset(
-                    SvgImageConstant.filter, // Replace with your SVG icon path
+                    SvgImageConstant.filter,
                     height: getSize(38),
                     width: getSize(38),
                   ),
@@ -172,7 +160,6 @@ class ContractorHomeView extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                     horizontal: getSize(10),
                                   ).copyWith(bottom: getSize(10)),
-                                  // clipBehavior: Clip.none,
                                   shrinkWrap: true,
                                   physics: BouncingScrollPhysics(),
                                   itemBuilder: (_, index) {
@@ -341,7 +328,6 @@ class ContractorHomeView extends StatelessWidget {
 
   Widget contractorDataBox(BuildContext context, ContactorDashboardDTO post) {
     return Container(
-      // height: getSize(113.41),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
         color: AppColors.scaffoldColor,
@@ -360,12 +346,6 @@ class ContractorHomeView extends StatelessWidget {
                 PngImageConstants.leafWithBG,
               ))),
             ),
-            // leading: SvgPicture.asset(
-            //   SvgImageConstant.leafWithBG,
-            //   width: getSize(36.28),
-            //   height: getSize(43.41),
-            //   color: AppColors.primaryColor,
-            // ),
             isThreeLine: true,
             title: Container(
               margin: (post.isHighlightShift == true)
@@ -436,18 +416,6 @@ class ContractorHomeView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
-                // // openDirections(37.7749, -122.4194, latitude, longitude);
-                // launchMapWithDirections(
-                //     37.7749, -122.4194, latitude, longitude);
               }
             },
             child: Row(
@@ -637,9 +605,7 @@ class ContractorHomeView extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (list.shift_type == 2
-                  // && list.same_or_different_time == 2
-                  )
+              (list.shift_type == 2)
                   ? displayDateBreak(context, list,
                       boldValue:
                           "${list.total_shift != null ? (list.total_shift! > 9 ? list.total_shift! : "0${list.total_shift!}") : "00"}",
@@ -897,7 +863,6 @@ class ContractorHomeView extends StatelessWidget {
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
               value: post.total_payable_hour ?? "0h 0min",
-              // value: "81h 15min",
             ),
           ],
         ));

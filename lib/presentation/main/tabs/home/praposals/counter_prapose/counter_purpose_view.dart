@@ -11,7 +11,6 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
@@ -28,7 +27,6 @@ class CounterPurposeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Log.debug("data=> $data");
     return BlocProvider(
       create: (context) => getIt<CounterProposalDetailBloc>()
         ..add(CounterProposalDetailEvent.getHoursList())
@@ -38,7 +36,7 @@ class CounterPurposeView extends StatelessWidget {
           onBackPressed: () {
             context.router.maybePop();
           },
-          title: 'Counter Propose',
+          title: StringConstant.counterPropose,
         ),
         body:
             BlocBuilder<CounterProposalDetailBloc, CounterProposalDetailState>(
@@ -78,14 +76,14 @@ class CounterPurposeView extends StatelessWidget {
                                 children: [
                                   getTitleAndDescription(
                                     context,
-                                    title: 'Posted Time',
+                                    title: StringConstant.postedTime,
                                     description:
                                         '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
                                   ),
                                   SizedBox(height: getSize(20)),
                                   getTitleAndDescription(
                                     context,
-                                    title: 'Agreed Time',
+                                    title: StringConstant.agreedTime,
                                     description:
                                         '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                                   ),
@@ -95,7 +93,7 @@ class CounterPurposeView extends StatelessWidget {
                           ],
                           SizedBox(height: getSize(20)),
                           BaseText(
-                            text: 'Hourly Rate',
+                            text: StringConstant.hourlyRate,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -118,14 +116,14 @@ class CounterPurposeView extends StatelessWidget {
                                       children: [
                                         getTitleAndDescription(
                                           context,
-                                          title: 'Posted',
+                                          title: StringConstant.posted,
                                           description:
                                               '\$${data.posted_hourly_rate ?? 0}',
                                         ),
                                         verticalDivider(),
                                         getTitleAndDescription(
                                           context,
-                                          title: 'Proposed',
+                                          title: StringConstant.proposed,
                                           description:
                                               '\$${data.proposed_hourly_rate ?? 0}',
                                         ),
@@ -154,7 +152,7 @@ class CounterPurposeView extends StatelessWidget {
                           if (data.commute_allowance_type != 0) ...[
                             SizedBox(height: getSize(20)),
                             BaseText(
-                              text: 'Commute Allowance',
+                              text: StringConstant.commuteAllowance,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
@@ -193,13 +191,13 @@ class CounterPurposeView extends StatelessWidget {
                                         children: [
                                           getTitleAndDescription(
                                             context,
-                                            title: 'Posted',
+                                            title: StringConstant.posted,
                                             description: postedDescription,
                                           ),
                                           verticalDivider(),
                                           getTitleAndDescription(
                                             context,
-                                            title: 'Proposed',
+                                            title: StringConstant.proposed,
                                             description: proposedDescription,
                                           ),
                                           verticalDivider(),
@@ -244,7 +242,7 @@ class CounterPurposeView extends StatelessWidget {
                           if (data.accommodation_allowance_type != 0) ...[
                             SizedBox(height: getSize(20)),
                             BaseText(
-                              text: 'Accommodation Allowance',
+                              text: StringConstant.accommodationAllowance,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
@@ -273,7 +271,6 @@ class CounterPurposeView extends StatelessWidget {
                                       "\$${data.posted_accommodation_allowance_rate ?? ""}";
                                   proposedDescription =
                                       "\$${data.proposed_accommodation_allowance_rate ?? ""}";
-                                  Log.debug("===> $postedDescription");
                                 }
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,13 +280,13 @@ class CounterPurposeView extends StatelessWidget {
                                         children: [
                                           getTitleAndDescription(
                                             context,
-                                            title: 'Posted',
+                                            title: StringConstant.posted,
                                             description: postedDescription,
                                           ),
                                           verticalDivider(),
                                           getTitleAndDescription(
                                             context,
-                                            title: 'Proposed',
+                                            title: StringConstant.proposed,
                                             description: proposedDescription,
                                           ),
                                           verticalDivider(),
@@ -344,11 +341,9 @@ class CounterPurposeView extends StatelessWidget {
                                         .sendCounterProposal(context: context),
                                   );
                             },
-                            buttonText: 'Send Counter Proposal',
+                            buttonText: StringConstant.sendCounterProposal,
                           ),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
+                          SizedBox(height: getSize(20)),
                         ],
                       ),
                     ),
@@ -426,7 +421,6 @@ class CounterPurposeView extends StatelessWidget {
   }
 
   Widget rateHourField(BuildContext context, CounterProposalDetailState state) {
-    print("state kkkRate---> ${state.rateHour}");
     return Flexible(
       child: CustomTextField(
         isLabelPadding: false,
@@ -509,9 +503,6 @@ class CounterPurposeView extends StatelessWidget {
               text: '\$ ',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              // textColor: (state.rateHour.isValid())
-              //     ? AppColors.black
-              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -520,19 +511,6 @@ class CounterPurposeView extends StatelessWidget {
               .read<CounterProposalDetailBloc>()
               .add(CounterProposalDetailEvent.commuteRateChanged(value));
         },
-        /*validator: (p0, p1) => context
-            .read<HealthcarePostBloc>()
-            .state
-            .rateHour
-            .value
-            .fold(
-              (f) => f.maybeMap(
-                empty: (value) => StringConstant.pleaseEnterRateHour,
-                invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
-                orElse: () => null,
-              ),
-              (_) => null,
-            ),*/
       ),
     );
   }
@@ -555,10 +533,6 @@ class CounterPurposeView extends StatelessWidget {
         fieldHintText: "0.00",
         value:
             (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
-        /*value: (state.selectedCommuteAllownce.isValid())
-            ? state.selectedCommuteAllownce.getValue()
-            : null,*/
-
         fieldPrefixIcon: Padding(
             padding: EdgeInsets.only(
               left: getSize(20),
@@ -632,9 +606,6 @@ class CounterPurposeView extends StatelessWidget {
               text: '\$ ',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              // textColor: (state.rateHour.isValid())
-              //     ? AppColors.black
-              //     : AppColors.black.withValues(alpha: 0.5),
             )),
         prefixIconConstraints:
             BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -643,19 +614,6 @@ class CounterPurposeView extends StatelessWidget {
               .read<CounterProposalDetailBloc>()
               .add(CounterProposalDetailEvent.accomdationRateChanged(value));
         },
-        /*validator: (p0, p1) => context
-            .read<HealthcarePostBloc>()
-            .state
-            .rateHour
-            .value
-            .fold(
-              (f) => f.maybeMap(
-                empty: (value) => StringConstant.pleaseEnterRateHour,
-                invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
-                orElse: () => null,
-              ),
-              (_) => null,
-            ),*/
       ),
     );
   }
@@ -672,10 +630,6 @@ class CounterPurposeView extends StatelessWidget {
         value: (state.accomdationHour.isValid())
             ? state.accomdationHour.getValue()
             : null,
-        /*value: (state.selectedCommuteAllownce.isValid())
-            ? state.selectedCommuteAllownce.getValue()
-            : null,*/
-
         fieldPrefixIcon: Padding(
             padding: EdgeInsets.only(
               left: getSize(20),

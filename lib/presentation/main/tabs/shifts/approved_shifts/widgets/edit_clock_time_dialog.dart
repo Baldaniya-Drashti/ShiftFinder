@@ -134,30 +134,11 @@ class EditClockTimeDialog extends StatelessWidget {
                               HiredContractorEvent.changeClockInClockOutTime(
                                   con, clockInTime, true));
                         }
-                        /* if (clockInTime != null) {
-                          final selectedDateTime = DateTime(now.year, now.month,
-                              now.day, clockInTime.hour, clockInTime.minute);
-
-                          if (selectedDateTime.isAfter(now)) {
-                            context.read<HiredContractorBloc>().add(
-                                HiredContractorEvent.changeClockInClockOutTime(
-                                    clockInTime, true));
-                          } else {
-                            showError(
-                                    message:
-                                        StringConstant.pleaseSelectAValidTime)
-                                .show(context);
-                          }
-                        } */
                       },
                       clockInOrOutTime: (state.clockIn != null)
                           ? DateFormat('hh:mm a').format(
                               DateTime.fromMillisecondsSinceEpoch(
                                   (state.clockIn ?? -1) * 1000))
-                          /*  : (contractor.clock_in_time != null)
-                              ? DateFormat('hh:mm a').format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      (contractor.clock_in_time ?? -1) * 1000)) */
                           : StringConstant.clockIn,
                     ),
                     if (state.showClockTimeError && state.clockIn == null)
@@ -188,18 +169,11 @@ class EditClockTimeDialog extends StatelessWidget {
                                   con, clockOutTime, false));
                         }
                       },
-                      clockInOrOutTime:
-                          // ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.clock_out_time ?? -1) * 1000))
-                          (state.clockOut != null)
-                              ? DateFormat('hh:mm a').format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      (state.clockOut ?? -1) * 1000))
-                              /* : (contractor.clock_out_time != null)
-                                  ? DateFormat('hh:mm a').format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          (contractor.clock_out_time ?? -1) *
-                                              1000)) */
-                              : StringConstant.clockOut,
+                      clockInOrOutTime: (state.clockOut != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (state.clockOut ?? -1) * 1000))
+                          : StringConstant.clockOut,
                     ),
                     if (state.showClockTimeError && state.clockOut == null)
                       commonErrorText(StringConstant.pleaseAddClockOutTime),
@@ -220,8 +194,6 @@ class EditClockTimeDialog extends StatelessWidget {
                           child: CommonButton(
                             isSubmitting: state.isSubmitting,
                             onPressed: () {
-                              // context.router.maybePop(true);
-                              // con.router.maybePop().then((value) {
                               con.read<HiredContractorBloc>().add(
                                       HiredContractorEvent.submitClockInOutTime(
                                     con,
@@ -231,7 +203,6 @@ class EditClockTimeDialog extends StatelessWidget {
                                     clockIn: state.clockIn,
                                     clockOut: state.clockOut,
                                   ));
-                              // });
                             },
                             buttonText: StringConstant.approve,
                           ),
@@ -252,239 +223,15 @@ class EditClockTimeDialog extends StatelessWidget {
           callBack();
         }
       }
-      print("valuee after back---> $value");
     });
-
-    // if (result ?? false) {
-    //   con.read<HiredContractorBloc>().add(
-    //         HiredContractorEvent.submitClockInOutTime(
-    //           con,
-    //           postId: contractor.post_id ?? -1,
-    //           userId: contractor.user_id ?? -1,
-    //           clockIn: contractor.clock_in_time,
-    //           clockOut: contractor.clock_out_time,
-    //         ),
-    //       );
-    // }
-
-    /*if (result ?? false) {
-      AcceptRejectDialog(
-        title: StringConstant.approve,
-        description:
-            "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
-        onPressedAccept: () async {
-          await context.router.maybePop();
-          final result = await showDialog<bool?>(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                contentPadding: EdgeInsets.all(24).copyWith(top: 0),
-                clipBehavior: Clip.none,
-                insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(getSize(15)),
-                ),
-                titlePadding: EdgeInsets.zero,
-                title: Column(
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(getSize(15)),
-                          child: Image.asset(
-                              PngImageConstants.curvedBackgroundImage),
-                        ),
-                        Positioned(
-                          top: getSize(85),
-                          child: SvgPicture.asset(
-                            SvgImageConstant.approved,
-                            height: getSize(107),
-                            width: getSize(107),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: getSize(80),
-                    ),
-                    BaseText(
-                      text: "Approved!",
-                      fontSize: 22,
-                      fontFamily: 'Aclonica',
-                    ),
-                  ],
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: getSize(10),
-                    ),
-                    BaseText(
-                      text:
-                          "The clock in and out times for this shift have been successfully approved.",
-                      fontSize: 14,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.black.withValues(alpha: 0.7),
-                    ),
-                  ],
-                ),
-                actionsAlignment: MainAxisAlignment.center,
-                actions: [
-                  CommonButton(
-                    height: 46,
-                    width: 200,
-                    onPressed: () {
-                      context.router.maybePop(true);
-                    },
-                    buttonText: "Ok",
-                  ),
-                ],
-              );
-            },
-          );
-          if (result ?? true) {
-            context.router.push(PageRouteInfo(ShiftActionsView.name));
-          }
-        },
-        acceptButtonText: 'Approve',
-        onPressedReject: () async {
-          await context.router.maybePop();
-        },
-      ).acceptRejectDialog(context);
-    }*/
   }
 
-  /* approveDialog(BuildContext context, HiredContractorListDTO contractor) {
-    AcceptRejectDialog(
-      title: StringConstant.approve,
-      description:
-          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
-      onPressedAccept: () async {
-        await context.router.maybePop();
-        await showDialog<bool?>(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              contentPadding: EdgeInsets.all(24).copyWith(top: 0),
-              clipBehavior: Clip.none,
-              insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(getSize(15)),
-              ),
-              titlePadding: EdgeInsets.zero,
-              title: Column(
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(getSize(15)),
-                        child: Image.asset(
-                            PngImageConstants.curvedBackgroundImage),
-                      ),
-                      Positioned(
-                        top: getSize(85),
-                        child: SvgPicture.asset(
-                          SvgImageConstant.approved,
-                          height: getSize(107),
-                          width: getSize(107),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: getSize(80)),
-                  BaseText(
-                    text: "Approved!",
-                    fontSize: 22,
-                    fontFamily: 'Aclonica',
-                  ),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: getSize(10),
-                  ),
-                  BaseText(
-                    text:
-                        "The clock in and out times for this shift have been successfully approved.",
-                    fontSize: 14,
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.w500,
-                    textColor: AppColors.black.withValues(alpha: 0.7),
-                  ),
-                ],
-              ),
-              actionsAlignment: MainAxisAlignment.center,
-              actions: [
-                CommonButton(
-                  height: 46,
-                  width: 200,
-                  onPressed: () {
-                    context.router.maybePop(true);
-                  },
-                  buttonText: "Ok",
-                ),
-              ],
-            );
-          },
-        ).then((result) {
-          if (result ?? true) {
-            context.router
-                .push(PageRouteInfo(ShiftActionsView.name))
-                .then((value) {
-              if (value == true) {
-                Navigator.pop(context, true);
-              }
-            });
-          }
-        });
-      },
-      acceptButtonText: 'Approve',
-      onPressedReject: () async {
-        await context.router.maybePop();
-      },
-    ).acceptRejectDialog(context);
-  }
- */
   String formatTimeOfDay(TimeOfDay tod) {
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
     final format = DateFormat.jm(); //"6:00 AM"
     return format.format(dt);
   }
-
-  /*Future<TimeOfDay?> selectTime(
-      BuildContext context,
-      TimeOfDay selectedTime
-      ) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      // initialTime: selectedTime,
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
-              primary: AppColors.primaryColor,
-              secondary: AppColors.primaryColor,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (pickedTime != null && pickedTime != selectedTime) {
-      return pickedTime;
-    }
-    return null;
-  }*/
 
   Future<TimeOfDay?> _showTimePicker(BuildContext context,
       {required DateTime dateTime}) async {
@@ -511,7 +258,6 @@ class EditClockTimeDialog extends StatelessWidget {
           );
         });
 
-    print("Selected Time:  ${pickedTime?.format(context)}");
     return pickedTime;
   }
 
@@ -541,9 +287,7 @@ class EditClockTimeDialog extends StatelessWidget {
                 BlendMode.srcATop,
               ),
             ),
-            SizedBox(
-              width: getSize(10),
-            ),
+            SizedBox(width: getSize(10)),
             BaseText(
               text: clockInOrOutTime,
               fontSize: 14,

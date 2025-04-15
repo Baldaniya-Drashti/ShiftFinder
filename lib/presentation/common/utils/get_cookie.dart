@@ -64,18 +64,6 @@ bool? getShowTeamDialog() {
   return isCheck;
 }
 
-// Future<void> setCurrentUser(Account account) async {
-//   // Hacky solution to allow testing
-//   if (!Platform.environment.containsKey('FLUTTER_TEST')) {
-//     final box = await Hive.openBox<AccountEntity>(BoxNames.currentUser);
-//     // Open the box if it's not already open
-//     // final box = Hive.isBoxOpen(BoxNames.currentUser)
-//     //   ? Hive.box<AccountEntity>(BoxNames.currentUser)
-//     //   : Hive.openBox<AccountEntity>(BoxNames.currentUser);
-//     box.put(BoxKeys.currentKey, AccountEntity.fromDomain(account));
-//   }
-// }
-
 void setCurrentUser(Account account) {
   // Hacky solution to allow testing
   if (!Platform.environment.containsKey('FLUTTER_TEST')) {
@@ -84,11 +72,6 @@ void setCurrentUser(Account account) {
     print("USER OF SET---->   ${box.get(BoxKeys.currentKey)!.toDomain()}");
   }
 }
-
-// Account getCurrentUser() {
-//   final accountBox = Hive.box<AccountEntity>(BoxNames.currentUser);
-//   return accountBox.get(BoxKeys.currentKey)!.toDomain();
-// }
 
 Account getCurrentUser() {
   final accountBox = Hive.box<AccountEntity>(BoxNames.currentUser);
@@ -147,22 +130,3 @@ Future<String?> getDeviceId() async {
     return iosInfo.identifierForVendor ?? '';
   }
 }
-
-// String? getRememberToken() {
-//   return Hive.box(BoxNames.settingsBox).get(BoxKeys.rememberToken);
-// }
-
-// bool? isUserShowIntro() {
-//   return Hive.box(BoxNames.settingsBox).get(BoxKeys.isUserShowIntro);
-// }
-
-// Future<String?> getDeviceId() async {
-//   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-//   if (Platform.isAndroid) {
-//     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-//     return androidInfo.id;
-//   } else {
-//     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-//     return iosInfo.identifierForVendor ?? '';
-//   }
-// }

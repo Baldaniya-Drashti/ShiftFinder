@@ -117,34 +117,35 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                       1)
                                     _buildCommonDividerTile(
                                       context,
-                                      title: 'On-Call',
-                                      value:
-                                          "This contract may include on-call",
+                                      title: StringConstant.onCall,
+                                      value: StringConstant
+                                          .thisContractMayIncludeOnCall,
                                     ),
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Job Description',
+                                    title: StringConstant.jobDescription,
                                     value: employerLongTermSuccessDto
                                             ?.job_description ??
                                         "",
                                   ),
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Responsibilities',
+                                    title: StringConstant.responsibilities,
                                     value: employerLongTermSuccessDto
                                             ?.responsibilities ??
                                         "",
                                   ),
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Qualifications',
+                                    title: StringConstant.qualifications,
                                     value: employerLongTermSuccessDto
                                             ?.qualifications ??
                                         "",
                                   ),
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Licenses/Certifications',
+                                    title:
+                                        StringConstant.licensesCertifications,
                                     value: employerLongTermSuccessDto
                                             ?.licenses_certifications ??
                                         "",
@@ -158,17 +159,17 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20),
+                                          padding: EdgeInsets.only(
+                                              left: getSize(20)),
                                           child: BaseText(
-                                            text: "Contract Terms",
+                                            text: StringConstant.contractTerms,
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
                                             textColor: AppColors.black
                                                 .withValues(alpha: 0.7),
                                           ),
                                         ),
-                                        Gap(6),
+                                        Gap(getSize(6)),
                                         Material(
                                           color: AppColors.grey04,
                                           borderRadius: BorderRadius.circular(
@@ -185,11 +186,13 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                                         ?.terms !=
                                                     null) ...[
                                                   BaseText(
-                                                      text: "Terms",
+                                                      text:
+                                                          StringConstant.terms,
                                                       fontSize: 13),
                                                   Gap(getSize(12)),
                                                   CustomTextField(
-                                                    hintText: "Type Here...",
+                                                    hintText: StringConstant
+                                                        .typeHerewithDots,
                                                     controller: TextEditingController(
                                                         text:
                                                             employerLongTermSuccessDto
@@ -204,7 +207,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                                         ?.terms_document !=
                                                     null) ...[
                                                   BaseText(
-                                                      text: "Upload Document",
+                                                      text: StringConstant
+                                                          .uploadDocument,
                                                       fontSize: 13),
                                                   Gap(8),
                                                   selectedImage(
@@ -225,7 +229,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                           null) ...[
                                     _buildCommonDividerTile(
                                       context,
-                                      title: 'Contract Terms',
+                                      title: StringConstant.contractTerms,
                                       value:
                                           employerLongTermSuccessDto?.terms ??
                                               "",
@@ -233,16 +237,15 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                   ],
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Onboarding Process',
+                                    title: StringConstant.onboardingProcess,
                                     value: employerLongTermSuccessDto
                                             ?.onboarding_process ??
                                         "",
                                   ),
                                   _buildCommonDividerTile(
                                     context,
-                                    title: 'Disclaimer',
-                                    value:
-                                        "By proceeding, I confirm that we, the employer are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
+                                    title: StringConstant.disclaimer,
+                                    value: StringConstant.longTermDisclaimer,
                                   ),
                                   if ((employerLongTermSuccessDto?.teams ?? [])
                                       .isNotEmpty)
@@ -399,9 +402,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
               fontWeight: FontWeight.w500,
               textColor: AppColors.black.withValues(alpha: 0.7),
             ),
-            SizedBox(
-              height: getSize(5),
-            ),
+            SizedBox(height: getSize(5)),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -415,7 +416,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                   Gap(getSize(4)),
                   Flexible(
                     child: BaseText(
-                      text: "Months",
+                      text: StringConstant.months,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       textColor: AppColors.black,
@@ -571,7 +572,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Start Date", fontSize: 10),
+                          BaseText(
+                              text: StringConstant.startDate, fontSize: 10),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -609,7 +611,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "End Date", fontSize: 10),
+                          BaseText(text: StringConstant.endDate, fontSize: 10),
                           Text.rich(
                             TextSpan(
                               children: [
@@ -634,7 +636,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Gap(22),
+                  Gap(getSize(22)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -643,12 +645,14 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                         height: 18,
                         color: AppColors.black.withValues(alpha: 0.8),
                       ),
-                      Gap(10),
+                      Gap(getSize(10)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Application Deadline", fontSize: 10),
+                          BaseText(
+                              text: StringConstant.applicationDeadline,
+                              fontSize: 10),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -676,7 +680,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(right: getSize(20)),
               child: SvgPicture.asset(
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),
@@ -698,13 +702,13 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Estimated Weekly Hours",
+                text: StringConstant.estimatedWeeklyHours,
                 fontSize: 13,
                 fontWeight: FontWeight.w500),
             Row(
@@ -742,13 +746,13 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Shift Schedule",
+                text: StringConstant.shiftSchedule,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
             Gap(12),
@@ -761,7 +765,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                   list.length,
                   (index) {
                     return Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(getSize(8)),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.grey),
                           borderRadius: BorderRadius.circular(10)),
@@ -791,13 +795,14 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Language Requirements",
+                text: StringConstant.languageRequirements,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
@@ -823,21 +828,23 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Location Details",
+                text: StringConstant.locationDetails,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
-                text: "Location",
+                text: StringConstant.location,
                 fontSize: 12,
                 textColor: AppColors.primaryColor),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(text: location?.location ?? "", fontSize: 14),
-            Gap(10),
+            Gap(getSize(10)),
             BaseText(
-                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
-            Gap(4),
+                text: StringConstant.unit,
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
+            Gap(getSize(4)),
             BaseText(
                 text: employerLongTermSuccessDto?.location_unit ?? "",
                 fontSize: 14),
@@ -853,7 +860,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -863,7 +871,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
               text: value,
               fontSize: 14,
@@ -884,13 +892,14 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Selected Teams",
+                text: StringConstant.selectedTeams,
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
             Gap(getSize(10)),
@@ -915,7 +924,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                   (employerLongTermSuccessDto?.teams ?? []).length,
                   (index) {
                     return Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(getSize(8)),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.grey),
                           borderRadius: BorderRadius.circular(10)),

@@ -127,7 +127,6 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                   (r) {
                     showSuccess(message: r).show(context);
-                    print("Success");
                   },
                 ),
               );
@@ -159,9 +158,7 @@ class FilterBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: getSize(20),
-          ),
+          SizedBox(height: getSize(20)),
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -191,9 +188,7 @@ class FilterBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: getSize(10),
-          ),
+          SizedBox(height: getSize(10)),
           Container(
             width: getSize(280),
             alignment: Alignment.center,
@@ -209,9 +204,7 @@ class FilterBottomSheet extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
-            height: getSize(50),
-          ),
+          SizedBox(height: getSize(50)),
           (getCurrentRole() == 1)
               ? CustomTextField(
                   labelText: StringConstant.phoneNumber,
@@ -254,9 +247,7 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                 )
               : emailTextField(context, state),
-          SizedBox(
-            height: getSize(90),
-          ),
+          SizedBox(height: getSize(90)),
           CommonButton(
             isSubmitting: state.isSubmitting,
             onPressed: () {
@@ -268,9 +259,7 @@ class FilterBottomSheet extends StatelessWidget {
             borderRadius: 30,
             height: 50,
           ),
-          SizedBox(
-            height: getSize(isFullScreenDevice(context) ? 0 : 50),
-          ),
+          SizedBox(height: getSize(isFullScreenDevice(context) ? 0 : 50)),
         ],
       ),
     );
@@ -383,7 +372,6 @@ class FilterBottomSheet extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   BaseText(
-                    // text: 'Remaining 00:${state.secondsRemaining}',
                     text:
                         'Remaining 00:${(state.secondsRemaining.toString().length == 2) ? state.secondsRemaining : "0${state.secondsRemaining}"}',
                     fontSize: 12,
@@ -499,9 +487,7 @@ class FilterBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: getSize(10),
-          ),
+          SizedBox(height: getSize(10)),
           Container(
             width: getSize(280),
             alignment: Alignment.center,
@@ -568,9 +554,7 @@ class FilterBottomSheet extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: getSize(25),
-          ),
+          SizedBox(height: getSize(25)),
           CustomTextField(
             labelText: StringConstant.confirmPassword,
             hintText: StringConstant.confirmPassword,
@@ -645,9 +629,7 @@ class FilterBottomSheet extends StatelessWidget {
             borderRadius: 30,
             height: 50,
           ),
-          SizedBox(
-            height: getSize(isFullScreenDevice(context) ? 0 : 50),
-          ),
+          SizedBox(height: getSize(isFullScreenDevice(context) ? 0 : 50)),
         ],
       ),
     );

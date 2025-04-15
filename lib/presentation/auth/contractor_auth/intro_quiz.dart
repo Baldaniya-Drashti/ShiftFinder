@@ -56,8 +56,6 @@ class IntroQuizScreen extends StatelessWidget {
               () {},
               (either) => either.fold(
                 (failure) {
-                  print("showAPIResponseMessage---> $failure");
-
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
@@ -68,10 +66,7 @@ class IntroQuizScreen extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  print("GO TO NEXT SCREEN!");
                   showResultDialog(context, r);
-                  // showunderDevelopment(context);
-                  // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
               ),
             );
@@ -225,7 +220,6 @@ class IntroQuizScreen extends StatelessWidget {
         SizedBox(
           height: getSize(20),
           width: getSize(16.67),
-          // color: Colors.green,
           child: Checkbox(
             value: true,
             activeColor: AppColors.primaryColor,
@@ -253,8 +247,6 @@ class IntroQuizScreen extends StatelessWidget {
       },
       onCallback: (value) {
         if (value == true) {
-          print("callback value---> $value");
-          // context.router.push(PageRouteInfo(QuizResultScreen.name));
           context.router.replaceAll([PageRouteInfo(QuizResultScreen.name)]);
         }
       },

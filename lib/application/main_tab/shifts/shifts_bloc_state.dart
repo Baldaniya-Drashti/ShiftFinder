@@ -17,7 +17,6 @@ class ShiftsBlocState with _$ShiftsBlocState {
         cancelledShiftSortByLocationController,
     required SingleValueDropDownController
         singleValueApprovedShiftDropDownController,
-    // required List<DropDownValueModel> locationList,
     required List<LocationDTO> locationList,
     required TimeOfDay clockIn,
     required TimeOfDay clockOut,

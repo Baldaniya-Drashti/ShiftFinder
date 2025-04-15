@@ -45,20 +45,7 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
                     state.controller!.value.isInitialized)
                 ? Stack(
                     children: [
-                      // aspectRatio: _controller.value.aspectRatio,
-                      VideoPlayer(
-                        state.controller!,
-                      ),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   decoration: BoxDecoration(
-                      //       image: DecorationImage(
-                      //     image: AssetImage(
-                      //       PngImageConstants.intro__video_image,
-                      //     ),
-                      //     fit: BoxFit.fill,
-                      //   )),
-                      // ),
+                      VideoPlayer(state.controller!),
                       introDescription(state.controller!),
                       videoIndicator(state.controller!),
                       _PlayPauseButton(
@@ -84,7 +71,6 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
-        // width: getSize(230),
         width: getHorizontalSize(300),
         margin: EdgeInsets.symmetric(
             horizontal: getSize(20), vertical: getSize(40)),
@@ -92,7 +78,7 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BaseText(
+            BaseText(
               text: StringConstant.introVideo,
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -130,7 +116,6 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
 
   Widget videoIndicator(VideoPlayerController controller) {
     return Visibility(
-      // visible: controller.value.isPlaying,
       child: Padding(
         padding: EdgeInsets.all(getSize(20)),
         child: Align(

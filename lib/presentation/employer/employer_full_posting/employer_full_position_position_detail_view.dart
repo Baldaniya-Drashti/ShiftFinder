@@ -45,11 +45,11 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           builder: (context, state) {
             final employerFullPosting = state.employerLongTermSuccessDto ??
                 EmployerLongTermSuccessDto();
-            print("---${employerFullPosting.languages_list}");
+
             return state.isLoading
                 ? CenterLoadingIndicator()
                 : state.employerLongTermSuccessDto == null
-                    ? Center(child: BaseText(text: "No data found"))
+                    ? Center(child: BaseText(text: StringConstant.noDataFound))
                     : SingleChildScrollView(
                         padding: EdgeInsets.all(getSize(12)),
                         child: Column(
@@ -80,20 +80,20 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                   _buildOnCall(context),
                                   if (employerFullPosting.benefits != null)
                                     _buildBulletPointsList(context,
-                                        title: "Benefits Provided",
+                                        title: StringConstant.benefitsProvided,
                                         content: employerFullPosting.benefits),
                                   if (employerFullPosting
                                           .compensation_package !=
                                       null)
                                     _buildBulletPointsList(
                                       context,
-                                      title: "Compensation Package",
+                                      title: StringConstant.compensationPackage,
                                       content: employerFullPosting
                                           .compensation_package,
                                     ),
                                   if (employerFullPosting.job_summary != null)
                                     _buildBulletPointsList(context,
-                                        title: "Job Summary",
+                                        title: StringConstant.jobSummary,
                                         content:
                                             employerFullPosting.job_summary),
                                   if (employerFullPosting
@@ -101,8 +101,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                       null)
                                     _buildBulletPointsList(
                                       context,
-                                      title:
-                                          "External and Internal Relationships",
+                                      title: StringConstant
+                                          .externalAndInternalRelationships,
                                       content: employerFullPosting
                                           .external_internal_relationships,
                                     ),
@@ -110,13 +110,14 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                           .employer_payment_confirmation !=
                                       null)
                                     _buildBulletPointsList(context,
-                                        title: "Required Qualifications",
+                                        title: StringConstant
+                                            .requiredQualifications,
                                         content:
                                             employerFullPosting.qualifications),
                                   if (employerFullPosting.experience != null)
                                     _buildBulletPointsList(
                                       context,
-                                      title: "Required Experience",
+                                      title: StringConstant.requiredExperience,
                                       content: employerFullPosting.experience,
                                     ),
                                   if (employerFullPosting
@@ -124,20 +125,21 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                                       null)
                                     _buildBulletPointsList(
                                       context,
-                                      title: "Required Licenses/Certifications",
+                                      title: StringConstant
+                                          .requiredLicensesCertifications,
                                       content: employerFullPosting
                                           .licenses_certifications,
                                     ),
                                   if (employerFullPosting.skills != null)
                                     _buildBulletPointsList(
                                       context,
-                                      title: "Required Skills",
+                                      title: StringConstant.requiredSkills,
                                       content: employerFullPosting.skills,
                                     ),
                                   if (employerFullPosting.other != null)
                                     _buildBulletPointsList(
                                       context,
-                                      title: "Other",
+                                      title: StringConstant.other,
                                       content: employerFullPosting.other,
                                     ),
                                   _buildNumberOfVacancy(context,
@@ -194,8 +196,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
     BuildContext context, {
     required EmployerLongTermSuccessDto employerFullPosting,
   }) {
-    final jobType =
-        employerFullPosting.job_type == 1 ? "Full Time" : "Part Time";
+    final jobType = employerFullPosting.job_type == 1
+        ? StringConstant.fullTime
+        : StringConstant.partTime;
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
@@ -264,7 +267,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+                text: StringConstant.position,
+                fontSize: 12,
+                fontWeight: FontWeight.w500),
             Divider(),
             BaseText(
                 fontWeight: FontWeight.w400,
@@ -304,8 +309,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                         children: [
                           BaseText(
                               text: employerFullPosting.compensation_type == 1
-                                  ? "Rate"
-                                  : "Salary",
+                                  ? StringConstant.rate
+                                  : StringConstant.salary,
                               fontSize: 12),
                           BaseText(
                             text: "${employerFullPosting.rate_hour ?? ""}",
@@ -331,7 +336,9 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Application Deadline", fontSize: 12),
+                          BaseText(
+                              text: StringConstant.applicationDeadline,
+                              fontSize: 12),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -386,7 +393,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Estimated Weekly Hours",
+                text: StringConstant.estimatedWeeklyHours,
                 fontSize: 12,
                 fontWeight: FontWeight.w500),
             Row(
@@ -428,7 +435,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Shift Schedule",
+                text: StringConstant.shiftSchedule,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
             Gap(12),
@@ -441,7 +448,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                   list.length,
                   (index) {
                     return Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(getSize(8)),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.grey),
                           borderRadius: BorderRadius.circular(10)),
@@ -477,7 +484,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Language Requirements",
+                text: StringConstant.languageRequirements,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
@@ -497,27 +504,30 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Location Details",
+                text: StringConstant.locationDetails,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
-                text: "Location",
+                text: StringConstant.location,
                 fontSize: 12,
                 textColor: AppColors.primaryColor),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(text: location?.location ?? "", fontSize: 13),
-            Gap(10),
+            Gap(getSize(10)),
             BaseText(
-                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
-            Gap(4),
+                text: StringConstant.unit,
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
+            Gap(getSize(4)),
             BaseText(
                 text: employerFullPosting.location_unit ?? "", fontSize: 13),
           ],
@@ -541,7 +551,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Union/Bargaining Unit",
+                text: StringConstant.unionBargainingUnit,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
@@ -568,13 +578,13 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "On-Call",
+                text: StringConstant.onCall,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
             Gap(4),
             BaseText(
-                text: "This position may include on-call",
+                text: StringConstant.thisPositionMayIncludeOnCall,
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
           ],
@@ -604,7 +614,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             ...List.generate(
               max(0, (list.length * 2) - 1),
               (initialIndex) {
@@ -619,7 +629,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
                         child: CircleAvatar(
                             radius: 2, backgroundColor: AppColors.black),
                       ),
-                      Gap(8),
+                      Gap(getSize(8)),
                       Expanded(
                         child: BaseText(
                           maxLines: 1,
@@ -655,7 +665,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
           children: [
             Expanded(
               child: BaseText(
-                  text: "Number of Vacancies",
+                  text: StringConstant.numberOfVacancies,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),

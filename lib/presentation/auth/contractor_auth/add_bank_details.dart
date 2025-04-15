@@ -245,7 +245,6 @@ class AddBankDetailsScreen extends StatelessWidget {
       keyboardType: TextInputType.number,
       maxLength: 15,
       inputFormatters: [
-        // FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (value) => context
@@ -415,7 +414,6 @@ class AddBankDetailsScreen extends StatelessWidget {
         CountryCodeRemovingFormatter(),
       ],
       onChanged: (value) {
-        print("Filter Phone number --> $value");
         context.read<BankDetailsBloc>().add(
               BankDetailsEvent.phoneNumberChanged(value),
             );
@@ -444,29 +442,6 @@ class AddBankDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
-  /*  Widget dobField(BuildContext context, BankDetailsState state) {
-    return CustomTextField(
-      labelText: StringConstant.dateOfBirth,
-      hintText: StringConstant.dateOfBirth,
-      textCapitalization: TextCapitalization.words,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
-      ],
-      onChanged: (value) => context
-          .read<BankDetailsBloc>()
-          .add(BankDetailsEvent.dobChanged(value)),
-      validator: (_, context) =>
-          context.read<BankDetailsBloc>().state.dateOfBirth.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectDob,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-    );
-  }
- */
 
   Widget dobField(BuildContext context, BankDetailsState state) {
     return CustomTextField(
@@ -521,7 +496,6 @@ class AddBankDetailsScreen extends StatelessWidget {
           location: BankDetailsBloc.locationCtrl.text,
         ).then((value) {
           if (value != null) {
-            print("selected location ---> $value");
             context
                 .read<BankDetailsBloc>()
                 .add(BankDetailsEvent.locationSelectedFromSearchList(value));
@@ -546,7 +520,6 @@ class AddBankDetailsScreen extends StatelessWidget {
       hintText:
           (state.city.isValid()) ? state.city.getValue() : StringConstant.city,
       hintAsValue: (state.city.isValid()),
-      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.cityChanged(value)),
@@ -568,7 +541,6 @@ class AddBankDetailsScreen extends StatelessWidget {
           ? state.stateName.getValue()
           : StringConstant.state,
       hintAsValue: (state.stateName.isValid()),
-      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.stateChanged(value)),
@@ -591,7 +563,6 @@ class AddBankDetailsScreen extends StatelessWidget {
           : StringConstant.postalCode,
       maxLength: 7,
       hintAsValue: (state.postalCode.isValid()),
-      // readOnly: true,
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.postalCodeChanged(value)),
@@ -647,9 +618,7 @@ class AddBankDetailsScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Flexible(
               child: BaseText(
                 text: StringConstant.bankDetailsTerms,

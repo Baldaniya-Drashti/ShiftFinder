@@ -80,20 +80,15 @@ class AddCardView extends StatelessWidget {
                     child: Row(
                       children: [
                         SvgPicture.asset(SvgImageConstant.card),
-                        SizedBox(
-                          width: getSize(15),
-                        ),
+                        SizedBox(width: getSize(15)),
                         Image.asset(
                           PngImageConstants.line,
                           height: getSize(80),
                         ),
-                        SizedBox(
-                          width: getSize(15),
-                        ),
+                        SizedBox(width: getSize(15)),
                         Expanded(
                           child: BaseText(
-                            text:
-                                'Please upload your card details, Adding a card is mandatory to accept any application or proposal.',
+                            text: StringConstant.cardUploadDesc,
                             fontSize: 12,
                           ),
                         )
@@ -113,13 +108,9 @@ class AddCardView extends StatelessWidget {
                       ),
                       children: [
                         cardHolderNameTextFiled(context),
-                        SizedBox(
-                          height: getSize(20),
-                        ),
+                        SizedBox(height: getSize(20)),
                         cardNumberTextFiled(context, state),
-                        SizedBox(
-                          height: getSize(20),
-                        ),
+                        SizedBox(height: getSize(20)),
                         IntrinsicHeight(
                           child: Row(
                             children: [
@@ -130,9 +121,7 @@ class AddCardView extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                width: getSize(19),
-                              ),
+                              SizedBox(width: getSize(19)),
                               Expanded(
                                 child: Column(
                                   children: [
@@ -161,19 +150,16 @@ class AddCardView extends StatelessWidget {
                         ViewSingleApplicantsEvent.saveButtonPressed(context));
 
                     CommonCardDialog(
-                      title: 'Awaiting Confirmation',
-                      description:
-                          'Application accepted, Contractor\nnotified for Confirmation.',
-                      buttonText: 'Ok',
+                      title: StringConstant.awaitingConfirmation,
+                      description: StringConstant.applicationAcceptedDesc,
+                      buttonText: StringConstant.ok,
                       onPressed: () {
                         context.router.maybePop();
-
-                        // context.router.push(PageRouteInfo(AddCardView.name));
                       },
                       image: SvgImageConstant.awaitingConfirmation,
                     ).addCardDialog(context);
                   },
-                  buttonText: 'Add Your Card',
+                  buttonText: StringConstant.addYourCard,
                   isSubmitting: state.isSubmitting,
                 ),
               ),
@@ -189,7 +175,6 @@ class AddCardView extends StatelessWidget {
     return CustomTextField(
       labelText: 'Cvv',
       hintText: 'Cvv',
-      //  focusNode: state.cvvNumberFocusNode,
       maxLength: 4,
       keyboardType: TextInputType.number,
       obscureText: true,
@@ -211,18 +196,15 @@ class AddCardView extends StatelessWidget {
       BuildContext context, ViewSingleApplicantsState state) {
     return CustomTextField(
       errorMaxLines: 3,
-      //focusNode: state.validUptoFocusNode,
-      labelText: 'Exp Date',
-      hintText: 'Exp Date',
+      labelText: StringConstant.expDate,
+      hintText: StringConstant.expDate,
       suffixIcon: SvgPicture.asset(
         SvgImageConstant.expDateCalendar,
         height: getSize(24),
         width: getSize(24),
         colorFilter: ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
-        //color: AppColors.primaryColor,
       ),
       keyboardType: TextInputType.number,
-
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(4),
@@ -251,10 +233,9 @@ class AddCardView extends StatelessWidget {
   CustomTextField cardNumberTextFiled(
       BuildContext context, ViewSingleApplicantsState state) {
     return CustomTextField(
-      labelText: 'Card Number',
-      hintText: 'Card Number',
+      labelText: StringConstant.cardNumber,
+      hintText: StringConstant.cardNumber,
       keyboardType: TextInputType.number,
-
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -266,10 +247,8 @@ class AddCardView extends StatelessWidget {
           width: getSize(24),
           colorFilter:
               ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
-          //color: AppColors.primaryColor,
         ),
       ),
-      //  focusNode: state.mobileNumberFocusNode,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(19),
@@ -292,8 +271,8 @@ class AddCardView extends StatelessWidget {
 
   CustomTextField cardHolderNameTextFiled(BuildContext context) {
     return CustomTextField(
-      labelText: 'Card Holder’s Name',
-      hintText: 'Card Holder’s Name',
+      labelText: StringConstant.cardHoldersName,
+      hintText: StringConstant.cardHoldersName,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
       ],
@@ -308,7 +287,6 @@ class AddCardView extends StatelessWidget {
           width: getSize(24),
           colorFilter:
               ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
-          //color: AppColors.primaryColor,
         ),
       ),
       textCapitalization: TextCapitalization.words,

@@ -19,18 +19,7 @@ class MarkUnavailability extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             selectMultiDate(context, state),
-            // selectMultiDate2(context, state),
             paddingBetweenFields(),
-            /*  if (state.shift.shift_detail?.same_or_different_time == 1)
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: getSize(30)),
-                child: CommonButton(
-                  onPressed: () {
-                    Navigator.pop(context, state.multiDates);
-                  },
-                  buttonText: StringConstant.done,
-                ),
-              ), */
           ],
         );
       },
@@ -88,12 +77,10 @@ class MarkUnavailability extends StatelessWidget {
       },
       selectableDayPredicate: (date) {
         final dateExist = isDateExist(selectedDates, date);
-        print("dateExist---> $dateExist");
 
         return dateExist;
       },
       onValueChanged: (value) {
-        print("setDateUnavailableEvent called!");
         context
             .read<SendProposalBloc>()
             .add(SendProposalEvent.setDateUnavailableEvent(value));
@@ -103,9 +90,6 @@ class MarkUnavailability extends StatelessWidget {
 
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
     return selectedDates.any((selectedDate) {
-      // print("currentDate---> $currentDate");
-      // print("selectedDate---> $selectedDate");
-
       return (selectedDate.year == currentDate.year &&
           selectedDate.month == currentDate.month &&
           selectedDate.day == currentDate.day);

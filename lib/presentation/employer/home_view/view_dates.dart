@@ -25,7 +25,6 @@ class ViewDates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shift = shiftDetail.detail ?? [];
-    // print("shiftDetail ---> ${jsonEncode(shift)}");
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -60,22 +59,7 @@ class ViewDates extends StatelessWidget {
                       unpaidBreak: "${shift[index].unpaid_break?.short_name}",
                     );
                   }),
-              /*startEndDate(
-                hour: "09 AM",
-                minute: "30 Min",
-                title: StringConstant.startTime,
-              ),
-              SizedBox(
-                height: getSize(10),
-              ),
-              startEndDate(
-                hour: "07 AM",
-                minute: "15 Min",
-                title: StringConstant.endTime,
-              ),*/
-              SizedBox(
-                height: getSize(50),
-              ),
+              SizedBox(height: getSize(50)),
             ],
           ),
         ),
@@ -135,60 +119,6 @@ class ViewDates extends StatelessWidget {
       ),
     );
   }
-
-  // Widget startEndDate(
-  //     {required String hour, required String minute, required String title}) {
-  //   return Column(
-  //     children: [
-  //       Row(
-  //         crossAxisAlignment: CrossAxisAlignment.end,
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           Expanded(
-  //             child: CustomTextField(
-  //               labelText: title,
-  //               hintAsValue: true,
-  //               hintText: hour,
-  //               prefixIcon: Padding(
-  //                 padding: EdgeInsets.symmetric(
-  //                   horizontal: getSize(14),
-  //                   vertical: getSize(14),
-  //                 ),
-  //                 child: SvgPicture.asset(
-  //                   SvgImageConstant.clock,
-  //                   height: getSize(24),
-  //                   width: getSize(24),
-  //                   color: AppColors.primaryColor,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(
-  //             width: getSize(20),
-  //           ),
-  //           Expanded(
-  //             child: CustomTextField(
-  //               hintAsValue: true,
-  //               hintText: minute,
-  //               prefixIcon: Padding(
-  //                 padding: EdgeInsets.symmetric(
-  //                   horizontal: getSize(14),
-  //                   vertical: getSize(14),
-  //                 ),
-  //                 child: SvgPicture.asset(
-  //                   SvgImageConstant.clock,
-  //                   height: getSize(24),
-  //                   width: getSize(24),
-  //                   color: AppColors.primaryColor,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget chipListBox({
     required String date,

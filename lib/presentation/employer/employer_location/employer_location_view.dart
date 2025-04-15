@@ -7,6 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
@@ -35,7 +36,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: 'Locations',
+          title: StringConstant.locations,
         ),
         body: BlocBuilder<EmployerLocationBloc, EmployerLocationState>(
           builder: (context, state) {
@@ -47,7 +48,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                   width: getSize(280),
                   child: BaseText(
                     textColor: AppColors.black.withValues(alpha: 0.65),
-                    text: 'No result found.',
+                    text: StringConstant.noResultFound,
                     textAlign: TextAlign.center,
                     lineHeight: 1.2,
                   ),
@@ -99,9 +100,10 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 18, vertical: 8),
+                                  horizontal: getSize(18),
+                                  vertical: getSize(8)),
                               child: BaseText(
-                                text: "+ Add New Location",
+                                text: "+ ${StringConstant.addNewLocation}",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 textColor: AppColors.green,
@@ -109,7 +111,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                             ),
                           ),
                         ),
-                        Gap(30)
+                        Gap(getSize(30))
                       ],
                     ),
                   ),
@@ -211,10 +213,9 @@ class _LocationInfoTile extends StatelessWidget {
                 onTap: () async {
                   final result = await AppDialog.showCommonDialog(
                     context: context,
-                    title: "Delete Location",
-                    content:
-                        "Deleting a location will prevent you from posting any shifts for that location. Are you sure you want to proceed?",
-                    successLabel: "Delete",
+                    title: StringConstant.deleteLocation,
+                    content: StringConstant.deleteLocationDesc,
+                    successLabel: StringConstant.delete,
                   );
                   if (result ?? false) {
                     context.read<EmployerLocationBloc>().add(

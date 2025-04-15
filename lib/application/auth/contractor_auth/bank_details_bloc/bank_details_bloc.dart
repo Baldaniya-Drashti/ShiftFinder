@@ -54,15 +54,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
             res.fold(
               (l) {
                 emit(state.copyWith(isLoading: false));
-
-                /* showError(
-                  message: l.maybeMap(
-                    showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
-                    orElse: () => "Server Error. Try again later.",
-                  ),
-                ).show(e.context); */
               },
               (r) {
                 bank = r;
@@ -113,7 +104,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               emit(state.copyWith(isLoading: false));
             },
             (r) {
-              print("Bank Detail R---> $r");
               return emit(state.copyWith(
                 bankDetail: r,
                 isLoading: false,
@@ -163,9 +153,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               );
             }
           }
-          print("state.city---> ${state.city}");
-          print("state.stateName---> ${state.stateName}");
-          print("state.postalCode---> ${state.postalCode}");
         },
         accountTypeChanged: (e) {
           emit(
@@ -339,14 +326,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               isPostalCodeValid &&
               isPhoneNoValid &&
               isCheckTerms) {
-            // Find the ID of the selected bank name
-            /* final selectedBankName = state.bankName.getValue();
-            final selectedBank = bankNameList.firstWhere(
-              (bank) => bank.name == selectedBankName,
-              orElse: () => SkillDTO(id: -1, name: ""),
-            );
-            final selectedBankId = selectedBank.id; */
-
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -362,7 +341,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               accountType: (state.accountType.getValue() ?? "").toLowerCase(),
               firstName: state.firstName.getValue(),
               lastName: state.lastName.getValue(),
-              // dateOfBirth: state.dateOfBirth.getValue() ?? "",
               dateOfBirth: (DateTime.parse(state.dateOfBirth.getValue() ?? "")
                           .toUtc()
                           .millisecondsSinceEpoch /
@@ -380,7 +358,6 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               phone: state.phoneNumber.getValue(),
               lastPage: 'LegalScreening',
             );
-            // failureOrSuccess = right("success");
           } else {
             print("Some Details are invalid!");
             showError(

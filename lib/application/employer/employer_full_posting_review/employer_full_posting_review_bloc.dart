@@ -61,7 +61,7 @@ class EmployerFullPostingReviewBloc extends Bloc<EmployerFullPostingReviewEvent,
                     showAPIResponseMessage: (value) => value.message,
                     networkError: (value) =>
                         'Please check your internet connectivity',
-                    orElse: () => "Something went wrong!",
+                    orElse: () => StringConstant.somethingWentWrong,
                   ),
                 ).show(value.context);
               },

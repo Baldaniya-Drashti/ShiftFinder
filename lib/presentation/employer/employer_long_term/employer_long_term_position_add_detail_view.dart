@@ -437,7 +437,6 @@ class _EmployerLongTermPositionDetailContentState
                   selector: (state) {
                     return state.employerLongTermAddDetailDto.vacancie_type ==
                         1;
-                    // ||state.employerLongTermAddDetailDto.number_of_vacancie !=  null;
                   },
                   builder: (context, vacancyEnable) {
                     return Column(
@@ -457,7 +456,7 @@ class _EmployerLongTermPositionDetailContentState
                           },
                           label: StringConstant.singleShiftVacancyDesc,
                           padding: EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 16),
+                              horizontal: getSize(12), vertical: getSize(16)),
                         ),
                         if (vacancyEnable) ...[
                           Gap(getSize(12)),

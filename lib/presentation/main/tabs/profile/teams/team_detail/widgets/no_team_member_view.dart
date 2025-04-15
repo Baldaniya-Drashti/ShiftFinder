@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -30,30 +31,25 @@ class NoTeamMemberView extends StatelessWidget {
           height: getSize(30),
         ),
         BaseText(
-          text: 'Heads Up!',
+          text: StringConstant.headsUp,
           fontSize: 22,
           fontFamily: 'Aclonica',
         ),
-        SizedBox(
-          height: getSize(10),
-        ),
+        SizedBox(height: getSize(10)),
         BaseText(
-          text:
-              'No team members have been added yet.\nPlease click the \'Add Team Members\'\nbutton to get started.',
+          text: StringConstant.noTeamsMemberDesc,
           fontSize: 14,
           fontWeight: FontWeight.w500,
           textColor: AppColors.black.withValues(alpha: 0.7),
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: getSize(70),
-        ),
+        SizedBox(height: getSize(70)),
         CommonButton(
           height: 28,
           width: 170,
           onPressed: addMemberPressed,
           backgroundColor: AppColors.green.withValues(alpha: 0.15),
-          buttonText: '+ Add Team Member',
+          buttonText: '+ ${StringConstant.addTeamMember}',
           buttonTextColor: AppColors.green,
           buttonFontSize: 12,
           borderRadius: 7,

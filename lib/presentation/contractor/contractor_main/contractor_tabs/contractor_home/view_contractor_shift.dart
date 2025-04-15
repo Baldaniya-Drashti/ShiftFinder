@@ -135,7 +135,6 @@ class ViewContractorShift extends StatelessWidget {
                               locationDetailBox(
                                   title: StringConstant.locationDetails,
                                   locationValue: shift.location?.location ?? "",
-                                  // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.shift_type == 1 &&
@@ -289,10 +288,6 @@ class ViewContractorShift extends StatelessWidget {
             chipListBox(
               padding: EdgeInsets.zero,
               bgColor: AppColors.transparent,
-              // chipList: post.shift_detail!.days!.split(',')
-              //   .where((item) => item != )
-              //   .map((item) => item.name ?? "")
-              //   .toList(),
               chipList: (post.shift_detail!.days != null &&
                       post.shift_detail!.days!.isNotEmpty)
                   ? post.shift_detail!.days!
@@ -552,15 +547,6 @@ class ViewContractorShift extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -571,9 +557,7 @@ class ViewContractorShift extends StatelessWidget {
                   height: getSize(25),
                   width: getSize(25),
                 ),
-                SizedBox(
-                  width: getSize(10),
-                ),
+                SizedBox(width: getSize(10)),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -722,11 +706,6 @@ class ViewContractorShift extends StatelessWidget {
                       timidValue: "",
                       title: StringConstant.unpaidBreak,
                       svgPrefixIcon: SvgImageConstant.clock),
-              // displayDateBreak(context, post,
-              //     boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
-              //     timidValue: "",
-              //     title: StringConstant.unpaidBreak,
-              //     svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(

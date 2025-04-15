@@ -11,9 +11,6 @@ class IntroVideoState with _$IntroVideoState {
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
 
     /// FOR INTRO QUIZ
-    // required List<QuizModel> questionList,
-    // required bool showQuizErrorMessages,
-    // required bool isQuizSubmitting,
     required List<QuizDTO> questions,
     required List<QuizDTO> updatedQuestions,
     required bool showQuizErrorMessages,
@@ -34,45 +31,7 @@ class IntroVideoState with _$IntroVideoState {
         authFailureOrSuccessOption: none(),
 
         /// FOR INTRO QUIZ
-        // questionList: [],
-        // showQuizErrorMessages: false,
-        // isQuizSubmitting: false,
-        questions: const [
-          // QuizDTO(
-          //   question:
-          //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna?",
-          //   options: [
-          //     QuizMcq(id: 1, mcq: "Long term care"),
-          //     QuizMcq(id: 2, mcq: "Hospital"),
-          //     QuizMcq(id: 3, mcq: "Community"),
-          //     QuizMcq(id: 4, mcq: "Retail"),
-          //   ],
-          //   selectedOptions: [],
-          // ),
-          // QuizDTO(
-          //   question:
-          //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna?",
-          //   options: [
-          //     QuizMcq(id: 1, mcq: "Long term care"),
-          //     QuizMcq(id: 2, mcq: "Hospital"),
-          //     QuizMcq(id: 3, mcq: "Community"),
-          //     QuizMcq(id: 4, mcq: "Retail"),
-          //   ],
-          //   selectedOptions: [],
-          // ),
-          // QuizDTO(
-          //   question:
-          //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna?",
-          //   options: [
-          //     QuizMcq(id: 1, mcq: "Long term care"),
-          //     QuizMcq(id: 2, mcq: "Hospital"),
-          //     QuizMcq(id: 3, mcq: "Community"),
-          //     QuizMcq(id: 4, mcq: "Retail"),
-          //   ],
-          //   // ["Long Term Care", "Hospital", "Community", "Retail"],
-          //   selectedOptions: [],
-          // ),
-        ],
+        questions: const [],
         updatedQuestions: [],
         showQuizErrorMessages: false,
         isQuizSubmitting: false,
@@ -82,20 +41,3 @@ class IntroVideoState with _$IntroVideoState {
         quizResultFailureOrSuccessOption: none(),
       );
 }
-
-// @freezed
-// class QuizDTO with _$QuizDTO {
-//   const factory QuizDTO({
-//     required String question,
-//     required List<QuizMcq> options,
-//     required List<QuizMcq> selectedOptions,
-//   }) = _QuizDTO;
-// }
-
-// @freezed
-// class QuizMcq with _$QuizMcq {
-//   const factory QuizMcq({
-//     required int id,
-//     required String mcq,
-//   }) = _QuizMcq;
-// }

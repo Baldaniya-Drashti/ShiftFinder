@@ -139,7 +139,6 @@ class ProposeAvailability extends StatelessWidget {
   }
 
   Widget totalPaybleHours(SendProposalState state) {
-    print("total Hours--> ${state.totalPaybleHours}");
     return CustomTextField(
       labelText: StringConstant.totalPayableHours,
       hintText: state.totalPaybleHours,

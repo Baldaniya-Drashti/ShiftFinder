@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -24,7 +25,7 @@ class EducationProfileListView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "Education",
+        title: StringConstant.education,
       ),
       body: ListView.separated(
         padding: EdgeInsets.all(16),
@@ -55,10 +56,9 @@ class _ListTile extends StatelessWidget {
       child: InkWell(
         onTap: () {
           context.router.push(
-            PageRouteInfo(
-              AddEducationDetailScreen.name,
-              args: AddEducationDetailScreenArgs(educationObj: data,readOnly: true)
-            ),
+            PageRouteInfo(AddEducationDetailScreen.name,
+                args: AddEducationDetailScreenArgs(
+                    educationObj: data, readOnly: true)),
           );
         },
         child: Row(
@@ -68,16 +68,12 @@ class _ListTile extends StatelessWidget {
               height: getSize(25),
               width: getSize(45),
             ),
-            SizedBox(
-              width: getSize(15),
+            SizedBox(width: getSize(15)),
+            Image.asset(
+              PngImageConstants.line,
+              height: getSize(80),
             ),
-              Image.asset(
-                PngImageConstants.line,
-                height: getSize(80),
-              ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,17 +83,19 @@ class _ListTile extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   Text.rich(
-                    TextSpan(text: "Completed in - ", style: TextStyle(fontSize: 8), children: [
-                      TextSpan(text: data.year_of_completion ?? "", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-                    ]),
+                    TextSpan(
+                        text: "${StringConstant.completedIn} - ",
+                        style: TextStyle(fontSize: 8),
+                        children: [
+                          TextSpan(
+                              text: data.year_of_completion ?? "",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w500))
+                        ]),
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   BaseText(
                     text: data.graduating_institution ?? "",
                     fontSize: 10,
@@ -106,7 +104,6 @@ class _ListTile extends StatelessWidget {
                 ],
               ),
             ),
-            //  Icon(Icons.arrow_forward_rounded)
           ],
         ),
       ),

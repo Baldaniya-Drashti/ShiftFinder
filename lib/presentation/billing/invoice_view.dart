@@ -96,32 +96,6 @@ class InvoiceView extends StatelessWidget {
                                 ),
                               );
                             },
-                            /*  CommonPaymentHistoryTile(
-                    shift: PaymentHistoryDTO(),
-                    child: SizedBox(
-                      width: double.maxFinite,
-                      child: Material(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: AppColors.green.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(7),
-                        child: InkWell(
-                          onTap: () {
-                            context.router.push(PageRouteInfo(InvoiceDetailView.name));
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                            child: BaseText(
-                              textAlign: TextAlign.center,
-                              text: StringConstant.viewInvoice,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                   */
                             separatorBuilder: (context, index) =>
                                 Gap(getSize(16)),
                             itemCount: state.invoiceList.length,
@@ -222,15 +196,6 @@ class InvoiceView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /*  context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(

@@ -6,11 +6,11 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/chat_section/view_media/view_media_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:video_player/video_player.dart';
 
 @RoutePage(name: 'viewmedia')
@@ -44,10 +44,10 @@ class ViewMedia extends StatelessWidget {
             child: Scaffold(
               appBar: CommonAppBar(
                 title: type == 1
-                    ? 'Image'
+                    ? StringConstant.image
                     : type == 2
-                        ? 'Video'
-                        : 'Document',
+                        ? StringConstant.video
+                        : StringConstant.document,
                 onBackPressed: () {
                   context.router.maybePop();
                 },
@@ -68,9 +68,6 @@ class ViewMedia extends StatelessWidget {
                           : PDFView(
                               filePath: mediaUrl,
                             ),
-                  /* SfPdfViewer.network(
-                              mediaUrl,
-                            ), */
                 ),
               ),
               bottomNavigationBar: (type == 2 &&
@@ -98,7 +95,6 @@ class ViewMedia extends StatelessWidget {
   }
 }
 
-// ignore: unused_element
 class _PlayPauseButton extends StatelessWidget {
   const _PlayPauseButton({required this.controller});
 

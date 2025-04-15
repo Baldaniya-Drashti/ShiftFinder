@@ -41,19 +41,8 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
         state.governmentDocAuthFailureOrSuccessOption.fold(
           () {},
           (either) => either.fold(
-            (failure) {
-              // showError(
-              //   message: failure.maybeMap(
-              //     showAPIResponseMessage: (value) => value.message,
-              //     networkError: (value) =>
-              //         'Please check your internet connectivity',
-              //     orElse: () => "Something went wrong!",
-              //   ),
-              // ).show(context);
-            },
-            (r) {
-              print("LISTENER CALLED");
-            },
+            (failure) {},
+            (r) {},
           ),
         );
       },
@@ -78,12 +67,6 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    /* (state.currentGovermentDocType.id == 3)
-                                        ? citizenshipCardView()
-                                        : (state.currentGovermentDocType.id ==
-                                                4)
-                                            ? citizenshipCertificateView()
-                                            :  */
                                     driverLicenseView(state, context),
                                     SizedBox(height: getSize(30)),
                                   ],

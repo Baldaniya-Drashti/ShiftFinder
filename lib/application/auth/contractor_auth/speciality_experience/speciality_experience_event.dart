@@ -4,8 +4,6 @@ part of 'speciality_experience_bloc.dart';
 class SpecialityExperienceEvent with _$SpecialityExperienceEvent {
   const factory SpecialityExperienceEvent.getSpecialityExperinceDataEvent() =
       _GetSpecialityExperinceDataEvent;
-  // const factory SpecialityExperienceEvent.getExperienceListEvent() =
-  //     _GetExperienceListEvent;
   const factory SpecialityExperienceEvent.updateRecordEvent({
     required int index,
     required String year,

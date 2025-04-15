@@ -123,15 +123,6 @@ class MainPraposalView extends StatelessWidget {
                     if (latitude != null && longitude != null) {
                       LocationHelper.openDirections(context,
                           endLat: latitude, endLng: longitude);
-                      /* context.router.push(
-                        PageRouteInfo(
-                          ShowGoogleMap.name,
-                          args: ShowGoogleMapArgs(
-                            latitude: latitude,
-                            longitude: longitude,
-                          ),
-                        ),
-                      ); */
                     }
                   },
                   child: Row(
@@ -175,7 +166,7 @@ class MainPraposalView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
-                        text: 'Shift Date:-',
+                        text: '${StringConstant.shiftDate}:-',
                         fontSize: 8,
                         fontWeight: FontWeight.w400,
                       ),

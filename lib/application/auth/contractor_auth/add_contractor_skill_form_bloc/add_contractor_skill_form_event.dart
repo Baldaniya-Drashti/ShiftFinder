@@ -15,9 +15,6 @@ class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
   const factory AddContractorSkillFormEvent.removeRoleTypeChips(
       String roleType) = RemoveRoleTypeChips;
 
-  // const factory AddContractorSkillFormEvent.selectedLanguageChanged(
-  //     String language) = SelectedLanguageChanged;
-
   const factory AddContractorSkillFormEvent.addLanguageChips(
       String selectedLanguage,
       {bool? isOtherValue}) = AddLanguageChips;

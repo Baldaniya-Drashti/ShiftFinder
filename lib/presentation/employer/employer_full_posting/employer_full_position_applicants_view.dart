@@ -37,7 +37,7 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: "View Applicants"),
+            title: StringConstant.viewApplicants),
         body: BlocBuilder<EmployerFullPostingApplicantBloc,
             EmployerFullPostingApplicantState>(
           builder: (context, state) {
@@ -97,7 +97,7 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      label: "View Profile",
+                                      label: StringConstant.viewProfile,
                                       backgroundColor: AppColors.primaryColor
                                           .withValues(alpha: .1),
                                     )

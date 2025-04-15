@@ -389,7 +389,6 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
 
   Widget numberOfVacancy(
       BuildContext context, EmployerFullPostingConfirmState state) {
-    print("selectedVacancy--> ${state.selectedVacancy.getValue()}");
     return CustomTextField(
       labelText: StringConstant.numberOfVacancies,
       hintText: StringConstant.numberOfVacancies,

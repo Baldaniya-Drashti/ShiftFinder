@@ -77,26 +77,6 @@ class _DocumentListState extends State<DocumentList> {
                         ),
                         child: GestureDetector(
                           onTap: () async {
-                            // if (index != 0 &&
-                            //     DocumentBloc.isDocSubmit(
-                            //         state.allDocumentList, 0)) {
-                            //   DocumentBloc.pageController.animateToPage(
-                            //     (index + 1),
-                            //     duration: const Duration(milliseconds: 1),
-                            //     curve: Curves.easeInOut,
-                            //   );
-                            // } else if (index == 0) {
-                            //   DocumentBloc.pageController.animateToPage(
-                            //     (index + 1),
-                            //     duration: const Duration(milliseconds: 1),
-                            //     curve: Curves.easeInOut,
-                            //   );
-                            // } else {
-                            //   showError(
-                            //     message:
-                            //         StringConstant.pleaseAddGovernmentIssuedId,
-                            //   ).show(context);
-                            // }
                             DocumentBloc.pageController.animateToPage(
                               (index + 1),
                               duration: const Duration(milliseconds: 1),

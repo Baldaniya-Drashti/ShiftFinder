@@ -55,13 +55,6 @@ class AddCardDetailPage extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  print("Succeffff");
-                  // showSuccess(
-                  //         message: r.dioMessage ??
-                  //             StringConstant.cardHasBeenSuccessFullAdded)
-                  //     .show(context);
-                  // AppDialog.showInfo(context, r.dioMessage ?? "Card has been sucessfully Added!");
-                  // context.router.replace(const PageRouteInfo(MainTabView.name));
                   if (fromRegister) {
                     context.router
                         .replaceAll([const PageRouteInfo(MainTabView.name)]);
@@ -83,10 +76,8 @@ class AddCardDetailPage extends StatelessWidget {
                 title: StringConstant.addCard,
                 showSkipBtn: fromRegister,
                 onSkipped: () {
-                  // context.router.replace(const PageRouteInfo(MainTabView.name));
                   context.router
                       .replaceAll([const PageRouteInfo(MainTabView.name)]);
-                  // AppDialog.showInfo(context, StringConstant.underDevelopment);
                 },
               ),
               body: Padding(
@@ -224,7 +215,6 @@ class AddCardDetailPage extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.cardNumber,
       hintText: StringConstant.cardNumber,
-      // maxLength: 19,
       keyboardType: TextInputType.number,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
@@ -324,8 +314,6 @@ class AddCardDetailPage extends StatelessWidget {
     CardState state, {
     required DateTime? selectedDate,
   }) async {
-    print("selectedDate------->  $selectedDate");
-
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       firstDate: DateTime(1950, 1),

@@ -21,24 +21,6 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leadingWidth: 0,
       leading: SizedBox.shrink(),
-      // leadingWidth: getSize(44),
-      // leading: GestureDetector(
-      //   onTap: () {
-      //     context.router.maybePop();
-      //   },
-      //   child: Container(
-      //     padding: EdgeInsets.only(
-      //       left: getSize(20),
-      //     ),
-      //     child: GestureDetector(
-      //       onTap: null,
-      //       child: SvgPicture.asset(
-      //         SvgImageConstant.back,
-      //         colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcIn),
-      //       ),
-      //     ),
-      //   ),
-      // ),
       centerTitle: false,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

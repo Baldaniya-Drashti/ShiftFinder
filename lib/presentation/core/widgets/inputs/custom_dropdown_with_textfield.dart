@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -235,8 +236,6 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     BuildContext context,
   ) {
     return CustomTextField(
-      // labelText: StringConstant.address,
-      // isLabelPadding: true,
       suffixIcon: suffixIcon,
       isBoxShadow: false,
       hintText: fieldHintText,
@@ -422,7 +421,7 @@ class CustomLocationDropdDown extends StatelessWidget {
                   ),
                   child: (isOptional == true && optionalWidget == null)
                       ? BaseText(
-                          text: "(Optional)",
+                          text: "(${StringConstant.optional})",
                           style: TextStyle(
                             fontSize: getFontSize(10),
                             fontWeight: FontWeight.w500,
@@ -435,7 +434,7 @@ class CustomLocationDropdDown extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 7),
+          SizedBox(height: getSize(7)),
         ],
         Container(
           decoration: BoxDecoration(
@@ -526,8 +525,6 @@ class CustomLocationDropdDown extends StatelessWidget {
     BuildContext context,
   ) {
     return CustomTextField(
-      // labelText: StringConstant.address,
-      // isLabelPadding: true,
       suffixIcon: suffixIcon,
       isBoxShadow: false,
       hintText: fieldHintText,

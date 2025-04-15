@@ -3,7 +3,6 @@ part of 'faq_bloc.dart';
 @freezed
 class FaqState with _$FaqState {
   const factory FaqState({
-    // required List<bool> expandedStates,
     required bool isLoading,
     required List<FaqDTO> faqList,
     required bool showErrorMessages,
@@ -13,7 +12,6 @@ class FaqState with _$FaqState {
   }) = _FaqState;
 
   factory FaqState.initial() => FaqState(
-        // expandedStates: [],
         faqList: [],
         isLoading: false,
         showErrorMessages: false,

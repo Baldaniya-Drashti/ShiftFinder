@@ -298,7 +298,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+                text: StringConstant.position,
+                fontSize: 12,
+                fontWeight: FontWeight.w500),
             Divider(),
             BaseText(
                 fontWeight: FontWeight.w400,
@@ -335,8 +337,8 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                         children: [
                           BaseText(
                               text: response.compensation_type == 1
-                                  ? "Rate"
-                                  : "Salary",
+                                  ? StringConstant.rate
+                                  : StringConstant.salary,
                               fontSize: 12),
                           BaseText(
                             text: "${response.rate_hour ?? ""}",
@@ -362,7 +364,9 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Application Deadline", fontSize: 12),
+                          BaseText(
+                              text: StringConstant.applicationDeadline,
+                              fontSize: 12),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -414,7 +418,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Estimated Weekly Hours",
+                text: StringConstant.estimatedWeeklyHours,
                 fontSize: 12,
                 fontWeight: FontWeight.w500),
             Row(
@@ -452,7 +456,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Shift Schedule",
+                text: StringConstant.shiftSchedule,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
             Gap(12),
@@ -492,13 +496,14 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Language Requirements",
+                text: StringConstant.languageRequirements,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Gap(3),
@@ -515,27 +520,30 @@ class EmployerFullPostingReviewView extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.scaffoldColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(22), vertical: getSize(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Location Details",
+                text: StringConstant.locationDetails,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
-                text: "Location",
+                text: StringConstant.location,
                 fontSize: 12,
                 textColor: AppColors.primaryColor),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(text: location?.location ?? "", fontSize: 13),
-            Gap(10),
+            Gap(getSize(10)),
             BaseText(
-                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
-            Gap(4),
+                text: StringConstant.unit,
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
+            Gap(getSize(4)),
             BaseText(text: response.location_unit ?? "", fontSize: 13),
           ],
         ),
@@ -555,13 +563,15 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "Union/Bargaining Unit",
+                text: StringConstant.unionBargainingUnit,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
-                text: "ABCD Union", fontSize: 14, fontWeight: FontWeight.w500),
+                text: response.union_bargaining_unit ?? "",
+                fontSize: 14,
+                fontWeight: FontWeight.w500),
           ],
         ),
       ),
@@ -580,13 +590,13 @@ class EmployerFullPostingReviewView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             BaseText(
-                text: "On-Call",
+                text: StringConstant.onCall,
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             BaseText(
-                text: "This position may include on-call",
+                text: StringConstant.thisPositionMayIncludeOnCall,
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
           ],
@@ -616,7 +626,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 fontSize: 12,
                 textColor: AppColors.black.withValues(alpha: 0.8)),
             Divider(),
-            Gap(4),
+            Gap(getSize(4)),
             ...List.generate(
               max(0, (list.length * 2) - 1),
               (initialIndex) {
@@ -712,7 +722,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 ),
               ),
             ),
-            Gap(8),
+            Gap(getSize(8)),
             Expanded(
               child: BaseText(
                   text: label,

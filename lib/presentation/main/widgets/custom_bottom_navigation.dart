@@ -43,7 +43,6 @@ class CustomBottomNavigationWidget extends StatelessWidget {
                         : inActiveTabIconList[index],
                     height: getSize(24),
                     width: getSize(24),
-                    // color: isActive ? AppColors.primaryColor : AppColors.black,
                   ),
                   SizedBox(height: getSize(5)),
                   BaseText(
@@ -129,7 +128,6 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
                         : inActiveTabIconList[index],
                     height: getSize(24),
                     width: getSize(24),
-                    // color: isActive ? AppColors.primaryColor : AppColors.black,
                   ),
                   SizedBox(height: getSize(5)),
                   BaseText(

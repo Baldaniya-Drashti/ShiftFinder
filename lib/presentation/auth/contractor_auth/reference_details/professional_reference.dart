@@ -383,9 +383,6 @@ class ProfessionalReferenceWidget extends StatelessWidget {
                 ),
                 (_) => null,
               ),
-      // onChanged: (value) {
-      //   context.read<ReferenceBloc>().add(ReferenceEvent.endDateChanged(value));
-      // },
     );
   }
 
@@ -441,8 +438,6 @@ class ProfessionalReferenceWidget extends StatelessWidget {
     DateTime? lastDate,
     required bool isStartDate,
   }) async {
-    print("selectedDate------->  ${selectedDate}");
-
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       firstDate: startDate ?? DateTime(1950, 1),
@@ -473,48 +468,5 @@ class ProfessionalReferenceWidget extends StatelessWidget {
             .add(ReferenceEvent.endDateChanged(pickedDate.toString()));
       }
     }
-    // await showDialog(
-    //   context: context,
-    //   builder: (_) {
-    //     return Theme(
-    //       data: Theme.of(context).copyWith(
-    //         colorScheme: ColorScheme.light(
-    //           primary: AppColors.primaryColor, // header background color
-    //           onPrimary: AppColors.black, // header text color
-    //           onSurface: AppColors.black,
-    //         ),
-    //       ),
-    //       child: AlertDialog(
-    //         title: const BaseText(
-    //           text: "Select Year",
-    //           textAlign: TextAlign.center,
-    //         ),
-    //         content: SizedBox(
-    //           width: getSize(500),
-    //           height: getSize(400),
-    //           child: YearPicker(
-    //             firstDate: DateTime(1950, 1),
-    //             lastDate: DateTime.now(),
-    //             selectedDate: selectedDate,
-    //             onChanged: onChanged,
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // ).then((value) {
-    //   if (value != null && value is DateTime) {
-    //     print("onback value---> ${value}");
-    //     if (isStartDate) {
-    //       context
-    //           .read<ReferenceBloc>()
-    //           .add(ReferenceEvent.startDateChanged(value.toString()));
-    //     } else {
-    //       context
-    //           .read<ReferenceBloc>()
-    //           .add(ReferenceEvent.endDateChanged(value.toString()));
-    //     }
-    //   }
-    // });
   }
 }

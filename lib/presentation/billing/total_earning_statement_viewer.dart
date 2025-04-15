@@ -29,9 +29,6 @@ class GenerateTotalEarningStatement extends StatelessWidget {
 
     final logoImage = await rootBundle.load('assets/png/splash_logo.png');
 
-    // final startDate = DateFormat('dd MMM').format(selectedDates.first);
-    // final endDate = DateFormat('dd MMM, yyyy').format(selectedDates.last);
-
     pdf.addPage(
       index: 0,
       pw.MultiPage(

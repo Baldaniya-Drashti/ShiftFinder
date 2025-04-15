@@ -7,8 +7,6 @@ class EditProfileState with _$EditProfileState {
     required bool isSubmitting,
     required bool isLoading,
     required bool showErrorMessages,
-    // required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
-
     required String selectImage,
     required Username firstName,
     required Lastname lastName,
@@ -31,7 +29,6 @@ class EditProfileState with _$EditProfileState {
         lastName: Lastname(""),
         isSubmitting: false,
         showErrorMessages: false,
-        // authFailureOrSuccessOption: none(),
         selectImage: "",
         companyName: InputEmptyOrNot(""),
         phoneNumber: MobileNumber(""),

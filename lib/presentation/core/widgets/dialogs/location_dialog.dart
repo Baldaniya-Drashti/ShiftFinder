@@ -53,7 +53,6 @@ class LocationDialog {
                         Flexible(
                           child: SingleChildScrollView(
                             child: SizedBox(
-                              // height: getSize(300),
                               width: getSize(400),
                               child: ListView.builder(
                                 shrinkWrap: true,
@@ -62,7 +61,6 @@ class LocationDialog {
                                 itemBuilder: (context, index) {
                                   return ListTile(
                                     onTap: () {
-                                      // final selectedLocation = state.searchLocationList[index]["description"];
                                       final selectedLocation =
                                           state.searchLocationList[index];
                                       context

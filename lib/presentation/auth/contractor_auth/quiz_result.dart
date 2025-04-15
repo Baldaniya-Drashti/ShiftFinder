@@ -39,8 +39,6 @@ class QuizResultScreen extends StatelessWidget {
               () {},
               (either) => either.fold(
                 (failure) {
-                  print("showAPIResponseMessage---> $failure");
-
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
@@ -53,8 +51,6 @@ class QuizResultScreen extends StatelessWidget {
                 (r) {
                   totalCorrectAnswer = "${r.total_correct_question ?? 00}";
                   totalWrongAnswer = "${r.total_wrong_question ?? 00}";
-                  print("GO TO NEXT SCREEN!");
-                  // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
               ),
             );
@@ -159,7 +155,6 @@ class QuizResultScreen extends StatelessWidget {
                                 vertical: getSize(20), horizontal: getSize(20)),
                             child: CommonButton(
                               onPressed: () {
-                                // showUnderDevelopment(context);
                                 context.router.replaceAll([
                                   const PageRouteInfo(
                                       ContractorMainTabView.name)
@@ -203,17 +198,13 @@ class QuizResultScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 lineHeight: 1.5,
               ),
-              SizedBox(
-                height: getSize(5),
-              ),
+              SizedBox(height: getSize(5)),
               answerTile(
                 title: StringConstant.correctAnswers,
                 image: SvgImageConstant.checkedArrow,
                 answer: totalCorrectAnswer,
               ),
-              SizedBox(
-                height: getSize(5),
-              ),
+              SizedBox(height: getSize(5)),
               answerTile(
                 title: StringConstant.incorrectAnswers,
                 image: SvgImageConstant.wrong,

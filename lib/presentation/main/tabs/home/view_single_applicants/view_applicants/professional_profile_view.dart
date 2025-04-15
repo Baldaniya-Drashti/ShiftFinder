@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -26,7 +27,7 @@ class ProfessionalProfileView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "Professional Reference",
+        title: StringConstant.professionalReference,
       ),
       body: ListView.separated(
         padding: EdgeInsets.all(16),
@@ -70,16 +71,12 @@ class _ListTile extends StatelessWidget {
               height: getSize(40),
               width: getSize(45),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Image.asset(
               PngImageConstants.line,
               height: getSize(80),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,18 +86,14 @@ class _ListTile extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   Text.rich(
                     TextSpan(
                       text: "${data.unit ?? ""} ",
                       style: TextStyle(fontSize: 12),
                     ),
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   BaseText(
                     text: data.organization ?? "",
                     fontSize: 10,
@@ -109,7 +102,6 @@ class _ListTile extends StatelessWidget {
                 ],
               ),
             ),
-            //  Icon(Icons.arrow_forward_rounded)
           ],
         ),
       ),

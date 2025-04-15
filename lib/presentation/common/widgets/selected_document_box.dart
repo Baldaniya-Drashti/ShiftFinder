@@ -54,24 +54,6 @@ class SelectedDocumentBox extends StatelessWidget {
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Container(
-                  //   height: getSize(60),
-                  //   width: getSize(60),
-                  //   padding: EdgeInsets.symmetric(
-                  //       horizontal: getSize(11), vertical: getSize(6)),
-                  //   decoration: const BoxDecoration(
-                  //     color: AppColors.white,
-                  //   ),
-                  //   child: Container(
-                  //     decoration: BoxDecoration(boxShadow: [
-                  //       BoxShadow(
-                  //           blurRadius: 5,
-                  //           spreadRadius: 1,
-                  //           color: Colors.black.withValues(alpha: 0.2)),
-                  //     ]),
-                  //     child: leadingImage!,
-                  //   ),
-                  // ),
                   ShowPickedFile(
                     selectedFile: pickedFile,
                     showBadge: false,

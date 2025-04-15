@@ -169,26 +169,6 @@ class BankListView extends StatelessWidget {
                         child: SvgPicture.asset(SvgImageConstant.editWithBg),
                       ),
                     ),
-                    /*  InkWell(
-                      onTap: () {
-                        AppDialog.showDelete(
-                          context,
-                          title: StringConstant.deleteAccount,
-                          infoMessage: StringConstant
-                              .areYouSureYouWantToDeleteThisBankccount,
-                          onCancelClick: () {
-                            context.router.maybePop();
-                          },
-                          onDeleteClick: () {},
-                        );
-                      },
-                      child: Container(
-                          color: Colors.transparent,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getSize(5), vertical: getSize(10)),
-                          child: SvgPicture.asset(SvgImageConstant.bin)),
-                    ),
-                   */
                   ],
                 )
               ],

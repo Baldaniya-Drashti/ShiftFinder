@@ -68,9 +68,7 @@ class ResumeDocument extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
-                          height: getSize(10),
-                        ),
+                        SizedBox(height: getSize(10)),
                         Expanded(
                           child: (state.resume.file != null &&
                                   state.resume.file!.isNotEmpty)
@@ -201,8 +199,6 @@ class ResumeDocument extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 }

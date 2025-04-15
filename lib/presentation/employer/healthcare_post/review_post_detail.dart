@@ -124,7 +124,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
                             locationDetailBox(context,
                                 title: StringConstant.locationDetails,
                                 locationValue: post.location?.location ?? "",
-                                // "2464 Royal Ln. Mesa, New Jersey 45463",
                                 units: post.location_unit ?? ""),
                             if (post.shift_detail != null &&
                                 post.shift_detail?.shift_note != null &&
@@ -133,7 +132,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
                                 title: StringConstant.shiftNote,
                                 value: post.shift_detail?.shift_note ?? "",
                               ),
-                            // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
                             if (post.shift_detail != null &&
                                 post.shift_detail!.shift_type == 1 &&
                                 post.shift_detail!.recurring_status == 1 &&
@@ -240,10 +238,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
             chipListBox(
               padding: EdgeInsets.zero,
               bgColor: AppColors.transparent,
-              // chipList: post.shift_detail!.days!.split(',')
-              //   .where((item) => item != )
-              //   .map((item) => item.name ?? "")
-              //   .toList(),
               chipList: (post.shift_detail!.days != null &&
                       post.shift_detail!.days!.isNotEmpty)
                   ? post.shift_detail!.days!
@@ -261,8 +255,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
                   : [],
               title: StringConstant.recurrenceMode,
               value: (post.shift_detail?.recurrence_mode == "2")
-                  ? "Weekly"
-                  : "Daily",
+                  ? StringConstant.weekly
+                  : StringConstant.daily,
             ),
         ],
       ),
@@ -299,13 +293,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
           fontWeight: FontWeight.w400,
           lineHeight: getSize(3),
         ),
-        // trailing: Padding(
-        //   padding: EdgeInsets.all(getSize(15)),
-        //   child: commonEditButton(
-        //     context,
-        //     type: 1,
-        //   ),
-        // ),
       ),
     );
   }
@@ -413,13 +400,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
     );
   }
 
-  Widget rateHoursBox(
-      //   {
-      //   required String svgPrefixIcon,
-      //   required String title,
-      //   required String value,
-      // }
-      ) {
+  Widget rateHoursBox() {
     return Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
@@ -484,11 +465,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
               textColor: AppColors.black.withOpacity(0.70),
             ),
             trailing: commonEditButton(context, type: 1),
-            // trailing: BaseText(
-            //   text: post.last_ago ?? "",
-            //   fontSize: 10,
-            //   fontWeight: FontWeight.w600,
-            // ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
           ),
@@ -501,15 +477,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -521,9 +488,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                   height: getSize(25),
                   width: getSize(25),
                 ),
-                SizedBox(
-                  width: getSize(10),
-                ),
+                SizedBox(width: getSize(10)),
                 Flexible(
                   child: BaseText(
                     text: post.location?.location ?? "",
@@ -553,8 +518,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
       ),
       child: Stack(
         alignment: Alignment.bottomRight,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -590,10 +553,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
                   ),
                 ],
               ),
-              // commonEditButton(
-              //   context,
-              //   type: 1,
-              // ),
             ],
           ),
           Padding(
@@ -613,23 +572,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
   Widget commonEditButton(BuildContext context, {required int type}) {
     return GestureDetector(
       onTap: () {
-        /* context.router
-            .push(PageRouteInfo(
-          EditReviewPostDetail.name,
-          args: EditReviewPostDetailArgs(
-            type: type,
-            post: postRequest,
-            updatedPost: post,
-          ),
-        ))
-            .then((value) {
-          print("On Back to review detail---> $value");
-          if (value == true) {
-            context
-                .read<ReviewPostBloc>()
-                .add(ReviewPostEvent.getShiftData(post: post));
-          }
-        }); */
         context.router.push(PageRouteInfo(HealthCarePostForm.name,
             args: HealthCarePostFormArgs(
               postId: post.id,
@@ -936,7 +878,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withValues(alpha: 0.7),
                 ),
-                // commonEditButton(context, type: 2),
               ],
             ),
             commonDivider(),
@@ -1046,9 +987,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: getSize(10),
-            ),
+            SizedBox(height: getSize(10)),
             CustomChipSet(
               onDelete: (v) {},
               chipList: chipList,

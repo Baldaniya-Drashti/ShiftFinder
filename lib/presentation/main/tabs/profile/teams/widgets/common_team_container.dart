@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -42,16 +43,12 @@ class CommonTeamContainer extends StatelessWidget {
             height: getSize(45),
             width: getSize(60),
           ),
-          SizedBox(
-            width: getSize(15),
-          ),
+          SizedBox(width: getSize(15)),
           Image.asset(
             PngImageConstants.line,
             height: getSize(80),
           ),
-          SizedBox(
-            width: getSize(15),
-          ),
+          SizedBox(width: getSize(15)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +64,7 @@ class CommonTeamContainer extends StatelessWidget {
                 totalMembers > 0
                     ? Text.rich(
                         TextSpan(
-                          text: 'Total Members - ',
+                          text: '${StringConstant.totalMembers} - ',
                           style: TextStyle(
                             fontSize: getFontSize(8),
                             fontWeight: FontWeight.w500,
@@ -88,14 +85,12 @@ class CommonTeamContainer extends StatelessWidget {
                         ),
                       )
                     : BaseText(
-                        text: 'No team member added yet',
+                        text: StringConstant.noTeamMemberAddedYet,
                         fontSize: 8,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.green,
                       ),
-                SizedBox(
-                  height: getSize(5),
-                ),
+                SizedBox(height: getSize(5)),
                 BaseText(
                   text: address,
                   fontSize: 10,

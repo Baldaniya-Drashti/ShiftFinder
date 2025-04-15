@@ -89,7 +89,6 @@ class CurrentShift extends StatelessWidget {
                                     shift.shift_detail!.shift_type == 2) ...[
                                   remainingShift(
                                       value:
-                                          // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
                                           "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
                                   paddingBetweenFields(),
                                 ],

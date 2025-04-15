@@ -187,7 +187,9 @@ class _EmployerFullPostingContent extends StatelessWidget {
                 height: getSize(43.41),
               ),
               title: BaseText(
-                text: employer.job_type == 1 ? "Full Time" : "Part Time",
+                text: employer.job_type == 1
+                    ? StringConstant.fullTime
+                    : StringConstant.partTime,
                 textColor: AppColors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -333,7 +335,9 @@ class _EmployerFullPostingContent extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-                text: "Position", fontSize: 12, fontWeight: FontWeight.w500),
+                text: StringConstant.position,
+                fontSize: 12,
+                fontWeight: FontWeight.w500),
             Divider(),
             BaseText(
                 fontWeight: FontWeight.w400,
@@ -362,7 +366,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
-                  text: "Total Applications",
+                  text: StringConstant.totalApplications,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
               Gap(getSize(8)),

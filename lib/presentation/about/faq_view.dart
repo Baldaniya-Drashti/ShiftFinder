@@ -39,7 +39,6 @@ class FaqView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       userDescUI(),
-
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.7,
                         child: state.getDataLoading
@@ -66,8 +65,6 @@ class FaqView extends StatelessWidget {
                                         state),
                                   ),
                       ),
-
-                      // buildWithTrailingAnimationDisabled(state),
                     ],
                   ),
                 ),
@@ -120,127 +117,6 @@ class FaqView extends StatelessWidget {
       ),
     );
   }
-
-  /* Widget expansionList(BuildContext context, FaqState state) {
-    return ExpansionPanelList(
-      elevation: 0,
-      expansionCallback: (int index, bool isExpanded) {
-        context.read<FaqBloc>().add(FaqEvent.toggleExpansionEvent(index));
-      },
-      children: items.asMap().entries.map((entry) {
-        final index = entry.key;
-        final item = entry.value;
-
-        final isExpanded = index < state.expandedStates.length
-            ? state.expandedStates[index]
-            : false;
-
-        return ExpansionPanel(
-          canTapOnHeader: true,
-          backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
-          headerBuilder: (context, isExpanded) {
-            return ListTile(
-              title: Text(
-                item.header,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            );
-          },
-          body: Container(
-            color: AppColors.white,
-            child: Container(
-              margin: EdgeInsets.all(getSize(10)),
-              decoration: BoxDecoration(
-                  color: AppColors.surfaceColor,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  item.body,
-                  style: TextStyle(color: Colors.black54),
-                ),
-              ),
-            ),
-          ),
-          isExpanded: isExpanded,
-        );
-      }).toList(),
-    );
-  } */
-
-  /* static Widget buildWithTrailingAnimationDisabled(FaqState state) {
-    return ExpansionTileList(
-      tileGapSize: getSize(10),
-      enableTrailingAnimation: false,
-      tileBuilder: (context, value, child) {
-        return Container(
-          decoration: BoxDecoration(
-              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
-          padding: EdgeInsets.all(getSize(10)),
-          child: child,
-        );
-      },
-      children: state.faqList.asMap().entries.map((entry) {
-        final item = entry.value;
-        return ExpansionTile(
-            collapsedBackgroundColor: AppColors.surfaceColor,
-            collapsedShape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
-            title: ListTile(
-              title: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BaseText(
-                    text: "${entry.key + 1}.",
-                    fontSize: 12,
-                  ),
-                  SizedBox(width: getSize(10)),
-                  Expanded(
-                    child: BaseText(
-                      text: item.question ?? "",
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            children: [
-              Container(
-                margin: EdgeInsets.all(getSize(10)),
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      BaseText(
-                        text: "•",
-                        fontSize: 12,
-                      ),
-                      SizedBox(width: getSize(10)),
-                      Expanded(
-                        child: BaseText(
-                          text: item.answer ?? "",
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ]
-            // isExpanded: isExpanded,
-            );
-      }).toList(),
-    );
-  } */
 
   static Widget buildWithTrailingAnimationDisabled(FaqState state) {
     return Column(
@@ -309,9 +185,7 @@ class FaqView extends StatelessWidget {
                     ),
                   ),
                 ),
-              ]
-              // isExpanded: isExpanded,
-              ),
+              ]),
         );
       }).toList(),
     );

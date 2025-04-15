@@ -36,9 +36,7 @@ class UploadDocumentBox extends StatelessWidget {
                 width: getSize(58),
                 child: Image.asset(PngImageConstants.upload),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: getSize(20)),
               CommonButton(
                 onPressed: () {},
                 width: 140,
@@ -55,7 +53,6 @@ class UploadDocumentBox extends StatelessWidget {
                       text: StringConstant.upload,
                       fontSize: 12,
                       textAlign: TextAlign.center,
-                      //maxLines: 1,
                       fontWeight: FontWeight.w600,
                       textColor: AppColors.primaryColor,
                     ),

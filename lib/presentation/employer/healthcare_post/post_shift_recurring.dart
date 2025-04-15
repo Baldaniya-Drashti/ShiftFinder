@@ -83,10 +83,6 @@ class PostShiftRecurring extends StatelessWidget {
                         .push(PageRouteInfo(ReviewPostShiftDetail.name,
                             args: ReviewPostShiftDetailArgs(
                               post: r,
-                              // updatedPost: (state.updateShift.id != null &&
-                              //         state.updateShift.id != -1)
-                              //     ? state.post
-                              //     : null,
                               postRequest: state.post,
                               isUpdate: (state.updateShift.id != null &&
                                       state.updateShift.id != -1)
@@ -103,7 +99,9 @@ class PostShiftRecurring extends StatelessWidget {
             builder: (context, state) {
               return Scaffold(
                 appBar: CommonAppBar(
-                  title: fromSaveTemplate ? "Edit Template" : postTitle(),
+                  title: fromSaveTemplate
+                      ? StringConstant.editTemplate
+                      : postTitle(),
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
@@ -236,8 +234,7 @@ class PostShiftRecurring extends StatelessWidget {
                                               .getValue()
                                               .map((day) => day.id)
                                               .toList();
-                                          print(
-                                              "Selected dayeeee--> ${state.recurrenceWeekList}");
+
                                           int selectedDayCount = 0;
 
                                           if (startDate != null &&
@@ -581,8 +578,6 @@ class PostShiftRecurring extends StatelessWidget {
         ),
       ),
       onTap: () {
-        print(
-            "START FIRST DATE---> ${DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000)}");
         DocumentExpiryDatePicker.customDatePicker(
           context,
           firstDate: (post.date != null && post.date!.isNotEmpty)
@@ -617,24 +612,6 @@ class PostShiftRecurring extends StatelessWidget {
   }
 
   Widget recurrenceModeDropDown(BuildContext context, PostShiftState state) {
-    /*bool isRangeMoreThanWeek = false;
-    DateTime? startDate = state.recurringStartDate.isValid()
-        ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-        : null;
-
-    DateTime? endDate = state.recurringEndDate.isValid()
-        ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
-        : null;
-
-    if (startDate != null && endDate != null) {
-      int difference = endDate.difference(startDate).inDays;
-      if (difference >= 7) {
-        isRangeMoreThanWeek = true;
-        print("isRengeMoreThanWeek---> $isRangeMoreThanWeek");
-      }
-    }*/
-
-    print("isRangeMoreThanWeek----> ${state.isRangeMoreThanWeek}");
     return CustomDropdwonWithTextField(
       labelText: StringConstant.recurrenceMode,
       hintText: StringConstant.recurrenceMode,
@@ -835,7 +812,6 @@ class PostShiftRecurring extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: getSize(20),
-            // vertical: getSize(10),
           ),
           decoration: BoxDecoration(
               color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
@@ -843,23 +819,19 @@ class PostShiftRecurring extends StatelessWidget {
             constraints: BoxConstraints(maxHeight: getSize(250)),
             child: ListView.builder(
                 shrinkWrap: true,
-                // physics: NeverScrollableScrollPhysics(),
                 itemCount: state.teamList.length,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final teamList = state.teamList;
                   bool isTeamCheck =
                       state.selectedTeamList.getValue().any((item) {
-                    print("is team check---> ${item.id == teamList[index].id}");
-
                     return item.id == teamList[index].id;
                   });
-                  // print("is team check---> ${state.selectedTeamList}}");
+
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: getSize(5)),
                     child: GestureDetector(
                       onTap: () {
-                        print("Teams selected index--> ${teamList[index].id}");
                         context.read<PostShiftBloc>().add(
                             PostShiftEvent.selectTeamEvent(teamList[index]));
                       },
@@ -874,7 +846,6 @@ class PostShiftRecurring extends StatelessWidget {
                           width: getSize(24),
                         ),
                         dense: true,
-
                         title: BaseText(
                           text: teamList[index].name ?? '',
                           fontSize: 14,
@@ -882,9 +853,6 @@ class PostShiftRecurring extends StatelessWidget {
                         ),
                         trailing: Container(
                           color: Colors.transparent,
-                          // height: getSize(0),
-                          // width: getSize(26.67),
-                          // padding: EdgeInsets.all(getSize(10)),
                           child: Checkbox(
                             value: isTeamCheck,
                             activeColor: AppColors.primaryColor,
@@ -904,7 +872,6 @@ class PostShiftRecurring extends StatelessWidget {
                             },
                           ),
                         ),
-                        // ],
                       ),
                     ),
                   );

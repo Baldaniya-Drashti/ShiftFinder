@@ -622,7 +622,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     showAPIResponseMessage: (value) => value.message,
                     networkError: (value) =>
                         'Please check your internet connectivity',
-                    orElse: () => "Something went wrong!",
+                    orElse: () => StringConstant.somethingWentWrong,
                   ),
                 ).show(e.context);
                 emit(

@@ -83,9 +83,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                             padding: EdgeInsets.only(
                                                 top: getSize(10)),
                                             child: SelectedDocumentBox(
-                                              // leadingImage: Image.file(File(
-                                              //     immunizationObject.immunizationDocument ??
-                                              //         "")),
                                               pickedFile:
                                                   immunizationObject.file,
                                               title: immunizationObject
@@ -152,51 +149,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                     ),
                                   ),
                                 paddingBetweenFields(),
-                                /*DocumentExpiryDatePicker()
-                                    .notApplicableExpiryCheckBox(
-                                  context,
-                                  value: state.isImmunizationExpiryCheck,
-                                  isDisabled:
-                                      (state.immunizationExpiryDate.isNotEmpty),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      context.read<ImmunizationBloc>().add(
-                                          ImmunizationEvent
-                                              .checkNAImmunizationExpiryDate(value));
-                                    }
-                                  },
-                                ),
-                                DocumentExpiryDatePicker.expiryDateTextField(
-                                  context,
-                                  onPickedDate: (pickedDate) {
-                                    context.read<ImmunizationBloc>().add(
-                                        ImmunizationEvent
-                                            .immunizationExpiryDateChanged(
-                                                pickedDate.toString()));
-                                  },
-                                  onCancelClick: () {
-                                    context.read<ImmunizationBloc>().add(
-                                        ImmunizationEvent
-                                            .immunizationExpiryDateChanged(""));
-                                  },
-                                  selectedDate: state.immunizationExpiryDate,
-                                  isDisabled: !state.isImmunizationExpiryCheck,
-                                ),
-                                paddingBetweenFields(height: 5),
-                                if ((!state.isImmunizationExpiryCheck &&
-                                        state.immunizationExpiryDate.isEmpty) &&
-                                    state.showImmunizationErrorMessages)
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: getSize(20)),
-                                    child: const BaseText(
-                                      text: StringConstant
-                                          .pleaseSelectExpiryDateIfApplicable,
-                                      fontSize: 12,
-                                      textColor: AppColors.red,
-                                    ),
-                                  ),
-                                */
                                 addMoreButton(
                                   context,
                                   state,
@@ -397,7 +349,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
             ),
           );
         }).then((value) {
-      print("On update back value ---> $value");
       if (value == true) {
         context
             .read<ImmunizationBloc>()
@@ -427,13 +378,10 @@ class ImmunizationsVaccinations extends StatelessWidget {
 
   Widget addMoreButton(BuildContext context, ImmunizationState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.immunizationName.isValid() &&
-            state.immunizationDoc.isValid()
-        /* &&(state.isImmunizationExpiryCheck ||
-                state.immunizationExpiryDate.isNotEmpty)*/
-        )
-        ? true
-        : false;
+    bool isAllDetailsAdded =
+        (state.immunizationName.isValid() && state.immunizationDoc.isValid())
+            ? true
+            : false;
 
     return Align(
       alignment: Alignment.center,

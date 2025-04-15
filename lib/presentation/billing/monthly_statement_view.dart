@@ -49,7 +49,6 @@ class MonthlyStatementView extends StatelessWidget {
                       label: StringConstant.period,
                       selectedDate: selectedDateTime,
                       onDateSelected: (value) {
-                        print("selected range dates---> $value");
                         context.read<MonthlyStatementBloc>().add(
                             MonthlyStatementEvent.onDateSelected(dates: value));
                       },
@@ -169,10 +168,6 @@ class MonthlyStatementView extends StatelessWidget {
                         text: industry.title ?? "",
                         fontSize: 10,
                         fontWeight: FontWeight.w400),
-                    /* BaseText(
-                        text: "${StringConstant.invoice} 74523456",
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400), */
                   ],
                 ),
               ),

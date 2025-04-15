@@ -11,7 +11,6 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
     required bool isLoading,
     required bool isCheck,
     required bool showErrorMessages,
-    // required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
 
     /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
 
@@ -39,9 +38,6 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
     required OTPText enteredOTP,
     required int secondsRemaining,
     required bool showOtpErrorMessages,
-    // required Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
-    // required Option<Either<AuthFailure, String>>
-    //     verifyOtpFailureOrSuccessOption,
 
     /// EDIT PHONE OR EMAIL VIEW
     required EmailAddress editedEmail,
@@ -51,7 +47,6 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
     required bool isEditing,
     required bool showEditedErrorMessage,
     required PlaceDetailDTO selectedAddress,
-    // required Option<Either<AuthFailure, String>> editFailureorSuccessOption,
   }) = _ContractorEditProfileState;
 
   factory ContractorEditProfileState.initial() => ContractorEditProfileState(
@@ -63,7 +58,6 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
         isSubmitting: false,
         showErrorMessages: false,
         isCheck: false,
-        // authFailureOrSuccessOption: none(),
 
         /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
         selectImage: "",
@@ -90,8 +84,6 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
         enteredOTP: OTPText(''),
         secondsRemaining: 0,
         showOtpErrorMessages: false,
-        // resendFailureOrSuccessOption: none(),
-        // verifyOtpFailureOrSuccessOption: none(),
 
         /// EDIT PHONE OR EMAIL VIEW
         editedPhone: MobileNumber(""),
@@ -100,6 +92,5 @@ class ContractorEditProfileState with _$ContractorEditProfileState {
         editedCountryFlag: "🇨🇦",
         isEditing: false,
         showEditedErrorMessage: false,
-        // editFailureorSuccessOption: none(),
       );
 }

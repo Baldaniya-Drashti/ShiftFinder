@@ -31,24 +31,6 @@ class AddContractorSkillsForm extends StatelessWidget {
   AddContractorSkillsForm(
       {super.key, this.isFromSplash = false, this.isUpdate = false});
 
-  // final List<String> requiredSpecialtiesList = [
-  //   'Anesthesiology',
-  //   'Behavioral Health',
-  //   'Urology',
-  //   'Perinatal',
-  //   'NICU',
-  //   'Other',
-  // ];
-
-  // final List<String> preferredSoftwareSkillList = [
-  //   "Visual Studio code",
-  //   "Android Studio",
-  //   "Sublime Text",
-  //   "Bluefish",
-  //   "Notepad++",
-  //   "OTHER",
-  // ];
-
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherRoleController = TextEditingController();
   TextEditingController otherPreferredSkillsController =
@@ -92,12 +74,6 @@ class AddContractorSkillsForm extends StatelessWidget {
                     Navigator.pop(context, true);
                   }
                 });
-                /*  context.router.push(PageRouteInfo(
-                              AddSpecialityExperience.name,
-                              args: AddSpecialityExperienceArgs(
-                                isUpdate: isUpdate,
-                              ),
-                            )); */
               },
             ),
           );
@@ -117,17 +93,12 @@ class AddContractorSkillsForm extends StatelessWidget {
                   onBackPressed: () {
                     if (isUpdate && state.isRoleListUpdated) {
                       AppDialog.showInfo(
-                          context,
-                          // "You have added a new role. Please update your experience for this role before proceeding. \nTap 'Update' to continue.",
-                          StringConstant.forceRoleUpdateDesc);
+                          context, StringConstant.forceRoleUpdateDesc);
                     } else if (isUpdate && state.isSpecialityListUpdated) {
                       AppDialog.showInfo(
-                          context,
-                          // "You have added a new speciality. Please update your experience for this speciality before proceeding. \nTap 'Update' to continue.",
-                          StringConstant.forceSpecialityUpdateDesc);
+                          context, StringConstant.forceSpecialityUpdateDesc);
                     } else {
                       Navigator.pop(context);
-                      // context.router.maybePop();
                     }
                   },
                   title: StringConstant.completeProfile,
@@ -157,8 +128,6 @@ class AddContractorSkillsForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 specialityDropDown(context, state),
                                 paddingBetweenFields(),
-                                /*requiredSpecialityDropDownChipset(
-                                            context, state),*/
                                 preferredSoftwareSkillsDropDownChipSet(
                                     context, state),
                                 paddingBetweenFields(),
@@ -199,133 +168,6 @@ class AddContractorSkillsForm extends StatelessWidget {
   }
 
   Widget roleDropDown(BuildContext context, AddContractorSkillFormState state) {
-    /* return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomDropdwonWithTextField(
-          labelText: StringConstant.role,
-          isLabelPadding: true,
-          showTextfield: false,
-          items: state.roleList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          validator: (p0) => context
-              .read<AddContractorSkillFormBloc>()
-              .state
-              .roleTypeChipList
-              .value
-              .fold(
-                (f) => f.maybeMap(
-                  empty: (value) => "Please add at least one role",
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-          value: (state.roleTypeChip.isEmpty) ? null : state.roleTypeChip,
-          onChanged: (value) {
-            if (value != null) {
-              context
-                  .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addRoleTypeChips(value, []));
-            }
-          },
-          hintText: StringConstant.selectRoles,
-        ),
-        CustomChipSet(
-          chipList: (state.roleTypeChipList.getValue()).cast<String>(),
-          spacing: 10,
-          onDelete: (value) {
-            context
-                .read<AddContractorSkillFormBloc>()
-                .add(AddContractorSkillFormEvent.removeRoleTypeChips(value));
-          },
-        ),
-
-        /*CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          fieldController: otherRoleController,
-          labelText: StringConstant.role,
-          hintText: StringConstant.role,
-          showTextfield: state.roleTypeChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.selectRoles,
-          items: state.roleList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.roleTypeChip.isEmpty) ? null : state.roleTypeChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<AddContractorSkillFormBloc>()
-                  .state
-                  .roleTypeChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneRole,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context
-                  .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addRoleTypeChips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addRoleTypeChips(
-                    otherRoleController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherRoleController.clear();
-            },
-          ),
-        ),
-        if (state.roleTypeChip.toLowerCase() == "other" &&
-            state.showRoleTypeError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfRole),
-        CustomChipSet(
-          chipList: (state.roleTypeChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<AddContractorSkillFormBloc>()
-                .add(AddContractorSkillFormEvent.removeRoleTypeChips(value));
-          },
-        ),
-    */
-      ],
-    );
- */
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,7 +239,6 @@ class AddContractorSkillsForm extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              print("On delete called!");
               context.read<AddContractorSkillFormBloc>().add(
                   AddContractorSkillFormEvent.removeRequiredSpecialitichips(
                       value.toString()));
@@ -410,8 +251,6 @@ class AddContractorSkillsForm extends StatelessWidget {
                 fontSize: 14, color: AppColors.black.withValues(alpha: 0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
             context
                 .read<AddContractorSkillFormBloc>()
                 .add(AddContractorSkillFormEvent.confirmSpecialityList(
@@ -430,89 +269,6 @@ class AddContractorSkillsForm extends StatelessWidget {
 
   Widget preferredSoftwareSkillsDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
-    /* return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          fieldController: otherPreferredSkillsController,
-          labelText: StringConstant.softwareSkillSet,
-          hintText: StringConstant.softwareSkillSet,
-          showTextfield:
-              state.requiredSoftwareSkillChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSoftwareSkills,
-          items: state.softwareList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSoftwareSkillChip.isEmpty)
-              ? null
-              : state.requiredSoftwareSkillChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<AddContractorSkillFormBloc>()
-                  .state
-                  .requiredSoftwareSkillChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneSkillSet,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<AddContractorSkillFormBloc>().add(
-                  AddContractorSkillFormEvent.addPreferedSoftwareSkillchips(
-                      newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context.read<AddContractorSkillFormBloc>().add(
-                      AddContractorSkillFormEvent.addPreferedSoftwareSkillchips(
-                    otherPreferredSkillsController.text,
-                    isOtherValue: true,
-                  ));
-
-              otherPreferredSkillsController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
-            state.showSoftwareSkillError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSoftwareSkill),
-        CustomChipSet(
-          chipList:
-              (state.requiredSoftwareSkillChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context.read<AddContractorSkillFormBloc>().add(
-                AddContractorSkillFormEvent.removePreferedSoftwareSkillchips(
-                    value));
-          },
-        ),
-      ],
-    );
-  */
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -562,177 +318,8 @@ class AddContractorSkillsForm extends StatelessWidget {
     );
   }
 
-  /*Widget requiredSpecialityDropDownChipset(
-      BuildContext context, AddContractorSkillFormState state) {
-    print("SPECIALITY LIST--> ${state.specialityList}");
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          fieldController: otherSpecialitiesController,
-          removeErrorBorder: true,
-          labelText: StringConstant.specialties,
-          hintText: StringConstant.specialties,
-          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSpecializations,
-          items: state.specialityList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          value: (state.requiredSpecialityChip.isEmpty)
-              ? null
-              : state.requiredSpecialityChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<AddContractorSkillFormBloc>()
-                  .state
-                  .requiredSpecialityChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneSpeciality,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            if (newValue != null) {
-              context.read<AddContractorSkillFormBloc>().add(
-                  AddContractorSkillFormEvent.addRequiredSpecialitichips(
-                      newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context.read<AddContractorSkillFormBloc>().add(
-                    AddContractorSkillFormEvent.addRequiredSpecialitichips(
-                      otherSpecialitiesController.text,
-                      isOtherValue: true,
-                    ),
-                  );
-              otherSpecialitiesController.clear();
-            },
-          ),
-        ),
-        if (state.requiredSpecialityChip.toLowerCase() == "other" &&
-            state.showSpecialityError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
-        specialityBox(state),
-      ],
-    );
-  }
-*/
-
   Widget languageDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
-    /*return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
-          isLabelPadding: true,
-          fieldController: languageController,
-          labelText: StringConstant.languagesKnown,
-          hintText: StringConstant.languagesKnown,
-          showTextfield: state.languageChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourLanguage,
-          items: state.languageList.map((val) {
-            return DropdownMenuItem<String>(
-              value: val.name,
-              child: BaseText(
-                text: val.name ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-          // items: const [
-          //   "English",
-          //   "Hindi",
-          //   "Gujarati",
-          //   "Bengali",
-          //   "Marathi",
-          //   "Punjabi",
-          //   "Tamil",
-          //   "Kannad",
-          //   "Other",
-          // ],
-          value: (state.languageChip.isEmpty) ? null : state.languageChip,
-          validator: (val) {
-            if (val != null && val.toLowerCase() == "other") {
-              return null;
-            } else {
-              return context
-                  .read<AddContractorSkillFormBloc>()
-                  .state
-                  .languageChipList
-                  .value
-                  .fold(
-                    (f) => f.maybeMap(
-                      empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneLanguage,
-                      orElse: () => null,
-                    ),
-                    (_) => null,
-                  );
-            }
-          },
-          onChanged: (newValue) {
-            print("valllll-> $newValue");
-            if (newValue != null) {
-              context
-                  .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addLanguageChips(newValue));
-            }
-          },
-          suffixIcon: CommonButton(
-            height: getSize(27),
-            width: getSize(59),
-            borderRadius: getSize(10),
-            buttonText: StringConstant.add,
-            buttonFontSize: 10,
-            onPressed: () {
-              context
-                  .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addLanguageChips(
-                    languageController.text,
-                    isOtherValue: true,
-                  ));
-              languageController.clear();
-            },
-          ),
-        ),
-        if (state.languageChip.toLowerCase() == "other" &&
-            state.showLanguageError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfLanguage),
-        CustomChipSet(
-          chipList: (state.languageChipList.getValue()).cast<String>(),
-          onDelete: (value) {
-            context
-                .read<AddContractorSkillFormBloc>()
-                .add(AddContractorSkillFormEvent.removeLanguageChips(value));
-          },
-        ),
-      ],
-    );*/
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -766,8 +353,6 @@ class AddContractorSkillsForm extends StatelessWidget {
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
-            print("----> $selectedList");
-            print("----> $otherValues");
             context
                 .read<AddContractorSkillFormBloc>()
                 .add(AddContractorSkillFormEvent.confirmLanguageList(
@@ -783,58 +368,4 @@ class AddContractorSkillsForm extends StatelessWidget {
       ],
     );
   }
-
-/*  Widget specialityBox(AddContractorSkillFormState state) {
-    return ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.only(
-          top: getSize(15),
-        ),
-        itemCount: state.requiredSpecialityChipList.getValue().length,
-        itemBuilder: (context, index) {
-          var selectedObj = state.requiredSpecialityChipList.getValue()[index];
-          print("PRINT SPECC--> $selectedObj");
-
-          return CustomeSpecialityBox(
-            selectedValue: selectedObj.name ?? "",
-            hintText: StringConstant.addYourExperience,
-            onDelete: () {
-              context.read<AddContractorSkillFormBloc>().add(
-                    AddContractorSkillFormEvent.removeRequiredSpecialitichips(
-                        index),
-                  );
-            },
-            experienceOnChanged: (value) {
-              if (value != null) {
-                ///
-                context.read<AddContractorSkillFormBloc>().add(
-                    AddContractorSkillFormEvent.addSpecialityExperienceList(
-                        value, index));
-              }
-            },
-            showError: ((selectedObj.specialityExperience == null ||
-                        selectedObj.specialityExperience == "") &&
-                    state.showSpeExperienceError)
-                ? true
-                : false,
-            errorText: StringConstant.experienceMustBeSelected,
-            value: (selectedObj.specialityExperience != null &&
-                    selectedObj.specialityExperience!.isNotEmpty)
-                ? selectedObj.specialityExperience
-                : null,
-            items: state.experienceList.map((val) {
-              return DropdownMenuItem<String>(
-                value: val.name,
-                child: BaseText(
-                  text: val.name ?? "",
-                  fontSize: 12,
-                  textColor: AppColors.black,
-                ),
-              );
-            }).toList(),
-          );
-        });
-  }
-*/
 }

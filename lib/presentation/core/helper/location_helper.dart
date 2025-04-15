@@ -46,11 +46,6 @@ class LocationHelper {
         var placeDetail = PlaceDetailDTO.fromJson(data);
 
         return placeDetail;
-        // setState(() {
-        //   placeName = result['name'];
-        //   rating = result['rating'];
-        //   phoneNumber = result['formatted_phone_number'];
-        // });
       } else {
         print('Failed to load place details: ${response.statusCode}');
       }
@@ -149,10 +144,9 @@ class LocationHelper {
   }
 
   static showPermissionAlertDialog(BuildContext context) async {
-    //  return Container();
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           /* shape: SmoothRectangleBorder(

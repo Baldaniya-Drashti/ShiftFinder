@@ -31,8 +31,6 @@ class ImagePickerUtils {
         if (permission) {
           pickedImage = await picker.pickImage(
             source: imageSource,
-            // maxWidth: imageMaxWidth,
-            // maxHeight: imageMaxHeight,
             imageQuality: imageQuality,
           );
         } else {
@@ -48,12 +46,6 @@ class ImagePickerUtils {
           var permission = await checkAndRequestCameraPermissions();
           print("permission---> $permission");
           if (permission) {
-            /*    pickedImage = await picker.pickImage(
-              source: imageSource,
-              // maxWidth: imageMaxWidth,
-              // maxHeight: imageMaxHeight,
-              // imageQuality: 10,
-            ); */
             pickedImage = await picker.pickImage(
               source: imageSource,
               maxWidth: 1080,
@@ -73,11 +65,7 @@ class ImagePickerUtils {
       }
 
       if (pickedImage != null) {
-        //profileImagePath.value = pickedImage.path;
-        //UserMoreInfo.userInfoModel.document = profileImagePath.value;
-
         File imageFile = File(pickedImage.path);
-
         print('File path = ${pickedImage.path}');
         print(
             'File size = ${(imageFile.lengthSync() / 1024).toStringAsFixed(2)} KB');
@@ -118,7 +106,6 @@ class ImagePickerUtils {
       DeviceInfoPlugin plugin = DeviceInfoPlugin();
       AndroidDeviceInfo android = await plugin.androidInfo;
       if (android.version.sdkInt >= 33) {
-        // var videosPermissionStatus = await Permission.videos.status;
         var photoPermissionStatus = await Permission.photos.status;
 
         if (photoPermissionStatus != PermissionStatus.granted) {
@@ -189,7 +176,7 @@ class ImagePickerUtils {
     return Future.delayed(const Duration(seconds: 1), () {
       showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             shape: SmoothRectangleBorder(

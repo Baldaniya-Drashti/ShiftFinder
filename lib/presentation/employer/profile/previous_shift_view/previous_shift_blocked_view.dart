@@ -131,7 +131,7 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
                   contractorName: "${data.first_name} ${data.last_name}",
                 );
               },
-              label: "Blocked",
+              label: StringConstant.blocked,
               textStyle: TextStyle(fontSize: 10, color: AppColors.red),
               icon: SvgPicture.asset(SvgImageConstant.blockedFilled,
                   height: 15, width: 15),
@@ -150,10 +150,10 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
-      title: "Unblock",
+      title: StringConstant.unblock,
       content:
           "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      successLabel: "Unblock",
+      successLabel: StringConstant.unblock,
     );
 
     if (result ?? false) {

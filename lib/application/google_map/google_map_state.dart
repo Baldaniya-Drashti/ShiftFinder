@@ -7,7 +7,6 @@ class GoogleMapState with _$GoogleMapState {
     double? longitude,
     required bool isMapCreated,
     CameraPosition? initialCameraPosition,
-    //  Marker? marker,
   }) = _CardState;
 
   factory GoogleMapState.initial() => GoogleMapState(

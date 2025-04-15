@@ -61,7 +61,6 @@ class OnBoarding3 extends StatelessWidget {
                 ),
                 descriptionView(
                   btnOnPressed: () {
-                    print("BTN CLICKED!!!!!!!!!");
                     context
                         .read<OnboardingBloc>()
                         .add(OnboardingEvent.submitOnboarding3());

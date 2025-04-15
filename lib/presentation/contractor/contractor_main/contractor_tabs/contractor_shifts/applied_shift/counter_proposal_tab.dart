@@ -378,15 +378,6 @@ class CounterProposalTab extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -547,13 +538,7 @@ class CounterProposalTab extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: (showBtn)
           ? CommonButton(
-              onPressed: () {
-                /*if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
-                        }*/
-              },
+              onPressed: () {},
               width: 160,
               height: 34,
               borderRadius: 5,

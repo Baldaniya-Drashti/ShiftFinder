@@ -76,7 +76,6 @@ class ContractorRatingView extends StatelessWidget {
                                       leading: UserAvatar(
                                         url: state.ratingList[index].profile ??
                                             "",
-                                        // "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:

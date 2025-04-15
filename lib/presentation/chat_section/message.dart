@@ -111,7 +111,6 @@ class Message extends StatelessWidget {
                                   : SizedBox.shrink(),
                               content: MessageTile(
                                 message: state.messageList[index],
-                                // isSender: false,
                                 isSender: state.messageList[index].receiverId ==
                                     receiverId,
                               ),

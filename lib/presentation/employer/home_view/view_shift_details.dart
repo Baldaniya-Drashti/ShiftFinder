@@ -76,9 +76,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             body: (state.isLoading)
                 ? CenterLoadingIndicator()
                 : (state.showErrorMessages)
-                    ? Center(
-                        child: BaseText(text: "No data found!"),
-                      )
+                    ? Center(child: BaseText(text: StringConstant.noDataFound))
                     : Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: getSize(10),
@@ -131,7 +129,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
                               locationDetailBox(
                                   title: StringConstant.locationDetails,
                                   locationValue: shift.location?.location ?? "",
-                                  // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.shift_type == 1 &&
@@ -152,95 +149,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  /* Widget payableBox(
-      HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
-    return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
-      margin: EdgeInsets.symmetric(vertical: getSize(5)),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: [
-          paybaleTitleRate(
-            title: StringConstant.totalWage,
-            value: "\$${payable.total_wage ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: StringConstant.totalAllowances,
-            value: "\$${payable.total_allowance ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: (shift.shift_detail?.shift_type == 2 &&
-                    shift.shift_detail?.same_or_different_time == 1)
-                ? StringConstant.shiftFinderServiceFee
-                : StringConstant.totalShiftFinderServiceFee,
-            value: "\$${double.parse(payable.service_fee ?? "00.00")}",
-          ),
-          SizedBox(height: getSize(10)),
-          if (shift.shift_detail?.shift_type == 2 &&
-              shift.shift_detail?.same_or_different_time == 1) ...[
-            paybaleTitleRate(
-              title: StringConstant.totalPayableForOneShift,
-              value: "\$${payable.total_one_shift ?? 00}",
-              isFirst: true,
-            ),
-            paybaleTitleRate(
-              title: StringConstant.numberOfShifts,
-              value:
-                  "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
-              isFirst: true,
-            ),
-          ],
-          paybaleTitleRate(
-            title: StringConstant.numberOfVacancies,
-            value:
-                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
-            isFirst: true,
-          ),
-          commonDivider(),
-          paybaleTitleRate(
-            title: StringConstant.estimatedTotalPayable,
-            value: "\$${payable.total_amount_payable ?? 00}",
-            isLast: true,
-          ),
-          /* paybaleTitleRate(
-            title: StringConstant.totalNumberOfVacancy,
-            value:
-                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
-            isFirst: true,
-          ),
-          commonDivider(),
-          paybaleTitleRate(
-            title: "${StringConstant.estimatedWage}:-",
-            value: "\$${payable.total_wage ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: "${StringConstant.accommodationAllowance}:-",
-            value: "\$${payable.accommodation_allowance ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: "${StringConstant.commuteAllowance}:-",
-            value: "\$${payable.commute_allowance ?? 00}",
-          ),
-          if (route != ShiftDetailRoute.employerCancelledShift)
-            paybaleTitleRate(
-              title: "${StringConstant.shiftFinderServiceFee}:-",
-              value: "\$${payable.service_fee ?? 00}",
-            ),
-          commonDivider(),
-          paybaleTitleRate(
-            title: StringConstant.estimatedTotalPayable,
-            value: "\$${payable.total_amount_payable ?? 00}",
-            isLast: true,
-          ), */
-        ],
-      ),
-    );
-  }
- */
-
   Widget payableBox(
       HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
     return Container(
@@ -256,18 +164,15 @@ class ViewHomeShiftDetails extends StatelessWidget {
             title: StringConstant.numberOfShifts,
             value:
                 "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
-            // isFirst: true,
           ),
           SizedBox(height: getSize(10)),
           paybaleTitleRate(
             title: StringConstant.payableHours,
             value: payable.total_payable_hour ?? "",
-            // isFirst: true,
           ),
           paybaleTitleRate(
             title: StringConstant.hourlyRate,
             value: "\$${payable.rate_hour ?? ""}",
-            // isFirst: true,
           ),
           paybaleTitleRate(
             title: StringConstant.totalWage,
@@ -310,14 +215,12 @@ class ViewHomeShiftDetails extends StatelessWidget {
             paybaleTitleRate(
               title: StringConstant.totalPayableForOneShift,
               value: "\$${payable.total_one_shift ?? 00}",
-              // isFirst: true,
             ),
           ],
           paybaleTitleRate(
             title: StringConstant.numberOfVacancies,
             value:
                 "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
-            // isFirst: true,
           ),
           commonDivider(),
           paybaleTitleRate(
@@ -325,36 +228,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
             value: "\$${payable.total_amount_payable ?? 00}",
             isLast: true,
           ),
-          /* paybaleTitleRate(
-            title: StringConstant.totalNumberOfVacancy,
-            value:
-                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
-            isFirst: true,
-          ),
-          commonDivider(),
-          paybaleTitleRate(
-            title: "${StringConstant.estimatedWage}:-",
-            value: "\$${payable.total_wage ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: "${StringConstant.accommodationAllowance}:-",
-            value: "\$${payable.accommodation_allowance ?? 00}",
-          ),
-          paybaleTitleRate(
-            title: "${StringConstant.commuteAllowance}:-",
-            value: "\$${payable.commute_allowance ?? 00}",
-          ),
-          if (route != ShiftDetailRoute.employerCancelledShift)
-            paybaleTitleRate(
-              title: "${StringConstant.shiftFinderServiceFee}:-",
-              value: "\$${payable.service_fee ?? 00}",
-            ),
-          commonDivider(),
-          paybaleTitleRate(
-            title: StringConstant.estimatedTotalPayable,
-            value: "\$${payable.total_amount_payable ?? 00}",
-            isLast: true,
-          ), */
         ],
       ),
     );
@@ -426,10 +299,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
             chipListBox(
               padding: EdgeInsets.zero,
               bgColor: AppColors.transparent,
-              // chipList: post.shift_detail!.days!.split(',')
-              //   .where((item) => item != )
-              //   .map((item) => item.name ?? "")
-              //   .toList(),
               chipList: (post.shift_detail!.days != null &&
                       post.shift_detail!.days!.isNotEmpty)
                   ? post.shift_detail!.days!
@@ -447,8 +316,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
                   : [],
               title: StringConstant.recurrenceMode,
               value: (post.shift_detail?.recurrence_mode == "2")
-                  ? "Weekly"
-                  : "Daily",
+                  ? StringConstant.weekly
+                  : StringConstant.daily,
             ),
         ],
       ),
@@ -684,15 +553,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -704,9 +564,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                   height: getSize(25),
                   width: getSize(25),
                 ),
-                SizedBox(
-                  width: getSize(10),
-                ),
+                SizedBox(width: getSize(10)),
                 Flexible(
                   child: BaseText(
                     text: post.location?.location ?? "",
@@ -842,11 +700,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
                       timidValue: "",
                       title: StringConstant.unpaidBreak,
                       svgPrefixIcon: SvgImageConstant.clock),
-              // displayDateBreak(context, post,
-              //     boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
-              //     timidValue: "",
-              //     title: StringConstant.unpaidBreak,
-              //     svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(

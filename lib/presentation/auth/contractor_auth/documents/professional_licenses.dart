@@ -84,8 +84,6 @@ class ProfessionalLicenses extends StatelessWidget {
                                             padding: EdgeInsets.only(
                                                 top: getSize(10)),
                                             child: SelectedDocumentBox(
-                                              // leadingImage: Image.file(File(
-                                              //     licensesObject.credentialDocument ?? "")),
                                               pickedFile: licensesObject.file,
                                               title: licensesObject
                                                       .document_title ??
@@ -426,7 +424,6 @@ class ProfessionalLicenses extends StatelessWidget {
             ),
           );
         }).then((value) {
-      print("On update back value ---> $value");
       if (value == true) {
         context
             .read<ProfessionalLicensesBloc>()
@@ -463,7 +460,6 @@ class ProfessionalLicenses extends StatelessWidget {
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
-          print("SELECTED FILE PATH: $path");
           context.read<ProfessionalLicensesBloc>().add(
                 ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
@@ -474,9 +470,7 @@ class ProfessionalLicenses extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 
   Widget registrationNoField(
@@ -485,7 +479,6 @@ class ProfessionalLicenses extends StatelessWidget {
       labelText: StringConstant.registrationNumber,
       hintText: StringConstant.registrationNumber,
       initialValue: state.registrationNumber,
-      // keyboardType: TextInputType.number,
       isOptional: true,
       onChanged: (value) => context.read<ProfessionalLicensesBloc>().add(
           ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(value)),

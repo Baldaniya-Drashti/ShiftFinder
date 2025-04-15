@@ -97,13 +97,6 @@ class UpcomingShift extends StatelessWidget {
                                       Expanded(
                                         child: CommonButton(
                                           onPressed: () {
-                                            /*context.router.push(
-                                                PageRouteInfo(
-                                                  ViewUpcomingShiftDetails.name,
-                                                  args: ViewUpcomingShiftDetailsArgs(
-                                                      postId: 1),
-                                                ),
-                                              );*/
                                             context.router.push(
                                               PageRouteInfo(
                                                 ViewContractorShift.name,
@@ -289,15 +282,6 @@ class UpcomingShift extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -410,67 +394,6 @@ class UpcomingShift extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  /* Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          flex: 10,
-          child: displayDateBreak(
-            context,
-            boldValue: convertTimeStampToDate(shift.date ?? -1),
-            timidValue: convertTimeStampToDate(shift.date ?? -1, isYear: true),
-            title: "",
-            svgPrefixIcon: SvgImageConstant.calendar,
-            titleWidget: (shift.shift_type == 1)
-                ? BaseText(
-                    text: StringConstant.shiftDate,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withValues(alpha: 0.7),
-                  )
-                : Row(
-                    children: [
-                      BaseText(
-                        text: StringConstant.startDate,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        textColor: AppColors.black.withValues(alpha: 0.7),
-                      ),
-                      if (shift.shift_type == 2)
-                        BaseText(
-                          text:
-                              "(${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          textColor: AppColors.primaryColor,
-                        ),
-                    ],
-                  ),
-          ),
-        ),
-        Flexible(
-          flex: 13,
-          child: displayTime(
-            title: StringConstant.time,
-            startDate: (shift.start_time != null)
-                ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.start_time ?? -1) * 1000))
-                : "",
-            endDate: (shift.end_time != null)
-                ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.end_time ?? -1) * 1000))
-                : "",
-            svgPrefixIcon: SvgImageConstant.clock,
-          ),
-        ),
-      ],
-    );
-  }
- */
-
   Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -555,13 +478,7 @@ class UpcomingShift extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: (showBtn)
           ? CommonButton(
-              onPressed: () {
-                /*if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
-                        }*/
-              },
+              onPressed: () {},
               width: 160,
               height: 34,
               borderRadius: 5,

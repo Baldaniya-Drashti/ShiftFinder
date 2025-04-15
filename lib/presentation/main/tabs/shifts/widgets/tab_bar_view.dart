@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
@@ -53,21 +54,21 @@ class TabBarViewWidget extends StatelessWidget {
             tabs: [
               Tab(
                 child: getTabTitleMethod(
-                  title: 'Filled Shifts',
+                  title: StringConstant.filledShifts,
                   index: 0,
                   notificationsState: state,
                 ),
               ),
               Tab(
                 child: getTabTitleMethod(
-                  title: 'Approve Shifts',
+                  title: StringConstant.approveShifts,
                   index: 1,
                   notificationsState: state,
                 ),
               ),
               Tab(
                 child: getTabTitleMethod(
-                  title: 'Cancelled Shifts',
+                  title: StringConstant.cancelledShifts,
                   index: 2,
                   notificationsState: state,
                 ),

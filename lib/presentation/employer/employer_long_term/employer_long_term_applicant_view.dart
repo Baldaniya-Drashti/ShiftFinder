@@ -198,8 +198,8 @@ class _ApplicantsListTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(SvgImageConstant.clock,
-                                height: 18),
-                            Gap(4),
+                                height: getSize(18)),
+                            Gap(getSize(4)),
                             Flexible(
                               child: BaseText(
                                 text:
@@ -220,10 +220,10 @@ class _ApplicantsListTile extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               SvgImageConstant.clock,
-                              height: 18,
+                              height: getSize(18),
                               color: AppColors.red,
                             ),
-                            Gap(4),
+                            Gap(getSize(4)),
                             Flexible(
                               child: BaseText(
                                 text: StringConstant.offerExpired,

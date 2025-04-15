@@ -82,10 +82,6 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                             padding: EdgeInsets.only(
                                                 top: getSize(10)),
                                             child: SelectedDocumentBox(
-                                              // leadingImage: Image.file(
-                                              //   File(liabilityObject.immunizationDocument ??
-                                              //       ""),
-                                              // ),
                                               pickedFile: liabilityObject.file,
                                               title: StringConstant
                                                   .professionalLiabilityProtection,
@@ -119,9 +115,7 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                         subTitle1: StringConstant.liabilityDesc,
                                         showDeleteButton: false,
                                       ),
-                                SizedBox(
-                                  height: getSize(20),
-                                ),
+                                SizedBox(height: getSize(20)),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
@@ -392,7 +386,6 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
             ),
           );
         }).then((value) {
-      print("On update back value ---> $value");
       if (value == true) {
         context
             .read<ProfessionalLiabilityBloc>()
@@ -469,9 +462,7 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 
   Widget addMoreButton(BuildContext context, ProfessionalLiabilityState state,

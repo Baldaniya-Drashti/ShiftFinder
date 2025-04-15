@@ -17,7 +17,6 @@ import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
@@ -71,20 +70,11 @@ class AddMultiDateTime extends StatelessWidget {
                   ),
                 ).show(context);
               },
-              (r) {
-                /*context.router.push(PageRouteInfo(
-                  PostShiftRecurring.name,
-                  args: PostShiftRecurringArgs(
-                      shiftType: state.shiftType,
-                      healthcarePost: r,
-                      post: post),
-                ));*/
-              },
+              (r) {},
             ),
           );
         },
         builder: (context, state) {
-          Log.success("===${state.multiDateTimeList.length}");
           return Scaffold(
             appBar: CommonAppBar(
               title: StringConstant.addTime,
@@ -119,8 +109,6 @@ class AddMultiDateTime extends StatelessWidget {
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       itemBuilder: (_, index) {
-                                        print(
-                                            "Get updatedd list----> ${state.multiDateTimeList.length}");
                                         return startEndTime(context, state,
                                             state.multiDateTimeList[index],
                                             index: index);
@@ -227,7 +215,6 @@ class AddMultiDateTime extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          // context.read<PostShiftBloc>().add(PostShiftEvent.unpaidBreakChanged(value));
           context.read<PostShiftBloc>().add(
               PostShiftEvent.unpaidBreakListChanged(
                   value, index, selectedObj.multi_date![index].date ?? ""));
@@ -237,7 +224,6 @@ class AddMultiDateTime extends StatelessWidget {
   }
 
   Widget totalPaybleHours(PostShiftState state) {
-    print("total Hours--> ${state.totalPaybleHours}");
     return CustomTextField(
       labelText: StringConstant.totalPayableHours,
       hintText: state.totalPaybleHours,
@@ -282,9 +268,6 @@ class AddMultiDateTime extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        // (state.updateShift.id != null)
-        //     ? disableTime(state, index)
-        //     :
         Container(
           padding: EdgeInsets.symmetric(
               horizontal: getSize(20), vertical: getSize(20)),

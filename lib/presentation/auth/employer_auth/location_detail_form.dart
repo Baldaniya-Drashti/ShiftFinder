@@ -206,18 +206,6 @@ class LocationDetailForm extends StatelessWidget {
           fieldOnChanged: (value) => context.read<LocationDetailsBloc>().add(
                 LocationDetailsEvent.addOtherfaciltyType(value),
               ),
-          // fieldValidator: (p1, _) => context
-          //     .read<LocationDetailsBloc>()
-          //     .state
-          //     .otherFaciltyType
-          //     .value
-          //     .fold(
-          //       (f) => f.maybeMap(
-          //         empty: (value) => StringConstant.pleaseEnterOtherFacilityType,
-          //         orElse: () => null,
-          //       ),
-          //       (_) => null,
-          //     ),
           hintText: StringConstant.selectFacilityType,
         ),
         if (state.faciltyType.getValue()!.toLowerCase() == "other" &&
@@ -289,84 +277,6 @@ class LocationDetailForm extends StatelessWidget {
     );
   }
 
-  /* Widget locationAddressTextField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
-    return Column(
-      children: [
-        CustomTextField(
-          labelText: StringConstant.locationAddress,
-          isLabelPadding: true,
-          hintText: StringConstant.locationAddress,
-          isOptional: true,
-          optionalWidget: GestureDetector(
-            onTap: () {
-              AppDialog.showInfo(context, StringConstant.mutltiplelocationInfoDesc);
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.infoCircle,
-            ),
-          ),
-          errorMaxLines: 2,
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getSize(14),
-              vertical: getSize(14),
-            ),
-            child: SvgPicture.asset(
-              SvgImageConstant.locationIcon,
-              height: getSize(24),
-              width: getSize(24),
-              color: AppColors.primaryColor,
-            ),
-          ),
-          // controller: addressController..text = state.address.getValue() ?? "",
-          controller: LocationDetailsBloc.locationCtrl,
-          onChanged: (value) {
-            context.read<LocationDetailsBloc>().add(LocationDetailsEvent.addressChanged(LocationDetailsBloc.locationCtrl.text));
-          },
-          validator: (p0, p1) => context.read<LocationDetailsBloc>().state.address.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterAddress,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-        ),
-        if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
-          Container(
-            height: getSize(200),
-            color: AppColors.white,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.searchLocationList.length,
-              itemBuilder: (context, index) {
-                // print("searchLocationList---> ${searchLocationList}");
-                return ListTile(
-                  onTap: () {
-                    // final selectedLocation = state.searchLocationList[index];
-                    final selectedLocation = state.searchLocationList[index];
-
-                    context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationSelectedFromSearchList(selectedLocation));
-                  },
-                  dense: true,
-                  titleAlignment: ListTileTitleAlignment.top,
-                  leading: SvgPicture.asset(SvgImageConstant.locationIcon),
-                  title: BaseText(
-                    text: state.searchLocationList[index].description ?? "",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                );
-              },
-            ),
-          ),
-      ],
-    );
-  }
- */
-
   Widget locationAddressTextField(
     BuildContext context,
     LocationDetailsState state,
@@ -400,7 +310,6 @@ class LocationDetailForm extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
           ),
-          // controller: addressController..text = state.address.getValue() ?? "",
           controller: LocationDetailsBloc.locationCtrl,
           readOnly: true,
           readOnlyTextStyle: Theme.of(context)
@@ -414,7 +323,6 @@ class LocationDetailForm extends StatelessWidget {
               location: LocationDetailsBloc.locationCtrl.text,
             ).then((value) {
               if (value != null) {
-                print("selected location ---> $value");
                 context.read<LocationDetailsBloc>().add(
                     LocationDetailsEvent.locationSelectedFromSearchList(value));
               }
@@ -529,17 +437,6 @@ class LocationDetailForm extends StatelessWidget {
         children: [
           listOfUnit(context, state),
           unitNumberField(context, state),
-          /*paddingBetweenFields(height: getSize(10)),
-          CustomChipSet(
-            chipList: state.unitNoNameChipList,
-            backgroundColor: AppColors.grey04,
-            spacing: 10,
-            onDelete: (value) {
-              context
-                  .read<LocationDetailsBloc>()
-                  .add(LocationDetailsEvent.removeUnitNumberChip(value));
-            },
-          ),*/
           paddingBetweenFields(height: getSize(10)),
           notesField(context, state),
           paddingBetweenFields(),
@@ -593,22 +490,6 @@ class LocationDetailForm extends StatelessWidget {
             .read<LocationDetailsBloc>()
             .add(LocationDetailsEvent.unitNumberChanged(value));
       },
-      /*suffixIcon: CommonButton(
-        height: getSize(27),
-        width: getSize(59),
-        borderRadius: getSize(10),
-        buttonText: StringConstant.add,
-        buttonFontSize: 10,
-        onPressed: () {
-          context.read<LocationDetailsBloc>().add(
-                LocationDetailsEvent.addUnitNumberChipList(
-                  state.unitNumber,
-                  state.notes,
-                ),
-              );
-          unitNoNamecontroller.clear();
-        },
-      ),*/
       validator: null,
     );
   }
@@ -772,7 +653,6 @@ class LocationDetailForm extends StatelessWidget {
                                 }
                               : () {},
                           buttonText: StringConstant.update,
-                          // width: 5,
                           buttonFontSize: 12,
                           buttonFontWeight: FontWeight.w600,
                           height: 35,

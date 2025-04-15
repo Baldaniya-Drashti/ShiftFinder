@@ -70,7 +70,6 @@ class ReferenceListScreen extends StatelessWidget {
                 context
                     .read<ReferenceBloc>()
                     .add(ReferenceEvent.skipReference());
-                // context.router.replace(PageRouteInfo(DocumentPageScreen.name));
               },
             ),
             body: (state.isLoading)
@@ -105,7 +104,6 @@ class ReferenceListScreen extends StatelessWidget {
                                         .push(PageRouteInfo(
                                             AddReferenceDetailScreen.name))
                                         .then((value) {
-                                      print("Value when back ---> $value");
                                       if (value != null && value == true) {
                                         /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                                         context.read<ReferenceBloc>().add(

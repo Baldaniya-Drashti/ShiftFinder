@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -31,7 +33,7 @@ class HiredContractorView extends StatelessWidget {
         return Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: 'All Hired Contractors',
+            title: StringConstant.allHiredContractors,
           ),
           body: PaginatedListView(
             onRefresh: () {
@@ -59,54 +61,6 @@ class HiredContractorView extends StatelessWidget {
                     child: Material(
                       color: AppColors.scaffoldColor,
                       borderRadius: BorderRadius.circular(10),
-                      // child: ListTile(
-                      //   visualDensity: VisualDensity.compact,
-                      //   leading: UserAvatar(
-                      //       url: "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg"),
-                      //   minLeadingWidth: 0,
-                      //   title: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     mainAxisSize: MainAxisSize.min,
-                      //     children: [
-                      //       BaseText(text: "View Agreed Proposal", fontSize: 14, fontWeight: FontWeight.w600),
-                      //       Gap(4),
-                      //       Align(
-                      //         alignment: Alignment.centerLeft,
-                      //         child: Material(
-                      //           borderRadius: BorderRadius.circular(3),
-                      //           color: AppColors.green.withValues(alpha: 0.15),
-                      //           child: InkWell(
-                      //             onTap: () {},
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                      //               child: BaseText(
-                      //                 text: "View Agreed Proposal",
-                      //                 fontSize: 9,
-                      //                 fontWeight: FontWeight.w600,
-                      //                 textColor: AppColors.green,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   trailing: CommonMaterialButton.icon(
-                      //     radius: 5,
-                      //     backgroundColor: AppColors.green.withValues(alpha: 0.15),
-                      //     width: 65,
-                      //     height: 32,
-                      //     onPressed: () {},
-                      //     label: "Chat",
-                      //     icon: SvgPicture.asset(
-                      //       SvgImageConstant.chat,
-                      //       height: 14,
-                      //       width: 14,
-                      //       colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcIn),
-                      //     ),
-                      //     textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 10),
-                      //   ),
-                      // ),
                       child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Row(
@@ -122,7 +76,7 @@ class HiredContractorView extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   BaseText(
-                                      text: "View Agreed Proposal",
+                                      text: StringConstant.viewAgreedProposal,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                   Gap(4),
@@ -135,10 +89,12 @@ class HiredContractorView extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {},
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 14, vertical: 5),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: getSize(14),
+                                              vertical: getSize(5)),
                                           child: BaseText(
-                                            text: "View Agreed Proposal",
+                                            text: StringConstant
+                                                .viewAgreedProposal,
                                             fontSize: 9,
                                             fontWeight: FontWeight.w600,
                                             textColor: AppColors.green,
@@ -157,7 +113,7 @@ class HiredContractorView extends StatelessWidget {
                               width: 65,
                               height: 32,
                               onPressed: () {},
-                              label: "Chat",
+                              label: StringConstant.chat,
                               icon: SvgPicture.asset(
                                 SvgImageConstant.chat,
                                 height: 14,

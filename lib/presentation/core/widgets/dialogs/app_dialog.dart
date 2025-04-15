@@ -221,17 +221,6 @@ class AppDialog {
         });
   }
 
-  static Future<void> showError(
-    BuildContext context,
-    String successMessage,
-  ) async {
-    // QuickAlert.show(
-    //   context: context,
-    //   type: QuickAlertType.error,
-    //   text: successMessage,
-    // );
-  }
-
   static Future<void> showWithDrawIInfo(
     BuildContext context, {
     EdgeInsets? insetPadding,
@@ -324,7 +313,7 @@ class AppDialog {
               Image.asset(PngImageConstants.leaveRating),
               Gap(getSize(20)),
               BaseText(
-                text: "Leave a Rating",
+                text: StringConstant.leaveARating,
                 fontSize: 22,
                 fontWeight: FontWeight.w400,
                 fontFamily: "Aclonica",
@@ -358,14 +347,14 @@ class AppDialog {
                 Expanded(
                   child: CommonButton(
                     onPressed: () => context.router.maybePop(),
-                    buttonText: "Cancel",
+                    buttonText: StringConstant.cancle,
                   ),
                 ),
                 Gap(16),
                 Expanded(
                   child: CommonButton(
                     onPressed: () => context.router.maybePop(true),
-                    buttonText: "Submit",
+                    buttonText: StringConstant.submit,
                   ),
                 ),
               ],
@@ -421,7 +410,7 @@ class AppDialog {
                     maxLines: 20,
                   ),
                   if (extraContent != null) ...[
-                    Gap(10),
+                    Gap(getSize(10)),
                     BaseText(
                       text: extraContent,
                       fontSize: 14,
@@ -441,17 +430,17 @@ class AppDialog {
                   Expanded(
                     child: CommonButton(
                       onPressed: () => context.router.maybePop(false),
-                      buttonText: rejectLabel ?? "Cancel",
+                      buttonText: rejectLabel ?? StringConstant.cancle,
                       backgroundColor: AppColors.white,
                       borderColor: AppColors.green,
                       buttonTextColor: AppColors.green,
                     ),
                   ),
-                  Gap(16),
+                  Gap(getSize(16)),
                   Expanded(
                     child: CommonButton(
                       onPressed: () => context.router.maybePop(true),
-                      buttonText: successLabel ?? "Done",
+                      buttonText: successLabel ?? StringConstant.done,
                     ),
                   ),
                 ],
@@ -579,7 +568,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
       actionsAlignment: MainAxisAlignment.center,
       insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
       title: BaseText(
-        text: "Add a Remark",
+        text: StringConstant.addARemark,
         fontSize: 22,
         fontWeight: FontWeight.w400,
         fontFamily: "Aclonica",
@@ -590,8 +579,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText(
-            text:
-                "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
+            text: StringConstant.addRemarkDesc,
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
@@ -611,7 +599,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
                 fillColor: AppColors.scaffoldColor,
                 validator: (value, p1) {
                   if ((value == null) || value.trim().isEmpty) {
-                    return "Please add remark";
+                    return StringConstant.pleaseAddRemark;
                   }
                   return null;
                 },
@@ -704,52 +692,6 @@ Future<void> pickMultiDateDialog(
     ),
   );
 }
-
-/* Future<void> pickMonthDialog(
-  BuildContext context, {
-  required ValueSetter<List<DateTime>> onDateSelected,
-  List<DateTime> selectedDates = const [],
-}) async {
-  return showDialog(
-    context: context,
-    builder: (context) => Dialog(
-      backgroundColor: AppColors.white,
-      insetPadding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CalendarDatePicker2(
-            config: CalendarDatePicker2Config(
-              daySplashColor: AppColors.transparent,
-              selectedDayHighlightColor: AppColors.primaryColor,
-              disableMonthPicker: true,
-              disableModePicker: true,
-              weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-              weekdayLabelTextStyle: TextStyle(
-                  color: AppColors.primaryColor, fontWeight: FontWeight.bold),
-              lastDate: DateTime.now(),
-              calendarViewMode: CalendarDatePicker2Mode.month,
-              disabledDayTextStyle:
-                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
-              dayTextStyle:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-              selectedDayTextStyle: TextStyle(color: AppColors.white),
-            ),
-            value: selectedDates,
-            selectedDateColors: {},
-            onValueChanged: (value) {
-              if (value.length == 2) {
-                onDateSelected(value);
-                context.maybePop();
-              }
-            },
-          ),
-        ],
-      ),
-    ),
-  );
-}
-  */
 
 Future<void> pickMonthDialog(
   BuildContext context, {

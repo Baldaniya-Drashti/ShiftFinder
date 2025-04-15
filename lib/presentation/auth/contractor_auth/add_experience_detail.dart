@@ -46,7 +46,6 @@ class AddExperienceDetail extends StatelessWidget {
         child: Scaffold(
           appBar: CommonAppBar(
             isShowBackBtn: !isFromSplash,
-            // isShowBackBtn: (isUpdate) ? false : !isFromSplash,
             onBackPressed: () {
               if (isUpdate && isRoleForceUpdate) {
                 AppDialog.showInfo(context, StringConstant.forceRoleUpdateDesc);
@@ -72,8 +71,6 @@ class AddExperienceDetail extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    // context.router
-                    //     .push(const PageRouteInfo(EducationListScreen.naisUpdate && me));
                     context.router
                         .push(PageRouteInfo(
                       AddSpecialityExperience.name,
@@ -99,7 +96,6 @@ class AddExperienceDetail extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       experinceDesc(),
                       SizedBox(height: getSize(20)),
@@ -214,9 +210,7 @@ class AddExperienceDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BaseText(
-                text:
-                    // "${index + 1}. ${(isUpdate) ? currentObj.role?.name ?? "" : currentObj.name}",
-                    "${index + 1}. ${currentObj.role?.name}",
+                text: "${index + 1}. ${currentObj.role?.name}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -253,12 +247,6 @@ class AddExperienceDetail extends StatelessWidget {
                             name: currentObj.name ?? "",
                           ));
                     },
-                    // validator: (value) {
-                    //   return (state.records[index].experience_year != null &&
-                    //           state.records[index].experience_year!.isNotEmpty)
-                    //       ? null
-                    //       : StringConstant.pleaseSelectYear;
-                    // },
                   ),
                 ),
                 SizedBox(width: getSize(20)),
@@ -280,7 +268,6 @@ class AddExperienceDetail extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      print("SELECTE MONTH $value");
                       context
                           .read<ExperienceBloc>()
                           .add(ExperienceEvent.updateRecordEvent(
@@ -290,49 +277,8 @@ class AddExperienceDetail extends StatelessWidget {
                             name: currentObj.name ?? "",
                           ));
                     },
-                    // validator: (value) {
-                    //   return (state.records[index].experience_month != null &&
-                    //           state.records[index].experience_month!
-                    //               .isNotEmpty)
-                    //       ? null
-                    //       : StringConstant.pleaseSelectMonth;
-                    // },
                   ),
                 ),
-                // customPicker(
-                //   context,
-                //   showYear: true,
-                //   showMonth: false,
-                //   onChangeyear: (value) {
-                //     context
-                //         .read<ExperienceBloc>()
-                //         .add(ExperienceEvent.updateRecordEvent(
-                //           index: index,
-                //           year: value ?? "",
-                //           month: currentObj.experience_month ?? "",
-                //           name: currentObj.name ?? "",
-                //         ));
-                //   },
-                // ),
-                // SizedBox(
-                //   width: getSize(20),
-                // ),
-                // customPicker(
-                //   context,
-                //   showYear: false,
-                //   showMonth: true,
-                //   onChangedMonth: (value) {
-                //     print("SELECTE MONTH $value");
-                //     context
-                //         .read<ExperienceBloc>()
-                //         .add(ExperienceEvent.updateRecordEvent(
-                //           index: index,
-                //           year: currentObj.experience_year ?? "",
-                //           month: value ?? "",
-                //           name: currentObj.name ?? "",
-                //         ));
-                //   },
-                // ),
               ],
             ),
             (!(state.records[index].experience_year != null &&
@@ -365,9 +311,7 @@ class AddExperienceDetail extends StatelessWidget {
                           )
                         : Container(),
             if (index == (state.records.length - 1))
-              SizedBox(
-                height: getSize(20),
-              )
+              SizedBox(height: getSize(20))
           ],
         );
       },
@@ -445,13 +389,6 @@ class AddExperienceDetail extends StatelessWidget {
               ),
             ),
           ),
-          // Container(
-          //   height: getSize(46),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.white,
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          // )
         ],
       ),
     );

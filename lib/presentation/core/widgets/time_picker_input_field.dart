@@ -115,7 +115,6 @@ class _TimePickerInputFieldState extends State<TimePickerInputField> {
           );
         });
 
-    print("Selected Time:  ${pickedTime?.format(context)}");
     return pickedTime;
   }
 }

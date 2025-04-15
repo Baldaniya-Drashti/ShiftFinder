@@ -318,7 +318,7 @@ class FilledPositionTabView extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildDateInfoTile(context,
-                    title: 'Start Date:-',
+                    title: '${StringConstant.startDate}:-',
                     dateTime: employer.start_date ?? DateTime.now()),
               ),
               VerticalDivider(),
@@ -326,7 +326,7 @@ class FilledPositionTabView extends StatelessWidget {
               Expanded(
                 child: _buildDateInfoTile(
                   context,
-                  title: 'End Date:-',
+                  title: '${StringConstant.endDate}:-',
                   dateTime: employer.end_date ?? DateTime.now(),
                 ),
               ),

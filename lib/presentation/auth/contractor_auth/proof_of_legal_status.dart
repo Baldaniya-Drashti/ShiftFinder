@@ -40,9 +40,7 @@ class ProofOfLegalStatus extends StatelessWidget {
             () {},
             (either) => either.fold(
               (failure) {},
-              (r) {
-                print("LISTENER CALLED");
-              },
+              (r) {},
             ),
           );
         },
@@ -250,7 +248,6 @@ class ProofOfLegalStatus extends StatelessWidget {
   }
 
   Widget pickImageView(ProofOfLegalStatusState state, BuildContext context) {
-    print("state.currentProofType-----------> ${state.currentProofType}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -320,37 +317,6 @@ class ProofOfLegalStatus extends StatelessWidget {
                 );
           },
         ),
-        /* if (state.currentProofType.id != 3 &&
-            state.currentProofType.id != 4) ...[
-          SizedBox(height: getSize(15)),
-          DocumentExpiryDatePicker.expiryDateTextField(
-            context,
-            lastDate: DateTime.now().add(Duration(days: 25 * 365)),
-            onPickedDate: (pickedDate) {
-              context.read<ProofOfLegalStatusBloc>().add(
-                  ProofOfLegalStatusEvent.govermentExpiryDateChanged(
-                      pickedDate.toString()));
-            },
-            onCancelClick: () {
-              context
-                  .read<ProofOfLegalStatusBloc>()
-                  .add(ProofOfLegalStatusEvent.govermentExpiryDateChanged(""));
-            },
-            selectedDate: state.governmentExpiryDate,
-            isDisabled: !state.isGovernemtExpiryCheck,
-          ),
-          if ((!state.isGovernemtExpiryCheck &&
-                  state.governmentExpiryDate.isEmpty) &&
-              state.showErrorMesages)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(5)),
-              child: const BaseText(
-                text: "* ${StringConstant.pleaseSelectExpiryDate}",
-                fontSize: 12,
-                textColor: AppColors.red,
-              ),
-            ),
-        ], */
         SizedBox(height: getSize(30)),
       ],
     );
@@ -390,9 +356,6 @@ class ProofOfLegalStatus extends StatelessWidget {
                       if (path.isNotEmpty) {
                         takePhotoCallback(path);
                         print("CAMERA IMAGE PATH: $path");
-                        /* context.read<ProofOfLegalStatusBloc>().add(
-                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPhotoCallback: () async {
@@ -404,9 +367,6 @@ class ProofOfLegalStatus extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPhotoCallback(path);
                         print("GALLERY IMAGE PATH: $path");
-                        /* context.read<ProofOfLegalStatusBloc>().add(
-                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPdfCallback: () async {
@@ -416,9 +376,6 @@ class ProofOfLegalStatus extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPdfCallback(path);
                         print("PDF FILE PATH: $path");
-                        /* context.read<ProofOfLegalStatusBloc>().add(
-                              ProofOfLegalStatusEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     context: context,

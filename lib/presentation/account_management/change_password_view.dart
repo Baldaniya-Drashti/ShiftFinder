@@ -44,15 +44,15 @@ class ChangePasswordView extends StatelessWidget {
                           height: 92),
                       Gap(getSize(14)),
                       BaseText(
-                          text: "Update Password",
+                          text: StringConstant.updatePassword,
                           fontFamily: "Aclonica",
                           fontSize: 22,
                           fontWeight: FontWeight.w400),
                       SizedBox(
                         width: MediaQuery.sizeOf(context).width * 0.8,
                         child: BaseText(
-                          text:
-                              "Securely change your password to keep your account safe.",
+                          text: StringConstant
+                              .securelyChangeYourPasswordToKeepYourAccountSafe,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.center,
@@ -123,15 +123,15 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             controller: _currentPasswordController,
           ),
           _PasswordInputField(
-            hintText: "New Password",
-            labelText: "New Password",
+            hintText: StringConstant.newPassword,
+            labelText: StringConstant.newPassword,
             validator: (value, context) =>
                 validateCurrentPass(value?.trim() ?? ""),
             controller: _newPasswordController,
           ),
           _PasswordInputField(
-            hintText: "Confirm Password",
-            labelText: "Confirm Password",
+            hintText: StringConstant.confirmPassword,
+            labelText: StringConstant.confirmPassword,
             validator: (value, context) =>
                 validateConfirmPassword(value, _newPasswordController.text),
             controller: _confirmPasswordController,
@@ -149,7 +149,7 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
                     ),
                   );
             },
-            buttonText: "Update",
+            buttonText: StringConstant.update,
           )
         ],
       ),

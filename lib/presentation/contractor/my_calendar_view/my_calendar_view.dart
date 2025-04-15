@@ -58,7 +58,6 @@ class MyCalendarView extends StatelessWidget {
                                     SvgImageConstant.clockWithOuterLine,
                                 title:
                                     "${StringConstant.totalNumberOfShifts} - ${state.multiDates.length}",
-                                // "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
                               ),
                               Padding(
                                 padding: EdgeInsets.fromLTRB(getSize(15),
@@ -149,7 +148,6 @@ class MyCalendarView extends StatelessWidget {
           : DateTime.now();
     }).toList();
 
-    print("Selected Datess---> $selectedDates");
     return CustomMultiDatePicker(
         value: selectedDates,
         dayBuilder: ({
@@ -161,7 +159,7 @@ class MyCalendarView extends StatelessWidget {
           isToday,
         }) {
           Color? dynamicColor = getColorForDate(date, state);
-          print("dateEntry.colorText ---> $dynamicColor");
+
           return Container(
             decoration: decoration?.copyWith(
                 color: dynamicColor,
@@ -184,7 +182,6 @@ class MyCalendarView extends StatelessWidget {
           return dateExist;
         },
         onDisplayedMonthChanged: (value) {
-          print("Month changed---> $value");
           context
               .read<MyCalendarViewBloc>()
               .add(MyCalendarViewEvent.selectDateEvent(
@@ -194,7 +191,6 @@ class MyCalendarView extends StatelessWidget {
               ));
         },
         onValueChanged: (value) {
-          print("valuevaluevalue----> $value");
           context
               .read<MyCalendarViewBloc>()
               .add(MyCalendarViewEvent.selectDateEvent(context, value));
@@ -202,11 +198,7 @@ class MyCalendarView extends StatelessWidget {
   }
 
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
-    // if (selectedDates.length == 1) return false;
     return selectedDates.any((selectedDate) {
-      // print("currentDate---> $currentDate");
-      // print("selectedDate---> $selectedDate");
-
       return (selectedDate.year == currentDate.year &&
           selectedDate.month == currentDate.month &&
           selectedDate.day == currentDate.day);
@@ -375,15 +367,6 @@ class MyCalendarView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(

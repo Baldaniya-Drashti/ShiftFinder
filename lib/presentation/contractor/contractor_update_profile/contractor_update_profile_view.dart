@@ -39,8 +39,6 @@ class ContractorUpdateProfileView extends StatelessWidget {
                     fieldTypeTile(
                       icon: SvgImageConstant.editUser,
                       onPressed: () {
-                        /*  context.router.push(
-                            PageRouteInfo(AddExperienceDetailScreen.name)); */
                         context.router.push(PageRouteInfo(
                             AddContractorSkillsForm.name,
                             args: AddContractorSkillsFormArgs(isUpdate: true)));

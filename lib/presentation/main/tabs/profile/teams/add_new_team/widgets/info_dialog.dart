@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -26,8 +27,8 @@ class InfoDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-              text:
-                  'If you have multiple locations, you can add them through your profile.',
+              text: StringConstant
+                  .ifYouHaveMultipleLocationsYouCanAddThemThroughYourProfile,
               fontSize: 16,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
@@ -36,7 +37,7 @@ class InfoDialog extends StatelessWidget {
             SizedBox(height: getSize(30)),
             CommonButton(
               onPressed: () => context.router.maybePop(),
-              buttonText: 'Ok',
+              buttonText: StringConstant.ok,
               height: 46,
               width: 200,
             ),

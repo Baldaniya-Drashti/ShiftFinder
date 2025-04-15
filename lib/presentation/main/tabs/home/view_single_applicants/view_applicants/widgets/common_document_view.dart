@@ -28,7 +28,6 @@ class CommonDocumentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("docuemnttt--> $documentList");
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () {

@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/employer_invoice_bloc/employer_invoice_bloc.dart';
-// import 'package:printing/printing.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -226,13 +225,6 @@ class InvoiceDetailView extends StatelessWidget {
                           fontSize: 14,
                           maxLines: 2,
                         ),
-                        // BaseText(
-                        //   text:
-                        //       '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
-                        //   fontSize: 10,
-                        //   fontWeight: FontWeight.w400,
-                        //   maxLines: 1,
-                        // ),
                       ],
                     ),
                   ),
@@ -256,15 +248,6 @@ class InvoiceDetailView extends StatelessWidget {
                   if (latitude != null && longitude != null) {
                     LocationHelper.openDirections(context,
                         endLat: latitude, endLng: longitude);
-                    /*  context.router.push(
-                      PageRouteInfo(
-                        ShowGoogleMap.name,
-                        args: ShowGoogleMapArgs(
-                          latitude: latitude,
-                          longitude: longitude,
-                        ),
-                      ),
-                    ); */
                   }
                 },
                 child: Row(
@@ -461,14 +444,7 @@ void downloadInvoice(BuildContext context,
   );
 
   if (pdfPath != null) {
-    print('PDF saved to: $pdfPath');
     showSuccess(message: "PreviusShift_Invoice Downloaded..!").show(context);
-    /* Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PdfViewerScreen(pdfPath: pdfPath),
-      ),
-    ); */
   } else {
     showError(message: "Failed to download PDF!").show(context);
   }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -11,7 +12,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'PersonalReferenceDetail')
 class PersonalReferenceDetail extends StatelessWidget {
   const PersonalReferenceDetail({super.key, required this.data});
-final ReferenceDTO data;
+  final ReferenceDTO data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,24 +28,24 @@ final ReferenceDTO data;
         physics: BouncingScrollPhysics(),
         children: [
           referenceDetail(
-            title: 'Contact Person',
+            title: StringConstant.contactPerson,
             image: SvgImageConstant.person,
-            value: data.contact_person??"",
+            value: data.contact_person ?? "",
           ),
           referenceDetail(
-            title: 'E-mail',
+            title: StringConstant.e_mail,
             image: SvgImageConstant.email,
-            value: data.email??"",
+            value: data.email ?? "",
           ),
           referenceDetail(
-            title: 'Referrer Phone Number',
+            title: StringConstant.referrerPhoneNumber,
             image: SvgImageConstant.call,
-            value: "${data.phone??0}",
+            value: "${data.phone ?? 0}",
           ),
           referenceDetail(
-            title: 'Profession of the Referrer',
+            title: StringConstant.professionOfTheReferrer,
             image: SvgImageConstant.briefcase,
-            value: data.profession_referrer??"",
+            value: data.profession_referrer ?? "",
           ),
           SizedBox(height: getSize(20)),
         ],
@@ -86,7 +87,10 @@ final ReferenceDTO data;
                 child: Row(
                   children: [
                     SizedBox(width: getSize(15)),
-                    Text("${data.country_name_code}",style: TextStyle(fontSize: 19),),
+                    Text(
+                      "${data.country_name_code}",
+                      style: TextStyle(fontSize: 19),
+                    ),
                     SizedBox(width: getSize(5)),
                     Icon(Icons.keyboard_arrow_down),
                     SizedBox(width: getSize(15)),

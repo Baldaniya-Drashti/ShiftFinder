@@ -8,11 +8,8 @@ class CountryCodeRemovingFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    print("Newvalue--> ${newValue.text}");
-    print("OldValue--> ${oldValue.text}");
     // Process the new input value
     String cleanedValue = removeCountryCode(newValue.text);
-    // String cleanedValue = newValue.text;
 
     // Return the new text value with the custom formatting applied
     return newValue.copyWith(

@@ -43,7 +43,6 @@ class VerifyPhoneNumber extends StatelessWidget {
     String countryFlag,
     String password,
   ) {
-    print("Phone number--- $emailOrPhone");
     emailOrPhoneValue = emailOrPhone;
     countryCodeValue = countryCode;
     countryFlagValue = countryFlag;
@@ -88,10 +87,6 @@ class VerifyPhoneNumber extends StatelessWidget {
                         .add(SplashEvent.initDynamicLink(context));
 
                     if (getCurrentRole() == 1) {
-                      /*context.router.replace(PageRouteInfo(
-                          AddContractorSkillsForm.name,
-                          args:
-                              AddContractorSkillsFormArgs(isFromSplash: true)));*/
                       context.router.pushAndPopUntil(
                         PageRouteInfo(
                           AddContractorSkillsForm.name,
@@ -100,9 +95,6 @@ class VerifyPhoneNumber extends StatelessWidget {
                         predicate: (route) => false,
                       );
                     } else {
-                      /*context.router.replace(PageRouteInfo(
-                          LocationDetailForm.name,
-                          args: LocationDetailFormArgs(isFromSplash: true)));*/
                       context.router.pushAndPopUntil(
                         PageRouteInfo(
                           LocationDetailForm.name,
@@ -130,7 +122,6 @@ class VerifyPhoneNumber extends StatelessWidget {
                   },
                   (r) {
                     showSuccess(message: r).show(context);
-                    print("Success");
                   },
                 ),
               );

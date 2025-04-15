@@ -40,23 +40,6 @@ class DocumentEvent with _$DocumentEvent {
       {required bool isSkip}) = _CovidDocSubmit;
   const factory DocumentEvent.govtDocumentTitleChanged(String documentTitle) =
       GovtDocumentTitleChanged;
-
-  // /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-  // const factory DocumentEvent.registrationNumberChanegd(String registrationNo) =
-  //     _RegistrationNumberChanegd;
-  // const factory DocumentEvent.documentTitleChanged(String documentTitle) =
-  //     _DocumentTitleChanged;
-  // const factory DocumentEvent.selectProvinceRegistration(
-  //     String provinceRegistration) = _SelectProvinceRegistration;
-  // const factory DocumentEvent.selectCredentialDoc(String credentialDoc) =
-  //     _SelectCredentialRegistrationDoc;
-  // const factory DocumentEvent.deleteCredentialDoc(String credentialDoc) =
-  //     _DeleteCredentialDoc;
-  // const factory DocumentEvent.addMoreCredentialDoc() = _AddMoreCredentialDoc;
-  // const factory DocumentEvent.deleteCredentialObject(int index) =
-  //     _DeleteCredentialObject;
-  // const factory DocumentEvent.credentialDocSubmit(
-  //     {required bool isAddMoreBtnClick}) = _CredentialDocSubmit;
 }
 
 @freezed

@@ -29,9 +29,3 @@ class CenterLoadingIndicator extends StatelessWidget {
     );
   }
 }
-
-  //  Center(
-  //     child: CircularProgressIndicator(
-  //       valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
-  //     ),
-  //   );

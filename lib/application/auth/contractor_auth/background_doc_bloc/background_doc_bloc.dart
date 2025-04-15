@@ -149,22 +149,8 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
               ),
             );
 
-            /* if (state.bgDocId != -1) {
-              /* failureOrSuccess = await _repository.updateDocumentApi(
-                id: state.bgDocId,
-                documentType: 1,
-                subType: state.currentBgDocType.id,
-                documentTitle: state.currentBgDocType.name ?? "",
-                documentFile: state.bgDocFrontDoc.getValue() ?? "",
-                documentBackFile: state.bgDocBackDoc.getValue() ?? "",
-                expiryDate: state.bgDocIssueDate,
-              ); */
-            } else {
-             
-            } */
             failureOrSuccess = await _repository.addAddressProofApi(
               documentType: 3,
-              // subType: state.currentBgDocType.id,
               documentFile: state.bgDocFrontDoc.getValue() ?? "",
               documentBackFile: state.bgDocBackDoc.getValue() ?? "",
               expiryDate: state.bgDocIssueDate,
@@ -178,7 +164,7 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                     showAPIResponseMessage: (value) => value.message,
                     networkError: (value) =>
                         'Please check your internet connectivity',
-                    orElse: () => "Something went wrong!",
+                    orElse: () => StringConstant.somethingWentWrong,
                   ),
                 ).show(e.context);
                 emit(

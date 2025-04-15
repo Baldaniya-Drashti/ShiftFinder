@@ -44,7 +44,6 @@ class FilePickerUtils {
       DeviceInfoPlugin plugin = DeviceInfoPlugin();
       AndroidDeviceInfo android = await plugin.androidInfo;
       if (android.version.sdkInt >= 33) {
-        // var videosPermissionStatus = await Permission.videos.status;
         var photoPermissionStatus = await Permission.photos.status;
 
         if (photoPermissionStatus != PermissionStatus.granted) {
@@ -110,7 +109,7 @@ class FilePickerUtils {
     return Future.delayed(const Duration(seconds: 1), () {
       showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             shape: SmoothRectangleBorder(
@@ -145,7 +144,9 @@ class FilePickerUtils {
                       width: getSize(10),
                     ),
                     BaseText(
-                      text: Platform.isIOS ? 'Photos' : 'Storage',
+                      text: Platform.isIOS
+                          ? StringConstant.photos
+                          : StringConstant.storage,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -154,8 +155,8 @@ class FilePickerUtils {
             ),
             actions: <Widget>[
               TextButton(
-                child: const BaseText(
-                  text: 'Cancel',
+                child: BaseText(
+                  text: StringConstant.cancle,
                   fontWeight: FontWeight.w600,
                   textColor: Colors.blueAccent,
                 ),
@@ -164,8 +165,8 @@ class FilePickerUtils {
                 },
               ),
               TextButton(
-                child: const BaseText(
-                  text: 'Open Settings',
+                child: BaseText(
+                  text: StringConstant.openSettings,
                   fontWeight: FontWeight.w600,
                   textColor: Colors.blueAccent,
                 ),

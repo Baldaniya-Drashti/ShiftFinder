@@ -44,8 +44,6 @@ class OnBoarding1 extends StatelessWidget {
                 },
                 (r) {
                   context.router.push(const PageRouteInfo(Onboarding2.name));
-                  // context.router
-                  //     .push(const PageRouteInfo(EducationListScreen.name));
                 },
               ),
             );
@@ -104,7 +102,6 @@ class OnBoarding1 extends StatelessWidget {
                 ),
                 CommonAppBar(
                   onBackPressed: () {},
-                  // iconColor: AppColors.white,
                   isShowBackBtn: false,
                   title: StringConstant.letsGetStarted,
                   systemOverlayStyle: SystemUiOverlayStyle.light,

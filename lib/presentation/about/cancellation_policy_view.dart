@@ -19,7 +19,7 @@ class CancellationPolicyView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: "Cancellation Policy"),
+          title: StringConstant.cancellationPolicy),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
         child: Column(
@@ -30,7 +30,7 @@ class CancellationPolicyView extends StatelessWidget {
               height: getSize(20),
             ),
             BaseText(
-              text: "Cancellation Policy",
+              text: StringConstant.cancellationPolicy,
               fontSize: 14,
               fontWeight: FontWeight.w500,
               textColor: AppColors.primaryColor,

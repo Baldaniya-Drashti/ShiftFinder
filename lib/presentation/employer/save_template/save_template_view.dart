@@ -244,8 +244,6 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                               right: getSize(16)),
                                       child: InkWell(
                                         onTap: () {
-                                          print(
-                                              "state.selectedFilterType?.id---> ${state.selectedFilterType?.id}");
                                           if (state.selectedFilterType?.id ==
                                               3) {
                                             context.router.push(

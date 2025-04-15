@@ -57,41 +57,7 @@ class ContractorEditProfile extends StatelessWidget {
             ..add(ContractorEditProfileEvent.getCurrentProfileDetail()),
           child: BlocConsumer<ContractorEditProfileBloc,
               ContractorEditProfileState>(
-            listener: (context, state) {
-              /* state.authFailureOrSuccessOption.fold(
-                () {},
-                (either) => either.fold(
-                  (failure) {
-                    AppFocus.unfocus(context);
-                    showError(
-                      message: failure.maybeMap(
-                        showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
-                            'Please check your internet connectivity',
-                        orElse: () => "Server Error. Try again later.",
-                      ),
-                    ).show(context);
-                  },
-                  (r) {
-                    AppFocus.unfocus(context);
-                    VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
-                      context,
-                      // (getCurrentRole() == 1)
-                      //     ? state.enteredPhoneNo
-                      //     : state.email.getValue(),
-                      // "+${state.selectedCountrycode}",
-                      (getCurrentRole() == 1)
-                          ? "${getCurrentUser().phone ?? ''}"
-                          : getCurrentUser().email ?? '',
-                      getCurrentUser().countryCode ?? '',
-                      getCurrentUser().countryNameCode ?? '',
-                      // state.selectedCountryFlag,
-                      state.password.getValue(),
-                    );
-                  },
-                ),
-              ); */
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               return (state.isLoading)
                   ? CenterLoadingIndicator(isOnlyLoader: true)
@@ -317,7 +283,6 @@ class ContractorEditProfile extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      // focusNode: state.firstNameFocusNode,
       onChanged: (value) => context
           .read<ContractorEditProfileBloc>()
           .add(ContractorEditProfileEvent.firstNameChanged(value)),
@@ -408,9 +373,6 @@ class ContractorEditProfile extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
       ),
-      /* onChanged: (value) => context.read<ContractorEditProfileBloc>().add(
-          ContractorEditProfileEvent.locationAddressChanged(
-              ContractorEditProfileBloc.locationCtrl.text)), */
       validator: (p0, p1) => context
           .read<ContractorEditProfileBloc>()
           .state

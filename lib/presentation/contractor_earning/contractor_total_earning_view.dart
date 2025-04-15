@@ -206,17 +206,9 @@ class ContractorTotalEarningView extends StatelessWidget {
                             fileName: 'Total_Earning_Statement.pdf');
 
                     if (pdfPath != null) {
-                      print('PDF saved to: $pdfPath');
                       showSuccess(
                               message: "Total Earning Statement Downloaded..!")
                           .show(context);
-                      /* Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PdfViewerScreen(pdfPath: pdfPath),
-                        ),
-                      ); */
                     } else {
                       showError(message: "Failed to download PDF!")
                           .show(context);
@@ -244,17 +236,6 @@ class ContractorTotalEarningView extends StatelessWidget {
                   ),
                 ],
               ),
-              /* Gap(getSize(5)),
-              Row(
-                children: [
-                  BaseText(text: StringConstant.invoice, fontSize: 10),
-                  Gap(getSize(5)),
-                  BaseText(
-                      text: "74523456",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600),
-                ],
-              ), */
             ],
           ),
         ),
@@ -305,7 +286,6 @@ class _Footer extends StatelessWidget {
         BaseText(
           text: StringConstant.shiftFinderInc,
           fontSize: 12,
-          // fontWeight: FontWeight.bold,
         ),
         Gap(getSize(4)),
         Image.asset(PngImageConstants.splash_logo,
@@ -315,7 +295,6 @@ class _Footer extends StatelessWidget {
           text: StringConstant.contactInformation,
           fontSize: 12,
           textColor: AppColors.black,
-          // fontWeight: FontWeight.bold,
         ),
         Gap(getSize(8)),
         _buildSeparateText(context,
@@ -384,7 +363,6 @@ class Earning extends StatelessWidget {
           title: StringConstant.completedShiftsEarning,
           color: AppColors.green.withValues(alpha: 0.15),
         ),
-        // Gap(getSize(8)),
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,

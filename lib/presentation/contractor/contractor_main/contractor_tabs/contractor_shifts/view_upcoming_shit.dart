@@ -33,7 +33,6 @@ class ViewUpcomingShiftDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("shift id--> $postId");
     return BlocProvider(
       create: (context) => getIt<ViewSingleApplicantsBloc>()
         ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
@@ -124,7 +123,6 @@ class ViewUpcomingShiftDetails extends StatelessWidget {
                               locationDetailBox(
                                   title: StringConstant.locationDetails,
                                   locationValue: shift.location?.location ?? "",
-                                  // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
@@ -555,11 +553,6 @@ class ViewUpcomingShiftDetails extends StatelessWidget {
                       timidValue: "",
                       title: StringConstant.unpaidBreak,
                       svgPrefixIcon: SvgImageConstant.clock),
-              // displayDateBreak(context, post,
-              //     boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
-              //     timidValue: "",
-              //     title: StringConstant.unpaidBreak,
-              //     svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(

@@ -345,7 +345,6 @@ class EditProfileView extends StatelessWidget {
         CountryCodeRemovingFormatter(),
       ],
       onChanged: (value) {
-        print("Filter Phone number --> $value");
         context.read<EditProfileBloc>().add(
               EditProfileEvent.phoneNumberChanged(value),
             );

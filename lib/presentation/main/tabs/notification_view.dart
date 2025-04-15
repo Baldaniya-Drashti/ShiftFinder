@@ -86,7 +86,7 @@ class _NotificationTile extends StatelessWidget {
       onTap: () {
         setNotificationTab(null);
         setNotificationSubTab(null);
-        print("onTapNotification navigation---> ${obj.type}");
+
         if (getCurrentRole() == 1) {
           NotificationNaviagtion.contractorNavigateToRespectivePage(context,
               type: obj.type ?? 0, obj: obj);
@@ -130,11 +130,6 @@ class _NotificationTile extends StatelessWidget {
                             ),
                             BaseText(
                               text: obj.last_ago ?? "",
-                              /* (getCurrentRole() == 2)
-                                  ? obj.last_ago ?? ""
-                                  : DateFormat('dd MMM yyyy').format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          -1 * 1000)) */
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                             )
@@ -143,10 +138,7 @@ class _NotificationTile extends StatelessWidget {
                         if (obj.company_name != null) ...[
                           Gap(getSize(4)),
                           BaseText(
-                            text: /* (obj.type == 3 && getCurrentRole() == 2)
-                              ? "${StringConstant.distance}: ${obj.distance ?? ""}"
-                              : */
-                                obj.company_name ?? "",
+                            text: obj.company_name ?? "",
                             fontWeight: FontWeight.w600,
                             fontSize: 10,
                             textColor: AppColors.green,

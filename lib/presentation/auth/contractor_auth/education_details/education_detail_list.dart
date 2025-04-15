@@ -27,7 +27,6 @@ class EducationListScreen extends StatelessWidget {
 
   EducationListScreen(
       {super.key, this.isFromSplash = false, this.isFromProfile = false});
-  // bool isNext = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +65,6 @@ class EducationListScreen extends StatelessWidget {
                 ).show(context);
               },
               (r) {
-                // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
                 context.router
                     .push(const PageRouteInfo(ReferenceListScreen.name));
               },
@@ -90,8 +88,6 @@ class EducationListScreen extends StatelessWidget {
                       context
                           .read<EducationDetailBloc>()
                           .add(EducationDetailEvent.skipEducation());
-                      // context.router.replace(
-                      //     PageRouteInfo(AddExperienceDetailScreen.name));
                     }
                   : null,
             ),
@@ -127,20 +123,16 @@ class EducationListScreen extends StatelessWidget {
                                         .push(PageRouteInfo(
                                             AddEducationDetailScreen.name))
                                         .then((value) {
-                                      print("Value when back ---> $value");
                                       if (value != null && value == true) {
+                                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                                         context.read<EducationDetailBloc>().add(
                                             EducationDetailEvent
                                                 .getEducationList());
-
-                                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                                       }
                                     });
                                   } else if (isFromProfile) {
                                     Navigator.pop(context);
                                   } else if (state.educationList.isNotEmpty) {
-                                    print("This Next is called!!!");
-                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
                                     context.router.push(const PageRouteInfo(
                                         ReferenceListScreen.name));
                                   }
@@ -256,14 +248,11 @@ class EducationListScreen extends StatelessWidget {
                     context.router
                         .push(PageRouteInfo(AddEducationDetailScreen.name))
                         .then((value) {
-                      print("Value when back ---> $value");
-
                       if (value != null && value == true) {
+                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                         context
                             .read<EducationDetailBloc>()
                             .add(EducationDetailEvent.getEducationList());
-
-                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
                       }
                     });
                   },

@@ -110,14 +110,6 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                         contractorLongTerm: data),
                                     Gap(getSize(12)),
                                     if (data.offer_expires_status == true) ...[
-                                      // if (data.request == 1 && data.urgent_action == 0) ...[
-                                      //   ///Decline prtion 1
-                                      // ] else if (data.request == 2 && data.urgent_action == 0) ...[
-                                      //   ///2
-                                      // ] else ...[
-                                      //   ///4
-                                      // ]
-
                                       Row(
                                         children: [
                                           Expanded(
@@ -133,7 +125,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                 ),
                                                 Gap(5),
                                                 BaseText(
-                                                  text: "Offer Expired",
+                                                  text: StringConstant
+                                                      .offerExpired,
                                                   fontSize: 12,
                                                   textColor:
                                                       AppColors.redAccent,
@@ -224,7 +217,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             BaseText(
-                                                text: "Please Note",
+                                                text: StringConstant.pleaseNote,
                                                 fontSize: 10),
                                             Text.rich(
                                               TextSpan(
@@ -263,7 +256,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            Gap(8),
+                                            Gap(getSize(8)),
                                             Row(
                                               children: [
                                                 Flexible(
@@ -273,10 +266,13 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                           await AppDialog
                                                               .showCommonDialog(
                                                         context: context,
-                                                        content:
-                                                            "Are you sure you want to decline this offer?",
-                                                        title: "Decline Offer",
-                                                        successLabel: "Confirm",
+                                                        content: StringConstant
+                                                            .areYouSureYouWantToDeclineThisOffer,
+                                                        title: StringConstant
+                                                            .declineOffer,
+                                                        successLabel:
+                                                            StringConstant
+                                                                .confirm,
                                                       );
                                                       if (result ?? false) {
                                                         context
@@ -295,7 +291,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                             );
                                                       }
                                                     },
-                                                    label: "Decline Offer",
+                                                    label: StringConstant
+                                                        .declineOffer,
                                                     backgroundColor: AppColors
                                                         .red
                                                         .withValues(
@@ -311,11 +308,13 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                           await AppDialog
                                                               .showCommonDialog(
                                                         context: context,
-                                                        content:
-                                                            "Are you sure you want to confirm the offer for this position?",
-                                                        title:
-                                                            "Confirm Acceptance",
-                                                        successLabel: "Confirm",
+                                                        content: StringConstant
+                                                            .areYouSureYouWantToConfirmTheOfferForThisPosition,
+                                                        title: StringConstant
+                                                            .confirmAcceptance,
+                                                        successLabel:
+                                                            StringConstant
+                                                                .confirm,
                                                       );
                                                       if (result ?? false) {
                                                         context
@@ -334,7 +333,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                             );
                                                       }
                                                     },
-                                                    label: "Confirm Acceptance",
+                                                    label: StringConstant
+                                                        .confirmAcceptance,
                                                     backgroundColor:
                                                         AppColors.primaryColor,
                                                     textStyle: TextStyle(
@@ -377,13 +377,16 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                   final result = await AppDialog
                                                       .showCommonDialog(
                                                           context: context,
-                                                          content:
-                                                              "Are you sure you want to decline this offer?",
-                                                          title:
-                                                              "Decline Offer",
+                                                          content: StringConstant
+                                                              .areYouSureYouWantToDeclineThisOffer,
+                                                          title: StringConstant
+                                                              .declineOffer,
                                                           successLabel:
-                                                              "Cancel",
-                                                          rejectLabel: "No");
+                                                              StringConstant
+                                                                  .cancle,
+                                                          rejectLabel:
+                                                              StringConstant
+                                                                  .no);
                                                   if (result ?? false) {
                                                     context
                                                         .read<
@@ -398,7 +401,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                         );
                                                   }
                                                 },
-                                                label: "Cancel Application",
+                                                label: StringConstant
+                                                    .cancelApplication,
                                                 backgroundColor: AppColors.red
                                                     .withValues(alpha: 0.15),
                                                 radius: 7,
@@ -531,7 +535,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
           Flexible(
             child: rateWithBGIcon(
                 svgIcon: SvgImageConstant.clockWithOuterLine,
-                title: "Total Months",
+                title: StringConstant.totalMonths,
                 value: "${contractorLongTerm?.total_months ?? ""}",
                 hasMonthLabel: true),
           ),
@@ -577,7 +581,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                   Gap(getSize(4)),
                   Flexible(
                     child: BaseText(
-                      text: "Months",
+                      text: StringConstant.months,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       textColor: AppColors.black,
@@ -726,7 +730,8 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "Start Date", fontSize: 10),
+                          BaseText(
+                              text: StringConstant.startDate, fontSize: 10),
                           Text.rich(
                             TextSpan(
                                 children: [
@@ -763,7 +768,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          BaseText(text: "End Date", fontSize: 10),
+                          BaseText(text: StringConstant.endDate, fontSize: 10),
                           Text.rich(
                             TextSpan(
                               children: [
@@ -791,7 +796,7 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(right: getSize(20)),
               child: SvgPicture.asset(
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),

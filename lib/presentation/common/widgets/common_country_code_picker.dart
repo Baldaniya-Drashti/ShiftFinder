@@ -63,13 +63,10 @@ class CommonCountryCodePicker extends StatelessWidget {
       onSelect: onChanged,
       countryListTheme: const CountryListThemeData(
         inputDecoration: InputDecoration(
-          //labelText: 'Search',
           hintText: 'Start typing to search',
           prefixIcon: Icon(Icons.search),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(
-                // color: ColorConstants.unableColor,
-                ),
+            borderSide: BorderSide(),
           ),
           focusedBorder: UnderlineInputBorder(
               // borderSide: BorderSide(color: ColorConstants.unableColor),
@@ -81,13 +78,4 @@ class CommonCountryCodePicker extends StatelessWidget {
       ),
     );
   }
-
-  // Country? getCountryByCode(String code) {
-  //   try {
-  //     return countryCodes.firstWhere(
-  //         (country) => country.phoneCode == code.replaceAll('+', ''));
-  //   } catch (e) {
-  //     return null;
-  //   }
-  // }
 }

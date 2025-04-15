@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables, must_be_immutable, unused_field, avoid_print, deprecated_member_use
 
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +20,6 @@ class ViewContractorShiftDates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shift = shiftDetail.shift_date ?? [];
-    print("shiftDetail ---> ${jsonEncode(shiftDetail.id)}");
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -40,32 +38,6 @@ class ViewContractorShiftDates extends StatelessWidget {
                 title:
                     "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
               ),
-              /*CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.multi,
-                  disableMonthPicker: true,
-                  disableModePicker: true,
-                  weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                  weekdayLabelTextStyle: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  selectedDayTextStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white,
-                  ),
-                  selectedDayHighlightColor: AppColors.primaryColor,
-                  daySplashColor: AppColors.transparent,
-                  disabledDayTextStyle: TextStyle(
-                    color: AppColors.black,
-                  ),
-                  selectableDayPredicate: (value) {
-                    return false;
-                  },
-                ),
-                value: _selectedDates,
-                onValueChanged: (day) {},
-              ),*/
               ListView.builder(
                   itemCount: shift.length,
                   shrinkWrap: true,
@@ -82,22 +54,7 @@ class ViewContractorShiftDates extends StatelessWidget {
                       unpaidBreak: shift[index].unpaid_break?.short_name ?? "",
                     );
                   }),
-              /*startEndDate(
-                hour: "09 AM",
-                minute: "30 Min",
-                title: StringConstant.startTime,
-              ),
-              SizedBox(
-                height: getSize(10),
-              ),
-              startEndDate(
-                hour: "07 AM",
-                minute: "15 Min",
-                title: StringConstant.endTime,
-              ),*/
-              SizedBox(
-                height: getSize(50),
-              ),
+              SizedBox(height: getSize(50)),
             ],
           ),
         ),
@@ -157,60 +114,6 @@ class ViewContractorShiftDates extends StatelessWidget {
       ),
     );
   }
-
-  // Widget startEndDate(
-  //     {required String hour, required String minute, required String title}) {
-  //   return Column(
-  //     children: [
-  //       Row(
-  //         crossAxisAlignment: CrossAxisAlignment.end,
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           Expanded(
-  //             child: CustomTextField(
-  //               labelText: title,
-  //               hintAsValue: true,
-  //               hintText: hour,
-  //               prefixIcon: Padding(
-  //                 padding: EdgeInsets.symmetric(
-  //                   horizontal: getSize(14),
-  //                   vertical: getSize(14),
-  //                 ),
-  //                 child: SvgPicture.asset(
-  //                   SvgImageConstant.clock,
-  //                   height: getSize(24),
-  //                   width: getSize(24),
-  //                   color: AppColors.primaryColor,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(
-  //             width: getSize(20),
-  //           ),
-  //           Expanded(
-  //             child: CustomTextField(
-  //               hintAsValue: true,
-  //               hintText: minute,
-  //               prefixIcon: Padding(
-  //                 padding: EdgeInsets.symmetric(
-  //                   horizontal: getSize(14),
-  //                   vertical: getSize(14),
-  //                 ),
-  //                 child: SvgPicture.asset(
-  //                   SvgImageConstant.clock,
-  //                   height: getSize(24),
-  //                   width: getSize(24),
-  //                   color: AppColors.primaryColor,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget chipListBox({
     required String date,

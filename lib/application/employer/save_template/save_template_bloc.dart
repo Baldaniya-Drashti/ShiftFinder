@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_saved_template/employer_saved_template_dto.dart';
@@ -60,7 +61,7 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
                   showAPIResponseMessage: (value) => value.message,
                   networkError: (value) =>
                       'Please check your internet connectivity',
-                  orElse: () => "Something went wrong!",
+                  orElse: () => StringConstant.somethingWentWrong,
                 ),
               ).show(value.context);
               emit(

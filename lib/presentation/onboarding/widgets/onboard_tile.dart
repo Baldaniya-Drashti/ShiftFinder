@@ -103,7 +103,6 @@ class OnBoardTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // textScaler: const TextScaler.linear(1),
                 ),
               )
             ],
@@ -125,8 +124,6 @@ class OnBoardTile extends StatelessWidget {
         child: SvgPicture.asset(dpImage),
       ),
       tileColor: AppColors.white,
-      // minTileHeight: getSize(80),
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       contentPadding: EdgeInsets.zero,
       title: BaseText(
         text: title,

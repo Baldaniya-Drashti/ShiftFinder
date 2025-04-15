@@ -122,33 +122,6 @@ class SplashPage extends StatelessWidget {
   }
 }
 
-// String getCurrentPage(String lastPage) {
-//   switch (lastPage) {
-//     case "Login":
-//       return LocationDetailForm.name;
-//     case "EmployerLocation":
-//       return LocationDetailForm.name;
-//     case "ContractorSkill":
-//       return AddContractorSkillsForm.name;
-//     case "Education":
-//       return EducationListScreen.name;
-//     case "Experience":
-//       return AddExperienceDetailScreen.name;
-//     case "Reference":
-//       return ReferenceListScreen.name;
-//     case "Document":
-//       return DocumentPageScreen.name;
-//     case "LegalScreening":
-//       return LegalScreeningQuestionsPage.name;
-//     case "TermsAndCondition":
-//       return TermsAndConditionsScreen.name;
-//     case "IntroVideo":
-//       return TermsAndConditionsScreen.name;
-//     default:
-//       return LoginPage.name;
-//   }
-// }
-
 PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
   switch (lastPage) {
     case "Login":

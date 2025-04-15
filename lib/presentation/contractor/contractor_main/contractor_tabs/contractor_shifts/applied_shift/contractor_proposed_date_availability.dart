@@ -52,7 +52,7 @@ class _ContractorProposedAvailabilityState
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(getSize(16)),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
@@ -60,19 +60,16 @@ class _ContractorProposedAvailabilityState
               child: Row(
                 children: [
                   SvgPicture.asset(SvgImageConstant.clockWithOuterLine,
-                      height: 40),
-                  Gap(12),
-                  Image.asset(
-                    PngImageConstants.line,
-                    height: 40,
-                  ),
-                  Gap(12),
+                      height: getSize(40)),
+                  Gap(getSize(12)),
+                  Image.asset(PngImageConstants.line, height: 40),
+                  Gap(getSize(12)),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
                           text:
-                              "Total Number of Shifts - ${widget.list.length}",
+                              "${StringConstant.totalNumberOfShifts} - ${widget.list.length}",
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                       Row(
@@ -82,9 +79,10 @@ class _ContractorProposedAvailabilityState
                             backgroundColor: AppColors.redAccent,
                             radius: 4,
                           ),
-                          Gap(6),
+                          Gap(getSize(6)),
                           BaseText(
-                            text: "Unavailable Shifts - $unavailableCount",
+                            text:
+                                "${StringConstant.unavailableShifts} - $unavailableCount",
                             fontWeight: FontWeight.w500,
                             fontSize: 10,
                           ),

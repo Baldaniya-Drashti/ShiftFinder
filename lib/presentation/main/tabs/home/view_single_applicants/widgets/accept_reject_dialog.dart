@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -20,8 +21,8 @@ class AcceptRejectDialog extends StatelessWidget {
       required this.description,
       required this.onPressedAccept,
       required this.onPressedReject,
-      this.acceptButtonText = 'Accept',
-      this.rejectButtonText = 'Cancel',
+      this.acceptButtonText = StringConstant.accept,
+      this.rejectButtonText = StringConstant.cancle,
       this.otherContent});
 
   @override
@@ -80,9 +81,7 @@ class AcceptRejectDialog extends StatelessWidget {
                       buttonText: rejectButtonText,
                     ),
                   ),
-                  SizedBox(
-                    width: getSize(25),
-                  ),
+                  SizedBox(width: getSize(25)),
                   Expanded(
                     child: CommonButton(
                       onPressed: onPressedAccept,

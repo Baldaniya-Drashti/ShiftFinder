@@ -68,19 +68,17 @@ class PayableDetail extends StatelessWidget {
                           if (route.settings.name == SaveTemplateView.name) {
                             bool argument = true;
                             route.onPopInvokedWithResult(true, argument);
-                            // (route.settings.arguments as Map)['isPOP'] = true;
+
                             return true;
                           } else {
                             return false;
                           }
-                          // return route.settings.name == EmployerLongTermView.name;
                         });
                       } else {
                         context.router.popUntil(
                           (route) => route.isFirst,
                         );
                       }
-                      // context.router.maybePop();
                     },
                   );
                 },
@@ -379,27 +377,9 @@ class PayableDetail extends StatelessWidget {
           title2: StringConstant.accommodationAllowance,
           value1: "\$${shift.commute_allowance}",
           value2: "\$${shift.accommodation_allowance}",
-          // totalPayableTitle: StringConstant.allowanceForOneShift,
-          // totalPayable: "\$${shift.total_one_allowance}",
           totalPayableTitle: StringConstant.totalAllowances,
           totalPayable: "\$${shift.total_allowance}",
         ),
-        /* payableBox(
-          title1: StringConstant.numberOfShifts,
-          title2: StringConstant.totalAllowances,
-          value1:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
-          value2: "\$${shift.total_allowance}",
-        ), */
-        /* payableBox(
-          title1: StringConstant.shiftFinderServiceFee,
-          value1: "\$${shift.service_one_fee}",
-          title2: StringConstant.numberOfShifts,
-          value2:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
-          totalPayableTitle: StringConstant.totalShiftFinderServiceFee,
-          totalPayable: "\$${shift.service_one_fee}",
-        ), */
         payableBox(
           title1: StringConstant.shiftFinderServiceFee,
           value1: "\$${shift.service_fee}",
@@ -417,41 +397,6 @@ class PayableDetail extends StatelessWidget {
           totalPayableTitle: StringConstant.estimatedTotalPayable,
           totalPayable: "\$${shift.total_amount_payable}",
         ),
-        /* payableBox(
-          title1: StringConstant.totalNumberOfDays,
-          title2: StringConstant.totalPayableHours,
-          title3: StringConstant.hourlyRate,
-          // value1: "${post.shift_detail?.detail?.length} ?? 0",
-          value1:
-              "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length ?? 0 : "0${post.shift_detail?.detail?.length}"}",
-          value2: shift.total_payable_hour,
-          value3: "\$${shift.rate_hour}",
-          totalPayableTitle: StringConstant.totalWage,
-          totalPayable: "\$${shift.total_wage}",
-        ),
-        payableBox(
-          title1: StringConstant.totalCommuteAllowance,
-          title2: StringConstant.totalAccommodationAllowance,
-          value1: "\$${shift.commute_allowance}",
-          value2: "\$${shift.accommodation_allowance}",
-          totalPayableTitle: StringConstant.totalAllowance,
-          totalPayable: "\$${shift.total_allowance}",
-        ),
-        payableBox(
-          title1: StringConstant.shiftFinderServiceFee,
-          value1: "\$${shift.service_fee}",
-        ),
-        payableBox(
-          title1: StringConstant.sumOfAmounts,
-          title2: StringConstant.numberOfVacancies,
-          value1: "\$${shift.total_one_shift}",
-          value2:
-              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
-        ),
-        totalPayableBox(
-          totalPayableTitle: StringConstant.totalAmount,
-          totalPayable: "\$${shift.total_amount_payable}",
-        ), */
       ],
     );
   }
@@ -492,14 +437,6 @@ class PayableDetail extends StatelessWidget {
           value3: "\$${shift.third_party_tax_fee}",
         ),
         payableBox(
-          /*    title1: StringConstant.totalPayableForOneShift,
-          value1: "\$${shift.total_one_shift}",
-          title2: StringConstant.numberOfShifts,
-          value2:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
-          title3: StringConstant.numberOfVacancies,
-          value3:
-              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}", */
           title1: StringConstant.numberOfVacancies,
           value1:
               "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
@@ -547,8 +484,6 @@ class PayableDetail extends StatelessWidget {
           value3: "\$${shift.third_party_tax_fee}",
         ),
         payableBox(
-          // title1: StringConstant.totalPayableForOneShift,
-          // value1: "\$${shift.total_one_shift}",
           title1: StringConstant.numberOfVacancies,
           value1:
               "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",

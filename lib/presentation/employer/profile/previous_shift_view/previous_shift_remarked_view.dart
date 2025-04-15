@@ -14,7 +14,6 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -26,7 +25,6 @@ class PreviousShiftRemarkedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
-        Log.debug("remarkedList:: ${state.remarkedList.length}");
         return Padding(
           padding: EdgeInsets.all(getSize(20)),
           child: Column(
@@ -116,7 +114,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                 child: Row(
                   children: [
                     UserAvatar(url: data.profile ?? ""),
-                    Gap(12),
+                    Gap(getSize(12)),
                     Expanded(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -134,9 +132,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
                                   ),
-                                  SizedBox(
-                                    width: getSize(10),
-                                  ),
+                                  SizedBox(width: getSize(10)),
                                   SvgPicture.asset(
                                     SvgImageConstant.rightArrow,
                                     height: 10,
@@ -148,7 +144,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Gap(1),
+                          Gap(getSize(1)),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -158,9 +154,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                                 height: 16,
                                 width: 16,
                               ),
-                              SizedBox(
-                                width: getSize(4),
-                              ),
+                              SizedBox(width: getSize(4)),
                               Expanded(
                                 child: BaseText(
                                   text: data.email ?? "",
@@ -181,7 +175,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           AppDialog.showDelete(
-                            title: "Remove",
+                            title: StringConstant.remove,
                             context,
                             infoMessage:
                                 "Are you sure you want to remove this contractor from remarked list?",
@@ -198,7 +192,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                                 },
                               );
                             },
-                            deleteBtnText: "Remove",
+                            deleteBtnText: StringConstant.remove,
                           );
                         },
                         child: Padding(
@@ -216,16 +210,12 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: getSize(12),
-            ),
+            SizedBox(height: getSize(12)),
             BaseText(
-              text: "Comment",
+              text: StringConstant.comment,
               fontSize: 12,
             ),
-            SizedBox(
-              height: getSize(12),
-            ),
+            SizedBox(height: getSize(12)),
             SizedBox(
               width: double.maxFinite,
               child: Material(

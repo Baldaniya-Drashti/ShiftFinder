@@ -36,7 +36,6 @@ class ShowPickedFile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("fillle called");
     String fileExtension = (selectedFile != null)
         ? path.extension(selectedFile!).toLowerCase()
         : '';
@@ -92,14 +91,6 @@ class ShowPickedFile extends StatelessWidget {
               ? (selectedFile != null && selectedFile!.contains('http'))
                   ? CachedNetworkImage(
                       imageUrl: selectedFile ?? "",
-                      // placeholder: (context, url) => Container(
-                      //   height: getSize(90),
-                      //   width: getSize(90),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.grey.shade100,
-                      //     borderRadius: BorderRadius.circular(getSize(10)),
-                      //   ),
-                      // ),
                       height: getSize(90),
                       width: getSize(90),
                       fit: BoxFit.fill,

@@ -86,8 +86,6 @@ class CredentialRegistration extends StatelessWidget {
                                             padding: EdgeInsets.only(
                                                 top: getSize(10)),
                                             child: SelectedDocumentBox(
-                                              // leadingImage: Image.file(File(
-                                              //     credObject.credentialDocument ?? "")),
                                               pickedFile: credObject.file,
                                               title:
                                                   credObject.document_title ??
@@ -390,7 +388,6 @@ class CredentialRegistration extends StatelessWidget {
             ),
           );
         }).then((value) {
-      print("On update back value ---> $value");
       if (value == true) {
         context
             .read<CredentialBloc>()
@@ -435,7 +432,6 @@ class CredentialRegistration extends StatelessWidget {
                 .pickImage(imageSource: ImageSource.camera, context: context) ??
             '';
         if (path.isNotEmpty) {
-          print("CAMERA IMAGE PATH: $path");
           context.read<CredentialBloc>().add(
                 CredentialEvent.selectCredentialDoc(path),
               );
@@ -447,7 +443,6 @@ class CredentialRegistration extends StatelessWidget {
             '';
 
         if (path.isNotEmpty) {
-          print("GALLERY IMAGE PATH: $path");
           context.read<CredentialBloc>().add(
                 CredentialEvent.selectCredentialDoc(path),
               );
@@ -456,7 +451,6 @@ class CredentialRegistration extends StatelessWidget {
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
-          print("SELECTED FILE PATH: $path");
           context.read<CredentialBloc>().add(
                 CredentialEvent.selectCredentialDoc(path),
               );
@@ -467,9 +461,7 @@ class CredentialRegistration extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 
   Widget registrationNoField(BuildContext context, CredentialState state) {
@@ -477,7 +469,6 @@ class CredentialRegistration extends StatelessWidget {
       labelText: StringConstant.registrationNumber,
       hintText: StringConstant.registrationNumber,
       initialValue: state.registrationNumber,
-      // keyboardType: TextInputType.number,
       isOptional: true,
       onChanged: (value) => context
           .read<CredentialBloc>()

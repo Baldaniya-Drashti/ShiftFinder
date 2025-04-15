@@ -32,7 +32,6 @@ class DocumentsView extends StatelessWidget {
           getDocumentsContainer(
             title: StringConstant.governmentIssuedId,
             onTap: () {
-              print("data.document----> ${data.document}");
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,

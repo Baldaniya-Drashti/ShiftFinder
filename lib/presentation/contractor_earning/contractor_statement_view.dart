@@ -162,17 +162,10 @@ class BaseStatementTile extends StatelessWidget {
                           fileName: '${currentStatement.label}.pdf');
 
                   if (pdfPath != null) {
-                    print('PDF saved to: $pdfPath');
                     showSuccess(
                             message:
                                 "${currentStatement.label} Statement Downloaded..!")
                         .show(context);
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => PdfViewerScreen(pdfPath: pdfPath),
-                    //   ),
-                    // );
                   } else {
                     showError(message: "Failed to download PDF!").show(context);
                   }
@@ -229,15 +222,6 @@ class BaseStatementTile extends StatelessWidget {
               ),
             ],
           ),
-          /* Gap(getSize(5)),
-          Row(
-            children: [
-              BaseText(text: StringConstant.invoice, fontSize: 10),
-              Gap(getSize(5)),
-              BaseText(
-                  text: "74523456", fontSize: 10, fontWeight: FontWeight.w600),
-            ],
-          ), */
           Gap(getSize(6)),
           Divider(),
           Gap(getSize(12)),
@@ -397,7 +381,7 @@ class _Compensation extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: AppColors.green.withValues(alpha: 0.2),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(getSize(16)),
             child: Row(
               children: [
                 Expanded(

@@ -88,14 +88,7 @@ class HomeView extends StatelessWidget {
                           child:
                               BaseText(text: StringConstant.somethindWentWrong),
                         )
-                      :
-                      // (state.employerDashboardList.isEmpty)
-                      // ? Center(
-                      //     child: BaseText(text: StringConstant.somethindWentWrong),
-                      //   ):
-                      // state.isNoDataFound
-                      //     ? Text(state.isNoDataFound):
-                      ListView.builder(
+                      : ListView.builder(
                           itemCount: state.employerDashboardList.length,
                           padding: EdgeInsets.symmetric(
                               vertical: getSize(5), horizontal: getSize(10)),
@@ -114,17 +107,9 @@ class HomeView extends StatelessWidget {
   }
 
   getCheckoutContainer(
-    // HomeState state,
     int index,
     BuildContext context,
   ) {
-    // var productConfigarationList =
-    //     jsonDecode(state.cartListDTO[index].product?.product_form_json ?? "");
-    // var dataList = ProductFromJson.fromJson(productConfigarationList)
-    //     .data
-    //     .where((element) => element.fieldType == 1)
-    //     .toList();
-
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (_, state) {
         return Container(
@@ -290,7 +275,6 @@ class HomeView extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (con, state) {
         return Container(
-          // height: getSize(113.41),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(getSize(10)),
             color: AppColors.primaryColor,
@@ -421,15 +405,6 @@ class HomeView extends StatelessWidget {
                   if (latitude != null && longitude != null) {
                     LocationHelper.openDirections(context,
                         endLat: latitude, endLng: longitude);
-                    /* context.router.push(
-                      PageRouteInfo(
-                        ShowGoogleMap.name,
-                        args: ShowGoogleMapArgs(
-                          latitude: latitude,
-                          longitude: longitude,
-                        ),
-                      ),
-                    ); */
                   }
                 },
                 child: Row(
@@ -439,9 +414,7 @@ class HomeView extends StatelessWidget {
                       height: getSize(20),
                       width: getSize(20),
                     ),
-                    SizedBox(
-                      width: getSize(10),
-                    ),
+                    SizedBox(width: getSize(10)),
                     Expanded(
                       child: BaseText(
                         text: state.employerDashboardList[index].location
@@ -521,7 +494,6 @@ class HomeView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        // height: getSize(78),
         padding: EdgeInsets.symmetric(
           vertical: getSize(8),
           horizontal: getSize(12),

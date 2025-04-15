@@ -202,26 +202,10 @@ class FilledShiftsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        /* Padding(
-                          padding: EdgeInsets.only(
-                              left: getSize(10), right: getSize(5)),
-                          child: BaseText(
-                            text:
-                                "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: getSize(14),
-                        ), */
                         Spacer(),
                         ChatButton(
                           badgeCount: shift.count ?? 0,
                           onPressed: () {
-                            // showUnderDevelopment(context);
                             context.router
                                 .push(
                               PageRouteInfo(
@@ -383,15 +367,6 @@ class FilledShiftsView extends StatelessWidget {
               if (latitude != null && longitude != null) {
                 LocationHelper.openDirections(context,
                     endLat: latitude, endLng: longitude);
-                /* context.router.push(
-                  PageRouteInfo(
-                    ShowGoogleMap.name,
-                    args: ShowGoogleMapArgs(
-                      latitude: latitude,
-                      longitude: longitude,
-                    ),
-                  ),
-                ); */
               }
             },
             child: Row(
@@ -472,7 +447,7 @@ class FilledShiftsView extends StatelessWidget {
                   : displayDateBreak(
                       context,
                       boldValue:
-                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
+                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
                       timidValue: "",
                       title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.calendar,
@@ -636,7 +611,6 @@ class FilledShiftsView extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,

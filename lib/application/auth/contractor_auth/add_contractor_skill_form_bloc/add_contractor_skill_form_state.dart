@@ -10,9 +10,7 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
     required String requiredSpecialityChip,
 
     /// SPECIALITY
-    // required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
     required List<SpecialityDTO> specialityList,
-    // required String requiredSpecialityChip,
     required List<String> specialityOther,
 
     /// Add EXPERIENCE OF SELECTED SPECIALITY

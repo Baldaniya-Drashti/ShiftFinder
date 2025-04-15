@@ -125,8 +125,6 @@ class AboutView extends StatelessWidget {
                     if (getCurrentRole() == 2)
                       _ListTile(
                         icon: SvgImageConstant.paymentHistory,
-                        /*  onPressed: () =>
-                            context.router.push(PageRouteInfo(FaqView.name)), */
                         onPressed: () async {
                           final Uri url = Uri.parse(
                               '${StringConstant.shiftFinderWebsite}/faq-3/');

@@ -69,7 +69,6 @@ class DocumentState with _$DocumentState {
         showCovidErrorMessages: false,
         isCovidDocSubmitting: false,
         covidDocId: -1,
-
         coviDocAuthFailureOrSuccessOption: none(),
 
         ///
@@ -81,14 +80,13 @@ class DocumentState with _$DocumentState {
       );
 }
 
+/// FOR CREDENTIALS-REGISTRATION DOCUMENT
 @freezed
 class CredentialState with _$CredentialState {
   const factory CredentialState({
-    /// FOR CREDENTIALS-REGISTRATION DOCUMENT
     required bool isLoading,
     required List<DocumentDTO> credentialRegistrationList,
     required String registrationNumber,
-    // required InputEmptyOrNot provinceRegistration,
     required InputEmptyOrNot documentTitle,
     required InputEmptyOrNot credentialRegistrationDoc,
     required InputEmptyOrNot selectedProvinceRegistration,
@@ -100,7 +98,6 @@ class CredentialState with _$CredentialState {
         credintialDocAuthFailureOrSuccessOption,
   }) = _CredentialState;
   factory CredentialState.initial() => CredentialState(
-        /// FOR CREDENTIALS-REGISTRATION DOCUMENT
         isLoading: false,
         credentialRegistrationList: [],
         registrationNumber: "",
@@ -115,10 +112,10 @@ class CredentialState with _$CredentialState {
       );
 }
 
+/// FOR PROFESSIONAL LICENSES DOCUMENT
 @freezed
 class ProfessionalLicensesState with _$ProfessionalLicensesState {
   const factory ProfessionalLicensesState({
-    /// FOR PROFESSIONAL LICENSES DOCUMENT
     required List<DocumentDTO> professionalLicensesList,
     required String registrationNumber,
     required InputEmptyOrNot documentTitle,
@@ -132,8 +129,6 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
         licensesDocAuthFailureOrSuccessOption,
   }) = _ProfessionalLicensesState;
   factory ProfessionalLicensesState.initial() => ProfessionalLicensesState(
-        /// FOR PROFESSIONAL LICENSES DOCUMENT
-
         professionalLicensesList: [],
         isLicensesExpiryCheck: false,
         licensesExpiryDate: "",
@@ -147,10 +142,10 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
       );
 }
 
+/// FOR Immunizations-Vaccinations DOCUMENT
 @freezed
 class ImmunizationState with _$ImmunizationState {
   const factory ImmunizationState({
-    /// FOR Immunizations-Vaccinations DOCUMENT
     required List<DocumentDTO> immunizationList,
     required InputEmptyOrNot immunizationName,
     required InputEmptyOrNot immunizationDoc,
@@ -162,7 +157,6 @@ class ImmunizationState with _$ImmunizationState {
         immunizationDocAuthFailureOrSuccessOption,
   }) = _ImmunizationState;
   factory ImmunizationState.initial() => ImmunizationState(
-        /// FOR Immunizations-Vaccinations DOCUMENT
         immunizationList: [],
         immunizationName: InputEmptyOrNot(""),
         immunizationExpiryDate: "",
@@ -174,10 +168,10 @@ class ImmunizationState with _$ImmunizationState {
       );
 }
 
+/// FOR Professional Liability Protection DOCUMENT
 @freezed
 class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
   const factory ProfessionalLiabilityState({
-    /// FOR Professional Liability Protection DOCUMENT
     required List<DocumentDTO> liabilityList,
     required InputEmptyOrNot liabilityDoc,
     required bool isLiabilityExpiryCheck,
@@ -188,7 +182,6 @@ class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
         liabilityDocAuthFailureOrSuccessOption,
   }) = _ProfessionalLiabilityState;
   factory ProfessionalLiabilityState.initial() => ProfessionalLiabilityState(
-        /// FOR Professional Liability Protection DOCUMENT
         liabilityList: [],
         liabilityDoc: InputEmptyOrNot(""),
         liabilityExpiryDate: "",
@@ -199,11 +192,10 @@ class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
       );
 }
 
+/// FOR RESUME DOCUMENT
 @freezed
 class ResumeState with _$ResumeState {
   const factory ResumeState({
-    /// FOR RESUME DOCUMENT
-    // required InputEmptyOrNot resumeDoc,
     required DocumentDTO resume,
     required bool showResumeErrorMessages,
     required bool isResumeDocSubmitting,
@@ -211,8 +203,6 @@ class ResumeState with _$ResumeState {
         resumeDocAuthFailureOrSuccessOption,
   }) = _ResumeState;
   factory ResumeState.initial() => ResumeState(
-        /// FOR RESUME DOCUMENT
-        // resumeDoc: InputEmptyOrNot(""),
         resume: DocumentDTO(),
         showResumeErrorMessages: false,
         isResumeDocSubmitting: false,
@@ -220,10 +210,10 @@ class ResumeState with _$ResumeState {
       );
 }
 
+/// FOR Apparel/Equipment DOCUMENT
 @freezed
 class EquipmentState with _$EquipmentState {
   const factory EquipmentState({
-    /// FOR Apparel/Equipment DOCUMENT
     required List<DocumentDTO> equipmentList,
     required InputEmptyOrNot equipmentName,
     required InputEmptyOrNot equipmentDoc,

@@ -223,7 +223,6 @@ class FilledHiredContractorList extends StatelessWidget {
             ChatButton(
               badgeCount: contractor.count ?? 0,
               onPressed: () {
-                // showUnderDevelopment(context);
                 context.router
                     .push(
                   PageRouteInfo(

@@ -30,7 +30,6 @@ class AddReferenceDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("referenceObj--->  $referenceObj");
     return BlocProvider(
       create: (context) => getIt<ReferenceBloc>()
         ..add(ReferenceEvent.referenceObjEvent(referenceObj)),
@@ -90,7 +89,6 @@ class AddReferenceDetail extends StatelessWidget {
               );
             },
             builder: (context, state) {
-              print("state.selectedTab--->  ${state.selectedTab}");
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                 child: DefaultTabController(

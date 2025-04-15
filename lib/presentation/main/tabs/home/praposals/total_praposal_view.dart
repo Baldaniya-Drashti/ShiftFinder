@@ -47,7 +47,7 @@ class TotalPraposalView extends StatelessWidget {
                   width: getSize(280),
                   child: BaseText(
                     textColor: AppColors.black.withValues(alpha: 0.65),
-                    text: 'No result found.',
+                    text: StringConstant.noResultFound,
                     textAlign: TextAlign.center,
                     lineHeight: 1.2,
                   ),

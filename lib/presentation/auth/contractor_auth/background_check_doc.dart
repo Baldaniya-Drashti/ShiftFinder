@@ -39,9 +39,7 @@ class BackgroundDocument extends StatelessWidget {
             () {},
             (either) => either.fold(
               (failure) {},
-              (r) {
-                print("LISTENER CALLED");
-              },
+              (r) {},
             ),
           );
         },
@@ -72,12 +70,6 @@ class BackgroundDocument extends StatelessWidget {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        /* Gap(getSize(10)),
-                        selectIdTypeDropdown(context, state),
-                        Gap(getSize(10)),
-                        docLimitNote(
-                          limit: state.currentBgDocType.short_name ?? "",
-                        ), */
                         Gap(getSize(15)),
                         Expanded(
                           child: SingleChildScrollView(
@@ -96,7 +88,6 @@ class BackgroundDocument extends StatelessWidget {
                                     labelText: StringConstant.issueDate,
                                     hintText: StringConstant.issueDate,
                                     lastDate: DateTime.now(),
-                                    // .add(Duration(days: 25 * 365)),
                                     firstDate: DateTime(1950, 1),
                                     onPickedDate: (pickedDate) {
                                       context.read<BackgroundDocBloc>().add(
@@ -145,8 +136,6 @@ class BackgroundDocument extends StatelessWidget {
                                       context,
                                       isUpdate: isUpdate,
                                     ));
-                                /* context.router.push(
-                                    PageRouteInfo(ProofOfLegalStatus.name)); */
                               },
                               buttonText: StringConstant.txtContinue,
                             ),
@@ -323,9 +312,6 @@ class BackgroundDocument extends StatelessWidget {
                       if (path.isNotEmpty) {
                         takePhotoCallback(path);
                         print("CAMERA IMAGE PATH: $path");
-                        /* context.read<BackgroundDocBloc>().add(
-                              BackgroundDocEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPhotoCallback: () async {
@@ -337,9 +323,6 @@ class BackgroundDocument extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPhotoCallback(path);
                         print("GALLERY IMAGE PATH: $path");
-                        /* context.read<BackgroundDocBloc>().add(
-                              BackgroundDocEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPdfCallback: () async {
@@ -349,9 +332,6 @@ class BackgroundDocument extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPdfCallback(path);
                         print("PDF FILE PATH: $path");
-                        /* context.read<BackgroundDocBloc>().add(
-                              BackgroundDocEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     context: context,

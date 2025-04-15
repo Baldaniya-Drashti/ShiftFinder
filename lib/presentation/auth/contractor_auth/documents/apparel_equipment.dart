@@ -184,9 +184,6 @@ class ApparelEquipment extends StatelessWidget {
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
-                                  // if (isUpdate) {
-                                  //   Navigator.pop(context);
-                                  // } else {
                                   context
                                       .read<EquipmentBloc>()
                                       .add(EquipmentEvent.equipmentDocSubmit(
@@ -348,7 +345,6 @@ class ApparelEquipment extends StatelessWidget {
                 .pickImage(imageSource: ImageSource.camera, context: context) ??
             '';
         if (path.isNotEmpty) {
-          print("CAMERA IMAGE PATH: $path");
           context.read<EquipmentBloc>().add(
                 EquipmentEvent.selectEquipmentDoc(path),
               );
@@ -360,7 +356,6 @@ class ApparelEquipment extends StatelessWidget {
             '';
 
         if (path.isNotEmpty) {
-          print("GALLERY IMAGE PATH: $path");
           context.read<EquipmentBloc>().add(
                 EquipmentEvent.selectEquipmentDoc(path),
               );
@@ -369,7 +364,6 @@ class ApparelEquipment extends StatelessWidget {
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
         if (path.isNotEmpty) {
-          print("SELECTED FILE PATH: $path");
           context.read<EquipmentBloc>().add(
                 EquipmentEvent.selectEquipmentDoc(path),
               );
@@ -380,9 +374,7 @@ class ApparelEquipment extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 
   Widget equipmentNameField(BuildContext context, EquipmentState state) {

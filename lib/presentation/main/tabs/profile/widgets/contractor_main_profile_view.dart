@@ -87,12 +87,10 @@ class ContractorMainProfileView extends StatelessWidget {
                           context.router
                               .push(PageRouteInfo(ContractorEditProfile.name))
                               .then((value) {
-                            print("is Edit Profile---> $value");
                             if (value != null) {
                               context.read<AccountCubit>().getAccount();
                             }
                           });
-                          // showUnderDevelopment(context);
                         },
                         buttonText: StringConstant.editProfile,
                         buttonFontSize: 10,

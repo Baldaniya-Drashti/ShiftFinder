@@ -150,8 +150,6 @@ class AddressProofScreen extends StatelessWidget {
                                         context,
                                         isUpdate: isUpdate,
                                       ));
-                                  /* context.router.push(
-                                      PageRouteInfo(BackgroundDocument.name)); */
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
@@ -217,25 +215,6 @@ class AddressProofScreen extends StatelessWidget {
       value: (state.currentAddressProofType.id != null)
           ? state.currentAddressProofType
           : null,
-      /*   selectedItemBuilder: (state.currentAddressProofType.name != null)
-          ? (context) {
-              final selectedItem = state.currentAddressProofType;
-              return [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    selectedItem.name ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: getFontSize(14),
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-              ];
-            }
-          : null, */
       items: state.addressProofDropDownList.map((val) {
         return DropdownMenuItem<SkillDTO>(
           value: val,
@@ -283,8 +262,6 @@ class AddressProofScreen extends StatelessWidget {
   }
 
   Widget pickImageView(AddressProofState state, BuildContext context) {
-    print(
-        "state.currentAddressProofType-----------> ${state.currentAddressProofType}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -353,38 +330,6 @@ class AddressProofScreen extends StatelessWidget {
                 );
           },
         ),
-        /* if (state.currentAddressProofType.id != 3 &&
-            state.currentAddressProofType.id != 4) ...[
-          SizedBox(height: getSize(15)),
-          DocumentExpiryDatePicker.expiryDateTextField(
-            context,
-            lastDate: DateTime.now().add(Duration(days: 25 * 365)),
-            onPickedDate: (pickedDate) {
-              context.read<AddressProofBloc>().add(
-                  AddressProofEvent.govermentExpiryDateChanged(
-                      pickedDate.toString()));
-            },
-            onCancelClick: () {
-              context
-                  .read<AddressProofBloc>()
-                  .add(AddressProofEvent.govermentExpiryDateChanged(""));
-            },
-            selectedDate: state.governmentExpiryDate,
-            isDisabled: !state.isGovernemtExpiryCheck,
-          ),
-          if ((!state.isGovernemtExpiryCheck &&
-                  state.governmentExpiryDate.isEmpty) &&
-              state.showErrorMesages)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(5)),
-              child: const BaseText(
-                text: "* ${StringConstant.pleaseSelectExpiryDate}",
-                fontSize: 12,
-                textColor: AppColors.red,
-              ),
-            ),
-        ], */
-
         SizedBox(height: getSize(30)),
       ],
     );
@@ -423,10 +368,6 @@ class AddressProofScreen extends StatelessWidget {
                           '';
                       if (path.isNotEmpty) {
                         takePhotoCallback(path);
-                        print("CAMERA IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPhotoCallback: () async {
@@ -438,9 +379,6 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPhotoCallback(path);
                         print("GALLERY IMAGE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     selectPdfCallback: () async {
@@ -450,9 +388,6 @@ class AddressProofScreen extends StatelessWidget {
                       if (path.isNotEmpty) {
                         selectPdfCallback(path);
                         print("PDF FILE PATH: $path");
-                        /* context.read<AddressProofBloc>().add(
-                              AddressProofEvent.selectGovermentDoc(path),
-                            ); */
                       }
                     },
                     context: context,

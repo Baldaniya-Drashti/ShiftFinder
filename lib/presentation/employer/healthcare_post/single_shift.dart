@@ -68,16 +68,7 @@ class SinglePostShift extends StatelessWidget {
                   ),
                 ).show(context);
               },
-              (r) {
-                // context.router.push(PageRouteInfo(
-                //   PostShiftRecurring.name,
-                //   args: PostShiftRecurringArgs(
-                //     shiftType: shiftType,
-                //     healthcarePost: r,
-                //     post: post,
-                //   ),
-                // ));
-              },
+              (r) {},
             ),
           );
         },
@@ -153,13 +144,6 @@ class SinglePostShift extends StatelessWidget {
                       if (state.isMoreVacancy) ...[
                         paddingBetweenFields(),
                         numberOfVacancy(context, state),
-                        /*if (state.singleShiftErrorMessages &&
-                            !(PostShiftBloc.isMoreVacancyValid(
-                                isMoreVacancy: state.isMoreVacancy,
-                                vacancyValue: state.selectedVacancy)))
-                          commonErrorText(
-                            StringConstant.pleaseAddNumberOfVacancies,
-                          ),*/
                       ],
                       Padding(
                         padding: EdgeInsets.only(
@@ -189,7 +173,6 @@ class SinglePostShift extends StatelessWidget {
   }
 
   Widget dateField(BuildContext context, PostShiftState state) {
-    print("isCreate---> ${fromReview}");
     return CustomTextField(
       labelText: StringConstant.date,
       hintText: (state.signleShiftDate.isValid())
@@ -220,7 +203,6 @@ class SinglePostShift extends StatelessWidget {
           : () {
               DocumentExpiryDatePicker.customDatePicker(
                 context,
-                // firstDate: DateTime.now().add(Duration(days: 1)),
                 firstDate: DateTime.now(),
                 onPickedDate: (pickedDate) {
                   context
@@ -232,7 +214,6 @@ class SinglePostShift extends StatelessWidget {
                 onCancelClick: () {},
                 selectedDate: (state.signleShiftDate.isValid())
                     ? DateTime.parse(state.signleShiftDate.getValue() ?? "")
-                    // : DateTime.now().add(Duration(days: 1)),
                     : DateTime.now(),
               );
             },
@@ -364,11 +345,6 @@ class SinglePostShift extends StatelessWidget {
             }
           },
         ),
-        // if (state.singleShiftErrorMessages &&
-        //     (!state.endHour.isValid() || !state.endMinute.isValid()))
-        //   commonErrorText(
-        //     StringConstant.pleaseSelectHourAndMinutesOfEndTime,
-        //   ),
         (state.singleShiftErrorMessages &&
                 (!isEndHourValid(state) && !isEndMinValid(state)))
             ? commonErrorText(
@@ -660,7 +636,6 @@ class SinglePostShift extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
       hintText: StringConstant.typeHerewithDots,
-      // hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,
       maxLength: 500,
@@ -791,8 +766,6 @@ class SinglePostShift extends StatelessWidget {
   }
 
   Widget vacancyCheckBox(BuildContext context, PostShiftState state) {
-    print("singleShiftNote -> ${state.isMoreVacancy}");
-
     return GestureDetector(
       onTap: () {
         bool value = state.isMoreVacancy;

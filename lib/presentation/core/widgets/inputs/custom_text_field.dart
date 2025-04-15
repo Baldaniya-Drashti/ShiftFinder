@@ -1,6 +1,7 @@
 // ignore_for_file: use_super_parameters, prefer_const_constructors
 
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -125,8 +126,6 @@ class CustomTextField extends StatelessWidget {
     OutlineInputBorder focusedBorder,
     InputBorder errorBorder,
   ) {
-    final focusNodeToUse = focusNode;
-    print("focusNodeToUse----> $focusNodeToUse");
     return Column(
       key: key,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +154,7 @@ class CustomTextField extends StatelessWidget {
                   ),
                   child: (isOptional == true && optionalWidget == null)
                       ? BaseText(
-                          text: "(Optional)",
+                          text: "(${StringConstant.optional})",
                           style: TextStyle(
                             fontSize: getFontSize(10),
                             fontWeight: FontWeight.w500,
@@ -181,7 +180,6 @@ class CustomTextField extends StatelessWidget {
                 )
             ],
           ),
-          // elevation: 0.3,
           child: TextFormField(
             enableInteractiveSelection: enableInteractiveSelection,
             autovalidateMode: autoValidateMode,
@@ -208,12 +206,9 @@ class CustomTextField extends StatelessWidget {
             textCapitalization: textCapitalization,
             maxLines: maxLines,
             decoration: decoration?.copyWith(
-                  counterStyle: const TextStyle(
-                      // height: double.minPositive,
-                      ),
+                  counterStyle: TextStyle(),
                   filled: true,
                   fillColor: AppColors.extraLightGrey,
-                  // isDense: true,
                   border: border,
                   enabledBorder: border,
                   focusedBorder: focusedBorder,
@@ -259,7 +254,6 @@ class CustomTextField extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   prefixIconConstraints: prefixIconConstraints,
-                  //     BoxConstraints(maxWidth: getSize(79), minHeight: 0),
                   hintStyle: hintStyle ??
                       TextStyle(
                         color: (hintTextColor != null)

@@ -82,7 +82,7 @@ class EmployerLongTermViewApplicantBloc extends Bloc<
                   showAPIResponseMessage: (value) => value.message,
                   networkError: (value) =>
                       'Please check your internet connectivity',
-                  orElse: () => "Something went wrong!",
+                  orElse: () => StringConstant.somethingWentWrong,
                 ),
               ).show(value.context);
             },

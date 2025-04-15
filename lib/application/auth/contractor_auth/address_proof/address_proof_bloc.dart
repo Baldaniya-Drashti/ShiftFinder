@@ -67,7 +67,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 addressProofBackDoc: InputEmptyOrNot(""),
                 docExpiryDate: "",
                 existingAddressProof: DocumentDTO(),
-                // isGovernemtExpiryCheck: false,
               ),
             ),
             (r) {
@@ -89,7 +88,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                             (r[0].expiry_date ?? -1) * 1000,
                           ).toIso8601String()
                         : "",
-                    // isGovernemtExpiryCheck:(r[0].expiry_date_not_applicable == 0) ? false : true,
                   ),
                 );
               } else {
@@ -100,8 +98,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     addressProofDocId: -1,
                     addressproofFrontDoc: InputEmptyOrNot(""),
                     addressProofBackDoc: InputEmptyOrNot(""),
-                    /* governmentExpiryDate: "",
-                    isGovernemtExpiryCheck: false, */
                   ),
                 );
               }
@@ -113,8 +109,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
           emit(
             state.copyWith(
               addressproofFrontDoc: InputEmptyOrNot(e.frontDoc),
-              /* governmentExpiryDate: "",
-              isGovernemtExpiryCheck: false, */
               isSubmitting: false,
               showErrorMesages: false,
               addressProofFailureOrSuccessOption: none(),
@@ -125,32 +119,12 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
           emit(
             state.copyWith(
               addressProofBackDoc: InputEmptyOrNot(e.backDoc),
-              /* governmentExpiryDate: "",
-              isGovernemtExpiryCheck: false, */
               isSubmitting: false,
               showErrorMesages: false,
               addressProofFailureOrSuccessOption: none(),
             ),
           );
         },
-        /*   checkNAGovermentExpiryDate: (e) {
-          emit(
-            state.copyWith(
-              isGovernemtExpiryCheck: e.isCheck,
-              addressProofFailureOrSuccessOption: none(),
-            ),
-          );
-        },
-        govermentExpiryDateChanged: (e) {
-          emit(
-            state.copyWith(
-              governmentExpiryDate: e.expiryDate,
-              addressProofFailureOrSuccessOption: none(),
-            ),
-          );
-        },
-       */
-
         deleteAddressFrontDoc: (e) {
           emit(
             state.copyWith(
@@ -176,7 +150,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
           final isBackDocValid = state.addressProofBackDoc.isValid();
 
           if (isFrontDocValid && isBackDocValid) {
-            // final isExpiryDateMandatory = (state.currentAddressProofType.yearLimit != null);
             final isExpiryDateMandatory =
                 (state.currentAddressProofType.isMandatory == true);
 
@@ -197,27 +170,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
               ),
             );
 
-            /* if (state.addressProofDocId != -1) {
-              /* failureOrSuccess = await _repository.updateDocumentApi(
-                id: state.addressProofDocId,
-                documentType: 1,
-                subType: state.currentAddressProofType.id,
-                documentTitle: state.currentAddressProofType.name ?? "",
-                documentFile: state.addressproofFrontDoc.getValue() ?? "",
-                documentBackFile: state.addressProofBackDoc.getValue() ?? "",
-                // expiryDate: state.governmentExpiryDate,
-                // expiryDateNotApplicable: state.isGovernemtExpiryCheck,
-              ); */
-            } else {
-              failureOrSuccess = await _repository.addAddressProofApi(
-                documentType: 2,
-                subType: state.currentAddressProofType.id,
-                documentFile: state.addressproofFrontDoc.getValue() ?? "",
-                documentBackFile: state.addressProofBackDoc.getValue() ?? "",
-                expiryDate: state.docExpiryDate,
-                lastPage: "BackgroundCheckDocument",
-              );
-            } */
             failureOrSuccess = await _repository.addAddressProofApi(
               documentType: 2,
               subType: state.currentAddressProofType.id,
@@ -235,7 +187,7 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     showAPIResponseMessage: (value) => value.message,
                     networkError: (value) =>
                         'Please check your internet connectivity',
-                    orElse: () => "Something went wrong!",
+                    orElse: () => StringConstant.somethingWentWrong,
                   ),
                 ).show(e.context);
                 emit(
@@ -292,17 +244,11 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     InputEmptyOrNot(state.existingAddressProof.file ?? ""),
                 addressProofBackDoc:
                     InputEmptyOrNot(state.existingAddressProof.back_file ?? ""),
-                /* governmentExpiryDate: (state.existingAddressProof.expiry_date !=null)? DateTime.fromMillisecondsSinceEpoch((state.existingAddressProof.expiry_date ?? -1) * 1000,).toIso8601String() : "",
-                isGovernemtExpiryCheck:(state.existingAddressProof.expiry_date_not_applicable == 0)? false: true, */
                 docExpiryDate: (state.existingAddressProof.expiry_date != null)
                     ? DateTime.fromMillisecondsSinceEpoch(
                         (state.existingAddressProof.expiry_date ?? -1) * 1000,
                       ).toIso8601String()
                     : "",
-                /* isGovernemtExpiryCheck:
-                    (state.existingGovermentDoc.expiry_date_not_applicable == 0)
-                        ? false
-                        : true, */
                 showErrorMesages: false,
               ));
             } else {
@@ -312,7 +258,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 addressproofFrontDoc: InputEmptyOrNot(""),
                 addressProofBackDoc: InputEmptyOrNot(""),
                 docExpiryDate: "",
-                // isGovernemtExpiryCheck: false,
                 showErrorMesages: false,
               ));
             }

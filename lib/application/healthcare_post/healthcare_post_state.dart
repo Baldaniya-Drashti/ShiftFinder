@@ -2,55 +2,10 @@
 
 part of 'healthcare_post_bloc.dart';
 
-// @freezed
-// class HealthcarePostState with _$HealthcarePostState {
-//   const factory HealthcarePostState({
-//     required InputEmptyOrNot location,
-//     required InputEmptyOrNot rateHour,
-//     required InputEmptyOrNot roleType,
-//     required InputEmptyOrNot selectedLanguage,
-//     required String selectedLocationUnit,
-//     // required List<String> requiredSpecialityChipList,
-//     // required String requiredSpecialityChip,
-
-//     /// SPECIALITY
-//     required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
-//     required List<SpecialityDTO> specialityList,
-//     required String requiredSpecialityChip,
-
-//     ///
-//     required String requiredSoftwareSkillChip,
-//     required List<String> requiredSoftwareSkillChipList,
-
-//     ///
-//     required bool isSubmitting,
-//     required bool showErrorMessages,
-//     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
-//   }) = _HealthcarePostState;
-//   factory HealthcarePostState.initial() => HealthcarePostState(
-//         location: InputEmptyOrNot(""),
-//         rateHour: InputEmptyOrNot(""),
-//         roleType: InputEmptyOrNot(""),
-//         selectedLanguage: InputEmptyOrNot(""),
-//         requiredSpecialityChipList: ListInputEmptyOrNot([]),
-//         requiredSpecialityChip: "",
-//         requiredSoftwareSkillChipList: [],
-//         requiredSoftwareSkillChip: "",
-//         selectedLocationUnit: "",
-//         isSubmitting: false,
-//         showErrorMessages: false,
-//         authFailureOrSuccessOption: none(),
-//       );
-// }
-
 @freezed
 class HealthcarePostState with _$HealthcarePostState {
   const factory HealthcarePostState({
     required HealthcarePostDTO updatePost,
-
-    /// SPECIALITY
-    // required ListInputEmptyOrNot requiredSpecialityChipList,
-    // required String requiredSpecialityChip,
 
     /// SPECIALITY
 
@@ -61,8 +16,6 @@ class HealthcarePostState with _$HealthcarePostState {
 
     /// ROLE TYPE
     required List<SkillDTO> roleList,
-    // required ListInputEmptyOrNot roleTypeChipList,
-    // required String roleTypeChip,
     required InputEmptyOrNot roleType,
 
     /// SOFTWARE SKILL
@@ -97,7 +50,8 @@ class HealthcarePostState with _$HealthcarePostState {
     required bool showRoleTypeError,
     required bool showSpeExperienceError,
     required bool showLocationError,
-    required Option<Either<MainFailure, HealthcarePostDTO>> authFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>>
+        authFailureOrSuccessOption,
   }) = _HealthcarePostState;
 
   factory HealthcarePostState.initial() => HealthcarePostState(

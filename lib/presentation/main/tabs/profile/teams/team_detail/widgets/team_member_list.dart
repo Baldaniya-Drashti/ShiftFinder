@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -120,15 +121,13 @@ class TeamMemberList extends StatelessWidget {
                 }
               },
               backgroundColor: AppColors.green.withValues(alpha: 0.15),
-              buttonText: '+ Add New Team Member',
+              buttonText: '+ ${StringConstant.addNewTeamMember}',
               buttonTextColor: AppColors.green,
               buttonFontSize: 12,
               borderRadius: 7,
               buttonFontWeight: FontWeight.w600,
             ),
-            SizedBox(
-              height: getSize(30),
-            ),
+            SizedBox(height: getSize(30)),
           ],
         );
       },

@@ -23,7 +23,6 @@ class ContractorProfileView extends StatelessWidget {
           initial: (value) {},
           authenticated: (value) {},
           unauthenticated: (value) {
-            print("Logout called!");
             context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
           },
         );
@@ -37,15 +36,6 @@ class ContractorProfileView extends StatelessWidget {
           SizedBox(height: getSize(10)),
           ContractorProfileItems(),
           SizedBox(height: getSize(20)),
-          /* Link(
-            uri: Uri.parse('https://iroidsolutions.com/'),
-            target:
-                LinkTarget.blank, // Opens the link in a new browser tab or app
-            builder: (context, followLink) => ElevatedButton(
-              onPressed: followLink,
-              child: Text('Go to Flutter website'),
-            ),
-          ), */
           GestureDetector(
             onTap: () async {
               final Uri url = Uri.parse('https://iroidsolutions.com/');
