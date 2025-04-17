@@ -48,7 +48,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
           passwordChanged: (e) {
             emit(
               state.copyWith(
-                  password: Password(e.password),
+                  password: InputEmptyOrNot(e.password),
                   authFailureOrSuccessOption: none(),
                   verificationFailureOrSuccessOption: none()),
             );

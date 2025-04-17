@@ -286,7 +286,7 @@ class SinglePostShift extends StatelessWidget {
                             PostShiftBloc.timeIsPast(
                                 state, state.startHour, state.startMinute))
                         ? commonErrorText(StringConstant
-                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                            .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime)
                         : Container(),
       ],
     );

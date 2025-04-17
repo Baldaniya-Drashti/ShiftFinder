@@ -100,12 +100,12 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                                 .is_payment ==
                                             1)
                                         ? StringConstant.paymentCompleted
-                                        : StringConstant.paymentPending,
+                                        : StringConstant.paymentUnderProcessing,
                                     textColor: (state.completedDataList[index]
                                                 .is_payment ==
                                             1)
                                         ? AppColors.primaryColor
-                                        : AppColors.yellowColor,
+                                        : AppColors.redAccent,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                   ),

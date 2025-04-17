@@ -241,19 +241,18 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (state.liabilityList.isEmpty)
-                        documentSkipButton(
-                          context,
-                          onPressed: () {
-                            context.read<ProfessionalLiabilityBloc>().add(
-                                    ProfessionalLiabilityEvent
-                                        .liabilityDocSubmit(
-                                  context,
-                                  isAddMoreBtnClick: false,
-                                  isSkip: true,
-                                ));
-                          },
-                        ),
+                      // if (state.liabilityList.isEmpty)
+                      documentSkipButton(
+                        context,
+                        onPressed: () {
+                          context.read<ProfessionalLiabilityBloc>().add(
+                                  ProfessionalLiabilityEvent.liabilityDocSubmit(
+                                context,
+                                isAddMoreBtnClick: false,
+                                isSkip: true,
+                              ));
+                        },
+                      ),
                       paddingBetweenFields()
                     ],
                   ),

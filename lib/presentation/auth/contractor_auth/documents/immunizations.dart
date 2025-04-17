@@ -181,15 +181,15 @@ class ImmunizationsVaccinations extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (state.immunizationList.isEmpty)
-                        documentSkipButton(
-                          context,
-                          onPressed: () {
-                            context.read<ImmunizationBloc>().add(
-                                ImmunizationEvent.immunizationDocSubmit(context,
-                                    isAddMoreBtnClick: false, isSkip: true));
-                          },
-                        ),
+                      // if (state.immunizationList.isEmpty)
+                      documentSkipButton(
+                        context,
+                        onPressed: () {
+                          context.read<ImmunizationBloc>().add(
+                              ImmunizationEvent.immunizationDocSubmit(context,
+                                  isAddMoreBtnClick: false, isSkip: true));
+                        },
+                      ),
                       paddingBetweenFields(),
                     ],
                   ),

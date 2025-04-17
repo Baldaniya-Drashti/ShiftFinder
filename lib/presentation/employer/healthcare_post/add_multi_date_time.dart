@@ -293,7 +293,7 @@ class AddMultiDateTime extends StatelessWidget {
               ))
                   ? commonErrorText(
                       StringConstant
-                          .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime,
+                          .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime,
                       padding: EdgeInsets.only(top: getSize(10)))
                   : Container(),
             ],

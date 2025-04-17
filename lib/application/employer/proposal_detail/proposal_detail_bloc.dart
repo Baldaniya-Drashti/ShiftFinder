@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
@@ -93,11 +94,12 @@ class ProposalDetailBloc
               emit(state.copyWith(isErrorInAPI: true, isLoading: false));
             },
             (r) async {
-              if (value.request == 2) {
+              value.context.maybePop(true);
+
+              /*if (value.request == 2) {
                 value.context.maybePop(true);
                 return;
               }
-
               final result = await showDialog<bool?>(
                 context: value.context,
                 barrierDismissible: false,
@@ -129,11 +131,9 @@ class ProposalDetailBloc
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: getSize(90),
-                      ),
+                      SizedBox(height: getSize(90)),
                       BaseText(
-                        text: 'Awaiting Confirmation',
+                        text: StringConstant.awaitingConfirmation,
                         fontSize: 22,
                         fontFamily: 'Aclonica',
                       ),
@@ -169,7 +169,7 @@ class ProposalDetailBloc
 
               if (result ?? false) {
                 value.context.maybePop(true);
-              }
+              } */
             },
           );
         },

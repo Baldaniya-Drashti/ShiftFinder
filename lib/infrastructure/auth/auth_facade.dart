@@ -81,7 +81,7 @@ class AuthFacade implements IAuthFacade {
   @override
   Future<Either<AuthFailure, Account>> login({
     required EmailAddress email,
-    required Password password,
+    required InputEmptyOrNot password,
   }) async {
     print("getCurrentIndustry---> ${getCurrentIndustry()}");
     try {

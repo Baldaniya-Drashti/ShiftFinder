@@ -97,7 +97,7 @@ class ProposeAvailability extends StatelessWidget {
                               if (isBeforeTime) {
                                 showError(
                                         message: StringConstant
-                                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                                            .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime)
                                     .show(context);
                                 return;
                               }

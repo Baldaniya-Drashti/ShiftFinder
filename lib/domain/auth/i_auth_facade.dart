@@ -36,7 +36,7 @@ abstract class IAuthFacade {
 
   Future<Either<AuthFailure, Account>> login({
     required EmailAddress email,
-    required Password password,
+    required InputEmptyOrNot password,
   });
 
   Future<Either<AuthFailure, Account>> addLastPageApi({

@@ -81,7 +81,7 @@ class ContractorUpdateProfileView extends StatelessWidget {
                             AddressProofScreen.name,
                             args: AddressProofScreenArgs(isUpdate: true)));
                       },
-                      label: StringConstant.proofDocument,
+                      label: StringConstant.addressProof,
                     ),
                     fieldTypeTile(
                       icon: SvgImageConstant.bank,

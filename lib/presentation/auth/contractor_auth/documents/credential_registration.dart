@@ -239,19 +239,19 @@ class CredentialRegistration extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (state.credentialRegistrationList.isEmpty)
-                        documentSkipButton(
-                          context,
-                          onPressed: () {
-                            context
-                                .read<CredentialBloc>()
-                                .add(CredentialEvent.credentialDocSubmit(
-                                  context,
-                                  isAddMoreBtnClick: false,
-                                  isSkip: true,
-                                ));
-                          },
-                        ),
+                      // if (state.credentialRegistrationList.isEmpty)
+                      documentSkipButton(
+                        context,
+                        onPressed: () {
+                          context
+                              .read<CredentialBloc>()
+                              .add(CredentialEvent.credentialDocSubmit(
+                                context,
+                                isAddMoreBtnClick: false,
+                                isSkip: true,
+                              ));
+                        },
+                      ),
                       paddingBetweenFields()
                     ],
                   ),

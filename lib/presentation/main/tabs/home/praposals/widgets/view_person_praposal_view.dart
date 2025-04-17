@@ -387,13 +387,12 @@ class ViewPersonPraposalView extends StatelessWidget {
 
   acceptDialog(BuildContext context) {
     final bloc = context.read<ProposalDetailBloc>().state;
-    final shiftType = bloc.proposalDetailDto.shift_type;
     final firstName = bloc.proposalDetailDto.first_name;
     final lastName = bloc.proposalDetailDto.last_name;
     AcceptRejectDialog(
       title: StringConstant.confirmAccept,
       description:
-          "By proceeding I confirm that I have reviewed $firstName $lastName's${shiftType == 1 ? "" : " proposal for availability,"} wage and allowances",
+          "By proceeding I confirm that I have reviewed $firstName $lastName's proposals",
       onPressedAccept: () {
         context.router.maybePop().then(
           (value) {

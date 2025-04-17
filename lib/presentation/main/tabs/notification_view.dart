@@ -84,6 +84,7 @@ class _NotificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print("OnTapNotification----> ${obj.type}");
         setNotificationTab(null);
         setNotificationSubTab(null);
 

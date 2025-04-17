@@ -24,16 +24,41 @@ class SocketChatService extends ChatService {
 
   SocketChatService() {
     log("SocketChatService constructor called");
+    socketConnection = SocketConnectionStatus.disconnected;
     socket = io.io(
         // dotenv.env['DEV_SOCKET_URL']!,
         getIt<BaseConfig>().socketHost,
         io.OptionBuilder().setTransports(['websocket']).build());
     socket.onConnect((_) {
       log('Socket Connected ---> ${socket.connected}');
+      socketConnection = SocketConnectionStatus.connected;
       _socketConnectController.add(true);
     });
-    socket.onConnecting((data) => log('Socket Connecting'));
-    socket.onDisconnect((data) => log('Socket Disconnected'));
+
+    socket.onConnecting((data) {
+      log('Socket Connecting ---> ${socket.connected}');
+      socketConnection = SocketConnectionStatus.disconnected;
+      _socketConnectController.add(false);
+    });
+
+    socket.onDisconnect((data) {
+      log('Socket Disconnected ---> ${socket.connected}');
+      socketConnection = SocketConnectionStatus.disconnected;
+      _socketConnectController.add(false);
+    });
+
+    socket.onConnectError((data) {
+      log('Socket Connect Error ---> ${socket.connected}');
+      socketConnection = SocketConnectionStatus.disconnected;
+      _socketConnectController.add(false);
+    });
+
+    socket.onError((data) {
+      log('Socket Error ---> ${socket.connected}');
+      socketConnection = SocketConnectionStatus.disconnected;
+      _socketConnectController.add(false);
+    });
+
     try {
       socket.on('newMessage', (data) {
         //please runtime every filed
@@ -71,28 +96,35 @@ class SocketChatService extends ChatService {
   Stream<bool> get socketConnectStream => _socketConnectController.stream;
   Stream<MessageData> get newMessageStream => _newMessageController.stream;
   void connectToSocket() {
+    socketConnection = SocketConnectionStatus.disconnected;
+    _socketConnectController.add(false);
     socket.connect();
-    socketConnection = SocketConnectionStatus.connected;
-
-    log('Socket Connected---> ${socket.connected}');
   }
 
   void disconnectSocket() {
     socket.disconnect();
     socket.dispose();
     socketConnection = SocketConnectionStatus.disconnected;
-
-    print("socket disconnect---> ${socket.connected}");
+    _socketConnectController.add(false);
   }
 
   @override
   Future<bool> socketConnected() async {
-    await Future.delayed(Duration(seconds: 2)).then((value) {
-      // log('Socket is connected---->: ${socket.connected}');
+    try {
+      // Add a small delay to ensure socket state is updated
+      await Future.delayed(const Duration(milliseconds: 100));
 
-      return socket.connected;
-    });
-    return false;
+      final isActuallyConnected = socket.connected;
+      final isStatusConnected =
+          socketConnection == SocketConnectionStatus.connected;
+
+      log('Socket connection check - Actual: $isActuallyConnected, Status: $isStatusConnected, Socket ID: ${socket.id}');
+
+      return isActuallyConnected && isStatusConnected;
+    } catch (e) {
+      log('Error checking socket connection: $e');
+      return false;
+    }
   }
 
   @override

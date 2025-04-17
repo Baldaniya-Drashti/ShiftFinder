@@ -506,7 +506,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<BankDetailsBloc>().state.bankAddress.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectBankAddress,
+                  empty: (value) => StringConstant.pleaseEnterBankAddress,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -526,7 +526,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       validator: (_, context) =>
           context.read<BankDetailsBloc>().state.city.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddCityName,
+                  empty: (value) => StringConstant.pleaseEnterCity,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -547,7 +547,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       validator: (_, context) =>
           context.read<BankDetailsBloc>().state.stateName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddStateName,
+                  empty: (value) => StringConstant.pleaseSelectProvince,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -569,7 +569,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       validator: (_, context) =>
           context.read<BankDetailsBloc>().state.postalCode.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddPostalCode,
+                  empty: (value) => StringConstant.pleaseEnterPostalCode,
                   orElse: () => null,
                 ),
                 (_) => null,

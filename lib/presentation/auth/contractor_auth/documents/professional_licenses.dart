@@ -244,17 +244,17 @@ class ProfessionalLicenses extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (state.professionalLicensesList.isEmpty)
-                        documentSkipButton(
-                          context,
-                          onPressed: () {
-                            context.read<ProfessionalLicensesBloc>().add(
-                                ProfessionalLicensesEvent.licensesDocSubmit(
-                                    context,
-                                    isAddMoreBtnClick: false,
-                                    isSkip: true));
-                          },
-                        ),
+                      // if (state.professionalLicensesList.isEmpty)
+                      documentSkipButton(
+                        context,
+                        onPressed: () {
+                          context.read<ProfessionalLicensesBloc>().add(
+                              ProfessionalLicensesEvent.licensesDocSubmit(
+                                  context,
+                                  isAddMoreBtnClick: false,
+                                  isSkip: true));
+                        },
+                      ),
                       paddingBetweenFields()
                     ],
                   ),

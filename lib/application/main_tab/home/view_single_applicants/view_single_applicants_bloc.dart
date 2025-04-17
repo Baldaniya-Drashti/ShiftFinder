@@ -214,10 +214,10 @@ class ViewSingleApplicantsBloc
               (r) {
                 value.context.router.maybePop();
                 CommonCardDialog(
-                  title: 'Awaiting Confirmation',
+                  title: StringConstant.awaitingConfirmation,
                   description:
                       'Application accepted, Contractor notified for Confirmation.',
-                  buttonText: 'Ok',
+                  buttonText: StringConstant.ok,
                   onPressed: () {
                     value.context.router.maybePop();
                     add(ViewSingleApplicantsEvent.getApplicantsList(

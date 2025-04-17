@@ -87,7 +87,7 @@ class LoginForm extends StatelessWidget {
                     : state.emailId.getValue(),
                 getCurrentUser().countryCode ?? '',
                 getCurrentUser().countryNameCode ?? '',
-                state.password.getValue(),
+                state.password.getValue() ?? '',
               );
             },
           ),
@@ -272,10 +272,10 @@ class LoginForm extends StatelessWidget {
                 context.read<LoginFormBloc>().state.password.value.fold(
                       (f) => f.maybeMap(
                         empty: (value) => StringConstant.pleaseEnterPassword,
-                        shortPassword: (_) =>
+                        /* shortPassword: (_) =>
                             StringConstant.passwordShouldBeMinimum8Digit,
                         invalidPassword: (value) =>
-                            StringConstant.pleaseEnterCorrectPasswordFormat,
+                            StringConstant.pleaseEnterCorrectPasswordFormat, */
                         orElse: () => null,
                       ),
                       (_) => null,

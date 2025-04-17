@@ -248,7 +248,7 @@ class SameTimeForMultiDate extends StatelessWidget {
             : (PostShiftBloc.timeIsPast(
                     state, state.startHour, state.startMinute, shiftType: 1))
                 ? commonErrorText(StringConstant
-                    .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                    .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime)
                 : Container(),
       ],
     );

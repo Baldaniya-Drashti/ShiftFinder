@@ -835,7 +835,7 @@ class StringConstant {
   static const String contractTerms = "Contract Terms";
   static const String employerCancelledThisShift =
       "Employer cancelled this shift";
-  static const String paymentPending = "Payment is Pending";
+  static const String paymentUnderProcessing = "Payment Under Processing";
   static const String paymentCompleted = "Payment Completed";
   static const String awaitingEmployerApproval = "Awaiting Employer Approval";
   static const String proofDocument = "Proof Document";
@@ -1272,11 +1272,11 @@ class StringConstant {
   static const String pleaseAddFirstName = "Please add first name";
   static const String pleaseSelectDob = "Please select date of birth";
   static const String pleaseAddLastName = "Please add last name";
-  static const String pleaseAddCityName = "Please add city name";
-  static const String pleaseAddStateName = "Please add state name";
-  static const String pleaseAddPostalCode = "Please add postal code";
+  static const String pleaseEnterCity = "Please enter city";
+  static const String pleaseSelectProvince = "Please select province";
+  static const String pleaseEnterPostalCode = "Please enter postal code";
   static const String pleaseSelectAccountType = "Please select account type";
-  static const String pleaseSelectBankAddress = "Please select bank address";
+  static const String pleaseEnterBankAddress = "Please enter bank address";
   static const String pleaseEnterCurrentPassword =
       "Please enter current password";
   static const String pleaseSelectLocationBrand =
@@ -1308,7 +1308,6 @@ class StringConstant {
   static const String pleaseEnterRequiredSkills =
       "Please enter required skills";
 
-  static const String
-      shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime =
-      "Shift start time must be a future and at least 2 hours after the current time.";
+  static const String shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime =
+      "Shift start time must be at least 2 hours from the current time.";
 }

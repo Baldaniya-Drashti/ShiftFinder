@@ -198,24 +198,24 @@ class ApparelEquipment extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if (state.equipmentList.isEmpty)
-                            documentSkipButton(
-                              context,
-                              onPressed: () {
-                                if (isUpdate) {
-                                  Navigator.pop(context);
-                                } else {
-                                  context
-                                      .read<EquipmentBloc>()
-                                      .add(EquipmentEvent.equipmentDocSubmit(
-                                        context,
-                                        isAddMoreBtnClick: false,
-                                        isSkip: true,
-                                        isUpdate: isUpdate,
-                                      ));
-                                }
-                              },
-                            ),
+                          // if (state.equipmentList.isEmpty)
+                          documentSkipButton(
+                            context,
+                            onPressed: () {
+                              if (isUpdate) {
+                                Navigator.pop(context);
+                              } else {
+                                context
+                                    .read<EquipmentBloc>()
+                                    .add(EquipmentEvent.equipmentDocSubmit(
+                                      context,
+                                      isAddMoreBtnClick: false,
+                                      isSkip: true,
+                                      isUpdate: isUpdate,
+                                    ));
+                              }
+                            },
+                          ),
                           paddingBetweenFields(height: 40)
                         ],
                       ),

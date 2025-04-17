@@ -38,19 +38,24 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           print("dispose called---from event");
         },
         connectSocket: (_ConnectSocket value) async {
-          chatService.connectToSocket();
-          await emit.forEach(
-            chatService.socketConnectStream,
-            onData: (data) {
+          try {
+            chatService.connectToSocket();
+            // Wait for initial connection status
+            final isConnected = await chatService.socketConnected();
+            log('Initial socket connection status: $isConnected');
+            if (isConnected) {
               add(MessageEvent.createRoom(
                 state.senderId.toString(),
                 state.receiverId.toString(),
               ));
               add(MessageEvent.getMessageList(true));
               add(MessageEvent.receiveMessage());
-              return state.copyWith(isLoading: false);
-            },
-          );
+            }
+            emit(state.copyWith(isLoading: false));
+          } catch (e) {
+            log('Socket connection error: $e');
+            emit(state.copyWith(isLoading: false));
+          }
         },
         getReceiverId: (value) {
           emit(

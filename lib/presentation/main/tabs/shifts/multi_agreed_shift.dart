@@ -31,7 +31,9 @@ class MultiAgreedShift extends StatelessWidget {
         onBackPressed: () {
           context.router.maybePop();
         },
-        title: StringConstant.agreedProposal,
+        title: (contractor.first_name != null && contractor.last_name != null)
+            ? "${contractor.first_name ?? ""} ${contractor.last_name ?? ""}"
+            : StringConstant.agreedProposal,
       ),
       body: SingleChildScrollView(
         child: Padding(

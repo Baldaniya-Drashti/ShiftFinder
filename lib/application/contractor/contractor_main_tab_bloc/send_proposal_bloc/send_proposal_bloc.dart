@@ -434,7 +434,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               if (isTimePast) {
                 showError(
                         message: StringConstant
-                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                            .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime)
                     .show(e.context);
               } else if (isMoreThanTwoHours < Duration(hours: 2)) {
                 print("show errorrrr on submit");
@@ -536,7 +536,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               if (isTimePast) {
                 showError(
                         message: StringConstant
-                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                            .shiftStartTtimeMustBeAtLeastHoursFromTheCurrentTime)
                     .show(e.context);
               } else if (isMoreThanTwoHours < Duration(hours: 2)) {
                 showError(

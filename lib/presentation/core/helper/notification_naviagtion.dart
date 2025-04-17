@@ -156,6 +156,9 @@ class NotificationNaviagtion {
             .add(ContractorMainTabEvent.tabChange(1));
         break;
       case 28:
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(0));
         break;
       case 29:
         setNotificationTab(1);
@@ -310,6 +313,7 @@ class NotificationNaviagtion {
         break;
       case 28:
         // context.router.push(PageRouteInfo(EmployerLocationView.name));
+        context.read<MainTabBloc>().add(MainTabEvent.tabChange(0));
         break;
       case 29:
         setNotificationTab(2);
