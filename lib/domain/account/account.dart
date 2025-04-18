@@ -4,6 +4,7 @@ import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'account.freezed.dart';
@@ -42,6 +43,7 @@ class Account with _$Account {
     Auth? auth,
     String? your_referral_code,
     List<LegalScreeningAnswerDTO>? legal_screening_question_answer,
+    List<LocationDTO>? location_detail,
   }) = _Account;
 }
 

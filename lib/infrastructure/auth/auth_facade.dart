@@ -124,22 +124,24 @@ class AuthFacade implements IAuthFacade {
         ApiConstants.logout,
       )
           .then((value) async {
-        final currentRole = getCurrentRole();
-        final currentIndustry = getCurrentIndustry();
-        final isUserShowIntro = getUserShowIntro();
+        // >>>>>>>>>>>>>>> For displaying Login screen after logging out then uncomment below code <<<<<<<<<<<<<<<< //
 
-        print("getCurrent isUserShowIntro----> $isUserShowIntro");
+        /* final currentRole = getCurrentRole();
+        final currentIndustry = getCurrentIndustry();
+        final isUserShowIntro = getUserShowIntro(); */
 
         Hive.box(BoxNames.settingsBox).clear();
         Hive.box<AccountEntity>(BoxNames.currentUser).clear();
 
+        // >>>>>>>>>>>>>>> For displaying Login screen after logging out then uncomment below code <<<<<<<<<<<<<<<< //
+
         /// Set Intro screen Data
-        await Hive.box(BoxNames.settingsBox)
+        /* await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.isUserShowIntro, isUserShowIntro);
         await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.currentRole, currentRole);
         await Hive.box(BoxNames.settingsBox)
-            .put(BoxKeys.currentIndustry, currentIndustry);
+            .put(BoxKeys.currentIndustry, currentIndustry); */
 
         return right(value?.dioMessage ?? "");
       });

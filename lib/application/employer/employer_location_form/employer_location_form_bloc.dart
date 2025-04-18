@@ -433,20 +433,6 @@ class EmployerLocationFormBloc
                         ? state.otherLocationBrand.getValue() ?? ""
                         : "",
               );
-
-              Log.debug("locationAddress :: ${state.address.getValue() ?? ''}");
-              Log.debug(
-                  "faciltyType :: ${(state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : ""}");
-              Log.debug(
-                  "facilityTypeOther :: ${(state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : ""}");
-              Log.debug("accreditationNumber :: ${state.accreditationNumber}");
-              Log.debug("locationId :: ${state.locationId}");
-              Log.debug("locationNotes :: ${state.locationNote}");
-              Log.debug(
-                  "latitude :: ${state.selectedAddress.result?.geometry?.location?.lat.toString() ?? ''}");
-              Log.debug(
-                  "longitude :: ${state.selectedAddress.result?.geometry?.location?.lng.toString() ?? ''}");
-              Log.debug("listOfUnit :: ${state.listOfUnit}");
             }
           } else {
             AppFocus.unfocus(e.context);

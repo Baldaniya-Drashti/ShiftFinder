@@ -3,6 +3,7 @@ part of 'location_details_bloc.dart';
 @freezed
 class LocationDetailsState with _$LocationDetailsState {
   const factory LocationDetailsState({
+    required int? id,
     required InputEmptyOrNot address,
     required List<Predictions> searchLocationList,
     required Predictions selectedLocationPrediction,
@@ -32,6 +33,7 @@ class LocationDetailsState with _$LocationDetailsState {
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _LocationDetailsState;
   factory LocationDetailsState.initial() => LocationDetailsState(
+        id: null,
         address: InputEmptyOrNot(""),
         searchLocationList: [],
         facilityTypeList: [],

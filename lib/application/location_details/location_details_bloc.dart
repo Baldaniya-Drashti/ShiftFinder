@@ -358,37 +358,70 @@ class LocationDetailsBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-
-            failureOrSuccess = await _repository.addLocationDetailsApi(
-              locationAddress: state.address.getValue() ?? '',
-              facilityType:
-                  (state.faciltyType.getValue()!.toLowerCase() != "other")
-                      ? getSelectedFacilityTypeId()
-                      : "",
-              facilityTypeOther:
-                  (state.faciltyType.getValue()!.toLowerCase() == "other")
-                      ? state.otherFaciltyType.getValue() ?? ""
-                      : "",
-              accreditationNumber: state.accreditationNumber,
-              locationId: state.locationId,
-              locationNotes: state.locationNote,
-              units: state.listOfUnit,
-              latitude: state.selectedAddress.result?.geometry?.location?.lat
-                      .toString() ??
-                  '',
-              longitude: state.selectedAddress.result?.geometry?.location?.lng
-                      .toString() ??
-                  '',
-              fromRegister: true,
-              locationBrand:
-                  (state.locationBrand.getValue()!.toLowerCase() != "other")
-                      ? getSelectedLocationBrandId()
-                      : "",
-              locationBrandOther:
-                  (state.locationBrand.getValue()!.toLowerCase() == "other")
-                      ? state.otherLocationBrand.getValue() ?? ""
-                      : "",
-            );
+            if (state.id != null) {
+              failureOrSuccess = await _repository.updateLocation(
+                id: state.id ?? -1,
+                locationAddress: state.address.getValue() ?? '',
+                facilityType:
+                    (state.faciltyType.getValue()!.toLowerCase() != "other")
+                        ? getSelectedFacilityTypeId()
+                        : "",
+                facilityTypeOther:
+                    (state.faciltyType.getValue()!.toLowerCase() == "other")
+                        ? state.otherFaciltyType.getValue() ?? ""
+                        : "",
+                accreditationNumber: state.accreditationNumber,
+                locationId: state.locationId,
+                locationNotes: state.locationNote,
+                units: state.listOfUnit,
+                latitude: state.selectedAddress.result?.geometry?.location?.lat
+                        .toString() ??
+                    '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng
+                        .toString() ??
+                    '',
+                fromRegister: true,
+                locationBrand:
+                    (state.locationBrand.getValue()!.toLowerCase() != "other")
+                        ? getSelectedLocationBrandId()
+                        : "",
+                locationBrandOther:
+                    (state.locationBrand.getValue()!.toLowerCase() == "other")
+                        ? state.otherLocationBrand.getValue() ?? ""
+                        : "",
+              );
+            } else {
+              failureOrSuccess = await _repository.addLocationDetailsApi(
+                locationAddress: state.address.getValue() ?? '',
+                facilityType:
+                    (state.faciltyType.getValue()!.toLowerCase() != "other")
+                        ? getSelectedFacilityTypeId()
+                        : "",
+                facilityTypeOther:
+                    (state.faciltyType.getValue()!.toLowerCase() == "other")
+                        ? state.otherFaciltyType.getValue() ?? ""
+                        : "",
+                accreditationNumber: state.accreditationNumber,
+                locationId: state.locationId,
+                locationNotes: state.locationNote,
+                units: state.listOfUnit,
+                latitude: state.selectedAddress.result?.geometry?.location?.lat
+                        .toString() ??
+                    '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng
+                        .toString() ??
+                    '',
+                fromRegister: true,
+                locationBrand:
+                    (state.locationBrand.getValue()!.toLowerCase() != "other")
+                        ? getSelectedLocationBrandId()
+                        : "",
+                locationBrandOther:
+                    (state.locationBrand.getValue()!.toLowerCase() == "other")
+                        ? state.otherLocationBrand.getValue() ?? ""
+                        : "",
+              );
+            }
           } else {
             AppFocus.unfocus(e.context);
             showError(
@@ -400,6 +433,10 @@ class LocationDetailsBloc
             state.copyWith(
               isSubmitting: false,
               showErrorMessages: true,
+              id: failureOrSuccess?.fold(
+                (f) => null,
+                (r) => r.location_detail?.firstOrNull?.id,
+              ),
               authFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );

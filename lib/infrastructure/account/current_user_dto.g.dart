@@ -54,6 +54,9 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) =>
                   LegalScreeningAnswerDTO.fromJson(e as Map<String, dynamic>))
               .toList(),
+      location_detail: (json['location_detail'] as List<dynamic>?)
+          ?.map((e) => LocationDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$CurrentUserDtoImplToJson(
@@ -89,6 +92,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'your_referral_code': instance.your_referral_code,
       'legal_screening_question_answer':
           instance.legal_screening_question_answer,
+      'location_detail': instance.location_detail,
     };
 
 _$AuthDtoImpl _$$AuthDtoImplFromJson(Map<String, dynamic> json) =>

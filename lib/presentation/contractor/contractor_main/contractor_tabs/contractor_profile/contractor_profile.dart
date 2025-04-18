@@ -23,7 +23,15 @@ class ContractorProfileView extends StatelessWidget {
           initial: (value) {},
           authenticated: (value) {},
           unauthenticated: (value) {
-            context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
+            print("Logout called!");
+            context.router.replaceAll([PageRouteInfo(Onboarding1.name)]);
+
+            // >>>>>>>>>>>>>>> For displaying Login screen after logging out then uncomment below code <<<<<<<<<<<<<<<< //
+            /*  if (value.isDeleteAccount) {
+              context.router.replaceAll([PageRouteInfo(Onboarding1.name)]);
+            } else {
+              context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
+            } */
           },
         );
       },

@@ -24,11 +24,14 @@ class ProfileView extends StatelessWidget {
           authenticated: (value) {},
           unauthenticated: (value) {
             print("Logout called!");
-            if (value.isDeleteAccount) {
+            context.router.replaceAll([PageRouteInfo(Onboarding1.name)]);
+            // >>>>>>>>>>>>>>> For displaying Login screen after logging out then uncomment below code <<<<<<<<<<<<<<<< //
+
+            /*  if (value.isDeleteAccount) {
               context.router.replaceAll([PageRouteInfo(Onboarding1.name)]);
             } else {
               context.router.replaceAll([const PageRouteInfo(LoginPage.name)]);
-            }
+            } */
           },
         );
       },
