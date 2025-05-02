@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/chat_section/view_media/view_media_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -10,6 +9,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/pdf_viewer.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:video_player/video_player.dart';
 
@@ -54,21 +54,19 @@ class ViewMedia extends StatelessWidget {
               ),
               body: SafeArea(
                 child: Center(
-                  child: type == 1
-                      ? CachedNetworkImage(
-                          imageUrl: mediaUrl,
-                        )
-                      : type == 2
-                          ? state.controller != null &&
-                                  state.controller!.value.isInitialized
-                              ? VideoPlayer(
-                                  state.controller!,
-                                )
-                              : SizedBox()
-                          : PDFView(
-                              filePath: mediaUrl,
-                            ),
-                ),
+                    child: type == 1
+                        ? CachedNetworkImage(
+                            imageUrl: mediaUrl,
+                          )
+                        : type == 2
+                            ? state.controller != null &&
+                                    state.controller!.value.isInitialized
+                                ? VideoPlayer(
+                                    state.controller!,
+                                  )
+                                : SizedBox()
+                            : ContractorPdfViewer(
+                                pdfUrl: mediaUrl, hideAppBar: true)),
               ),
               bottomNavigationBar: (type == 2 &&
                       state.controller != null &&

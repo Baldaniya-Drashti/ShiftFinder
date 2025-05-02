@@ -11,6 +11,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -237,8 +238,8 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16),
           child: BaseText(
             text: DateFormat("dd MMM, yyyy").format(
-                DateTime.fromMillisecondsSinceEpoch(
-                    (data.start_date ?? -1) * 1000)),
+                CustomDateTimeFormat.timeStampToDateTime(
+                    (data.start_date ?? -1))),
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textColor: AppColors.green,

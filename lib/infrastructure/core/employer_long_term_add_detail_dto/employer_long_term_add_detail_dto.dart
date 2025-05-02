@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'employer_long_term_add_detail_dto.freezed.dart';
 part 'employer_long_term_add_detail_dto.g.dart';
 
@@ -39,13 +40,13 @@ class DateTimeConverter extends JsonConverter<DateTime?, int?> {
   @override
   DateTime? fromJson(int? json) {
     if (json == null) return null;
-    return DateTime.fromMillisecondsSinceEpoch(json * 1000);
+    return CustomDateTimeFormat.timeStampToDateTime(json);
   }
 
   @override
   int? toJson(DateTime? object) {
     if (object == null) return null;
-    return object.toUtc().millisecondsSinceEpoch ~/ 1000;
+    return CustomDateTimeFormat.dateTimeToUtcTimestamp(object, isInt: true);
   }
 }
 

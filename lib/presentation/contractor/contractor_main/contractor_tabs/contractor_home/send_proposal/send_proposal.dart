@@ -16,6 +16,7 @@ import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.da
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -811,7 +812,9 @@ class SendProposal extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(
+      timestamp,
+    );
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);

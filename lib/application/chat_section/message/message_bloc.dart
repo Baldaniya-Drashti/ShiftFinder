@@ -131,7 +131,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           } */
         },
         sendMessage: (_SendMessage value) {
-          log('Date : ${DateTime.now().millisecondsSinceEpoch}');
           var message = MessageData(
             senderId: state.senderId,
             receiverId: state.receiverId,
@@ -165,7 +164,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           );
           var res = await mainFacade.getDocumentLink(formData: formData);
           if (res.isRight()) {
-            log("Media Name: ${res.fold((l) => '', (r) => r.toJson())}");
             var message = MessageData(
               senderId: state.senderId,
               receiverId: state.receiverId,

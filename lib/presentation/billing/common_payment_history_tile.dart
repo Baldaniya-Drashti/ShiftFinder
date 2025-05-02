@@ -7,6 +7,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/payment_history_dto/payment_history_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
@@ -60,13 +61,13 @@ class CommonPaymentHistoryTile extends StatelessWidget {
                             style: TextStyle(color: AppColors.primaryColor),
                             text: (shift.end_date != null)
                                 ? DateFormat('dd MMM, ').format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                        (shift.end_date!) * 1000))
+                                    CustomDateTimeFormat.timeStampToDateTime(
+                                        (shift.end_date!)))
                                 : "",
                             children: [
                               TextSpan(
                                 text: (shift.end_date != null)
-                                    ? "${DateTime.fromMillisecondsSinceEpoch((shift.end_date!) * 1000).year}"
+                                    ? "${CustomDateTimeFormat.timeStampToDateTime((shift.end_date!)).year}"
                                     : "",
                                 style: TextStyle(
                                     color:

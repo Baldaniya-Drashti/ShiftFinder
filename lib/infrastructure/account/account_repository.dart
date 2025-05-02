@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -19,6 +18,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import '../core/skill_list_model/skill_dto.dart';
@@ -67,7 +67,6 @@ class AccountRepository extends IAccountRepository {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => ExperienceDTO.fromJson(e)).toList();
 
-        print("Experience Role List Response---> $list");
         return right(list);
       } else {
         return left(const AccountFailure.serverError());
@@ -98,10 +97,8 @@ class AccountRepository extends IAccountRepository {
         "last_page": "SpecialityExperience",
       };
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response =
           await apiService.postMethod(ApiConstants.addRoleExperience, mapData);
-      print("Response of Add Experience---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
@@ -134,7 +131,6 @@ class AccountRepository extends IAccountRepository {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => ExperienceDTO.fromJson(e)).toList();
 
-        print("Experience Speciality List Response---> $list");
         return right(list);
       } else {
         return left(const AccountFailure.serverError());
@@ -165,11 +161,8 @@ class AccountRepository extends IAccountRepository {
         "last_page": "Education",
       };
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response = await apiService.postMethod(
           ApiConstants.addSpecialityExperience, mapData);
-      print(
-          "Response of Add Speciality Experience---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
@@ -204,11 +197,8 @@ class AccountRepository extends IAccountRepository {
         "last_page": "Education",
       };
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response =
           await apiService.postMethod(ApiConstants.education, mapData);
-      print("Response of Add Education---> ${jsonEncode(response.data)}");
-      print("Response of Add Education---> ${response.dioMessage}");
 
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
@@ -242,13 +232,11 @@ class AccountRepository extends IAccountRepository {
         "last_page": "Education",
       };
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response = await apiService.putMethod(
         '${ApiConstants.updateEducation}/$id',
         data: mapData,
       );
       if (response != null) {
-        print("Response of Update Education---> ${jsonEncode(response.data)}");
         return right(response.dioMessage ?? "");
       } else {
         return left(const AccountFailure.serverError());
@@ -274,12 +262,6 @@ class AccountRepository extends IAccountRepository {
     required int educationId,
   }) async {
     try {
-      final mapData = {
-        "id": educationId,
-      };
-
-      print("Sending Params:---> ${jsonEncode(mapData)}");
-
       final response = await apiService
           .deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
 
@@ -342,12 +324,13 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
-                      1000)
+              ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      DateTime.parse(startDate))
                   .toString()
               : "",
           "end_date": (endDate != null && endDate.isNotEmpty)
-              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+              ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      DateTime.parse(endDate))
                   .toString()
               : "",
         });
@@ -359,10 +342,8 @@ class AccountRepository extends IAccountRepository {
         });
       }
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response =
           await apiService.postMethod(ApiConstants.reference, mapData);
-      print("Response of Add Reference---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
@@ -421,12 +402,13 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
-                      1000)
+              ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      DateTime.parse(startDate))
                   .toString()
               : "",
           "end_date": (endDate != null && endDate.isNotEmpty)
-              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+              ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      DateTime.parse(endDate))
                   .toString()
               : "",
         });
@@ -438,15 +420,12 @@ class AccountRepository extends IAccountRepository {
         });
       }
 
-      print("Sending Params:---> ${jsonEncode(mapData)}");
       final response = await apiService.putMethod(
         '${ApiConstants.updateReference}/$id',
         data: mapData,
       );
 
       if (response != null) {
-        print("Response of Update Reference---> ${jsonEncode(response.data)}");
-
         final account = CurrentUserDto.fromJson(response.data).toDomain();
         return right(account);
       } else {
@@ -474,12 +453,6 @@ class AccountRepository extends IAccountRepository {
     required int referenceId,
   }) async {
     try {
-      final mapData = {
-        "id": referenceId,
-      };
-
-      print("Sending Params:---> ${jsonEncode(mapData)}");
-
       final response = await apiService
           .deleteMethod('${ApiConstants.destroyReference}?id=$referenceId');
 
@@ -510,8 +483,6 @@ class AccountRepository extends IAccountRepository {
     required int? documentType,
   }) async {
     try {
-      print("Sending Params:---> $documentType");
-
       final response = await apiService.getMethod(
         (documentType != null)
             ? "${ApiConstants.getDocument}?document_type=$documentType"
@@ -519,8 +490,6 @@ class AccountRepository extends IAccountRepository {
       );
 
       if (response != null && response.data != null) {
-        print("Response of Get Document---> ${jsonEncode(response.data)}");
-
         var account = response.data as List<dynamic>;
         var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
         return right(list);
@@ -540,7 +509,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -550,8 +518,6 @@ class AccountRepository extends IAccountRepository {
     required int? documentType,
   }) async {
     try {
-      print("Sending Params:---> $documentType");
-
       final response = await apiService.getMethod(
         (documentType != null)
             ? "${ApiConstants.getStripeDocument}?document_type=$documentType"
@@ -559,9 +525,6 @@ class AccountRepository extends IAccountRepository {
       );
 
       if (response != null && response.data != null) {
-        print(
-            "Response of Get Stripe Document---> ${jsonEncode(response.data)}");
-
         var account = response.data as List<dynamic>;
         var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
         return right(list);
@@ -581,7 +544,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -601,15 +563,12 @@ class AccountRepository extends IAccountRepository {
     String? lastPage,
   }) async {
     try {
-      print("expiry dat---> $expiryDate");
-      print(
-          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
-
       var formData = FormData.fromMap({
         "document_type": documentType,
         "sub_type": subType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+            ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    DateTime.parse(expiryDate))
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -634,8 +593,6 @@ class AccountRepository extends IAccountRepository {
         formData.files.add(MapEntry('back_file', multipartFile));
       }
 
-      print('Sending Data: ${formData.fields.map((e) => e)}');
-
       final response = await apiService.postMethod(
         ApiConstants.document,
         {},
@@ -643,10 +600,6 @@ class AccountRepository extends IAccountRepository {
         isMultipart: true,
       );
 
-      print("Response of Add Document---> ${jsonEncode(response.data)}");
-
-      // var account = response.data as List<dynamic>;
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
@@ -661,7 +614,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -676,16 +628,14 @@ class AccountRepository extends IAccountRepository {
     bool? expiryDateNotApplicable,
     String? lastPage,
   }) async {
-    print("expiryDate---> ${expiryDate}");
     try {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "sub_type": subType,
         if (expiryDate != null && expiryDate.isNotEmpty)
-          "expiry_date":
-              (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
-                  .toString(),
-        // "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
+          "expiry_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                  DateTime.parse(expiryDate))
+              .toString(),
         "last_page": lastPage ?? "AddressProofScreen",
       });
       if (documentFile.isNotEmpty && !documentFile.contains('http')) {
@@ -701,8 +651,6 @@ class AccountRepository extends IAccountRepository {
         formData.files.add(MapEntry('back_file', multipartFile));
       }
 
-      print('Sending Data: ${formData.fields.map((e) => e)}');
-
       final response = await apiService.postMethod(
         ApiConstants.stripeDocument,
         {},
@@ -710,10 +658,6 @@ class AccountRepository extends IAccountRepository {
         isMultipart: true,
       );
 
-      print("Response of Add Address proof---> ${jsonEncode(response.data)}");
-
-      // var account = response.data as List<dynamic>;
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
@@ -775,14 +719,10 @@ class AccountRepository extends IAccountRepository {
         if (lastPage != null) 'last_page': lastPage,
       };
 
-      print('Sending Data: ${jsonEncode(mapData)}');
-
       final response = await apiService.postMethod(
         ApiConstants.contractorConnectAccount,
         mapData,
       );
-
-      print("Response of Add Bank Detail---> ${jsonEncode(response.data)}");
 
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
@@ -818,15 +758,13 @@ class AccountRepository extends IAccountRepository {
     String? lastPage,
   }) async {
     try {
-      print("expiry dat---> $expiryDate");
-      print("Document file---> $documentFile");
-
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "sub_type": subType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+            ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    DateTime.parse(expiryDate))
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -850,13 +788,6 @@ class AccountRepository extends IAccountRepository {
         formData.files.add(MapEntry('back_file', multipartFile));
       }
 
-      print('Sending Data: ${formData.fields.map((e) => e)}');
-      print('Sending Data frontpage: $documentFile');
-      print('Sending Data backpage: $documentBackFile');
-      print(
-          'Sending Data with send proposal: ${formData.fields.map((e) => e.value)}');
-      // print('Sending Data: ${formData['file']}');
-
       final response = await apiService.postMethod(
         ApiConstants.updateDocument,
         {},
@@ -864,10 +795,6 @@ class AccountRepository extends IAccountRepository {
         isMultipart: true,
       );
 
-      print("Response of Update Document---> ${jsonEncode(response.data)}");
-
-      // var account = response.data as List<dynamic>;
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
@@ -882,7 +809,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -900,15 +826,12 @@ class AccountRepository extends IAccountRepository {
     String? lastPage,
   }) async {
     try {
-      print("expiry dat---> $expiryDate");
-      print(
-          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
-
       var formData = FormData.fromMap({
         "document_type": documentType,
         "province_of_registration": provinceOfRegistration,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+            ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    DateTime.parse(expiryDate))
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -924,8 +847,6 @@ class AccountRepository extends IAccountRepository {
         formData.files.add(MapEntry('file', multipartFile));
       }
 
-      print('Sending Data: ${formData.fields.map((e) => e)}');
-
       final response = await apiService.postMethod(
         ApiConstants.document,
         {},
@@ -933,13 +854,8 @@ class AccountRepository extends IAccountRepository {
         isMultipart: true,
       );
 
-      // print("Response of Add Document---> ${jsonEncode(response.data)}");
       final account = CurrentUserDto.fromJson(response.data).toDomain();
-      // return right(account);
-      // var account = response.data as List<dynamic>;
-      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
 
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(account);
     } on DioException catch (err) {
       if (err.response != null) {
@@ -954,7 +870,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -973,16 +888,12 @@ class AccountRepository extends IAccountRepository {
     String? lastPage,
   }) async {
     try {
-      print("expiry dat---> $expiryDate");
-      print("Document file---> $documentFile");
-      print(
-          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
-
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+            ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    DateTime.parse(expiryDate))
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -998,8 +909,6 @@ class AccountRepository extends IAccountRepository {
         formData.files.add(MapEntry('file', multipartFile));
       }
 
-      print('Sending Data: ${formData.fields.map((e) => e)}');
-
       final response = await apiService.postMethod(
         ApiConstants.updateDocument,
         {},
@@ -1007,7 +916,6 @@ class AccountRepository extends IAccountRepository {
         isMultipart: true,
       );
 
-      print("Response of Update Document---> ${jsonEncode(response.data)}");
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
     } on DioException catch (err) {
@@ -1023,7 +931,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1039,7 +946,6 @@ class AccountRepository extends IAccountRepository {
 
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
-        print("Response of Delete Document---> ${jsonEncode(response.data)}");
 
         return right(account);
       } else {
@@ -1058,7 +964,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1072,8 +977,6 @@ class AccountRepository extends IAccountRepository {
       );
 
       if (response != null && response.data != null) {
-        print("Response of Legal Screening---> ${jsonEncode(response.data)}");
-
         var account = response.data as List<dynamic>;
         var list = account.map((e) => LegalScreeningDTO.fromJson(e)).toList();
         return right(list);
@@ -1093,7 +996,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1110,21 +1012,13 @@ class AccountRepository extends IAccountRepository {
         "last_page": "TermsAndCondition",
       };
 
-      print('Sending Data: $mapData');
-
       final response = await apiService.postMethod(
         ApiConstants.legalScreeningQuestionAnswer,
         mapData,
       );
-      print("Response of Add Questions---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
-      // return right(account);
-      // var account = response.data as List<dynamic>;
-      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
-
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(account);
     } on DioException catch (err) {
       if (err.response != null) {
@@ -1139,7 +1033,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERRO---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1152,8 +1045,6 @@ class AccountRepository extends IAccountRepository {
       );
 
       if (response != null && response.data != null) {
-        print("Response of Quiz List---> ${jsonEncode(response.data)}");
-
         var account = response.data as List<dynamic>;
         var list = account.map((e) => QuizDTO.fromJson(e)).toList();
         return right(list);
@@ -1173,7 +1064,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1189,13 +1079,10 @@ class AccountRepository extends IAccountRepository {
         'isProfileComplete': "1",
       };
 
-      print('Sending Data: ${jsonEncode(quizDetails)}');
-
       final response = await apiService.postMethod(
         ApiConstants.quiz,
         mapData,
       );
-      print("Response of Add Quiz---> ${jsonEncode(response.data)}");
 
       final res = QuizAnswerDTO.fromJson(response.data);
       return right(res);
@@ -1212,7 +1099,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1224,8 +1110,6 @@ class AccountRepository extends IAccountRepository {
         ApiConstants.quizResult,
       );
       if (response != null) {
-        print("Response of Quiz Result---> ${jsonEncode(response.data)}");
-
         final res = QuizAnswerDTO.fromJson(response.data);
         return right(res);
       } else {
@@ -1244,7 +1128,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1260,7 +1143,6 @@ class AccountRepository extends IAccountRepository {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => SkillDTO.fromJson(e)).toList();
 
-        print("FACILITY TYPE LIST RESPONSE---> $list");
         return right(list);
       } else {
         return left(const AccountFailure.serverError());
@@ -1292,7 +1174,6 @@ class AccountRepository extends IAccountRepository {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => SkillDTO.fromJson(e)).toList();
 
-        print("LOCATION BRAND LIST RESPONSE---> $list");
         return right(list);
       } else {
         return left(const AccountFailure.serverError());
@@ -1367,21 +1248,13 @@ class AccountRepository extends IAccountRepository {
         });
       }
 
-      print('Sending Data: ${jsonEncode(mapData)}');
-
       final response = await apiService.postMethod(
         ApiConstants.location,
         mapData,
       );
-      print(
-          "Response of Add location details---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
-      // return right(account);
-      // var account = response.data as List<dynamic>;
-      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(account);
     } on DioException catch (err) {
       if (err.response != null) {
@@ -1396,7 +1269,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1412,7 +1284,6 @@ class AccountRepository extends IAccountRepository {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => LocationDTO.fromJson(e)).toList();
 
-        print("LOCATION LIST RESPONSE---> $list");
         return right(list);
       } else {
         return left(const AccountFailure.serverError());
@@ -1480,14 +1351,11 @@ class AccountRepository extends IAccountRepository {
           "location_brand_other": locationBrandOther,
         });
       }
-      print('Sending Data: ${jsonEncode(mapData)}');
 
       final response = await apiService.postMethod(
         ApiConstants.updateLocation,
         mapData,
       );
-      print(
-          "Response of Add location details---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
@@ -1509,7 +1377,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1522,7 +1389,6 @@ class AccountRepository extends IAccountRepository {
       );
 
       if (response != null) {
-        // print("Response of Get Bank Detail---> ${jsonEncode(response.data)}");
         final data = BankDTO.fromJson(response.data);
 
         return right(data);
@@ -1542,7 +1408,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1571,8 +1436,6 @@ class AccountRepository extends IAccountRepository {
         "country_code": user.countryCode,
         "last_page": lastPage,
       });
-
-      print("profileImage => $profileImage");
 
       if (profileImage.isNotEmpty && !profileImage.contains('https')) {
         var multipartFile = await MultipartFile.fromFile(
@@ -1611,7 +1474,6 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
-      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }
@@ -1643,8 +1505,6 @@ class AccountRepository extends IAccountRepository {
         "email": user.email,
         "last_page": lastPage,
       });
-
-      print("profileImage => $profileImage");
 
       if (profileImage.isNotEmpty && !profileImage.contains('https')) {
         var multipartFile = await MultipartFile.fromFile(

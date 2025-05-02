@@ -8,6 +8,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -63,7 +64,7 @@ class ViewContractorShiftDates extends StatelessWidget {
   }
 
   String convertTimeStampToDate(int timestamp, {bool isDate = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isDate) {
       return DateFormat('dd MMM, yyyy').format(dateTime);

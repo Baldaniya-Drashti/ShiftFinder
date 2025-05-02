@@ -41,65 +41,68 @@ class CommonCardDialog extends StatelessWidget {
     showDialog<bool?>(
       context: context,
       barrierDismissible: barrierDismissible,
-      builder: (context) => AlertDialog(
-        clipBehavior: Clip.none,
-        insetPadding:
-            insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(getSize(15)),
-        ),
-        titlePadding: EdgeInsets.zero,
-        title: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(getSize(15)),
-                  child: Image.asset(PngImageConstants.curvedBackgroundImage),
-                ),
-                Positioned(
-                  top: getSize(85),
-                  child: SvgPicture.asset(
-                    image,
-                    height: getSize(107),
-                    width: getSize(107),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: getSize(90)),
-            BaseText(
-              text: title,
-              fontSize: 22,
-              fontFamily: 'Aclonica',
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: getSize(10)),
-            BaseText(
-              text: description,
-              fontSize: 14,
-              textAlign: TextAlign.center,
-              fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withValues(alpha: 0.7),
-            ),
-            otherContent ?? Container(),
-          ],
-        ),
-        actionsAlignment: MainAxisAlignment.center,
-        actions: [
-          CommonButton(
-            height: 46,
-            width: 200,
-            onPressed: onPressed,
-            buttonText: buttonText,
+      builder: (context) => PopScope(
+        canPop: barrierDismissible,
+        child: AlertDialog(
+          clipBehavior: Clip.none,
+          insetPadding:
+              insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(getSize(15)),
           ),
-        ],
+          titlePadding: EdgeInsets.zero,
+          title: Column(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(getSize(15)),
+                    child: Image.asset(PngImageConstants.curvedBackgroundImage),
+                  ),
+                  Positioned(
+                    top: getSize(85),
+                    child: SvgPicture.asset(
+                      image,
+                      height: getSize(107),
+                      width: getSize(107),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: getSize(90)),
+              BaseText(
+                text: title,
+                fontSize: 22,
+                fontFamily: 'Aclonica',
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: getSize(10)),
+              BaseText(
+                text: description,
+                fontSize: 14,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withValues(alpha: 0.7),
+              ),
+              otherContent ?? Container(),
+            ],
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: [
+            CommonButton(
+              height: 46,
+              width: 200,
+              onPressed: onPressed,
+              buttonText: buttonText,
+            ),
+          ],
+        ),
       ),
     ).then((value) {
       if (onCallback != null) {

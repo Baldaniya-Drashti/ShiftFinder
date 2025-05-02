@@ -22,6 +22,7 @@ import 'package:shift/presentation/auth/contractor_auth/documents/document_list.
 import 'package:shift/presentation/auth/contractor_auth/documents/government_issue_id.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/professional_licenses.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/resume.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
@@ -269,9 +270,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     govermentBackDoc: InputEmptyOrNot(r[0].back_file ?? ""),
                     govmentDocTitle: InputEmptyOrNot(r[0].document_title ?? ""),
                     governmentExpiryDate: (r[0].expiry_date != null)
-                        ? DateTime.fromMillisecondsSinceEpoch(
-                            (r[0].expiry_date ?? -1) * 1000,
-                          ).toIso8601String()
+                        ? CustomDateTimeFormat.timeStampToDateTime(
+                                r[0].expiry_date ?? -1)
+                            .toIso8601String()
                         : "",
                     isGovernemtExpiryCheck:
                         (r[0].expiry_date_not_applicable == 0) ? false : true,
@@ -459,8 +460,10 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     //     isLoading: false,
                     //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
                     //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
-                    //       DateTime.fromMillisecondsSinceEpoch(
-                    //           r[0].expiry_date ?? 0),
+                    // CustomDateTimeFormat.timeStampToDateTime(
+                    //           r[0].expiry_date ?? 0,
+                    //        isMillisecond: false,
+                    //                     ),
                     //     ),
                     //     isGovernemtExpiryCheck: false,
                     //   ),
@@ -518,8 +521,11 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                   //     isLoading: false,
                   //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
                   //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
-                  //       DateTime.fromMillisecondsSinceEpoch(
-                  //           r[0].expiry_date ?? 0),
+
+                  // CustomDateTimeFormat.timeStampToDateTime(
+                  //           r[0].expiry_date ?? 0,
+                  //           isMillisecond: false,
+                  //                       ),
                   //     ),
                   //     isGovernemtExpiryCheck: false,
                   //   ),
@@ -684,12 +690,12 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     InputEmptyOrNot(state.existingGovermentDoc.back_file ?? ""),
                 govmentDocTitle: InputEmptyOrNot(
                     state.existingGovermentDoc.document_title ?? ""),
-                governmentExpiryDate: (state.existingGovermentDoc.expiry_date !=
-                        null)
-                    ? DateTime.fromMillisecondsSinceEpoch(
-                        (state.existingGovermentDoc.expiry_date ?? -1) * 1000,
-                      ).toIso8601String()
-                    : "",
+                governmentExpiryDate:
+                    (state.existingGovermentDoc.expiry_date != null)
+                        ? CustomDateTimeFormat.timeStampToDateTime(
+                                state.existingGovermentDoc.expiry_date ?? -1)
+                            .toIso8601String()
+                        : "",
                 isGovernemtExpiryCheck:
                     (state.existingGovermentDoc.expiry_date_not_applicable == 0)
                         ? false
@@ -1005,9 +1011,9 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
               documentTitle: InputEmptyOrNot(doc.document_title ?? ""),
               credentialRegistrationDoc: InputEmptyOrNot(doc.file ?? ""),
               credentialExpiryDate: (doc.expiry_date != null)
-                  ? DateTime.fromMillisecondsSinceEpoch(
-                      (doc.expiry_date ?? -1) * 1000,
-                    ).toIso8601String()
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                          doc.expiry_date ?? -1)
+                      .toIso8601String()
                   : "",
               isCredExpiryCheck:
                   (doc.expiry_date_not_applicable == 0) ? false : true,
@@ -1389,9 +1395,9 @@ class ProfessionalLicensesBloc
               documentTitle: InputEmptyOrNot(doc.document_title ?? ""),
               professionalLicensesDoc: InputEmptyOrNot(doc.file ?? ""),
               licensesExpiryDate: (doc.expiry_date != null)
-                  ? DateTime.fromMillisecondsSinceEpoch(
-                      (doc.expiry_date ?? -1) * 1000,
-                    ).toIso8601String()
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                          doc.expiry_date ?? -1)
+                      .toIso8601String()
                   : "",
               isLicensesExpiryCheck:
                   (doc.expiry_date_not_applicable == 0) ? false : true,
@@ -2242,9 +2248,9 @@ class ProfessionalLiabilityBloc
             emit(state.copyWith(
               liabilityDoc: InputEmptyOrNot(doc.file ?? ""),
               liabilityExpiryDate: (doc.expiry_date != null)
-                  ? DateTime.fromMillisecondsSinceEpoch(
-                      (doc.expiry_date ?? -1) * 1000,
-                    ).toIso8601String()
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                          doc.expiry_date ?? -1)
+                      .toIso8601String()
                   : "",
               isLiabilityExpiryCheck:
                   (doc.expiry_date_not_applicable == 0) ? false : true,

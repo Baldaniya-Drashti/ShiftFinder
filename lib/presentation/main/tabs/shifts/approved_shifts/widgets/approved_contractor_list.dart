@@ -12,6 +12,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -338,7 +339,7 @@ class ApprovedHiredList extends StatelessWidget {
               ),
               BaseText(
                 text:
-                    "${(contractor.start_time != null) ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.start_time ?? 0) * 1000)) : ""} to ${(contractor.end_time != null) ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.end_time ?? 0) * 1000)) : ""}",
+                    "${(contractor.start_time != null) ? DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.start_time ?? 0))) : ""} to ${(contractor.end_time != null) ? DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.end_time ?? 0))) : ""}",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 textColor: AppColors.primaryColor,
@@ -367,8 +368,8 @@ class ApprovedHiredList extends StatelessWidget {
             context,
             value: (shift.clock_in_time != null)
                 ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.clock_in_time!) * 1000))
+                    CustomDateTimeFormat.timeStampToDateTime(
+                        (shift.clock_in_time!)))
                 : '--',
             title: StringConstant.clockIn,
             svgPrefixIcon: SvgImageConstant.clock,
@@ -381,8 +382,8 @@ class ApprovedHiredList extends StatelessWidget {
             context,
             value: (shift.clock_out_time != null)
                 ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.clock_out_time!) * 1000))
+                    CustomDateTimeFormat.timeStampToDateTime(
+                        (shift.clock_out_time!)))
                 : "--",
             title: StringConstant.clockOut,
             svgPrefixIcon: SvgImageConstant.clock,

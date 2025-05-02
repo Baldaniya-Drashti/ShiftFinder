@@ -7,6 +7,7 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'contractor_earning_event.dart';
 part 'contractor_earning_state.dart';
 part 'contractor_earning_bloc.freezed.dart';
@@ -40,7 +41,6 @@ class ContractorEarningBloc
                   fileName: 'Monthly_Statement.pdf');
 
           if (pdfPath != null) {
-            print('PDF saved to: $pdfPath');
             showSuccess(message: "Monthly_Statement Downloaded..!")
                 .show(e.context);
             /*  Navigator.push(
@@ -60,11 +60,12 @@ class ContractorEarningBloc
 
           failureOrSuccess = await mainFacade.totalEarningStatementAPI(
             startDate: (e.startDate != null)
-                ? (e.startDate!.toUtc().millisecondsSinceEpoch / 1000)
+                ? CustomDateTimeFormat.dateTimeToUtcTimestamp(e.startDate!)
                     .toString()
                 : "",
             endDate: (e.endDate != null)
-                ? (e.endDate!.toUtc().millisecondsSinceEpoch / 1000).toString()
+                ? CustomDateTimeFormat.dateTimeToUtcTimestamp(e.endDate!)
+                    .toString()
                 : "",
           );
 

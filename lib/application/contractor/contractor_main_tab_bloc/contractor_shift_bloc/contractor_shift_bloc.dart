@@ -18,6 +18,7 @@ import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/cur
 import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -515,7 +516,7 @@ class ContractorShiftBloc
           startAppliedRevokingTimer: (e) {
             // print("revoke start time---> ${e.revokeTime}");
             DateTime timerStartTime =
-                DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
+                CustomDateTimeFormat.timeStampToDateTime(e.revokeTime);
 
             Duration totalDuration = Duration(hours: 2);
 
@@ -540,7 +541,7 @@ class ContractorShiftBloc
           },
           startCounterProposalRevokingTimer: (e) {
             DateTime timerStartTime =
-                DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
+                CustomDateTimeFormat.timeStampToDateTime(e.revokeTime);
 
             Duration totalDuration = Duration(hours: 2);
 
@@ -620,6 +621,6 @@ class ContractorShiftBloc
       timeOfDay.minute,
     );
 
-    return dateTime.toUtc().millisecondsSinceEpoch ~/ 1000;
+    return CustomDateTimeFormat.dateTimeToUtcTimestamp(dateTime, isInt: true);
   }
 }

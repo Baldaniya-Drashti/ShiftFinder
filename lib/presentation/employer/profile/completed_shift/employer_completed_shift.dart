@@ -13,6 +13,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -170,9 +171,7 @@ class RatingStar extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset(
-          SvgImageConstant.starFilled,
-        ),
+        SvgPicture.asset(SvgImageConstant.starFilled),
         SizedBox(width: getSize(8)),
         BaseText(
             text: rating.toString(), fontSize: 12, fontWeight: FontWeight.w600),
@@ -183,7 +182,6 @@ class RatingStar extends StatelessWidget {
 
 class _PreviousShiftListTile extends StatelessWidget {
   const _PreviousShiftListTile({required this.data});
-
   final EmployerPreviousShiftDto data;
 
   @override
@@ -230,6 +228,19 @@ class _PreviousShiftListTile extends StatelessWidget {
           dateAndTime(context, data),
           Gap(getSize(10)),
           _buildActionButton(context),
+          Padding(
+            padding: EdgeInsets.only(top: getSize(10)),
+            child: BaseText(
+              text: (data.is_payment == 1)
+                  ? StringConstant.paymentCompleted
+                  : StringConstant.paymentUnderProcessing,
+              textColor: (data.is_payment == 1)
+                  ? AppColors.primaryColor
+                  : AppColors.redAccent,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          )
         ],
       ),
     );
@@ -484,13 +495,13 @@ class _PreviousShiftListTile extends StatelessWidget {
                 title: StringConstant.time,
                 startDate: (shift.last_worked_start_time != null)
                     ? DateFormat('hh:mm a').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (shift.last_worked_start_time ?? 0) * 1000))
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            (shift.last_worked_start_time ?? 0)))
                     : "",
                 endDate: (shift.last_worked_end_time != null)
                     ? DateFormat('hh:mm a').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (shift.last_worked_end_time ?? 0) * 1000))
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            (shift.last_worked_end_time ?? 0)))
                     : "",
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
@@ -794,7 +805,7 @@ class _ActionButton extends StatelessWidget {
 
 String convertTimeStampToDate(int timestamp,
     {bool isYear = false, bool isTime = false}) {
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
   if (isTime) {
     return DateFormat('hh:mm a').format(dateTime);

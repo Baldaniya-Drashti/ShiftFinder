@@ -35,13 +35,8 @@ class AddContractorSkillFormBloc
           );
           final failureOrSuccess = await repository.getCurrentUserApi();
           failureOrSuccess.fold(
-            (l) => emit(
-              state.copyWith(
-                isLoading: false,
-              ),
-            ),
+            (l) => emit(state.copyWith(isLoading: false)),
             (r) {
-              print("Current user complete profile----> ${r}");
               return emit(
                 state.copyWith(
                   isLoading: false,
@@ -59,8 +54,6 @@ class AddContractorSkillFormBloc
                               .map((element) => element.name ?? "")
                               .toList()
                           : []),
-
-                  // roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
                   requiredSoftwareSkillChipList: ListInputEmptyOrNot(
                       (r.complete_profile != null &&
                               r.complete_profile?.softwares_skill_list != null)
@@ -85,7 +78,6 @@ class AddContractorSkillFormBloc
                               .map((element) => element.name ?? "")
                               .toList()
                           : []),
-                  // specialityOther: r.specialties_detail_other?.split(',') ?? [],
                   languageChipList: ListInputEmptyOrNot(
                       (r.complete_profile != null &&
                               r.complete_profile!.languages_list != null)
@@ -97,11 +89,6 @@ class AddContractorSkillFormBloc
                           r.complete_profile!.language_other != null)
                       ? r.complete_profile!.language_other?.split(',') ?? []
                       : [],
-                  // location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
-                  // locationObj: r.location ?? LocationDTO(),
-                  // unitList: (r.location != null) ? r.location?.add_units ?? [] : [],
-                  // selectedLocationUnit: r.location_unit ?? "",
-                  // rateHour: Rate((r.rate_hour != null) ? "${r.rate_hour ?? ""}" : ""),
                 ),
               );
             },
@@ -127,9 +114,6 @@ class AddContractorSkillFormBloc
           ));
         },
         confirmRoleList: (e) {
-          /*  bool isChanged =
-              !listEquals(state.initialRoleTypeChipList.getValue(), e.roleList); */
-
           bool isChanged = !listEquals(
             List.from(state.initialRoleTypeChipList.getValue())..sort(),
             List.from(e.roleList)..sort(),
@@ -213,10 +197,7 @@ class AddContractorSkillFormBloc
           emit(
             state.copyWith(
               roleTypeChipList: ListInputEmptyOrNot(
-                List.from(updatedList
-                    /* List.of(state.roleTypeChipList.getValue())
-                    ..remove(e.roleType), */
-                    ),
+                List.from(updatedList),
               ),
               isRoleListUpdated: isChanged,
               authFailureOrSuccessOption: none(),
@@ -226,17 +207,11 @@ class AddContractorSkillFormBloc
 
         /// Select Specialities
         addRequiredSpecialitichips: (e) {
-          // final updatedList = List<SpecialityDTO>.from(
-          //     state.requiredSpecialityChipList.getValue());
-          print("SELECT VALUEEEEE-->  ${e.selectedValue}");
-
           if (e.selectedValue.trim().isNotEmpty &&
               !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.getValue().isEmpty ||
                   !state.requiredSpecialityChipList.getValue().any(
                       (speciality) => speciality.name == e.selectedValue))) {
-            // updatedList.add(SpecialityDTO(specialityName: e.selectedValue));
-
             emit(
               state.copyWith(
                 requiredSpecialityChipList: ListInputEmptyOrNot(
@@ -283,19 +258,11 @@ class AddContractorSkillFormBloc
             List.from(updatedList)..sort(),
           );
 
-          print("isSpeciality change----> ${isChanged}");
-          print(
-              "isSpeciality change---->111 ${state.initialSpecialityTypeChipList.getValue()}");
-          print("isSpeciality change---->222 ${updatedList}");
-
           /// For multi speciality
           emit(
             state.copyWith(
               requiredSpecialityChipList: ListInputEmptyOrNot(
-                List.from(updatedList
-                    /*  List.of(state.requiredSpecialityChipList.getValue())
-                    ..remove(e.selectedValue), */
-                    ),
+                List.from(updatedList),
               ),
               isSpecialityListUpdated: isChanged,
               specialityOther: List.of(state.specialityOther)
@@ -310,21 +277,8 @@ class AddContractorSkillFormBloc
           final updatedList = List<SpecialityDTO>.from(
               state.requiredSpecialityChipList.getValue());
 
-          print(
-              "state.requiredSpecialityChipList---> ${state.requiredSpecialityChipList}");
           if (!(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.getValue().isNotEmpty)) {
-            // emit(
-            //   state.copyWith(
-            //     selectedSpecialityExperienceList: ListInputEmptyOrNot(
-            //         List.from(state.selectedSpecialityExperienceList.getValue())
-            //           ..add(e.selectedValue)),
-            //     selectedSpecialityExperience:
-            //         (e.isOtherValue == true) ? "" : e.selectedValue,
-            //     authFailureOrSuccessOption: none(),
-            //   ),
-            // );
-
             int selectedExperienceId = getExperienceIdFromName(e.selectedValue);
             for (int i = 0; i < updatedList.length; i++) {
               if (i == e.currentIndex) {
@@ -337,7 +291,7 @@ class AddContractorSkillFormBloc
                 updatedList.insert(i, obj);
               }
             }
-            print("SPECILAITY LIST---->  ${jsonEncode(updatedList)}");
+
             emit(
               state.copyWith(
                 requiredSpecialityChipList:
@@ -349,15 +303,6 @@ class AddContractorSkillFormBloc
               ),
             );
           } else {
-            // emit(
-            //   state.copyWith(
-            //     selectedSpecialityExperienceList: ListInputEmptyOrNot(List.from(
-            //         state.selectedSpecialityExperienceList.getValue())),
-            //     selectedSpecialityExperience:
-            //         (e.isOtherValue == true) ? "" : e.selectedValue,
-            //     authFailureOrSuccessOption: none(),
-            //   ),
-            // );
             emit(
               state.copyWith(
                 requiredSpecialityChipList: ListInputEmptyOrNot(
@@ -423,25 +368,6 @@ class AddContractorSkillFormBloc
           }
         },
         removePreferedSoftwareSkillchips: (e) {
-          /*emit(
-            state.copyWith(
-              requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(
-                  state.requiredSoftwareSkillChipList.getOrCrash()
-                    ..remove(e.selectedValue))),
-              requiredSoftwareSkillChip: "",
-              softwareSkillOther:
-                  (state.softwareSkillOther.contains(e.selectedValue))
-                      ? (List<String>.from(state.softwareSkillOther)
-                        ..remove(e.selectedValue))
-                      : state.softwareSkillOther,
-              showSoftwareSkillError:
-                  (state.requiredSoftwareSkillChipList.getValue().isNotEmpty)
-                      ? false
-                      : true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );*/
-
           emit(
             state.copyWith(
               requiredSoftwareSkillChipList: ListInputEmptyOrNot(
@@ -503,22 +429,6 @@ class AddContractorSkillFormBloc
           }
         },
         removeLanguageChips: (e) {
-          /*emit(
-            state.copyWith(
-              languageChipList: ListInputEmptyOrNot(List.from(
-                  state.languageChipList.getOrCrash()
-                    ..remove(e.selectedLanguage))),
-              languageChip: "",
-              languageOther: (state.languageOther.contains(e.selectedLanguage))
-                  ? (List<String>.from(state.languageOther)
-                    ..remove(e.selectedLanguage))
-                  : state.languageOther,
-              showLanguageError:
-                  (state.languageChipList.getValue().isNotEmpty) ? false : true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );*/
-
           emit(
             state.copyWith(
               languageChipList: ListInputEmptyOrNot(
@@ -536,9 +446,6 @@ class AddContractorSkillFormBloc
 
         /// Click Continue Button
         continueBtnPressed: (e) async {
-          print("OTher Skill type value2222--->  ${state.softwareSkillOther}");
-          print(
-              "OTher Language type value3333--->  ${state.languageOther.join(',')}");
           Either<AuthFailure, String>? failureOrSuccess;
 
           final roleTypeListValid = state.roleTypeChipList.isValid();
@@ -548,28 +455,10 @@ class AddContractorSkillFormBloc
           final specialityListValid =
               state.requiredSpecialityChipList.isValid();
 
-          print(
-              "ROLE ALL !-------->  ${roleTypeListValid} ${state.showRoleTypeError}");
-          print(
-              "SPECIALITY ALL !-------->  ${specialityListValid} ${state.showSpecialityError}");
-          print(
-              "SOFTWARE ALL !-------->  ${softwareSkillListValid} ${state.showSoftwareSkillError}");
-          print(
-              "LANGUAGE ALL !-------->  ${state.languageChipList.getValue()} ${state.showLanguageError}");
-          print(
-              "EXPERIENCE ALL !-------->  ${specialityListValid} ${state.showSpeExperienceError}");
-
           if (roleTypeListValid &&
-                  (languageListValid || state.languageOther.isNotEmpty) &&
-                  (softwareSkillListValid ||
-                      state.softwareSkillOther.isNotEmpty) &&
-                  (specialityListValid || state.specialityOther.isNotEmpty)
-              // !state.showRoleTypeError &&
-              // !state.showSpecialityError &&
-              // !state.showSoftwareSkillError &&
-              // !state.showLanguageError &&
-              // !state.showSpeExperienceError
-              ) {
+              (languageListValid || state.languageOther.isNotEmpty) &&
+              (softwareSkillListValid || state.softwareSkillOther.isNotEmpty) &&
+              (specialityListValid || state.specialityOther.isNotEmpty)) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -579,7 +468,6 @@ class AddContractorSkillFormBloc
 
             failureOrSuccess = await _authFacade.completeProfileAPI(
               rolesListId: getSelectedRoleIds(),
-              // specialtiesDetail: getSelectedSpecialityIdsAsJson(),
               specialtiesDetail: getSelectedSpecialityIds(),
               specialityOther: state.specialityOther.join(','),
               softwaresSkillListId: getSelectedSoftwareIds(),
@@ -587,12 +475,6 @@ class AddContractorSkillFormBloc
               languageListId: getSelectedLanguageId(),
               languageOther: state.languageOther.join(','),
             );
-            // print("ALL DETAILS ARE VALID!----> ");
-            // print("Role id--> ${getSelectedRoleIds()} ");
-            // print("Skill id--> ${getSelectedSoftwareIds()}");
-            // print("Skill other--> ${state.softwareSkillOther.join(',')}");
-            // print("language id--> ${getSelectedLanguageId()} ");
-            // print("language other--> ${state.languageOther.join(',')} ");
           } else {
             print("Some DETAILS ARE INVALID!");
           }
@@ -620,30 +502,16 @@ class AddContractorSkillFormBloc
   }
 
   String getSelectedLanguageId() {
-    /*List<int> outputIds = [];
-    for (String title in state.languageChipList.getValue()) {
-      for (ListDTO item in CommonList.languageList) {
-        if (item.title == title) {
-          outputIds.add(item.id ?? -1);
-          break;
-        }
-      }
-    }
-    print("IDSSSSS----- ${outputIds}");
-    return outputIds;*/
-
     final languageIds = state.languageChipList
         .getValue()
         .map((chipName) => state.languageList.firstWhere(
               (language) => language.name == chipName,
-              orElse: () =>
-                  const SkillDTO(), // Handle cases where no match is found
+              orElse: () => const SkillDTO(),
             ))
-        .where((language) => language.id != null) // Filter out null values
-        .map((language) => language.id) // Extract IDs
+        .where((language) => language.id != null)
+        .map((language) => language.id)
         .toList();
     String commaSeparated = languageIds.join(',');
-    print("Language Ids--> ${commaSeparated}");
     return commaSeparated;
   }
 
@@ -652,18 +520,16 @@ class AddContractorSkillFormBloc
         .getValue()
         .map((chipName) => state.roleList.firstWhere(
               (role) => role.name == chipName,
-              orElse: () => SkillDTO(), // Handle cases where no match is found
+              orElse: () => SkillDTO(),
             ))
-        .where((role) => role.id != null) // Filter out null values
-        .map((role) => role.id) // Extract IDs
+        .where((role) => role.id != null)
+        .map((role) => role.id)
         .toList();
     String commaSeparated = roleIds.join(',');
-    print('Role IDs: $commaSeparated');
     return commaSeparated;
   }
 
   List<SpecialityDTO?> getSelectedSpecialtiyIds() {
-    print('Spciality IDs=====: ${state.requiredSpecialityChipList}');
     final specialityIds = state.requiredSpecialityChipList
         .getValue()
         .map((chipName) {
@@ -680,7 +546,6 @@ class AddContractorSkillFormBloc
 
           return SpecialityDTO(
             id: speciality.id,
-            // name: speciality.name,
             name: speciality.id == null ? '' : speciality.name,
             shortName: speciality.shortName,
             experienceId: chipName.experienceId,
@@ -692,7 +557,6 @@ class AddContractorSkillFormBloc
             (speciality.id != null || speciality.specialityOther != null))
         .toList();
 
-    print('Spciality IDs: $specialityIds');
     return specialityIds;
   }
 
@@ -719,13 +583,12 @@ class AddContractorSkillFormBloc
         .getValue()
         .map((chipName) => state.softwareList.firstWhere(
               (software) => software.name == chipName,
-              orElse: () => SkillDTO(), // Handle cases where no match is found
+              orElse: () => SkillDTO(),
             ))
-        .where((software) => software.id != null) // Filter out null values
-        .map((software) => software.id) // Extract IDs
+        .where((software) => software.id != null)
+        .map((software) => software.id)
         .toList();
     String commaSeparated = softwareIds.join(',');
-    print('Software IDs: $commaSeparated');
 
     return commaSeparated;
   }
@@ -735,14 +598,12 @@ class AddContractorSkillFormBloc
         .getValue()
         .map((chipName) => state.specialityList.firstWhere(
               (speciality) => speciality.name == chipName,
-              orElse: () =>
-                  SpecialityDTO(), // Handle cases where no match is found
+              orElse: () => SpecialityDTO(),
             ))
-        .where((speciality) => speciality.id != null) // Filter out null values
-        .map((speciality) => speciality.id) // Extract IDs
+        .where((speciality) => speciality.id != null)
+        .map((speciality) => speciality.id)
         .toList();
     String commaSeparated = specialityIds.join(',');
-    print('Speciality IDs: $commaSeparated');
 
     return commaSeparated;
   }
@@ -760,8 +621,6 @@ class AddContractorSkillFormBloc
           ),
         ),
         (r) {
-          print(
-              "Current user complete profile----> ${r.complete_profile?.specialties_detail}");
           return emit(
             state.copyWith(
               isLoading: false,
@@ -812,7 +671,6 @@ class AddContractorSkillFormBloc
                       .map((element) => element.specialtie_lists_other ?? "")
                       .toList()
                   : [],
-              // r.complete_profile?.specialties_other?.split(',') ?? [],
               languageChipList: ListInputEmptyOrNot(
                   (r.complete_profile != null &&
                           r.complete_profile!.languages_list != null)
@@ -835,7 +693,7 @@ class AddContractorSkillFormBloc
 
   getRoleListApi(Emitter<AddContractorSkillFormState> emit) async {
     final roleList = await _authFacade.getRoleList();
-    print("Role List ---> ${roleList}");
+
     roleList.fold(
       (l) => emit(
         state.copyWith(
@@ -846,7 +704,6 @@ class AddContractorSkillFormBloc
       (r) {
         return emit(
           state.copyWith(
-            // isLoading: false,
             roleList: List.from(state.roleList)..addAll(r),
           ),
         );
@@ -856,7 +713,7 @@ class AddContractorSkillFormBloc
 
   getExperienceListApi(Emitter<AddContractorSkillFormState> emit) async {
     final experienceList = await _authFacade.getExperienceList();
-    print("Experience List ---> ${experienceList}");
+
     experienceList.fold(
       (l) => emit(
         state.copyWith(
@@ -867,7 +724,6 @@ class AddContractorSkillFormBloc
       (r) {
         return emit(
           state.copyWith(
-            // isLoading: false,
             experienceList: List.from(state.experienceList)..addAll(r),
           ),
         );
@@ -877,7 +733,7 @@ class AddContractorSkillFormBloc
 
   getSpecialityListApi(Emitter<AddContractorSkillFormState> emit) async {
     final specialityList = await _authFacade.getSpecialityList();
-    print("Speciality List ---> ${specialityList}");
+
     specialityList.fold(
       (l) => emit(
         state.copyWith(
@@ -888,7 +744,6 @@ class AddContractorSkillFormBloc
       (r) {
         return emit(
           state.copyWith(
-            // isLoading: false,
             specialityList: List.from(state.specialityList)..addAll(r),
           ),
         );
@@ -898,7 +753,7 @@ class AddContractorSkillFormBloc
 
   getSoftwareListApi(Emitter<AddContractorSkillFormState> emit) async {
     final softwareList = await _authFacade.getSoftwareSkillList();
-    print("Software List ---> ${softwareList}");
+
     softwareList.fold(
       (l) => emit(
         state.copyWith(
@@ -919,7 +774,7 @@ class AddContractorSkillFormBloc
 
   getLanguageListApi(Emitter<AddContractorSkillFormState> emit) async {
     final languageList = await _authFacade.getLanguageList();
-    print("Language List ---> ${languageList}");
+
     languageList.fold(
       (l) => emit(
         state.copyWith(
@@ -930,7 +785,6 @@ class AddContractorSkillFormBloc
       (r) {
         return emit(
           state.copyWith(
-            // isLoading: false,
             languageList: List.from(state.languageList)..addAll(r),
           ),
         );

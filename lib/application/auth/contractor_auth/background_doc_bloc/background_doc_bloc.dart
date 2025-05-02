@@ -10,6 +10,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -68,9 +69,9 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                     bgDocFrontDoc: InputEmptyOrNot(r[0].file ?? ""),
                     bgDocBackDoc: InputEmptyOrNot(r[0].back_file ?? ""),
                     bgDocIssueDate: (r[0].expiry_date != null)
-                        ? DateTime.fromMillisecondsSinceEpoch(
-                            (r[0].expiry_date ?? -1) * 1000,
-                          ).toIso8601String()
+                        ? CustomDateTimeFormat.timeStampToDateTime(
+                                r[0].expiry_date ?? -1)
+                            .toIso8601String()
                         : "",
                   ),
                 );
@@ -220,8 +221,8 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                 bgDocBackDoc:
                     InputEmptyOrNot(state.existingBgDoc.back_file ?? ""),
                 bgDocIssueDate: (state.existingBgDoc.expiry_date != null)
-                    ? DateTime.fromMillisecondsSinceEpoch(
-                        (state.existingBgDoc.expiry_date ?? -1) * 1000,
+                    ? CustomDateTimeFormat.timeStampToDateTime(
+                        state.existingBgDoc.expiry_date ?? -1,
                       ).toIso8601String()
                     : "",
                 showErrorMesages: false,

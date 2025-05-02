@@ -18,15 +18,7 @@ class CustomDateTimeFormat {
     return totalDuration;
   }
 
-  // static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
-  //   final now = dateTime ?? DateTime.now();
-  //   final hourInt = exttractHour(hour);
-  //   final minuteInt = extractMinutes(minute);
-
-  //   return DateTime(now.year, now.month, now.day, hourInt, minuteInt);
-  // }
-
-  static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
+  /* static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
     final now = dateTime ?? DateTime.now();
     final hourInt = extractHour(hour);
     final minuteInt = extractMinutes(minute);
@@ -36,6 +28,19 @@ class CustomDateTimeFormat {
     final isPm = hour.contains('PM');
     final adjustedHourInt = (hourInt == 12 && !isPm) ? 0 : hourInt;
 
+    final finalHour =
+        isPm && adjustedHourInt < 12 ? adjustedHourInt + 12 : adjustedHourInt;
+
+    return DateTime(now.year, now.month, now.day, finalHour, minuteInt);
+  } */
+
+  static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
+    final now = dateTime ?? DateTime.now();
+    final hourInt = extractHour(hour);
+    final minuteInt = extractMinutes(minute);
+
+    final isPm = hour.toUpperCase().contains('PM');
+    final adjustedHourInt = (hourInt == 12 && !isPm) ? 0 : hourInt;
     final finalHour =
         isPm && adjustedHourInt < 12 ? adjustedHourInt + 12 : adjustedHourInt;
 
@@ -55,8 +60,8 @@ class CustomDateTimeFormat {
       {DateTime? dateTime}) {
     final now = dateTime ?? DateTime.now();
 
-    final hourInt = DateTime.fromMillisecondsSinceEpoch(time * 1000).hour;
-    final minuteInt = DateTime.fromMillisecondsSinceEpoch(time * 1000).minute;
+    final hourInt = timeStampToDateTime(time).hour;
+    final minuteInt = timeStampToDateTime(time).minute;
 
     return DateTime(now.year, now.month, now.day, hourInt, minuteInt);
   }
@@ -78,7 +83,8 @@ class CustomDateTimeFormat {
   }
 
   static getHour({required int timestamp}) {
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    final dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
+
     String formattedHour = DateFormat('hh a').format(dateTime);
     print("Formatted Hour: $formattedHour");
 
@@ -86,7 +92,8 @@ class CustomDateTimeFormat {
   }
 
   static getMinute({required int timestamp}) {
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    final dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
+
     String formattedMinute = DateFormat('mm').format(dateTime);
     print("Formatted Minute: $formattedMinute");
 
@@ -124,6 +131,29 @@ class CustomDateTimeFormat {
       return "$startTime to $endTime";
     } else {
       return "";
+    }
+  }
+
+  static dateTimeToUtcTimestamp(DateTime localDate, {bool? isInt}) {
+    final fixedUtcDate = DateTime.utc(
+      localDate.year,
+      localDate.month,
+      localDate.day,
+      localDate.hour,
+      localDate.minute,
+      localDate.second,
+    );
+    return (isInt == true)
+        ? (fixedUtcDate.millisecondsSinceEpoch ~/ 1000)
+        : (fixedUtcDate.millisecondsSinceEpoch / 1000);
+  }
+
+  static DateTime timeStampToDateTime(int timeStamp, {isMillisecond = true}) {
+    if (isMillisecond) {
+      return DateTime.fromMillisecondsSinceEpoch((timeStamp) * 1000,
+          isUtc: true);
+    } else {
+      return DateTime.fromMillisecondsSinceEpoch((timeStamp), isUtc: true);
     }
   }
 }

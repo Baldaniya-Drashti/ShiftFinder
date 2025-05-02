@@ -1,17 +1,8 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/string_constant.dart';
-
-import '../widgets/base_text.dart';
 
 class ImagePickerUtils {
   final picker = ImagePicker();
@@ -25,7 +16,8 @@ class ImagePickerUtils {
       XFile? pickedImage;
 
       if (imageSource == ImageSource.gallery) {
-        var permission = await checkAndRequestStoragePermissions();
+        /// TO ASK MANUAL PERMISSION
+        /* var permission = await checkAndRequestStoragePermissions();
         print("Storage permission ---> $permission");
         print(permission);
         if (permission) {
@@ -40,24 +32,36 @@ class ImagePickerUtils {
               context: context,
             );
           }
-        }
+        } */
+
+        pickedImage = await picker.pickImage(
+          source: imageSource,
+          imageQuality: imageQuality,
+        );
       } else if (imageSource == ImageSource.camera) {
         try {
-          var permission = await checkAndRequestCameraPermissions();
+          /// TO ASK MANUAL PERMISSION
+          /*var permission = await checkAndRequestCameraPermissions();
           print("permission---> $permission");
-          if (permission) {
-            pickedImage = await picker.pickImage(
-              source: imageSource,
-              maxWidth: 1080,
-              maxHeight: 1920,
-              imageQuality: 50,
-            );
-          } else {
+          if (permission) { 
+          pickedImage = await picker.pickImage(
+            source: imageSource,
+            maxWidth: 1080,
+            maxHeight: 1920,
+            imageQuality: 50,
+          );
+        } else {
             if (cameraPermissionPermanentlyDenied) {
               _showPermissionAlertDialog(
                   imageSource: imageSource, context: context);
             }
-          }
+          } */
+          pickedImage = await picker.pickImage(
+            source: imageSource,
+            maxWidth: 1080,
+            maxHeight: 1920,
+            imageQuality: 50,
+          );
         } catch (e, stackTrace) {
           print("Error crash imagepicker ---> $e");
           print("Stack trace: $stackTrace");
@@ -66,7 +70,7 @@ class ImagePickerUtils {
 
       if (pickedImage != null) {
         File imageFile = File(pickedImage.path);
-        print('File path = ${pickedImage.path}');
+
         print(
             'File size = ${(imageFile.lengthSync() / 1024).toStringAsFixed(2)} KB');
       } else {
@@ -80,7 +84,7 @@ class ImagePickerUtils {
     }
   }
 
-  Future<bool> checkAndRequestCameraPermissions() async {
+  /* Future<bool> checkAndRequestCameraPermissions() async {
     PermissionStatus permission = await Permission.camera.status;
 
     if (permission != PermissionStatus.granted) {
@@ -155,6 +159,8 @@ class ImagePickerUtils {
         var permissionStatus = await Permission.photos.request();
         if (permissionStatus.isGranted ||
             permission != PermissionStatus.limited) {
+          return true;
+        } else if (permission == PermissionStatus.limited) {
           return true;
         } else if (permissionStatus.isPermanentlyDenied) {
           galleryPermissionPermanentlyDenied = true;
@@ -274,4 +280,38 @@ class ImagePickerUtils {
       );
     });
   }
+ */
+/*   Future<XFile?> pickImageFromGallery(BuildContext context) async {
+    XFile? pickedImage;
+    // var permission = await checkAndRequestStoragePermissions();
+    /* print(permission);
+    if (permission) { */
+    if (Platform.isIOS) {
+      final picker = IosNativeImagePicker();
+      try {
+        final imagePath = await picker.openImagePicker();
+        if (imagePath != null) {
+          pickedImage = XFile(imagePath);
+          print("Selected Image Path: $imagePath");
+        } else {
+          print("No image selected or an error occurred.");
+        }
+      } catch (e) {
+        print("Error selecting image: $e");
+      }
+    } else {
+      pickedImage = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+      );
+    }
+    /*  } else {
+      if (galleryPermissionPermanentlyDenied) {
+        await _showPermissionAlertDialog(
+            imageSource: ImageSource.gallery, context: context);
+      }
+    } */
+    return pickedImage;
+  }
+ */
 }

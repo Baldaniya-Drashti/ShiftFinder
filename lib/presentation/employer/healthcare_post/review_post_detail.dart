@@ -14,6 +14,7 @@ import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.da
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -209,7 +210,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
             children: [
               BaseText(
                 text: (post.shift_detail?.recurring_start_date != null)
-                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_start_date ?? -1) * 1000))}"
+                    ? "${DateFormat("d MMM, yyyy").format(CustomDateTimeFormat.timeStampToDateTime((post.shift_detail?.recurring_start_date ?? -1)))}"
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -223,7 +224,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
               ),
               BaseText(
                 text: (post.shift_detail?.recurring_end_date != null)
-                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_end_date ?? -1) * 1000))}"
+                    ? "${DateFormat("d MMM, yyyy").format(CustomDateTimeFormat.timeStampToDateTime((post.shift_detail?.recurring_end_date ?? -1)))}"
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -597,7 +598,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);

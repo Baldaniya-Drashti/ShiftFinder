@@ -15,6 +15,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -425,13 +426,13 @@ class UpcomingShift extends StatelessWidget {
                   title: StringConstant.time,
                   startDate: (shift.start_time != null)
                       ? DateFormat('hh:mm a').format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (shift.start_time ?? 0) * 1000))
+                          CustomDateTimeFormat.timeStampToDateTime(
+                              (shift.start_time ?? 0)))
                       : "",
                   endDate: (shift.end_time != null)
                       ? DateFormat('hh:mm a').format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (shift.end_time ?? 0) * 1000))
+                          CustomDateTimeFormat.timeStampToDateTime(
+                              (shift.end_time ?? 0)))
                       : "",
                   svgPrefixIcon: SvgImageConstant.clock,
                 )
@@ -452,7 +453,7 @@ class UpcomingShift extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);

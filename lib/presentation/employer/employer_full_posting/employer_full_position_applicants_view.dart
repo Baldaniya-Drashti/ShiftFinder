@@ -63,8 +63,7 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
                   : state.isErrorInAPI
                       ? Center(
                           child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
+                              BaseText(text: StringConstant.somethindWentWrong))
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(16)).copyWith(top: 0),
                           separatorBuilder: (context, index) => Gap(16),

@@ -7,6 +7,7 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/presentation/billing/invoice_viewer.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
 part 'monthly_statement_event.dart';
@@ -41,7 +42,6 @@ class MonthlyStatementBloc
                   fileName: 'Monthly_Statement.pdf');
 
           if (pdfPath != null) {
-            print('PDF saved to: $pdfPath');
             showSuccess(message: "Monthly_Statement Downloaded..!")
                 .show(e.context);
             /* Navigator.push(
@@ -62,10 +62,10 @@ class MonthlyStatementBloc
 
             failureOrSuccess = await mainFacade.getEmployerMonthlyStatementAPI(
               startDate: (e.startDate != null)
-                  ? e.startDate!.toUtc().millisecondsSinceEpoch / 1000
+                  ? CustomDateTimeFormat.dateTimeToUtcTimestamp(e.startDate!)
                   : null,
               endDate: (e.endDate != null)
-                  ? e.endDate!.toUtc().millisecondsSinceEpoch / 1000
+                  ? CustomDateTimeFormat.dateTimeToUtcTimestamp(e.endDate!)
                   : null,
             );
 

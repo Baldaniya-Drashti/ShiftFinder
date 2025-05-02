@@ -38,6 +38,8 @@
 	<string>This app needs access to location when open.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please grant photo gallery access</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

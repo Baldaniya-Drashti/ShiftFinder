@@ -52,8 +52,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       {int shiftType = 0}) {
     DateTime currentDate = DateTime.now();
     DateTime selectedDate = (state.shift.shift_detail?.detail?[0].date != null)
-        ? DateTime.fromMillisecondsSinceEpoch(
-            (state.shift.shift_detail?.detail?[0].date ?? -1) * 1000)
+        ? CustomDateTimeFormat.timeStampToDateTime(
+            state.shift.shift_detail?.detail?[0].date ?? -1)
         : DateTime.now();
 
     print(
@@ -715,21 +715,21 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       state.startHour.getValue() ?? "",
       state.startMinute.getValue() ?? "",
       dateTime: (state.shift.shift_detail?.date != null)
-          ? DateTime.fromMillisecondsSinceEpoch(
-              (state.shift.shift_detail?.date ?? -1) * 1000)
+          ? CustomDateTimeFormat.timeStampToDateTime(
+              (state.shift.shift_detail?.date ?? -1))
           : null,
     ).toString();
     String endTime = CustomDateTimeFormat.parseTime(
       state.endHour.getValue() ?? "",
       state.endMinute.getValue() ?? "",
       dateTime: (state.shift.shift_detail?.date != null)
-          ? DateTime.fromMillisecondsSinceEpoch(
-              (state.shift.shift_detail?.date ?? -1) * 1000)
+          ? CustomDateTimeFormat.timeStampToDateTime(
+              (state.shift.shift_detail?.date ?? -1))
           : null,
     ).toString();
 
     String shiftDate =
-        (DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000)
+        CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.parse(startTime))
             .toString();
 
     return {
@@ -739,9 +739,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       'shift_type': 2,
       'rate_hour': state.rateHour.getValue(),
       'date': shiftDate,
-      'start_time':
-          DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000,
-      'end_time': DateTime.parse(endTime).toUtc().millisecondsSinceEpoch / 1000,
+      'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+          DateTime.parse(startTime)),
+      'end_time':
+          CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.parse(endTime)),
       'commute_allowance': (state.shift.shift_detail?.commute_allowance_type ==
               1)
           ? state.commuteRate.getValue()
@@ -806,20 +807,19 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 );
 
           final map = {
-            'date': formattedDate.toUtc().millisecondsSinceEpoch / 1000,
-            'start_time': DateTime.parse(
-                        (shiftDetail.same_or_different_time == 1)
-                            ? formattedStartTime
-                            : multiDate.start_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch ~/
-                1000,
-            'end_time': DateTime.parse((shiftDetail.same_or_different_time == 1)
-                        ? formattedEndTime
-                        : multiDate.end_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch ~/
-                1000,
+            'date': CustomDateTimeFormat.dateTimeToUtcTimestamp(formattedDate),
+            'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse((shiftDetail.same_or_different_time == 1)
+                  ? formattedStartTime
+                  : multiDate.start_time ?? ""),
+              isInt: true,
+            ),
+            'end_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse((shiftDetail.same_or_different_time == 1)
+                  ? formattedEndTime
+                  : multiDate.end_time ?? ""),
+              isInt: true,
+            ),
             'payable_hour': multiDate.totalPaybleHours,
             'unpaid_break_id': (shiftDetail.same_or_different_time == 1)
                 ? state.shift.shift_detail?.unpaid_break?.id ?? -1
@@ -838,10 +838,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
         final list = state.multiDates
             .where((element) => element.isUnAvailable == true)
             .map((multiDate) {
-          return (DateTime.parse(multiDate.date ?? "")
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000);
+          return CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse(multiDate.date ?? ""));
         }).toList();
 
         return list.join(",");
@@ -1073,14 +1071,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     print("detail is empty--> $detail");
     final list = detail.map((multiDate) {
       final timestamp = multiDate.date;
-      // return (timestamp != null)
-      //     ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)
-      //     : DateTime.now();
 
       return DateTimeDTO(
         id: multiDate.id,
         date: (timestamp != null)
-            ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000).toString()
+            ? CustomDateTimeFormat.timeStampToDateTime(timestamp).toString()
             : DateTime.now().toString(),
         startHour:
             CustomDateTimeFormat.getHour(timestamp: multiDate.start_time ?? 0),
@@ -1091,11 +1086,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
         endMinute:
             CustomDateTimeFormat.getMinute(timestamp: multiDate.end_time ?? 0),
         start_time: (multiDate.start_time != null)
-            ? DateTime.fromMillisecondsSinceEpoch(multiDate.start_time! * 1000)
+            ? CustomDateTimeFormat.timeStampToDateTime(multiDate.start_time!)
                 .toString()
             : DateTime.now().toString(),
         end_time: (multiDate.end_time != null)
-            ? DateTime.fromMillisecondsSinceEpoch(multiDate.end_time! * 1000)
+            ? CustomDateTimeFormat.timeStampToDateTime(multiDate.end_time!)
                 .toString()
             : DateTime.now().toString(),
         totalPaybleHours: multiDate.payable_hour ?? "",

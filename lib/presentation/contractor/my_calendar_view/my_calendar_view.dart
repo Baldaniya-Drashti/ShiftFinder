@@ -13,6 +13,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -144,7 +145,7 @@ class MyCalendarView extends StatelessWidget {
   Widget calendarView(BuildContext context, MyCalendarViewState state) {
     List<DateTime> selectedDates = state.multiDates.map((dto) {
       return (dto.date != null)
-          ? DateTime.fromMillisecondsSinceEpoch((dto.date ?? -1) * 1000)
+          ? CustomDateTimeFormat.timeStampToDateTime((dto.date ?? -1))
           : DateTime.now();
     }).toList();
 
@@ -209,7 +210,7 @@ class MyCalendarView extends StatelessWidget {
     String formattedDate = date.toIso8601String().substring(0, 10);
 
     MyCalendarDTO? dateEntry = state.multiDates.firstWhere((entry) {
-      return DateTime.fromMillisecondsSinceEpoch((entry.date ?? -1) * 1000)
+      return CustomDateTimeFormat.timeStampToDateTime((entry.date ?? -1))
           .toIso8601String()
           .startsWith(formattedDate);
     }, orElse: () => MyCalendarDTO());
@@ -459,13 +460,13 @@ class MyCalendarView extends StatelessWidget {
           title: StringConstant.time,
           startDate: (post.start_time != null)
               ? DateFormat('hh:mm a').format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      (post.start_time ?? 0) * 1000))
+                  CustomDateTimeFormat.timeStampToDateTime(
+                      (post.start_time ?? 0)))
               : "",
           endDate: (post.end_time != null)
               ? DateFormat('hh:mm a').format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      (post.end_time ?? 0) * 1000))
+                  CustomDateTimeFormat.timeStampToDateTime(
+                      (post.end_time ?? 0)))
               : "",
           svgPrefixIcon: SvgImageConstant.clock,
         ),
@@ -597,7 +598,7 @@ class MyCalendarView extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/chat_section/widget/chat_date_method.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
@@ -15,11 +17,17 @@ class ShowDateWidget extends StatelessWidget {
     return Center(
       child: BaseText(
         text: ChatDateMethod().isToday(
-          DateTime.fromMillisecondsSinceEpoch(date),
+          CustomDateTimeFormat.timeStampToDateTime(
+            date,
+            isMillisecond: false,
+          ),
         )
-            ? 'Today'
+            ? StringConstant.today
             : ChatDateMethod().formatAsYesterday(
-                DateTime.fromMillisecondsSinceEpoch(date),
+                CustomDateTimeFormat.timeStampToDateTime(
+                  date,
+                  isMillisecond: false,
+                ),
               ),
         fontSize: 10,
         textColor: AppColors.primaryColor,

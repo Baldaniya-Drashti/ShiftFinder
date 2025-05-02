@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/auth/contractor/bank/bank_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 
@@ -78,9 +79,9 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
                 lastName: Lastname(bank?.last_name ?? ""),
                 phoneNumber: MobileNumber(bank?.phone ?? ""),
                 dateOfBirth: (bank?.dob != null)
-                    ? InputEmptyOrNot(DateTime.fromMillisecondsSinceEpoch(
-                            (bank?.dob ?? -1) * 1000)
-                        .toIso8601String())
+                    ? InputEmptyOrNot(CustomDateTimeFormat.timeStampToDateTime(
+                        bank?.dob ?? -1,
+                      ).toIso8601String())
                     : InputEmptyOrNot(""),
                 bankAddress: InputEmptyOrNot(bank?.bank_address ?? ""),
                 city: InputEmptyOrNot(bank?.city ?? ""),
@@ -341,10 +342,8 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
               accountType: (state.accountType.getValue() ?? "").toLowerCase(),
               firstName: state.firstName.getValue(),
               lastName: state.lastName.getValue(),
-              dateOfBirth: (DateTime.parse(state.dateOfBirth.getValue() ?? "")
-                          .toUtc()
-                          .millisecondsSinceEpoch /
-                      1000)
+              dateOfBirth: CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      DateTime.parse(state.dateOfBirth.getValue() ?? ""))
                   .toString(),
               bankAddress: state.bankAddress.getValue() ?? "",
               city: state.city.getValue() ?? "",

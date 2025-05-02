@@ -1,29 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_dto.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-
-class PdfViewerScreen extends StatelessWidget {
-  final String pdfPath;
-  const PdfViewerScreen({super.key, required this.pdfPath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Invoice Viewer")),
-      body: PDFView(
-        filePath: pdfPath,
-      ),
-    );
-  }
-}
 
 class InvoiceGenerator {
   Future<Uint8List> generateContractorCompleteShiftInvoice(
@@ -44,9 +28,7 @@ class InvoiceGenerator {
     final industry = CommonList.industryList
         .firstWhere((element) => element.id == invoice.industry);
 
-    final logoImage =
-        // await rootBundle.loadString('assets/svg/contact_support.svg');
-        await rootBundle.load('assets/png/leaf_with_bg.png');
+    final logoImage = await rootBundle.load('assets/png/leaf_with_bg.png');
 
     pdf.addPage(
       pw.Page(
@@ -130,8 +112,8 @@ class InvoiceGenerator {
                   title: "${StringConstant.date} :",
                   value: (invoice.date != null)
                       ? DateFormat("dd MMM, yyyy").format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (invoice.date!) * 1000))
+                          CustomDateTimeFormat.timeStampToDateTime(
+                              invoice.date!))
                       : ""),
               paddingBetweenFilled(height: getSize(30)),
               titleWidget(StringConstant.paymentsDetails),
@@ -288,14 +270,14 @@ class InvoiceGenerator {
                   title: "${StringConstant.date} :",
                   value: (invoice.date != null)
                       ? DateFormat("dd MMM, yyyy").format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (invoice.date!) * 1000))
+                          CustomDateTimeFormat.timeStampToDateTime(
+                              invoice.date!))
                       : ""),
               detailWidget(
                   title: "${StringConstant.shiftTime} :",
                   value: (invoice.clock_in_clock_out?.clock_in != null &&
                           invoice.clock_in_clock_out?.clock_out != null)
-                      ? "${DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch((invoice.clock_in_clock_out!.clock_in!) * 1000))} to ${DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch((invoice.clock_in_clock_out!.clock_out!) * 1000))}"
+                      ? "${DateFormat("hh:mm a").format(CustomDateTimeFormat.timeStampToDateTime((invoice.clock_in_clock_out!.clock_in!)))} to ${DateFormat("hh:mm a").format(CustomDateTimeFormat.timeStampToDateTime((invoice.clock_in_clock_out!.clock_out!)))}"
                       : ""),
               if (invoice.clock_in_clock_out?.unpaid_break != null)
                 detailWidget(
@@ -566,8 +548,8 @@ class InvoiceGenerator {
                   title2: "${StringConstant.shiftDate} :",
                   value2: (invoice.date != null)
                       ? DateFormat("dd MMM, yyyy").format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (invoice.date!) * 1000))
+                          CustomDateTimeFormat.timeStampToDateTime(
+                              (invoice.date!)))
                       : "",
                   regularFont: regularFont),
               horizontalDetailWidget(
@@ -746,8 +728,8 @@ class InvoiceGenerator {
               title: "${StringConstant.dateOfTransaction} :",
               value: (item.date_of_transaction != null)
                   ? DateFormat('dd MMM yyyy').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          item.date_of_transaction! * 1000))
+                      CustomDateTimeFormat.timeStampToDateTime(
+                          item.date_of_transaction!))
                   : ""),
           detailWidget(
               title: "${StringConstant.contractorName} :",

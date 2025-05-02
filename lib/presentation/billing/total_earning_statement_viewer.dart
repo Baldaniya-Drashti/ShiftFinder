@@ -6,6 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/contractor_main/earning/earning_statement_dto/earning_statement_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 
@@ -371,7 +372,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           detailWidget(
               title: "${StringConstant.date} :",
               value: DateFormat('dd MMM yyyy').format(
-                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
+                  CustomDateTimeFormat.timeStampToDateTime(earning.date!))),
           detailWidget(
               title: "${StringConstant.companyName} :",
               value: earning.company_name ?? ""),
@@ -408,7 +409,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           detailWidget(
               title: "${StringConstant.date} :",
               value: DateFormat('dd MMM yyyy').format(
-                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
+                  CustomDateTimeFormat.timeStampToDateTime(earning.date!))),
           detailWidget(
               title: "${StringConstant.companyName} :",
               value: earning.company_name ?? ""),
@@ -433,7 +434,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           detailWidget(
               title: "${StringConstant.date} :",
               value: DateFormat('dd MMM yyyy').format(
-                  DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
+                  CustomDateTimeFormat.timeStampToDateTime(earning.date!))),
           detailWidget(
               title: "${StringConstant.referredContractorName} :",
               value: earning.referred_contractor_name ?? ""),

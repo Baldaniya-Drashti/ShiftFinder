@@ -112,7 +112,7 @@ class SocketChatService extends ChatService {
   Future<bool> socketConnected() async {
     try {
       // Add a small delay to ensure socket state is updated
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(seconds: 2));
 
       final isActuallyConnected = socket.connected;
       final isStatusConnected =

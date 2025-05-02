@@ -23,9 +23,7 @@ class AppWidget extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<AuthStatusBloc>()
-            ..add(
-              const AuthStatusEvent.authCheckRequested(),
-            ),
+            ..add(const AuthStatusEvent.authCheckRequested()),
         ),
         BlocProvider(
           create: (context) => getIt<ContractorMainTabBloc>()

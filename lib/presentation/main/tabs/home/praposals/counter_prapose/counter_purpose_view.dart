@@ -8,6 +8,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -57,8 +58,8 @@ class CounterPurposeView extends StatelessWidget {
                             SizedBox(height: getSize(20)),
                             BaseText(
                               text: DateFormat("dd MMM, yyyy").format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      (data.start_date ?? 0) * 1000)),
+                                  CustomDateTimeFormat.timeStampToDateTime(
+                                      (data.start_date ?? 0))),
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               textColor: AppColors.green,

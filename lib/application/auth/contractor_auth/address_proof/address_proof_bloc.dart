@@ -10,6 +10,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -84,9 +85,9 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     addressproofFrontDoc: InputEmptyOrNot(r[0].file ?? ""),
                     addressProofBackDoc: InputEmptyOrNot(r[0].back_file ?? ""),
                     docExpiryDate: (r[0].expiry_date != null)
-                        ? DateTime.fromMillisecondsSinceEpoch(
-                            (r[0].expiry_date ?? -1) * 1000,
-                          ).toIso8601String()
+                        ? CustomDateTimeFormat.timeStampToDateTime(
+                                r[0].expiry_date ?? -1)
+                            .toIso8601String()
                         : "",
                   ),
                 );
@@ -245,9 +246,9 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 addressProofBackDoc:
                     InputEmptyOrNot(state.existingAddressProof.back_file ?? ""),
                 docExpiryDate: (state.existingAddressProof.expiry_date != null)
-                    ? DateTime.fromMillisecondsSinceEpoch(
-                        (state.existingAddressProof.expiry_date ?? -1) * 1000,
-                      ).toIso8601String()
+                    ? CustomDateTimeFormat.timeStampToDateTime(
+                            state.existingAddressProof.expiry_date ?? -1)
+                        .toIso8601String()
                     : "",
                 showErrorMesages: false,
               ));

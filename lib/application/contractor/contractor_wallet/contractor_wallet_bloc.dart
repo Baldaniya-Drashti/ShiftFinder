@@ -12,6 +12,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/contractor_earning/contractor_wallet_view.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -97,24 +98,15 @@ class ContractorWalletBloc
         getWalletList: (e) async {
           String? startDate;
           String? endDate;
-          // DateTime now = DateTime.now();
+
           if (state.selectedDateTime.isNotEmpty) {
-            startDate =
-                (state.selectedDateTime.first.toUtc().millisecondsSinceEpoch /
-                        1000)
-                    .toString();
-            endDate =
-                (state.selectedDateTime.last.toUtc().millisecondsSinceEpoch /
-                        1000)
-                    .toString();
-          } /* else {
-            startDate = (DateTime(now.year, now.month, 1)
-                        .toUtc()
-                        .millisecondsSinceEpoch /
-                    1000)
+            startDate = CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    state.selectedDateTime.first)
                 .toString();
-            endDate = (now.toUtc().millisecondsSinceEpoch / 1000).toString();
-          } */
+            endDate = CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    state.selectedDateTime.last)
+                .toString();
+          }
 
           if (startDate != null && endDate != null) {
             if (e.isRefresh) {

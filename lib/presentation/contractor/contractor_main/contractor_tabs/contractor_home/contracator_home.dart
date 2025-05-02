@@ -13,6 +13,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -49,11 +50,8 @@ class ContractorHomeView extends StatelessWidget {
                     image: (getCurrentUser().profileImage != null &&
                             getCurrentUser().profileImage!.isNotEmpty)
                         ? CachedNetworkImageProvider(
-                            getCurrentUser().profileImage!,
-                          )
-                        : AssetImage(
-                            PngImageConstants.profile_employer,
-                          ),
+                            getCurrentUser().profileImage!)
+                        : AssetImage(PngImageConstants.profile_employer),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -152,8 +150,7 @@ class ContractorHomeView extends StatelessWidget {
                           : state.isErrorInAPI
                               ? Center(
                                   child: BaseText(
-                                      text: StringConstant.somethindWentWrong),
-                                )
+                                      text: StringConstant.somethindWentWrong))
                               : ListView.builder(
                                   itemCount:
                                       state.contractorDashboardList.length,
@@ -164,7 +161,10 @@ class ContractorHomeView extends StatelessWidget {
                                   physics: BouncingScrollPhysics(),
                                   itemBuilder: (_, index) {
                                     return getCheckoutContainer(
-                                        index, context, state);
+                                      index,
+                                      context,
+                                      state,
+                                    );
                                   },
                                 ),
                     ),
@@ -201,9 +201,7 @@ class ContractorHomeView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           contractorDataBox(context, state.contractorDashboardList[index]),
-          SizedBox(
-            height: getSize(8),
-          ),
+          SizedBox(height: getSize(8)),
           CommonButton(
             onPressed: () {
               context.router.push(
@@ -258,6 +256,7 @@ class ContractorHomeView extends StatelessWidget {
           Row(
             children: [
               appliedProposalBtn(
+                context,
                 btnTitle: StringConstant.apply,
                 onPressed: () {
                   AppDialog.showDelete(
@@ -281,6 +280,7 @@ class ContractorHomeView extends StatelessWidget {
               ),
               SizedBox(width: getSize(10)),
               appliedProposalBtn(
+                context,
                 btnTitle: StringConstant.sendProposal,
                 bgColor: AppColors.white,
                 borderColor: AppColors.primaryColor,
@@ -307,7 +307,7 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  appliedProposalBtn(
+  appliedProposalBtn(BuildContext context,
       {required void Function() onPressed,
       required String btnTitle,
       Color? borderColor,
@@ -315,7 +315,16 @@ class ContractorHomeView extends StatelessWidget {
     return Expanded(
       child: CommonButton(
         height: 40,
-        onPressed: onPressed,
+        onPressed: /* (getCurrentUser().isUserEnable == null)
+            ? () {
+                UserEnableDisableDialog.showEnableDisableDialog(
+                  context,
+                  title: StringConstant.accountDisabled,
+                  infoMessage: StringConstant.accountDisabledDesc,
+                );
+              }
+            : */
+            onPressed,
         buttonText: btnTitle,
         borderRadius: 10,
         buttonFontSize: 14,
@@ -562,7 +571,7 @@ class ContractorHomeView extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);
@@ -581,14 +590,11 @@ class ContractorHomeView extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getSize(10)),
-        color: AppColors.grey04,
-      ),
+          borderRadius: BorderRadius.circular(getSize(10)),
+          color: AppColors.grey04),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(12),
-        vertical: getSize(10),
-      ),
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,

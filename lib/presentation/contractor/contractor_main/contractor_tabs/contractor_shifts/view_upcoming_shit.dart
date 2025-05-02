@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -496,7 +497,7 @@ class ViewUpcomingShiftDetails extends StatelessWidget {
 
   String convertTimeStampToDate(int timestamp,
       {bool isYear = false, bool isTime = false}) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
     if (isTime) {
       return DateFormat('hh:mm a').format(dateTime);

@@ -10,6 +10,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/earning/contractor_wallet_dto/contractor_wallet_dto.dart';
 import 'package:shift/infrastructure/contractor_main/earning/get_balance_dto/get_balance_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -382,8 +383,8 @@ class TransactionListView extends StatelessWidget {
               children: [
                 BaseText(
                     text: DateFormat("dd MMM, yyyy").format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (wallet.created ?? -1) * 1000)),
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            (wallet.created ?? -1))),
                     fontSize: 10),
                 BaseText(
                   text:

@@ -14,16 +14,14 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-
 part 'hired_contractor_event.dart';
-
 part 'hired_contractor_state.dart';
-
 part 'hired_contractor_bloc.freezed.dart';
 
 @injectable
@@ -45,8 +43,7 @@ class HiredContractorBloc
       timeOfDay.hour,
       timeOfDay.minute,
     );
-
-    return dateTime.toUtc().millisecondsSinceEpoch ~/ 1000;
+    return CustomDateTimeFormat.dateTimeToUtcTimestamp(dateTime, isInt: true);
   }
 
   HiredContractorBloc(this.mainFacade) : super(HiredContractorState.initial()) {
@@ -59,12 +56,10 @@ class HiredContractorBloc
               clockOut: e.clockOut,
             ),
           );
-          print("clock in timee---> ${state.clockIn}");
         },
         changeClockInClockOutTime: (value) async {
           if (value.isClockIn) {
             final clockInTimeStamp = convertToTimestamp(value.time);
-            print("Selected clock in time---> ${value.time} ");
 
             emit(state.copyWith(
               clockIn: clockInTimeStamp,
@@ -134,7 +129,6 @@ class HiredContractorBloc
                 ).show(e.context);
               },
               (r) async {
-                // e.context.router.maybePop();
                 emit(state.copyWith(
                   isSubmitting: false,
                   hiredApproveContractorList:
@@ -218,11 +212,7 @@ class HiredContractorBloc
               },
             );
           } else {
-            emit(
-              state.copyWith(
-                showClockTimeError: true,
-              ),
-            );
+            emit(state.copyWith(showClockTimeError: true));
           }
         },
         getHiredFilledContractorList: (e) async {
@@ -260,21 +250,17 @@ class HiredContractorBloc
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  errorApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => HiredContractorListDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
-                  //  getProductList: []
-                  hiredFilledContractorList:
-                      List.from(state.hiredFilledContractorList)
-                        ..addAll(
-                          (r.data as List<dynamic>)
+                    isLoading: false,
+                    errorApi: false,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => HiredContractorListDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    hiredFilledContractorList:
+                        List.from(state.hiredFilledContractorList)
+                          ..addAll((r.data as List<dynamic>)
                               .map((e) => HiredContractorListDTO.fromJson(e))
-                              .toList(),
-                        ),
-                ),
+                              .toList())),
               );
             },
           );
@@ -314,21 +300,17 @@ class HiredContractorBloc
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  errorApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => HiredContractorListDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
-                  //  getProductList: []
-                  hiredApproveContractorList:
-                      List.from(state.hiredApproveContractorList)
-                        ..addAll(
-                          (r.data as List<dynamic>)
+                    isLoading: false,
+                    errorApi: false,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => HiredContractorListDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    hiredApproveContractorList:
+                        List.from(state.hiredApproveContractorList)
+                          ..addAll((r.data as List<dynamic>)
                               .map((e) => HiredContractorListDTO.fromJson(e))
-                              .toList(),
-                        ),
-                ),
+                              .toList())),
               );
             },
           );
@@ -368,21 +350,17 @@ class HiredContractorBloc
               }
               return emit(
                 state.copyWith(
-                  isLoading: false,
-                  errorApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => HiredContractorListDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
-                  //  getProductList: []
-                  hiredCancelledContractorList:
-                      List.from(state.hiredCancelledContractorList)
-                        ..addAll(
-                          (r.data as List<dynamic>)
+                    isLoading: false,
+                    errorApi: false,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => HiredContractorListDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    hiredCancelledContractorList:
+                        List.from(state.hiredCancelledContractorList)
+                          ..addAll((r.data as List<dynamic>)
                               .map((e) => HiredContractorListDTO.fromJson(e))
-                              .toList(),
-                        ),
-                ),
+                              .toList())),
               );
             },
           );

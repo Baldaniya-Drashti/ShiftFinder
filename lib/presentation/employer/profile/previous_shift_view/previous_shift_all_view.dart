@@ -12,6 +12,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -323,7 +324,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 children: [
                   TextSpan(
                       text:
-                          "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_end_time ?? 0) * 1000).year}",
+                          "${CustomDateTimeFormat.timeStampToDateTime((data.last_worked_end_time ?? 0)).year}",
                       style: TextStyle(
                           color: AppColors.black.withValues(alpha: 0.5))),
                 ],
@@ -693,13 +694,14 @@ class _ActionButton extends StatelessWidget {
 }
 
 String convertUnixTimeToLocalString(int timeStamp) {
-  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
+  final date = CustomDateTimeFormat.timeStampToDateTime(timeStamp);
   String formattedDate = DateFormat('d MMM').format(date);
   return formattedDate;
 }
 
 String formatUnixTimestamp(int timestamp) {
-  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  DateTime date = CustomDateTimeFormat.timeStampToDateTime(timestamp);
+
   String formattedTime = DateFormat('hh:mm a').format(date);
 
   return formattedTime;

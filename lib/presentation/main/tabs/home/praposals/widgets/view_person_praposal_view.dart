@@ -8,6 +8,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -68,8 +69,8 @@ class ViewPersonPraposalView extends StatelessWidget {
                     if (data.shift_type == 1) ...[
                       BaseText(
                         text: DateFormat("dd MMM, yyyy").format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (data.start_date ?? 0) * 1000)),
+                            CustomDateTimeFormat.timeStampToDateTime(
+                                (data.start_date ?? 0))),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.green,
@@ -102,15 +103,15 @@ class ViewPersonPraposalView extends StatelessWidget {
                     ],
                     proposedBox(
                       title: StringConstant.hourlyRate,
-                      postedValue: allowncValue(
+                      postedValue: allownceValue(
                         "${data.posted_hourly_rate ?? 00}",
                         isRate: true,
                       ),
-                      proposedValue: allowncValue(
+                      proposedValue: allownceValue(
                         "${data.proposed_hourly_rate ?? 00}",
                         isRate: true,
                       ),
-                      counterProposalValue: allowncValue(
+                      counterProposalValue: allownceValue(
                         "${data.counter_proposal_hourly_rate ?? ""}",
                         isRate: true,
                       ),
@@ -444,7 +445,7 @@ class ViewPersonPraposalView extends StatelessWidget {
     );
   }
 
-  String allowncValue(String value,
+  String allownceValue(String value,
       {bool isRate = false, bool isHour = false}) {
     String formatedValue = value;
 
@@ -576,6 +577,8 @@ class ViewPersonPraposalView extends StatelessWidget {
 }
 
 String parseUnixToFormatedString(int timestamp) {
-  final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  final date =
+      CustomDateTimeFormat.timeStampToDateTime(timestamp, isMillisecond: false);
+
   return DateFormat("dd MMM, yyyy").format(date);
 }

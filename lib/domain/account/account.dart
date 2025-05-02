@@ -44,6 +44,7 @@ class Account with _$Account {
     String? your_referral_code,
     List<LegalScreeningAnswerDTO>? legal_screening_question_answer,
     List<LocationDTO>? location_detail,
+    int? isUserEnable,
   }) = _Account;
 }
 

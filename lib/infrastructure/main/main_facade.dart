@@ -28,6 +28,7 @@ import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 
 @LazySingleton(as: IMainFacade)
 class MainFacade implements IMainFacade {
@@ -35,103 +36,6 @@ class MainFacade implements IMainFacade {
   static const int _perPage = 25;
 
   MainFacade({required this.apiService});
-
-  /*@override
-  Future<Either<MainFailure, CommonResponse>> createPostApi({
-    required String roleListId,
-    required String specialityDetailId,
-    required String specialityDetailOther,
-    required String softwareSkillId,
-    required String softwareSkillOther,
-    required String languageListId,
-    required String languageOther,
-    required String locationId,
-    required String locationUnit,
-    required double rateHour,
-  }) async {
-    try {
-      Map<String, dynamic> mapData = {
-        'roles_list_id': roleListId,
-        'specialties_detail_id': specialityDetailId,
-        'specialties_detail_other': specialityDetailOther,
-        'softwares_skill_list_id': softwareSkillId,
-        'software_skill_other': softwareSkillOther,
-        'languages_list_id': languageListId,
-        'language_other': languageOther,
-        'location_id': locationId,
-        'location_unit': locationUnit,
-        'rate_hour': rateHour,
-      };
-
-      print("Sending Data->  ${jsonEncode(mapData)}");
-
-      final res = await apiService.postMethod(
-        ApiConstants.createPost,
-        mapData,
-      );
-
-      return right(res);
-      // return left(const MainFailure.networkError());
-    } on DioException catch (err) {
-      if (err.response != null) {
-        var commonRespose = CommonResponse.fromJson(err.response?.data);
-
-        if (commonRespose.dioMessage != null) {
-          return left(
-              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-        }
-      } else if (err.type == DioExceptionType.connectionError) {
-        return left(const MainFailure.networkError());
-      }
-
-      return left(const MainFailure.serverError());
-    }
-  }*/
-  /*@override
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostApi(
-      {required String roleListId,
-      required String specialityDetailId,
-      required String specialityDetailOther,
-      required String softwareSkillId,
-      required String softwareSkillOther,
-      required String languageListId,
-      required String languageOther,
-      required String locationId,
-      required String locationUnit,
-      required double rateHour}) async {
-    try {
-      Map<String, dynamic> mapData = {
-        'roles_list_id': roleListId,
-        'specialties_detail_id': specialityDetailId,
-        'specialties_detail_other': specialityDetailOther,
-        'softwares_skill_list_id': softwareSkillId,
-        'software_skill_other': softwareSkillOther,
-        'languages_list_id': languageListId,
-        'language_other': languageOther,
-        'location_id': locationId,
-        'location_unit': locationUnit,
-        'rate_hour': rateHour,
-      };
-      print("Sending Data->  ${jsonEncode(mapData)}");
-      final res = await apiService.postMethod(ApiConstants.createPost, mapData);
-      final data = HealthcarePostDTO.fromJson(res.data);
-      print("Healthercare Post Response->  ${data}");
-      return right(data);
-    } on DioException catch (err) {
-      if (err.response != null) {
-        var commonRespose = CommonResponse.fromJson(err.response?.data);
-
-        if (commonRespose.dioMessage != null) {
-          return left(
-              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-        }
-      } else if (err.type == DioExceptionType.connectionError) {
-        return left(const MainFailure.networkError());
-      }
-      return left(const MainFailure.serverError());
-    }
-  }
-*/
 
   @override
   Future<Either<MainFailure, CommonResponse>> updateLongFullTermPost(
@@ -403,12 +307,9 @@ class MainFacade implements IMainFacade {
       final response = await apiService.getMethod(
         ApiConstants.accomdationHourList,
       );
-
       if (response != null) {
         var account = response.data as List<dynamic>;
         var list = account.map((e) => SkillDTO.fromJson(e)).toList();
-
-        print("Accomdation List Response---> $list");
         return right(list);
       } else {
         return left(const MainFailure.serverError());
@@ -416,7 +317,6 @@ class MainFacade implements IMainFacade {
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
-
         if (commonRespose.dioMessage != null) {
           return left(
               MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
@@ -424,7 +324,6 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
-
       return left(const MainFailure.serverError());
     }
   }
@@ -438,22 +337,16 @@ class MainFacade implements IMainFacade {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         return shift.multi_date!.map((multiDate) {
           return {
-            'date': DateTime.parse(multiDate.date ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'start_time': DateTime.parse((shift.same_or_different_time == 1)
-                        ? shift.start_time ?? ""
-                        : multiDate.start_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'end_time': DateTime.parse((shift.same_or_different_time == 1)
-                        ? shift.end_time ?? ""
-                        : multiDate.end_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000
+            'date': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                DateTime.parse(multiDate.date ?? "")),
+            'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                DateTime.parse((shift.same_or_different_time == 1)
+                    ? shift.start_time ?? ""
+                    : multiDate.start_time ?? "")),
+            'end_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                DateTime.parse((shift.same_or_different_time == 1)
+                    ? shift.end_time ?? ""
+                    : multiDate.end_time ?? "")),
           };
         }).toList();
       } else {
@@ -474,17 +367,12 @@ class MainFacade implements IMainFacade {
 
       if (shift.shift_type == 1) {
         mapData.addAll({
-          'date':
-              DateTime.parse(shift.date ?? "").toUtc().millisecondsSinceEpoch /
-                  1000,
-          'start_time': DateTime.parse(shift.start_time ?? "")
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
-          'end_time': DateTime.parse(shift.end_time ?? "")
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
+          'date': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse(shift.date ?? "")),
+          'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse(shift.start_time ?? "")),
+          'end_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime.parse(shift.end_time ?? "")),
         });
       } else if (shift.shift_type == 2) {
         mapData.addAll({
@@ -1146,14 +1034,10 @@ class MainFacade implements IMainFacade {
         'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
-        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
-        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
+        "start_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 0, 0, 0)),
+        "end_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 23, 59, 59, 999)),
         if (search != null && search.isNotEmpty) "search": search,
       };
 
@@ -1246,16 +1130,10 @@ class MainFacade implements IMainFacade {
         DateTime now = DateTime.now();
 
         mapData.addAll({
-          // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
-          // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
-          "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
-          "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
+          "start_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime(now.year, now.month, now.day, 0, 0, 0)),
+          "end_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+              DateTime(now.year, now.month, now.day, 23, 59, 59, 999)),
         });
       }
 
@@ -1509,14 +1387,10 @@ class MainFacade implements IMainFacade {
         "sort_by": sortBy,
         "page": page,
         "perPage": _perPage,
-        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
-        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
+        "start_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 0, 0, 0)),
+        "end_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 23, 59, 59, 999)),
       };
 
       final res = await apiService.getMethod(ApiConstants.employerPreviousShift,
@@ -1792,16 +1666,10 @@ class MainFacade implements IMainFacade {
       DateTime now = DateTime.now();
 
       mapData.addAll({
-        // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
-        // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
-        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
-        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
+        "start_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 0, 0, 0)),
+        "end_date": CustomDateTimeFormat.dateTimeToUtcTimestamp(
+            DateTime(now.year, now.month, now.day, 23, 59, 59, 999)),
       });
     }
 
@@ -2928,10 +2796,10 @@ class MainFacade implements IMainFacade {
       Map<String, dynamic> mapData = {
         'start_date': (startDate != null)
             ? startDate
-            : DateTime.now().toUtc().millisecondsSinceEpoch / 1000,
+            : CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.now()),
         'end_date': (endDate != null)
             ? endDate
-            : DateTime.now().toUtc().millisecondsSinceEpoch / 1000,
+            : CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.now()),
       };
 
       print("Sending Data->  ${jsonEncode(mapData)}");

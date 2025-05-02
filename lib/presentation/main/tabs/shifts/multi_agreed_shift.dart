@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -82,38 +83,38 @@ class MultiAgreedShift extends StatelessWidget {
                               )
                             ]),
                         child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: getSize(14), horizontal: getSize(15)),
-                            decoration: BoxDecoration(
-                              color: AppColors.scaffoldColor,
-                              borderRadius: BorderRadius.circular(getSize(10)),
-                            ),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  SvgImageConstant.calendar,
-                                  height: getSize(20),
-                                  width: getSize(20),
-                                  color: AppColors.black,
-                                ),
-                                Gap(getSize(10)),
-                                BaseText(
-                                  text: DateFormat("dd MMM, yyyy").format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          (contractor.shift_details?[index]
-                                                      .start_date ??
-                                                  -1) *
-                                              1000)),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                Spacer(),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: getSize(16),
-                                ),
-                              ],
-                            )),
+                          padding: EdgeInsets.symmetric(
+                              vertical: getSize(14), horizontal: getSize(15)),
+                          decoration: BoxDecoration(
+                            color: AppColors.scaffoldColor,
+                            borderRadius: BorderRadius.circular(getSize(10)),
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                SvgImageConstant.calendar,
+                                height: getSize(20),
+                                width: getSize(20),
+                                color: AppColors.black,
+                              ),
+                              Gap(getSize(10)),
+                              BaseText(
+                                text: DateFormat("dd MMM, yyyy").format(
+                                    CustomDateTimeFormat.timeStampToDateTime(
+                                        (contractor.shift_details?[index]
+                                                .start_date ??
+                                            -1))),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              Spacer(),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: getSize(16),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
@@ -126,9 +127,7 @@ class MultiAgreedShift extends StatelessWidget {
   }
 
   Widget paddingBetweenFields({double? height}) {
-    return SizedBox(
-      height: getSize(height ?? 15),
-    );
+    return SizedBox(height: getSize(height ?? 15));
   }
 
   Widget totalNoOfShift({

@@ -12,6 +12,7 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 part 'total_proposal_event.dart';
@@ -77,7 +78,7 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
           },
           startRevokingTimer: (StartRevokingTimer value) {
             DateTime timerStartTime =
-                DateTime.fromMillisecondsSinceEpoch(value.revokeTime * 1000);
+                CustomDateTimeFormat.timeStampToDateTime(value.revokeTime);
 
             Duration totalDuration = Duration(hours: 2);
 

@@ -20,7 +20,6 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 part 'employer_location_form_event.dart';
 part 'employer_location_form_state.dart';
 part 'employer_location_form_bloc.freezed.dart';
@@ -87,7 +86,6 @@ class EmployerLocationFormBloc
             ),
           );
           final facilityTypeList = await _repository.getFacilityTypeList();
-          print("Facility type List ---> $facilityTypeList");
           facilityTypeList.fold(
             (l) => emit(
               state.copyWith(
@@ -118,7 +116,6 @@ class EmployerLocationFormBloc
             ),
           );
           final locationBrandList = await _repository.getLocationBrandList();
-          print("Location brand List ---> $locationBrandList");
           locationBrandList.fold(
             (l) => emit(
               state.copyWith(
@@ -138,20 +135,11 @@ class EmployerLocationFormBloc
           );
         },
         addressChanged: (e) async {
-          /// To get google place with serched result
-          // List<dynamic> placeList = [];
-          // String? response = await fetchUrl(e.address);
-          // if (response != null) {
-          //   print("API RESPONSE----> $response");
-          //   placeList = json.decode(response)['results'];
-          // }
-
           if (placeList.isNotEmpty) {
             placeList.clear();
           }
           String? response = await LocationHelper.fetchUrl(e.address);
           if (response != null) {
-            print("API RESPONSE----> $response");
             placeList = json.decode(response)['predictions'];
           }
           emit(
@@ -197,17 +185,13 @@ class EmployerLocationFormBloc
         },
         locationNoteChanged: (e) {
           emit(
-            state.copyWith(
-              locationNote: e.locationNote,
-            ),
+            state.copyWith(locationNote: e.locationNote),
           );
         },
         unitNumberChanged: (e) {
           emit(
             state.copyWith(
-              unitNumber: e.unitNumber,
-              authFailureOrSuccessOption: none(),
-            ),
+                unitNumber: e.unitNumber, authFailureOrSuccessOption: none()),
           );
         },
         editUnitNumberChip: (e) {
@@ -234,65 +218,17 @@ class EmployerLocationFormBloc
             );
             Navigator.pop(e.context);
           }
-          /*if (!state.listOfUnit.any((unit) =>
-              unit.number_or_name?.toLowerCase() ==
-              e.updatedUnit.number_or_name?.toLowerCase())) {
-            updatedList[e.index] = e.updatedUnit;
-            emit(
-              state.copyWith(
-                listOfUnit: updatedList,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-            Navigator.pop(e.context);
-          } else {
-            AppFocus.unfocus(e.context);
-            showError(message: StringConstant.unitAlreadyExist).show(e.context);
-          }*/
         },
         removeUnitNumberChip: (e) {
-          /*emit(
-            state.copyWith(
-              unitNoNameChipList: List.from(state.unitNoNameChipList)
-                ..remove(e.unitNumber),
-              unitNumber: "",
-              authFailureOrSuccessOption: none(),
-            ),
-          );*/
-
-          /// for unit list
+          /// For unit list
           emit(
             state.copyWith(
-              // unitNoNameChipList: List.from(state.unitNoNameChipList)
-              //   ..remove(e.unitNumber),
-              // unitNumber: "",
               listOfUnit: List.from(state.listOfUnit)..removeAt(e.index),
               authFailureOrSuccessOption: none(),
             ),
           );
         },
         addUnitNumberChipList: (e) {
-          /*if (e.unitNumber.trim().isNotEmpty &&
-              (!state.unitNoNameChipList.contains(e.unitNumber) ||
-                  state.unitNoNameChipList.isEmpty)) {
-            emit(
-              state.copyWith(
-                unitNoNameChipList: List.from(state.unitNoNameChipList)
-                  ..add(e.unitNumber),
-                unitNumber: e.unitNumber,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-          } else {
-            emit(
-              state.copyWith(
-                unitNoNameChipList: List.from(state.unitNoNameChipList),
-                unitNumber: e.unitNumber,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-          }*/
-
           /// for unit list
           print("Unit list----> ${state.listOfUnit}");
           if (e.unitNumber.trim().isNotEmpty &&

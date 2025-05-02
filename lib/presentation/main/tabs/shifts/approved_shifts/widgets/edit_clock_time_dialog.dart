@@ -9,6 +9,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -98,8 +99,8 @@ class EditClockTimeDialog extends StatelessWidget {
                           ),
                           TextSpan(
                             text: DateFormat('dd MMM, yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch(
-                                    (contractor.shift_date ?? -1) * 1000)),
+                                CustomDateTimeFormat.timeStampToDateTime(
+                                    (contractor.shift_date ?? -1))),
                             style: TextStyle(
                               fontSize: getFontSize(12),
                               fontWeight: FontWeight.w600,
@@ -120,11 +121,11 @@ class EditClockTimeDialog extends StatelessWidget {
                       onTap: () async {
                         DateTime dateTime;
                         if (state.clockIn == null) {
-                          dateTime = DateTime.fromMillisecondsSinceEpoch(
-                              (contractor.clock_in_time ?? 0) * 1000);
+                          dateTime = CustomDateTimeFormat.timeStampToDateTime(
+                              (contractor.clock_in_time ?? 0));
                         } else {
-                          dateTime = DateTime.fromMillisecondsSinceEpoch(
-                              (state.clockIn ?? 0) * 1000);
+                          dateTime = CustomDateTimeFormat.timeStampToDateTime(
+                              (state.clockIn ?? 0));
                         }
 
                         final clockInTime =
@@ -137,8 +138,8 @@ class EditClockTimeDialog extends StatelessWidget {
                       },
                       clockInOrOutTime: (state.clockIn != null)
                           ? DateFormat('hh:mm a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (state.clockIn ?? -1) * 1000))
+                              CustomDateTimeFormat.timeStampToDateTime(
+                                  (state.clockIn ?? -1)))
                           : StringConstant.clockIn,
                     ),
                     if (state.showClockTimeError && state.clockIn == null)
@@ -153,12 +154,16 @@ class EditClockTimeDialog extends StatelessWidget {
                     commonClockInOutMethod(
                       onTap: () async {
                         DateTime dateTime;
+
                         if (state.clockIn == null) {
-                          dateTime = DateTime.fromMillisecondsSinceEpoch(
-                              (contractor.clock_in_time ?? 0) * 1000);
+                          dateTime = CustomDateTimeFormat.timeStampToDateTime(
+                              (contractor.clock_in_time ?? 0));
+                        } else if (state.clockOut == null) {
+                          dateTime = CustomDateTimeFormat.timeStampToDateTime(
+                              (contractor.clock_out_time ?? 0));
                         } else {
-                          dateTime = DateTime.fromMillisecondsSinceEpoch(
-                              (state.clockOut ?? 0) * 1000);
+                          dateTime = CustomDateTimeFormat.timeStampToDateTime(
+                              (state.clockOut ?? 0));
                         }
 
                         final clockOutTime =
@@ -171,8 +176,8 @@ class EditClockTimeDialog extends StatelessWidget {
                       },
                       clockInOrOutTime: (state.clockOut != null)
                           ? DateFormat('hh:mm a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (state.clockOut ?? -1) * 1000))
+                              CustomDateTimeFormat.timeStampToDateTime(
+                                  (state.clockOut ?? -1)))
                           : StringConstant.clockOut,
                     ),
                     if (state.showClockTimeError && state.clockOut == null)

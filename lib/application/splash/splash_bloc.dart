@@ -6,7 +6,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/push_notification_helper.dart';
-
 part 'splash_event.dart';
 part 'splash_state.dart';
 part 'splash_bloc.freezed.dart';
@@ -20,18 +19,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       : super(const SplashState.initial()) {
     on<SplashEvent>((event, emit) async {
       await event.map(
-        getAccount: (e) async {
-          final failureOrSuccess = await _repository.getCurrentUserApi();
-          emit(
-            failureOrSuccess.fold(
-              (f) => const SplashState.unAuthenticated(''),
-              (account) {
-                return SplashState.authenticated(
-                    account.lastPage ?? "0", account.isProfileComplete ?? -1);
-              },
-            ),
-          );
-        },
         started: (e) async {
           final authenticated = await _authFacade.checkAuthenticated();
           final showIntro = getUserShowIntro();
@@ -40,30 +27,27 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
             emit(const SplashState.introScreenVisibilty());
           } else {
             final failureOrSuccess = await _repository.getCurrentUserApi();
-            emit(
-              failureOrSuccess.fold(
-                (f) {
-                  // return SplashState.unAuthenticated('');
-                  return (authenticated)
-                      ? const SplashState.authenticated('', -1)
-                      : const SplashState.unAuthenticated('');
-                },
-                (account) {
-                  return (account.isVerified == 1)
-                      ? SplashState.authenticated(account.lastPage ?? "0",
-                          account.isProfileComplete ?? -1)
-                      : const SplashState.unAuthenticated('');
-                },
-              ),
-            );
+            emit(failureOrSuccess.fold(
+              (f) {
+                final currentUser = getCurrentUser();
+                return (authenticated)
+                    ? SplashState.authenticated(currentUser.lastPage ?? '',
+                        currentUser.isProfileComplete ?? -1)
+                    : const SplashState.unAuthenticated('');
+              },
+              (account) {
+                return (account.isVerified == 1)
+                    ? SplashState.authenticated(account.lastPage ?? "0",
+                        account.isProfileComplete ?? -1)
+                    : const SplashState.unAuthenticated('');
+              },
+            ));
           }
         },
         registerForPush: (RegisterForPush value) async {
-          print("FCM token----> ${value.fcmToken}");
           await _authFacade.registerForPush(fcmToken: value.fcmToken);
         },
         pushNotificationInitialize: (PushNotificationInitialize value) async {
-          print("pushNotificationInitialize calledd");
           await PushNotificationService().setupInteractedMessage(value.context);
           PushNotificationService()
               .firebaseMessaging
@@ -79,8 +63,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           });
         },
         initDynamicLink: (InitDynamicLink value) async {
-          print("initDynamicLink called!!! Splashhh");
-          // DynamicLinksService.initDynamicLinks(value.context);
           add(SplashEvent.pushNotificationInitialize(value.context));
         },
       );

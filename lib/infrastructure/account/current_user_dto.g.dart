@@ -57,6 +57,7 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       location_detail: (json['location_detail'] as List<dynamic>?)
           ?.map((e) => LocationDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isUserEnable: (json['isUserEnable'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$CurrentUserDtoImplToJson(
@@ -93,6 +94,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'legal_screening_question_answer':
           instance.legal_screening_question_answer,
       'location_detail': instance.location_detail,
+      'isUserEnable': instance.isUserEnable,
     };
 
 _$AuthDtoImpl _$$AuthDtoImplFromJson(Map<String, dynamic> json) =>

@@ -12,6 +12,7 @@ import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.da
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -252,7 +253,6 @@ class PostShiftRecurring extends StatelessWidget {
                                               }
                                             }
                                           }
-
                                           if (selectedDayCount > 20) {
                                             confirmationDialog(context, state,
                                                 noOfShift: selectedDayCount);
@@ -581,8 +581,8 @@ class PostShiftRecurring extends StatelessWidget {
         DocumentExpiryDatePicker.customDatePicker(
           context,
           firstDate: (post.date != null && post.date!.isNotEmpty)
-              ? DateTime.fromMillisecondsSinceEpoch(
-                      (double.parse(post.date!).toInt()) * 1000)
+              ? CustomDateTimeFormat.timeStampToDateTime(
+                      (double.parse(post.date!).toInt()))
                   .add(Duration(days: 1))
               : DateTime.now(),
           onPickedDate: (pickedDate) {
@@ -595,8 +595,8 @@ class PostShiftRecurring extends StatelessWidget {
           onCancelClick: () {},
           selectedDate: (state.recurringStartDate.isValid())
               ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-              : DateTime.fromMillisecondsSinceEpoch(
-                      (double.parse(post.date!).toInt()) * 1000)
+              : CustomDateTimeFormat.timeStampToDateTime(
+                      (double.parse(post.date!).toInt()))
                   .add(Duration(days: 1)),
         );
       },
@@ -656,8 +656,8 @@ class PostShiftRecurring extends StatelessWidget {
         ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
             .add(Duration(days: 1))
         : (post.date != null && post.date!.isNotEmpty)
-            ? DateTime.fromMillisecondsSinceEpoch(
-                    (double.parse(post.date!).toInt()) * 1000)
+            ? CustomDateTimeFormat.timeStampToDateTime(
+                    (double.parse(post.date!).toInt()))
                 .add(Duration(days: 1))
             : DateTime.now();
 
@@ -666,8 +666,8 @@ class PostShiftRecurring extends StatelessWidget {
         : (state.recurringStartDate.isValid())
             ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
                 .add(Duration(days: 1))
-            : DateTime.fromMillisecondsSinceEpoch(
-                    (double.parse(post.date!).toInt()) * 1000)
+            : CustomDateTimeFormat.timeStampToDateTime(
+                    (double.parse(post.date!).toInt()))
                 .add(Duration(days: 1));
 
     return CustomTextField(

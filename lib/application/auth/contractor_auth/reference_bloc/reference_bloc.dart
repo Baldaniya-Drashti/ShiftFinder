@@ -11,6 +11,7 @@ import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'reference_event.dart';
 part 'reference_state.dart';
 part 'reference_bloc.freezed.dart';
@@ -52,14 +53,14 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
                 jobLocation: InputEmptyOrNot(obj.job_location ?? ""),
                 unitDepartment: InputEmptyOrNot(obj.unit ?? ""),
                 startDate: (obj.start_date != null)
-                    ? InputEmptyOrNot(DateTime.fromMillisecondsSinceEpoch(
-                            obj.start_date! * 1000)
+                    ? InputEmptyOrNot(CustomDateTimeFormat.timeStampToDateTime(
+                            obj.start_date!)
                         .toString())
                     : InputEmptyOrNot(""),
                 endDate: (obj.end_date != null)
-                    ? InputEmptyOrNot(DateTime.fromMillisecondsSinceEpoch(
-                            obj.end_date! * 1000)
-                        .toString())
+                    ? InputEmptyOrNot(
+                        CustomDateTimeFormat.timeStampToDateTime(obj.end_date!)
+                            .toString())
                     : InputEmptyOrNot(""),
 
                 /// PERSONAL

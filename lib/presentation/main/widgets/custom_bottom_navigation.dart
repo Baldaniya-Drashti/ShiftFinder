@@ -133,7 +133,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
                   BaseText(
                     text: tabLabelList[index],
                     fontSize: 12,
-                    fontFamily: "Sarabun",
+                    fontFamily: 'Sarabun',
                     textColor: isActive
                         ? AppColors.primaryColor
                         : AppColors.black.withValues(alpha: 0.50),

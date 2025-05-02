@@ -49,6 +49,7 @@ class CurrentUserDto with _$CurrentUserDto {
     @JsonKey(name: 'legal_screening_question_answer')
     List<LegalScreeningAnswerDTO>? legal_screening_question_answer,
     @JsonKey(name: 'location_detail') List<LocationDTO>? location_detail,
+    @JsonKey(name: 'isUserEnable') int? isUserEnable,
   }) = _CurrentUserDto;
   Account toDomain() {
     return Account(
@@ -82,6 +83,7 @@ class CurrentUserDto with _$CurrentUserDto {
       experience: experience,
       legal_screening_question_answer: legal_screening_question_answer,
       location_detail: location_detail,
+      isUserEnable: isUserEnable,
     );
   }
 
@@ -117,6 +119,7 @@ class CurrentUserDto with _$CurrentUserDto {
       experience: account.experience,
       legal_screening_question_answer: account.legal_screening_question_answer,
       location_detail: account.location_detail,
+      isUserEnable: account.isUserEnable,
     );
   }
   factory CurrentUserDto.fromJson(Map<String, dynamic> json) =>

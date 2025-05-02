@@ -67,14 +67,12 @@ class AuthFacade implements IAuthFacade {
   @override
   Future<bool> checkAuthenticated() async {
     log('getUserToken() : ${getUserToken()}');
-    // getCookie returns null as a String, so it has to be checked like this.
+
     return getUserToken() != null;
   }
 
   @override
   Future<bool> checkUserVerified() async {
-    log('getUserVerified() : ${getCurrentUser().isVerified}');
-    // getCookie returns null as a String, so it has to be checked like this.
     return getCurrentUser().isVerified == 1;
   }
 
@@ -294,8 +292,6 @@ class AuthFacade implements IAuthFacade {
         );
         formData.files.add(MapEntry('profile', multipartFile));
       }
-
-      // print('formData after add image: ${formData.fields.map((e) => e)}');
 
       final response = await apiService.postMethod(
         ApiConstants.register,
@@ -694,7 +690,7 @@ class AuthFacade implements IAuthFacade {
         "software_skill_other": softwareSkillOther,
         "languages_list_id": languageListId,
         "language_other": languageOther,
-        "last_page": "Experience",
+        "last_page": "ContractorSkill",
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");

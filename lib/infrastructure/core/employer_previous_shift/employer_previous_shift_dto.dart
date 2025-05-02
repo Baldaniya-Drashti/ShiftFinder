@@ -31,6 +31,7 @@ class EmployerPreviousShiftDto with _$EmployerPreviousShiftDto {
     String? email,
     String? remark,
     String? total_amount,
+    int? is_payment,
   }) = _EmployerPreviousShiftDto;
 
   factory EmployerPreviousShiftDto.fromJson(Map<String, dynamic> json) =>

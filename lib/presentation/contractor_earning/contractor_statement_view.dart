@@ -13,6 +13,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/contractor_statement_viewer.dart';
 import 'package:shift/presentation/billing/invoice_detail_view.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
@@ -271,8 +272,8 @@ class _Earning extends StatelessWidget {
                 TransactionInfo(
                     label: StringConstant.date,
                     value: DateFormat('dd MMM yyyy').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            earning.date! * 1000))),
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            earning.date!))),
                 TransactionInfo(
                     label: StringConstant.companyName,
                     value: earning.company_name ?? ""),
@@ -360,8 +361,8 @@ class _Compensation extends StatelessWidget {
                 TransactionInfo(
                     label: StringConstant.date,
                     value: DateFormat('dd MMM yyyy').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            earning.date! * 1000))),
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            earning.date!))),
                 TransactionInfo(
                     label: StringConstant.companyName,
                     value: earning.company_name ?? ""),
@@ -433,8 +434,8 @@ class _ReferralBonus extends StatelessWidget {
                 TransactionInfo(
                     label: StringConstant.date,
                     value: DateFormat('dd MMM yyyy').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            earning.date! * 1000))),
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            earning.date!))),
                 TransactionInfo(
                     label: StringConstant.referredContractorName,
                     value: earning.referred_contractor_name ?? ""),
@@ -503,8 +504,8 @@ class _Bank extends StatelessWidget {
                 TransactionInfo(
                     label: StringConstant.date,
                     value: DateFormat('dd MMM yyyy').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            earning.date! * 1000))),
+                        CustomDateTimeFormat.timeStampToDateTime(
+                            earning.date!))),
                 TransactionInfo(
                   label: StringConstant.depositAmount,
                   value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",

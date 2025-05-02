@@ -9,6 +9,7 @@ import 'package:shift/domain/core/environment/environment.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
 import 'package:shift/presentation/core/app_widget.dart';
+import 'package:shift/presentation/core/helper/internet_connectivity_helper.dart';
 import 'package:shift/presentation/core/restart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +60,7 @@ Future<void> main() async {
         EnvironmentCongig().initConfig(environment);
         await setupHive();
         Stripe.publishableKey = dotenv.get("STRIPE_TEST_PUBLISH_KEY");
-        print("Stripe publish key after---> ${Stripe.publishableKey}");
+        NetworkListener().initialize();
         runApp(const RestartWidget(child: AppWidget()));
       });
     },

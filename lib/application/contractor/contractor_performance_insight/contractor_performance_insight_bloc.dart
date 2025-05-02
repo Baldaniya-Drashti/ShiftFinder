@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 part 'contractor_performance_insight_event.dart';
@@ -37,7 +38,10 @@ class ContractorPerformanceInsightBloc extends Bloc<
             ));
 
             failureOrSuccess = await _mainFacade.getPerformanceInsightListAPI(
-              date: (e.selectedDate!.toUtc().millisecondsSinceEpoch ~/ 1000),
+              date: CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                e.selectedDate!,
+                isInt: true,
+              ),
             );
             failureOrSuccess.fold(
               (l) {

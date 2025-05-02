@@ -14,6 +14,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -89,8 +90,8 @@ class ProposalReceived extends StatelessWidget {
                             left: getSize(15)),
                         child: BaseText(
                           text: DateFormat("dd MMM, yyyy").format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (post.date ?? 0) * 1000)),
+                              CustomDateTimeFormat.timeStampToDateTime(
+                                  (post.date ?? 0))),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           textColor: AppColors.primaryColor,

@@ -10,6 +10,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -167,11 +168,10 @@ class HomeView extends StatelessWidget {
                         value: (state.employerDashboardList[index].start_date !=
                                 null)
                             ? DateFormat('MMM dd,yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch((state
-                                            .employerDashboardList[index]
-                                            .start_date ??
-                                        -1) *
-                                    1000),
+                                CustomDateTimeFormat.timeStampToDateTime((state
+                                        .employerDashboardList[index]
+                                        .start_date ??
+                                    -1)),
                               )
                             : "",
                       ),
@@ -185,7 +185,7 @@ class HomeView extends StatelessWidget {
                                       state.employerDashboardList[index]
                                               .end_time !=
                                           null)
-                                  ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
+                                  ? "${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((state.employerDashboardList[index].start_time ?? 0)))} to ${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((state.employerDashboardList[index].end_time ?? 0)))}"
                                   : "",
                             )
                           : verticalLabelValue(

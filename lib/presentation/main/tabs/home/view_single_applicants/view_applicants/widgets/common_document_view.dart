@@ -7,6 +7,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -205,9 +206,7 @@ class CommonDocumentView extends StatelessWidget {
                     SizedBox(width: getSize(10)),
                     BaseText(
                       text:
-                          "Expiry date - ${DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(
-                        (document.expiry_date ?? -1) * 1000,
-                      ))}",
+                          "Expiry date - ${DateFormat("dd MMM, yyyy").format(CustomDateTimeFormat.timeStampToDateTime((document.expiry_date ?? -1)))}",
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),

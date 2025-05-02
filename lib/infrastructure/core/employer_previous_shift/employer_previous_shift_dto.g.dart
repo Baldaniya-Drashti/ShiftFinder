@@ -33,6 +33,7 @@ _$EmployerPreviousShiftDtoImpl _$$EmployerPreviousShiftDtoImplFromJson(
       email: json['email'] as String?,
       remark: json['remark'] as String?,
       total_amount: json['total_amount'] as String?,
+      is_payment: (json['is_payment'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
@@ -62,4 +63,5 @@ Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
       'email': instance.email,
       'remark': instance.remark,
       'total_amount': instance.total_amount,
+      'is_payment': instance.is_payment,
     };

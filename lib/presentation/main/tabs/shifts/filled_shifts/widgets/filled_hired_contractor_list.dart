@@ -11,6 +11,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -193,8 +194,8 @@ class FilledHiredContractorList extends StatelessWidget {
                             BaseText(
                               text: (contractor.start_time != null)
                                   ? DateFormat('hh:mm a').format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          (contractor.start_time ?? 0) * 1000))
+                                      CustomDateTimeFormat.timeStampToDateTime(
+                                          (contractor.start_time ?? 0)))
                                   : "",
                               fontSize: 12,
                               textColor: AppColors.black,
@@ -208,8 +209,8 @@ class FilledHiredContractorList extends StatelessWidget {
                             BaseText(
                               text: (contractor.end_time != null)
                                   ? DateFormat('hh:mm a').format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          (contractor.end_time ?? 0) * 1000))
+                                      CustomDateTimeFormat.timeStampToDateTime(
+                                          (contractor.end_time ?? 0)))
                                   : "",
                               fontSize: 12,
                               textColor: AppColors.black,

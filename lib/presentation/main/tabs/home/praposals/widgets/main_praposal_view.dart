@@ -7,6 +7,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -180,7 +181,7 @@ class MainPraposalView extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text:
-                                    "${DateTime.fromMillisecondsSinceEpoch((additionalData.start_date ?? 0) * 1000).year}",
+                                    "${CustomDateTimeFormat.timeStampToDateTime((additionalData.start_date ?? 0)).year}",
                                 style: TextStyle(
                                     color: AppColors.black
                                         .withValues(alpha: 0.5))),

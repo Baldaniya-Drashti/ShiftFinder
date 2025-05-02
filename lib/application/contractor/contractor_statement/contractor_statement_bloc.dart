@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/earning/statement_dto/statement_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/contractor_earning/contractor_statement_view.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 part 'contractor_statement_event.dart';
@@ -25,14 +26,12 @@ class ContractorStatementBloc
             String? startDate;
             String? endDate;
             if (state.selectedDates.isNotEmpty) {
-              startDate =
-                  (state.selectedDates.first.toUtc().millisecondsSinceEpoch /
-                          1000)
-                      .toString();
-              endDate =
-                  (state.selectedDates.last.toUtc().millisecondsSinceEpoch /
-                          1000)
-                      .toString();
+              startDate = CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      state.selectedDates.first)
+                  .toString();
+              endDate = CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                      state.selectedDates.last)
+                  .toString();
 
               Either<MainFailure, StatementDTO>? failureOrSuccess;
 

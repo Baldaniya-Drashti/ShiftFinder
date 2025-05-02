@@ -33,29 +33,6 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             ),
           );
           await getExistingRoleDetail(emit);
-          /* if (e.isUpdate) {
-            // await getExistingRoleDetail(emit);
-          } else {
-            final roleList = await _repository.getExperienceRoleList();
-            roleList.fold(
-              (l) => emit(
-                state.copyWith(
-                    isLoading: false,
-                    records: [],
-                    authFailureOrSuccessOption:
-                        optionOf(left(AccountFailure.serverError()))),
-              ),
-              (r) {
-                return emit(
-                  state.copyWith(
-                    isLoading: false,
-                    records: List.from(state.records)..addAll(r),
-                    authFailureOrSuccessOption: none(),
-                  ),
-                );
-              },
-            );
-          } */
         },
         updateRecordEvent: (e) {
           List<ExperienceDTO> updatedRecords = List.from(state.records);
@@ -134,51 +111,6 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
                   ? r.experience!
                   : [],
               authFailureOrSuccessOption: none(),
-              // roleTypeChipList: ListInputEmptyOrNot(
-              //     (r.complete_profile != null &&
-              //             r.complete_profile!.roles_list != null)
-              //         ? r.complete_profile!.roles_list!
-              //             .map((element) => element.name ?? "")
-              //             .toList()
-              //         : []),
-              // requiredSoftwareSkillChipList: ListInputEmptyOrNot(
-              //     (r.complete_profile != null &&
-              //             r.complete_profile?.softwares_skill_list != null)
-              //         ? r.complete_profile!.softwares_skill_list!
-              //             .map((element) => element.name ?? "")
-              //             .toList()
-              //         : []),
-              // softwareSkillOther:
-              //     r.complete_profile?.software_skill_other?.split(',') ?? [],
-              // requiredSpecialityChipList: ListInputEmptyOrNot((r
-              //                 .complete_profile !=
-              //             null &&
-              //         r.complete_profile!.specialties_detail != null)
-              //     ? r.complete_profile!.specialties_detail!
-              //         .where((element) => element.specialtie_lists != null)
-              //         .map((element) => element.specialtie_lists?.name ?? "")
-              //         .toList()
-              //     : []),
-              // specialityOther: (r.complete_profile != null &&
-              //         r.complete_profile!.specialties_detail != null)
-              //     ? r.complete_profile!.specialties_detail!
-              //         .where(
-              //             (element) => element.specialtie_lists_other != null)
-              //         .map((element) => element.specialtie_lists_other ?? "")
-              //         .toList()
-              //     : [],
-              // // r.complete_profile?.specialties_other?.split(',') ?? [],
-              // languageChipList: ListInputEmptyOrNot(
-              //     (r.complete_profile != null &&
-              //             r.complete_profile!.languages_list != null)
-              //         ? r.complete_profile!.languages_list!
-              //             .map((element) => element.name ?? "")
-              //             .toList()
-              //         : []),
-              // languageOther: (r.complete_profile != null &&
-              //         r.complete_profile!.language_other != null)
-              //     ? r.complete_profile!.language_other?.split(',') ?? []
-              //     : [],
             ),
           );
         },

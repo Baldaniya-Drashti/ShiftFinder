@@ -39,7 +39,8 @@ class _RatingBarState extends State<RatingBar> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(math.max(0, (widget.starCount * 2) - 1), (initialIndex) {
+      children: List.generate(math.max(0, (widget.starCount * 2) - 1),
+          (initialIndex) {
         final int index = initialIndex ~/ 2;
         if (initialIndex.isEven) {
           return GestureDetector(
@@ -50,7 +51,9 @@ class _RatingBarState extends State<RatingBar> {
             child: ValueListenableBuilder(
               valueListenable: _currentRating,
               builder: (context, value, _) => SvgPicture.asset(
-                index < _currentRating.value ? SvgImageConstant.starFilled : SvgImageConstant.starOutlined,
+                index < _currentRating.value
+                    ? SvgImageConstant.starFilled
+                    : SvgImageConstant.starOutlined,
                 height: 35,
                 width: 35,
               ),

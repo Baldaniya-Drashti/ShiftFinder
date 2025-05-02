@@ -10,10 +10,13 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/internet_connectivity_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 @RoutePage(name: 'splashPage')
 class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
+
   Future<void> preloadImages(
     BuildContext context,
   ) async {
@@ -22,48 +25,40 @@ class SplashPage extends StatelessWidget {
     }
   }
 
-  const SplashPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
-      listener: (_, state) {
+      listener: (_, state) async {
         preloadImages(context);
-        state.map(
-          initial: (_) {},
-          authenticated: (value) async {
-            await Future.delayed(
-              const Duration(seconds: 1),
-              () => (value.isProfileComplete == 1)
-                  ? (getCurrentRole() == 2)
-                      ? context.router.replace(PageRouteInfo(MainTabView.name))
-                      : context.router
-                          .replace(PageRouteInfo(ContractorMainTabView.name))
-                  // : context.router.replace(const PageRouteInfo(LoginPage.name))
-                  : context.router.replace(getCurrentPage(
-                      value.lastPage,
-                      fromSplash: true,
-                    )),
-              //     context.router.replace(getCurrentPage(
-              //   value.lastPage,
-              //   fromSplash: true,
-              // )),
-            );
-          },
-          unAuthenticated: (value) async {
-            await Future.delayed(
-              const Duration(seconds: 1),
-              () => context.router.replace(const PageRouteInfo(LoginPage.name)),
-            );
-          },
-          introScreenVisibilty: (IntroScreenVisibilty value) async {
-            await Future.delayed(
-              const Duration(seconds: 1),
-              () =>
-                  context.router.replace(const PageRouteInfo(Onboarding1.name)),
-            );
-          },
-        );
+
+        await NetworkListener().navigateWhenOnline(() async {
+          await Future.delayed(const Duration(seconds: 1));
+          await state.map(
+            initial: (_) {},
+            authenticated: (value) async {
+              if (value.isProfileComplete == 1) {
+                if (getCurrentRole() == 2) {
+                  await context.router.replace(PageRouteInfo(MainTabView.name));
+                } else {
+                  await context.router
+                      .replace(PageRouteInfo(ContractorMainTabView.name));
+                }
+              } else {
+                await context.router.replace(getCurrentPage(
+                  value.lastPage,
+                  fromSplash: true,
+                ));
+              }
+            },
+            unAuthenticated: (value) async {
+              await context.router.replace(const PageRouteInfo(LoginPage.name));
+            },
+            introScreenVisibilty: (IntroScreenVisibilty value) async {
+              await context.router
+                  .replace(const PageRouteInfo(Onboarding1.name));
+            },
+          );
+        });
       },
       child: Scaffold(
         body: Column(
@@ -91,9 +86,7 @@ class SplashPage extends StatelessWidget {
               PngImageConstants.splash_logo,
             ),
           ),
-          SizedBox(
-            height: getSize(20),
-          ),
+          SizedBox(height: getSize(20)),
           const BaseText(
             text: StringConstant.shiftFinder,
             fontSize: 30,

@@ -12,6 +12,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/monthly_statement_dto/monthly_statement_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/no_data_ui.dart';
@@ -281,8 +282,8 @@ class _StatementDetailTile extends StatelessWidget {
             label: StringConstant.dateOfTransaction,
             value: (list.date_of_transaction != null)
                 ? DateFormat('dd MMM yyyy').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        list.date_of_transaction! * 1000))
+                    CustomDateTimeFormat.timeStampToDateTime(
+                        list.date_of_transaction!))
                 : ""),
         TransactionInfo(
             label: StringConstant.contractorName,

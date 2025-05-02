@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/profile/performance_insight_dto/performance_insight_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/no_data_ui.dart';
@@ -100,13 +101,12 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                                                   text: (state.insightDetail
                                                               ?.date !=
                                                           null)
-                                                      ? DateFormat('MMM yyyy')
-                                                          .format(DateTime
-                                                              .fromMillisecondsSinceEpoch(
+                                                      ? DateFormat('MMM yyyy').format(
+                                                          CustomDateTimeFormat
+                                                              .timeStampToDateTime(
                                                                   (state.insightDetail
-                                                                              ?.date ??
-                                                                          -1) *
-                                                                      1000))
+                                                                          ?.date ??
+                                                                      -1)))
                                                       : (state.selectedMonth !=
                                                               null)
                                                           ? DateFormat(

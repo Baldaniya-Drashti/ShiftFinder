@@ -79,7 +79,6 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                 if (!pageList.contains(state.notificationPage)) {
                   pageList.add(state.notificationPage);
                 }
-                print('Current page list111----> $pageList');
                 emit(state.copyWith(
                   pageIndex: pageList.indexOf(state.notificationPage),
                   currentPage: NotificationView(),
@@ -138,14 +137,12 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                     teamStatusFailureOrSuccessOption: optionOf(res),
                   ),
                 );
-
                 // if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
                 if (r.isTeamAvailable == 1 ||
                     getCurrentUser().isDialogBox == 1) {
                   e.context.router
                       .push(PageRouteInfo(route.HealthCarePostForm.name))
                       .then((value) {
-                    print("value------> ${e.context}");
                     add(MainTabEvent.tabChange(0));
                     // add(HomeEvent.getEmployerDashboardList(true));
                   });
@@ -160,7 +157,6 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                 .firebaseMessaging
                 .getToken()
                 .then((value) async {
-              print("FCM token----> $value");
               if (value != null) {
                 await authFacade.registerForPush(fcmToken: value);
               }

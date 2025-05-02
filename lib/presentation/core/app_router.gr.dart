@@ -1553,12 +1553,14 @@ class ContractorMainTabView extends _i135.PageRouteInfo<void> {
 class ContractorPdfViewer extends _i135.PageRouteInfo<ContractorPdfViewerArgs> {
   ContractorPdfViewer({
     required String pdfUrl,
+    bool hideAppBar = false,
     _i136.Key? key,
     List<_i135.PageRouteInfo>? children,
   }) : super(
           ContractorPdfViewer.name,
           args: ContractorPdfViewerArgs(
             pdfUrl: pdfUrl,
+            hideAppBar: hideAppBar,
             key: key,
           ),
           initialChildren: children,
@@ -1572,6 +1574,7 @@ class ContractorPdfViewer extends _i135.PageRouteInfo<ContractorPdfViewerArgs> {
       final args = data.argsAs<ContractorPdfViewerArgs>();
       return _i32.ContractorPdfViewer(
         pdfUrl: args.pdfUrl,
+        hideAppBar: args.hideAppBar,
         key: args.key,
       );
     },
@@ -1581,16 +1584,19 @@ class ContractorPdfViewer extends _i135.PageRouteInfo<ContractorPdfViewerArgs> {
 class ContractorPdfViewerArgs {
   const ContractorPdfViewerArgs({
     required this.pdfUrl,
+    this.hideAppBar = false,
     this.key,
   });
 
   final String pdfUrl;
 
+  final bool hideAppBar;
+
   final _i136.Key? key;
 
   @override
   String toString() {
-    return 'ContractorPdfViewerArgs{pdfUrl: $pdfUrl, key: $key}';
+    return 'ContractorPdfViewerArgs{pdfUrl: $pdfUrl, hideAppBar: $hideAppBar, key: $key}';
   }
 }
 

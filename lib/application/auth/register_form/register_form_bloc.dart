@@ -12,6 +12,7 @@ import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
@@ -369,11 +370,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                           .selectedAddress.result?.geometry?.location?.lng
                           .toString() ??
                       '',
-                  dateOfBirth:
-                      DateTime.parse(state.dateOfBirth.getValue() ?? "")
-                              .toUtc()
-                              .millisecondsSinceEpoch ~/
-                          1000);
+                  dateOfBirth: CustomDateTimeFormat.dateTimeToUtcTimestamp(
+                    DateTime.parse(state.dateOfBirth.getValue() ?? ""),
+                    isInt: true,
+                  ));
             } else {
               showError(
                       message: StringConstant

@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/core/employer_invoice_dto/employer_invoice_
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/invoice_viewer.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/save_file_to_storage.dart';
@@ -306,7 +307,7 @@ class _ShiftDetail extends StatelessWidget {
           label: StringConstant.date,
           value: (invoice.date != null)
               ? DateFormat("dd MMM, yyyy").format(
-                  DateTime.fromMillisecondsSinceEpoch((invoice.date!) * 1000))
+                  CustomDateTimeFormat.timeStampToDateTime((invoice.date!)))
               : "",
         )
       ],

@@ -536,10 +536,10 @@ class AddBankDetailsScreen extends StatelessWidget {
 
   Widget stateField(BuildContext context, BankDetailsState state) {
     return CustomTextField(
-      labelText: StringConstant.state,
+      labelText: StringConstant.province,
       hintText: (state.stateName.isValid())
           ? state.stateName.getValue()
-          : StringConstant.state,
+          : StringConstant.province,
       hintAsValue: (state.stateName.isValid()),
       onChanged: (value) => context
           .read<BankDetailsBloc>()

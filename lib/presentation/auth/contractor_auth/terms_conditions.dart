@@ -104,9 +104,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             height: getSize(63),
             width: getSize(57.95),
           ),
-          SizedBox(
-            width: getSize(15),
-          ),
+          SizedBox(width: getSize(15)),
           Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -132,7 +130,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -144,9 +142,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       children: [
         titleText(StringConstant.summary),
         descriptionText(StringConstant.summaryDesc),
-        SizedBox(
-          height: getSize(20),
-        ),
+        SizedBox(height: getSize(20)),
         titleText(StringConstant.terms),
         descriptionText(StringConstant.termsDesc1),
         descriptionText(StringConstant.termsDesc2),

@@ -17,6 +17,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
@@ -75,9 +76,8 @@ class ViewSingleApplicantsBloc
             );
           },
           cardHolderNameChanged: (value) async {
-            emit(
-              state.copyWith(cardHoldersName: Username(value.cardHolderName)),
-            );
+            emit(state.copyWith(
+                cardHoldersName: Username(value.cardHolderName)));
           },
           cardNumberChanged: (value) async {
             emit(
@@ -106,13 +106,11 @@ class ViewSingleApplicantsBloc
                 isCardNumberValid &&
                 isCardDateValid &&
                 isCvvValid) {
-              emit(
-                state.copyWith(
-                  isSubmitting: true,
-                  showErrorMessages: false,
-                  failureOrSuccessOption: none(),
-                ),
-              );
+              emit(state.copyWith(
+                isSubmitting: true,
+                showErrorMessages: false,
+                failureOrSuccessOption: none(),
+              ));
             }
             emit(
               state.copyWith(
@@ -292,7 +290,7 @@ class ViewSingleApplicantsBloc
           },
           startRevokingTimer: (StartRevokingTimer value) {
             DateTime timerStartTime =
-                DateTime.fromMillisecondsSinceEpoch(value.revokeTime * 1000);
+                CustomDateTimeFormat.timeStampToDateTime(value.revokeTime);
 
             Duration totalDuration = Duration(hours: 2);
 
@@ -363,6 +361,6 @@ class ViewSingleApplicantsBloc
       timeOfDay.minute,
     );
 
-    return dateTime.toUtc().millisecondsSinceEpoch ~/ 1000;
+    return CustomDateTimeFormat.dateTimeToUtcTimestamp(dateTime, isInt: true);
   }
 }

@@ -13,6 +13,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/payment_history_dto/payment_history_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -170,13 +171,13 @@ class InvoiceView extends StatelessWidget {
                           color: AppColors.primaryColor),
                       text: (shift.date != null)
                           ? DateFormat('dd MMM, ').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (shift.date!) * 1000))
+                              CustomDateTimeFormat.timeStampToDateTime(
+                                  shift.date!))
                           : "",
                       children: [
                         TextSpan(
                           text: (shift.date != null)
-                              ? "${DateTime.fromMillisecondsSinceEpoch((shift.date!) * 1000).year}"
+                              ? "${CustomDateTimeFormat.timeStampToDateTime(shift.date!).year}"
                               : "",
                           style: TextStyle(
                             color: AppColors.black.withValues(alpha: 0.5),

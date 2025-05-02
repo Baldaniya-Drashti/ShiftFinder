@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -64,21 +65,19 @@ class SingleAgreedShift extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: DateFormat('d MMM, yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch(
+                                CustomDateTimeFormat.timeStampToDateTime(
                                     ((contractor.shift_type == 1)
-                                            ? contractor.start_date ?? -1
-                                            : contractor
-                                                    .shift_details?[index ?? 0]
-                                                    .start_date ??
-                                                -1) *
-                                        1000)),
+                                        ? contractor.start_date ?? -1
+                                        : contractor.shift_details?[index ?? 0]
+                                                .start_date ??
+                                            -1))),
                             style: TextStyle(
                               color: AppColors.black,
                             ),
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -87,22 +86,22 @@ class SingleAgreedShift extends StatelessWidget {
                       postedLabel: StringConstant.postedTime,
                       proposedLabel: StringConstant.agreedTime,
                       postedValue:
-                          "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.posted_start_time ?? -1) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.posted_end_time ?? -1) * 1000))}",
+                          "${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.posted_start_time ?? -1)))} to ${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.posted_end_time ?? -1)))}",
                       proposedValue:
-                          "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.agreed_start_time ?? -1) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.agreed_end_time ?? -1) * 1000))}",
+                          "${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.agreed_start_time ?? -1)))} to ${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.agreed_end_time ?? -1)))}",
                     )
                   : shiftTimeBox(
                       postedLabel: StringConstant.postedTime,
                       proposedLabel: StringConstant.agreedTime,
                       postedValue:
-                          "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.shift_details?[index ?? 0].posted_start_time ?? -1) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.shift_details?[index ?? 0].posted_end_time ?? -1) * 1000))}",
+                          "${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.shift_details?[index ?? 0].posted_start_time ?? -1)))} to ${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.shift_details?[index ?? 0].posted_end_time ?? -1)))}",
                       proposedValue: (contractor.shift_details?[index ?? 0]
                                       .proposed_start_time !=
                                   null &&
                               contractor.shift_details?[index ?? 0]
                                       .proposed_end_time !=
                                   null)
-                          ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.shift_details?[index ?? 0].proposed_start_time)! * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.shift_details?[index ?? 0].proposed_end_time)! * 1000))}"
+                          ? "${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.shift_details?[index ?? 0].proposed_start_time)!))} to ${DateFormat('hh:mm a').format(CustomDateTimeFormat.timeStampToDateTime((contractor.shift_details?[index ?? 0].proposed_end_time)!))}"
                           : StringConstant.notAvailable,
                       isUnAvailable: (contractor.shift_details?[index ?? 0]
                                   .proposed_start_time ==

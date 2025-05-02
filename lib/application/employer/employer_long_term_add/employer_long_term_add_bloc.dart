@@ -464,8 +464,6 @@ class EmployerLongTermAddBloc
         .map((specialtiy) => specialtiy.id)
         .toList();
     String commaSeparated = specialityIds.join(',');
-    print('Speciality IDs: $commaSeparated');
-
     return commaSeparated;
   }
 
@@ -474,13 +472,12 @@ class EmployerLongTermAddBloc
         .getValue()
         .map((chipName) => state.softwareList.firstWhere(
               (software) => software.name == chipName,
-              orElse: () => SkillDTO(), // Handle cases where no match is found
+              orElse: () => SkillDTO(),
             ))
-        .where((software) => software.id != null) // Filter out null values
-        .map((software) => software.id) // Extract IDs
+        .where((software) => software.id != null)
+        .map((software) => software.id)
         .toList();
     String commaSeparated = softwareIds.join(',');
-    print('Software IDs: $commaSeparated');
 
     return commaSeparated;
   }

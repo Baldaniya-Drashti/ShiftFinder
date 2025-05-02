@@ -2,7 +2,6 @@
 
 class StringConstant {
   static const String shiftFinder = "ShiftFinder";
-
   static const String bridgingHealthServiceFacilitiesAndProfessionals =
       'Bridging Health Service Facilities and Professionals';
   static const String onBoarding1Desc =
@@ -681,7 +680,6 @@ class StringConstant {
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String currentCompleteShiftDesc =
-      // "Your submitted shift will move to Profile → Previous Shifts → Completed after the payment is processed.";
       "Your submitted shift will move to Profile → Previous Shifts → Completed after the Employer approval.";
   static const String pleaseSelectYourAddressProofDocumentFromTheList =
       "Please select your address proof document from the list";
@@ -996,6 +994,17 @@ class StringConstant {
   static const String filledShifts = "Filled Shifts";
   static const String thisWillNotImpactAnyCurrentlyAcceptedShifts =
       "This will not impact any currently accepted shifts";
+  static const String accountDisabledDesc =
+      "Currently Your account has been disabled by Admin.";
+  static const String accountDisabled = "Account Disabled";
+  static const String province = "Province";
+  static const String today = "Today";
+  static const String urgentAction = "Urgent Action";
+  static const String noInternetConnection = "No Internet Connection!";
+  static const String networkError = "Network Error";
+  static const String pleaseTryAgainLater = "Please Try Again Later";
+  static const String invoiceViewer = "Invoice Viewer";
+  static const String errorLoadingPdf = "Error Loading PDF";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";

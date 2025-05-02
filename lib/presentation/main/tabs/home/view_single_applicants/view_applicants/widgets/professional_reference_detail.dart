@@ -6,6 +6,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -68,15 +69,15 @@ class ProfessionalReferenceDetail extends StatelessWidget {
             title: StringConstant.startDate,
             image: SvgImageConstant.calendar,
             value: DateFormat("d MMM, yyyy").format(
-                DateTime.fromMillisecondsSinceEpoch(
-                    (data.start_date ?? -1) * 1000)),
+                CustomDateTimeFormat.timeStampToDateTime(
+                    (data.start_date ?? -1))),
           ),
           referenceDetail(
             title: StringConstant.endDate,
             image: SvgImageConstant.calendar,
             value: DateFormat("dd MMM, yyyy").format(
-                DateTime.fromMillisecondsSinceEpoch(
-                    (data.end_date ?? -1) * 1000)),
+                CustomDateTimeFormat.timeStampToDateTime(
+                    (data.end_date ?? -1))),
           ),
           SizedBox(height: getSize(20)),
         ],

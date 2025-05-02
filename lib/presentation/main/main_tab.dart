@@ -40,8 +40,7 @@ class MainTabView extends StatelessWidget {
         ), */
         BlocProvider(create: (context) => getIt<HomeBloc>()),
         BlocProvider<AccountCubit>(
-          create: (context) => getIt<AccountCubit>()..getAccount(),
-        ),
+            create: (context) => getIt<AccountCubit>()..getAccount()),
       ],
       child: Builder(builder: (context) {
         return BlocBuilder<MainTabBloc, MainTabState>(
@@ -78,9 +77,17 @@ class MainTabView extends StatelessWidget {
                   builder: (con, state) {
                     return FloatingActionButton(
                       onPressed: () {
+                        /* if (getCurrentUser().isUserEnable == null) {
+                          UserEnableDisableDialog.showEnableDisableDialog(
+                            context,
+                            title: StringConstant.accountDisabled,
+                            infoMessage: StringConstant.accountDisabledDesc,
+                          );
+                        } else { */
                         context
                             .read<MainTabBloc>()
                             .add(MainTabEvent.checkTeamAvailableEvent(context));
+                        // }
                       },
                       backgroundColor: AppColors.primaryColor,
                       shape: CircleBorder(
@@ -137,9 +144,7 @@ getAppbar(MainTabState state, BuildContext context) {
                       getCurrentUser().profileImage!,
                       // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
                     )
-                  : AssetImage(
-                      PngImageConstants.profile_employer,
-                    ),
+                  : AssetImage(PngImageConstants.profile_employer),
               fit: BoxFit.cover,
             ),
           ),
@@ -197,12 +202,9 @@ getAppbar(MainTabState state, BuildContext context) {
 }
 
 Route? onGenerateRoute(RouteSettings settings, String tabItem) {
-  // print("TAB ITEM----->  $tabItem");
   return MaterialPageRoute(
     settings: settings,
     builder: (context) {
-      // print("Current page----> $currentPage");
-      // return currentPage;
       if (tabItem == autoroute.HomeView.name) {
         return HomeView();
       } else if (tabItem == autoroute.EmployerShiftView.name) {

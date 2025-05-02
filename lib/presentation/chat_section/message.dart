@@ -14,6 +14,7 @@ import 'package:shift/presentation/chat_section/widget/chat_date_method.dart';
 import 'package:shift/presentation/chat_section/widget/message_appbar.dart';
 import 'package:shift/presentation/chat_section/widget/message_tile.dart';
 import 'package:shift/presentation/chat_section/widget/show_date_widget.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -93,15 +94,19 @@ class Message extends StatelessWidget {
                             return StickyHeader(
                               header: (index != (state.messageList.length - 1)
                                       ? !(ChatDateMethod().isSameDay(
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                              state.messageList[index]
-                                                      .createdAt ??
-                                                  0),
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                            state.messageList[index + 1]
-                                                    .createdAt ??
-                                                0,
-                                          )))
+                                          CustomDateTimeFormat
+                                              .timeStampToDateTime(
+                                                  state.messageList[index]
+                                                          .createdAt ??
+                                                      0,
+                                                  isMillisecond: false),
+                                          CustomDateTimeFormat
+                                              .timeStampToDateTime(
+                                                  state.messageList[index + 1]
+                                                          .createdAt ??
+                                                      0,
+                                                  isMillisecond: false),
+                                        ))
                                       : true)
                                   ? ShowDateWidget(
                                       date:

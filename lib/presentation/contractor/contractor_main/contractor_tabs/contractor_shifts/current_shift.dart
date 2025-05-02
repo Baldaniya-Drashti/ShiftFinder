@@ -13,6 +13,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/current_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -182,32 +183,18 @@ Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            /* displayTime(
-                title: StringConstant.time,
-                startDate: (shift.shift_detail?.start_time != null)
-                    ? DateFormat('hh:mm a').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (shift.shift_detail?.start_time ?? 0) * 1000))
-                    : "",
-                endDate: (shift.shift_detail?.end_time != null)
-                    ? DateFormat('hh:mm a').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (shift.shift_detail?.end_time ?? 0) * 1000))
-                    : "",
-                svgPrefixIcon: SvgImageConstant.clock,
-              ), */
             (shift.shift_detail?.shift_type == 1)
                 ? displayTime(
                     title: StringConstant.time,
                     startDate: (shift.shift_detail?.start_time != null)
                         ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.shift_detail?.start_time ?? 0) * 1000))
+                            CustomDateTimeFormat.timeStampToDateTime(
+                                (shift.shift_detail?.start_time ?? 0)))
                         : "",
                     endDate: (shift.shift_detail?.end_time != null)
                         ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.shift_detail?.end_time ?? 0) * 1000))
+                            CustomDateTimeFormat.timeStampToDateTime(
+                                (shift.shift_detail?.end_time ?? 0)))
                         : "",
                     svgPrefixIcon: SvgImageConstant.clock,
                   )
@@ -246,76 +233,11 @@ Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
       ),
     ],
   );
-  /*Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            displayDateBreak(
-              context,
-              // boldValue: "12 May,",
-              // timidValue: "2024",
-              boldValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1),
-              timidValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1,
-                  isYear: true),
-              title: StringConstant.shiftDate,
-              svgPrefixIcon: SvgImageConstant.calendar,
-            ),
-            displayTime(
-              title: StringConstant.time,
-              startDate: (shift.shift_detail?.start_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.shift_detail?.start_time ?? 0) * 1000))
-                  : "",
-              endDate: (shift.shift_detail?.end_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.shift_detail?.end_time ?? 0) * 1000))
-                  : "",
-              svgPrefixIcon: SvgImageConstant.clock,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            displayDateBreak(
-              context,
-              boldValue:
-                  "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
-              timidValue: "",
-              title: StringConstant.estimatedPayables,
-              svgPrefixIcon: SvgImageConstant.dollorRound,
-            ),
-            displayDateBreak(
-              context,
-              boldValue: "",
-              timidValue: "",
-              title: "",
-              svgPrefixIcon: "",
-              showBtn: true,
-              onBtnPressed: () {
-                context.router.push(
-                  PageRouteInfo(
-                    ViewContractorShift.name,
-                    args: ViewContractorShiftArgs(
-                      postId: shift.id ?? -1,
-                      isTotalApplicants: true,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ],
-    );*/
 }
 
 String convertTimeStampToDate(int timestamp,
     {bool isYear = false, bool isTime = false}) {
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
   if (isTime) {
     return DateFormat('hh:mm a').format(dateTime);
@@ -334,10 +256,11 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
     labelText: StringConstant.clockIn,
     hintText: (isClockInValid)
         ? DateFormat('hh:mm a').format(
-            DateTime.fromMillisecondsSinceEpoch((shift.clock_in ?? -1) * 1000))
+            CustomDateTimeFormat.timeStampToDateTime((shift.clock_in ?? -1)))
         : (shift.selectedClockInTime != null)
-            ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
-                (shift.selectedClockInTime ?? -1) * 1000))
+            ? DateFormat('hh:mm a').format(
+                CustomDateTimeFormat.timeStampToDateTime(
+                    (shift.selectedClockInTime ?? -1)))
             : StringConstant.clockIn,
     hintAsValue: isClockInValid,
     fillColor: AppColors.grey04,
@@ -350,11 +273,11 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
             final clockInTime = await showTimePicker(
               context,
               initalTime: (shift.selectedClockInTime != null)
-                  ? DateTime.fromMillisecondsSinceEpoch(
-                      (shift.selectedClockInTime)! * 1000)
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                      (shift.selectedClockInTime)!)
                   : (shift.shift_detail?.start_time != null)
-                      ? DateTime.fromMillisecondsSinceEpoch(
-                          (shift.shift_detail?.start_time)! * 1000)
+                      ? CustomDateTimeFormat.timeStampToDateTime(
+                          (shift.shift_detail?.start_time)!)
                       : null,
             );
             if (clockInTime != null) {
@@ -469,10 +392,11 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
     labelText: StringConstant.clockOut,
     hintText: (isClockOutValid)
         ? DateFormat('hh:mm a').format(
-            DateTime.fromMillisecondsSinceEpoch((shift.clock_out ?? -1) * 1000))
+            CustomDateTimeFormat.timeStampToDateTime((shift.clock_out ?? -1)))
         : (shift.selectedClockOutTime != null)
-            ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
-                (shift.selectedClockOutTime ?? -1) * 1000))
+            ? DateFormat('hh:mm a').format(
+                CustomDateTimeFormat.timeStampToDateTime(
+                    (shift.selectedClockOutTime ?? -1)))
             : StringConstant.clockOut,
     hintAsValue: isClockOutValid,
     fillColor: AppColors.grey04,
@@ -482,13 +406,13 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
         : (shift.clock_in != null)
             ? () async {
                 final now = DateTime.now();
-                final clockInTime = DateTime.fromMillisecondsSinceEpoch(
-                    (shift.clock_in ?? -1) * 1000);
+                final clockInTime = CustomDateTimeFormat.timeStampToDateTime(
+                    (shift.clock_in ?? -1));
                 final clockOutTime = await showTimePicker(
                   context,
                   initalTime: (shift.selectedClockOutTime != null)
-                      ? DateTime.fromMillisecondsSinceEpoch(
-                          (shift.selectedClockOutTime)! * 1000)
+                      ? CustomDateTimeFormat.timeStampToDateTime(
+                          (shift.selectedClockOutTime)!)
                       : null,
                 );
 
