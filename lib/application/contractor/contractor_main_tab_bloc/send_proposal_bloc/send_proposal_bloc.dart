@@ -741,8 +741,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       'date': shiftDate,
       'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
           DateTime.parse(startTime)),
-      'end_time':
-          CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.parse(endTime)),
+      'end_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
+        DateTime.parse(endTime),
+        startTime: DateTime.parse(startTime),
+      ),
       'commute_allowance': (state.shift.shift_detail?.commute_allowance_type ==
               1)
           ? state.commuteRate.getValue()
@@ -818,6 +820,10 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               DateTime.parse((shiftDetail.same_or_different_time == 1)
                   ? formattedEndTime
                   : multiDate.end_time ?? ""),
+              startTime: DateTime.parse(
+                  (shiftDetail.same_or_different_time == 1)
+                      ? formattedStartTime
+                      : multiDate.start_time ?? ""),
               isInt: true,
             ),
             'payable_hour': multiDate.totalPaybleHours,

@@ -34,7 +34,11 @@ class CustomDateTimeFormat {
     return DateTime(now.year, now.month, now.day, finalHour, minuteInt);
   } */
 
-  static DateTime parseTime(String hour, String minute, {DateTime? dateTime}) {
+  static DateTime parseTime(
+    String hour,
+    String minute, {
+    DateTime? dateTime,
+  }) {
     final now = dateTime ?? DateTime.now();
     final hourInt = extractHour(hour);
     final minuteInt = extractMinutes(minute);
@@ -134,11 +138,15 @@ class CustomDateTimeFormat {
     }
   }
 
-  static dateTimeToUtcTimestamp(DateTime localDate, {bool? isInt}) {
+  static dateTimeToUtcTimestamp(DateTime localDate,
+      {bool? isInt, DateTime? startTime}) {
+    /// Check that If End Time is Before then Start Time Then Convert it into Next Date/Day
+    final isBefore =
+        (startTime != null) ? !localDate.isAfter(startTime) : false;
     final fixedUtcDate = DateTime.utc(
       localDate.year,
       localDate.month,
-      localDate.day,
+      (isBefore) ? (localDate.day + 1) : localDate.day,
       localDate.hour,
       localDate.minute,
       localDate.second,

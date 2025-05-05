@@ -1762,14 +1762,24 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 fromSaveTemplate == true ||
                 fromReview == true) ...{ */
             'date': CustomDateTimeFormat.dateTimeToUtcTimestamp(formattedDate),
-            'start_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
-                DateTime.parse((shift.same_or_different_time == 1)
+            'start_time':
+                CustomDateTimeFormat.dateTimeToUtcTimestamp(DateTime.parse(
+                    /* (shift.same_or_different_time == 1)
                     ? shift.start_time ?? ""
-                    : multiDate.start_time ?? "")),
+                    : */
+                    multiDate.start_time ?? "")),
             'end_time': CustomDateTimeFormat.dateTimeToUtcTimestamp(
-                DateTime.parse((shift.same_or_different_time == 1)
-                    ? shift.end_time ?? ""
-                    : multiDate.end_time ?? "")),
+              DateTime.parse(
+                  /* (shift.same_or_different_time == 1)
+                  ? shift.end_time ?? ""
+                  :  */
+                  multiDate.end_time ?? ""),
+              startTime: DateTime.parse(
+                  /* (shift.same_or_different_time == 1)
+                  ? shift.start_time ?? ""
+                  : */
+                  multiDate.start_time ?? ""),
+            ),
             'payable_hour': (shift.same_or_different_time == 1)
                 ? state.totalPaybleHours
                 : multiDate.totalPaybleHours,
@@ -1813,8 +1823,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           : null,
       end_time: (shift.end_time != null && shift.end_time!.isNotEmpty)
           ? CustomDateTimeFormat.dateTimeToUtcTimestamp(
-                  DateTime.parse(shift.end_time ?? ""))
-              .toString()
+              DateTime.parse(shift.end_time ?? ""),
+              startTime: DateTime.parse(shift.start_time ?? ""),
+            ).toString()
           : null,
       same_or_different_time: shift.same_or_different_time,
       multi_date: mapMultiDateToApiFormat(),
@@ -2330,6 +2341,16 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         date: CustomDateTimeFormat.parseTime(
           state.startHour.getValue() ?? "",
           state.startMinute.getValue() ?? "",
+          dateTime: multiDate,
+        ).toString(),
+        start_time: CustomDateTimeFormat.parseTime(
+          state.startHour.getValue() ?? "",
+          state.startMinute.getValue() ?? "",
+          dateTime: multiDate,
+        ).toString(),
+        end_time: CustomDateTimeFormat.parseTime(
+          state.endHour.getValue() ?? "",
+          state.endMinute.getValue() ?? "",
           dateTime: multiDate,
         ).toString(),
       );
