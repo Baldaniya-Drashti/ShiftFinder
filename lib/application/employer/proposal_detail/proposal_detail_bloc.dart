@@ -2,14 +2,22 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 part 'proposal_detail_event.dart';
 part 'proposal_detail_state.dart';
@@ -86,9 +94,7 @@ class ProposalDetailBloc
               emit(state.copyWith(isErrorInAPI: true, isLoading: false));
             },
             (r) async {
-              value.context.maybePop(true);
-
-              /*if (value.request == 2) {
+              if (value.request == 2) {
                 value.context.maybePop(true);
                 return;
               }
@@ -161,7 +167,7 @@ class ProposalDetailBloc
 
               if (result ?? false) {
                 value.context.maybePop(true);
-              } */
+              }
             },
           );
         },

@@ -1758,7 +1758,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 );
 
           final map = {
-            /*    if (state.updateShift.id == null ||
+            /*if (state.updateShift.id == null ||
                 fromSaveTemplate == true ||
                 fromReview == true) ...{ */
             'date': CustomDateTimeFormat.dateTimeToUtcTimestamp(formattedDate),

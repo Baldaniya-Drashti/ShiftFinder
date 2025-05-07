@@ -50,7 +50,6 @@ Future<void> main() async {
         return e;
       }).then((v) async {
         await _initializeCrashlytics();
-
         await dotenv.load(fileName: '.env');
         configureInjection(Environment.dev);
         String environment = const String.fromEnvironment(
