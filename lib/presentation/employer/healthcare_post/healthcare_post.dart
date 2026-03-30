@@ -71,7 +71,6 @@ class HealthCarePostForm extends StatelessWidget {
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
-
                 // Navigator.pop(context);
               },
               title:

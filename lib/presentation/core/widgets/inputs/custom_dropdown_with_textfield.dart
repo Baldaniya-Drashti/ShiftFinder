@@ -198,7 +198,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
-                  value: value,
+                  initialValue: value,
                   icon: dropDownIcon ??
                       SvgPicture.asset(
                         SvgImageConstant.downArrow,
@@ -306,7 +306,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
-      value: childDropDownValue,
+      initialValue: childDropDownValue,
       icon: SvgPicture.asset(
         SvgImageConstant.downArrow,
       ),
@@ -490,7 +490,7 @@ class CustomLocationDropdDown extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
-                value: value,
+                initialValue: value,
                 icon: SvgPicture.asset(
                   SvgImageConstant.downArrow,
                 ),
@@ -594,7 +594,7 @@ class CustomLocationDropdDown extends StatelessWidget {
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
-      value: childDropDownValue,
+      initialValue: childDropDownValue,
       icon: SvgPicture.asset(
         SvgImageConstant.downArrow,
       ),

@@ -203,16 +203,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i366.AccountManagementBloc>(
         () => _i366.AccountManagementBloc());
-    gh.factory<_i418.FullTimePositionDetailBloc>(
-        () => _i418.FullTimePositionDetailBloc());
-    gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
-    gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i218.EmployerLongTermPositionAddDetailBloc>(
-        () => _i218.EmployerLongTermPositionAddDetailBloc());
-    gh.factory<_i164.ViewMediaBloc>(() => _i164.ViewMediaBloc());
-    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i730.PickLocationDialogBloc>(
         () => _i730.PickLocationDialogBloc());
+    gh.factory<_i164.ViewMediaBloc>(() => _i164.ViewMediaBloc());
+    gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
+    gh.factory<_i418.FullTimePositionDetailBloc>(
+        () => _i418.FullTimePositionDetailBloc());
+    gh.factory<_i218.EmployerLongTermPositionAddDetailBloc>(
+        () => _i218.EmployerLongTermPositionAddDetailBloc());
+    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
@@ -221,24 +221,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i426.AccountRepository(gh<_i771.ApiService>()));
     gh.lazySingleton<_i111.IMainFacade>(
         () => _i198.MainFacade(apiService: gh<_i771.ApiService>()));
-    gh.factory<_i1069.EmployerLongTermViewApplicantBloc>(() =>
-        _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i918.EmployerLongTermPayableBloc>(
-        () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i24.EmployerFullPostingBloc>(
-        () => _i24.EmployerFullPostingBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
-        () => _i454.EmployerFullPostingConfirmBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i1002.EmployerFullPostingApplicantBloc>(
-        () => _i1002.EmployerFullPostingApplicantBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i435.EmployerFullPositionDetailBloc>(
         () => _i435.EmployerFullPositionDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i120.EmployerLongTermDetailBloc>(
-        () => _i120.EmployerLongTermDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i24.EmployerFullPostingBloc>(
+        () => _i24.EmployerFullPostingBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1002.EmployerFullPostingApplicantBloc>(
+        () => _i1002.EmployerFullPostingApplicantBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i454.EmployerFullPostingConfirmBloc>(
+        () => _i454.EmployerFullPostingConfirmBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i89.EmployerLongTermBloc>(
         () => _i89.EmployerLongTermBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i545.EmployerLongTermAuthorizePaymentBloc>(() =>
         _i545.EmployerLongTermAuthorizePaymentBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i120.EmployerLongTermDetailBloc>(
+        () => _i120.EmployerLongTermDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i918.EmployerLongTermPayableBloc>(
+        () => _i918.EmployerLongTermPayableBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1069.EmployerLongTermViewApplicantBloc>(() =>
+        _i1069.EmployerLongTermViewApplicantBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i809.EmployerCompletedShiftBloc>(
         () => _i809.EmployerCompletedShiftBloc(
               gh<_i111.IMainFacade>(),
@@ -263,15 +263,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
     gh.factory<_i990.EmployerLocationFormBloc>(
         () => _i990.EmployerLocationFormBloc(
               gh<_i253.IAccountRepository>(),
               gh<_i111.IMainFacade>(),
             ));
-    gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
-          gh<_i253.IAccountRepository>(),
-          gh<_i111.IMainFacade>(),
-        ));
     gh.factory<_i471.AddContractorSkillFormBloc>(
         () => _i471.AddContractorSkillFormBloc(
               gh<_i277.IAuthFacade>(),
@@ -283,57 +283,57 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i400.ContractorMainTabBloc>(
         () => _i400.ContractorMainTabBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i541.PostShiftBloc>(
-        () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i678.SendProposalBloc>(
-        () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i170.MyCalendarViewBloc>(
-        () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i725.ContractorFullTimePositionBloc>(
         () => _i725.ContractorFullTimePositionBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i456.ContractorRatingBloc>(
-        () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i634.ContractorPerformanceInsightBloc>(
-        () => _i634.ContractorPerformanceInsightBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i106.ContractorLongTermBloc>(
         () => _i106.ContractorLongTermBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i79.EmployerFullPostingReviewBloc>(
-        () => _i79.EmployerFullPostingReviewBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i156.ProposalDetailBloc>(
-        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i119.HiredContractorBloc>(
-        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i1042.EmployerLongTermConfirmationBloc>(
-        () => _i1042.EmployerLongTermConfirmationBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i93.CounterProposalDetailBloc>(
-        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i819.TotalProposalBloc>(
-        () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i827.PreviousShiftBloc>(
-        () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i426.SaveTemplateBloc>(
-        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i158.EmployerLocationBloc>(
-        () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i678.SendProposalBloc>(
+        () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i634.ContractorPerformanceInsightBloc>(
+        () => _i634.ContractorPerformanceInsightBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i456.ContractorRatingBloc>(
+        () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i170.MyCalendarViewBloc>(
+        () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i699.PaymentMethodBloc>(
         () => _i699.PaymentMethodBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i828.ApplicantProfileBloc>(
-        () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i93.CounterProposalDetailBloc>(
+        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i79.EmployerFullPostingReviewBloc>(
+        () => _i79.EmployerFullPostingReviewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i158.EmployerLocationBloc>(
+        () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1042.EmployerLongTermConfirmationBloc>(
+        () => _i1042.EmployerLongTermConfirmationBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i119.HiredContractorBloc>(
+        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i827.PreviousShiftBloc>(
+        () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i819.TotalProposalBloc>(
+        () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i156.ProposalDetailBloc>(
+        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i426.SaveTemplateBloc>(
+        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i541.PostShiftBloc>(
+        () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i828.ApplicantProfileBloc>(
+        () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i464.ShiftActionBloc>(
         () => _i464.ShiftActionBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i744.ForgotPasswordBloc>(
-        () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
         () => _i1033.AuthStatusBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1026.TermsAndConditionBloc>(
         () => _i1026.TermsAndConditionBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i134.RegisterFormBloc>(
-        () => _i134.RegisterFormBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i744.ForgotPasswordBloc>(
+        () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i31.LoginFormBloc>(
         () => _i31.LoginFormBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i134.RegisterFormBloc>(
+        () => _i134.RegisterFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i723.ChangePasswordBloc>(
         () => _i723.ChangePasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i544.MessageBloc>(() => _i544.MessageBloc(
@@ -342,12 +342,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i596.AddressProofBloc>(
         () => _i596.AddressProofBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i897.IntroVideoBloc>(
-        () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i161.ExperienceBloc>(
-        () => _i161.ExperienceBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i653.LegalScreeningBloc>(
-        () => _i653.LegalScreeningBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i900.BackgroundDocBloc>(
+        () => _i900.BackgroundDocBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.DocumentBloc>(
         () => _i408.DocumentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.CredentialBloc>(
@@ -362,12 +358,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.ResumeBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.EquipmentBloc>(
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i944.SpecialityExperienceBloc>(
-        () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i900.BackgroundDocBloc>(
-        () => _i900.BackgroundDocBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i161.ExperienceBloc>(
+        () => _i161.ExperienceBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i897.IntroVideoBloc>(
+        () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i653.LegalScreeningBloc>(
+        () => _i653.LegalScreeningBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i285.ProofOfLegalStatusBloc>(
         () => _i285.ProofOfLegalStatusBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i944.SpecialityExperienceBloc>(
+        () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(
@@ -386,32 +386,30 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i277.IAuthFacade>(),
         ));
-    gh.factory<_i286.ContractorPreviousShiftBloc>(
-        () => _i286.ContractorPreviousShiftBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i969.ContractorWalletBloc>(
-        () => _i969.ContractorWalletBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i131.ContractorShiftBloc>(
-        () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i608.ContractorEarningBloc>(
+        () => _i608.ContractorEarningBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i278.ContractorNotificationBloc>(
         () => _i278.ContractorNotificationBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i131.ContractorShiftBloc>(
+        () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i286.ContractorPreviousShiftBloc>(
+        () => _i286.ContractorPreviousShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i422.ContractorStatementBloc>(
         () => _i422.ContractorStatementBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i608.ContractorEarningBloc>(
-        () => _i608.ContractorEarningBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i969.ContractorWalletBloc>(
+        () => _i969.ContractorWalletBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i810.ReferColleagueBloc>(
         () => _i810.ReferColleagueBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i398.PaymentHistoryBloc>(
-        () => _i398.PaymentHistoryBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i1020.EmployerInvoiceBloc>(
         () => _i1020.EmployerInvoiceBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i319.MonthlyStatementBloc>(
         () => _i319.MonthlyStatementBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i765.ReviewPostBloc>(
-        () => _i765.ReviewPostBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i398.PaymentHistoryBloc>(
+        () => _i398.PaymentHistoryBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
@@ -419,6 +417,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i765.ReviewPostBloc>(
+        () => _i765.ReviewPostBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),

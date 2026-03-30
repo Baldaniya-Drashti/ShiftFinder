@@ -67,7 +67,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
     this.height,
     this.chipWidth,
   }) {
-    this.disabled = false;
+    disabled = false;
   }
 
   MultiSelectChipDisplay.none({

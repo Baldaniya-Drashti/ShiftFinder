@@ -307,9 +307,7 @@ class FilterBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: getSize(20),
-          ),
+          SizedBox(height: getSize(20)),
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -438,9 +436,7 @@ class FilterBottomSheet extends StatelessWidget {
             borderRadius: 30,
             height: 50,
           ),
-          SizedBox(
-            height: getSize(isFullScreenDevice(context) ? 0 : 45),
-          ),
+          SizedBox(height: getSize(isFullScreenDevice(context) ? 0 : 45)),
         ],
       ),
     );

@@ -33,98 +33,99 @@ class CurrentShift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ContractorShiftBloc>()
-        ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true)),
+      create: (context) =>
+          getIt<ContractorShiftBloc>()
+            ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true)),
       child: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
-          builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(5)),
-          child: PaginatedListView(
-            onRefresh: () {
-              context
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+            child: PaginatedListView(
+              onRefresh: () {
+                context.read<ContractorShiftBloc>().add(
+                  ContractorShiftEvent.getCurrentShiftDetailAPI(true),
+                );
+              },
+              refreshController: context
                   .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
-            },
-            refreshController:
-                context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
-            onLoading: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
-            },
-            isNoDataFound: state.isNoDataFound,
-            child: state.isLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong),
-                      )
-                    : ListView.builder(
-                        itemCount: state.currentShiftList.length,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        itemBuilder: (context, index) {
-                          final shift = state.currentShiftList[index];
-                          return Container(
-                            margin: EdgeInsets.symmetric(vertical: getSize(12)),
-                            padding: EdgeInsets.all(getSize(10)),
-                            width: getSize(355),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(getSize(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.lightGrey
-                                      .withValues(alpha: 0.2),
-                                  blurRadius: getSize(20),
+                  .currentShiftRefreshCtrl,
+              onLoading: () {
+                context.read<ContractorShiftBloc>().add(
+                  ContractorShiftEvent.getCurrentShiftDetailAPI(false),
+                );
+              },
+              isNoDataFound: state.isNoDataFound,
+              child: state.isLoading
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : state.isErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong),
+                    )
+                  : ListView.builder(
+                      itemCount: state.currentShiftList.length,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                      itemBuilder: (context, index) {
+                        final shift = state.currentShiftList[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: getSize(12)),
+                          padding: EdgeInsets.all(getSize(10)),
+                          width: getSize(355),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(getSize(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.lightGrey.withValues(
+                                  alpha: 0.2,
+                                ),
+                                blurRadius: getSize(20),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              userDetail(context, shift),
+                              paddingBetweenFields(),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail!.shift_type == 2) ...[
+                                remainingShift(
+                                  value:
+                                      "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}",
+                                ),
+                                paddingBetweenFields(),
+                              ],
+                              dateAndTime(context, shift),
+                              paddingBetweenFields(),
+                              clockIn(context, index, shift),
+                              paddingBetweenFields(),
+                              clockOut(context, index, shift),
+                              if (shift.clock_in != null &&
+                                  shift.clock_out != null) ...[
+                                paddingBetweenFields(),
+                                BaseText(
+                                  text: StringConstant.awaitingEmployerApproval,
+                                  textColor: AppColors.primaryColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ],
-                            ),
-                            child: Column(
-                              children: [
-                                userDetail(context, shift),
-                                paddingBetweenFields(),
-                                if (shift.shift_detail != null &&
-                                    shift.shift_detail!.shift_type == 2) ...[
-                                  remainingShift(
-                                      value:
-                                          "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
-                                  paddingBetweenFields(),
-                                ],
-                                dateAndTime(context, shift),
-                                paddingBetweenFields(),
-                                clockIn(context, index, shift),
-                                paddingBetweenFields(),
-                                clockOut(context, index, shift),
-                                if (shift.clock_in != null &&
-                                    shift.clock_out != null) ...[
-                                  paddingBetweenFields(),
-                                  BaseText(
-                                    text:
-                                        StringConstant.awaitingEmployerApproval,
-                                    textColor: AppColors.primaryColor,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-          ),
-        );
-      }),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
 
 Widget paddingBetweenFields({double? height}) {
-  return SizedBox(
-    height: getSize(height ?? 10),
-  );
+  return SizedBox(height: getSize(height ?? 10));
 }
 
 Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
@@ -151,11 +152,13 @@ Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
             (shift.shift_detail?.shift_type == 1)
                 ? displayDateBreak(
                     context,
-                    boldValue:
-                        convertTimeStampToDate(shift.shift_detail?.date ?? -1),
+                    boldValue: convertTimeStampToDate(
+                      shift.shift_detail?.date ?? -1,
+                    ),
                     timidValue: convertTimeStampToDate(
-                        shift.shift_detail?.date ?? -1,
-                        isYear: true),
+                      shift.shift_detail?.date ?? -1,
+                      isYear: true,
+                    ),
                     title: StringConstant.shiftDate,
                     svgPrefixIcon: SvgImageConstant.calendar,
                   )
@@ -189,19 +192,24 @@ Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
                     startDate: (shift.shift_detail?.start_time != null)
                         ? DateFormat('hh:mm a').format(
                             CustomDateTimeFormat.timeStampToDateTime(
-                                (shift.shift_detail?.start_time ?? 0)))
+                              (shift.shift_detail?.start_time ?? 0),
+                            ),
+                          )
                         : "",
                     endDate: (shift.shift_detail?.end_time != null)
                         ? DateFormat('hh:mm a').format(
                             CustomDateTimeFormat.timeStampToDateTime(
-                                (shift.shift_detail?.end_time ?? 0)))
+                              (shift.shift_detail?.end_time ?? 0),
+                            ),
+                          )
                         : "",
                     svgPrefixIcon: SvgImageConstant.clock,
                   )
                 : displayDateBreak(
                     context,
-                    boldValue:
-                        convertTimeStampToDate(shift.shift_detail?.date ?? -1),
+                    boldValue: convertTimeStampToDate(
+                      shift.shift_detail?.date ?? -1,
+                    ),
                     timidValue: convertTimeStampToDate(
                       shift.shift_detail?.date ?? -1,
                       isYear: true,
@@ -235,8 +243,11 @@ Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
   );
 }
 
-String convertTimeStampToDate(int timestamp,
-    {bool isYear = false, bool isTime = false}) {
+String convertTimeStampToDate(
+  int timestamp, {
+  bool isYear = false,
+  bool isTime = false,
+}) {
   DateTime dateTime = CustomDateTimeFormat.timeStampToDateTime(timestamp);
 
   if (isTime) {
@@ -256,12 +267,15 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
     labelText: StringConstant.clockIn,
     hintText: (isClockInValid)
         ? DateFormat('hh:mm a').format(
-            CustomDateTimeFormat.timeStampToDateTime((shift.clock_in ?? -1)))
+            CustomDateTimeFormat.timeStampToDateTime((shift.clock_in ?? -1)),
+          )
         : (shift.selectedClockInTime != null)
-            ? DateFormat('hh:mm a').format(
-                CustomDateTimeFormat.timeStampToDateTime(
-                    (shift.selectedClockInTime ?? -1)))
-            : StringConstant.clockIn,
+        ? DateFormat('hh:mm a').format(
+            CustomDateTimeFormat.timeStampToDateTime(
+              (shift.selectedClockInTime ?? -1),
+            ),
+          )
+        : StringConstant.clockIn,
     hintAsValue: isClockInValid,
     fillColor: AppColors.grey04,
     readOnly: true,
@@ -274,23 +288,35 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
               context,
               initalTime: (shift.selectedClockInTime != null)
                   ? CustomDateTimeFormat.timeStampToDateTime(
-                      (shift.selectedClockInTime)!)
+                      (shift.selectedClockInTime)!,
+                    )
                   : (shift.shift_detail?.start_time != null)
-                      ? CustomDateTimeFormat.timeStampToDateTime(
-                          (shift.shift_detail?.start_time)!)
-                      : null,
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                      (shift.shift_detail?.start_time)!,
+                    )
+                  : null,
             );
             if (clockInTime != null) {
-              final selectedDateTime = DateTime(now.year, now.month, now.day,
-                  clockInTime.hour, clockInTime.minute);
+              final selectedDateTime = DateTime(
+                now.year,
+                now.month,
+                now.day,
+                clockInTime.hour,
+                clockInTime.minute,
+              );
 
               if (selectedDateTime.isBefore(now)) {
                 context.read<ContractorShiftBloc>().add(
-                    ContractorShiftEvent.setClockIn(context,
-                        index: index, clockInTime: clockInTime));
+                  ContractorShiftEvent.setClockIn(
+                    context,
+                    index: index,
+                    clockInTime: clockInTime,
+                  ),
+                );
               } else {
-                showError(message: StringConstant.pleaseSelectAValidTime)
-                    .show(context);
+                showError(
+                  message: StringConstant.pleaseSelectAValidTime,
+                ).show(context);
               }
             }
           },
@@ -321,23 +347,23 @@ Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
                       infoMessage: StringConstant.clockInConfirmationDesc,
                       onSubmit: () {
                         context.read<ContractorShiftBloc>().add(
-                            ContractorShiftEvent.submitClockInOut(context,
-                                clockInOutTime: shift.selectedClockInTime ?? -1,
-                                postId: shift.post_id ?? -1));
+                          ContractorShiftEvent.submitClockInOut(
+                            context,
+                            clockInOutTime: shift.selectedClockInTime ?? -1,
+                            postId: shift.post_id ?? -1,
+                          ),
+                        );
                       },
                     );
                   }
                 : null,
             style: ButtonStyle(
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  getSize(10),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(getSize(10)),
                 ),
-              )),
-              fixedSize: WidgetStatePropertyAll(Size(
-                getSize(73),
-                getSize(33),
-              )),
+              ),
+              fixedSize: WidgetStatePropertyAll(Size(getSize(73), getSize(33))),
               padding: WidgetStatePropertyAll(EdgeInsets.zero),
               visualDensity: VisualDensity(
                 vertical: VisualDensity.minimumDensity,
@@ -392,53 +418,68 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
     labelText: StringConstant.clockOut,
     hintText: (isClockOutValid)
         ? DateFormat('hh:mm a').format(
-            CustomDateTimeFormat.timeStampToDateTime((shift.clock_out ?? -1)))
+            CustomDateTimeFormat.timeStampToDateTime((shift.clock_out ?? -1)),
+          )
         : (shift.selectedClockOutTime != null)
-            ? DateFormat('hh:mm a').format(
-                CustomDateTimeFormat.timeStampToDateTime(
-                    (shift.selectedClockOutTime ?? -1)))
-            : StringConstant.clockOut,
+        ? DateFormat('hh:mm a').format(
+            CustomDateTimeFormat.timeStampToDateTime(
+              (shift.selectedClockOutTime ?? -1),
+            ),
+          )
+        : StringConstant.clockOut,
     hintAsValue: isClockOutValid,
     fillColor: AppColors.grey04,
     readOnly: true,
     onTap: (shift.clock_out != null)
         ? null
         : (shift.clock_in != null)
-            ? () async {
-                final now = DateTime.now();
-                final clockInTime = CustomDateTimeFormat.timeStampToDateTime(
-                    (shift.clock_in ?? -1));
-                final clockOutTime = await showTimePicker(
-                  context,
-                  initalTime: (shift.selectedClockOutTime != null)
-                      ? CustomDateTimeFormat.timeStampToDateTime(
-                          (shift.selectedClockOutTime)!)
-                      : null,
+        ? () async {
+            final now = DateTime.now();
+            final clockInTime = CustomDateTimeFormat.timeStampToDateTime(
+              (shift.clock_in ?? -1),
+            );
+            final clockOutTime = await showTimePicker(
+              context,
+              initalTime: (shift.selectedClockOutTime != null)
+                  ? CustomDateTimeFormat.timeStampToDateTime(
+                      (shift.selectedClockOutTime)!,
+                    )
+                  : null,
+            );
+
+            if (clockOutTime != null) {
+              final selectedDateTime = DateTime(
+                now.year,
+                now.month,
+                now.day,
+                clockOutTime.hour,
+                clockOutTime.minute,
+              );
+
+              if (
+              // selectedDateTime.isBefore(now) &&
+              selectedDateTime.isAfter(clockInTime)) {
+                context.read<ContractorShiftBloc>().add(
+                  ContractorShiftEvent.setClockOut(
+                    context,
+                    index: index,
+                    clockOutTime: clockOutTime,
+                  ),
                 );
+              } else {
+                showError(
+                  message: StringConstant.pleaseSelectAValidTime,
+                ).show(context);
+              }
+            }
 
-                if (clockOutTime != null) {
-                  final selectedDateTime = DateTime(now.year, now.month,
-                      now.day, clockOutTime.hour, clockOutTime.minute);
-
-                  if (
-                      // selectedDateTime.isBefore(now) &&
-                      selectedDateTime.isAfter(clockInTime)) {
-                    context.read<ContractorShiftBloc>().add(
-                        ContractorShiftEvent.setClockOut(context,
-                            index: index, clockOutTime: clockOutTime));
-                  } else {
-                    showError(message: StringConstant.pleaseSelectAValidTime)
-                        .show(context);
-                  }
-                }
-
-                /* if (clockOutTime != null) {
+            /* if (clockOutTime != null) {
                     context.read<ContractorShiftBloc>().add(
                         ContractorShiftEvent.setClockOut(context,
                             index: index, clockOutTime: clockOutTime));
                   } */
-              }
-            : null,
+          }
+        : null,
     prefixIcon: Padding(
       padding: EdgeInsets.symmetric(
         horizontal: getSize(16),
@@ -465,28 +506,25 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
                       title: StringConstant.clockOut,
                       infoMessage: StringConstant.clockOutConfirmationDesc,
                       onSubmit: () {
-                        context
-                            .read<ContractorShiftBloc>()
-                            .add(ContractorShiftEvent.submitClockInOut(
-                              context,
-                              clockInOutTime: shift.selectedClockOutTime ?? -1,
-                              postId: shift.post_id ?? -1,
-                              isClockOut: true,
-                            ));
+                        context.read<ContractorShiftBloc>().add(
+                          ContractorShiftEvent.submitClockInOut(
+                            context,
+                            clockInOutTime: shift.selectedClockOutTime ?? -1,
+                            postId: shift.post_id ?? -1,
+                            isClockOut: true,
+                          ),
+                        );
                       },
                     );
                   }
                 : null,
             style: ButtonStyle(
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  getSize(10),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(getSize(10)),
                 ),
-              )),
-              fixedSize: WidgetStatePropertyAll(Size(
-                getSize(73),
-                getSize(33),
-              )),
+              ),
+              fixedSize: WidgetStatePropertyAll(Size(getSize(73), getSize(33))),
               padding: WidgetStatePropertyAll(EdgeInsets.zero),
               visualDensity: VisualDensity(
                 vertical: VisualDensity.minimumDensity,
@@ -505,7 +543,8 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
               //maxLines: 1,
               fontWeight: FontWeight.w600,
               textColor: Colors.white,
-            )),
+            ),
+          ),
     /* CommonButton(
             onPressed: (shift.selectedClockOutTime != null)
                 ? () {
@@ -538,39 +577,42 @@ Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
   );
 }
 
-Future<TimeOfDay?> showTimePicker(BuildContext context,
-    {DateTime? initalTime}) async {
+Future<TimeOfDay?> showTimePicker(
+  BuildContext context, {
+  DateTime? initalTime,
+}) async {
   final TimeOfDay? pickedTime = await showDialog(
-      context: context,
-      builder: (context) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            timePickerTheme: TimePickerThemeData(
-              dayPeriodColor: AppColors.primaryColor,
-              dayPeriodTextColor: AppColors.black,
-            ),
-            colorScheme: ColorScheme.light(
-              primary: AppColors.primaryColor,
-              onSurface: AppColors.black,
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(),
-            ),
+    context: context,
+    builder: (context) {
+      return Theme(
+        data: ThemeData.light().copyWith(
+          timePickerTheme: TimePickerThemeData(
+            dayPeriodColor: AppColors.primaryColor,
+            dayPeriodTextColor: AppColors.black,
           ),
-          child: TimePickerDialog(
-            initialTime: TimeOfDay.fromDateTime(initalTime ?? DateTime.now()),
+          colorScheme: ColorScheme.light(
+            primary: AppColors.primaryColor,
+            onSurface: AppColors.black,
           ),
-        );
-      });
+          textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
+        ),
+        child: TimePickerDialog(
+          initialTime: TimeOfDay.fromDateTime(initalTime ?? DateTime.now()),
+        ),
+      );
+    },
+  );
 
   print("Selected Time:  ${pickedTime?.format(context)}");
   return pickedTime;
 }
 
-submitTime(BuildContext context,
-    {required String title,
-    required String infoMessage,
-    required void Function()? onSubmit}) {
+submitTime(
+  BuildContext context, {
+  required String title,
+  required String infoMessage,
+  required void Function()? onSubmit,
+}) {
   AppDialog.showDelete(
     context,
     title: title,
@@ -584,18 +626,21 @@ submitTime(BuildContext context,
   );
 }
 
-Widget displayDateBreak(BuildContext context,
-    {required String title,
-    required String boldValue,
-    required String timidValue,
-    required String svgPrefixIcon,
-    bool showBtn = false,
-    void Function()? onBtnPressed}) {
+Widget displayDateBreak(
+  BuildContext context, {
+  required String title,
+  required String boldValue,
+  required String timidValue,
+  required String svgPrefixIcon,
+  bool showBtn = false,
+  void Function()? onBtnPressed,
+}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: getSize(10)),
     child: (showBtn)
         ? CommonButton(
-            onPressed: onBtnPressed ??
+            onPressed:
+                onBtnPressed ??
                 () {
                   /*if (post.shift_detail != null) {
                           context.router.push(PageRouteInfo(ViewDates.name,
@@ -692,38 +737,38 @@ Widget displayTime({
               ],
             ),
           ],
-        )
+        ),
       ],
     ),
   );
 }
 
-Widget highLightText(
-    {required String boldValue,
-    required String timidValue,
-    String? thirdValue}) {
+Widget highLightText({
+  required String boldValue,
+  required String timidValue,
+  String? thirdValue,
+}) {
   return RichText(
-      text: TextSpan(
-    text: boldValue,
-    style: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      color: AppColors.black,
-    ),
-    children: [
-      TextSpan(
-        text: timidValue,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black.withValues(alpha: 0.5),
+    text: TextSpan(
+      text: boldValue,
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      children: [
+        TextSpan(
+          text: timidValue,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black.withValues(alpha: 0.5),
+          ),
         ),
-      ),
-      TextSpan(
-        text: thirdValue ?? "",
-      ),
-    ],
-  ));
+        TextSpan(text: thirdValue ?? ""),
+      ],
+    ),
+  );
 }
 
 Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
@@ -780,20 +825,20 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
             onPressed: () {
               context.router
                   .push(
-                PageRouteInfo(
-                  Message.name,
-                  args: MessageArgs(
-                    receiverId: shift.employer_user_id ?? 0,
-                  ),
-                ),
-              )
+                    PageRouteInfo(
+                      Message.name,
+                      args: MessageArgs(
+                        receiverId: shift.employer_user_id ?? 0,
+                      ),
+                    ),
+                  )
                   .then((value) {
-                if (shift.count != null && (shift.count ?? 0) > 0) {
-                  context
-                      .read<ContractorShiftBloc>()
-                      .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
-                }
-              });
+                    if (shift.count != null && (shift.count ?? 0) > 0) {
+                      context.read<ContractorShiftBloc>().add(
+                        ContractorShiftEvent.getCurrentShiftDetailAPI(true),
+                      );
+                    }
+                  });
             },
           ),
           contentPadding: EdgeInsets.zero,
@@ -810,11 +855,14 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
             final latitude = location?.latitude;
             final longitude = location?.longitude;
             if (latitude != null && longitude != null) {
-              LocationHelper.openDirections(context,
-                  endLat: latitude, endLng: longitude);
+              LocationHelper.openDirections(
+                context,
+                endLat: latitude,
+                endLng: longitude,
+              );
               /* context.router.push(
                 PageRouteInfo(
-                  ShowGoogleMap.name,
+              ShowGoogleMap.name,
                   args: ShowGoogleMapArgs(
                     latitude: latitude,
                     longitude: longitude,
@@ -831,9 +879,7 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
                 width: getSize(25),
                 color: AppColors.black,
               ),
-              SizedBox(
-                width: getSize(10),
-              ),
+              SizedBox(width: getSize(10)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -859,9 +905,7 @@ Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
             ],
           ),
         ),
-        SizedBox(
-          height: getSize(12),
-        ),
+        SizedBox(height: getSize(12)),
       ],
     ),
   );
@@ -875,27 +919,31 @@ String getIndustry(int id) {
   return industry.title ?? "";
 }
 
-Widget remainingShift({
-  required String value,
-}) {
+Widget remainingShift({required String value}) {
   return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(12),
-        vertical: getSize(10),
-      ),
-      margin: EdgeInsets.symmetric(vertical: getSize(5)),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: paybaleTitleRate(
-          title: StringConstant.remainingShifts, value: value));
+    padding: EdgeInsets.symmetric(
+      horizontal: getSize(12),
+      vertical: getSize(10),
+    ),
+    margin: EdgeInsets.symmetric(vertical: getSize(5)),
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.grey04,
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: paybaleTitleRate(
+      title: StringConstant.remainingShifts,
+      value: value,
+    ),
+  );
 }
 
-Widget paybaleTitleRate(
-    {required String title,
-    required String value,
-    bool isFirst = false,
-    isLast = false}) {
+Widget paybaleTitleRate({
+  required String title,
+  required String value,
+  bool isFirst = false,
+  isLast = false,
+}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [

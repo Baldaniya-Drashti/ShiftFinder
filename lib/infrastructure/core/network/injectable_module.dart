@@ -59,6 +59,7 @@ class ApiService {
           requestBody: true,
           responseBody: true,
         ),
+
         // LoggingInterceptor(),
         AppInterceptors(
             requestRetrier: DioConnectivityRequestRetrier(

@@ -158,7 +158,7 @@ class CustomeSpecialityBox extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
-                value: value,
+                initialValue: value,
                 icon: SvgPicture.asset(
                   SvgImageConstant.downArrow,
                 ),

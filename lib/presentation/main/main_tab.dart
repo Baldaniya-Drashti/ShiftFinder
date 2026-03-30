@@ -51,27 +51,28 @@ class MainTabView extends StatelessWidget {
                 backgroundColor: AppColors.scaffoldColor,
                 appBar: getAppbar(state, context),
                 body: GestureDetector(
-                    onTap: () {
-                      AppFocus.unfocus(context);
-                    },
-                    // child: state.currentPage,
-                    child: IndexedStack(
-                      index: state.pageIndex,
-                      children: List<Widget>.generate(
-                        context.read<MainTabBloc>().pageList.length,
-                        (int index) {
-                          return Navigator(
-                            onGenerateRoute: (RouteSettings settings) {
-                              return onGenerateRoute(
-                                settings,
-                                context.read<MainTabBloc>().pageList[index],
-                              );
-                            },
-                            key: ValueKey(state.pageIndex),
-                          );
-                        },
-                      ),
-                    )),
+                  onTap: () {
+                    AppFocus.unfocus(context);
+                  },
+                  // child: state.currentPage,
+                  child: IndexedStack(
+                    index: state.pageIndex,
+                    children: List<Widget>.generate(
+                      context.read<MainTabBloc>().pageList.length,
+                      (int index) {
+                        return Navigator(
+                          onGenerateRoute: (RouteSettings settings) {
+                            return onGenerateRoute(
+                              settings,
+                              context.read<MainTabBloc>().pageList[index],
+                            );
+                          },
+                          key: ValueKey(state.pageIndex),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
                   listener: (context, state) {},
                   builder: (con, state) {
